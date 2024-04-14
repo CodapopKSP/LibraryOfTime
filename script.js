@@ -1,19 +1,17 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    var inputDate = new Date()
+    var inputDate = new Date(1792, 8, 22, 23, 0, 0)
     var currentDateTime = new Date(inputDate);
 
     // Get UTC time for display.
     var day = currentDateTime.getUTCDate();
-    var month = currentDateTime.getUTCMonth() + 1;
+    var month = currentDateTime.getUTCMonth();
     var year = currentDateTime.getUTCFullYear();
     var hour = currentDateTime.getUTCHours();
     var minute = currentDateTime.getUTCMinutes();
     var second = currentDateTime.getUTCSeconds();
 
-    var dateDisplayString = year + '-' + month + '-' + day;
-    var timeDisplayString = hour + ':' + minute + ':' + second + ' UTC';
 
     // Change back to regular time.
     day = currentDateTime.getDate();
@@ -22,6 +20,8 @@ function updateDateAndTime() {
     hour = currentDateTime.getHours();
     minute = currentDateTime.getMinutes();
     second = currentDateTime.getSeconds();
+    var dateDisplayString = year + '-' + (month+1) + '-' + day;
+    var timeDisplayString = hour + ':' + minute + ':' + second;
 
     var dayStart = new Date(year, month, day);
     var nextDayStart = new Date(year, month, day + 1);
@@ -68,14 +68,7 @@ function updateDateAndTime() {
     var humanEra = formatDateWithoutLeadingZeros(humanEraCalendar);
 
     var julianCalendar = getJulianDate(currentDateTime);
-    var startOfGregorianCalendar = new Date('1582-10-15');
-    if (currentDateTime < startOfGregorianCalendar) {
-        // Use the Julian calendar
-        gregorianCalendar = julianCalendar;
-    } else {
-        // Use the Gregorian calendar
-        var gregorianCalendar = dateDisplayString;
-    }
+    var gregorianCalendar = dateDisplayString;
 
     var mingguoYear = year - 1911;
     if (mingguoYear <= 0 && year > 0) {
@@ -171,8 +164,14 @@ function formatDateWithoutLeadingZeros(date) {
     return year + '-' + month + '-' + day;
 }
 
-
-
+function convertAstronomicalYear(year) {
+    if (year > 0) {
+        return year;
+    }
+    if (year <= 0) {
+        return year + 1;
+    }
+}
 
 function getCurrentFiletime(currentDateTime) {
     var jan1601 = new Date(Date.UTC(1601, 0, 1));
@@ -250,7 +249,7 @@ function isLeapYear(year) {
 
 function getRepublicanCalendar(currentDateTime) {
     // Date of September 22nd of the current year
-    var september22 = new Date(currentDateTime.getFullYear(), 8, 22, currentDateTime.getHours() + 1); // Note: Month is 8 for September (0-indexed)
+    var september22 = new Date(currentDateTime.getFullYear(), 8, 22); // Note: Month is 8 for September (0-indexed)
     // If the current date is before September 22nd, subtract 1 year
     if (currentDateTime < september22) {
         september22.setFullYear(september22.getFullYear() - 1);
@@ -262,43 +261,33 @@ function getRepublicanCalendar(currentDateTime) {
     }
     // Calculate the total number of days since the most recent September 22nd
     var daysSinceSeptember22 = Math.floor((currentDateTime - september22) / (1000 * 60 * 60 * 24));
-    var month = Math.floor(daysSinceSeptember22 / 30) + 1;
-    if (month > 12) {
+    var month = Math.floor(daysSinceSeptember22 / 30)+1;
+    if ((month > 12) || (month == 0)) {
         month = 'Sansculottides';
     }
     var day = Math.floor(daysSinceSeptember22 % 30)+1;
-    console.log(yearsSince1792);
     return {year: yearsSince1792, month: month, day: day};
 }
 
 function getJulianDate(currentDateTime) {
-    const startYear = 1582;
-    let skippedJulianLeapYears = 0;
-    let skippedGregorianLeapYears = 0;
-    for (let year = startYear; year <= currentDateTime.getFullYear(); year++) {
-        // Check if the year is a leap year in the Julian calendar
-        if (year % 4 === 0) {
-            skippedJulianLeapYears++;
-        }
-        // Check if the year is a leap year in the Gregorian calendar
-        if (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) {
-            skippedGregorianLeapYears++;
-        }
-    }
-    // Calculate the difference between the number of skipped leap years in the two calendars
-    var difference = skippedJulianLeapYears - skippedGregorianLeapYears;
-    difference += 10; // Gregorian Calendar skipped 10 days at inception.
-    const julianDate = new Date(currentDateTime);
-    julianDate.setDate(currentDateTime.getDate() - difference);
+    var year = currentDateTime.getFullYear();
+    var daysAhead = Math.floor(convertAstronomicalYear(year) / 100) - Math.floor(convertAstronomicalYear(year) / 400) - 2;
+    var julianDate = new Date(currentDateTime);
+    julianDate.setUTCDate(julianDate.getDate() - daysAhead);
     
-    // Format the date string without leading zeros for negative years
-    var yearString = julianDate.getFullYear().toString();
-    if (yearString[0] === '-') {
-        yearString = '-' + yearString.slice(1).replace(/^0+/, '');
+    // Convert the Date object to a string in ISO 8601 format and extract only the date part
+    var dateString = julianDate.toISOString().split('T')[0];
+    
+    // Remove leading zeros from the year part
+    if (dateString.startsWith('-')) {
+        dateString = '-' + dateString.substring(1).replace(/^0+/, '');
+    } else {
+        dateString = dateString.replace(/^0+/, '');
     }
     
-    return yearString + '-' + (julianDate.getMonth() + 1).toString().padStart(2, '0') + '-' + julianDate.getDate().toString().padStart(2, '0');
+    return dateString;
 }
+
 
 function toRomanNumerals(num) {
     if (num < 0) {
