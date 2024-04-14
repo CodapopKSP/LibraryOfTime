@@ -1,0 +1,85 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+.page-wrapper {
+    background-color: rgb(47, 47, 47);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    margin-left: 5vw;
+    margin-top: 5vw;
+    border-width: 0.25vh;
+    width: 11vw;
+    border: 0.3vh solid #000000;
+}
+
+.standard-time {
+    background-color: rgb(54, 50, 50);
+    color: bisque;
+}
+
+.computing-time {
+    background-color: rgb(50, 50, 54);
+    color: rgb(196, 228, 255);
+}
+
+.alternate-calendars-time {
+    background-color: rgb(50, 54, 50);
+    color: rgb(196, 255, 228);
+}
+
+.decimal-time {
+    background-color: rgb(54, 50, 50);
+    color: rgb(228, 196, 255);
+}
+
+.box {
+    margin: 0.5vh;
+    width: 10vw;
+}
+
+.standard-time > .box > .content {
+    border: 0.2vh solid #966a6a;
+}
+
+.computing-time > .box > .content {
+    border: 0.2vh solid #696d9f;
+}
+
+.alternate-calendars-time > .box > .content {
+    border: 0.2vh solid #6f986a;
+}
+
+.decimal-time > .box > .content {
+    border: 0.2vh solid #896a98;
+}
+
+.content {
+    border-width: 0.25vh;
+    padding: 0.7vh;
+    font-size: 1.2vh;
+    font-family: Arial, sans-serif;
+    margin-top: 0.6vh;
+    background-color: rgb(47, 47, 47);
+}
+
+.container-name {
+    font-size: x-large;
+}
