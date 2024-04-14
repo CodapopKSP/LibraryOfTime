@@ -1,7 +1,7 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    var inputDate = new Date(100, 8, 31, 23, 59, 59, 999)
+    var inputDate = new Date()
     var currentDateTime = new Date(inputDate);
 
     // Get UTC time for display.
