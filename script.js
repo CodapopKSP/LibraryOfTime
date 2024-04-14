@@ -68,7 +68,7 @@ function updateDateAndTime() {
     var humanEra = formatDateWithoutLeadingZeros(humanEraCalendar);
 
     var julianCalendar = getJulianDate(currentDateTime);
-    var julianDate = formatDateWithoutLeadingZeros(julianCalendar);
+    var julianDate = julianCalendar;
 
     var mingguoYear = year - 1911;
     var minguoCalendar = new Date(Date.UTC(1911, month, day));
@@ -114,7 +114,7 @@ function updateDateAndTime() {
     setTimeValue('gps-box', gpsValue);
 
     setTimeValue('human-era-box', humanEra);
-    setTimeValue('julian-box', );
+    setTimeValue('julian-box', julianDate);
     setTimeValue('sexagenary-year-box', getSexagenaryYear(year));
     setTimeValue('chinese-zodiac-box', chineseZodiacYear);
     setTimeValue('vietnamese-zodiac-box', vietnameseZodiacYear);
