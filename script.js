@@ -1,7 +1,7 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    var inputDate = new Date()
+    var inputDate = new Date(100, 8, 31, 23, 59, 59, 999)
     var currentDateTime = new Date(inputDate);
 
     // Get UTC time for display.
@@ -68,14 +68,28 @@ function updateDateAndTime() {
     var humanEra = formatDateWithoutLeadingZeros(humanEraCalendar);
 
     var julianCalendar = getJulianDate(currentDateTime);
-    var julianDate = julianCalendar;
+    var startOfGregorianCalendar = new Date('1582-10-15');
+    if (currentDateTime < startOfGregorianCalendar) {
+        // Use the Julian calendar
+        gregorianCalendar = julianCalendar;
+    } else {
+        // Use the Gregorian calendar
+        var gregorianCalendar = dateDisplayString;
+    }
 
     var mingguoYear = year - 1911;
+    if (mingguoYear <= 0 && year > 0) {
+        mingguoYear--;
+    }
+    
     var minguoCalendar = new Date(Date.UTC(1911, month, day));
     minguoCalendar.setFullYear(mingguoYear);
     var minguoJuche = formatDateWithoutLeadingZeros(minguoCalendar);
 
-    var thaiSolarYear = year + 543
+    var thaiSolarYear = year + 544
+    if (thaiSolarYear <= 0 && year >= -544) {
+        thaiSolarYear--;
+    }
     var thaiSolarCalendar = new Date(Date.UTC(543, month, day));
     thaiSolarCalendar.setFullYear(thaiSolarYear);
     var thaiSolar = formatDateWithoutLeadingZeros(thaiSolarCalendar);
@@ -96,7 +110,7 @@ function updateDateAndTime() {
     var republicanCalendar = getRepublicanCalendar(currentDateTime);
     var republicanCalendarString = toRomanNumerals(republicanCalendar.year) + "-" + republicanCalendar.month + "-" + republicanCalendar.day;
 
-    setTimeValue('gregorian-box', dateDisplayString);
+    setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('time-box', timeDisplayString)
     setTimeValue('day-box', dayFraction.toFixed(decimals));
     setTimeValue('month-box', monthFraction.toFixed(decimals));
@@ -114,7 +128,7 @@ function updateDateAndTime() {
     setTimeValue('gps-box', gpsValue);
 
     setTimeValue('human-era-box', humanEra);
-    setTimeValue('julian-box', julianDate);
+    setTimeValue('julian-box', julianCalendar);
     setTimeValue('sexagenary-year-box', getSexagenaryYear(year));
     setTimeValue('chinese-zodiac-box', chineseZodiacYear);
     setTimeValue('vietnamese-zodiac-box', vietnameseZodiacYear);
@@ -179,17 +193,22 @@ function convertToSwatchBeats(dayFraction_) {
 function getChineseZodiacYear(year_) {
     var zodiacAnimals = ['鼠 (Rat)', '牛 (Ox)', '虎 (Tiger)', '兔 (Rabbit)', '龍 (Dragon)', '蛇 (Snake)', '馬 (Horse)', '羊 (Goat)', '猴 (Monkey)', '雞 (Rooster)', '狗 (Dog)', '豬 (Pig)'];
     // Adjusting for the start of the Chinese zodiac cycle, handling negative years
-    var index = year_ >= 4 ? (year_ - 4) % 12 : 12 - ((Math.abs(year_) + 8) % 12);
+    var index = year_ >= 4 ? (year_ - 4) % 12 : ((Math.abs(year_) + 8) % 12 === 0 ? 0 : 12 - ((Math.abs(year_) + 8) % 12));
+    if (year_ < 0) {
+        index++;
+    }
     return zodiacAnimals[index];
 }
 
 function getVietnameseZodiacYear(year_) {
     var zodiacAnimals = ['𤝞 (Rat)', '𤛠 (Water Buffalo)', '𧲫 (Tiger)', '猫 (Cat)', '龍 (Dragon)', '𧋻 (Snake)', '馭 (Horse)', '羝 (Goat)', '𤠳 (Monkey)', '𪂮 (Rooster)', '㹥 (Dog)', '㺧 (Pig)'];
     // Adjusting for the start of the Chinese zodiac cycle, handling negative years
-    var index = year_ >= 4 ? (year_ - 4) % 12 : 12 - ((Math.abs(year_) + 8) % 12);
+    var index = year_ >= 4 ? (year_ - 4) % 12 : ((Math.abs(year_) + 8) % 12 === 0 ? 0 : 12 - ((Math.abs(year_) + 8) % 12));
+    if (year_ < 0) {
+        index++;
+    }
     return zodiacAnimals[index];
 }
-
 
 function getSexagenaryYear(year_) {
     var heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
@@ -203,6 +222,11 @@ function getSexagenaryYear(year_) {
 
     var heavenlyStemIndex = (positiveYear - 4) % 10; // Adjusting for the start of the sexagenary cycle
     var earthlyBranchIndex = (positiveYear - 4) % 12; // Adjusting for the start of the sexagenary cycle
+
+    if (year_ < 0) {
+        heavenlyStemIndex++;
+        earthlyBranchIndex++;
+    }
     
     var heavenlyStem = heavenlyStems[heavenlyStemIndex];
     var earthlyBranch = earthlyBranches[earthlyBranchIndex];
@@ -229,11 +253,13 @@ function getRepublicanCalendar(currentDateTime) {
     var september22 = new Date(currentDateTime.getFullYear(), 8, 22, currentDateTime.getHours() + 1); // Note: Month is 8 for September (0-indexed)
     // If the current date is before September 22nd, subtract 1 year
     if (currentDateTime < september22) {
-        
         september22.setFullYear(september22.getFullYear() - 1);
     }
     // Calculate the number of years since 1792
-    var yearsSince1792 = september22.getFullYear() - 1792;
+    var yearsSince1792 = (september22.getFullYear() - 1792) + 1;
+    if (yearsSince1792 <= 0 && currentDateTime.getFullYear() > 0) {
+        yearsSince1792--;
+    }
     // Calculate the total number of days since the most recent September 22nd
     var daysSinceSeptember22 = Math.floor((currentDateTime - september22) / (1000 * 60 * 60 * 24));
     var month = Math.floor(daysSinceSeptember22 / 30) + 1;
@@ -241,6 +267,7 @@ function getRepublicanCalendar(currentDateTime) {
         month = 'Sansculottides';
     }
     var day = Math.floor(daysSinceSeptember22 % 30)+1;
+    console.log(yearsSince1792);
     return {year: yearsSince1792, month: month, day: day};
 }
 
@@ -263,7 +290,14 @@ function getJulianDate(currentDateTime) {
     difference += 10; // Gregorian Calendar skipped 10 days at inception.
     const julianDate = new Date(currentDateTime);
     julianDate.setDate(currentDateTime.getDate() - difference);
-    return julianDate.toISOString().split('T')[0];
+    
+    // Format the date string without leading zeros for negative years
+    var yearString = julianDate.getFullYear().toString();
+    if (yearString[0] === '-') {
+        yearString = '-' + yearString.slice(1).replace(/^0+/, '');
+    }
+    
+    return yearString + '-' + (julianDate.getMonth() + 1).toString().padStart(2, '0') + '-' + julianDate.getDate().toString().padStart(2, '0');
 }
 
 function toRomanNumerals(num) {
