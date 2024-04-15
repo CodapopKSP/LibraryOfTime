@@ -53,6 +53,8 @@ body {
 .box {
     margin: 0.5vh;
     width: 10vw;
+    position: relative;
+    display: inline-block;
 }
 
 .standard-time > .box > .content {
@@ -82,4 +84,25 @@ body {
 
 .container-name {
     font-size: x-large;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: #cacecf;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border-radius: 6px;
+    border-color: #000000;
+    border: 0.4vh solid #9a9a9a;
+    position: absolute;
+    z-index: 1;
+    width: 20vh;
+    top: 25%;
+    left: 50%;
+    opacity: 0.9;
+}
+
+.box:hover .tooltip {
+    visibility: visible;
 }

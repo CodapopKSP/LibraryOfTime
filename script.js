@@ -1,8 +1,10 @@
 const decimals = 10;
+document.getElementById('gregorian-tooltip').textContent = window.gregorian.description;
 
 function updateDateAndTime() {
-    var inputDate = new Date()
+    var inputDate = new Date(-4714, 10, 24, 12)
     var currentDateTime = new Date(inputDate);
+    //currentDateTime.setFullYear(-1)
 
     // Get UTC time for display.
     var day = currentDateTime.getUTCDate();
@@ -119,6 +121,7 @@ function updateDateAndTime() {
     setTimeValue('filetime-box', filetimeValue);
     setTimeValue('iso8601-box', iso8601Value);
     setTimeValue('gps-box', gpsValue);
+    setTimeValue('julian-day-number-box', calculateJulianDayNumber(currentDateTime));
 
     setTimeValue('human-era-box', humanEra);
     setTimeValue('julian-box', julianCalendar);
@@ -170,6 +173,15 @@ function convertAstronomicalYear(year) {
     }
     if (year <= 0) {
         return year + 1;
+    }
+}
+
+function reverseConvertAstronomicalYear(year) {
+    if (year > 0) {
+        return year - 1;
+    }
+    if (year <= 0) {
+        return year;
     }
 }
 
@@ -318,4 +330,13 @@ function toRomanNumerals(num) {
         }
     }
     return result;
+}
+
+function calculateJulianDayNumber(currentDateTime) {
+    var gregorianEpoch = new Date(-4714, 10, 24, 12);
+    var daysSinceEpoch = currentDateTime - gregorianEpoch;
+    if (currentDateTime.getFullYear() > 0) {
+        return Math.floor(daysSinceEpoch / (1000 * 60 * 60 * 24)-365);
+    }
+    return Math.floor(daysSinceEpoch / (1000 * 60 * 60 * 24));
 }

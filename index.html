@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Current Date and Time</title>
+    <title>Universal Calendar</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,6 +13,7 @@
             <div class="box">
                 <label>Gregorian Calendar:</label>
                 <div id="gregorian-box" class="content"></div>
+                <span class="tooltip" id="gregorian-tooltip"></span>
             </div>
             <div class="box">
                 <label>Time:</label>
@@ -72,6 +73,10 @@
             <div class="box">
                 <label>GPS:</label>
                 <div id="gps-box" class="content"></div>
+            </div>
+            <div class="box">
+                <label>Julian Day Number:</label>
+                <div id="julian-day-number-box" class="content"></div>
             </div>
         </div>
         <div class="alternate-calendars-time container">
@@ -137,6 +142,7 @@
             </div>
         </div>
     </div>
+    <script src="nodeData.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
