@@ -2,7 +2,7 @@ const decimals = 10;
 document.getElementById('gregorian-tooltip').textContent = window.gregorian.description;
 
 function updateDateAndTime() {
-    var inputDate = new Date(-4714, 10, 24, 12)
+    var inputDate = new Date()
     var currentDateTime = new Date(inputDate);
     //currentDateTime.setFullYear(-1)
 
