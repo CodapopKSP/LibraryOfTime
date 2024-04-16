@@ -52,7 +52,7 @@ body {
 
 .lunar-calendars{
     background-color: rgb(50, 50, 54);
-    color: #e4c4ffff;
+    color: rgb(196, 212, 255);
 }
 
 .decimal-time {
@@ -107,11 +107,10 @@ body {
 .tooltip {
     visibility: hidden;
     width: 120px;
-    background-color: #a0a0a0;
-    color: rgb(0, 0, 0);
+    background-color: #242424;
+    color: rgb(214, 214, 214);
     text-align: center;
     border-radius: 6px;
-    border-color: #000000;
     border: 0.4vh solid #000000;
     position: absolute;
     z-index: 1;

@@ -1,11 +1,18 @@
+
+//https://www.fourmilab.ch/documents/calendar/
+
 const decimals = 10;
 document.getElementById('gregorian-tooltip').textContent = window.gregorian.description;
+document.getElementById('julian-tooltip').textContent = window.julian.description;
+document.getElementById('unix-tooltip').textContent = window.unix.description;
+document.getElementById('filetime-tooltip').textContent = window.filetime.description;
+document.getElementById('iso8601-tooltip').textContent = window.iso8601.description;
+document.getElementById('gps-tooltip').textContent = window.gps.description;
 
 function updateDateAndTime() {
-    let inputDate = new Date()
-    let currentDateTime = new Date(inputDate);
-    let currentUnixDateTime = Math.floor(currentDateTime.getTime()/1000);
-    //currentDateTime.setFullYear(2)
+    let currentDateTime = new Date();
+    //let currentDateTime = new Date(inputDate);
+    //currentDateTime.setFullYear(-1)
 
     // Get basic info about the date and time
     day = currentDateTime.getDate();
@@ -29,10 +36,12 @@ function updateDateAndTime() {
     let millenniumFraction = calculateMillennium(currentDateTime);
 
     // Computing Times
+    let currentUnixDateTime = getUnixTime(currentDateTime);
     let filetimeValue = getCurrentFiletime(currentDateTime);
     let iso8601Value = currentDateTime.toISOString();
     let gpsValue = getGPSTime(currentDateTime);
     let julianDay = getJulianDayNumber(currentDateTime)
+    let rataDie = getRataDie(currentDateTime);
 
     // Calendars
     let humanEraCalendar = new Date(Date.UTC(year + 10000, month, day));
@@ -91,6 +100,7 @@ function updateDateAndTime() {
     setTimeValue('iso8601-box', iso8601Value);
     setTimeValue('gps-box', gpsValue);
     setTimeValue('julian-day-number-box', julianDay);
+    setTimeValue('rata-die-box', rataDie);
 
     setTimeValue('revolutionary-time-box', decimalTime);
     setTimeValue('beat-time-box', convertToSwatchBeats(dayFraction));
