@@ -2,111 +2,84 @@ const decimals = 10;
 document.getElementById('gregorian-tooltip').textContent = window.gregorian.description;
 
 function updateDateAndTime() {
-    var inputDate = new Date()
-    var currentDateTime = new Date(inputDate);
-    //currentDateTime.setFullYear(-1)
+    let inputDate = new Date()
+    let currentDateTime = new Date(inputDate);
+    let currentUnixDateTime = currentDateTime.getTime();
+    //currentDateTime.setFullYear(2)
 
-    // Get UTC time for display.
-    var day = currentDateTime.getUTCDate();
-    var month = currentDateTime.getUTCMonth();
-    var year = currentDateTime.getUTCFullYear();
-    var hour = currentDateTime.getUTCHours();
-    var minute = currentDateTime.getUTCMinutes();
-    var second = currentDateTime.getUTCSeconds();
-
-
-    // Change back to regular time.
+    // Get basic info about the date and time
     day = currentDateTime.getDate();
     month = currentDateTime.getMonth();
     year = currentDateTime.getFullYear();
     hour = currentDateTime.getHours();
     minute = currentDateTime.getMinutes();
     second = currentDateTime.getSeconds();
-    var dateDisplayString = year + '-' + (month+1) + '-' + day;
-    var timeDisplayString = hour + ':' + minute + ':' + second;
+    let dateDisplayString = year + '-' + (month+1) + '-' + day;
+    let timeDisplayString = hour + ':' + minute + ':' + second;
 
-    var dayStart = new Date(year, month, day);
-    var nextDayStart = new Date(year, month, day + 1);
-    var dayFraction = (currentDateTime - dayStart) / (nextDayStart - dayStart);
+    // All fractional times
+    let secondFraction = calculateSecond(currentDateTime);
+    let minuteFraction = calculateMinute(currentDateTime);
+    let hourFraction = calculateHour(currentDateTime);
+    let dayFraction = calculateDay(currentDateTime);
+    let monthFraction = calculateMonth(currentDateTime);
+    let yearFraction = calculateYear(currentDateTime);
+    let decadeFraction = calculateDecade(currentDateTime);
+    let centuryFraction = calculateCentury(currentDateTime);
+    let millenniumFraction = calculateMillennium(currentDateTime);
 
-    var monthStart = new Date(year, month, 1);
-    var nextMonthStart = new Date(year, month + 1, 1);
-    var monthFraction = (currentDateTime - monthStart) / (nextMonthStart - monthStart);
+    // Computing Times
+    let filetimeValue = getCurrentFiletime(currentDateTime);
+    let iso8601Value = currentDateTime.toISOString();
+    let gpsValue = Math.floor((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000);
+    let julianDay = calculateJulianDayNumber(currentDateTime)
 
-    var yearStart = new Date(year, 0, 1);
-    var nextYearStart = new Date(year + 1, 0, 1);
-    var yearFraction = (currentDateTime - yearStart) / (nextYearStart - yearStart);
 
-    var hourStart = new Date(year, month, day, hour);
-    var nextHourStart = new Date(year, month, day, hour + 1);
-    var hourFraction = (currentDateTime - hourStart) / (nextHourStart - hourStart);
 
-    var minuteStart = new Date(year, month, day, hour, minute);
-    var nextMinuteStart = new Date(year, month, day, hour, minute + 1);
-    var minuteFraction = (currentDateTime - minuteStart) / (nextMinuteStart - minuteStart);
 
-    var secondStart = new Date(year, month, day, hour, minute, second);
-    var nextSecondStart = new Date(year, month, day, hour, minute, second + 1);
-    var secondFraction = (currentDateTime - secondStart) / (nextSecondStart - secondStart);
+    // Calendars
+    let humanEraCalendar = new Date(Date.UTC(year + 10000, month, day));
+    let humanEra = formatDateWithoutLeadingZeros(humanEraCalendar);
 
-    var decadeStart = new Date(Math.floor(year / 10) * 10, 0, 1);
-    var nextDecadeStart = new Date(Math.floor(year / 10) * 10 + 10, 0, 1);
-    var decadeFraction = (currentDateTime - decadeStart) / (nextDecadeStart - decadeStart);  // use unix dammit
+    let julianCalendar = getJulianDate(currentDateTime);
+    let gregorianCalendar = dateDisplayString;
 
-    var centuryStart = new Date(Math.floor(year / 100) * 100, 0, 1);
-    var nextCenturyStart = new Date(Math.floor(year / 100) * 100 + 100, 0, 1);
-    var centuryFraction = (currentDateTime - centuryStart) / (nextCenturyStart - centuryStart);  // use unix dammit
-
-    var millenniumStart = new Date(Math.floor(year / 1000) * 1000, 0, 1);
-    var nextMillenniumStart = new Date(Math.floor(year / 1000) * 1000 + 1000, 0, 1);
-    var millenniumFraction = (currentDateTime - millenniumStart) / (nextMillenniumStart - millenniumStart);  // use unix dammit
-
-    var unix64Value = Math.floor(currentDateTime / 1000);  // use unix dammit
-    var filetimeValue = getCurrentFiletime(currentDateTime);
-    var iso8601Value = currentDateTime.toISOString();
-    var gpsValue = Math.floor((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000);
-
-    var humanEraCalendar = new Date(Date.UTC(year + 10000, month, day));
-    var humanEra = formatDateWithoutLeadingZeros(humanEraCalendar);
-
-    var julianCalendar = getJulianDate(currentDateTime);
-    var gregorianCalendar = dateDisplayString;
-
-    var mingguoYear = year - 1911;
+    let mingguoYear = year - 1911;
     if (mingguoYear <= 0 && year > 0) {
         mingguoYear--;
     }
     
-    var minguoCalendar = new Date(Date.UTC(1911, month, day));
+    let minguoCalendar = new Date(Date.UTC(1911, month, day));
     minguoCalendar.setFullYear(mingguoYear);
-    var minguoJuche = formatDateWithoutLeadingZeros(minguoCalendar);
+    let minguoJuche = formatDateWithoutLeadingZeros(minguoCalendar);
 
-    var thaiSolarYear = year + 544
+    let thaiSolarYear = year + 544
     if (thaiSolarYear <= 0 && year >= -544) {
         thaiSolarYear--;
     }
-    var thaiSolarCalendar = new Date(Date.UTC(543, month, day));
+    let thaiSolarCalendar = new Date(Date.UTC(543, month, day));
     thaiSolarCalendar.setFullYear(thaiSolarYear);
-    var thaiSolar = formatDateWithoutLeadingZeros(thaiSolarCalendar);
+    let thaiSolar = formatDateWithoutLeadingZeros(thaiSolarCalendar);
 
-    var chineseZodiacYear = getChineseZodiacYear(year);
-    var vietnameseZodiacYear = getVietnameseZodiacYear(year);
+    let chineseZodiacYear = getChineseZodiacYear(year);
+    let vietnameseZodiacYear = getVietnameseZodiacYear(year);
 
-    var eraFascistaCalendar = new Date(Date.UTC(year - 1922, month, day));
-    var eraFascista = formatDateWithoutLeadingZeros(eraFascistaCalendar);
-    var romanYear = toRomanNumerals(eraFascista.split('-')[0]);
-    var eraFascistaWithRomanYear = eraFascista.replace(eraFascista.split('-')[0], 'Anno ' + romanYear);
+    let eraFascistaCalendar = new Date(Date.UTC(year - 1922, month, day));
+    let eraFascista = formatDateWithoutLeadingZeros(eraFascistaCalendar);
+    let romanYear = toRomanNumerals(eraFascista.split('-')[0]);
+    let eraFascistaWithRomanYear = eraFascista.replace(eraFascista.split('-')[0], 'Anno ' + romanYear);
 
-    var decimalHour = dayFraction * 10;
-    var decimalMinute = (decimalHour % 1) * 100;
-    var decimalSecond = (decimalMinute % 1) * 100;
-    var decimalTime = decimalHour.toFixed(0) + ":" + decimalMinute.toFixed(0) + ":" + decimalSecond.toFixed(0);
+    let decimalHour = dayFraction * 10;
+    let decimalMinute = (decimalHour % 1) * 100;
+    let decimalSecond = (decimalMinute % 1) * 100;
+    let decimalTime = decimalHour.toFixed(0) + ":" + decimalMinute.toFixed(0) + ":" + decimalSecond.toFixed(0);
 
-    var republicanCalendar = getRepublicanCalendar(currentDateTime);
-    var republicanCalendarString = toRomanNumerals(republicanCalendar.year) + "-" + republicanCalendar.month + "-" + republicanCalendar.day;
+    let republicanCalendar = getRepublicanCalendar(currentDateTime);
+    let republicanCalendarString = toRomanNumerals(republicanCalendar.year) + "-" + republicanCalendar.month + "-" + republicanCalendar.day;
 
     setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('time-box', timeDisplayString)
+    setTimeValue('utc-box', currentDateTime)
     setTimeValue('day-box', dayFraction.toFixed(decimals));
     setTimeValue('month-box', monthFraction.toFixed(decimals));
     setTimeValue('year-box', yearFraction.toFixed(decimals));
@@ -117,11 +90,11 @@ function updateDateAndTime() {
     setTimeValue('century-box', centuryFraction.toFixed(decimals));
     setTimeValue('millennium-box', millenniumFraction.toFixed(decimals));
 
-    setTimeValue('unix-box', unix64Value);
+    setTimeValue('unix-box', currentUnixDateTime);
     setTimeValue('filetime-box', filetimeValue);
     setTimeValue('iso8601-box', iso8601Value);
     setTimeValue('gps-box', gpsValue);
-    setTimeValue('julian-day-number-box', calculateJulianDayNumber(currentDateTime));
+    setTimeValue('julian-day-number-box', julianDay);
 
     setTimeValue('human-era-box', humanEra);
     setTimeValue('julian-box', julianCalendar);
@@ -150,9 +123,9 @@ function setTimeValue(type, value) {
 
 function formatDateWithoutLeadingZeros(date) {
     // Get individual components of the date
-    var year = date.getFullYear().toString(); // Get the year as a string
-    var month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add 1 to month since it's zero-indexed
-    var day = date.getDate().toString().padStart(2, '0'); // Get the day as a string
+    let year = date.getFullYear().toString(); // Get the year as a string
+    let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add 1 to month since it's zero-indexed
+    let day = date.getDate().toString().padStart(2, '0'); // Get the day as a string
 
     // Remove leading zeros if the number is not a single digit
     if (year[0] === '-') {
@@ -186,25 +159,25 @@ function reverseConvertAstronomicalYear(year) {
 }
 
 function getCurrentFiletime(currentDateTime) {
-    var jan1601 = new Date(Date.UTC(1601, 0, 1));
-    var filetime = currentDateTime.getTime() * 10000 + jan1601.getTime();
+    let jan1601 = new Date(Date.UTC(1601, 0, 1));
+    let filetime = currentDateTime.getTime() * 10000 + jan1601.getTime();
     return filetime;
 }
 
 function convertToSwatchBeats(dayFraction_) {
     // Convert day fraction to milliseconds
-    var milliseconds = dayFraction_ * 864; // 86400000 ms = 1 day
+    let milliseconds = dayFraction_ * 864; // 86400000 ms = 1 day
     // Convert GMT time to BMT by adding 1 hour (3600000 ms)
     milliseconds += 36;
     // Calculate Swatch .beats
-    var swatchBeats = (milliseconds % 864) * (1000 / 864); // 86400000 ms = 1000 .beats
+    let swatchBeats = (milliseconds % 864) * (1000 / 864); // 86400000 ms = 1000 .beats
     return Math.floor(swatchBeats);
 }
 
 function getChineseZodiacYear(year_) {
-    var zodiacAnimals = ['鼠 (Rat)', '牛 (Ox)', '虎 (Tiger)', '兔 (Rabbit)', '龍 (Dragon)', '蛇 (Snake)', '馬 (Horse)', '羊 (Goat)', '猴 (Monkey)', '雞 (Rooster)', '狗 (Dog)', '豬 (Pig)'];
+    let zodiacAnimals = ['鼠 (Rat)', '牛 (Ox)', '虎 (Tiger)', '兔 (Rabbit)', '龍 (Dragon)', '蛇 (Snake)', '馬 (Horse)', '羊 (Goat)', '猴 (Monkey)', '雞 (Rooster)', '狗 (Dog)', '豬 (Pig)'];
     // Adjusting for the start of the Chinese zodiac cycle, handling negative years
-    var index = year_ >= 4 ? (year_ - 4) % 12 : ((Math.abs(year_) + 8) % 12 === 0 ? 0 : 12 - ((Math.abs(year_) + 8) % 12));
+    let index = year_ >= 4 ? (year_ - 4) % 12 : ((Math.abs(year_) + 8) % 12 === 0 ? 0 : 12 - ((Math.abs(year_) + 8) % 12));
     if (year_ < 0) {
         index++;
     }
@@ -212,9 +185,9 @@ function getChineseZodiacYear(year_) {
 }
 
 function getVietnameseZodiacYear(year_) {
-    var zodiacAnimals = ['𤝞 (Rat)', '𤛠 (Water Buffalo)', '𧲫 (Tiger)', '猫 (Cat)', '龍 (Dragon)', '𧋻 (Snake)', '馭 (Horse)', '羝 (Goat)', '𤠳 (Monkey)', '𪂮 (Rooster)', '㹥 (Dog)', '㺧 (Pig)'];
+    let zodiacAnimals = ['𤝞 (Rat)', '𤛠 (Water Buffalo)', '𧲫 (Tiger)', '猫 (Cat)', '龍 (Dragon)', '𧋻 (Snake)', '馭 (Horse)', '羝 (Goat)', '𤠳 (Monkey)', '𪂮 (Rooster)', '㹥 (Dog)', '㺧 (Pig)'];
     // Adjusting for the start of the Chinese zodiac cycle, handling negative years
-    var index = year_ >= 4 ? (year_ - 4) % 12 : ((Math.abs(year_) + 8) % 12 === 0 ? 0 : 12 - ((Math.abs(year_) + 8) % 12));
+    let index = year_ >= 4 ? (year_ - 4) % 12 : ((Math.abs(year_) + 8) % 12 === 0 ? 0 : 12 - ((Math.abs(year_) + 8) % 12));
     if (year_ < 0) {
         index++;
     }
@@ -222,36 +195,36 @@ function getVietnameseZodiacYear(year_) {
 }
 
 function getSexagenaryYear(year_) {
-    var heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
-    var earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+    let heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+    let earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
-    var heavenlyStemsEnglish = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
-    var earthlyBranchesEnglish = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
+    let heavenlyStemsEnglish = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
+    let earthlyBranchesEnglish = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
     
     // Ensure year_ is positive before calculating indices
-    var positiveYear = year_ < 0 ? 60 + (year_ % 60) : year_;
+    let positiveYear = year_ < 0 ? 60 + (year_ % 60) : year_;
 
-    var heavenlyStemIndex = (positiveYear - 4) % 10; // Adjusting for the start of the sexagenary cycle
-    var earthlyBranchIndex = (positiveYear - 4) % 12; // Adjusting for the start of the sexagenary cycle
+    let heavenlyStemIndex = (positiveYear - 4) % 10; // Adjusting for the start of the sexagenary cycle
+    let earthlyBranchIndex = (positiveYear - 4) % 12; // Adjusting for the start of the sexagenary cycle
 
     if (year_ < 0) {
         heavenlyStemIndex++;
         earthlyBranchIndex++;
     }
     
-    var heavenlyStem = heavenlyStems[heavenlyStemIndex];
-    var earthlyBranch = earthlyBranches[earthlyBranchIndex];
-    var heavenlyStemEnglish = heavenlyStemsEnglish[heavenlyStemIndex];
-    var earthlyBrancheEnglish = earthlyBranchesEnglish[earthlyBranchIndex];
+    let heavenlyStem = heavenlyStems[heavenlyStemIndex];
+    let earthlyBranch = earthlyBranches[earthlyBranchIndex];
+    let heavenlyStemEnglish = heavenlyStemsEnglish[heavenlyStemIndex];
+    let earthlyBrancheEnglish = earthlyBranchesEnglish[earthlyBranchIndex];
     
     return heavenlyStem + earthlyBranch + ' (' + heavenlyStemEnglish + earthlyBrancheEnglish + ')';
 }
 
 function getCurrentDayOfYear(currentDateTime) {
-    var startOfYear = new Date(Date.UTC(currentDateTime.getUTCFullYear(), 0, 0)); // January 0th (yes, 0-based) is the last day of the previous year
-    var diff = currentDateTime - startOfYear;
-    var oneDay = 1000 * 60 * 60 * 24; // Number of milliseconds in a day
-    var dayOfYear = Math.floor(diff / oneDay);
+    let startOfYear = new Date(Date.UTC(currentDateTime.getUTCFullYear(), 0, 0)); // January 0th (yes, 0-based) is the last day of the previous year
+    let diff = currentDateTime - startOfYear;
+    let oneDay = 1000 * 60 * 60 * 24; // Number of milliseconds in a day
+    let dayOfYear = Math.floor(diff / oneDay);
     return dayOfYear;
 }
 
@@ -261,34 +234,34 @@ function isLeapYear(year) {
 
 function getRepublicanCalendar(currentDateTime) {
     // Date of September 22nd of the current year
-    var september22 = new Date(currentDateTime.getFullYear(), 8, 22); // Note: Month is 8 for September (0-indexed)
+    let september22 = new Date(currentDateTime.getFullYear(), 8, 22); // Note: Month is 8 for September (0-indexed)
     // If the current date is before September 22nd, subtract 1 year
     if (currentDateTime < september22) {
         september22.setFullYear(september22.getFullYear() - 1);
     }
     // Calculate the number of years since 1792
-    var yearsSince1792 = (september22.getFullYear() - 1792) + 1;
+    let yearsSince1792 = (september22.getFullYear() - 1792) + 1;
     if (yearsSince1792 <= 0 && currentDateTime.getFullYear() > 0) {
         yearsSince1792--;
     }
     // Calculate the total number of days since the most recent September 22nd
-    var daysSinceSeptember22 = Math.floor((currentDateTime - september22) / (1000 * 60 * 60 * 24));
-    var month = Math.floor(daysSinceSeptember22 / 30)+1;
+    let daysSinceSeptember22 = Math.floor((currentDateTime - september22) / (1000 * 60 * 60 * 24));
+    let month = Math.floor(daysSinceSeptember22 / 30)+1;
     if ((month > 12) || (month == 0)) {
         month = 'Sansculottides';
     }
-    var day = Math.floor(daysSinceSeptember22 % 30)+1;
+    let day = Math.floor(daysSinceSeptember22 % 30)+1;
     return {year: yearsSince1792, month: month, day: day};
 }
 
 function getJulianDate(currentDateTime) {
-    var year = currentDateTime.getFullYear();
-    var daysAhead = Math.floor(convertAstronomicalYear(year) / 100) - Math.floor(convertAstronomicalYear(year) / 400) - 2;
-    var julianDate = new Date(currentDateTime);
-    julianDate.setUTCDate(julianDate.getDate() - daysAhead);
+    let year = currentDateTime.getFullYear();
+    let daysAhead = Math.floor(convertAstronomicalYear(year) / 100) - Math.floor(convertAstronomicalYear(year) / 400) - 2;
+    let julianDate = new Date(currentDateTime);
+    julianDate.setUTCDate(julianDate.getUTCDate() - daysAhead);
     
     // Convert the Date object to a string in ISO 8601 format and extract only the date part
-    var dateString = julianDate.toISOString().split('T')[0];
+    let dateString = julianDate.toISOString().split('T')[0];
     
     // Remove leading zeros from the year part
     if (dateString.startsWith('-')) {
@@ -333,8 +306,8 @@ function toRomanNumerals(num) {
 }
 
 function calculateJulianDayNumber(currentDateTime) {
-    var gregorianEpoch = new Date(-4714, 10, 24, 12);
-    var daysSinceEpoch = currentDateTime - gregorianEpoch;
+    let gregorianEpoch = new Date(-4714, 10, 24, 12);
+    let daysSinceEpoch = currentDateTime - gregorianEpoch;
     if (currentDateTime.getFullYear() > 0) {
         return Math.floor(daysSinceEpoch / (1000 * 60 * 60 * 24)-365);
     }
