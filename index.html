@@ -11,11 +11,6 @@
         <div class="standard-time container">
             <label class="container-name">Standard Time</label>
             <div class="box">
-                <label>Gregorian Calendar:</label>
-                <div id="gregorian-box" class="content"></div>
-                <span class="tooltip" id="gregorian-tooltip"></span>
-            </div>
-            <div class="box">
                 <label>Time:</label>
                 <div id="time-box" class="content"></div>
             </div>
@@ -83,8 +78,24 @@
                 <div id="julian-day-number-box" class="content"></div>
             </div>
         </div>
-        <div class="alternate-calendars-time container">
-            <label class="container-name">Alternate Calendars</label>
+        <div class="decimal-time container">
+            <label class="container-name">Decimal Time</label>
+            <div class="box">
+                <label>Revolutionary Time:</label>
+                <div id="revolutionary-time-box" class="content"></div>
+            </div>
+            <div class="box">
+                <label>.beat Time (BMT):</label>
+                <div id="beat-time-box" class="content"></div>
+            </div>
+        </div>
+        <div class="solar-calendars container">
+            <label class="container-name">Solar Calendars</label>
+            <div class="box">
+                <label>Gregorian Calendar:</label>
+                <div id="gregorian-box" class="content"></div>
+                <span class="tooltip" id="gregorian-tooltip"></span>
+            </div>
             <div class="box">
                 <label>Human Era:</label>
                 <div id="human-era-box" class="content"></div>
@@ -92,18 +103,6 @@
             <div class="box">
                 <label>Julian:</label>
                 <div id="julian-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Sexagenary Year:</label>
-                <div id="sexagenary-year-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Chinese Zodiac:</label>
-                <div id="chinese-zodiac-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Vietnamese Zodiac:</label>
-                <div id="vietnamese-zodiac-box" class="content"></div>
             </div>
             <div class="box">
                 <label>Minguo:</label>
@@ -125,6 +124,21 @@
                 <label>Era Fascista:</label>
                 <div id="era-fascista-box" class="content"></div>
             </div>
+        </div>
+        <div class="lunisolar-calendars container">
+            <label class="container-name">Lunisolar Calendars</label>
+            <div class="box">
+                <label>Sexagenary Year:</label>
+                <div id="sexagenary-year-box" class="content"></div>
+            </div>
+            <div class="box">
+                <label>Chinese Zodiac:</label>
+                <div id="chinese-zodiac-box" class="content"></div>
+            </div>
+            <div class="box">
+                <label>Vietnamese Zodiac:</label>
+                <div id="vietnamese-zodiac-box" class="content"></div>
+            </div>
             <div class="box">
                 <label>Dangun:</label>
                 <div id="dangun-box" class="content"></div>
@@ -134,20 +148,10 @@
                 <div id="hebrew-box" class="content"></div>
             </div>
         </div>
-        <div class="decimal-time container">
-            <label class="container-name">Decimal Time</label>
-            <div class="box">
-                <label>Revolutionary Time:</label>
-                <div id="revolutionary-time-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>.beat Time (BMT):</label>
-                <div id="beat-time-box" class="content"></div>
-            </div>
-        </div>
     </div>
     <script src="nodeData.js"></script>
     <script src="timeFractions.js" defer></script>
+    <script src="computingTime.js" defer></script>
     <script src="script.js" defer></script>
     
 </body>

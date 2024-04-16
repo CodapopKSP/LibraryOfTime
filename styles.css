@@ -31,23 +31,28 @@ body {
 }
 
 .standard-time {
-    background-color: rgb(54, 50, 50);
-    color: bisque;
+    background-color: rgb(54, 54, 54);
+    color: rgb(224, 224, 224);
 }
 
 .computing-time {
     background-color: rgb(50, 50, 54);
-    color: rgb(196, 228, 255);
+    color: #c4e4ffff;
 }
 
-.alternate-calendars-time {
+.solar-calendars{
+    background-color: rgb(54, 50, 50);
+    color: #ffe4c4ff
+}
+
+.lunisolar-calendars{
     background-color: rgb(50, 54, 50);
-    color: rgb(196, 255, 228);
+    color: #c4ffe4ff;
 }
 
 .decimal-time {
     background-color: rgb(54, 50, 50);
-    color: rgb(228, 196, 255);
+    color: #e4c4ffff;
 }
 
 .box {
@@ -58,14 +63,18 @@ body {
 }
 
 .standard-time > .box > .content {
-    border: 0.2vh solid #966a6a;
+    border: 0.2vh solid #bbbbbb;
 }
 
 .computing-time > .box > .content {
     border: 0.2vh solid #696d9f;
 }
 
-.alternate-calendars-time > .box > .content {
+.solar-calendars > .box > .content {
+    border: 0.2vh solid #966a6a;
+}
+
+.lunisolar-calendars > .box > .content {
     border: 0.2vh solid #6f986a;
 }
 
@@ -89,12 +98,12 @@ body {
 .tooltip {
     visibility: hidden;
     width: 120px;
-    background-color: #cacecf;
+    background-color: #a0a0a0;
     color: rgb(0, 0, 0);
     text-align: center;
     border-radius: 6px;
     border-color: #000000;
-    border: 0.4vh solid #9a9a9a;
+    border: 0.4vh solid #000000;
     position: absolute;
     z-index: 1;
     width: 20vh;

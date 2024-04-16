@@ -1,5 +1,8 @@
+//|------------------------|
+//|     Time Fractions     |
+//|------------------------|
 
-
+// A set of functions for calculating fractions of units of time.
 
 function calculateSecond(currentDateTime) {
     let secondStart = new Date(currentDateTime).setMilliseconds(0);

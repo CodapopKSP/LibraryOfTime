@@ -4,7 +4,7 @@ document.getElementById('gregorian-tooltip').textContent = window.gregorian.desc
 function updateDateAndTime() {
     let inputDate = new Date()
     let currentDateTime = new Date(inputDate);
-    let currentUnixDateTime = currentDateTime.getTime();
+    let currentUnixDateTime = Math.floor(currentDateTime.getTime()/1000);
     //currentDateTime.setFullYear(2)
 
     // Get basic info about the date and time
@@ -31,11 +31,8 @@ function updateDateAndTime() {
     // Computing Times
     let filetimeValue = getCurrentFiletime(currentDateTime);
     let iso8601Value = currentDateTime.toISOString();
-    let gpsValue = Math.floor((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000);
-    let julianDay = calculateJulianDayNumber(currentDateTime)
-
-
-
+    let gpsValue = getGPSTime(currentDateTime);
+    let julianDay = getJulianDayNumber(currentDateTime)
 
     // Calendars
     let humanEraCalendar = new Date(Date.UTC(year + 10000, month, day));
@@ -76,8 +73,7 @@ function updateDateAndTime() {
 
     let republicanCalendar = getRepublicanCalendar(currentDateTime);
     let republicanCalendarString = toRomanNumerals(republicanCalendar.year) + "-" + republicanCalendar.month + "-" + republicanCalendar.day;
-
-    setTimeValue('gregorian-box', gregorianCalendar);
+    
     setTimeValue('time-box', timeDisplayString)
     setTimeValue('utc-box', currentDateTime)
     setTimeValue('day-box', dayFraction.toFixed(decimals));
@@ -96,19 +92,21 @@ function updateDateAndTime() {
     setTimeValue('gps-box', gpsValue);
     setTimeValue('julian-day-number-box', julianDay);
 
+    setTimeValue('revolutionary-time-box', decimalTime);
+    setTimeValue('beat-time-box', convertToSwatchBeats(dayFraction));
+
+    setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('human-era-box', humanEra);
     setTimeValue('julian-box', julianCalendar);
-    setTimeValue('sexagenary-year-box', getSexagenaryYear(year));
-    setTimeValue('chinese-zodiac-box', chineseZodiacYear);
-    setTimeValue('vietnamese-zodiac-box', vietnameseZodiacYear);
     setTimeValue('french-republican-box', republicanCalendarString);
     setTimeValue('era-fascista-box', eraFascistaWithRomanYear);
     setTimeValue('minguo-box', minguoJuche);
     setTimeValue('thai-solar-box', thaiSolar);
     setTimeValue('juche-box', minguoJuche);
 
-    setTimeValue('revolutionary-time-box', decimalTime);
-    setTimeValue('beat-time-box', convertToSwatchBeats(dayFraction));
+    setTimeValue('sexagenary-year-box', getSexagenaryYear(year));
+    setTimeValue('chinese-zodiac-box', chineseZodiacYear);
+    setTimeValue('vietnamese-zodiac-box', vietnameseZodiacYear);
 }
 
 // Update the date and time every second
@@ -156,12 +154,6 @@ function reverseConvertAstronomicalYear(year) {
     if (year <= 0) {
         return year;
     }
-}
-
-function getCurrentFiletime(currentDateTime) {
-    let jan1601 = new Date(Date.UTC(1601, 0, 1));
-    let filetime = currentDateTime.getTime() * 10000 + jan1601.getTime();
-    return filetime;
 }
 
 function convertToSwatchBeats(dayFraction_) {
@@ -273,7 +265,6 @@ function getJulianDate(currentDateTime) {
     return dateString;
 }
 
-
 function toRomanNumerals(num) {
     if (num < 0) {
         return '-' + toRomanNumerals(-num);
@@ -303,13 +294,4 @@ function toRomanNumerals(num) {
         }
     }
     return result;
-}
-
-function calculateJulianDayNumber(currentDateTime) {
-    let gregorianEpoch = new Date(-4714, 10, 24, 12);
-    let daysSinceEpoch = currentDateTime - gregorianEpoch;
-    if (currentDateTime.getFullYear() > 0) {
-        return Math.floor(daysSinceEpoch / (1000 * 60 * 60 * 24)-365);
-    }
-    return Math.floor(daysSinceEpoch / (1000 * 60 * 60 * 24));
 }

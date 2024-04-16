@@ -1,3 +1,16 @@
+//|-------------------|
+//|     Node Data     |
+//|-------------------|
+
+/*
+Node Data is a collection of data for each node.
+    name:           The name of the node.
+    type:           The type of calendar/time.
+    epoch:          The starting epoch of the calendar/time.
+    confidence:     A measure of how confident I am in the node's accuracy.
+    description:    The text that appears on hover.
+*/
+
 const gregorian = {
     name: 'Gregorian',
     type: 'Solar Calendar',
