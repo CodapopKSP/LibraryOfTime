@@ -31,7 +31,7 @@ body {
 }
 
 .standard-time {
-    background-color: rgb(54, 54, 54);
+    background-color: rgb(52, 52, 52);
     color: rgb(224, 224, 224);
 }
 
@@ -48,6 +48,11 @@ body {
 .lunisolar-calendars{
     background-color: rgb(50, 54, 50);
     color: #c4ffe4ff;
+}
+
+.lunar-calendars{
+    background-color: rgb(50, 50, 54);
+    color: #e4c4ffff;
 }
 
 .decimal-time {
@@ -80,6 +85,10 @@ body {
 
 .decimal-time > .box > .content {
     border: 0.2vh solid #896a98;
+}
+
+.lunar-calendars > .box > .content {
+    border: 0.2vh solid #7c6a98;
 }
 
 .content {
