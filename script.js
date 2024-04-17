@@ -3,7 +3,7 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    let currentDateTime = new Date();
+    let currentDateTime = new Date(2024, 4, 17, 23, 27, 56);
     //let currentDateTime = new Date(inputDate);
     //currentDateTime.setFullYear(0);
 
@@ -38,22 +38,23 @@ function updateDateAndTime() {
     let TAI = getTAI(currentDateTime);
     let LORANC = getLORANC(currentDateTime);
 
+    // Decimal Time
+    let decimalTime = getRevolutionaryTime(dayFraction);
+    let swatchBeats = convertToSwatchBeats(currentDateTime);
+
+
     // Calendars
     let humanEraCalendar = new Date(Date.UTC(year + 10000, month, day));
     let humanEra = formatDateWithoutLeadingZeros(humanEraCalendar);
-
     let julianCalendar = getJulianDate(currentDateTime);
     let gregorianCalendar = dateDisplayString;
-
     let mingguoYear = year - 1911;
     if (mingguoYear <= 0 && year > 0) {
         mingguoYear--;
     }
-    
     let minguoCalendar = new Date(Date.UTC(1911, month, day));
     minguoCalendar.setFullYear(mingguoYear);
     let minguoJuche = formatDateWithoutLeadingZeros(minguoCalendar);
-
     let thaiSolarYear = year + 544
     if (thaiSolarYear <= 0 && year >= -544) {
         thaiSolarYear--;
@@ -69,14 +70,10 @@ function updateDateAndTime() {
     let eraFascista = formatDateWithoutLeadingZeros(eraFascistaCalendar);
     let romanYear = toRomanNumerals(eraFascista.split('-')[0]);
     let eraFascistaWithRomanYear = eraFascista.replace(eraFascista.split('-')[0], 'Anno ' + romanYear);
-
-    let decimalHour = dayFraction * 10;
-    let decimalMinute = (decimalHour % 1) * 100;
-    let decimalSecond = (decimalMinute % 1) * 100;
-    let decimalTime = decimalHour.toFixed(0) + ":" + decimalMinute.toFixed(0) + ":" + decimalSecond.toFixed(0);
-
     let republicanCalendar = getRepublicanCalendar(currentDateTime);
     let republicanCalendarString = toRomanNumerals(republicanCalendar.year) + "-" + republicanCalendar.month + "-" + republicanCalendar.day;
+
+    
     
     setTimeValue('local-time-box', timeDisplayString)
     setTimeValue('utc-box', currentDateTime.toISOString().slice(0, -5));
@@ -100,7 +97,7 @@ function updateDateAndTime() {
     setTimeValue('loran-c-box', LORANC.toISOString().slice(0, -5));
 
     setTimeValue('revolutionary-time-box', decimalTime);
-    setTimeValue('beat-time-box', convertToSwatchBeats(dayFraction));
+    setTimeValue('beat-time-box', swatchBeats);
 
     setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('human-era-box', humanEra);
@@ -233,16 +230,6 @@ function reverseConvertAstronomicalYear(year) {
     if (year <= 0) {
         return year;
     }
-}
-
-function convertToSwatchBeats(dayFraction_) {
-    // Convert day fraction to milliseconds
-    let milliseconds = dayFraction_ * 864; // 86400000 ms = 1 day
-    // Convert GMT time to BMT by adding 1 hour (3600000 ms)
-    milliseconds += 36;
-    // Calculate Swatch .beats
-    let swatchBeats = (milliseconds % 864) * (1000 / 864); // 86400000 ms = 1000 .beats
-    return Math.floor(swatchBeats);
 }
 
 function getChineseZodiacYear(year_) {
