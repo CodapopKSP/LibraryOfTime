@@ -10,9 +10,9 @@ document.getElementById('iso8601-tooltip').textContent = window.iso8601.descript
 document.getElementById('gps-tooltip').textContent = window.gps.description;
 
 function updateDateAndTime() {
-    let currentDateTime = new Date(0, 1, 15, 0);
+    let currentDateTime = new Date();
     //let currentDateTime = new Date(inputDate);
-    currentDateTime.setFullYear(0);
+    //currentDateTime.setFullYear(0);
 
     // Get basic info about the date and time
     day = currentDateTime.getDate();
@@ -42,6 +42,8 @@ function updateDateAndTime() {
     let gpsValue = getGPSTime(currentDateTime);
     let julianDay = getJulianDayNumber(currentDateTime)
     let rataDie = getRataDie(currentDateTime);
+    let TAI = getTAI(currentDateTime);
+    let LORANC = getLORANC(currentDateTime);
 
     // Calendars
     let humanEraCalendar = new Date(Date.UTC(year + 10000, month, day));
@@ -83,8 +85,8 @@ function updateDateAndTime() {
     let republicanCalendar = getRepublicanCalendar(currentDateTime);
     let republicanCalendarString = toRomanNumerals(republicanCalendar.year) + "-" + republicanCalendar.month + "-" + republicanCalendar.day;
     
-    setTimeValue('time-box', timeDisplayString)
-    setTimeValue('utc-box', currentDateTime)
+    setTimeValue('local-time-box', timeDisplayString)
+    setTimeValue('utc-box', currentDateTime.toISOString().slice(0, -5));
     setTimeValue('day-box', dayFraction.toFixed(decimals));
     setTimeValue('month-box', monthFraction.toFixed(decimals));
     setTimeValue('year-box', yearFraction.toFixed(decimals));
@@ -101,6 +103,8 @@ function updateDateAndTime() {
     setTimeValue('gps-box', gpsValue);
     setTimeValue('julian-day-number-box', julianDay);
     setTimeValue('rata-die-box', rataDie);
+    setTimeValue('tai-box', TAI.toISOString().slice(0, -5));
+    setTimeValue('loran-c-box', LORANC.toISOString().slice(0, -5));
 
     setTimeValue('revolutionary-time-box', decimalTime);
     setTimeValue('beat-time-box', convertToSwatchBeats(dayFraction));
