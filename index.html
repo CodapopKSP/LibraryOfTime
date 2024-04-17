@@ -10,178 +10,24 @@
     <div class="page-wrapper">
         <div class="standard-time container">
             <label class="container-name">Standard Time</label>
-            <div class="box">
-                <label>Local Time:</label>
-                <div id="local-time-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>UTC:</label>
-                <div id="utc-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Second:</label>
-                <div id="second-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Minute:</label>
-                <div id="minute-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Hour:</label>
-                <div id="hour-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Day:</label>
-                <div id="day-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Month:</label>
-                <div id="month-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Year:</label>
-                <div id="year-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Decade:</label>
-                <div id="decade-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Century:</label>
-                <div id="century-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Millennium:</label>
-                <div id="millennium-box" class="content"></div>
-            </div>
         </div>
         <div class="computing-time container">
             <label class="container-name">Computing Time</label>
-            <div class="box">
-                <label>Unix:</label>
-                <div id="unix-box" class="content"></div>
-                <span class="tooltip" id="unix-tooltip"></span>
-            </div>
-            <div class="box">
-                <label>FILETIME:</label>
-                <div id="filetime-box" class="content"></div>
-                <span class="tooltip" id="filetime-tooltip"></span>
-            </div>
-            <div class="box">
-                <label>ISO 8601:</label>
-                <div id="iso8601-box" class="content"></div>
-                <span class="tooltip" id="iso8601-tooltip"></span>
-            </div>
-            <div class="box">
-                <label>GPS:</label>
-                <div id="gps-box" class="content"></div>
-                <span class="tooltip" id="gps-tooltip"></span>
-            </div>
-            <div class="box">
-                <label>Julian Day Number:</label>
-                <div id="julian-day-number-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Rata Die:</label>
-                <div id="rata-die-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>TAI:</label>
-                <div id="tai-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>LORAN-C:</label>
-                <div id="loran-c-box" class="content"></div>
-            </div>
         </div>
         <div class="decimal-time container">
             <label class="container-name">Decimal Time</label>
-            <div class="box">
-                <label>Revolutionary Time:</label>
-                <div id="revolutionary-time-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>.beat Time (BMT):</label>
-                <div id="beat-time-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Hexadecimal:</label>
-                <div id="hexadecimal-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Binary:</label>
-                <div id="binary-box" class="content"></div>
-            </div>
         </div>
         <div class="solar-calendars container">
             <label class="container-name">Solar Calendars</label>
-            <div class="box">
-                <label>Gregorian Calendar:</label>
-                <div id="gregorian-box" class="content"></div>
-                <span class="tooltip" id="gregorian-tooltip"></span>
-            </div>
-            <div class="box">
-                <label>Human Era:</label>
-                <div id="human-era-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Julian:</label>
-                <div id="julian-box" class="content"></div>
-                <span class="tooltip" id="julian-tooltip"></span>
-            </div>
-            <div class="box">
-                <label>Minguo:</label>
-                <div id="minguo-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Thai Solar:</label>
-                <div id="thai-solar-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Juche:</label>
-                <div id="juche-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>French Republican:</label>
-                <div id="french-republican-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Era Fascista:</label>
-                <div id="era-fascista-box" class="content"></div>
-            </div>
         </div>
         <div class="lunisolar-calendars container">
             <label class="container-name">Lunisolar Calendars</label>
-            <div class="box">
-                <label>Sexagenary Year:</label>
-                <div id="sexagenary-year-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Chinese Zodiac:</label>
-                <div id="chinese-zodiac-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Vietnamese Zodiac:</label>
-                <div id="vietnamese-zodiac-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Dangun:</label>
-                <div id="dangun-box" class="content"></div>
-            </div>
-            <div class="box">
-                <label>Hebrew:</label>
-                <div id="hebrew-box" class="content"></div>
-            </div>
         </div>
         <div class="lunar-calendars container">
             <label class="container-name">Lunar Calendars</label>
-            <div class="box">
-                <label>Islamic:</label>
-                <div id="islamic-box" class="content"></div>
-            </div>
         </div>
     </div>
-    <script src="nodeData.js"></script>
+    <script src="nodeData.js" defer></script>
     <script src="timeFractions.js" defer></script>
     <script src="computingTime.js" defer></script>
     <script src="script.js" defer></script>

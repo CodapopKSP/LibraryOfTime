@@ -1,13 +1,6 @@
-
 //https://www.fourmilab.ch/documents/calendar/
 
 const decimals = 10;
-document.getElementById('gregorian-tooltip').textContent = window.gregorian.description;
-document.getElementById('julian-tooltip').textContent = window.julian.description;
-document.getElementById('unix-tooltip').textContent = window.unix.description;
-document.getElementById('filetime-tooltip').textContent = window.filetime.description;
-document.getElementById('iso8601-tooltip').textContent = window.iso8601.description;
-document.getElementById('gps-tooltip').textContent = window.gps.description;
 
 function updateDateAndTime() {
     let currentDateTime = new Date();
@@ -123,7 +116,79 @@ function updateDateAndTime() {
     setTimeValue('vietnamese-zodiac-box', vietnameseZodiacYear);
 }
 
-// Update the date and time every second
+function createElements() {
+    standardTimeData.forEach(item => {
+        createBox(item);
+    });
+    computingTimeData.forEach(item => {
+        createBox(item);
+    });
+    decimalTimeData.forEach(item => {
+        createBox(item);
+    });
+    solarCalendarsData.forEach(item => {
+        createBox(item);
+    });
+    lunisolarCalendarsData.forEach(item => {
+        createBox(item);
+    });
+    lunarCalendarsData.forEach(item => {
+        createBox(item);
+    });
+}
+
+// Function to create box elements
+function createBox(item) {
+    const standardTime = document.querySelector('.standard-time');
+    const computingTime = document.querySelector('.computing-time');
+    const decimalTime = document.querySelector('.decimal-time');
+    const solarCalendars = document.querySelector('.solar-calendars');
+    const lunisolarCalendars = document.querySelector('.lunisolar-calendars');
+    const lunarCalendars = document.querySelector('.lunar-calendars');
+
+    // Create a div element for the box
+    const box = document.createElement('div');
+    box.classList.add('box');
+
+    // Create a label element for the box
+    const label = document.createElement('label');
+    label.textContent = item.name;
+
+    // Create a div element for the content
+    const content = document.createElement('div');
+    content.id = item.id + '-box';
+    content.classList.add('content');
+
+    // Create a popup tooltip for the description
+    const description = document.createElement('div');
+    description.id = item.id + '-tooltip';
+    description.textContent = item.description;
+    description.classList.add('tooltip');
+
+    // Append the label and content to the box
+    box.appendChild(label);
+    box.appendChild(content);
+    box.appendChild(description);
+
+    if (item.type === 'Solar Calendar') {
+        solarCalendars.appendChild(box);
+    } else if (item.type === 'Computing Time') {
+        computingTime.appendChild(box);
+    } else if (item.type === 'Standard Time') {
+        standardTime.appendChild(box);
+    } else if (item.type === 'Decimal Time') {
+        decimalTime.appendChild(box);
+    } else if (item.type === 'Lunisolar Calendar') {
+        lunisolarCalendars.appendChild(box);
+    } else if (item.type === 'Lunar Calendar') {
+        lunarCalendars.appendChild(box);
+    }
+}
+
+// Draw elements in HTML
+createElements();
+
+// Update the date and time every millisecond
 setInterval(updateDateAndTime, 1);
 
 // Initial update
