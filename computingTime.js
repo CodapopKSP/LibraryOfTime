@@ -23,7 +23,7 @@ function getGPSTime(currentDateTime) {
 function getJulianDayNumber(currentDateTime) {
     day = currentDateTime.getDate();
     month = currentDateTime.getMonth()+1;
-    year = convertAstronomicalYear(currentDateTime.getFullYear());
+    year = currentDateTime.getFullYear();
     hour = currentDateTime.getHours();
     if (month < 3) {
         year-=1;

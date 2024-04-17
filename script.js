@@ -10,9 +10,9 @@ document.getElementById('iso8601-tooltip').textContent = window.iso8601.descript
 document.getElementById('gps-tooltip').textContent = window.gps.description;
 
 function updateDateAndTime() {
-    let currentDateTime = new Date();
+    let currentDateTime = new Date(0, 1, 15, 0);
     //let currentDateTime = new Date(inputDate);
-    //currentDateTime.setFullYear(-1)
+    currentDateTime.setFullYear(0);
 
     // Get basic info about the date and time
     day = currentDateTime.getDate();
