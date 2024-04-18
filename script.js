@@ -3,7 +3,7 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    let currentDateTime = new Date(-543, 0, 1, 12);
+    let currentDateTime = new Date();
     //let currentDateTime = new Date(inputDate);
     //currentDateTime.setFullYear(-9999);
 
@@ -75,17 +75,13 @@ function updateDateAndTime() {
     let gregorianCalendar = dateDisplayString;
     let minguoJuche = getMinguoJuche(currentDateTime);
     let thaiSolar = getThaiSolar(currentDateTime);
-    let eraFascistaCalendar = new Date(Date.UTC(year - 1922, month, day));
-    let eraFascista = formatDateWithoutLeadingZeros(eraFascistaCalendar);
-    let romanYear = toRomanNumerals(eraFascista.split('-')[0]);
-    let eraFascistaWithRomanYear = eraFascista.replace(eraFascista.split('-')[0], 'Anno ' + romanYear);
+    let eraFascista = getEraFascista(currentDateTime)
     let republicanCalendar = getRepublicanCalendar(currentDateTime);
-    let republicanCalendarString = toRomanNumerals(republicanCalendar.year) + "-" + republicanCalendar.month + "-" + republicanCalendar.day;
     setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('human-era-box', humanEra);
     setTimeValue('julian-box', julianCalendar);
-    setTimeValue('french-republican-box', republicanCalendarString);
-    setTimeValue('era-fascista-box', eraFascistaWithRomanYear);
+    setTimeValue('french-republican-box', republicanCalendar);
+    setTimeValue('era-fascista-box', eraFascista);
     setTimeValue('minguo-box', minguoJuche);
     setTimeValue('thai-solar-box', thaiSolar);
     setTimeValue('juche-box', minguoJuche);

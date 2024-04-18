@@ -18,7 +18,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Local Midnight',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the current local time based on the timezone provided by your device.'
     },
 
     {
@@ -27,7 +27,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'UTC Midnight',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the current UTC time regardless of location.'
     },
 
     {
@@ -36,7 +36,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Second',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current second.'
     },
 
     {
@@ -45,7 +45,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Minute',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current minute.'
     },
 
     {
@@ -54,7 +54,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Hour',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current hour.'
     },
 
     {
@@ -63,7 +63,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Day',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current day.'
     },
 
     {
@@ -72,7 +72,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Month',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current month.'
     },
 
     {
@@ -81,7 +81,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Year',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current year.'
     },
 
     {
@@ -90,7 +90,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Decade',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current decade.'
     },
 
     {
@@ -99,7 +99,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Century',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current century.'
     },
 
     {
@@ -108,7 +108,7 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Millennium',
         condfidence: 'Exact',
-        description: ''
+        description: 'This is the fraction of time passed in the current millennium.'
     },
 ]
 
@@ -202,7 +202,7 @@ const decimalTimeData = [
         type: 'Decimal Time',
         epoch: 'Midnight',
         condfidence: 'Exact',
-        description: 'Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day by 10 hours, each hour by 100 minutes, and each minute by 100 seconds.'
+        description: 'Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day into 10 hours, each hour into 100 minutes, and each minute into 100 seconds. The French would have used Paris Mean Time (GMT + 00:09:21) but this website uses local time.'
     },
 
     {
@@ -267,7 +267,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1912 CE',
         condfidence: 'Exact',
-        description: 'The Minguo calendar, also known as the Republic of China calendar, is a calendar used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912. For its months and days, it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
+        description: 'The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912. For its months and days, it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
     },
 
     {
@@ -292,18 +292,18 @@ const solarCalendarsData = [
         name: 'French Republican',
         id: 'french-republican',
         type: 'Solar Calendar',
-        epoch: '',
+        epoch: 'September 22nd, 1792 CE',
         condfidence: 'High',
-        description: ''
+        description: 'The French Republican calendar was used during and after the French Revolution from 1793 to 1805. It was a drastic change to the Gregorian calendar. It featured twelve months of 30 days each, broken into 3 weeks of 10 days. The remaining 5 or 6 days of each solar year were the Sansculottides, to be treated as national holidays before the new year. The new year started on September 22nd or 23rd of the Gregorian calendar, and years were written in Roman numerals.'
     },
 
     {
         name: 'Era Fascista',
         id: 'era-fascista',
         type: 'Solar Calendar',
-        epoch: '',
+        epoch: 'October 22nd, 1922',
         condfidence: 'High',
-        description: ''
+        description: 'Era Fascista is a simple count of number of years since the start of the Fascist Era in Italy on October 22nd, 1922, starting with Anno I. Taking inspiration from the French Republican calendar, years were written in Roman numerals and it was intended to replace the Gregorian calendar.'
     },
 ]
 

@@ -38,15 +38,6 @@ function getThaiSolar(currentDateTime) {
     return `B.E. ${year}-${month + 1}-${day}`;
 }
 
-
-
-
-
-
-
-
-
-
 function getRepublicanCalendar(currentDateTime) {
     // Date of September 22nd of the current year
     let september22 = new Date(currentDateTime.getFullYear(), 8, 22); // Note: Month is 8 for September (0-indexed)
@@ -56,22 +47,30 @@ function getRepublicanCalendar(currentDateTime) {
     }
     // Calculate the number of years since 1792
     let yearsSince1792 = (september22.getFullYear() - 1792) + 1;
-    if (yearsSince1792 <= 0 && currentDateTime.getFullYear() > 0) {
-        yearsSince1792--;
-    }
     // Calculate the total number of days since the most recent September 22nd
     let daysSinceSeptember22 = Math.floor((currentDateTime - september22) / (1000 * 60 * 60 * 24));
-    let month = Math.floor(daysSinceSeptember22 / 30)+1;
+    let month = Math.floor(daysSinceSeptember22 / 30) + 1;
     if ((month > 12) || (month == 0)) {
         month = 'Sansculottides';
     }
     let day = Math.floor(daysSinceSeptember22 % 30)+1;
-    return {year: yearsSince1792, month: month, day: day};
+    return toRomanNumerals(yearsSince1792) + " " + month + "-" + day;
 }
 
-
+function getEraFascista(currentDateTime) {
+    // Only update the year if past October 22nd, otherwise it is the previous year.
+    let october22 = new Date(currentDateTime.getFullYear(), 9, 22);
+    if (currentDateTime < october22) {
+        october22.setFullYear(october22.getFullYear() - 1);
+    }
+    let yearsSince1922 = october22.getFullYear() - 1921;
+    return `Anno ${toRomanNumerals(yearsSince1922)}`;
+}
 
 function toRomanNumerals(num) {
+    if (num === 0) {
+        return 'O';
+    }
     if (num < 0) {
         return '-' + toRomanNumerals(-num);
     }
