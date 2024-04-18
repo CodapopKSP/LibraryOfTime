@@ -247,9 +247,9 @@ const solarCalendarsData = [
         name: 'Julian',
         id: 'julian',
         type: 'Solar Calendar',
-        epoch: 'January 1st, 1 CE',
-        condfidence: 'Low',
-        description: 'The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date. It features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. The Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar. It is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections.'
+        epoch: 'January 3rd, 1 CE',
+        condfidence: 'High',
+        description: 'The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date. It features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. The Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar. It is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections. The exact date of leap days might not be exactly aligned with the Gregorian calendar here, but they are accurate to the year.'
     },
 
     {
@@ -267,25 +267,25 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1912 CE',
         condfidence: 'Exact',
-        description: 'The Minguo calendar, also known as the Republic of China calendar, is a calendar used in Taiwan and its territories. Dates are translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912. For its months and days, it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
+        description: 'The Minguo calendar, also known as the Republic of China calendar, is a calendar used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912. For its months and days, it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
     },
 
     {
         name: 'Thai Solar',
         id: 'thai-solar',
         type: 'Solar Calendar',
-        epoch: 'January 1st, 542 BCE',
+        epoch: 'January 1st, 543 BCE',
         condfidence: 'High',
-        description: '543 years ahead of Gregorian'
+        description: 'The Thai Solar calendar is used in Thailand and is 543 years ahead of the Gregorian calendar. It represents the number of years of the current Buddhist Era, the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.'
     },
 
     {
         name: 'Juche',
         id: 'juche',
         type: 'Solar Calendar',
-        epoch: 'January 1st, 1911 CE',
+        epoch: 'January 1st, 1912 CE',
         condfidence: 'Exact',
-        description: ''
+        description: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
     },
 
     {
