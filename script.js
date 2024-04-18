@@ -176,35 +176,6 @@ function setTimeValue(type, value) {
     document.getElementById(type).textContent = value;
 }
 
-
-
-
-
-
-
-
-
-
-
-function formatDateWithoutLeadingZeros(date) {
-    // Get individual components of the date
-    let year = date.getFullYear().toString(); // Get the year as a string
-    let month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add 1 to month since it's zero-indexed
-    let day = date.getDate().toString().padStart(2, '0'); // Get the day as a string
-
-    // Remove leading zeros if the number is not a single digit
-    if (year[0] === '-') {
-        // If the year is negative, preserve the negative sign and remove leading zeros
-        year = '-' + year.slice(1).replace(/^0+/, '');
-    } else if (year.length > 1) {
-        // If the year is positive and has leading zeros, remove them
-        year = year.replace(/^0+/, '');
-    }
-
-    // Construct the formatted date string
-    return year + '-' + month + '-' + day;
-}
-
 function getChineseZodiacYear(year_) {
     let zodiacAnimals = ['鼠 (Rat)', '牛 (Ox)', '虎 (Tiger)', '兔 (Rabbit)', '龍 (Dragon)', '蛇 (Snake)', '馬 (Horse)', '羊 (Goat)', '猴 (Monkey)', '雞 (Rooster)', '狗 (Dog)', '豬 (Pig)'];
     // Adjusting for the start of the Chinese zodiac cycle, handling negative years
