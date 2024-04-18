@@ -32,3 +32,16 @@ function getHexadecimalTime(dayFraction) {
     }
     return "." + hexadecimalFraction;
 }
+
+function getBinaryTime(dayFraction) {
+    // Convert the day fraction to the equivalent binary count
+    let binaryCount = Math.floor(dayFraction * 65536).toString(2);
+    
+    // Pad the binary count with leading zeros if necessary to ensure it has 16 bits
+    while (binaryCount.length < 16) {
+        binaryCount = "0" + binaryCount;
+    }
+    
+    // Return the binary time string
+    return binaryCount;
+}

@@ -43,6 +43,7 @@ function updateDateAndTime() {
     let decimalTime = getRevolutionaryTime(dayFraction);
     let swatchBeats = convertToSwatchBeats(currentDateTime);
     let hexadecimalTime = getHexadecimalTime(dayFraction);
+    let binaryTime = getBinaryTime(dayFraction);
 
 
     // Calendars
@@ -102,6 +103,7 @@ function updateDateAndTime() {
     setTimeValue('revolutionary-time-box', decimalTime);
     setTimeValue('beat-time-box', swatchBeats);
     setTimeValue('hexadecimal-box', hexadecimalTime);
+    setTimeValue('binary-box', binaryTime);
 
     setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('human-era-box', humanEra);

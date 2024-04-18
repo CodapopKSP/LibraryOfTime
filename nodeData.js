@@ -146,7 +146,7 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: 'January 1st, 1972 CE +10 seconds',
         condfidence: 'Exact',
-        description: 'International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth\'s geoid. It is the basis for UTC but deviates by UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.'
+        description: 'International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth\'s geoid. It is the basis for UTC but deviates from UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.'
     },
 
     {
@@ -206,12 +206,12 @@ const decimalTimeData = [
     },
 
     {
-        name: '.beat time (BMT)',
+        name: '.beat (BMT)',
         id: 'beat-time',
         type: 'Decimal Time',
         epoch: 'Midnight (BMT)',
         condfidence: 'Exact',
-        description: '.beat time (also known as Swatch Internet Time) is a timekeeping system developed in 1998 by the Swatch corporation. It divides the day into 1000 equal parts, called .beats and is set to the BMT timezone (UTC +2).'
+        description: '.beat time, also known as Swatch Internet Time, is a timekeeping system developed in 1998 by the Swatch corporation. It divides the day into 1000 equal parts, called .beats, and is set to the BMT timezone (UTC +2).'
     },
 
     {
@@ -220,16 +220,16 @@ const decimalTimeData = [
         type: 'Decimal Time',
         epoch: 'Midnight',
         condfidence: 'Exact',
-        description: 'Hexadecimal time is a simple representation of the current fraction of a day in hexadecimal. Midnight starts at .0000 and the moment just before midnight is .FFFF.'
+        description: 'Hexadecimal time is a simple representation of the current fraction of a day in hexadecimal. Midnight starts at .0000 and the moment just before midnight is .FFFF. The smallest unit of resolution is 675/512 seconds, or about 1.318 seconds.'
     },
 
     {
-        name: 'Binary',
+        name: 'Binary (16 bit)',
         id: 'binary',
         type: 'Decimal Time',
-        epoch: '',
+        epoch: 'Midnight',
         condfidence: 'Exact',
-        description: ''
+        description: 'Binary time is the binary representation of the day divided into 2^16 (65,536) equal parts, with all 0s being midnight and a 1 followed by 15 zeros being exactly half the day (noon). The smallest unit of resolution is 675/512 seconds, or about 1.318 seconds.'
     },
 ]
 
@@ -258,16 +258,16 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 10000 BCE',
         condfidence: 'Exact',
-        description: ''
+        description: 'The Human Era, also known as the Holocene Era, is the calendar representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements. It was proposed by Cesare Emiliani in 1993 CE.'
     },
 
     {
         name: 'Minguo',
         id: 'minguo',
         type: 'Solar Calendar',
-        epoch: 'January 1st, 1911 CE',
+        epoch: 'January 1st, 1912 CE',
         condfidence: 'Exact',
-        description: ''
+        description: 'The Minguo calendar, also known as the Republic of China calendar, is a calendar used in Taiwan and its territories. Dates are translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912. For its months and days, it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
     },
 
     {
