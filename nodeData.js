@@ -144,18 +144,18 @@ const computingTimeData = [
         name: 'TAI',
         id: 'tai',
         type: 'Computing Time',
-        epoch: '',
+        epoch: 'January 1st, 1972 CE +10 seconds',
         condfidence: 'Exact',
-        description: ''
+        description: 'International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth\'s geoid. It is the basis for UTC but deviates by UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.'
     },
 
     {
         name: 'LORAN-C',
         id: 'loran-c',
         type: 'Computing Time',
-        epoch: '',
+        epoch: 'January 1st, 1958 CE',
         condfidence: 'Exact',
-        description: ''
+        description: 'Long Range Navigational time was the standard used by the US and other jurisdictions prior to the creation of GPS. It deviates from UTC by the number of leap seconds since 1972 and doesn\'t include the 10 extra leap seconds in TAI.'
     },
 
     {
@@ -168,12 +168,12 @@ const computingTimeData = [
     },
 
     {
-        name: 'Julian Day',
+        name: 'Julian Day Number',
         id: 'julian-day-number',
         type: 'Computing Time',
-        epoch: '',
+        epoch: 'Noon, November 24, 4713 BCE',
         condfidence: 'Exact',
-        description: ''
+        description: 'The Julian Day Number is a simple count of number of days since 12:00 (noon) on November 24, 4713 BCE (or 4714 BCE when not using astronomical dates). The JDN is used by astronomers and programmers to simplify calculations for the passage of time, and many of the calculations in this calendar are based off of the JDN.'
     },
 
     {
@@ -182,7 +182,16 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: 'January 1st, 1 CE',
         condfidence: 'Exact',
-        description: ''
+        description: 'Rata Die is similar to the Julian Day Number and is a simple count of number of days in the Gregorian Calendar since January 1st, 1 CE.'
+    },
+
+    {
+        name: 'Julian Period',
+        id: 'julian-period',
+        type: 'Computing Time',
+        epoch: '4712 BCE',
+        condfidence: 'High',
+        description: 'The Julian Period is a cycle of 7980 years beginning in the year 4712 BCE (or 4713 BCE when not using astronomical dates). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect. Confidence is listed as high due to confusion regarding the exact epoch.'
     },
 ]
 
@@ -191,27 +200,27 @@ const decimalTimeData = [
         name: 'Revolutionary Time',
         id: 'revolutionary-time',
         type: 'Decimal Time',
-        epoch: '',
+        epoch: 'Midnight',
         condfidence: 'Exact',
-        description: ''
+        description: 'Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day by 10 hours, each hour by 100 minutes, and each minute by 100 seconds.'
     },
 
     {
-        name: '.beat Time (BMT)',
+        name: '.beat time (BMT)',
         id: 'beat-time',
         type: 'Decimal Time',
-        epoch: '',
+        epoch: 'Midnight (BMT)',
         condfidence: 'Exact',
-        description: ''
+        description: '.beat time (also known as Swatch Internet Time) is a timekeeping system developed in 1998 by the Swatch corporation. It divides the day into 1000 equal parts, called .beats and is set to the BMT timezone (UTC +2).'
     },
 
     {
         name: 'Hexadecimal',
         id: 'hexadecimal',
         type: 'Decimal Time',
-        epoch: '',
+        epoch: 'Midnight',
         condfidence: 'Exact',
-        description: ''
+        description: 'Hexadecimal time is a simple representation of the current fraction of a day in hexadecimal. Midnight starts at .0000 and the moment just before midnight is .FFFF.'
     },
 
     {

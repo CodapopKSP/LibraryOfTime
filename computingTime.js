@@ -4,6 +4,9 @@
 
 // A set of functions for calculating times in the Computing Time category.
 
+// This is a manual count of the total number of leap seconds. Last updated 4/18/2024.
+const leapSeconds = 27;
+
 function getUnixTime(currentDateTime) {
     return Math.floor(currentDateTime.getTime()/1000);
 }
@@ -15,7 +18,7 @@ function getCurrentFiletime(currentDateTime) {
 }
 
 function getGPSTime(currentDateTime) {
-    let gpsTime = Math.floor((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000)+19;
+    let gpsTime = Math.floor((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000) + leapSeconds - 8;
     return gpsTime;
 }
 
@@ -54,7 +57,7 @@ function getRataDie(currentDateTime) {
 
 function getTAI(currentDateTime) {
     var taiDateTime = new Date(currentDateTime);
-    taiDateTime.setSeconds(taiDateTime.getSeconds() + 37);
+    taiDateTime.setSeconds(taiDateTime.getSeconds() + 10 + leapSeconds);
     return taiDateTime;
 }
 
@@ -64,5 +67,9 @@ function getLORANC(currentDateTime) {
     return taiDateTime;
 }
 
+function getJulianPeriod(currentDateTime) {
+    let JP = currentDateTime.getFullYear() + 4713;
+    return JP;
+}
 
 //http://www.leapsecond.com/java/gpsclock.htm

@@ -37,10 +37,12 @@ function updateDateAndTime() {
     let rataDie = getRataDie(currentDateTime);
     let TAI = getTAI(currentDateTime);
     let LORANC = getLORANC(currentDateTime);
+    let julianPeriod = getJulianPeriod(currentDateTime);
 
     // Decimal Time
     let decimalTime = getRevolutionaryTime(dayFraction);
     let swatchBeats = convertToSwatchBeats(currentDateTime);
+    let hexadecimalTime = getHexadecimalTime(dayFraction);
 
 
     // Calendars
@@ -92,12 +94,14 @@ function updateDateAndTime() {
     setTimeValue('iso8601-box', iso8601Value);
     setTimeValue('gps-box', gpsValue);
     setTimeValue('julian-day-number-box', julianDay);
+    setTimeValue('julian-period-box', julianPeriod);
     setTimeValue('rata-die-box', rataDie);
     setTimeValue('tai-box', TAI.toISOString().slice(0, -5));
     setTimeValue('loran-c-box', LORANC.toISOString().slice(0, -5));
 
     setTimeValue('revolutionary-time-box', decimalTime);
     setTimeValue('beat-time-box', swatchBeats);
+    setTimeValue('hexadecimal-box', hexadecimalTime);
 
     setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('human-era-box', humanEra);
