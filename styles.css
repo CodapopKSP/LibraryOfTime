@@ -23,7 +23,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: large;
-    margin-left: 5vw;
+    margin-left: 2vw;
     margin-top: 5vw;
     border-width: 0.25vh;
     width: 11vw;
@@ -60,6 +60,11 @@ body {
     color: #e4c4ffff;
 }
 
+.astronomical-data {
+    background-color: rgb(54, 50, 50);
+    color: rgb(252, 255, 196);
+}
+
 .box {
     margin: 0.5vh;
     width: 10vw;
@@ -89,6 +94,10 @@ body {
 
 .lunar-calendars > .box > .content {
     border: 0.2vh solid #7c6a98;
+}
+
+.astronomical-data > .box > .content {
+    border: 0.2vh solid #6a9698;
 }
 
 .content {

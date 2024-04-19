@@ -249,7 +249,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 3rd, 1 CE',
         condfidence: 'High',
-        description: 'The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date. It features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. The Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar. It is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections. The exact date of leap days might not be exactly aligned with the Gregorian calendar here, but they are accurate to the year.'
+        description: 'The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date. It features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. The Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar. It is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections. The date of leap days might not be exactly aligned with the Gregorian calendar here, but they are accurate to the year.'
     },
 
     {
@@ -362,5 +362,79 @@ const lunarCalendarsData = [
         epoch: '',
         condfidence: '',
         description: ''
+    },
+]
+
+const astronomicalData = [
+    {
+        name: 'Last Spring Equinox',
+        id: 'last-spring-equinox',
+        type: 'Astronomical Data',
+        epoch: 'Spring Equinox',
+        condfidence: 'High',
+        description: 'This is the approximate date and time of the most recent spring equinox.'
+    },
+
+    {
+        name: 'Next Spring Equinox',
+        id: 'next-spring-equinox',
+        type: 'Astronomical Data',
+        epoch: 'Spring Equinox',
+        condfidence: 'High',
+        description: 'This is the approximate date and time of the next spring equinox.'
+    },
+    
+    {
+        name: 'Last Summer Solstice',
+        id: 'last-summer-solstice',
+        type: 'Astronomical Data',
+        epoch: 'Summer Solstice',
+        condfidence: 'High',
+        description: 'This is the approximate date and time of the most recent summer solstice.'
+    },
+
+    {
+        name: 'Next Summer Solstice',
+        id: 'next-summer-solstice',
+        type: 'Astronomical Data',
+        epoch: 'Summer Solstice',
+        condfidence: 'High',
+        description: 'This is the approximate date and time of the next summer solstice.'
+    },
+
+    {
+        name: 'Last Autumn Equinox',
+        id: 'last-autumn-equinox',
+        type: 'Astronomical Data',
+        epoch: 'Autumn Equinox',
+        condfidence: 'High',
+        description: 'This is the approximate date and time of the most recent autumn equinox.'
+    },
+
+    {
+        name: 'Next Autumn Equinox',
+        id: 'next-autumn-equinox',
+        type: 'Astronomical Data',
+        epoch: 'Autumn Equinox',
+        condfidence: 'High',
+        description: 'This is the approximate date and time of the next autumn equinox.'
+    },
+
+    {
+        name: 'Last Winter Solstice',
+        id: 'last-winter-solstice',
+        type: 'Astronomical Data',
+        epoch: 'Winter Solstice',
+        condfidence: 'High',
+        description: 'This is the approximate date and time of the most recent winter solstice.'
+    },
+
+    {
+        name: 'Next Winter Solstice',
+        id: 'next-winter-solstice',
+        type: 'Astronomical Data',
+        epoch: 'Winter Solstice',
+        condfidence: 'High',
+        description: 'This is the approximate date and time of the next winter solstice.'
     },
 ]

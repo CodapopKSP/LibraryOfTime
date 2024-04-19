@@ -1,8 +1,8 @@
-//|------------------------|
-//|     Computing Time     |
-//|------------------------|
+//|-------------------------|
+//|     Solar Calendars     |
+//|-------------------------|
 
-// A set of functions for calculating times in the Computing Time category.
+// A set of functions for calculating dates in the Solar Calendars category.
 
 function getHumanEra(currentDateTime) {
     let day = currentDateTime.getDate();
