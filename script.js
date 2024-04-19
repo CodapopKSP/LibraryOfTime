@@ -162,13 +162,33 @@ function createBox(item) {
     // Create a popup tooltip for the description
     const description = document.createElement('div');
     description.id = item.id + '-tooltip';
-    description.textContent = item.description;
     description.classList.add('tooltip');
 
-    // Append the label and content to the box
+    const titleElement = document.createElement('div');
+    titleElement.textContent = `${item.name}`;
+    titleElement.classList.add('tooltip-title');
+    description.appendChild(titleElement);
+
+    const epochElement = document.createElement('div');
+    epochElement.textContent = `Epoch: ${item.epoch}`;
+    epochElement.classList.add('tooltip-epoch');
+    description.appendChild(epochElement);
+
+    const confidenceElement = document.createElement('div');
+    confidenceElement.textContent = `Confidence: ${item.confidence}`;
+    confidenceElement.classList.add('tooltip-confidence');
+    description.appendChild(confidenceElement);
+
+    const valueElement = document.createElement('div');
+    valueElement.textContent = `${item.description}`;
+    valueElement.classList.add('tooltip-description');
+    description.appendChild(valueElement);
+
+    // Append the label, content, and description to the box
     box.appendChild(label);
     box.appendChild(content);
     box.appendChild(description);
+
 
     if (item.type === 'Solar Calendar') {
         solarCalendars.appendChild(box);

@@ -49,3 +49,6 @@ function getSexagenaryYear(year_) {
     
     return heavenlyStem + earthlyBranch + ' (' + heavenlyStemEnglish + earthlyBrancheEnglish + ')';
 }
+
+
+//https://ytliu0.github.io/ChineseCalendar/examples.html

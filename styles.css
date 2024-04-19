@@ -123,7 +123,7 @@ body {
     border: 0.4vh solid #000000;
     position: absolute;
     z-index: 1;
-    width: 20vh;
+    width: 23vh;
     top: 25%;
     left: 50%;
     font-size: 1.5vh;
@@ -131,4 +131,32 @@ body {
 
 .box:hover .tooltip {
     visibility: visible;
+}
+
+.tooltip-title {
+    font-size: 2vh;
+    font-weight: bold;
+    padding: 0.5vh;
+    color: white;
+    border-bottom: 0.4vh solid #000000;
+    background-color: #363636;
+}
+
+.tooltip-description {
+    text-align: left;
+    padding: 1vh;
+}
+
+.tooltip-epoch {
+    text-align: left;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+.tooltip-confidence {
+    text-align: left;
+    padding-left: 1vh;
+    padding-right: 1vh;
 }
