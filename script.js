@@ -3,7 +3,7 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    let currentDateTime = new Date(2001, 0, 1);
+    let currentDateTime = new Date();
     //let currentDateTime = new Date(inputDate);
     //currentDateTime.setFullYear(-10000);
 
