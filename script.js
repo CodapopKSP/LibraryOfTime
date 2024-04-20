@@ -5,13 +5,13 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    let currentDateTime = new Date();
-    /*
-    let currentDateTime = new Date(Date.UTC(1962, 5, 21, 21, 25, 8));
+    //let currentDateTime = new Date();
+    
+    let currentDateTime = new Date(Date.UTC(2024, 5, 20, 20, 51, 0));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
-    */
+    
     //currentDateTime.setFullYear(2);
 
     // Get basic info about the date and time
@@ -56,8 +56,7 @@ function updateDateAndTime() {
     let TAI = getTAI(currentDateTime).toISOString().slice(0, -5);
     let LORANC = getLORANC(currentDateTime).toISOString().slice(0, -5);
     let julianPeriod = getJulianPeriod(currentDateTime);
-    let dynamicalTime = getDynamicalTime(currentDateTime);
-    let calculation = getSolEqT(currentDateTime);
+    let dynamicalTime = getDynamicalTimeForward(currentDateTime);
     setTimeValue('unix-box', currentUnixDateTime);
     setTimeValue('filetime-box', filetimeValue);
     setTimeValue('iso8601-box', iso8601Value);
@@ -68,7 +67,6 @@ function updateDateAndTime() {
     setTimeValue('tai-box', TAI);
     setTimeValue('loran-c-box', LORANC);
     setTimeValue('dynamical-time-box', dynamicalTime);
-    setTimeValue('calculating-box-box', calculation);
 
     // Decimal Time
     let decimalTime = getRevolutionaryTime(dayFraction);
@@ -105,22 +103,14 @@ function updateDateAndTime() {
     setTimeValue('vietnamese-zodiac-box', vietnameseZodiacYear);
 
     // Astronomical Data
-    let lastSummerSolstice = getLastSummerSolstice(currentDateTime);
-    let nextSummerSolstice = getNextSummerSolstice(lastSummerSolstice);
-    let lastWinterSolstice = getLastWinterSolstice(currentDateTime);
-    let nextWinterSolstice = getNextWinterSolstice(lastWinterSolstice);
-    let lastSpringEquinox = getLastSpringEquinox(currentDateTime);
-    let nextSpringEquinox = getNextSpringEquinox(lastSpringEquinox);
-    let lastAutumnEquinox = getLastAutumnEquinox(currentDateTime);
-    let nextAutumnEquinox = getNextAutumnEquinox(lastAutumnEquinox);
-    setTimeValue('last-summer-solstice-box', lastSummerSolstice.toUTCString());
-    setTimeValue('next-summer-solstice-box', nextSummerSolstice.toUTCString());
-    setTimeValue('last-winter-solstice-box', lastWinterSolstice.toUTCString());
-    setTimeValue('next-winter-solstice-box', nextWinterSolstice.toUTCString());
-    setTimeValue('last-spring-equinox-box', lastSpringEquinox.toUTCString());
-    setTimeValue('next-spring-equinox-box', nextSpringEquinox.toUTCString());
-    setTimeValue('last-autumn-equinox-box', lastAutumnEquinox.toUTCString());
-    setTimeValue('next-autumn-equinox-box', nextAutumnEquinox.toUTCString());
+    let springEquinox = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'spring');
+    let summerSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'summer');
+    let autumnEquinox = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'autumn');
+    let winterSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'winter');
+    setTimeValue('spring-equinox-box', springEquinox);
+    setTimeValue('summer-solstice-box', summerSolstice);
+    setTimeValue('autumn-equinox-box', autumnEquinox);
+    setTimeValue('winter-solstice-box', winterSolstice);
 }
 
 function createElements() {

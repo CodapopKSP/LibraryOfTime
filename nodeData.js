@@ -202,15 +202,6 @@ const computingTimeData = [
         confidence: 'Medium',
         description: 'Dynamical Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
     },
-
-    {
-        name: 'Calculating Box',
-        id: 'calculating-box',
-        type: 'Computing Time',
-        epoch: '',
-        confidence: '',
-        description: ''
-    },
 ]
 
 const decimalTimeData = [
@@ -385,74 +376,38 @@ const lunarCalendarsData = [
 
 const astronomicalData = [
     {
-        name: 'Last Spring Equinox',
-        id: 'last-spring-equinox',
+        name: 'Spring Equinox',
+        id: 'spring-equinox',
         type: 'Astronomical Data',
         epoch: 'Spring Equinox',
         confidence: 'High',
-        description: 'This is the approximate date and time of the most recent spring equinox.'
-    },
-
-    {
-        name: 'Next Spring Equinox',
-        id: 'next-spring-equinox',
-        type: 'Astronomical Data',
-        epoch: 'Spring Equinox',
-        confidence: 'High',
-        description: 'This is the approximate date and time of the next spring equinox.'
+        description: 'This is the approximate date and time of this year\'s spring equinox.'
     },
     
     {
-        name: 'Last Summer Solstice',
-        id: 'last-summer-solstice',
+        name: 'Summer Solstice',
+        id: 'summer-solstice',
         type: 'Astronomical Data',
         epoch: 'Summer Solstice',
         confidence: 'High',
-        description: 'This is the approximate date and time of the most recent summer solstice.'
+        description: 'This is the approximate date and time of this year\'s summer solstice.'
     },
 
     {
-        name: 'Next Summer Solstice',
-        id: 'next-summer-solstice',
-        type: 'Astronomical Data',
-        epoch: 'Summer Solstice',
-        confidence: 'High',
-        description: 'This is the approximate date and time of the next summer solstice.'
-    },
-
-    {
-        name: 'Last Autumn Equinox',
-        id: 'last-autumn-equinox',
+        name: 'Autumn Equinox',
+        id: 'autumn-equinox',
         type: 'Astronomical Data',
         epoch: 'Autumn Equinox',
         confidence: 'High',
-        description: 'This is the approximate date and time of the most recent autumn equinox.'
+        description: 'This is the approximate date and time of this year\'s autumn equinox.'
     },
 
     {
-        name: 'Next Autumn Equinox',
-        id: 'next-autumn-equinox',
-        type: 'Astronomical Data',
-        epoch: 'Autumn Equinox',
-        confidence: 'High',
-        description: 'This is the approximate date and time of the next autumn equinox.'
-    },
-
-    {
-        name: 'Last Winter Solstice',
-        id: 'last-winter-solstice',
+        name: 'Winter Solstice',
+        id: 'winter-solstice',
         type: 'Astronomical Data',
         epoch: 'Winter Solstice',
         confidence: 'High',
-        description: 'This is the approximate date and time of the most recent winter solstice.'
-    },
-
-    {
-        name: 'Next Winter Solstice',
-        id: 'next-winter-solstice',
-        type: 'Astronomical Data',
-        epoch: 'Winter Solstice',
-        confidence: 'High',
-        description: 'This is the approximate date and time of the next winter solstice.'
+        description: 'This is the approximate date and time of this year\'s winter solstice.'
     },
 ]
