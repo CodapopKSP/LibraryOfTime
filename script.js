@@ -1,11 +1,18 @@
 //https://www.fourmilab.ch/documents/calendar/
+//https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up
+//http://www.leapsecond.com/java/gpsclock.htm
 
 const decimals = 10;
 
 function updateDateAndTime() {
-    let currentDateTime = new Date();
-    //let currentDateTime = new Date(inputDate);
-    //currentDateTime.setFullYear(-10000);
+    //let currentDateTime = new Date(1850, 0, 1);
+    
+    let currentDateTime = new Date(Date.UTC(1880, 0, 1, 0, 0, 0));
+    let currentTimeZone = currentDateTime.getTimezoneOffset();
+    let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
+    currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
+    
+    //currentDateTime.setFullYear(2);
 
     // Get basic info about the date and time
     day = currentDateTime.getDate();
@@ -49,6 +56,7 @@ function updateDateAndTime() {
     let TAI = getTAI(currentDateTime).toISOString().slice(0, -5);
     let LORANC = getLORANC(currentDateTime).toISOString().slice(0, -5);
     let julianPeriod = getJulianPeriod(currentDateTime);
+    let dynamicalTime = getDynamicalTime(currentDateTime);
     setTimeValue('unix-box', currentUnixDateTime);
     setTimeValue('filetime-box', filetimeValue);
     setTimeValue('iso8601-box', iso8601Value);
@@ -58,6 +66,7 @@ function updateDateAndTime() {
     setTimeValue('rata-die-box', rataDie);
     setTimeValue('tai-box', TAI);
     setTimeValue('loran-c-box', LORANC);
+    setTimeValue('dynamical-time-box', dynamicalTime);
 
     // Decimal Time
     let decimalTime = getRevolutionaryTime(dayFraction);

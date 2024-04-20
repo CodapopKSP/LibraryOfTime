@@ -12,64 +12,78 @@ function getUnixTime(currentDateTime) {
 }
 
 function getCurrentFiletime(currentDateTime) {
-    let jan1601 = new Date(Date.UTC(1601, 0, 1));
-    let filetime = Math.floor((currentDateTime.getTime() - jan1601.getTime())/1000) * 10000000;
+    const jan1601 = new Date(Date.UTC(1601, 0, 1));
+    const filetime = Math.floor((currentDateTime.getTime() - jan1601.getTime())/1000) * 10000000;
     return filetime;
 }
 
 function getGPSTime(currentDateTime) {
-    let gpsTime = Math.floor((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000) + leapSeconds - 8;
+    const gpsTime = Math.floor((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000) + leapSeconds - 8;
     return gpsTime;
 }
 
 function getJulianDayNumber(currentDateTime) {
-    var day = currentDateTime.getUTCDate();
-    var month = currentDateTime.getUTCMonth() + 1;
-    var year = currentDateTime.getUTCFullYear();
-    var hour = currentDateTime.getUTCHours();
-    var minute = currentDateTime.getUTCMinutes();
-    var second = currentDateTime.getUTCSeconds();
-    var millisecond = currentDateTime.getUTCMilliseconds();
-    
+    const day = currentDateTime.getUTCDate();
+    let month = currentDateTime.getUTCMonth() + 1;
+    let year = currentDateTime.getUTCFullYear();
+    const hour = currentDateTime.getUTCHours();
+    const minute = currentDateTime.getUTCMinutes();
+    const second = currentDateTime.getUTCSeconds();
+    const millisecond = currentDateTime.getUTCMilliseconds();
     if (month < 3) {
         year -= 1;
         month += 12;
     }
     
-    var A = Math.floor(year / 100);
-    var B = Math.floor(A / 4);
-    var C = 2 - A + B;
-    var E = Math.floor(365.25 * (year + 4716));
-    var F = Math.floor(30.6001 * (month + 1));
+    const A = Math.floor(year / 100);
+    const B = Math.floor(A / 4);
+    const C = 2 - A + B;
+    const E = Math.floor(365.25 * (year + 4716));
+    const F = Math.floor(30.6001 * (month + 1));
     var JD = C + day + E + F - 1524.5;
 
     JD += (hour + (minute / 60) + (second / 3600) + (millisecond / 3600000)) / 24;
     JD = parseFloat(JD.toFixed(7));
-    
     return JD;
 }
 
 function getRataDie(currentDateTime) {
-    let JD = getJulianDayNumber(currentDateTime);
-    let RD = Math.floor(JD - 1721424.5);
+    const JD = getJulianDayNumber(currentDateTime);
+    const RD = Math.floor(JD - 1721424.5);
     return RD;
 }
 
 function getTAI(currentDateTime) {
-    var taiDateTime = new Date(currentDateTime);
+    let taiDateTime = new Date(currentDateTime);
     taiDateTime.setSeconds(taiDateTime.getSeconds() + 10 + leapSeconds);
     return taiDateTime;
 }
 
 function getLORANC(currentDateTime) {
-    var taiDateTime = getTAI(currentDateTime);
+    let taiDateTime = getTAI(currentDateTime);
     taiDateTime.setSeconds(taiDateTime.getSeconds() - 10);
     return taiDateTime;
 }
 
 function getJulianPeriod(currentDateTime) {
-    let JP = currentDateTime.getFullYear() + 4713;
+    const JP = currentDateTime.getUTCFullYear() + 4713;
     return JP;
 }
 
-//http://www.leapsecond.com/java/gpsclock.htm
+function getDynamicalTime(currentDateTime) {
+    let year = currentDateTime.getUTCFullYear();
+    const fractionOfCurrentYear = calculateYear(currentDateTime);
+    year = year + fractionOfCurrentYear;
+    const T = (year-2000)/100;
+    let secondsAhead = 0;
+    if (year < 949) {
+        secondsAhead = 2415.6 + (573.36*T) + (46.5*T**2);
+    } else if (year < 1601) {
+        secondsAhead = 50.6 + (67.5*T) + (22.5*T**2);
+    } else {
+        secondsAhead = 102.3 + (123.5*T) + (32.5*T**2);
+    }
+    let dynamicalTimestamp = currentDateTime.getTime() + (secondsAhead*1000);
+    let dynamicalDateTime = new Date(dynamicalTimestamp);
+    return dynamicalDateTime.toUTCString();
+}

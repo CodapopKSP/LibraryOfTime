@@ -193,6 +193,15 @@ const computingTimeData = [
         confidence: 'High',
         description: 'The Julian Period is a cycle of 7980 years beginning in the year 4712 BCE (or 4713 BCE when not using astronomical dates). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect. Confidence is listed as high due to confusion regarding the exact epoch.'
     },
+
+    {
+        name: 'Dynamical Time',
+        id: 'dynamical-time',
+        type: 'Computing Time',
+        epoch: '',
+        confidence: 'Medium',
+        description: 'Dynamical Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
+    },
 ]
 
 const decimalTimeData = [
