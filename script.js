@@ -5,13 +5,13 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    //let currentDateTime = new Date();
-    
+    let currentDateTime = new Date();
+    /*
     let currentDateTime = new Date(Date.UTC(2024, 5, 20, 20, 51, 0));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
-    
+    */
     //currentDateTime.setFullYear(2);
 
     // Get basic info about the date and time
