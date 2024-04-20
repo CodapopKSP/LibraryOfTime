@@ -5,13 +5,13 @@
 const decimals = 10;
 
 function updateDateAndTime() {
-    //let currentDateTime = new Date(1850, 0, 1);
-    
-    let currentDateTime = new Date(Date.UTC(1880, 0, 1, 0, 0, 0));
+    let currentDateTime = new Date();
+    /*
+    let currentDateTime = new Date(Date.UTC(1962, 5, 21, 21, 25, 8));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
-    
+    */
     //currentDateTime.setFullYear(2);
 
     // Get basic info about the date and time
@@ -57,6 +57,7 @@ function updateDateAndTime() {
     let LORANC = getLORANC(currentDateTime).toISOString().slice(0, -5);
     let julianPeriod = getJulianPeriod(currentDateTime);
     let dynamicalTime = getDynamicalTime(currentDateTime);
+    let calculation = getSolEqT(currentDateTime);
     setTimeValue('unix-box', currentUnixDateTime);
     setTimeValue('filetime-box', filetimeValue);
     setTimeValue('iso8601-box', iso8601Value);
@@ -67,6 +68,7 @@ function updateDateAndTime() {
     setTimeValue('tai-box', TAI);
     setTimeValue('loran-c-box', LORANC);
     setTimeValue('dynamical-time-box', dynamicalTime);
+    setTimeValue('calculating-box-box', calculation);
 
     // Decimal Time
     let decimalTime = getRevolutionaryTime(dayFraction);
