@@ -3,11 +3,12 @@
 //http://www.leapsecond.com/java/gpsclock.htm
 
 const decimals = 10;
+document.addEventListener('mousemove', updateTooltipPosition);
 
 function updateDateAndTime() {
     let currentDateTime = new Date();
     /*
-    let currentDateTime = new Date(Date.UTC(2024, 5, 20, 20, 51, 0));
+    let currentDateTime = new Date(Date.UTC(1945, 5, 20, 20, 51, 0));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
@@ -190,7 +191,6 @@ function createBox(item) {
     box.appendChild(content);
     box.appendChild(description);
 
-
     if (item.type === 'Solar Calendar') {
         solarCalendars.appendChild(box);
     } else if (item.type === 'Computing Time') {
@@ -219,4 +219,25 @@ updateDateAndTime();
 
 function setTimeValue(type, value) {
     document.getElementById(type).textContent = value;
+}
+
+function updateTooltipPosition(event) {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const tooltips = document.querySelectorAll('.tooltip');
+
+    tooltips.forEach(tooltip => {
+        if (mouseX > screenWidth / 2) {
+            tooltip.style.left = '-100%';
+        } else {
+            tooltip.style.left = '50%';
+        }
+        if (mouseY < screenHeight / 2) {
+            tooltip.style.top = '25%';
+        } else {
+            tooltip.style.top = '-200%';
+        }
+    });
 }

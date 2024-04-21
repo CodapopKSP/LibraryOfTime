@@ -381,7 +381,7 @@ const astronomicalData = [
         type: 'Astronomical Data',
         epoch: 'Spring Equinox',
         confidence: 'High',
-        description: 'This is the approximate date and time of this year\'s spring equinox.'
+        description: 'This is the approximate date and time of this year\'s spring equinox. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
     },
     
     {
@@ -390,7 +390,7 @@ const astronomicalData = [
         type: 'Astronomical Data',
         epoch: 'Summer Solstice',
         confidence: 'High',
-        description: 'This is the approximate date and time of this year\'s summer solstice.'
+        description: 'This is the approximate date and time of this year\'s summer solstice. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
     },
 
     {
@@ -399,7 +399,7 @@ const astronomicalData = [
         type: 'Astronomical Data',
         epoch: 'Autumn Equinox',
         confidence: 'High',
-        description: 'This is the approximate date and time of this year\'s autumn equinox.'
+        description: 'This is the approximate date and time of this year\'s autumn equinox. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
     },
 
     {
@@ -408,6 +408,6 @@ const astronomicalData = [
         type: 'Astronomical Data',
         epoch: 'Winter Solstice',
         confidence: 'High',
-        description: 'This is the approximate date and time of this year\'s winter solstice.'
+        description: 'This is the approximate date and time of this year\'s winter solstice. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
     },
 ]

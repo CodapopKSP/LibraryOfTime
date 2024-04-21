@@ -4,14 +4,6 @@
 
 // A set of functions for calculating data in the Astronomical Data category.
 
-function getJDE(currentDateTime) {
-    const secondsAhead = getDynamicalTimeOffset(currentDateTime);
-    const JDN = getJulianDayNumber(currentDateTime);
-    const JDESeconds = JDN*24*60*60 + secondsAhead;
-    const JDE = JDESeconds/24/60/60;
-    return JDE;
-}
-
 function getCurrentSolsticeOrEquinoxJDE(currentDateTime, season) {
     const year = currentDateTime.getUTCFullYear();
     if (year > 999) {

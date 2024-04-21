@@ -10,6 +10,7 @@ body {
 
 .page-wrapper {
     background-color: rgb(47, 47, 47);
+    /*background-color: rgb(129, 131, 119);*/
     height: 100vh;
     width: 100vw;
     overflow: hidden;
