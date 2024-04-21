@@ -8,7 +8,7 @@ document.addEventListener('mousemove', updateTooltipPosition);
 function updateDateAndTime() {
     let currentDateTime = new Date();
     /*
-    let currentDateTime = new Date(Date.UTC(1945, 5, 20, 20, 51, 0));
+    let currentDateTime = new Date(Date.UTC(2020, 5, 15, 9, 19, 0));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
@@ -108,10 +108,14 @@ function updateDateAndTime() {
     let summerSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'summer');
     let autumnEquinox = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'autumn');
     let winterSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'winter');
+    let sunLongitude = getLongitudeOfSun(currentDateTime);
+    let nextNewMoon = getPhaseOfMoon(currentDateTime);
     setTimeValue('spring-equinox-box', springEquinox);
     setTimeValue('summer-solstice-box', summerSolstice);
     setTimeValue('autumn-equinox-box', autumnEquinox);
     setTimeValue('winter-solstice-box', winterSolstice);
+    setTimeValue('sun-longitude-box', sunLongitude);
+    setTimeValue('this-new-moon-box', nextNewMoon);
 }
 
 function createElements() {
@@ -166,6 +170,7 @@ function createBox(item) {
     description.id = item.id + '-tooltip';
     description.classList.add('tooltip');
 
+    // Add tooltip elements
     const titleElement = document.createElement('div');
     titleElement.textContent = `${item.name}`;
     titleElement.classList.add('tooltip-title');
@@ -181,10 +186,10 @@ function createBox(item) {
     confidenceElement.classList.add('tooltip-confidence');
     description.appendChild(confidenceElement);
 
-    const valueElement = document.createElement('div');
-    valueElement.textContent = `${item.description}`;
-    valueElement.classList.add('tooltip-description');
-    description.appendChild(valueElement);
+    const descriptionElement = document.createElement('div');
+    descriptionElement.textContent = `${item.description}`;
+    descriptionElement.classList.add('tooltip-description');
+    description.appendChild(descriptionElement);
 
     // Append the label, content, and description to the box
     box.appendChild(label);

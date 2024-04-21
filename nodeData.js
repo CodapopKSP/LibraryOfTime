@@ -410,4 +410,22 @@ const astronomicalData = [
         confidence: 'High',
         description: 'This is the approximate date and time of this year\'s winter solstice. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
     },
+
+    {
+        name: 'Longitude of the Sun',
+        id: 'sun-longitude',
+        type: 'Astronomical Data',
+        epoch: 'Spring Equinox',
+        confidence: 'High',
+        description: 'This is the approximate longitude of the sun, the distance in degrees the Earth has traveled since the last Spring Equinox. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
+    },
+
+    {
+        name: 'This Month\'s New Moon',
+        id: 'this-new-moon',
+        type: 'Astronomical Data',
+        epoch: 'New Moon',
+        confidence: 'High',
+        description: 'This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
+    },
 ]
