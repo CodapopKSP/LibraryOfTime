@@ -8,7 +8,7 @@ document.addEventListener('mousemove', updateTooltipPosition);
 function updateDateAndTime() {
     let currentDateTime = new Date();
     /*
-    let currentDateTime = new Date(Date.UTC(2024, 3, 8, 21, 19, 0));
+    let currentDateTime = new Date(Date.UTC(1900, 0, 8, 12, 0, 0));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);

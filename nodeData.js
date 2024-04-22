@@ -365,7 +365,7 @@ const lunisolarCalendarsData = [
 
 const lunarCalendarsData = [
     {
-        name: 'Islamic',
+        name: 'Hijri',
         id: 'hijri',
         type: 'Lunar Calendar',
         epoch: '',
