@@ -16,6 +16,7 @@ function calculateMinute(currentDateTime) {
     month = currentDateTime.getMonth();
     year = currentDateTime.getFullYear();
     hour = currentDateTime.getHours();
+    minute = currentDateTime.getMinutes();
     let minuteStart = new Date(year, month, day, hour, minute);
     minuteStart.setFullYear(year)
     let nextMinuteStart = new Date(year, month, day, hour, minute + 1);

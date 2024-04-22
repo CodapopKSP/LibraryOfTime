@@ -74,14 +74,14 @@ function getDynamicalTimeForward(currentDateTime) {
     let secondsAhead = getDynamicalTimeOffset(currentDateTime);
     const dynamicalTimestamp = currentDateTime.getTime() + (secondsAhead*1000);
     const dynamicalDateTime = new Date(dynamicalTimestamp);
-    return dynamicalDateTime.toUTCString();
+    return dynamicalDateTime.toISOString();
 }
 
 function getDynamicalTimeBackward(currentDateTime) {
     let secondsAhead = getDynamicalTimeOffset(currentDateTime);
     const dynamicalTimestamp = currentDateTime.getTime() - (secondsAhead*1000);
     const dynamicalDateTime = new Date(dynamicalTimestamp);
-    return dynamicalDateTime.toUTCString();
+    return dynamicalDateTime.toISOString();
 }
 
 function getDynamicalTimeOffset(currentDateTime) {

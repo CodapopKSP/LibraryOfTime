@@ -123,15 +123,6 @@ const computingTimeData = [
     },
 
     {
-        name: 'ISO 8601',
-        id: 'iso8601',
-        type: 'Computing Time',
-        epoch: 'January 1st, 1 CE',
-        confidence: 'Exact',
-        description: 'ISO 8601 is the standard of displaying date and time provided by the International Organization for Standardization. It is based off the Gregorian calendar and is thus exactly accurate.'
-    },
-
-    {
         name: 'GPS',
         id: 'gps',
         type: 'Computing Time',
@@ -192,6 +183,15 @@ const computingTimeData = [
         epoch: '4712 BCE',
         confidence: 'High',
         description: 'The Julian Period is a cycle of 7980 years beginning in the year 4712 BCE (or 4713 BCE when not using astronomical dates). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect. Confidence is listed as high due to confusion regarding the exact epoch.'
+    },
+
+    {
+        name: 'ISO 8601',
+        id: 'iso8601',
+        type: 'Computing Time',
+        epoch: 'January 1st, 1 CE',
+        confidence: 'Exact',
+        description: 'ISO 8601 is the standard of displaying date and time provided by the International Organization for Standardization. It is based off the Gregorian calendar and is thus exactly accurate.'
     },
 
     {
@@ -271,6 +271,24 @@ const solarCalendarsData = [
     },
 
     {
+        name: 'French Republican',
+        id: 'french-republican',
+        type: 'Solar Calendar',
+        epoch: 'September 22nd, 1792 CE',
+        confidence: 'High',
+        description: `The French Republican calendar was used during and after the French Revolution from 1793 to 1805 and was a drastic change to the Gregorian calendar. It featured twelve months of 30 days each, broken into 3 weeks of 10 days. The remaining 5 or 6 days of each solar year were the Sansculottides, to be treated as national holidays at the end of the year. The new year started on September 22nd or 23rd of the Gregorian calendar, and years were written in Roman numerals.\n\nMonths:\n  Vendémiaire\n  Brumaire\n  Frimaire\n  Nivôse\n  Pluviôse\n  Ventôse\n  Germinal\n  Floréal\n  Prairial\n  Messidor\n  Thermidor\n  Fructidor\n  Sansculottides`
+    },
+
+    {
+        name: 'Era Fascista',
+        id: 'era-fascista',
+        type: 'Solar Calendar',
+        epoch: 'October 22nd, 1922',
+        confidence: 'High',
+        description: 'Era Fascista is a simple count of number of years since the start of the Fascist Era in Italy on October 22nd, 1922, starting with Anno I. Taking inspiration from the French Republican calendar, years were written in Roman numerals and it was intended to replace the Gregorian calendar.'
+    },
+
+    {
         name: 'Minguo',
         id: 'minguo',
         type: 'Solar Calendar',
@@ -285,7 +303,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 543 BCE',
         confidence: 'High',
-        description: 'The Thai Solar calendar is used in Thailand and is 543 years ahead of the Gregorian calendar. It represents the number of years of the current Buddhist Era, the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.'
+        description: 'The Thai Solar calendar is used in Thailand and is 543 years ahead of the Gregorian calendar. It represents the number of years of the current Buddhist Era (B.E.), the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.'
     },
 
     {
@@ -296,24 +314,6 @@ const solarCalendarsData = [
         confidence: 'Exact',
         description: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
     },
-
-    {
-        name: 'French Republican',
-        id: 'french-republican',
-        type: 'Solar Calendar',
-        epoch: 'September 22nd, 1792 CE',
-        confidence: 'High',
-        description: 'The French Republican calendar was used during and after the French Revolution from 1793 to 1805. It was a drastic change to the Gregorian calendar. It featured twelve months of 30 days each, broken into 3 weeks of 10 days. The remaining 5 or 6 days of each solar year were the Sansculottides, to be treated as national holidays before the new year. The new year started on September 22nd or 23rd of the Gregorian calendar, and years were written in Roman numerals.'
-    },
-
-    {
-        name: 'Era Fascista',
-        id: 'era-fascista',
-        type: 'Solar Calendar',
-        epoch: 'October 22nd, 1922',
-        confidence: 'High',
-        description: 'Era Fascista is a simple count of number of years since the start of the Fascist Era in Italy on October 22nd, 1922, starting with Anno I. Taking inspiration from the French Republican calendar, years were written in Roman numerals and it was intended to replace the Gregorian calendar.'
-    },
 ]
 
 const lunisolarCalendarsData = [
@@ -322,7 +322,7 @@ const lunisolarCalendarsData = [
         id: 'sexagenary-year',
         type: 'Lunisolar Calendar',
         epoch: '',
-        confidence: 'Low',
+        confidence: 'Medium',
         description: ''
     },
 
@@ -331,7 +331,7 @@ const lunisolarCalendarsData = [
         id: 'chinese-zodiac',
         type: 'Lunisolar Calendar',
         epoch: '',
-        confidence: 'High',
+        confidence: 'Medium',
         description: ''
     },
 
@@ -340,7 +340,7 @@ const lunisolarCalendarsData = [
         id: 'vietnamese-zodiac',
         type: 'Lunisolar Calendar',
         epoch: '',
-        confidence: 'High',
+        confidence: 'Medium',
         description: ''
     },
 
@@ -365,12 +365,12 @@ const lunisolarCalendarsData = [
 
 const lunarCalendarsData = [
     {
-        name: 'Hijri',
+        name: 'Hijri (AST)',
         id: 'hijri',
         type: 'Lunar Calendar',
         epoch: 'July 19, 622 CE',
         confidence: 'Medium',
-        description: 'The Hijri calendar is the principal calendar used in Islam, and it is perhaps the only extant true lunar calendar in the world. It features 12 lunar months of 29 or 30 days, with days starting at sunset. Each month starts shortly after the New Moon when it begins to appear as a crescent. Many Muslim nations have their own rules for determining the start of the month, often based on direct observation, and as such their calendar dates may occasionally misalign for a month or two. The algorithm used by this website requires calculating the New Moon and uses 18:00 local time in Mecca for sunset. Its accuracy is dependent on the New Moon calculations and may not reflect historical records.'
+        description: 'The Hijri calendar is the principal calendar used in Islam, and it is perhaps the only extant true lunar calendar in the world. It features 12 lunar months of 29 or 30 days, with days starting at sunset, for a total of 355 or 356 days per year, causing it to be out of sync with solar calendars. Each month starts shortly after the New Moon when it begins to appear as a crescent. Many Muslim nations have their own rules for determining the start of the month, often based on direct observation, and as such their calendar dates may occasionally misalign for a month or two. The algorithm used by this website requires calculating the New Moon and uses 18:00 local time in Mecca for sunset. Its accuracy is dependent on the New Moon calculations and may not reflect historical records.\n\nMonths:\n  al-Muḥarram\n  Ṣafar\n  Rabīʿ al-ʾAwwal\n  Rabīʿ ath-Thānī\n  Jumādā al-ʾŪlā\n  Jumādā al-ʾĀkhirah\n  Rajab\n  Shaʿbān\n  Ramaḍān\n  Shawwāl\n  Dhū al-Qaʿdah\n  Dhū al-Ḥijjah'
     },
 ]
 

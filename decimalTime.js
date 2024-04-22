@@ -6,10 +6,17 @@
 
 function getRevolutionaryTime(dayFraction) {
     let decimalHour = Math.floor(dayFraction * 10);
-    let decimalMinute = Math.floor(dayFraction*1000)-(decimalHour*100);
-    let decimalSecond = Math.floor(dayFraction*100000)-(decimalHour*10000)-(decimalMinute*100);
-    return decimalHour + ":" + decimalMinute + ":" + decimalSecond;
+    let decimalMinute = Math.floor(dayFraction * 1000) - (decimalHour * 100);
+    let decimalSecond = Math.floor(dayFraction * 100000) - (decimalHour * 10000) - (decimalMinute * 100);
+    
+    // Convert each part to strings and pad them with leading zeros if needed
+    let hourStr = decimalHour.toString().padStart(2, '0');
+    let minuteStr = decimalMinute.toString().padStart(2, '0');
+    let secondStr = decimalSecond.toString().padStart(2, '0');
+
+    return hourStr + ":" + minuteStr + ":" + secondStr;
 }
+
 
 function convertToSwatchBeats(currentDateTime) {
     // Get UTC time
@@ -33,16 +40,6 @@ function getHexadecimalTime(dayFraction) {
     return "." + hexadecimalFraction;
 }
 
-function get6DigitHexadecimalTime(dayFraction) {
-    // Convert the day fraction to hexadecimal format
-    let hexadecimalFraction = Math.floor((dayFraction * 16777215)).toString(16).toUpperCase();
-    // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
-    while (hexadecimalFraction.length < 6) {
-        hexadecimalFraction = "0" + hexadecimalFraction;
-    }
-    return hexadecimalFraction;
-}
-
 function getBinaryTime(dayFraction) {
     // Convert the day fraction to the equivalent binary count
     let binaryCount = Math.floor(dayFraction * 65536).toString(2);
@@ -54,6 +51,16 @@ function getBinaryTime(dayFraction) {
     
     // Return the binary time string
     return binaryCount;
+}
+
+function get6DigitHexadecimalTime(dayFraction) {
+    // Convert the day fraction to hexadecimal format
+    let hexadecimalFraction = Math.floor((dayFraction * 16777215)).toString(16).toUpperCase();
+    // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
+    while (hexadecimalFraction.length < 6) {
+        hexadecimalFraction = "0" + hexadecimalFraction;
+    }
+    return hexadecimalFraction;
 }
 
 function hexToRGBA(hex, alpha) {

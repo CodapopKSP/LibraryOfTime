@@ -146,6 +146,7 @@ body {
 .tooltip-description {
     text-align: left;
     padding: 1vh;
+    white-space: pre-wrap;
 }
 
 .tooltip-epoch {

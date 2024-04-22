@@ -16,14 +16,16 @@ function updateDateAndTime() {
     //currentDateTime.setFullYear(2);
 
     // Get basic info about the date and time
-    day = currentDateTime.getDate();
-    month = currentDateTime.getMonth();
-    year = currentDateTime.getFullYear();
-    hour = currentDateTime.getHours();
-    minute = currentDateTime.getMinutes();
-    second = currentDateTime.getSeconds();
-    let dateDisplayString = year + '-' + (month+1) + '-' + day;
+    let day = currentDateTime.getDate().toString().padStart(2, '0');
+    let month = currentDateTime.getMonth();
+    let year = currentDateTime.getFullYear();
+    let hour = currentDateTime.getHours().toString().padStart(2, '0');
+    let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
+    let second = currentDateTime.getSeconds().toString().padStart(2, '0');
+
+    let dateDisplayString = year + ' ' + monthNames[month] + ' ' + day;
     let timeDisplayString = hour + ':' + minute + ':' + second;
+
 
     // All fractional times
     let secondFraction = calculateSecond(currentDateTime);
@@ -243,11 +245,11 @@ function updateTooltipPosition(event) {
 
     tooltips.forEach(tooltip => {
         if (mouseX > screenWidth / 2) {
-            tooltip.style.left = '-100%';
+            tooltip.style.left = '-150%';
         } else {
-            tooltip.style.left = '50%';
+            tooltip.style.left = '100%';
         }
-        if (mouseY < screenHeight / 2) {
+        if (mouseY < screenHeight / 2.05) {
             tooltip.style.top = '25%';
         } else {
             tooltip.style.top = '-200%';

@@ -6,9 +6,14 @@
 
 function getHumanEra(currentDateTime) {
     let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth();
+    let month = currentDateTime.getMonth() + 1;
     let year = currentDateTime.getFullYear() + 10000;
-    return `${year}-${month + 1}-${day}`;
+
+    // Add leading zeros if necessary
+    let monthString = (month < 10) ? '0' + month : month;
+    let dayString = (day < 10) ? '0' + day : day;
+
+    return `${year}-${monthString}-${dayString}`;
 }
 
 function getJulianDate(currentDateTime) {
@@ -16,26 +21,41 @@ function getJulianDate(currentDateTime) {
     let daysAhead = Math.floor(year / 100) - Math.floor(year / 400) - 2;
     let julianDate = new Date(currentDateTime);
     julianDate.setDate(julianDate.getDate() - daysAhead);
+    
     // Extract year, month, and day components
     let yearString = julianDate.getFullYear();
-    let monthString = julianDate.getMonth() + 1; // Month is zero-based, so add 1
-    let dayString = julianDate.getDate();
-    let dateString = yearString + '-' + monthString + '-' + dayString;
+    let monthIndex = julianDate.getMonth(); // Month is zero-based
+    let monthString = monthNames[monthIndex];
+    let dayString = (julianDate.getDate() < 10) ? '0' + julianDate.getDate() : julianDate.getDate();
+    
+    let dateString = yearString + ' ' + monthString + ' ' + dayString;
     return dateString;
 }
 
+
 function getMinguoJuche(currentDateTime) {
     let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear() -1911;
-    return `${year}-${month + 1}-${day}`;
+    let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
+    let year = currentDateTime.getFullYear() - 1911;
+    
+    // Add leading zeros if necessary
+    let monthString = (month < 10) ? '0' + month : month;
+    let dayString = (day < 10) ? '0' + day : day;
+    
+    return `${year}-${monthString}-${dayString}`;
 }
+
 
 function getThaiSolar(currentDateTime) {
     let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth();
+    let month = currentDateTime.getMonth() + 1;
     let year = currentDateTime.getFullYear() + 543;
-    return `B.E. ${year}-${month + 1}-${day}`;
+
+    // Add leading zeros if necessary
+    let monthString = (month < 10) ? '0' + month : month;
+    let dayString = (day < 10) ? '0' + day : day;
+
+    return `B.E. ${year}-${monthString}-${dayString}`;
 }
 
 function getRepublicanCalendar(currentDateTime) {
@@ -54,7 +74,7 @@ function getRepublicanCalendar(currentDateTime) {
         month = 'Sansculottides';
     }
     let day = Math.floor(daysSinceSeptember22 % 30)+1;
-    return toRomanNumerals(yearsSince1792) + " " + month + "-" + day;
+    return toRomanNumerals(yearsSince1792) + " " + FrenchRevolutionaryMonths[month] + " " + day;
 }
 
 function getEraFascista(currentDateTime) {
@@ -100,3 +120,22 @@ function toRomanNumerals(num) {
     }
     return result;
 }
+
+const FrenchRevolutionaryMonths = {
+    1: 'Vendémiaire',
+    2: 'Brumaire',
+    3: 'Frimaire',
+    4: 'Nivôse',
+    5: 'Pluviôse',
+    6: 'Ventôse',
+    7: 'Germinal',
+    8: 'Floréal',
+    9: 'Prairial',
+    10: 'Messidor',
+    11: 'Thermidor',
+    12: 'Fructidor',
+    13: 'Sansculottides'
+};
+
+// Array of month names
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
