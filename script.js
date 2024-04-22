@@ -8,7 +8,7 @@ document.addEventListener('mousemove', updateTooltipPosition);
 function updateDateAndTime() {
     let currentDateTime = new Date();
     /*
-    let currentDateTime = new Date(Date.UTC(2020, 5, 15, 9, 19, 0));
+    let currentDateTime = new Date(Date.UTC(2024, 3, 8, 21, 19, 0));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
@@ -74,10 +74,14 @@ function updateDateAndTime() {
     let swatchBeats = convertToSwatchBeats(currentDateTime);
     let hexadecimalTime = getHexadecimalTime(dayFraction);
     let binaryTime = getBinaryTime(dayFraction);
+    const newHexColor = get6DigitHexadecimalTime(dayFraction);
+    const hexColorBox = document.querySelector('#hex-color-box');
+    hexColorBox.style.backgroundColor = `#${newHexColor}`;
     setTimeValue('revolutionary-time-box', decimalTime);
     setTimeValue('beat-time-box', swatchBeats);
     setTimeValue('hexadecimal-box', hexadecimalTime);
     setTimeValue('binary-box', binaryTime);
+    setTimeValue('hex-color-box', ' ');
     
     // Calendars
     let humanEra = getHumanEra(currentDateTime);
@@ -103,13 +107,17 @@ function updateDateAndTime() {
     setTimeValue('chinese-zodiac-box', chineseZodiacYear);
     setTimeValue('vietnamese-zodiac-box', vietnameseZodiacYear);
 
+    // Lunar Calendars
+    let hijriCalendar = findCurrentHijriDate(currentDateTime);
+    setTimeValue('hijri-box', hijriCalendar);
+
     // Astronomical Data
     let springEquinox = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'spring');
     let summerSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'summer');
     let autumnEquinox = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'autumn');
     let winterSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'winter');
     let sunLongitude = getLongitudeOfSun(currentDateTime);
-    let nextNewMoon = getPhaseOfMoon(currentDateTime);
+    let nextNewMoon = getNewMoonThisMonth(currentDateTime);
     setTimeValue('spring-equinox-box', springEquinox);
     setTimeValue('summer-solstice-box', summerSolstice);
     setTimeValue('autumn-equinox-box', autumnEquinox);

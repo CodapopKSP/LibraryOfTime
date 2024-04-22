@@ -26,7 +26,7 @@ function getCurrentSolsticeOrEquinoxJDE(currentDateTime, season) {
         const DeltaLambda =  1 + (0.0334 * Math.cos(W* Math.PI / 180)) + (0.0007 * Math.cos(2*W* Math.PI / 180));
         const S = sumSolsticeEquinoxTable(T);
         const specialDay = JDE_ + ((0.00001*S)/DeltaLambda);
-        return calculateDateFromJDE(specialDay);
+        return new Date(calculateDateFromJDE(specialDay));
     } else {
         const Y = year/1000;
         let JDE_ = 0;
@@ -47,7 +47,7 @@ function getCurrentSolsticeOrEquinoxJDE(currentDateTime, season) {
         const DeltaLambda =  1 + (0.0334 * Math.cos(W* Math.PI / 180)) + (0.0007 * Math.cos(2*W* Math.PI / 180));
         const S = sumSolsticeEquinoxTable(T);
         const specialDay = JDE_ + ((0.00001*S)/DeltaLambda);
-        return calculateDateFromJDE(specialDay);
+        return new Date(calculateDateFromJDE(specialDay));
     }
 }
 
@@ -126,7 +126,7 @@ function normalizeAngleTo360(angle) {
     return normalizeAngle;
 }
 
-function getPhaseOfMoon(currentDateTime) {
+function getNewMoonThisMonth(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateYear(currentDateTime);
     const k = Math.floor((year - 2000)*12.3685);
@@ -141,7 +141,7 @@ function getPhaseOfMoon(currentDateTime) {
     const sumOfAllPhaseTable = allPhaseTable(k, T);
 
     const newMoonJDE = JDE + sumOfNewMoonTable + sumOfAllPhaseTable;
-    return calculateDateFromJDE(newMoonJDE);
+    return new Date(calculateDateFromJDE(newMoonJDE));
 }
 
 function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {

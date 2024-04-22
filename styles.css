@@ -161,3 +161,7 @@ body {
     padding-left: 1vh;
     padding-right: 1vh;
 }
+
+#hex-color-box {
+    background-color: #000000;
+}

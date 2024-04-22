@@ -33,6 +33,16 @@ function getHexadecimalTime(dayFraction) {
     return "." + hexadecimalFraction;
 }
 
+function get6DigitHexadecimalTime(dayFraction) {
+    // Convert the day fraction to hexadecimal format
+    let hexadecimalFraction = Math.floor((dayFraction * 16777215)).toString(16).toUpperCase();
+    // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
+    while (hexadecimalFraction.length < 6) {
+        hexadecimalFraction = "0" + hexadecimalFraction;
+    }
+    return hexadecimalFraction;
+}
+
 function getBinaryTime(dayFraction) {
     // Convert the day fraction to the equivalent binary count
     let binaryCount = Math.floor(dayFraction * 65536).toString(2);
