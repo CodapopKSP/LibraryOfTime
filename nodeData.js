@@ -240,15 +240,6 @@ const decimalTimeData = [
         confidence: 'Exact',
         description: 'Binary time is the binary representation of the day divided into 2^16 (65,536) equal parts, with all 0s being midnight and a 1 followed by 15 zeros being exactly half the day (noon). The smallest unit of resolution is 675/512 seconds, or about 1.318 seconds.'
     },
-
-    {
-        name: 'Hex Color (24 bit)',
-        id: 'hex-color',
-        type: 'Decimal Time',
-        epoch: 'Midnight',
-        confidence: 'Exact',
-        description: ''
-    },
 ]
 
 const solarCalendarsData = [
