@@ -55,3 +55,13 @@ function getBinaryTime(dayFraction) {
     // Return the binary time string
     return binaryCount;
 }
+
+function hexToRGBA(hex, alpha) {
+    // Convert hex color to RGB
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    // Return RGBA color string
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}

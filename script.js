@@ -74,15 +74,15 @@ function updateDateAndTime() {
     let swatchBeats = convertToSwatchBeats(currentDateTime);
     let hexadecimalTime = getHexadecimalTime(dayFraction);
     let binaryTime = getBinaryTime(dayFraction);
-    const newHexColor = get6DigitHexadecimalTime(dayFraction);
-    const hexColorBox = document.querySelector('#hex-color-box');
-    hexColorBox.style.backgroundColor = `#${newHexColor}`;
+    //const newHexColor = get6DigitHexadecimalTime(dayFraction);
+    //const hexColorBox = document.querySelector('#hex-color-box');
+    //const rgbaColor = hexToRGBA(newHexColor, 0.25);
+    //hexColorBox.style.backgroundColor = rgbaColor
     setTimeValue('revolutionary-time-box', decimalTime);
     setTimeValue('beat-time-box', swatchBeats);
     setTimeValue('hexadecimal-box', hexadecimalTime);
     setTimeValue('binary-box', binaryTime);
-    setTimeValue('hex-color-box', ' ');
-    
+
     // Calendars
     let humanEra = getHumanEra(currentDateTime);
     let julianCalendar = getJulianDate(currentDateTime);
