@@ -31,6 +31,8 @@ function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
 }
 
 function findCurrentHijriDate(currentDateTime) {
+
+    // Get the date of last day of New Moon and calculate it's sunset at Mecca (6:00pm UTC+3)
     const firstDayOfIslamicMonth = dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime);
     firstDayOfIslamicMonth.setDate(firstDayOfIslamicMonth.getDate()-1);
     firstDayOfIslamicMonth.setUTCHours(18-3);
@@ -41,39 +43,34 @@ function findCurrentHijriDate(currentDateTime) {
     const daysSinceStartOfMonth = Math.floor(timeDifference / 60 / 60 / 24 / 1000);
     const currentLunationSince2000 = calculateLunationNumber(currentDateTime);
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
-    const hijriDay = daysSinceStartOfMonth;
-    
-    return hijriDay + ' ' + hijriMonthYear.month + ' ' + hijriMonthYear.year + ' AH';
+    let hijriMonthIndex = hijriMonthYear.month;
+    let hijriDay = daysSinceStartOfMonth;
+    // Sometimes days don't roll over, possibly due to the Lunation and New Moon calculations being out of sync
+    if (hijriDay > 30) {
+        hijriDay -= 30;
+        hijriMonthIndex += 1;
+        if (hijriMonthIndex > 11) {
+            hijriMonthIndex -= 12;
+        }
+    }
+    let hijriMonth = HijriMonths[hijriMonthYear.month];
+    return hijriDay + ' ' + hijriMonth + ' ' + hijriMonthYear.year + ' AH';
 }
 
 function calculateIslamicMonthAndYear(ln) {
+    // Add 9 lunations to get in sync with the calendar
     const lunation = ln + 9;
-    const HijriMonths = {
-        0: 'al-Muḥarram',
-        1: 'Ṣafar',
-        2: 'Rabīʿ al-ʾAwwal',
-        3: 'Rabīʿ ath-Thānī',
-        4: 'Jumādā al-ʾŪlā',
-        5: 'Jumādā al-ʾĀkhirah',
-        6: 'Rajab',
-        7: 'Shaʿbān',
-        8: 'Ramaḍān',
-        9: 'Shawwāl',
-        10: 'Dhū al-Qaʿdah',
-        11: 'Dhū al-Ḥijjah'
-    };
     const islamicYears = Math.floor(lunation / 12);
     let currentMonth = (lunation % 12);
-    console.log(currentMonth);
     if (currentMonth < 0) {
         currentMonth += 12;
     }
-    const currentMonthName = HijriMonths[currentMonth];
     const currentYear = 1420 + islamicYears; // Start year + number of complete Islamic years
-    return { month: currentMonthName, year: currentYear };
+    return { month: currentMonth, year: currentYear };
 }
 
 function calculateLunationNumber(currentDateTime) {
+    // Using Jean Meeus's date for lunation epoch
     const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
     const secondsSince2000 = (currentDateTime - firstNewMoon2000)/1000;
 
@@ -84,3 +81,18 @@ function calculateLunationNumber(currentDateTime) {
     const lunationNumber = Math.floor(daysSince2000 / 29.530588);
     return lunationNumber;
 }
+
+const HijriMonths = {
+    0: 'al-Muḥarram',
+    1: 'Ṣafar',
+    2: 'Rabīʿ al-ʾAwwal',
+    3: 'Rabīʿ ath-Thānī',
+    4: 'Jumādā al-ʾŪlā',
+    5: 'Jumādā al-ʾĀkhirah',
+    6: 'Rajab',
+    7: 'Shaʿbān',
+    8: 'Ramaḍān',
+    9: 'Shawwāl',
+    10: 'Dhū al-Qaʿdah',
+    11: 'Dhū al-Ḥijjah'
+};
