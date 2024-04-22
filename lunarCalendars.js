@@ -45,16 +45,17 @@ function findCurrentHijriDate(currentDateTime) {
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
     let hijriMonthIndex = hijriMonthYear.month;
     let hijriDay = daysSinceStartOfMonth;
+    let hijriYear = hijriMonthYear.year;
     // Sometimes days don't roll over, possibly due to the Lunation and New Moon calculations being out of sync
-    if (hijriDay > 30) {
-        hijriDay -= 30;
-        hijriMonthIndex += 1;
-        if (hijriMonthIndex > 11) {
-            hijriMonthIndex -= 12;
-        }
+
+    let hijriMonth = HijriMonths[hijriMonthIndex];
+    let suffix = 'AH';
+    if (hijriYear < 1) {
+        hijriYear -= 1;
+        suffix = 'BH'
     }
-    let hijriMonth = HijriMonths[hijriMonthYear.month];
-    return hijriDay + ' ' + hijriMonth + ' ' + hijriMonthYear.year + ' AH';
+
+    return hijriDay + ' ' + hijriMonth + ' ' + hijriYear + ' ' + suffix;
 }
 
 function calculateIslamicMonthAndYear(ln) {
