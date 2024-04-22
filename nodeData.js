@@ -368,9 +368,9 @@ const lunarCalendarsData = [
         name: 'Hijri',
         id: 'hijri',
         type: 'Lunar Calendar',
-        epoch: '',
-        confidence: '',
-        description: ''
+        epoch: 'July 19, 622 CE',
+        confidence: 'Medium',
+        description: 'The Hijri calendar is the principal calendar used in Islam, and it is perhaps the only extant true lunar calendar in the world. It features 12 lunar months of 29 or 30 days, with days starting at sunset. Each month starts shortly after the New Moon when it begins to appear as a crescent. Many Muslim nations have their own rules for determining the start of the month, often based on direct observation, and as such their calendar dates may occasionally misalign for a month or two. The algorithm used by this website requires calculating the New Moon and uses 18:00 local time in Mecca for sunset. Its accuracy is dependent on the New Moon calculations and may not reflect historical records.'
     },
 ]
 
