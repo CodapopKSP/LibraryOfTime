@@ -25,8 +25,8 @@ function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
     if (newMoonLastMonth.getUTCHours() < 15) {
         return newMoonLastMonth;
     } else {
-        // If it happened after sunset, return one day later
-        return new Date(newMoonLastMonth.setDate(newMoonLastMonth.getDate() + 1))
+        // If it happened before sunset, return that day
+        return new Date(newMoonLastMonth.setDate(newMoonLastMonth.getDate()))
     }
 }
 
@@ -43,12 +43,29 @@ function findCurrentHijriDate(currentDateTime) {
     const daysSinceStartOfMonth = Math.floor(timeDifference / 60 / 60 / 24 / 1000);
     const currentLunationSince2000 = calculateLunationNumber(currentDateTime);
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
+    
     let hijriMonthIndex = hijriMonthYear.month;
     let hijriDay = daysSinceStartOfMonth;
+    
+    // Some complex, undecipherable logic about handling day and month changes due to the day starting/ending at sunset
+    // Pure witchcraft, but it seems to work
+    if (currentDateTime.getUTCHours() > 18-3) {
+        hijriDay -= 1;
+        if (hijriDay === 0) {
+            hijriDay = 30;
+            hijriMonthIndex -= 1;
+            if (hijriMonthIndex < 0) {
+                hijriMonthIndex = 11;
+            }
+        }
+    }
+    if (hijriDay === 0) {
+        hijriDay = 30;
+    }
     let hijriYear = hijriMonthYear.year;
-    // Sometimes days don't roll over, possibly due to the Lunation and New Moon calculations being out of sync
-
     let hijriMonth = HijriMonths[hijriMonthIndex];
+
+    // Determine if before 622 Epoch or after, then adjust for no 0 year
     let suffix = 'AH';
     if (hijriYear < 1) {
         hijriYear -= 1;

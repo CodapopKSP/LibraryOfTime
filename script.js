@@ -7,13 +7,13 @@ const decimals = 10;
 document.addEventListener('mousemove', updateTooltipPosition);
 
 function updateDateAndTime() {
-    let currentDateTime = new Date();
-    /*
-    let currentDateTime = new Date(Date.UTC(2024, 7, 4, 23, 0, 0));
+    //let currentDateTime = new Date();
+    
+    let currentDateTime = new Date(Date.UTC(2023, 6, 19, 12, 0, 0));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
-    */
+    
     //currentDateTime.setFullYear(2);
 
     // Get basic info about the date and time
@@ -23,10 +23,8 @@ function updateDateAndTime() {
     let hour = currentDateTime.getHours().toString().padStart(2, '0');
     let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
     let second = currentDateTime.getSeconds().toString().padStart(2, '0');
-
     let dateDisplayString = year + ' ' + monthNames[month] + ' ' + day;
     let timeDisplayString = hour + ':' + minute + ':' + second;
-
 
     // All fractional times
     let secondFraction = calculateSecond(currentDateTime);
