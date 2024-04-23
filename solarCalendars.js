@@ -140,3 +140,42 @@ const FrenchRevolutionaryMonths = {
 // Array of month names
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+
+function julianDayToCoptic(julianDay) {
+    const JD_epoch = 1824665.5; // Julian Day of the start of the Coptic calendar
+    const Coptic_epoch = 283; // Year 1 of the Coptic calendar in the proleptic Julian calendar
+    const Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
+
+    // Add 0.5 to JD to make it happen with UTC
+    const daysSinceEpoch = Math.floor(julianDay+0.5) - JD_epoch;
+    const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
+    const CopticYear = yearsSinceEpoch;
+
+    let remainingDays = daysSinceEpoch - (365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4));
+    let CopticMonth = 1;
+    while (remainingDays >= Coptic_monthDays[CopticMonth - 1]) {
+        remainingDays -= Coptic_monthDays[CopticMonth - 1];
+        CopticMonth++;
+    }
+
+    // Add 2 days for some reason but it keeps it in sync with Wiki
+    const CopticDay = Math.floor(remainingDays + 2);
+
+    return CopticDay + ' ' + copticMonths[CopticMonth-1] + ' ' + CopticYear + ' AM';
+}
+
+const copticMonths = [
+    "Thout",
+    "Paopi",
+    "Hathor",
+    "Koiak",
+    "Tobi",
+    "Meshir",
+    "Paremhat",
+    "Parmouti",
+    "Pashons",
+    "Paoni",
+    "Epip",
+    "Mesori",
+    "Pi Kogi Enavot"
+];

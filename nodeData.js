@@ -289,6 +289,15 @@ const solarCalendarsData = [
     },
 
     {
+        name: 'Coptic (UTC)',
+        id: 'coptic',
+        type: 'Solar Calendar',
+        epoch: 'August 29th, 284',
+        confidence: 'Exact',
+        description: 'The Coptic calendar, also known as the Alexandian calendar, was used in Egypt until the adoption of the Gregorian calendar in 1875. It is based on the ancient Egyptian calendar but with leap days every four years, keeping it in sync with the Julian calendar. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. The new year starts on the 10th or 11th of September, and years are abbreviated with \'AM\', meaning Anno Martyrum, or \'Year of the Martyrs\'. The Coptic calendar is still in use today by Egyptian farmers as well as the Coptic Orthodox Church.\n\nMonths:\n  Thout\n  Paopi\n  Hathor\n  Koiak\n  Tobi\n  Meshir\n  Paremhat\n  Paremoude\n  Pashons\n  Paone\n  Epep\n  Mesore\n  Pi Kogi Enavot'
+    },
+
+    {
         name: 'Minguo',
         id: 'minguo',
         type: 'Solar Calendar',
@@ -313,15 +322,6 @@ const solarCalendarsData = [
         epoch: 'January 1st, 1912 CE',
         confidence: 'Exact',
         description: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
-    },
-
-    {
-        name: 'Coptic',
-        id: 'coptic',
-        type: 'Solar Calendar',
-        epoch: '',
-        confidence: 'High',
-        description: ''
     },
 ]
 

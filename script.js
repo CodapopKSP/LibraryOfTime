@@ -7,13 +7,13 @@ const decimals = 10;
 document.addEventListener('mousemove', updateTooltipPosition);
 
 function updateDateAndTime() {
-    //let currentDateTime = new Date();
+    let currentDateTime = new Date();
     
-    let currentDateTime = new Date(Date.UTC(2023, 6, 19, 12, 0, 0));
-    let currentTimeZone = currentDateTime.getTimezoneOffset();
-    let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
-    currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
-    
+    //let currentDateTime = new Date(Date.UTC(284, 7, 29, 23, 0, 0));
+
+    //let currentTimeZone = currentDateTime.getTimezoneOffset();
+    //let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
+    //currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
     //currentDateTime.setFullYear(2);
 
     // Get basic info about the date and time
@@ -92,6 +92,7 @@ function updateDateAndTime() {
     let thaiSolar = getThaiSolar(currentDateTime);
     let eraFascista = getEraFascista(currentDateTime)
     let republicanCalendar = getRepublicanCalendar(currentDateTime);
+    let copticCalendar = julianDayToCoptic(julianDay);
     setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('human-era-box', humanEra);
     setTimeValue('julian-box', julianCalendar);
@@ -100,6 +101,7 @@ function updateDateAndTime() {
     setTimeValue('minguo-box', minguoJuche);
     setTimeValue('thai-solar-box', thaiSolar);
     setTimeValue('juche-box', minguoJuche);
+    setTimeValue('coptic-box', copticCalendar);
 
     // Lunisolar Calendars
     let chineseZodiacYear = getChineseZodiacYear(year);
@@ -248,7 +250,7 @@ function updateTooltipPosition(event) {
         } else {
             tooltip.style.left = '100%';
         }
-        if (mouseY < screenHeight / 2.05) {
+        if (mouseY < screenHeight / 2.3) {
             tooltip.style.top = '25%';
         } else {
             tooltip.style.top = '-200%';
