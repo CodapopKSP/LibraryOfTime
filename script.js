@@ -9,12 +9,13 @@ document.addEventListener('mousemove', updateTooltipPosition);
 function updateDateAndTime() {
     let currentDateTime = new Date();
     
-    //let currentDateTime = new Date(Date.UTC(284, 7, 29, 23, 0, 0));
-
+    //let currentDateTime = new Date(Date.UTC(2023, 8, 12, 12, 0, 0));
+    //currentDateTime.setUTCFullYear(8);
+    
     //let currentTimeZone = currentDateTime.getTimezoneOffset();
     //let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     //currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
-    //currentDateTime.setFullYear(2);
+    
 
     // Get basic info about the date and time
     let day = currentDateTime.getDate().toString().padStart(2, '0');
@@ -93,6 +94,7 @@ function updateDateAndTime() {
     let eraFascista = getEraFascista(currentDateTime)
     let republicanCalendar = getRepublicanCalendar(currentDateTime);
     let copticCalendar = julianDayToCoptic(julianDay);
+    let ethiopianCalendar = julianDayToEthiopian(julianDay);
     setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('human-era-box', humanEra);
     setTimeValue('julian-box', julianCalendar);
@@ -102,6 +104,7 @@ function updateDateAndTime() {
     setTimeValue('thai-solar-box', thaiSolar);
     setTimeValue('juche-box', minguoJuche);
     setTimeValue('coptic-box', copticCalendar);
+    setTimeValue('ethiopian-box', ethiopianCalendar);
 
     // Lunisolar Calendars
     let chineseZodiacYear = getChineseZodiacYear(year);

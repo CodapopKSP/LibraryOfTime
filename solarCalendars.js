@@ -143,7 +143,6 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'Jul
 
 function julianDayToCoptic(julianDay) {
     const JD_epoch = 1824665.5; // Julian Day of the start of the Coptic calendar
-    const Coptic_epoch = 283; // Year 1 of the Coptic calendar in the proleptic Julian calendar
     const Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
 
     // Add 0.5 to JD to make it happen with UTC
@@ -164,6 +163,28 @@ function julianDayToCoptic(julianDay) {
     return CopticDay + ' ' + copticMonths[CopticMonth-1] + ' ' + CopticYear + ' AM';
 }
 
+function julianDayToEthiopian(julianDay) {
+    const JD_epoch = 1724221.5; // Julian Day of the start of the Coptic calendar
+    const Ethiopian_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
+
+    // Add 0.5 to JD to make it happen with UTC
+    const daysSinceEpoch_ = Math.floor(julianDay+0.5) - JD_epoch;
+    const yearsSinceEpoch_ = Math.floor((4 * daysSinceEpoch_ + 3) / 1461);
+    const EthiopianYear = yearsSinceEpoch_ + 2;
+
+    let remainingDays_ = daysSinceEpoch_ - (365 * yearsSinceEpoch_ + Math.floor(yearsSinceEpoch_ / 4));
+    let EthiopianMonth = 1;
+    while (remainingDays_ >= Ethiopian_monthDays[EthiopianMonth - 1]) {
+        remainingDays_ -= Ethiopian_monthDays[EthiopianMonth - 1];
+        EthiopianMonth++;
+    }
+
+    // Add 2 days for some reason but it keeps it in sync with Wiki
+    const CopticDay = Math.floor(remainingDays_ + 1);
+
+    return CopticDay + ' ' + ethiopianMonths[EthiopianMonth-1] + ' ዓ.ም.' + EthiopianYear;
+}
+
 const copticMonths = [
     "Thout",
     "Paopi",
@@ -178,4 +199,20 @@ const copticMonths = [
     "Epip",
     "Mesori",
     "Pi Kogi Enavot"
+];
+
+const ethiopianMonths = [
+    "Mäskäräm",
+    "Ṭəqəmt",
+    "Ḫədar",
+    "Taḫśaś",
+    "Ṭərr",
+    "Yäkatit",
+    "Mägabit",
+    "Miyazya",
+    "Gənbo",
+    "Säne",
+    "Ḥamle",
+    "Nähase",
+    "Ṗagume"
 ];

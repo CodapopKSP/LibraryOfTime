@@ -198,7 +198,7 @@ const computingTimeData = [
         name: 'Dynamical Time',
         id: 'dynamical-time',
         type: 'Computing Time',
-        epoch: '',
+        epoch: 'Undefined',
         confidence: 'Medium',
         description: 'Dynamical Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
     },
@@ -283,7 +283,7 @@ const solarCalendarsData = [
         name: 'Era Fascista',
         id: 'era-fascista',
         type: 'Solar Calendar',
-        epoch: 'October 22nd, 1922',
+        epoch: 'October 22nd, 1922 CE',
         confidence: 'High',
         description: 'Era Fascista is a simple count of number of years since the start of the Fascist Era in Italy on October 22nd, 1922, starting with Anno I. Taking inspiration from the French Republican calendar, years were written in Roman numerals and it was intended to replace the Gregorian calendar.'
     },
@@ -292,9 +292,18 @@ const solarCalendarsData = [
         name: 'Coptic (UTC)',
         id: 'coptic',
         type: 'Solar Calendar',
-        epoch: 'August 29th, 284',
-        confidence: 'Exact',
-        description: 'The Coptic calendar, also known as the Alexandian calendar, was used in Egypt until the adoption of the Gregorian calendar in 1875. It is based on the ancient Egyptian calendar but with leap days every four years, keeping it in sync with the Julian calendar. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. The new year starts on the 10th or 11th of September, and years are abbreviated with \'AM\', meaning Anno Martyrum, or \'Year of the Martyrs\'. The Coptic calendar is still in use today by Egyptian farmers as well as the Coptic Orthodox Church.\n\nMonths:\n  Thout\n  Paopi\n  Hathor\n  Koiak\n  Tobi\n  Meshir\n  Paremhat\n  Paremoude\n  Pashons\n  Paone\n  Epep\n  Mesore\n  Pi Kogi Enavot'
+        epoch: 'August 29th, 284 CE',
+        confidence: 'High',
+        description: 'The Coptic calendar, also known as the Alexandian calendar, was used in Egypt until the adoption of the Gregorian calendar in 1875. It is based on the ancient Egyptian calendar but with leap days every four years, keeping it in sync with the Julian calendar while sharing months and days with the Ge\'ez calendar. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. The new year starts on the 11th or 12th of September, and years are abbreviated with \'AM\', meaning Anno Martyrum, or \'Year of the Martyrs\'. The Coptic calendar is still in use today by Egyptian farmers as well as the Coptic Orthodox Church.\n\nMonths:\n  Thout\n  Paopi\n  Hathor\n  Koiak\n  Tobi\n  Meshir\n  Paremhat\n  Paremoude\n  Pashons\n  Paone\n  Epep\n  Mesore\n  Pi Kogi Enavot'
+    },
+
+    {
+        name: 'Ge\'ez (UTC)',
+        id: 'ethiopian',
+        type: 'Solar Calendar',
+        epoch: 'August 27th, 8 CE',
+        confidence: 'High',
+        description: 'The Ge\'ez calendar is the official calendar of Ethiopia. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. It has a leap day every 4 years, keeping it in sync with the Julian calendar while sharing months and days with the Coptic calendar. The New Year starts on September 11th or 12th, with years abbreviated with ዓ.ም. which is pronounced \'am\', short for Amätä Mihret, meaning \'Year of Mercy\'.\n\nMonths:\n  Mäskäräm\n  Ṭəqəmt\n  Ḫədar\n  Taḫśaś\n  Ṭərr\n  Yäkatit\n  Mägabit\n  Miyazya\n  Gənbo\n  Säne\n  Ḥamle\n  Nähase\n  Ṗagume'
     },
 
     {
