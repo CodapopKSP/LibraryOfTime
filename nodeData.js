@@ -314,6 +314,15 @@ const solarCalendarsData = [
         confidence: 'Exact',
         description: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
     },
+
+    {
+        name: 'Coptic',
+        id: 'coptic',
+        type: 'Solar Calendar',
+        epoch: '',
+        confidence: 'High',
+        description: ''
+    },
 ]
 
 const lunisolarCalendarsData = [

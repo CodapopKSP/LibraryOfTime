@@ -9,7 +9,7 @@ document.addEventListener('mousemove', updateTooltipPosition);
 function updateDateAndTime() {
     let currentDateTime = new Date();
     /*
-    let currentDateTime = new Date(Date.UTC(622, 6, 20, 12, 0, 0));
+    let currentDateTime = new Date(Date.UTC(2024, 7, 4, 23, 0, 0));
     let currentTimeZone = currentDateTime.getTimezoneOffset();
     let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
@@ -86,7 +86,7 @@ function updateDateAndTime() {
     setTimeValue('hexadecimal-box', hexadecimalTime);
     setTimeValue('binary-box', binaryTime);
 
-    // Calendars
+    // Solar Calendars
     let humanEra = getHumanEra(currentDateTime);
     let julianCalendar = getJulianDate(currentDateTime);
     let gregorianCalendar = dateDisplayString;

@@ -7,7 +7,7 @@
 // Find the last day that occurred after a New Moon happened before sunset in Mecca
 function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
     const newMoonThisMonth = getNewMoonThisMonth(currentDateTime);
-
+    
     // Check if the New Moon has passed for this month
     if (currentDateTime.getTime() > newMoonThisMonth.getTime()) {
         // Check if the New Moon happened before 18:00 Mecca time (UTC+3), rough approximation of sunset
