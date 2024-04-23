@@ -1,6 +1,7 @@
 //https://www.fourmilab.ch/documents/calendar/
 //https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up
 //http://www.leapsecond.com/java/gpsclock.htm
+//https://www.tondering.dk/claus/cal/julperiod.php
 
 const decimals = 10;
 document.addEventListener('mousemove', updateTooltipPosition);
