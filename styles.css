@@ -54,14 +54,14 @@ body, html {
     position: relative;
     display: grid;
     justify-content: center;
-    max-width: 58vw;
-    width: 58vw;
+    max-width: 60vw;
+    width: 60vw;
     left: 0;
+    top: 1vh;
     margin: 2vh;
     grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr)); /* Adjust column width as needed */
     grid-gap: 1vw; /* Adjust the gap between columns */
 }
-
 
 .container {
     display: flex;
@@ -69,10 +69,9 @@ body, html {
     justify-content: top;
     align-items: center;
     font-size: 1.3vh;
-    margin-left: 2vw;
     border-width: 0.25vh;
-    width: 11vw;
     border: 0.3vh solid #000000;
+    margin-bottom: 2vh;
 }
 
 .standard-time {
