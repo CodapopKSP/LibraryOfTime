@@ -2,6 +2,7 @@
 //https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up
 //http://www.leapsecond.com/java/gpsclock.htm
 //https://www.tondering.dk/claus/cal/julperiod.php
+//https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand
 
 const decimals = 10;
 let visibleTooltip = '';
@@ -94,7 +95,8 @@ function updateDateAndTime() {
     let humanEra = getHumanEra(currentDateTime);
     let julianCalendar = getJulianDate(currentDateTime);
     let gregorianCalendar = dateDisplayString;
-    let minguoJuche = getMinguoJuche(currentDateTime);
+    let minguoCalendar = getMinguo(currentDateTime);
+    let jucheCalendar = getJuche(currentDateTime);
     let thaiSolar = getThaiSolar(currentDateTime);
     let eraFascista = getEraFascista(currentDateTime)
     let republicanCalendar = getRepublicanCalendar(currentDateTime);
@@ -107,9 +109,9 @@ function updateDateAndTime() {
     setTimeValue('julian-box', julianCalendar);
     setTimeValue('french-republican-box', republicanCalendar);
     setTimeValue('era-fascista-box', eraFascista);
-    setTimeValue('minguo-box', minguoJuche);
+    setTimeValue('minguo-box', minguoCalendar);
     setTimeValue('thai-solar-box', thaiSolar);
-    setTimeValue('juche-box', minguoJuche);
+    setTimeValue('juche-box', jucheCalendar);
     setTimeValue('coptic-box', copticCalendar);
     setTimeValue('ethiopian-box', ethiopianCalendar);
     setTimeValue('invariable-box', invariableCalendar);

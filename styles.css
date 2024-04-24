@@ -47,6 +47,8 @@ body, html {
     top: 4vh;
     right: 0;
     margin: 4vh;
+    margin-right: 3vh;
+    margin-left: 2vh;
     margin-bottom: 0;
     background-color: rgb(55, 55, 55);;
 }
@@ -59,7 +61,9 @@ body, html {
     width: 60vw;
     left: 0;
     top: 1vh;
-    margin: 2vh;
+    margin-left: 3vh;
+    margin-right: 0vh;
+    margin-top: 2vh;
     margin-bottom: 0;
     grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr)); /* Adjust column width as needed */
     grid-gap: 1vw; /* Adjust the gap between columns */

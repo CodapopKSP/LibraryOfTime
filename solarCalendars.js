@@ -4,16 +4,18 @@
 
 // A set of functions for calculating dates in the Solar Calendars category.
 
+// Array of month names
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 function getHumanEra(currentDateTime) {
     let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth() + 1;
+    let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear() + 10000;
 
     // Add leading zeros if necessary
-    let monthString = (month < 10) ? '0' + month : month;
     let dayString = (day < 10) ? '0' + day : day;
 
-    return `${year}-${monthString}-${dayString}`;
+    return dayString + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE';
 }
 
 function getJulianDate(currentDateTime) {
@@ -28,9 +30,9 @@ function getJulianDate(currentDateTime) {
     let monthString = monthNames[monthIndex];
     let dayString = (julianDate.getDate() < 10) ? '0' + julianDate.getDate() : julianDate.getDate();
 
-    let yearSuffix = 'CE';
+    let yearSuffix = 'AD';
     if (yearString<1) {
-        yearSuffix = 'BCE';
+        yearSuffix = 'BC';
     }
     
     let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix;
@@ -38,7 +40,18 @@ function getJulianDate(currentDateTime) {
 }
 
 
-function getMinguoJuche(currentDateTime) {
+function getMinguo(currentDateTime) {
+    let day = currentDateTime.getDate();
+    let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
+    let year = currentDateTime.getFullYear() - 1911;
+    
+    // Add leading zeros if necessary
+    let dayString = (day < 10) ? '0' + day : day;
+    
+    return dayString + '日 ' + month + '月 ' + year + '民國';
+}
+
+function getJuche(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
     let year = currentDateTime.getFullYear() - 1911;
@@ -47,23 +60,52 @@ function getMinguoJuche(currentDateTime) {
     let monthString = (month < 10) ? '0' + month : month;
     let dayString = (day < 10) ? '0' + day : day;
     
-    return `${year}-${monthString}-${dayString}`;
+    return dayString + ' ' + monthString + ' ' + year + ' Juche';
 }
 
-
 function getThaiSolar(currentDateTime) {
+    const thaiSolarMonths = [
+        "มกราคม",
+        "กุมภาพันธ์",
+        "มีนาคม",
+        "เมษายน",
+        "พฤษภาคม",
+        "มิถุนายน",
+        "กรกฎาคม",
+        "สิงหาคม",
+        "กันยายน",
+        "ตุลาคม",
+        "พฤศจิกายน",
+        "ธันวาคม"
+    ];
+
     let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth() + 1;
+    let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear() + 543;
 
     // Add leading zeros if necessary
-    let monthString = (month < 10) ? '0' + month : month;
     let dayString = (day < 10) ? '0' + day : day;
 
-    return `B.E. ${year}-${monthString}-${dayString}`;
+    return dayString + ' ' + thaiSolarMonths[month] + ' B.E. ' + year;
 }
 
 function getRepublicanCalendar(currentDateTime) {
+    const FrenchRevolutionaryMonths = {
+        1: 'Vendémiaire',
+        2: 'Brumaire',
+        3: 'Frimaire',
+        4: 'Nivôse',
+        5: 'Pluviôse',
+        6: 'Ventôse',
+        7: 'Germinal',
+        8: 'Floréal',
+        9: 'Prairial',
+        10: 'Messidor',
+        11: 'Thermidor',
+        12: 'Fructidor',
+        13: 'Sansculottides'
+    };
+
     // Date of September 22nd of the current year
     let september22 = new Date(currentDateTime.getFullYear(), 8, 22); // Note: Month is 8 for September (0-indexed)
     // If the current date is before September 22nd, subtract 1 year
@@ -79,7 +121,7 @@ function getRepublicanCalendar(currentDateTime) {
         month = 'Sansculottides';
     }
     let day = Math.floor(daysSinceSeptember22 % 30)+1;
-    return toRomanNumerals(yearsSince1792) + " " + FrenchRevolutionaryMonths[month] + " " + day;
+    return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
 function getEraFascista(currentDateTime) {
@@ -126,27 +168,23 @@ function toRomanNumerals(num) {
     return result;
 }
 
-const FrenchRevolutionaryMonths = {
-    1: 'Vendémiaire',
-    2: 'Brumaire',
-    3: 'Frimaire',
-    4: 'Nivôse',
-    5: 'Pluviôse',
-    6: 'Ventôse',
-    7: 'Germinal',
-    8: 'Floréal',
-    9: 'Prairial',
-    10: 'Messidor',
-    11: 'Thermidor',
-    12: 'Fructidor',
-    13: 'Sansculottides'
-};
-
-// Array of month names
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-
 function julianDayToCoptic(julianDay) {
+    const copticMonths = [
+        "Thout",
+        "Paopi",
+        "Hathor",
+        "Koiak",
+        "Tobi",
+        "Meshir",
+        "Paremhat",
+        "Parmouti",
+        "Pashons",
+        "Paoni",
+        "Epip",
+        "Mesori",
+        "Pi Kogi Enavot"
+    ];
+
     const JD_epoch = 1824665.5; // Julian Day of the start of the Coptic calendar
     const Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
 
@@ -169,6 +207,22 @@ function julianDayToCoptic(julianDay) {
 }
 
 function julianDayToEthiopian(julianDay) {
+    const ethiopianMonths = [
+        "Mäskäräm",
+        "Ṭəqəmt",
+        "Ḫədar",
+        "Taḫśaś",
+        "Ṭərr",
+        "Yäkatit",
+        "Mägabit",
+        "Miyazya",
+        "Gənbo",
+        "Säne",
+        "Ḥamle",
+        "Nähase",
+        "Ṗagume"
+    ];
+
     const JD_epoch = 1724221.5; // Julian Day of the start of the Coptic calendar
     const Ethiopian_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
 
@@ -189,38 +243,6 @@ function julianDayToEthiopian(julianDay) {
 
     return CopticDay + ' ' + ethiopianMonths[EthiopianMonth-1] + ' ዓ.ም.' + EthiopianYear;
 }
-
-const copticMonths = [
-    "Thout",
-    "Paopi",
-    "Hathor",
-    "Koiak",
-    "Tobi",
-    "Meshir",
-    "Paremhat",
-    "Parmouti",
-    "Pashons",
-    "Paoni",
-    "Epip",
-    "Mesori",
-    "Pi Kogi Enavot"
-];
-
-const ethiopianMonths = [
-    "Mäskäräm",
-    "Ṭəqəmt",
-    "Ḫədar",
-    "Taḫśaś",
-    "Ṭərr",
-    "Yäkatit",
-    "Mägabit",
-    "Miyazya",
-    "Gənbo",
-    "Säne",
-    "Ḥamle",
-    "Nähase",
-    "Ṗagume"
-];
 
 function getInvariableCalendarDate(currentDateTime) {
     const year = currentDateTime.getFullYear();
@@ -276,7 +298,7 @@ function getInvariableCalendarDate(currentDateTime) {
         invariableDate = '';
     }
 
-    return invariableDate + invariableMonth + ' ' + year;
+    return invariableDate + invariableMonth + ' ' + year + ' CE';
 }
 
 function getWorldCalendarDate(currentDateTime) {
@@ -333,5 +355,5 @@ function getWorldCalendarDate(currentDateTime) {
         invariableDate = '';
     }
 
-    return invariableDate + invariableMonth + ' ' + year;
+    return invariableDate + invariableMonth + ' ' + year + ' CE';
 }
