@@ -68,7 +68,7 @@ body, html {
     flex-direction: column;
     justify-content: top;
     align-items: center;
-    font-size: large;
+    font-size: 1.3vh;
     margin-left: 2vw;
     border-width: 0.25vh;
     width: 11vw;
@@ -155,7 +155,7 @@ body, html {
 }
 
 .container-name {
-    font-size: x-large;
+    font-size: 1.6vh;
 }
 
 .tooltip {
