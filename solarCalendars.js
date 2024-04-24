@@ -27,8 +27,13 @@ function getJulianDate(currentDateTime) {
     let monthIndex = julianDate.getMonth(); // Month is zero-based
     let monthString = monthNames[monthIndex];
     let dayString = (julianDate.getDate() < 10) ? '0' + julianDate.getDate() : julianDate.getDate();
+
+    let yearSuffix = 'CE';
+    if (yearString<1) {
+        yearSuffix = 'BCE';
+    }
     
-    let dateString = yearString + ' ' + monthString + ' ' + dayString;
+    let dateString = monthString + ' ' + dayString + ' ' + yearString + ' ' + yearSuffix;
     return dateString;
 }
 
@@ -216,3 +221,117 @@ const ethiopianMonths = [
     "Nähase",
     "Ṗagume"
 ];
+
+function getInvariableCalendarDate(currentDateTime) {
+    const year = currentDateTime.getFullYear();
+    const startOfYear = new Date(year, 0, 1, 0, 0, 0);
+    const endOfYear = new Date(year, 11, 31, 23, 59, 59);
+    const daysSinceStartOfYear = Math.floor((currentDateTime.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24))+1;
+    let daysRemaining = daysSinceStartOfYear;
+
+    // Need two lists for each for Leap Years and non Leap Years
+    const monthDaysLeapYear = [1, 30, 30, 31, 30, 30, 31, 1, 30, 30, 31, 30, 30, 31];
+    const monthDays = [1, 30, 30, 31, 30, 30, 31, 30, 30, 31, 30, 30, 31];
+    const monthNamesLeapYear = ['New Years Day', 'January', 'February', 'March', 'April', 'May', 'June', 'Leap Day', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthNames = ['New Years Day', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    // Designate a leap year if the year is 366 days
+    let leapYear = false;
+    if ((endOfYear-startOfYear) > 365*1000*60*60*24) {
+        leapYear = true;
+    }
+    let invariableMonth = '';
+    let invariableDate = '';
+
+    // Iterate through month days to find the current month if a Leap Year
+    if (leapYear===true) {
+        for (let i = 0; i < monthDaysLeapYear.length; i++) {
+            // Find the last month before daysRemaining turns negative
+            daysRemaining -= monthDaysLeapYear[i];
+            if (daysRemaining <= 0) {
+                invariableMonth = monthNamesLeapYear[i];
+                // Add a space after for formatting
+                invariableDate = (daysRemaining + monthDaysLeapYear[i]) + ' ';
+                break;
+            }
+        }
+    }
+
+    // Iterate through month days to find the current month if not a Leap Year
+    if (leapYear===false) {
+        for (let i = 0; i < monthDays.length; i++) {
+            // Find the last month before daysRemaining turns negative
+            daysRemaining -= monthDays[i];
+            if (daysRemaining <= 0) {
+                invariableMonth = monthNames[i];
+                // Add a space after for formatting
+                invariableDate = (daysRemaining + monthDays[i]) + ' ';
+                break;
+            }
+        }
+    }
+
+    // Remove the date string if using a named day
+    if ((invariableMonth==='New Years Day') || (invariableMonth==='Leap Day')) {
+        invariableDate = '';
+    }
+
+    return invariableDate + invariableMonth + ' ' + year;
+}
+
+function getWorldCalendarDate(currentDateTime) {
+    const year = currentDateTime.getFullYear();
+    const startOfYear = new Date(year, 0, 1, 0, 0, 0);
+    const endOfYear = new Date(year, 11, 31, 23, 59, 59);
+    const daysSinceStartOfYear = Math.floor((currentDateTime.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24))+1;
+    let daysRemaining = daysSinceStartOfYear;
+
+    // Need two lists for each for Leap Years and non Leap Years
+    const monthDaysLeapYear = [1, 31, 30, 30, 31, 30, 30, 1, 31, 30, 30, 31, 30, 30];
+    const monthDays = [1, 31, 30, 30, 31, 30, 30, 31, 30, 30, 31, 30, 30];
+    const monthNamesLeapYear = ['World\'s Day', 'January', 'February', 'March', 'April', 'May', 'June', 'Leapyear Day', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthNames = ['World\'s Day', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    // Designate a leap year if the year is 366 days
+    let leapYear = false;
+    if ((endOfYear-startOfYear) > 365*1000*60*60*24) {
+        leapYear = true;
+    }
+    let invariableMonth = '';
+    let invariableDate = '';
+
+    // Iterate through month days to find the current month if a Leap Year
+    if (leapYear===true) {
+        for (let i = 0; i < monthDaysLeapYear.length; i++) {
+            // Find the last month before daysRemaining turns negative
+            daysRemaining -= monthDaysLeapYear[i];
+            if (daysRemaining <= 0) {
+                invariableMonth = monthNamesLeapYear[i];
+                // Add a space after for formatting
+                invariableDate = (daysRemaining + monthDaysLeapYear[i]) + ' ';
+                break;
+            }
+        }
+    }
+
+    // Iterate through month days to find the current month if not a Leap Year
+    if (leapYear===false) {
+        for (let i = 0; i < monthDays.length; i++) {
+            // Find the last month before daysRemaining turns negative
+            daysRemaining -= monthDays[i];
+            if (daysRemaining <= 0) {
+                invariableMonth = monthNames[i];
+                // Add a space after for formatting
+                invariableDate = (daysRemaining + monthDays[i]) + ' ';
+                break;
+            }
+        }
+    }
+
+    // Remove the date string if using a named day
+    if ((invariableMonth==='World\'s Day') || (invariableMonth==='Leapyear Day')) {
+        invariableDate = '';
+    }
+
+    return invariableDate + invariableMonth + ' ' + year;
+}

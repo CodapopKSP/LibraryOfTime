@@ -332,6 +332,24 @@ const solarCalendarsData = [
         confidence: 'Exact',
         description: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
     },
+
+    {
+        name: 'Invariable',
+        id: 'invariable',
+        type: 'Solar Calendar',
+        epoch: 'January 1st, 1 CE',
+        confidence: 'Exact',
+        description: 'The Invariable calendar was proposed by L. A. Grosclaude in 1900 CE as well as by Gaston Armelin in 1887 CE. It features months in a repeating pattern of 30/30/31 days with New Years Day happening between December and January and Leap Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Monday, Wednesday, or Friday in a predictable pattern that is the same every year.'
+    },
+
+    {
+        name: 'The World Calendar',
+        id: 'world-calendar',
+        type: 'Solar Calendar',
+        epoch: 'January 1st, 1 CE',
+        confidence: 'Exact',
+        description: 'The Invariable calendar was proposed by Elisabeth Achelis in 1930 CE and was nearly adopted by the League of Nations. It features months in a repeating pattern of 31/30/30 days with World\'s Day happening between December and January and Leapyear Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Sunday, Wednesday, or Friday in a predictable pattern that is the same every year.'
+    },
 ]
 
 const lunisolarCalendarsData = [

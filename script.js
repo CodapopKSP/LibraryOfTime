@@ -7,7 +7,7 @@ const decimals = 10;
 document.addEventListener('mousemove', updateTooltipPosition);
 
 function updateDateAndTime() {
-    let currentDateTime = new Date();
+    let currentDateTime = new Date(-2024, 1, 1, 12);
     
     //let currentDateTime = new Date(Date.UTC(2023, 8, 12, 12, 0, 0));
     //currentDateTime.setUTCFullYear(8);
@@ -15,7 +15,6 @@ function updateDateAndTime() {
     //let currentTimeZone = currentDateTime.getTimezoneOffset();
     //let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     //currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
-    
 
     // Get basic info about the date and time
     let day = currentDateTime.getDate().toString().padStart(2, '0');
@@ -24,8 +23,13 @@ function updateDateAndTime() {
     let hour = currentDateTime.getHours().toString().padStart(2, '0');
     let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
     let second = currentDateTime.getSeconds().toString().padStart(2, '0');
-    let dateDisplayString = year + ' ' + monthNames[month] + ' ' + day;
-    let timeDisplayString = hour + ':' + minute + ':' + second;
+    const dayOfWeek = currentDateTime.getDay();
+    let yearSuffix = 'CE';
+    if (year<1) {
+        yearSuffix = 'BCE';
+    }
+    let dateDisplayString = monthNames[month] + ' ' + day + ' ' + year + ' ' + yearSuffix;
+    let timeDisplayString = dayOfWeek + ' ' + hour + ':' + minute + ':' + second;
 
     // All fractional times
     let secondFraction = calculateSecond(currentDateTime);
@@ -95,6 +99,8 @@ function updateDateAndTime() {
     let republicanCalendar = getRepublicanCalendar(currentDateTime);
     let copticCalendar = julianDayToCoptic(julianDay);
     let ethiopianCalendar = julianDayToEthiopian(julianDay);
+    let invariableCalendar = getInvariableCalendarDate(currentDateTime);
+    let worldCalendar = getWorldCalendarDate(currentDateTime);
     setTimeValue('gregorian-box', gregorianCalendar);
     setTimeValue('human-era-box', humanEra);
     setTimeValue('julian-box', julianCalendar);
@@ -105,6 +111,8 @@ function updateDateAndTime() {
     setTimeValue('juche-box', minguoJuche);
     setTimeValue('coptic-box', copticCalendar);
     setTimeValue('ethiopian-box', ethiopianCalendar);
+    setTimeValue('invariable-box', invariableCalendar);
+    setTimeValue('world-calendar-box', worldCalendar);
 
     // Lunisolar Calendars
     let chineseZodiacYear = getChineseZodiacYear(year);
