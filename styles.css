@@ -14,7 +14,7 @@ body, html {
 }
 
 .title-wrapper {
-    position: absolute;
+    position: relative;
     width: 99vw;
     font-size: 4vh;
     color: #cbcbcb;
@@ -23,6 +23,8 @@ body, html {
     align-items: center;
     height: 5vh;
     font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    z-index: 10;
+    background-color: rgb(47, 47, 47);
 }
 
 .title-wrapper:after {
@@ -49,22 +51,25 @@ body, html {
 }
 
 .node-wrapper {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    max-width: 58vw;
+    width: 58vw;
     left: 0;
+    margin: 2vh;
+    grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr)); /* Adjust column width as needed */
+    grid-gap: 1vw; /* Adjust the gap between columns */
 }
 
-.node-family-name {
-    font-size: xx-large;
-    color: #bbbbbb;
-}
 
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
     align-items: center;
     font-size: large;
     margin-left: 2vw;
-    margin-top: 5vw;
     border-width: 0.25vh;
     width: 11vw;
     border: 0.3vh solid #000000;
