@@ -47,6 +47,7 @@ body, html {
     top: 4vh;
     right: 0;
     margin: 4vh;
+    margin-bottom: 0;
     background-color: rgb(55, 55, 55);;
 }
 
@@ -59,6 +60,7 @@ body, html {
     left: 0;
     top: 1vh;
     margin: 2vh;
+    margin-bottom: 0;
     grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr)); /* Adjust column width as needed */
     grid-gap: 1vw; /* Adjust the gap between columns */
 }
@@ -71,7 +73,7 @@ body, html {
     font-size: 1.3vh;
     border-width: 0.25vh;
     border: 0.3vh solid #000000;
-    margin-bottom: 2vh;
+    margin-bottom: 1vh;
 }
 
 .standard-time {
