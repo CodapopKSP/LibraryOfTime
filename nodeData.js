@@ -267,7 +267,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 10000 BCE',
         confidence: 'Exact',
-        description: 'The Human Era, also known as the Holocene Era, is the calendar representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements. It was proposed by Cesare Emiliani in 1993 CE.'
+        description: 'The Human Era, also known as the Holocene Era, is the calendar representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements. It was proposed by Cesare Emiliani in 1993 CE and is based on the Gregorian calendar.'
     },
 
     {
@@ -312,7 +312,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1912 CE',
         confidence: 'Exact',
-        description: 'The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912. For its months and days, it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
+        description: 'The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912, while its months follow the Gregorian calendar.'
     },
 
     {
@@ -321,7 +321,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 543 BCE',
         confidence: 'High',
-        description: 'The Thai Solar calendar is used in Thailand and is 543 years ahead of the Gregorian calendar. It represents the number of years of the current Buddhist Era (B.E.), the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.'
+        description: 'The Thai Solar calendar is used in Thailand and is 543 years ahead of the Gregorian calendar, though it shares the same months. It represents the number of years of the current Buddhist Era (B.E.), the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.'
     },
 
     {
@@ -330,7 +330,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1912 CE',
         confidence: 'Exact',
-        description: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar and can be calculated by subtracting 1911 from the Gregorian year.'
+        description: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar.'
     },
 
     {
@@ -348,7 +348,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1 CE',
         confidence: 'Exact',
-        description: 'The Invariable calendar was proposed by Elisabeth Achelis in 1930 CE and was nearly adopted by the League of Nations. It features months in a repeating pattern of 31/30/30 days with World\'s Day happening between December and January and Leapyear Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Sunday, Wednesday, or Friday in a predictable pattern that is the same every year.'
+        description: 'The World Calendar was proposed by Elisabeth Achelis in 1930 CE and was nearly adopted by the League of Nations. It features months in a repeating pattern of 31/30/30 days with World\'s Day happening between December and January and Leapyear Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Sunday, Wednesday, or Friday in a predictable pattern that is the same every year.'
     },
 ]
 
