@@ -7,7 +7,7 @@ const decimals = 10;
 document.addEventListener('mousemove', updateTooltipPosition);
 
 function updateDateAndTime() {
-    let currentDateTime = new Date(-2024, 1, 1, 12);
+    let currentDateTime = new Date();
     
     //let currentDateTime = new Date(Date.UTC(2023, 8, 12, 12, 0, 0));
     //currentDateTime.setUTCFullYear(8);
@@ -24,12 +24,13 @@ function updateDateAndTime() {
     let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
     let second = currentDateTime.getSeconds().toString().padStart(2, '0');
     const dayOfWeek = currentDateTime.getDay();
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let yearSuffix = 'CE';
     if (year<1) {
         yearSuffix = 'BCE';
     }
     let dateDisplayString = monthNames[month] + ' ' + day + ' ' + year + ' ' + yearSuffix;
-    let timeDisplayString = dayOfWeek + ' ' + hour + ':' + minute + ':' + second;
+    let timeDisplayString = dayNames[dayOfWeek] + ' ' + hour + ':' + minute + ':' + second;
 
     // All fractional times
     let secondFraction = calculateSecond(currentDateTime);
