@@ -4,7 +4,7 @@
 //https://www.tondering.dk/claus/cal/julperiod.php
 
 const decimals = 10;
-document.addEventListener('mousemove', updateTooltipPosition);
+let visibleTooltip = '';
 
 function updateDateAndTime() {
     let currentDateTime = new Date();
@@ -217,7 +217,14 @@ function createBox(item) {
     // Append the label, content, and description to the box
     box.appendChild(label);
     box.appendChild(content);
-    box.appendChild(description);
+    document.querySelector('.description-wrapper').appendChild(description);
+    box.addEventListener('mouseenter', () => {
+        if (visibleTooltip!=='') {
+            visibleTooltip.style.visibility = 'hidden';
+        }
+        visibleTooltip = description;
+        description.style.visibility = 'visible';
+    });
 
     if (item.type === 'Solar Calendar') {
         solarCalendars.appendChild(box);
@@ -247,25 +254,4 @@ updateDateAndTime();
 
 function setTimeValue(type, value) {
     document.getElementById(type).textContent = value;
-}
-
-function updateTooltipPosition(event) {
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const tooltips = document.querySelectorAll('.tooltip');
-
-    tooltips.forEach(tooltip => {
-        if (mouseX > screenWidth / 2) {
-            tooltip.style.left = '-150%';
-        } else {
-            tooltip.style.left = '100%';
-        }
-        if (mouseY < screenHeight / 2.3) {
-            tooltip.style.top = '25%';
-        } else {
-            tooltip.style.top = '-200%';
-        }
-    });
 }

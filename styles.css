@@ -4,19 +4,57 @@ body, html {
     border: 0;
 }
 
-body {
-    overflow: hidden;
-}
-
 .page-wrapper {
     background-color: rgb(47, 47, 47);
     /*background-color: rgb(129, 131, 119);*/
     /*background-color: rgb(0, 0, 0);*/
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow: auto;
+}
+
+.title-wrapper {
+    position: absolute;
+    width: 99vw;
+    font-size: 4vh;
+    color: #cbcbcb;
     display: flex;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+.title-wrapper:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 0.3vh;
+    background-color: #cbcbcb;
+}
+
+.description-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 33vw;
+    height: 90vh;
+    top: 4vh;
+    right: 0;
+    margin: 4vh;
+    background-color: rgb(55, 55, 55);;
+}
+
+.node-wrapper {
+    left: 0;
+}
+
+.node-family-name {
+    font-size: xx-large;
+    color: #bbbbbb;
 }
 
 .container {
@@ -116,19 +154,14 @@ body {
 }
 
 .tooltip {
+    position: relative;
     visibility: hidden;
-    width: 120px;
-    background-color: #242424;
     color: rgb(214, 214, 214);
     text-align: center;
-    border-radius: 6px;
-    border: 0.4vh solid #000000;
     position: absolute;
     z-index: 1;
-    width: 23vh;
-    top: 25%;
-    left: 50%;
-    font-size: 1.5vh;
+    font-size: 1.8vh;
+    width: 33vw;
 }
 
 .box:hover .tooltip {
@@ -136,12 +169,21 @@ body {
 }
 
 .tooltip-title {
-    font-size: 2vh;
+    font-size: 2.5vh;
     font-weight: bold;
     padding: 0.5vh;
-    color: white;
-    border-bottom: 0.4vh solid #000000;
-    background-color: #363636;
+    color: rgb(214, 214, 214);
+}
+
+.tooltip-title:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 4vh;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 0.3vh;
+    background-color: #cbcbcb;
 }
 
 .tooltip-description {
@@ -154,12 +196,13 @@ body {
     text-align: left;
     padding-left: 1vh;
     padding-right: 1vh;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
+    padding-top: 3vh;
+    padding-bottom: 2vh;
 }
 
 .tooltip-confidence {
     text-align: left;
     padding-left: 1vh;
     padding-right: 1vh;
+    padding-bottom: 1vh;
 }
