@@ -66,6 +66,7 @@ function updateDateAndTime() {
     let LORANC = getLORANC(currentDateTime).toISOString().slice(0, -5);
     let julianPeriod = getJulianPeriod(currentDateTime);
     let dynamicalTime = getDynamicalTimeForward(currentDateTime);
+    let lilianDate = getLilianDate(julianDay);
     setTimeValue('unix-box', currentUnixDateTime);
     setTimeValue('filetime-box', filetimeValue);
     setTimeValue('iso8601-box', iso8601Value);
@@ -76,6 +77,7 @@ function updateDateAndTime() {
     setTimeValue('tai-box', TAI);
     setTimeValue('loran-c-box', LORANC);
     setTimeValue('dynamical-time-box', dynamicalTime);
+    setTimeValue('lilian-date-box', lilianDate);
 
     // Decimal Time
     let decimalTime = getRevolutionaryTime(dayFraction);

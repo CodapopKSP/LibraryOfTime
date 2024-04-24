@@ -99,3 +99,8 @@ function getDynamicalTimeOffset(currentDateTime) {
     }
     return secondsAhead;
 }
+
+function getLilianDate(julianDay) {
+    const lilianDate = Math.floor(julianDay - 2299159.5);
+    return lilianDate;
+}
