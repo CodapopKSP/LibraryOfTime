@@ -29,7 +29,7 @@ function updateDateAndTime() {
     if (year<1) {
         yearSuffix = 'BCE';
     }
-    let dateDisplayString = monthNames[month] + ' ' + day + ' ' + year + ' ' + yearSuffix;
+    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix;
     let timeDisplayString = dayNames[dayOfWeek] + ' ' + hour + ':' + minute + ':' + second;
 
     // All fractional times

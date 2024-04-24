@@ -33,7 +33,7 @@ function getJulianDate(currentDateTime) {
         yearSuffix = 'BCE';
     }
     
-    let dateString = monthString + ' ' + dayString + ' ' + yearString + ' ' + yearSuffix;
+    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix;
     return dateString;
 }
 
