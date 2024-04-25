@@ -4,6 +4,10 @@ body, html {
     border: 0;
 }
 
+a {
+    color: rgb(255, 255, 255); /* Change the color of all links to blue */
+}
+
 .page-wrapper {
     background-color: rgb(47, 47, 47);
     /*background-color: rgb(129, 131, 119);*/
@@ -221,7 +225,6 @@ body, html {
     color: rgb(214, 214, 214);
     padding-left: 1vh;
     padding-right: 1vh;
-    padding-top: 3vh;
+    padding-top: 2vh;
     font-size: 2vh;
-    font-family: Arial, sans-serif;
 }
