@@ -8,9 +8,27 @@ const decimals = 10;
 let visibleTooltip = document.querySelector('.pre-description');
 const nodeWrapper = document.querySelector('.node-wrapper');
 let selectedNode = '';
+let dateInput = '';
 
-function updateDateAndTime() {
-    let currentDateTime = new Date();
+function updateDateAndTime(dateInput) {
+    let currentDateTime = '';
+    if (dateInput === undefined) {
+        currentDateTime = new Date();
+    } else {
+        const inputParts = dateInput.split(', ');
+        const inputYear = inputParts[0];
+        const inputMonth = inputParts[1] - 1;
+        const inputDay = inputParts[2];
+        const inputHour = inputParts[3];
+        const inputMinute = inputParts[4];
+        const inputSecond = inputParts[5];
+        currentDateTime = new Date(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond);
+    }
+    /*
+    console.log(currentDateTime);
+    if (dateInput !== '') {
+        currentDateTime = new Date(dateInput);
+    }*/
     
     //let currentDateTime = new Date(Date.UTC(2023, 8, 12, 12, 0, 0));
     //currentDateTime.setUTCFullYear(8);
@@ -234,6 +252,7 @@ function createnode(item) {
         // Return border color of deselected node if there is one
         if (selectedNode !== '') {
             selectedNode.style.borderColor = '';
+            selectedNode.style.backgroundColor = '';
         }
         selectedNode = content;
         content.style.borderColor = 'rgb(150, 150, 150)';
@@ -257,7 +276,7 @@ function createnode(item) {
         content.style.backgroundColor = 'rgb(150, 150, 150)';
         setTimeout(() => {
             content.style.transition = 'background-color 0.3s';
-            content.style.backgroundColor = '';
+            content.style.backgroundColor = 'rgb(60, 60, 60)';
         }, 150);
     });
 
@@ -275,6 +294,7 @@ function createnode(item) {
             // Handle the highlighting of the deselected node
             if (selectedNode !== '') {
                 selectedNode.style.borderColor = '';
+                selectedNode.style.backgroundColor = '';
             }
             selectedNode = '';
         }
@@ -296,16 +316,39 @@ function createnode(item) {
         astronomicalData.appendChild(node);
     }
 }
+let updateIntervalId;
 
 // Draw elements in HTML
 createElements();
 
 // Update the date and time every millisecond
-setInterval(updateDateAndTime, 1);
+updateIntervalId = setInterval(updateDateAndTime, 1);
 
 // Initial update
 updateDateAndTime();
 
 function setTimeValue(type, value) {
     document.getElementById(type).textContent = value;
+}
+
+// Read the input box and set the date or restart the current time ticker
+function changeDateTime() {
+    clearInterval(updateIntervalId);
+    // Get the value entered in the input box
+    const newDateString = document.getElementById('date-input').value;
+
+    // Date was input, add it as an argument
+    if (newDateString!=='') {
+        updateDateAndTime(newDateString);
+        setTimeout(() => {
+            updateIntervalId = setInterval(updateDateAndTime(newDateString), 1);
+        }, 1000);
+    
+    // Date was cleared, restart without argument
+    } else {
+        updateDateAndTime;
+        setTimeout(() => {
+            updateIntervalId = setInterval(updateDateAndTime, 1);
+        }, 1);
+    }
 }

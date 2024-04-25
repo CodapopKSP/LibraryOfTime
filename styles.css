@@ -45,7 +45,9 @@ a {
 .description-wrapper {
     position: absolute;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 33vw;
     height: 90vh;
     top: 4vh;
@@ -54,7 +56,8 @@ a {
     margin-right: 3vh;
     margin-left: 2vh;
     margin-bottom: 0;
-    background-color: rgb(55, 55, 55);;
+    background-color: rgb(55, 55, 55);
+    border: 0.1vh solid #000000;
 }
 
 .node-wrapper {
@@ -176,6 +179,7 @@ a {
     z-index: 1;
     font-size: 1.8vh;
     width: 33vw;
+    top: 7vh;
 }
 
 .node:hover .tooltip {
@@ -222,9 +226,47 @@ a {
 }
 
 .pre-description {
+    position: absolute;
     color: rgb(214, 214, 214);
     padding-left: 1vh;
     padding-right: 1vh;
-    padding-top: 2vh;
     font-size: 2vh;
+    top: 7vh;
+}
+
+.input-box-wrapper {
+    position: absolute;
+    border-bottom: 0.3vh solid #1f1f1f;
+    top: 0;
+    width: 33vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /*background-color: #313131;*/
+    height: 5vh;
+}
+
+#date-input {
+    width: 18vw;
+    height: 2vh;
+    margin-right: 2vw;
+    background-color: #c0c0c0;
+    color: #000000;
+    border-color: #000000;
+    font-size: 1.2vh;
+}
+
+#change-date-button {
+    height: 2.5vh;
+    width: 5vw;
+    font-size: 1.2vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border-color: #443c3c;
+}
+
+.centered {
+    display: block;
+    text-align: center;
 }
