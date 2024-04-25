@@ -321,7 +321,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1912 CE',
         confidence: 'Exact',
-        description: 'The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are counted in 民國, translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912, while its numerical months (月) follow the Gregorian calendar.'
+        description: 'The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are counted in 民國, translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912, while its numerical months (月) and days (日) follow the Gregorian calendar.'
     },
 
     {

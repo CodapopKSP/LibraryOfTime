@@ -48,7 +48,7 @@ function getMinguo(currentDateTime) {
     // Add leading zeros if necessary
     let dayString = (day < 10) ? '0' + day : day;
     
-    return dayString + '日 ' + month + '月 ' + year + '民國';
+    return '民國 ' + year + '年 ' + month + '月 ' + dayString + '日';
 }
 
 function getJuche(currentDateTime) {
