@@ -5,7 +5,7 @@
 //https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand
 
 const decimals = 10;
-let visibleTooltip = '';
+let visibleTooltip = document.querySelector('.pre-description');
 
 function updateDateAndTime() {
     let currentDateTime = new Date();
@@ -223,9 +223,7 @@ function createBox(item) {
     box.appendChild(content);
     document.querySelector('.description-wrapper').appendChild(description);
     box.addEventListener('click', () => {
-        if (visibleTooltip!=='') {
-            visibleTooltip.style.visibility = 'hidden';
-        }
+        visibleTooltip.style.visibility = 'hidden';
         visibleTooltip = description;
         description.style.visibility = 'visible';
     });
