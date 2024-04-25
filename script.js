@@ -22,7 +22,7 @@ function updateDateAndTime(dateInput) {
         const inputHour = inputParts[3];
         const inputMinute = inputParts[4];
         const inputSecond = inputParts[5];
-        currentDateTime = new Date(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond);
+        currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond));
     }
     /*
     console.log(currentDateTime);
