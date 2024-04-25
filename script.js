@@ -222,12 +222,31 @@ function createBox(item) {
     box.appendChild(label);
     box.appendChild(content);
     document.querySelector('.description-wrapper').appendChild(description);
-    box.addEventListener('mouseenter', () => {
+    box.addEventListener('click', () => {
         if (visibleTooltip!=='') {
             visibleTooltip.style.visibility = 'hidden';
         }
         visibleTooltip = description;
         description.style.visibility = 'visible';
+    });
+
+
+    box.addEventListener('mouseenter', () => {
+        // Change border color when mouse is hovering
+        content.style.borderColor = 'rgb(150, 150, 150)';
+    });
+
+    box.addEventListener('mouseleave', () => {
+        content.style.borderColor = '';
+    });
+
+    box.addEventListener('mousedown', () => {
+        // Change background color when mouse is pressed down
+        content.style.backgroundColor = 'rgb(150, 150, 150)';
+        setTimeout(() => {
+            content.style.transition = 'background-color 0.3s';
+            content.style.backgroundColor = '';
+        }, 150);
     });
 
     if (item.type === 'Solar Calendar') {
