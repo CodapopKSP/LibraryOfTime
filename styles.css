@@ -119,38 +119,38 @@ a {
     color: rgb(252, 255, 196);
 }
 
-.box {
+.node {
     margin: 0.5vh;
     width: 10vw;
     position: relative;
     display: inline-block;
 }
 
-.standard-time > .box > .content {
+.standard-time > .node > .content {
     border: 0.2vh solid #bbbbbb;
 }
 
-.computing-time > .box > .content {
+.computing-time > .node > .content {
     border: 0.2vh solid #696d9f;
 }
 
-.solar-calendars > .box > .content {
+.solar-calendars > .node > .content {
     border: 0.2vh solid #966a6a;
 }
 
-.lunisolar-calendars > .box > .content {
+.lunisolar-calendars > .node > .content {
     border: 0.2vh solid #6f986a;
 }
 
-.decimal-time > .box > .content {
+.decimal-time > .node > .content {
     border: 0.2vh solid #896a98;
 }
 
-.lunar-calendars > .box > .content {
+.lunar-calendars > .node > .content {
     border: 0.2vh solid #7c6a98;
 }
 
-.astronomical-data > .box > .content {
+.astronomical-data > .node > .content {
     border: 0.2vh solid #6a9698;
 }
 
@@ -178,7 +178,7 @@ a {
     width: 33vw;
 }
 
-.box:hover .tooltip {
+.node:hover .tooltip {
     visibility: visible;
 }
 

@@ -6,6 +6,8 @@
 
 const decimals = 10;
 let visibleTooltip = document.querySelector('.pre-description');
+const nodeWrapper = document.querySelector('.node-wrapper');
+let selectedNode = '';
 
 function updateDateAndTime() {
     let currentDateTime = new Date();
@@ -43,17 +45,17 @@ function updateDateAndTime() {
     let decadeFraction = calculateDecade(currentDateTime);
     let centuryFraction = calculateCentury(currentDateTime);
     let millenniumFraction = calculateMillennium(currentDateTime);
-    setTimeValue('local-time-box', timeDisplayString)
-    setTimeValue('utc-box', currentDateTime.toISOString().slice(0, -5));
-    setTimeValue('day-box', dayFraction.toFixed(decimals));
-    setTimeValue('month-box', monthFraction.toFixed(decimals));
-    setTimeValue('year-box', yearFraction.toFixed(decimals));
-    setTimeValue('hour-box', hourFraction.toFixed(decimals));
-    setTimeValue('minute-box', minuteFraction.toFixed(decimals));
-    setTimeValue('second-box', secondFraction.toFixed(decimals));
-    setTimeValue('decade-box', decadeFraction.toFixed(decimals));
-    setTimeValue('century-box', centuryFraction.toFixed(decimals));
-    setTimeValue('millennium-box', millenniumFraction.toFixed(decimals));
+    setTimeValue('local-time-node', timeDisplayString)
+    setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
+    setTimeValue('day-node', dayFraction.toFixed(decimals));
+    setTimeValue('month-node', monthFraction.toFixed(decimals));
+    setTimeValue('year-node', yearFraction.toFixed(decimals));
+    setTimeValue('hour-node', hourFraction.toFixed(decimals));
+    setTimeValue('minute-node', minuteFraction.toFixed(decimals));
+    setTimeValue('second-node', secondFraction.toFixed(decimals));
+    setTimeValue('decade-node', decadeFraction.toFixed(decimals));
+    setTimeValue('century-node', centuryFraction.toFixed(decimals));
+    setTimeValue('millennium-node', millenniumFraction.toFixed(decimals));
 
     // Computing Times
     let currentUnixDateTime = getUnixTime(currentDateTime);
@@ -67,17 +69,17 @@ function updateDateAndTime() {
     let julianPeriod = getJulianPeriod(currentDateTime);
     let dynamicalTime = getDynamicalTimeForward(currentDateTime);
     let lilianDate = getLilianDate(julianDay);
-    setTimeValue('unix-box', currentUnixDateTime);
-    setTimeValue('filetime-box', filetimeValue);
-    setTimeValue('iso8601-box', iso8601Value);
-    setTimeValue('gps-box', gpsValue);
-    setTimeValue('julian-day-number-box', julianDay);
-    setTimeValue('julian-period-box', julianPeriod);
-    setTimeValue('rata-die-box', rataDie);
-    setTimeValue('tai-box', TAI);
-    setTimeValue('loran-c-box', LORANC);
-    setTimeValue('dynamical-time-box', dynamicalTime);
-    setTimeValue('lilian-date-box', lilianDate);
+    setTimeValue('unix-node', currentUnixDateTime);
+    setTimeValue('filetime-node', filetimeValue);
+    setTimeValue('iso8601-node', iso8601Value);
+    setTimeValue('gps-node', gpsValue);
+    setTimeValue('julian-day-number-node', julianDay);
+    setTimeValue('julian-period-node', julianPeriod);
+    setTimeValue('rata-die-node', rataDie);
+    setTimeValue('tai-node', TAI);
+    setTimeValue('loran-c-node', LORANC);
+    setTimeValue('dynamical-time-node', dynamicalTime);
+    setTimeValue('lilian-date-node', lilianDate);
 
     // Decimal Time
     let decimalTime = getRevolutionaryTime(dayFraction);
@@ -85,13 +87,13 @@ function updateDateAndTime() {
     let hexadecimalTime = getHexadecimalTime(dayFraction);
     let binaryTime = getBinaryTime(dayFraction);
     //const newHexColor = get6DigitHexadecimalTime(dayFraction);
-    //const hexColorBox = document.querySelector('#hex-color-box');
+    //const hexColornode = document.querySelector('#hex-color-node');
     //const rgbaColor = hexToRGBA(newHexColor, 0.25);
-    //hexColorBox.style.backgroundColor = rgbaColor
-    setTimeValue('revolutionary-time-box', decimalTime);
-    setTimeValue('beat-time-box', swatchBeats);
-    setTimeValue('hexadecimal-box', hexadecimalTime);
-    setTimeValue('binary-box', binaryTime);
+    //hexColornode.style.backgroundColor = rgbaColor
+    setTimeValue('revolutionary-time-node', decimalTime);
+    setTimeValue('beat-time-node', swatchBeats);
+    setTimeValue('hexadecimal-node', hexadecimalTime);
+    setTimeValue('binary-node', binaryTime);
 
     // Solar Calendars
     let humanEra = getHumanEra(currentDateTime);
@@ -106,29 +108,29 @@ function updateDateAndTime() {
     let ethiopianCalendar = julianDayToEthiopian(julianDay);
     let invariableCalendar = getInvariableCalendarDate(currentDateTime);
     let worldCalendar = getWorldCalendarDate(currentDateTime);
-    setTimeValue('gregorian-box', gregorianCalendar);
-    setTimeValue('human-era-box', humanEra);
-    setTimeValue('julian-box', julianCalendar);
-    setTimeValue('french-republican-box', republicanCalendar);
-    setTimeValue('era-fascista-box', eraFascista);
-    setTimeValue('minguo-box', minguoCalendar);
-    setTimeValue('thai-solar-box', thaiSolar);
-    setTimeValue('juche-box', jucheCalendar);
-    setTimeValue('coptic-box', copticCalendar);
-    setTimeValue('ethiopian-box', ethiopianCalendar);
-    setTimeValue('invariable-box', invariableCalendar);
-    setTimeValue('world-calendar-box', worldCalendar);
+    setTimeValue('gregorian-node', gregorianCalendar);
+    setTimeValue('human-era-node', humanEra);
+    setTimeValue('julian-node', julianCalendar);
+    setTimeValue('french-republican-node', republicanCalendar);
+    setTimeValue('era-fascista-node', eraFascista);
+    setTimeValue('minguo-node', minguoCalendar);
+    setTimeValue('thai-solar-node', thaiSolar);
+    setTimeValue('juche-node', jucheCalendar);
+    setTimeValue('coptic-node', copticCalendar);
+    setTimeValue('ethiopian-node', ethiopianCalendar);
+    setTimeValue('invariable-node', invariableCalendar);
+    setTimeValue('world-calendar-node', worldCalendar);
 
     // Lunisolar Calendars
     let chineseZodiacYear = getChineseZodiacYear(year);
     let vietnameseZodiacYear = getVietnameseZodiacYear(year);
-    setTimeValue('sexagenary-year-box', getSexagenaryYear(year));
-    setTimeValue('chinese-zodiac-box', chineseZodiacYear);
-    setTimeValue('vietnamese-zodiac-box', vietnameseZodiacYear);
+    setTimeValue('sexagenary-year-node', getSexagenaryYear(year));
+    setTimeValue('chinese-zodiac-node', chineseZodiacYear);
+    setTimeValue('vietnamese-zodiac-node', vietnameseZodiacYear);
 
     // Lunar Calendars
     let hijriCalendar = findCurrentHijriDate(currentDateTime);
-    setTimeValue('hijri-box', hijriCalendar);
+    setTimeValue('hijri-node', hijriCalendar);
 
     // Astronomical Data
     let springEquinox = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'spring');
@@ -137,40 +139,40 @@ function updateDateAndTime() {
     let winterSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'winter');
     let sunLongitude = getLongitudeOfSun(currentDateTime);
     let nextNewMoon = getNewMoonThisMonth(currentDateTime);
-    setTimeValue('spring-equinox-box', springEquinox);
-    setTimeValue('summer-solstice-box', summerSolstice);
-    setTimeValue('autumn-equinox-box', autumnEquinox);
-    setTimeValue('winter-solstice-box', winterSolstice);
-    setTimeValue('sun-longitude-box', sunLongitude);
-    setTimeValue('this-new-moon-box', nextNewMoon);
+    setTimeValue('spring-equinox-node', springEquinox);
+    setTimeValue('summer-solstice-node', summerSolstice);
+    setTimeValue('autumn-equinox-node', autumnEquinox);
+    setTimeValue('winter-solstice-node', winterSolstice);
+    setTimeValue('sun-longitude-node', sunLongitude);
+    setTimeValue('this-new-moon-node', nextNewMoon);
 }
 
 function createElements() {
     standardTimeData.forEach(item => {
-        createBox(item);
+        createnode(item);
     });
     computingTimeData.forEach(item => {
-        createBox(item);
+        createnode(item);
     });
     decimalTimeData.forEach(item => {
-        createBox(item);
+        createnode(item);
     });
     solarCalendarsData.forEach(item => {
-        createBox(item);
+        createnode(item);
     });
     lunisolarCalendarsData.forEach(item => {
-        createBox(item);
+        createnode(item);
     });
     lunarCalendarsData.forEach(item => {
-        createBox(item);
+        createnode(item);
     });
     astronomicalData.forEach(item => {
-        createBox(item);
+        createnode(item);
     });
 }
 
-// Function to create box elements
-function createBox(item) {
+// Function to create node elements
+function createnode(item) {
     const standardTime = document.querySelector('.standard-time');
     const computingTime = document.querySelector('.computing-time');
     const decimalTime = document.querySelector('.decimal-time');
@@ -179,17 +181,17 @@ function createBox(item) {
     const lunarCalendars = document.querySelector('.lunar-calendars');
     const astronomicalData = document.querySelector('.astronomical-data');
 
-    // Create a div element for the box
-    const box = document.createElement('div');
-    box.classList.add('box');
+    // Create a div element for the node
+    const node = document.createElement('div');
+    node.classList.add('node');
 
-    // Create a label element for the box
+    // Create a label element for the node
     const label = document.createElement('label');
     label.textContent = item.name;
 
     // Create a div element for the content
     const content = document.createElement('div');
-    content.id = item.id + '-box';
+    content.id = item.id + '-node';
     content.classList.add('content');
 
     // Create a popup tooltip for the description
@@ -218,28 +220,40 @@ function createBox(item) {
     descriptionElement.classList.add('tooltip-description');
     description.appendChild(descriptionElement);
 
-    // Append the label, content, and description to the box
-    box.appendChild(label);
-    box.appendChild(content);
+    // Append the label, content, and description to the node
+    node.appendChild(label);
+    node.appendChild(content);
     document.querySelector('.description-wrapper').appendChild(description);
-    box.addEventListener('click', () => {
+
+    node.addEventListener('click', () => {
+        // Select a node and update the description while deselecting an old node
         visibleTooltip.style.visibility = 'hidden';
         visibleTooltip = description;
         description.style.visibility = 'visible';
+        document.querySelector('.pre-description').style.visibility = 'hidden';
+        // Return border color of deselected node if there is one
+        if (selectedNode !== '') {
+            selectedNode.style.borderColor = '';
+        }
+        selectedNode = content;
+        content.style.borderColor = 'rgb(150, 150, 150)';
     });
 
 
-    box.addEventListener('mouseenter', () => {
+    node.addEventListener('mouseenter', () => {
         // Change border color when mouse is hovering
         content.style.borderColor = 'rgb(150, 150, 150)';
     });
 
-    box.addEventListener('mouseleave', () => {
-        content.style.borderColor = '';
+    node.addEventListener('mouseleave', () => {
+        // Change border back to default if not selected
+        if (selectedNode !== content) {
+            content.style.borderColor = '';
+        }
     });
 
-    box.addEventListener('mousedown', () => {
-        // Change background color when mouse is pressed down
+    node.addEventListener('mousedown', () => {
+        // Change background color of a node when selected
         content.style.backgroundColor = 'rgb(150, 150, 150)';
         setTimeout(() => {
             content.style.transition = 'background-color 0.3s';
@@ -247,20 +261,39 @@ function createBox(item) {
         }, 150);
     });
 
+    nodeWrapper.addEventListener('click', (event) => {
+        // Check if the click target is a node or a descendant of a node
+        const isNodeClick = event.target.classList.contains('node') || event.target.closest('.node');
+
+        // If it's not a node click, deselect the node
+        if (!isNodeClick) {
+            // Replace the tooltip with the landing text
+            visibleTooltip.style.visibility = 'hidden';
+            visibleTooltip = description;
+            document.querySelector('.pre-description').style.visibility = 'visible';
+
+            // Handle the highlighting of the deselected node
+            if (selectedNode !== '') {
+                selectedNode.style.borderColor = '';
+            }
+            selectedNode = '';
+        }
+    });
+
     if (item.type === 'Solar Calendar') {
-        solarCalendars.appendChild(box);
+        solarCalendars.appendChild(node);
     } else if (item.type === 'Computing Time') {
-        computingTime.appendChild(box);
+        computingTime.appendChild(node);
     } else if (item.type === 'Standard Time') {
-        standardTime.appendChild(box);
+        standardTime.appendChild(node);
     } else if (item.type === 'Decimal Time') {
-        decimalTime.appendChild(box);
+        decimalTime.appendChild(node);
     } else if (item.type === 'Lunisolar Calendar') {
-        lunisolarCalendars.appendChild(box);
+        lunisolarCalendars.appendChild(node);
     } else if (item.type === 'Lunar Calendar') {
-        lunarCalendars.appendChild(box);
+        lunarCalendars.appendChild(node);
     } else if (item.type === 'Astronomical Data') {
-        astronomicalData.appendChild(box);
+        astronomicalData.appendChild(node);
     }
 }
 
