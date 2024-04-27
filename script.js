@@ -3,6 +3,7 @@
 //http://www.leapsecond.com/java/gpsclock.htm
 //https://www.tondering.dk/claus/cal/julperiod.php
 //https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand
+//https://ytliu0.github.io/ChineseCalendar/rules.html
 
 const decimals = 10;
 let visibleTooltip = document.querySelector('.pre-description');
@@ -140,10 +141,10 @@ function updateDateAndTime(dateInput) {
     setTimeValue('world-calendar-node', worldCalendar);
 
     // Lunisolar Calendars
-    let chineseZodiacYear = getChineseZodiacYear(year);
+    let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime);
     let vietnameseZodiacYear = getVietnameseZodiacYear(year);
     setTimeValue('sexagenary-year-node', getSexagenaryYear(year));
-    setTimeValue('chinese-zodiac-node', chineseZodiacYear);
+    setTimeValue('chinese-node', chineseCalendar);
     setTimeValue('vietnamese-zodiac-node', vietnameseZodiacYear);
 
     // Lunar Calendars
@@ -151,17 +152,17 @@ function updateDateAndTime(dateInput) {
     setTimeValue('hijri-node', hijriCalendar);
 
     // Astronomical Data
-    let springEquinox = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'spring');
-    let summerSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'summer');
-    let autumnEquinox = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'autumn');
-    let winterSolstice = getCurrentSolsticeOrEquinoxJDE(currentDateTime, 'winter');
+    let springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
+    let summerSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'summer');
+    let autumnEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'autumn');
+    let winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
     let sunLongitude = getLongitudeOfSun(currentDateTime);
-    let nextNewMoon = getNewMoonThisMonth(currentDateTime);
+    let nextNewMoon = getNewMoonThisMonth(currentDateTime, 0);
     setTimeValue('spring-equinox-node', springEquinox);
     setTimeValue('summer-solstice-node', summerSolstice);
     setTimeValue('autumn-equinox-node', autumnEquinox);
     setTimeValue('winter-solstice-node', winterSolstice);
-    setTimeValue('sun-longitude-node', sunLongitude);
+    setTimeValue('sun-longitude-node', sunLongitude+'°');
     setTimeValue('this-new-moon-node', nextNewMoon);
 }
 

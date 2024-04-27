@@ -6,7 +6,7 @@
 
 // Find the last day that occurred after a New Moon happened before sunset in Mecca
 function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
-    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime);
+    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
     
     // Check if the New Moon has passed for this month
     if (currentDateTime.getTime() > newMoonThisMonth.getTime()) {
@@ -20,7 +20,7 @@ function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
     }
     let dateBack29Days = new Date(currentDateTime);
     dateBack29Days.setDate(dateBack29Days.getDate() - 29);
-    const newMoonLastMonth = getNewMoonThisMonth(dateBack29Days);
+    const newMoonLastMonth = getNewMoonThisMonth(dateBack29Days, 0);
     // Check if the New Moon happened before 18:00 Mecca time (UTC+3), rough approximation of sunset
     if (newMoonLastMonth.getUTCHours() < 15) {
         return newMoonLastMonth;
@@ -85,19 +85,6 @@ function calculateIslamicMonthAndYear(ln) {
     }
     const currentYear = 1420 + islamicYears; // Start year + number of complete Islamic years
     return { month: currentMonth, year: currentYear };
-}
-
-function calculateLunationNumber(currentDateTime) {
-    // Using Jean Meeus's date for lunation epoch
-    const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
-    const secondsSince2000 = (currentDateTime - firstNewMoon2000)/1000;
-
-    // Calculate the number of days since the first new moon of 2000
-    const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
-
-    // Calculate the number of lunations since Lunation 0
-    const lunationNumber = Math.floor(daysSince2000 / 29.530588);
-    return lunationNumber;
 }
 
 const HijriMonths = {

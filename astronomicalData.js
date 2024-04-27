@@ -4,7 +4,7 @@
 
 // A set of functions for calculating data in the Astronomical Data category.
 
-function getCurrentSolsticeOrEquinoxJDE(currentDateTime, season) {
+function getCurrentSolsticeOrEquinox(currentDateTime, season) {
     const year = currentDateTime.getUTCFullYear();
     if (year > 999) {
         const Y = (year-2000)/1000;
@@ -115,7 +115,7 @@ function getLongitudeOfSun(currentDateTime) {
     const M =  normalizeAngleTo360(357.52910 + 35999.05030*T - 0.0001559*T**2 - 0.00000048*T**3);
     const C = + (1.914600 - 0.004817*T - 0.000014*T**2)*Math.sin(M* Math.PI / 180) + (0.019993 - 0.000101*T)*Math.sin((2*M)* Math.PI / 180) + 0.000290*Math.sin((3*M)* Math.PI / 180);
     const sunLongitude = L + C;
-    return normalizeAngleTo360(sunLongitude).toFixed(2) + '°';
+    return normalizeAngleTo360(sunLongitude).toFixed(2);
 }
 
 function normalizeAngleTo360(angle) {
@@ -126,10 +126,10 @@ function normalizeAngleTo360(angle) {
     return normalizeAngle;
 }
 
-function getNewMoonThisMonth(currentDateTime) {
+function getNewMoonThisMonth(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateYear(currentDateTime);
-    const k = Math.floor((year - 2000)*12.3685);
+    const k = Math.floor((year - 2000)*12.3685) + monthModifier;
     const T = k/1236.85;
     const E = 1 - 0.002516*T - 0.0000074*T**2;
     const JDE =  2451550.09765 + 29.530588853*k +  0.0001337*T**2 + - 0.000000150*T**3 + 0.00000000073*T**4;
@@ -208,4 +208,17 @@ function allPhaseTable(k, T) {
 
 function allPhaseTableHelper(num, A) {
     return num*Math.sin(A* Math.PI / 180);
+}
+
+function calculateLunationNumber(currentDateTime) {
+    // Using Jean Meeus's date for lunation epoch
+    const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
+    const secondsSince2000 = (currentDateTime - firstNewMoon2000)/1000;
+
+    // Calculate the number of days since the first new moon of 2000
+    const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
+
+    // Calculate the number of lunations since Lunation 0
+    const lunationNumber = Math.floor(daysSince2000 / 29.530588);
+    return lunationNumber;
 }

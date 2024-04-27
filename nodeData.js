@@ -372,8 +372,8 @@ const lunisolarCalendarsData = [
     },
 
     {
-        name: 'Chinese Zodiac',
-        id: 'chinese-zodiac',
+        name: 'Chinese',
+        id: 'chinese',
         type: 'Lunisolar Calendar',
         epoch: '',
         confidence: 'Medium',

@@ -50,5 +50,112 @@ function getSexagenaryYear(year_) {
     return heavenlyStem + earthlyBranch + ' (' + heavenlyStemEnglish + earthlyBrancheEnglish + ')';
 }
 
+function getChineseLunisolarCalendarDate(currentDateTime) {
+    
+    // Get Winter Solstice for this year. That is Month 11.
+    const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
+    const startOfMonthEleven = getMonthEleven(winterSolstice);
+    const midnightStartOfMonthEleven = getMidnightInChina(startOfMonthEleven);
 
-//https://ytliu0.github.io/ChineseCalendar/examples.html
+    // Get Winter solsice of last year, that's Month 11 of last year
+    let lastYear = new Date(currentDateTime);
+    lastYear.setFullYear(currentDateTime.getFullYear()-1);
+    const winterSolsticeLastYear = getCurrentSolsticeOrEquinox(lastYear, 'winter');
+    const startOfMonthElevenLastYear = getMonthEleven(winterSolsticeLastYear);
+    const midnightStartOfMonthElevenLastYear = getMidnightInChina(startOfMonthElevenLastYear);
+
+    // Find out roughly how many months between solstices
+    const daysBetweenEleventhMonths = Math.floor((midnightStartOfMonthEleven - midnightStartOfMonthElevenLastYear)/1000/60/60/24);
+    const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
+    let currentMonth = 0;
+
+    // Not a leap year
+    if (lunationsBetweenEleventhMonths===12) {
+        const startofThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+        const midnightChinaStartOfMonth = getMidnightInChina(startofThisMonth);
+        const startofLastMonth = getNewMoonThisMonth(currentDateTime, -1);
+        const midnightChinaStartOfLastMonth = getMidnightInChina(startofLastMonth);
+        const daysSinceMonthEleven = (currentDateTime - midnightStartOfMonthEleven)/1000/60/60/24;
+
+        // Get rough estimates of the current day/month,
+        // likely to be wrong if close to thebeginning or ending of a month
+        currentMonth = Math.floor(daysSinceMonthEleven / 29.53);
+        currentDay = Math.floor((currentDateTime-midnightChinaStartOfMonth)/1000/24/60/60)+1;
+
+        // If the current day is less than 1, then it's the previous month
+        if (currentDay<1) {
+            currentDay = Math.floor((currentDateTime-midnightChinaStartOfLastMonth)/1000/24/60/60)+1;
+        }
+        // Use round instead of floor if the month is just starting to account for errors in the /29.53 math
+        if (currentDay<3) {
+            currentMonth = Math.round(daysSinceMonthEleven / 29.53);
+        }
+        // Add extra 'time' to the month to account for errors in the /29.53 math.
+        // This makes sure it is below the next month when close to the 1st of the next month.
+        if (currentDay>28) {
+            currentMonth = Math.round((daysSinceMonthEleven / 29.53)-0.8);
+        }
+
+        // For some reason the calculation needs to be corrected by adding 11
+        currentMonth += 11;
+        if (currentMonth<1) {
+            currentMonth+=12;
+        }
+        return currentMonth + ' ' + currentDay;
+    }
+    return 0;
+}
+
+function getMidnightInChina(dateToFind) {
+    let midnightInChina = new Date(dateToFind);
+    midnightInChina.setUTCDate(dateToFind.getDate()-1);
+    midnightInChina.setUTCHours(16);
+    midnightInChina.setMinutes(0);
+    midnightInChina.setSeconds(0);
+    midnightInChina.setMilliseconds(0);
+    return midnightInChina;
+}
+
+function getSolarTermTypeThisMonth(currentDateTime) {
+    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+    const newMoonNextMonth = getNewMoonThisMonth(currentDateTime, 1);
+
+    const newMoonThisMonthLongitudeOfSun = getLongitudeOfSun(newMoonThisMonth);
+    const newMoonNextMonthLongitudeOfSun = getLongitudeOfSun(newMoonNextMonth);
+
+    const MajorSolarTerms = [
+        0, 30, 60, 90,
+        120, 150, 180,
+        210, 240, 270,
+        300, 330, 360
+    ]
+    console.log(newMoonThisMonthLongitudeOfSun);
+
+    for (const term of MajorSolarTerms) {
+        // Check if the current term falls between the longitudes
+        if (term > newMoonThisMonthLongitudeOfSun && term < newMoonNextMonthLongitudeOfSun) {
+            return 'major';
+        }
+    }
+    return 'minor';
+}
+
+// Possible errors here if the conjunction happens a few hours after the solstice but before midnight
+function getMonthEleven(winterSolstice) {
+    // Iterate through the lunar conjunctions to find the range containing the winter solstice
+    let currentMonth = 0; // Start from the current month
+
+    // Get the lunar conjunction closest to the winter solstice
+    let closestConjunction = getNewMoonThisMonth(winterSolstice, currentMonth);
+
+    // Check if the closest conjunction is after the winter solstice
+    if (closestConjunction > winterSolstice) {
+        // Move to the previous month to find the start of the eleventh month
+        closestConjunction = getNewMoonThisMonth(winterSolstice, currentMonth - 1);
+    }
+
+    return closestConjunction;
+}
+
+
+
