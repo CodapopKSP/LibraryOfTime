@@ -375,9 +375,9 @@ const lunisolarCalendarsData = [
         name: 'Sexagenary Year',
         id: 'sexagenary-year',
         type: 'Lunisolar Calendar',
-        epoch: '',
-        confidence: 'Medium',
-        description: ''
+        epoch: '2698 BCE',
+        confidence: 'High',
+        description: 'The Sexagenary Cycle is a system of counting years in the Chinese calendar (and several other aspects of life). It is a multiplication of the 10 Heavenly Stems and the 12 Earthly Branches with half of the combinations left out, leading to a total cycle length of 60. The cycle moves to the next combination on the day of the New Year in the Chinese lunisolar calendar.'
     },
 
     {

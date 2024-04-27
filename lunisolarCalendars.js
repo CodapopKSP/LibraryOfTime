@@ -24,20 +24,23 @@ function getVietnameseZodiacYear(year_) {
     return zodiacAnimals[index];
 }
 
-function getSexagenaryYear(year_) {
+function getSexagenaryYear(chineseDate) {
     let heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
     let earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
     let heavenlyStemsEnglish = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
     let earthlyBranchesEnglish = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
+
+    let chineseYear_ = chineseDate.split('年');
+    let chineseYear = chineseYear_[0]-2;
     
     // Ensure year_ is positive before calculating indices
-    let positiveYear = year_ < 0 ? 60 + (year_ % 60) : year_;
+    let positiveYear = chineseYear < 0 ? 60 + (chineseYear % 60) : chineseYear;
 
-    let heavenlyStemIndex = (positiveYear - 4) % 10; // Adjusting for the start of the sexagenary cycle
-    let earthlyBranchIndex = (positiveYear - 4) % 12; // Adjusting for the start of the sexagenary cycle
+    let heavenlyStemIndex = (positiveYear) % 10; // Adjusting for the start of the sexagenary cycle
+    let earthlyBranchIndex = (positiveYear) % 12; // Adjusting for the start of the sexagenary cycle
 
-    if (year_ < 0) {
+    if (chineseYear[0] < 0) {
         heavenlyStemIndex++;
         earthlyBranchIndex++;
     }
