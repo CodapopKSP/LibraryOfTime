@@ -321,7 +321,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1912 CE',
         confidence: 'Exact',
-        description: 'The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are counted in 民國, translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912, while its numerical months (月) and days (日) follow the Gregorian calendar.'
+        description: 'The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are counted in 民國 ("MinGuo"), translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912, while its numerical months (月 "yue") and days (日 "ri") follow the Gregorian calendar.'
     },
 
     {
@@ -363,17 +363,17 @@ const solarCalendarsData = [
 
 const lunisolarCalendarsData = [
     {
-        name: 'Sexagenary Year',
-        id: 'sexagenary-year',
+        name: 'Chinese (CST)',
+        id: 'chinese',
         type: 'Lunisolar Calendar',
-        epoch: '',
+        epoch: '2698 BCE',
         confidence: 'Medium',
-        description: ''
+        description: 'The Chinese lunisolar calendar is one of the most successful and widespread calendars in history. It has been used since ancient times and is still used today by much of East Asia. It features numerically-named months (月 "yue") of 29 or 30 days (日 "ri") that begin on the same day as the New Moon in China (CST), with an intercalary month added on leap years that happen roughly every 2 or 3 solar years (年 "nian"). Different versions of this calendar use different eras, but this website uses 2698 BCE as the Year of the Yellow Emperor, a date which was standardized by Sun Yat-sen in 1912 despite there being controversy over the exact date. Calculating this calendar is very difficult and requires calculating the Winter Solstice, Spring Equinox, Longitude of the Sun, and any given New Moon. Due to the difficulty of this calculation, months and days might be off by 1 at times, though they typically self-correct by the next month.'
     },
 
     {
-        name: 'Chinese',
-        id: 'chinese',
+        name: 'Sexagenary Year',
+        id: 'sexagenary-year',
         type: 'Lunisolar Calendar',
         epoch: '',
         confidence: 'Medium',

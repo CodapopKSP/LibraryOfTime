@@ -51,6 +51,8 @@ function getSexagenaryYear(year_) {
 }
 
 function getChineseLunisolarCalendarDate(currentDateTime) {
+    const gregorianYyear = currentDateTime.getUTCFullYear();
+    const gregorianMonth = currentDateTime.getUTCMonth();
     
     // Get Winter Solstice for this year. That is Month 11.
     const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
@@ -101,9 +103,55 @@ function getChineseLunisolarCalendarDate(currentDateTime) {
         if (currentMonth<1) {
             currentMonth+=12;
         }
-        return currentMonth + ' ' + currentDay;
     }
-    return 0;
+
+    if (lunationsBetweenEleventhMonths===13) {
+        const startofThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+        const midnightChinaStartOfMonth = getMidnightInChina(startofThisMonth);
+        const startofLastMonth = getNewMoonThisMonth(currentDateTime, -1);
+        const midnightChinaStartOfLastMonth = getMidnightInChina(startofLastMonth);
+        const daysSinceMonthEleven = (currentDateTime - midnightStartOfMonthEleven)/1000/60/60/24;
+        const leapMonth = calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear);
+
+        // Get rough estimates of the current day/month,
+        // likely to be wrong if close to thebeginning or ending of a month
+        currentMonth = Math.floor(daysSinceMonthEleven / 29.53);
+        currentDay = Math.floor((currentDateTime-midnightChinaStartOfMonth)/1000/24/60/60)+1;
+
+        // If the current day is less than 1, then it's the previous month
+        if (currentDay<1) {
+            currentDay = Math.floor((currentDateTime-midnightChinaStartOfLastMonth)/1000/24/60/60)+1;
+        }
+        // Use round instead of floor if the month is just starting to account for errors in the /29.53 math
+        if (currentDay<3) {
+            currentMonth = Math.round(daysSinceMonthEleven / 29.53);
+        }
+        // Add extra 'time' to the month to account for errors in the /29.53 math.
+        // This makes sure it is below the next month when close to the 1st of the next month.
+        if (currentDay>28) {
+            currentMonth = Math.round((daysSinceMonthEleven / 29.53)-0.8);
+        }
+
+        // For some reason the calculation needs to be corrected by adding 11
+        currentMonth += 11;
+
+        // The leap month repeats the number of the last month, so subsequent months will be back by 1
+        if (leapMonth>currentMonth) {
+            currentMonth+=1;
+        }
+        if (currentMonth<1) {
+            currentMonth+=12;
+        }
+        if (currentMonth>12) {
+            currentMonth-=12;
+        }
+    }
+
+    let year = gregorianYyear + 2698;
+    if ((gregorianMonth < 4)&&(currentMonth>9)) {
+        year -= 1;
+    }
+    return year + '年 ' + currentMonth + '月 ' + currentDay + '日';
 }
 
 function getMidnightInChina(dateToFind) {
@@ -116,10 +164,11 @@ function getMidnightInChina(dateToFind) {
     return midnightInChina;
 }
 
-function getSolarTermTypeThisMonth(currentDateTime) {
-    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
-    const newMoonNextMonth = getNewMoonThisMonth(currentDateTime, 1);
-
+function getSolarTermTypeThisMonth(startOfMonth) {
+    const newMoonThisMonth = startOfMonth;
+    const millisecondsIn29_53Days = 29.53 * 24 * 60 * 60 * 1000; // THIS VALUE IS TECHNICALLY WRONG AND CAUSES PROBLEMS
+    let newMoonNextMonth = new Date(newMoonThisMonth.getTime()+millisecondsIn29_53Days);
+    
     const newMoonThisMonthLongitudeOfSun = getLongitudeOfSun(newMoonThisMonth);
     const newMoonNextMonthLongitudeOfSun = getLongitudeOfSun(newMoonNextMonth);
 
@@ -129,7 +178,6 @@ function getSolarTermTypeThisMonth(currentDateTime) {
         210, 240, 270,
         300, 330, 360
     ]
-    console.log(newMoonThisMonthLongitudeOfSun);
 
     for (const term of MajorSolarTerms) {
         // Check if the current term falls between the longitudes
@@ -156,6 +204,25 @@ function getMonthEleven(winterSolstice) {
 
     return closestConjunction;
 }
+
+function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear) {
+    let dateToCheck = new Date(midnightStartOfMonthElevenLastYear);
+    let lunations = 0;
+    while (true) {
+        const solarTermType = getSolarTermTypeThisMonth(dateToCheck);
+        
+        if (solarTermType !== 'major') {
+            // Found the first month without a major solar term
+            return lunations;
+        }
+        
+        // Move to the start of the next month
+        const millisecondsIn29_53Days = 29.53 * 24 * 60 * 60 * 1000;
+        dateToCheck.setTime(dateToCheck.getTime() + millisecondsIn29_53Days);
+        lunations += 1;
+    }
+}
+
 
 
 
