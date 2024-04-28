@@ -143,9 +143,11 @@ function updateDateAndTime(dateInput) {
     // Lunisolar Calendars
     let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime);
     let vietnameseZodiacYear = getVietnameseZodiacYear(year);
+    let dangunCalendar = getDangunLunisolarCalendarDate(currentDateTime);
     setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
     setTimeValue('chinese-node', chineseCalendar);
     setTimeValue('vietnamese-zodiac-node', vietnameseZodiacYear);
+    setTimeValue('dangun-node', dangunCalendar);
 
     // Lunar Calendars
     let hijriCalendar = findCurrentHijriDate(currentDateTime);

@@ -56,7 +56,35 @@ function getSexagenaryYear(chineseDate) {
 function getChineseLunisolarCalendarDate(currentDateTime) {
     const gregorianYyear = currentDateTime.getUTCFullYear();
     const gregorianMonth = currentDateTime.getUTCMonth();
-    
+    const lunisolarDate = getLunisolarCalendarDate(currentDateTime);
+    let year = gregorianYyear + 2698;
+    if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+        year -= 1;
+    }
+    let zodiacAnimals = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
+    let positiveYear = year < 0 ? 60 + (year % 60) : year;
+    let earthlyBranchIndex = (positiveYear-2) % 12;
+
+    if (year < 0) {
+        earthlyBranchIndex++;
+    }
+
+    return `${year}年 ${lunisolarDate.month}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+}
+
+function getDangunLunisolarCalendarDate(currentDateTime) {
+    const gregorianYyear = currentDateTime.getUTCFullYear();
+    const gregorianMonth = currentDateTime.getUTCMonth();
+    const lunisolarDate = getLunisolarCalendarDate(currentDateTime);
+    let year = gregorianYyear;
+    if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+        year -= 1;
+    }
+
+    return `${year}년 ${lunisolarDate.month}월 ${lunisolarDate.day}일}`;
+}
+
+function getLunisolarCalendarDate(currentDateTime) {
     // Get Winter Solstice for this year. That is Month 11.
     const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
     const startOfMonthEleven = getMonthEleven(winterSolstice);
@@ -150,19 +178,11 @@ function getChineseLunisolarCalendarDate(currentDateTime) {
         }
     }
 
-    let year = gregorianYyear + 2698;
-    if ((gregorianMonth < 4)&&(currentMonth>9)) {
-        year -= 1;
-    }
-    let zodiacAnimals = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
-    let positiveYear = year < 0 ? 60 + (year % 60) : year;
-    let earthlyBranchIndex = (positiveYear-2) % 12;
-
-    if (year < 0) {
-        earthlyBranchIndex++;
-    }
-
-    return `${year}年 ${currentMonth}月 ${currentDay}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+    return {
+        month: currentMonth,
+        day: currentDay,
+    };
+    
 }
 
 function getMidnightInChina(dateToFind) {

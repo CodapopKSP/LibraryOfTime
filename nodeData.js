@@ -393,9 +393,9 @@ const lunisolarCalendarsData = [
         name: 'Dangun',
         id: 'dangun',
         type: 'Lunisolar Calendar',
-        epoch: '',
-        confidence: '',
-        description: ''
+        epoch: '1 CE',
+        confidence: 'High',
+        description: 'The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while sharing years (년) with the Gregorian calendar, though it doesn\'t increment the year until the lunisolar new year in January or February.'
     },
 
     {
