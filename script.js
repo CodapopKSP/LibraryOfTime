@@ -4,6 +4,7 @@
 //https://www.tondering.dk/claus/cal/julperiod.php
 //https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand
 //https://ytliu0.github.io/ChineseCalendar/rules.html
+//https://www.jewfaq.org/jewish_calendar_calculation
 
 /*
 TODO:
@@ -13,7 +14,7 @@ Divide by region
 Fantasy calendars that can be verified, like Star Trek
 */
 
-const decimals = 10;
+
 let visibleTooltip = document.querySelector('.pre-description');
 const nodeWrapper = document.querySelector('.node-wrapper');
 let selectedNode = '';
@@ -32,12 +33,8 @@ function updateDateAndTime(dateInput) {
         const inputMinute = inputParts[4];
         const inputSecond = inputParts[5];
         currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond));
+        currentDateTime.setUTCFullYear(inputYear);
     }
-    /*
-    console.log(currentDateTime);
-    if (dateInput !== '') {
-        currentDateTime = new Date(dateInput);
-    }*/
     
     //let currentDateTime = new Date(Date.UTC(2023, 8, 12, 12, 0, 0));
     //currentDateTime.setUTCFullYear(8);
@@ -46,140 +43,81 @@ function updateDateAndTime(dateInput) {
     //let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     //currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
 
-    // Get basic info about the date and time
-    let day = currentDateTime.getDate().toString().padStart(2, '0');
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear();
-    let hour = currentDateTime.getHours().toString().padStart(2, '0');
-    let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
-    let second = currentDateTime.getSeconds().toString().padStart(2, '0');
-    const dayOfWeek = currentDateTime.getDay();
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    let yearSuffix = 'CE';
-    if (year<1) {
-        yearSuffix = 'BCE';
-    }
-    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix;
-    let timeDisplayString = dayNames[dayOfWeek] + ' ' + hour + ':' + minute + ':' + second;
+    
+
+    const decimals = 10;
+    const gregorianLocal = getGregorianDateTime(currentDateTime);
+    const julianDay = getJulianDayNumber(currentDateTime)
+    const dayFraction = calculateDay(currentDateTime)
 
     // All fractional times
-    let secondFraction = calculateSecond(currentDateTime);
-    let minuteFraction = calculateMinute(currentDateTime);
-    let hourFraction = calculateHour(currentDateTime);
-    let dayFraction = calculateDay(currentDateTime);
-    let monthFraction = calculateMonth(currentDateTime);
-    let yearFraction = calculateYear(currentDateTime);
-    let decadeFraction = calculateDecade(currentDateTime);
-    let centuryFraction = calculateCentury(currentDateTime);
-    let millenniumFraction = calculateMillennium(currentDateTime);
-    setTimeValue('local-time-node', timeDisplayString)
+    setTimeValue('local-time-node', gregorianLocal.time);
     setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     setTimeValue('day-node', dayFraction.toFixed(decimals));
-    setTimeValue('month-node', monthFraction.toFixed(decimals));
-    setTimeValue('year-node', yearFraction.toFixed(decimals));
-    setTimeValue('hour-node', hourFraction.toFixed(decimals));
-    setTimeValue('minute-node', minuteFraction.toFixed(decimals));
-    setTimeValue('second-node', secondFraction.toFixed(decimals));
-    setTimeValue('decade-node', decadeFraction.toFixed(decimals));
-    setTimeValue('century-node', centuryFraction.toFixed(decimals));
-    setTimeValue('millennium-node', millenniumFraction.toFixed(decimals));
+    setTimeValue('month-node', calculateMonth(currentDateTime).toFixed(decimals));
+    setTimeValue('year-node', calculateYear(currentDateTime).toFixed(decimals));
+    setTimeValue('hour-node', calculateHour(currentDateTime).toFixed(decimals));
+    setTimeValue('minute-node', calculateMinute(currentDateTime).toFixed(decimals));
+    setTimeValue('second-node', calculateSecond(currentDateTime).toFixed(decimals));
+    setTimeValue('decade-node', calculateDecade(currentDateTime).toFixed(decimals));
+    setTimeValue('century-node', calculateCentury(currentDateTime).toFixed(decimals));
+    setTimeValue('millennium-node', calculateMillennium(currentDateTime).toFixed(decimals));
 
     // Computing Times
-    let currentUnixDateTime = getUnixTime(currentDateTime);
-    let filetimeValue = getCurrentFiletime(currentDateTime);
-    let iso8601Value = currentDateTime.toISOString();
-    let gpsValue = getGPSTime(currentDateTime);
-    let julianDay = getJulianDayNumber(currentDateTime)
-    let rataDie = getRataDie(currentDateTime);
-    let TAI = getTAI(currentDateTime).toISOString().slice(0, -5);
-    let LORANC = getLORANC(currentDateTime).toISOString().slice(0, -5);
-    let julianPeriod = getJulianPeriod(currentDateTime);
-    let dynamicalTime = getDynamicalTimeForward(currentDateTime);
-    let lilianDate = getLilianDate(julianDay);
-    setTimeValue('unix-node', currentUnixDateTime);
-    setTimeValue('filetime-node', filetimeValue);
-    setTimeValue('iso8601-node', iso8601Value);
-    setTimeValue('gps-node', gpsValue);
+    setTimeValue('unix-node', getUnixTime(currentDateTime));
+    setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
+    setTimeValue('iso8601-node', currentDateTime.toISOString());
+    setTimeValue('gps-node', getGPSTime(currentDateTime));
     setTimeValue('julian-day-number-node', julianDay);
-    setTimeValue('julian-period-node', julianPeriod);
-    setTimeValue('rata-die-node', rataDie);
-    setTimeValue('tai-node', TAI);
-    setTimeValue('loran-c-node', LORANC);
-    setTimeValue('dynamical-time-node', dynamicalTime);
-    setTimeValue('lilian-date-node', lilianDate);
+    setTimeValue('julian-period-node', getJulianPeriod(currentDateTime));
+    setTimeValue('rata-die-node', getRataDie(currentDateTime));
+    setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
+    setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
+    setTimeValue('dynamical-time-node', getDynamicalTimeForward(currentDateTime));
+    setTimeValue('lilian-date-node', getLilianDate(julianDay));
 
     // Decimal Time
-    let decimalTime = getRevolutionaryTime(dayFraction);
-    let swatchBeats = convertToSwatchBeats(currentDateTime);
-    let hexadecimalTime = getHexadecimalTime(dayFraction);
-    let binaryTime = getBinaryTime(dayFraction);
-    //const newHexColor = get6DigitHexadecimalTime(dayFraction);
-    //const hexColornode = document.querySelector('#hex-color-node');
-    //const rgbaColor = hexToRGBA(newHexColor, 0.25);
-    //hexColornode.style.backgroundColor = rgbaColor
-    setTimeValue('revolutionary-time-node', decimalTime);
-    setTimeValue('beat-time-node', swatchBeats);
-    setTimeValue('hexadecimal-node', hexadecimalTime);
-    setTimeValue('binary-node', binaryTime);
+    setTimeValue('revolutionary-time-node', getRevolutionaryTime(dayFraction));
+    setTimeValue('beat-time-node', convertToSwatchBeats(currentDateTime));
+    setTimeValue('hexadecimal-node', getHexadecimalTime(dayFraction));
+    setTimeValue('binary-node', getBinaryTime(dayFraction));
 
     // Solar Calendars
-    let humanEra = getHumanEra(currentDateTime);
-    let julianCalendar = getJulianDate(currentDateTime);
-    let gregorianCalendar = dateDisplayString;
-    let minguoCalendar = getMinguo(currentDateTime);
-    let jucheCalendar = getJuche(currentDateTime);
-    let thaiSolar = getThaiSolar(currentDateTime);
-    let eraFascista = getEraFascista(currentDateTime)
-    let republicanCalendar = getRepublicanCalendar(currentDateTime);
-    let copticCalendar = julianDayToCoptic(julianDay);
-    let ethiopianCalendar = julianDayToEthiopian(julianDay);
-    let invariableCalendar = getInvariableCalendarDate(currentDateTime);
-    let worldCalendar = getWorldCalendarDate(currentDateTime);
-    setTimeValue('gregorian-node', gregorianCalendar);
-    setTimeValue('human-era-node', humanEra);
-    setTimeValue('julian-node', julianCalendar);
-    setTimeValue('french-republican-node', republicanCalendar);
-    setTimeValue('era-fascista-node', eraFascista);
-    setTimeValue('minguo-node', minguoCalendar);
-    setTimeValue('thai-solar-node', thaiSolar);
-    setTimeValue('juche-node', jucheCalendar);
-    setTimeValue('coptic-node', copticCalendar);
-    setTimeValue('ethiopian-node', ethiopianCalendar);
-    setTimeValue('invariable-node', invariableCalendar);
-    setTimeValue('world-calendar-node', worldCalendar);
+    setTimeValue('gregorian-node', gregorianLocal.date);
+    setTimeValue('human-era-node', getHumanEra(currentDateTime));
+    setTimeValue('julian-node', getJulianDate(currentDateTime));
+    setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime));
+    setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
+    setTimeValue('minguo-node', getMinguo(currentDateTime));
+    setTimeValue('thai-solar-node', getThaiSolar(currentDateTime));
+    setTimeValue('juche-node', getJuche(currentDateTime));
+    setTimeValue('coptic-node', julianDayToCoptic(julianDay));
+    setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
+    setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
+    setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
 
     // Lunisolar Calendars
     let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
     let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, 15); // Vietnam midnight happens at UTC 15:00
     let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
-    let vietnameseZodiacYear = getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam);
-    let dangunCalendar = getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
     setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
     setTimeValue('chinese-node', chineseCalendar);
-    setTimeValue('vietnamese-node', vietnameseZodiacYear);
-    setTimeValue('dangun-node', dangunCalendar);
+    setTimeValue('vietnamese-node', getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam));
+    setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina));
 
     // Lunar Calendars
-    let hijriCalendar = findCurrentHijriDate(currentDateTime);
-    setTimeValue('hijri-node', hijriCalendar);
+    setTimeValue('hijri-node', findCurrentHijriDate(currentDateTime));
 
     // Astronomical Data
-    let springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
-    let summerSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'summer');
-    let autumnEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'autumn');
-    let winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
-    let sunLongitude = getLongitudeOfSun(currentDateTime);
-    let nextNewMoon = getNewMoonThisMonth(currentDateTime, 0);
-    setTimeValue('spring-equinox-node', springEquinox);
-    setTimeValue('summer-solstice-node', summerSolstice);
-    setTimeValue('autumn-equinox-node', autumnEquinox);
-    setTimeValue('winter-solstice-node', winterSolstice);
-    setTimeValue('sun-longitude-node', sunLongitude+'°');
-    setTimeValue('this-new-moon-node', nextNewMoon);
+    setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring'));
+    setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer'));
+    setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn'));
+    setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter'));
+    setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
+    setTimeValue('this-new-moon-node', getNewMoonThisMonth(currentDateTime, 0));
 
     // Pop Culture
-    let currentShakeOfALambsTail = getCurrentShakeOfALambsTail(currentDateTime);
-    setTimeValue('shake-of-a-lambs-tail-node', currentShakeOfALambsTail);
+    setTimeValue('shake-of-a-lambs-tail-node', getCurrentShakeOfALambsTail(currentDateTime));
 }
 
 function createElements() {

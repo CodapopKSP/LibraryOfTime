@@ -103,7 +103,8 @@ function calculateDateFromJDE(JDE) {
     const hours = Math.floor(totalSecondsOfRemainingDay / 3600);
     const minutes = Math.floor((totalSecondsOfRemainingDay % 3600) / 60);
     const seconds = totalSecondsOfRemainingDay % 60;
-    const unfixedDateTime = new Date(Date.UTC(year, month-1, day, hours, minutes, seconds));
+    let unfixedDateTime = new Date(Date.UTC(year, month-1, day, hours, minutes, seconds));
+    unfixedDateTime.setUTCFullYear(year);
     const fixedDateTime = getDynamicalTimeBackward(unfixedDateTime);
     return fixedDateTime;
 }

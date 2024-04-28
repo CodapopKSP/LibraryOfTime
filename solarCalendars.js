@@ -7,6 +7,24 @@
 // Array of month names
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+function getGregorianDateTime(currentDateTime) {
+    let day = currentDateTime.getDate().toString().padStart(2, '0');
+    let month = currentDateTime.getMonth();
+    let year = currentDateTime.getFullYear();
+    let hour = currentDateTime.getHours().toString().padStart(2, '0');
+    let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
+    let second = currentDateTime.getSeconds().toString().padStart(2, '0');
+    const dayOfWeek = currentDateTime.getDay();
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let yearSuffix = 'CE';
+    if (year<1) {
+        yearSuffix = 'BCE';
+    }
+    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix;
+    let timeDisplayString = dayNames[dayOfWeek] + ' ' + hour + ':' + minute + ':' + second;
+    return {date: dateDisplayString, time: timeDisplayString};
+}
+
 function getHumanEra(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth();
@@ -108,6 +126,7 @@ function getRepublicanCalendar(currentDateTime) {
 
     // Date of September 22nd of the current year
     let september22 = new Date(currentDateTime.getFullYear(), 8, 22); // Note: Month is 8 for September (0-indexed)
+    september22.setUTCFullYear(currentDateTime.getFullYear());
     // If the current date is before September 22nd, subtract 1 year
     if (currentDateTime < september22) {
         september22.setFullYear(september22.getFullYear() - 1);
@@ -121,12 +140,13 @@ function getRepublicanCalendar(currentDateTime) {
         month = 'Sansculottides';
     }
     let day = Math.floor(daysSinceSeptember22 % 30)+1;
-    return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE';
+    return day + " " + FrenchRevolutionaryMonths[month] + "\n" + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
 function getEraFascista(currentDateTime) {
     // Only update the year if past October 22nd, otherwise it is the previous year.
     let october22 = new Date(currentDateTime.getFullYear(), 9, 22);
+    october22.setFullYear(currentDateTime.getFullYear());
     if (currentDateTime < october22) {
         october22.setFullYear(october22.getFullYear() - 1);
     }
