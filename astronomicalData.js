@@ -70,20 +70,20 @@ function sumSolsticeEquinoxTable(T) {
 
 function calculateDateFromJDE(JDE) {
     const newJDE = JDE + 0.5;
-    const Z = Math.floor(newJDE);
+    const Z = Math.trunc(newJDE);
     const F = newJDE - Z;
-    const alpha = Math.floor((Z - 1867216.25)/36524.25);
+    const alpha = Math.trunc((Z - 1867216.25)/36524.25);
     let A = 0;
     if (Z < 2299161) {
         A = Z;
     } else {
-        A = Z + 1 + alpha - Math.floor(alpha/4);
+        A = Z + 1 + alpha - Math.trunc(alpha/4);
     }
     const B = A + 1524;
-    const C = Math.floor((B - 122.1)/365.25);
-    const D = Math.floor(365.25*C);
-    const E = Math.floor((B - D)/30.6001);
-    const dayDecimal = B - D - Math.floor(30.6001*E) + F;
+    const C = Math.trunc((B - 122.1)/365.25);
+    const D = Math.trunc(365.25*C);
+    const E = Math.trunc((B - D)/30.6001);
+    const dayDecimal = B - D - Math.trunc(30.6001*E) + F;
     let month;
     if (E < 14) {
         month = E - 1;
@@ -96,12 +96,12 @@ function calculateDateFromJDE(JDE) {
     } else {
         year = C - 4715;
     }
-    const day = Math.floor(dayDecimal);
+    const day = Math.trunc(dayDecimal);
     const remainingDayDecimal = dayDecimal - day;
     const totalSecondsInDay = 24 * 60 * 60;
-    const totalSecondsOfRemainingDay = Math.floor(remainingDayDecimal * totalSecondsInDay);
-    const hours = Math.floor(totalSecondsOfRemainingDay / 3600);
-    const minutes = Math.floor((totalSecondsOfRemainingDay % 3600) / 60);
+    const totalSecondsOfRemainingDay = Math.trunc(remainingDayDecimal * totalSecondsInDay);
+    const hours = Math.trunc(totalSecondsOfRemainingDay / 3600);
+    const minutes = Math.trunc((totalSecondsOfRemainingDay % 3600) / 60);
     const seconds = totalSecondsOfRemainingDay % 60;
     let unfixedDateTime = new Date(Date.UTC(year, month-1, day, hours, minutes, seconds));
     unfixedDateTime.setUTCFullYear(year);
@@ -130,7 +130,7 @@ function normalizeAngleTo360(angle) {
 function getNewMoonThisMonth(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateYear(currentDateTime);
-    const k = Math.floor((year - 2000)*12.3685) + monthModifier;
+    const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
     const T = k/1236.85;
     const E = 1 - 0.002516*T - 0.0000074*T**2;
     const JDE =  2451550.09765 + 29.530588853*k +  0.0001337*T**2 + - 0.000000150*T**3 + 0.00000000073*T**4;
@@ -220,6 +220,6 @@ function calculateLunationNumber(currentDateTime) {
     const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
 
     // Calculate the number of lunations since Lunation 0
-    const lunationNumber = Math.floor(daysSince2000 / 29.530588);
+    const lunationNumber = Math.trunc(daysSince2000 / 29.530588);
     return lunationNumber;
 }

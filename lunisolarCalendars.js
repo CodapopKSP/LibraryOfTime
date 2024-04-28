@@ -115,7 +115,7 @@ function getLunisolarCalendarDate(currentDateTime, utcMidnight) {
     const midnightStartOfMonthElevenLastYear = getMidnightInUTC(startOfMonthElevenLastYear, utcMidnight);
 
     // Find out roughly how many months between solstices
-    const daysBetweenEleventhMonths = Math.floor((midnightStartOfMonthEleven - midnightStartOfMonthElevenLastYear)/1000/60/60/24);
+    const daysBetweenEleventhMonths = Math.trunc((midnightStartOfMonthEleven - midnightStartOfMonthElevenLastYear)/1000/60/60/24);
     const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
     let currentMonth = 0;
 
@@ -129,14 +129,14 @@ function getLunisolarCalendarDate(currentDateTime, utcMidnight) {
 
         // Get rough estimates of the current day/month,
         // likely to be wrong if close to thebeginning or ending of a month
-        currentMonth = Math.floor(daysSinceMonthEleven / 29.53);
-        currentDay = Math.floor((currentDateTime-midnightChinaStartOfMonth)/1000/24/60/60)+1;
+        currentMonth = Math.trunc(daysSinceMonthEleven / 29.53);
+        currentDay = Math.trunc((currentDateTime-midnightChinaStartOfMonth)/1000/24/60/60)+1;
 
         // If the current day is less than 1, then it's the previous month
         if (currentDay<1) {
-            currentDay = Math.floor((currentDateTime-midnightChinaStartOfLastMonth)/1000/24/60/60)+1;
+            currentDay = Math.trunc((currentDateTime-midnightChinaStartOfLastMonth)/1000/24/60/60)+1;
         }
-        // Use round instead of floor if the month is just starting to account for errors in the /29.53 math
+        // Use round instead of trunc if the month is just starting to account for errors in the /29.53 math
         if (currentDay<3) {
             currentMonth = Math.round(daysSinceMonthEleven / 29.53);
         }
@@ -163,14 +163,14 @@ function getLunisolarCalendarDate(currentDateTime, utcMidnight) {
 
         // Get rough estimates of the current day/month,
         // likely to be wrong if close to thebeginning or ending of a month
-        currentMonth = Math.floor(daysSinceMonthEleven / 29.53);
-        currentDay = Math.floor((currentDateTime-midnightChinaStartOfMonth)/1000/24/60/60)+1;
+        currentMonth = Math.trunc(daysSinceMonthEleven / 29.53);
+        currentDay = Math.trunc((currentDateTime-midnightChinaStartOfMonth)/1000/24/60/60)+1;
 
         // If the current day is less than 1, then it's the previous month
         if (currentDay<1) {
-            currentDay = Math.floor((currentDateTime-midnightChinaStartOfLastMonth)/1000/24/60/60)+1;
+            currentDay = Math.trunc((currentDateTime-midnightChinaStartOfLastMonth)/1000/24/60/60)+1;
         }
-        // Use round instead of floor if the month is just starting to account for errors in the /29.53 math
+        // Use round instead of trunc if the month is just starting to account for errors in the /29.53 math
         if (currentDay<3) {
             currentMonth = Math.round(daysSinceMonthEleven / 29.53);
         }

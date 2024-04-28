@@ -38,7 +38,7 @@ function getHumanEra(currentDateTime) {
 
 function getJulianDate(currentDateTime) {
     let year = currentDateTime.getFullYear();
-    let daysAhead = Math.floor(year / 100) - Math.floor(year / 400) - 2;
+    let daysAhead = Math.trunc(year / 100) - Math.trunc(year / 400) - 2;
     let julianDate = new Date(currentDateTime);
     julianDate.setDate(julianDate.getDate() - daysAhead);
     
@@ -134,12 +134,12 @@ function getRepublicanCalendar(currentDateTime) {
     // Calculate the number of years since 1792
     let yearsSince1792 = (september22.getFullYear() - 1792) + 1;
     // Calculate the total number of days since the most recent September 22nd
-    let daysSinceSeptember22 = Math.floor((currentDateTime - september22) / (1000 * 60 * 60 * 24));
-    let month = Math.floor(daysSinceSeptember22 / 30) + 1;
+    let daysSinceSeptember22 = Math.trunc((currentDateTime - september22) / (1000 * 60 * 60 * 24));
+    let month = Math.trunc(daysSinceSeptember22 / 30) + 1;
     if ((month > 12) || (month == 0)) {
         month = 'Sansculottides';
     }
-    let day = Math.floor(daysSinceSeptember22 % 30)+1;
+    let day = Math.trunc(daysSinceSeptember22 % 30)+1;
     return day + " " + FrenchRevolutionaryMonths[month] + "\n" + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
@@ -209,11 +209,11 @@ function julianDayToCoptic(julianDay) {
     const Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
 
     // Add 0.5 to JD to make it happen with UTC
-    const daysSinceEpoch = Math.floor(julianDay+0.5) - JD_epoch;
-    const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
+    const daysSinceEpoch = Math.trunc(julianDay+0.5) - JD_epoch;
+    const yearsSinceEpoch = Math.trunc((4 * daysSinceEpoch + 3) / 1461);
     const CopticYear = yearsSinceEpoch;
 
-    let remainingDays = daysSinceEpoch - (365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4));
+    let remainingDays = daysSinceEpoch - (365 * yearsSinceEpoch + Math.trunc(yearsSinceEpoch / 4));
     let CopticMonth = 1;
     while (remainingDays >= Coptic_monthDays[CopticMonth - 1]) {
         remainingDays -= Coptic_monthDays[CopticMonth - 1];
@@ -221,7 +221,7 @@ function julianDayToCoptic(julianDay) {
     }
 
     // Add 2 days for some reason but it keeps it in sync with Wiki
-    const CopticDay = Math.floor(remainingDays + 2);
+    const CopticDay = Math.trunc(remainingDays + 2);
 
     return CopticDay + ' ' + copticMonths[CopticMonth-1] + ' ' + CopticYear + ' AM';
 }
@@ -247,11 +247,11 @@ function julianDayToEthiopian(julianDay) {
     const Ethiopian_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
 
     // Add 0.5 to JD to make it happen with UTC
-    const daysSinceEpoch_ = Math.floor(julianDay+0.5) - JD_epoch;
-    const yearsSinceEpoch_ = Math.floor((4 * daysSinceEpoch_ + 3) / 1461);
+    const daysSinceEpoch_ = Math.trunc(julianDay+0.5) - JD_epoch;
+    const yearsSinceEpoch_ = Math.trunc((4 * daysSinceEpoch_ + 3) / 1461);
     const EthiopianYear = yearsSinceEpoch_ + 2;
 
-    let remainingDays_ = daysSinceEpoch_ - (365 * yearsSinceEpoch_ + Math.floor(yearsSinceEpoch_ / 4));
+    let remainingDays_ = daysSinceEpoch_ - (365 * yearsSinceEpoch_ + Math.trunc(yearsSinceEpoch_ / 4));
     let EthiopianMonth = 1;
     while (remainingDays_ >= Ethiopian_monthDays[EthiopianMonth - 1]) {
         remainingDays_ -= Ethiopian_monthDays[EthiopianMonth - 1];
@@ -259,7 +259,7 @@ function julianDayToEthiopian(julianDay) {
     }
 
     // Add 2 days for some reason but it keeps it in sync with Wiki
-    const CopticDay = Math.floor(remainingDays_ + 1);
+    const CopticDay = Math.trunc(remainingDays_ + 1);
 
     return CopticDay + ' ' + ethiopianMonths[EthiopianMonth-1] + ' ዓ.ም.' + EthiopianYear;
 }
@@ -268,7 +268,7 @@ function getInvariableCalendarDate(currentDateTime) {
     const year = currentDateTime.getFullYear();
     const startOfYear = new Date(year, 0, 1, 0, 0, 0);
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
-    const daysSinceStartOfYear = Math.floor((currentDateTime.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24))+1;
+    const daysSinceStartOfYear = Math.trunc((currentDateTime.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24))+1;
     let daysRemaining = daysSinceStartOfYear;
 
     // Need two lists for each for Leap Years and non Leap Years
@@ -325,7 +325,7 @@ function getWorldCalendarDate(currentDateTime) {
     const year = currentDateTime.getFullYear();
     const startOfYear = new Date(year, 0, 1, 0, 0, 0);
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
-    const daysSinceStartOfYear = Math.floor((currentDateTime.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24))+1;
+    const daysSinceStartOfYear = Math.trunc((currentDateTime.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24))+1;
     let daysRemaining = daysSinceStartOfYear;
 
     // Need two lists for each for Leap Years and non Leap Years

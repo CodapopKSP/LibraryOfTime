@@ -12,6 +12,6 @@ function getCurrentShakeOfALambsTail(currentDateTime) {
     const dayFraction = currentDateTime - midnight;
     const twoShakes = 70; // Seconds between movie moments
     const shake = twoShakes / 2;
-    const currentShake = Math.floor((dayFraction/1000) / shake);
+    const currentShake = Math.trunc((dayFraction/1000) / shake);
     return currentShake + ' Shakes';
 }

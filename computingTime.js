@@ -8,17 +8,17 @@
 const leapSeconds = 27;
 
 function getUnixTime(currentDateTime) {
-    return Math.floor(currentDateTime.getTime()/1000);
+    return Math.trunc(currentDateTime.getTime()/1000);
 }
 
 function getCurrentFiletime(currentDateTime) {
     const jan1601 = new Date(Date.UTC(1601, 0, 1));
-    const filetime = Math.floor((currentDateTime.getTime() - jan1601.getTime())/1000) * 10000000;
+    const filetime = Math.trunc((currentDateTime.getTime() - jan1601.getTime())/1000) * 10000000;
     return filetime;
 }
 
 function getGPSTime(currentDateTime) {
-    const gpsTime = Math.floor((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000) + leapSeconds - 8;
+    const gpsTime = Math.trunc((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000) + leapSeconds - 8;
     return gpsTime;
 }
 
@@ -35,11 +35,11 @@ function getJulianDayNumber(currentDateTime) {
         month += 12;
     }
     
-    const A = Math.floor(year / 100);
-    const B = Math.floor(A / 4);
+    const A = Math.trunc(year / 100);
+    const B = Math.trunc(A / 4);
     const C = 2 - A + B;
-    const E = Math.floor(365.25 * (year + 4716));
-    const F = Math.floor(30.6001 * (month + 1));
+    const E = Math.trunc(365.25 * (year + 4716));
+    const F = Math.trunc(30.6001 * (month + 1));
     var JD = C + day + E + F - 1524.5;
 
     JD += (hour + (minute / 60) + (second / 3600) + (millisecond / 3600000)) / 24;
@@ -49,7 +49,7 @@ function getJulianDayNumber(currentDateTime) {
 
 function getRataDie(currentDateTime) {
     const JD = getJulianDayNumber(currentDateTime);
-    const RD = Math.floor(JD - 1721424.5);
+    const RD = Math.trunc(JD - 1721424.5);
     return RD;
 }
 
@@ -101,6 +101,6 @@ function getDynamicalTimeOffset(currentDateTime) {
 }
 
 function getLilianDate(julianDay) {
-    const lilianDate = Math.floor(julianDay - 2299159.5);
+    const lilianDate = Math.trunc(julianDay - 2299159.5);
     return lilianDate;
 }

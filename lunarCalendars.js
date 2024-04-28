@@ -40,7 +40,7 @@ function findCurrentHijriDate(currentDateTime) {
     firstDayOfIslamicMonth.setSeconds(0);
     // Calculate the number of days since the first day of the Islamic month
     const timeDifference = currentDateTime.getTime() - firstDayOfIslamicMonth.getTime();
-    const daysSinceStartOfMonth = Math.floor(timeDifference / 60 / 60 / 24 / 1000);
+    const daysSinceStartOfMonth = Math.trunc(timeDifference / 60 / 60 / 24 / 1000);
     const currentLunationSince2000 = calculateLunationNumber(currentDateTime);
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
     
@@ -78,7 +78,7 @@ function findCurrentHijriDate(currentDateTime) {
 function calculateIslamicMonthAndYear(ln) {
     // Add 9 lunations to get in sync with the calendar
     const lunation = ln + 9;
-    const islamicYears = Math.floor(lunation / 12);
+    const islamicYears = Math.trunc(lunation / 12);
     let currentMonth = (lunation % 12);
     if (currentMonth < 0) {
         currentMonth += 12;

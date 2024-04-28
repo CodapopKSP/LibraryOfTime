@@ -5,9 +5,9 @@
 // A set of functions for calculating times in the Decimal Time category.
 
 function getRevolutionaryTime(dayFraction) {
-    let decimalHour = Math.floor(dayFraction * 10);
-    let decimalMinute = Math.floor(dayFraction * 1000) - (decimalHour * 100);
-    let decimalSecond = Math.floor(dayFraction * 100000) - (decimalHour * 10000) - (decimalMinute * 100);
+    let decimalHour = Math.trunc(dayFraction * 10);
+    let decimalMinute = Math.trunc(dayFraction * 1000) - (decimalHour * 100);
+    let decimalSecond = Math.trunc(dayFraction * 100000) - (decimalHour * 10000) - (decimalMinute * 100);
     
     // Convert each part to strings and pad them with leading zeros if needed
     let hourStr = decimalHour.toString().padStart(2, '0');
@@ -32,7 +32,7 @@ function convertToSwatchBeats(currentDateTime) {
 
 function getHexadecimalTime(dayFraction) {
     // Convert the day fraction to hexadecimal format
-    let hexadecimalFraction = Math.floor((dayFraction * 65536)).toString(16).toUpperCase();
+    let hexadecimalFraction = Math.trunc((dayFraction * 65536)).toString(16).toUpperCase();
     // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
     while (hexadecimalFraction.length < 4) {
         hexadecimalFraction = "0" + hexadecimalFraction;
@@ -42,7 +42,7 @@ function getHexadecimalTime(dayFraction) {
 
 function getBinaryTime(dayFraction) {
     // Convert the day fraction to the equivalent binary count
-    let binaryCount = Math.floor(dayFraction * 65536).toString(2);
+    let binaryCount = Math.trunc(dayFraction * 65536).toString(2);
     
     // Pad the binary count with leading zeros if necessary to ensure it has 16 bits
     while (binaryCount.length < 16) {
@@ -55,7 +55,7 @@ function getBinaryTime(dayFraction) {
 
 function get6DigitHexadecimalTime(dayFraction) {
     // Convert the day fraction to hexadecimal format
-    let hexadecimalFraction = Math.floor((dayFraction * 16777215)).toString(16).toUpperCase();
+    let hexadecimalFraction = Math.trunc((dayFraction * 16777215)).toString(16).toUpperCase();
     // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
     while (hexadecimalFraction.length < 6) {
         hexadecimalFraction = "0" + hexadecimalFraction;

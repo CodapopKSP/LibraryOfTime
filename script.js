@@ -14,7 +14,6 @@ Divide by region
 Fantasy calendars that can be verified, like Star Trek
 */
 
-
 let visibleTooltip = document.querySelector('.pre-description');
 const nodeWrapper = document.querySelector('.node-wrapper');
 let selectedNode = '';
@@ -36,14 +35,9 @@ function updateDateAndTime(dateInput) {
         currentDateTime.setUTCFullYear(inputYear);
     }
     
-    //let currentDateTime = new Date(Date.UTC(2023, 8, 12, 12, 0, 0));
-    //currentDateTime.setUTCFullYear(8);
-    
     //let currentTimeZone = currentDateTime.getTimezoneOffset();
     //let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
     //currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
-
-    
 
     const decimals = 10;
     const gregorianLocal = getGregorianDateTime(currentDateTime);

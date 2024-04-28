@@ -73,30 +73,30 @@ function calculateYear(currentDateTime) {
 
 function calculateDecade(currentDateTime) {
     year = currentDateTime.getFullYear();
-    let decadeStart = new Date(Math.floor(year / 10) * 10, 0, 1, 0, 0);
-    decadeStart.setFullYear(Math.floor(year / 10) * 10);
-    let nextDecadeStart = new Date(Math.floor(year / 10) * 10 + 10, 0, 1, 0, 0);
-    nextDecadeStart.setFullYear(Math.floor(year / 10) * 10 + 10);
+    let decadeStart = new Date(Math.trunc(year / 10) * 10, 0, 1, 0, 0);
+    decadeStart.setFullYear(Math.trunc(year / 10) * 10);
+    let nextDecadeStart = new Date(Math.trunc(year / 10) * 10 + 10, 0, 1, 0, 0);
+    nextDecadeStart.setFullYear(Math.trunc(year / 10) * 10 + 10);
     let decadeFraction = (currentDateTime - decadeStart) / (nextDecadeStart - decadeStart);
     return decadeFraction;
 }
 
 function calculateCentury(currentDateTime) {
     year = currentDateTime.getFullYear();
-    let centuryStart = new Date(Math.floor(year / 100) * 100, 0, 1);
-    centuryStart.setFullYear(Math.floor(year / 100) * 100);
-    let nextCenturyStart = new Date(Math.floor(year / 100) * 100 + 100, 0, 1);
-    nextCenturyStart.setFullYear(Math.floor(year / 100) * 100 + 100);
+    let centuryStart = new Date(Math.trunc(year / 100) * 100, 0, 1);
+    centuryStart.setFullYear(Math.trunc(year / 100) * 100);
+    let nextCenturyStart = new Date(Math.trunc(year / 100) * 100 + 100, 0, 1);
+    nextCenturyStart.setFullYear(Math.trunc(year / 100) * 100 + 100);
     let centuryFraction = (currentDateTime - centuryStart) / (nextCenturyStart - centuryStart);
     return centuryFraction;
 }
 
 function calculateMillennium(currentDateTime) {
     year = currentDateTime.getFullYear();
-    let millenniumStart = new Date(Math.floor(year / 1000) * 1000, 0, 1);
-    millenniumStart.setFullYear(Math.floor(year / 1000) * 1000);
-    let nextMillenniumStart = new Date(Math.floor(year / 1000) * 1000 + 1000, 0, 1);
-    nextMillenniumStart.setFullYear(Math.floor(year / 1000) * 1000 + 1000);
+    let millenniumStart = new Date(Math.trunc(year / 1000) * 1000, 0, 1);
+    millenniumStart.setFullYear(Math.trunc(year / 1000) * 1000);
+    let nextMillenniumStart = new Date(Math.trunc(year / 1000) * 1000 + 1000, 0, 1);
+    nextMillenniumStart.setFullYear(Math.trunc(year / 1000) * 1000 + 1000);
     let millenniumFraction = (currentDateTime - millenniumStart) / (nextMillenniumStart - millenniumStart);
     return millenniumFraction;
 }
