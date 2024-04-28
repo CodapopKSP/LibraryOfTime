@@ -122,6 +122,12 @@ a {
     color: rgb(252, 255, 196);
 }
 
+.pop-culture {
+    background-color: rgb(53, 53, 50);
+    color: rgb(228, 196, 255);
+}
+
+
 .node {
     margin: 0.5vh;
     width: 10vw;
@@ -155,6 +161,10 @@ a {
 
 .astronomical-data > .node > .content {
     border: 0.2vh solid #6a9698;
+}
+
+.pop-culture > .node > .content {
+    border: 0.2vh solid #98936a;
 }
 
 .content {

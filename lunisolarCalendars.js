@@ -209,7 +209,6 @@ function getMidnightInUTC(dateToFind, utcMidnight) {
     midnightInChina.setMinutes(0);
     midnightInChina.setSeconds(0);
     midnightInChina.setMilliseconds(0);
-    console.log(utcMidnight);
     return midnightInChina;
 }
 

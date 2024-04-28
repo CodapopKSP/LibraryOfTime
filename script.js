@@ -156,7 +156,7 @@ function updateDateAndTime(dateInput) {
     let dangunCalendar = getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
     setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
     setTimeValue('chinese-node', chineseCalendar);
-    setTimeValue('vietnamese-zodiac-node', vietnameseZodiacYear);
+    setTimeValue('vietnamese-node', vietnameseZodiacYear);
     setTimeValue('dangun-node', dangunCalendar);
 
     // Lunar Calendars
@@ -176,6 +176,10 @@ function updateDateAndTime(dateInput) {
     setTimeValue('winter-solstice-node', winterSolstice);
     setTimeValue('sun-longitude-node', sunLongitude+'°');
     setTimeValue('this-new-moon-node', nextNewMoon);
+
+    // Pop Culture
+    let currentShakeOfALambsTail = getCurrentShakeOfALambsTail(currentDateTime);
+    setTimeValue('shake-of-a-lambs-tail-node', currentShakeOfALambsTail);
 }
 
 function createElements() {
@@ -200,6 +204,9 @@ function createElements() {
     astronomicalData.forEach(item => {
         createnode(item);
     });
+    popCultureData.forEach(item => {
+        createnode(item);
+    });
 }
 
 // Function to create node elements
@@ -211,6 +218,7 @@ function createnode(item) {
     const lunisolarCalendars = document.querySelector('.lunisolar-calendars');
     const lunarCalendars = document.querySelector('.lunar-calendars');
     const astronomicalData = document.querySelector('.astronomical-data');
+    const popCulture = document.querySelector('.pop-culture');
 
     // Create a div element for the node
     const node = document.createElement('div');
@@ -327,6 +335,8 @@ function createnode(item) {
         lunarCalendars.appendChild(node);
     } else if (item.type === 'Astronomical Data') {
         astronomicalData.appendChild(node);
+    } else if (item.type === 'Pop Culture') {
+        popCulture.appendChild(node);
     }
 }
 let updateIntervalId;

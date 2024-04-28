@@ -372,7 +372,7 @@ const lunisolarCalendarsData = [
     },
 
     {
-        name: 'Sexagenary Year',
+        name: 'Sexagenary Year (CST)',
         id: 'sexagenary-year',
         type: 'Lunisolar Calendar',
         epoch: '2698 BCE',
@@ -381,8 +381,8 @@ const lunisolarCalendarsData = [
     },
 
     {
-        name: 'Đại lịch',
-        id: 'vietnamese-zodiac',
+        name: 'Đại lịch (ICT)',
+        id: 'vietnamese',
         type: 'Lunisolar Calendar',
         epoch: '1 CE',
         confidence: 'Medium',
@@ -472,5 +472,16 @@ const astronomicalData = [
         epoch: 'New Moon',
         confidence: 'High',
         description: 'This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.'
+    },
+]
+
+const popCultureData = [
+    {
+        name: 'Shake of a Lamb\'s Tail',
+        id: 'shake-of-a-lambs-tail',
+        type: 'Pop Culture',
+        epoch: 'Midnight',
+        confidence: 'High',
+        description: 'In the 1994 film Pulp Fiction, Mia Wallace (Uma Thurman) tells Vincent Vega (John Travolta) she will be down in \'two shakes of a lamb\'s tail\'. She takes a minute and 10 seconds to reach Vincent, indicating that one shake of a lamb\'s tail is 35 seconds. The current Shake of a Lamb\'s Tail is indicated here, resetting every local midnight.'
     },
 ]
