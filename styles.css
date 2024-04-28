@@ -164,6 +164,7 @@ a {
     font-family: Arial, sans-serif;
     margin-top: 0.6vh;
     background-color: rgb(47, 47, 47);
+    white-space: pre-wrap;
 }
 
 .container-name {

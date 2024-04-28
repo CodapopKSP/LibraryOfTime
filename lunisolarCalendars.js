@@ -154,7 +154,15 @@ function getChineseLunisolarCalendarDate(currentDateTime) {
     if ((gregorianMonth < 4)&&(currentMonth>9)) {
         year -= 1;
     }
-    return year + '年 ' + currentMonth + '月 ' + currentDay + '日';
+    let zodiacAnimals = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
+    let positiveYear = year < 0 ? 60 + (year % 60) : year;
+    let earthlyBranchIndex = (positiveYear-2) % 12;
+
+    if (year < 0) {
+        earthlyBranchIndex++;
+    }
+
+    return `${year}年 ${currentMonth}月 ${currentDay}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
 }
 
 function getMidnightInChina(dateToFind) {
