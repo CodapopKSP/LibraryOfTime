@@ -202,16 +202,6 @@ function getLunisolarCalendarDate(currentDateTime, utcMidnight) {
     
 }
 
-function getMidnightInUTC(dateToFind, utcMidnight) {
-    let midnightInChina = new Date(dateToFind);
-    midnightInChina.setUTCDate(dateToFind.getDate()-1);
-    midnightInChina.setUTCHours(utcMidnight);
-    midnightInChina.setMinutes(0);
-    midnightInChina.setSeconds(0);
-    midnightInChina.setMilliseconds(0);
-    return midnightInChina;
-}
-
 function getSolarTermTypeThisMonth(startOfMonth) {
     const newMoonThisMonth = startOfMonth;
     const millisecondsIn29_53Days = 29.53 * 24 * 60 * 60 * 1000; // THIS VALUE IS TECHNICALLY WRONG AND CAUSES PROBLEMS

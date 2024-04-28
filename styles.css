@@ -118,7 +118,7 @@ a {
 }
 
 .astronomical-data {
-    background-color: rgb(54, 50, 50);
+    background-color: rgb(53, 53, 50);
     color: rgb(252, 255, 196);
 }
 
@@ -164,7 +164,7 @@ a {
 }
 
 .pop-culture > .node > .content {
-    border: 0.2vh solid #98936a;
+    border: 0.2vh solid #95986a;
 }
 
 .content {
