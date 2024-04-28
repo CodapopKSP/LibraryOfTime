@@ -384,9 +384,9 @@ const lunisolarCalendarsData = [
         name: 'Đại lịch',
         id: 'vietnamese-zodiac',
         type: 'Lunisolar Calendar',
-        epoch: '',
+        epoch: '1 CE',
         confidence: 'Medium',
-        description: ''
+        description: 'The Đại lịch calendar is the traditional calendar of Vietnam. It is derived from the Chinese lunisolar calendar and shares many of the same elements, but it is set to Vietnamese time, meaning on rare occasions the two calendars can temporarily be significantly offset, only to realign again later. It features 12 months of 29 or 30 days with a leap month on average every 2-3 years. The Đại lịch calendar also follows a similar 12 Earthly Branches (Vietnamese Zodiac) theme for each year, though a few of the animals are different from the Chinese calendar. This calendar uses the same epoch as the Gregorian calendar and may not reflect historic epochs. Similarly, the calendar hasn\'t always been set to Vietnamese time, changing back from Chinese time in the mid-20th century, so dates before that are likely to be incorrect.\n\nYear Cycle:\n  Rat (𤝞)                    Horse (馭)\n  Water Buffalo (𤛠)   Goat (羝)\n  Tiger (𧲫)                 Monkey (𤠳)\n  Cat (猫)                    Rooster (𪂮)\n  Dragon (龍)              Dog (㹥)\n  Snake (𧋻)                Pig (㺧)'
     },
 
     {
@@ -394,7 +394,7 @@ const lunisolarCalendarsData = [
         id: 'dangun',
         type: 'Lunisolar Calendar',
         epoch: '1 CE',
-        confidence: 'High',
+        confidence: 'Medium',
         description: 'The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while sharing years (년) with the Gregorian calendar, though it doesn\'t increment the year until the lunisolar new year in January or February.'
     },
 
