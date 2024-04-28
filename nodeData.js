@@ -381,7 +381,7 @@ const lunisolarCalendarsData = [
     },
 
     {
-        name: 'Vietnamese Zodiac',
+        name: 'Đại lịch',
         id: 'vietnamese-zodiac',
         type: 'Lunisolar Calendar',
         epoch: '',

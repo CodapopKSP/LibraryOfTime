@@ -5,6 +5,14 @@
 //https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand
 //https://ytliu0.github.io/ChineseCalendar/rules.html
 
+/*
+TODO:
+Weeks
+Seasons
+Divide by region
+Fantasy calendars that can be verified, like Star Trek
+*/
+
 const decimals = 10;
 let visibleTooltip = document.querySelector('.pre-description');
 const nodeWrapper = document.querySelector('.node-wrapper');
@@ -141,9 +149,11 @@ function updateDateAndTime(dateInput) {
     setTimeValue('world-calendar-node', worldCalendar);
 
     // Lunisolar Calendars
-    let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime);
-    let vietnameseZodiacYear = getVietnameseZodiacYear(year);
-    let dangunCalendar = getDangunLunisolarCalendarDate(currentDateTime);
+    let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
+    let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, 15); // Vietnam midnight happens at UTC 15:00
+    let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
+    let vietnameseZodiacYear = getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam);
+    let dangunCalendar = getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
     setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
     setTimeValue('chinese-node', chineseCalendar);
     setTimeValue('vietnamese-zodiac-node', vietnameseZodiacYear);
