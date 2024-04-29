@@ -12,6 +12,7 @@ Weeks
 Seasons
 Divide by region
 Fantasy calendars that can be verified, like Star Trek
+Metric Time
 */
 
 let visibleTooltip = document.querySelector('.pre-description');
@@ -78,7 +79,7 @@ function updateDateAndTime(dateInput) {
 
     // Solar Calendars
     setTimeValue('gregorian-node', gregorianLocal.date);
-    setTimeValue('human-era-node', getHumanEra(currentDateTime));
+    
     setTimeValue('julian-node', getJulianDate(currentDateTime));
     setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime));
     setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
@@ -87,8 +88,6 @@ function updateDateAndTime(dateInput) {
     setTimeValue('juche-node', getJuche(currentDateTime));
     setTimeValue('coptic-node', julianDayToCoptic(julianDay));
     setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
-    setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
-    setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
 
     // Lunisolar Calendars
     let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
@@ -102,6 +101,11 @@ function updateDateAndTime(dateInput) {
     // Lunar Calendars
     setTimeValue('hijri-node', findCurrentHijriDate(currentDateTime));
 
+    // Proposed Calendars
+    setTimeValue('human-era-node', getHumanEra(currentDateTime));
+    setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
+    setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
+
     // Astronomical Data
     setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring'));
     setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer'));
@@ -112,6 +116,9 @@ function updateDateAndTime(dateInput) {
 
     // Pop Culture
     setTimeValue('shake-of-a-lambs-tail-node', getCurrentShakeOfALambsTail(currentDateTime));
+
+    // Politics
+    setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
 }
 
 function createElements() {
@@ -133,10 +140,16 @@ function createElements() {
     lunarCalendarsData.forEach(item => {
         createnode(item);
     });
+    proposedCalendars.forEach(item => {
+        createnode(item);
+    });
     astronomicalData.forEach(item => {
         createnode(item);
     });
     popCultureData.forEach(item => {
+        createnode(item);
+    });
+    politics.forEach(item => {
         createnode(item);
     });
 }
@@ -149,8 +162,10 @@ function createnode(item) {
     const solarCalendars = document.querySelector('.solar-calendars');
     const lunisolarCalendars = document.querySelector('.lunisolar-calendars');
     const lunarCalendars = document.querySelector('.lunar-calendars');
+    const proposedCalendars = document.querySelector('.proposed-calendars');
     const astronomicalData = document.querySelector('.astronomical-data');
     const popCulture = document.querySelector('.pop-culture');
+    const politics = document.querySelector('.politics');
 
     // Create a div element for the node
     const node = document.createElement('div');
@@ -265,10 +280,14 @@ function createnode(item) {
         lunisolarCalendars.appendChild(node);
     } else if (item.type === 'Lunar Calendar') {
         lunarCalendars.appendChild(node);
+    } else if (item.type === 'Proposed Calendar') {
+        proposedCalendars.appendChild(node);
     } else if (item.type === 'Astronomical Data') {
         astronomicalData.appendChild(node);
     } else if (item.type === 'Pop Culture') {
         popCulture.appendChild(node);
+    } else if (item.type === 'Politics') {
+        politics.appendChild(node);
     }
 }
 let updateIntervalId;
