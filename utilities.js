@@ -4,6 +4,8 @@
 
 // A set of functions for calculating times in the Computing Time category.
 
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 function cleanStupidDate1900Issue(currentDateTime) {
     let year = currentDateTime.getFullYear();
     let dateToFix = new Date(currentDateTime);

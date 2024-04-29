@@ -475,7 +475,7 @@ const proposedCalendars = [
         name: 'Human Era',
         id: 'human-era',
         type: 'Proposed Calendar',
-        epoch: 'January 1st, 10000 BCE',
+        epoch: 'January 1st, 9999 BCE',
         confidence: 'Exact',
         description: 'The Human Era, also known as the Holocene Era, is the calendar representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements. It was proposed by Cesare Emiliani in 1993 CE and is based on the Gregorian calendar.'
     },
