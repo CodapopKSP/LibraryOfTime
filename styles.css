@@ -113,8 +113,8 @@ a {
 }
 
 .proposed-calendars {
-    background-color: rgb(50, 53, 53);
-    color: rgb(196, 240, 255);
+    background-color: rgb(53, 50, 53);
+    color: rgb(224, 224, 224);
 }
 
 .decimal-time {
@@ -170,7 +170,7 @@ a {
 }
 
 .proposed-calendars > .node > .content {
-    border: 0.2vh solid #88986a;
+    border: 0.2vh solid #966a6a;
 }
 
 .astronomical-data > .node > .content {
