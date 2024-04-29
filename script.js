@@ -79,8 +79,9 @@ function updateDateAndTime(dateInput) {
 
     // Solar Calendars
     setTimeValue('gregorian-node', gregorianLocal.date);
-    
-    setTimeValue('julian-node', getJulianDate(currentDateTime));
+    setTimeValue('julian-node', getJulianCalendar(currentDateTime));
+    setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
+    setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
     setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime));
     setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
     setTimeValue('minguo-node', getMinguo(currentDateTime));

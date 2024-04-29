@@ -332,6 +332,24 @@ const solarCalendarsData = [
         confidence: 'Exact',
         description: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar.'
     },
+
+    {
+        name: 'Byzantine',
+        id: 'byzantine',
+        type: 'Solar Calendar',
+        epoch: 'July 19th, 5508 BCE',
+        confidence: 'Exact',
+        description: 'The Byzantine calendar was the official calendar of the Byzantine Empire from 988 to 1453 and was used in Ukraine and Russia until 1700. It followed the Julian calendar but differed by the new year starting on September 1st and the epoch being September 1st, 5509 BC (July 19th, 5508 BCE in the Gregorian Astronomical). Years are counted in AM, or \'Anno Mundi\' meaning \'Year After Creation\'.\n\nMonths:\n  September\n  October\n  November\n  December\n  January\n  February\n  March\n  April\n  May\n  June\n  July\n  August'
+    },
+
+    {
+        name: 'Florentine (CET)',
+        id: 'florentine',
+        type: 'Solar Calendar',
+        epoch: 'January 3rd, 1 CE',
+        confidence: 'Exact',
+        description: 'The Florentine calendar was the calendar used in the Republic of Florence during the Middle Ages. It followed the Julian calendar for its years, months, and days with a few key differences: the new year started on March 25th, meaning January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year. Days also started at sunset, which is displayed here as 6:00pm in Florence.\n\nMonths:\n  March\n  April\n  May\n  June\n  July\n  August\n  September\n  October\n  November\n  December\n  January\n  February\n  March'
+    },
 ]
 
 const lunisolarCalendarsData = [

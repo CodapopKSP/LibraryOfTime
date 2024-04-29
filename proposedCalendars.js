@@ -9,10 +9,7 @@ function getHumanEra(currentDateTime) {
     let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear() + 10000;
 
-    // Add leading zeros if necessary
-    let dayString = (day < 10) ? '0' + day : day;
-
-    return dayString + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE';
+    return day + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE';
 }
 
 function getInvariableCalendarDate(currentDateTime) {

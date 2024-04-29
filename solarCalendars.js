@@ -5,7 +5,7 @@
 // A set of functions for calculating dates in the Solar Calendars category.
 
 function getGregorianDateTime(currentDateTime) {
-    let day = currentDateTime.getDate().toString().padStart(2, '0');
+    let day = currentDateTime.getDate().toString();
     let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear();
     let hour = currentDateTime.getHours().toString().padStart(2, '0');
@@ -27,12 +27,16 @@ function getJulianDate(currentDateTime) {
     let daysAhead = Math.trunc(year / 100) - Math.trunc(year / 400) - 2;
     let julianDate = new Date(currentDateTime);
     julianDate.setDate(julianDate.getDate() - daysAhead);
-    
+    return julianDate;
+}
+
+function getJulianCalendar(currentDateTime) {
+    const julianDate = getJulianDate(currentDateTime);
     // Extract year, month, and day components
     let yearString = julianDate.getFullYear();
     let monthIndex = julianDate.getMonth(); // Month is zero-based
     let monthString = monthNames[monthIndex];
-    let dayString = (julianDate.getDate() < 10) ? '0' + julianDate.getDate() : julianDate.getDate();
+    let dayString = julianDate.getDate();
 
     let yearSuffix = 'AD';
     if (yearString<1) {
@@ -49,10 +53,7 @@ function getMinguo(currentDateTime) {
     let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
     let year = currentDateTime.getFullYear() - 1911;
     
-    // Add leading zeros if necessary
-    let dayString = (day < 10) ? '0' + day : day;
-    
-    return '民國 ' + year + '年 ' + month + '月 ' + dayString + '日';
+    return '民國 ' + year + '年 ' + month + '月 ' + day + '日';
 }
 
 function getJuche(currentDateTime) {
@@ -62,9 +63,7 @@ function getJuche(currentDateTime) {
     
     // Add leading zeros if necessary
     let monthString = (month < 10) ? '0' + month : month;
-    let dayString = (day < 10) ? '0' + day : day;
-    
-    return dayString + ' ' + monthString + ' ' + year + ' Juche';
+    return day + ' ' + monthString + ' ' + year + ' Juche';
 }
 
 function getThaiSolar(currentDateTime) {
@@ -86,11 +85,7 @@ function getThaiSolar(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear() + 543;
-
-    // Add leading zeros if necessary
-    let dayString = (day < 10) ? '0' + day : day;
-
-    return dayString + ' ' + thaiSolarMonths[month] + ' B.E. ' + year;
+    return day + ' ' + thaiSolarMonths[month] + ' B.E. ' + year;
 }
 
 function getRepublicanCalendar(currentDateTime) {
@@ -248,4 +243,57 @@ function julianDayToEthiopian(julianDay) {
     const CopticDay = Math.trunc(remainingDays_ + 1);
 
     return CopticDay + ' ' + ethiopianMonths[EthiopianMonth-1] + ' ዓ.ም.' + EthiopianYear;
+}
+
+function getByzantineCalendar(currentDateTime) {
+    const julianDate = getJulianDate(currentDateTime);
+    // Extract year, month, and day components
+    let yearString = julianDate.getFullYear() + 5509 - 1; // Year 1 being 5509
+    let monthIndex = julianDate.getMonth(); // Month is zero-based
+    let monthString = monthNames[monthIndex];
+    let dayString = julianDate.getDate();
+
+    if (monthIndex>7) {
+        yearString += 1;
+    }
+
+    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' AM';
+    return dateString;
+}
+
+function getFlorentineCalendar(currentDateTime) {
+    let florentineDate = getJulianDate(currentDateTime);
+
+    // Get March 25 of the Florentine calendar (sunset on the 24th UTC+1)
+    let march25ThisYear = new Date(florentineDate);
+    march25ThisYear.setMonth(2);
+    march25ThisYear.setUTCDate(24);
+    march25ThisYear.setUTCHours(19);
+    march25ThisYear.setMinutes(0);
+    march25ThisYear.setSeconds(0);
+    march25ThisYear.setMilliseconds(0);
+
+    if (florentineDate.getUTCHours()>=19) {
+        florentineDate.setUTCDate(florentineDate.getUTCDate()+2);
+    } else {
+        florentineDate.setUTCDate(florentineDate.getUTCDate()+1);
+    }
+
+    if (florentineDate>march25ThisYear) {
+        florentineDate.setUTCFullYear(florentineDate.getUTCFullYear()+1);
+    }
+
+    // Extract year, month, and day components
+    let yearString = florentineDate.getUTCFullYear();
+    let monthIndex = florentineDate.getUTCMonth(); // Month is zero-based
+    let monthString = monthNames[monthIndex];
+    let dayString = florentineDate.getUTCDate();
+
+    let yearSuffix = 'AD';
+    if (yearString<1) {
+        yearSuffix = 'BC';
+    }
+    
+    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix;
+    return dateString;
 }
