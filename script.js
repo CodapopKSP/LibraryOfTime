@@ -13,6 +13,7 @@ Seasons
 Divide by region
 Fantasy calendars that can be verified, like Star Trek
 Metric Time
+Astronomical Time and determine if epoch displays need to be in AT or regular time
 */
 
 let visibleTooltip = document.querySelector('.pre-description');
