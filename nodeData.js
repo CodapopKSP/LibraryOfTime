@@ -484,7 +484,7 @@ const politics = [
         type: 'Politics',
         epoch: 'April 30, 1789',
         confidence: 'High',
-        description: ''
+        description: 'The term of the US president lasts 4 years, starting from January 20th at noon and ending January 20th at noon four years later. This is a running count of how many presidential terms have passed since the inauguration of George Washington in 1789. The inauguration date has changed over the years, making this display inaccurate for years before 1937.'
     },
 ]
 
