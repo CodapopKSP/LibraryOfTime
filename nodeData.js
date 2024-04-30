@@ -346,7 +346,7 @@ const solarCalendarsData = [
         name: 'Florentine (CET)',
         id: 'florentine',
         type: 'Solar Calendar',
-        epoch: 'January 3rd, 1 CE',
+        epoch: 'March 21st, 0 BCE',
         confidence: 'Exact',
         description: 'The Florentine calendar was the calendar used in the Republic of Florence during the Middle Ages. It followed the Julian calendar for its years, months, and days with a few key differences: the new year started on March 25th, meaning January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year. Days also started at sunset, which is displayed here as 6:00pm in Florence.\n\nMonths:\n  March\n  April\n  May\n  June\n  July\n  August\n  September\n  October\n  November\n  December\n  January\n  February\n  March'
     },
