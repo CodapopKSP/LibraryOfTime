@@ -26,15 +26,7 @@ function updateDateAndTime(dateInput) {
     if (dateInput === undefined) {
         currentDateTime = new Date();
     } else {
-        const inputParts = dateInput.split(', ');
-        const inputYear = inputParts[0];
-        const inputMonth = inputParts[1] - 1;
-        const inputDay = inputParts[2];
-        const inputHour = inputParts[3];
-        const inputMinute = inputParts[4];
-        const inputSecond = inputParts[5];
-        currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond));
-        currentDateTime.setUTCFullYear(inputYear);
+        currentDateTime = new Date(dateInput);
     }
     
     //let currentTimeZone = currentDateTime.getTimezoneOffset();
