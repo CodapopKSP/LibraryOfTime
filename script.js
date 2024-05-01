@@ -10,10 +10,11 @@
 TODO:
 Weeks
 Seasons
-Divide by region
+Divide nodes by region
 Fantasy calendars that can be verified, like Star Trek
 Metric Time
 Astronomical Time and determine if epoch displays need to be in AT or regular time
+Hebrew/Thai/Chinese times
 */
 
 let visibleTooltip = document.querySelector('.pre-description');
@@ -101,15 +102,15 @@ function updateDateAndTime(dateInput) {
     setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
 
     // Astronomical Data
-    setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring'));
-    setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer'));
-    setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn'));
-    setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter'));
+    setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
+    setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
+    setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
+    setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
     setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
-    setTimeValue('this-new-moon-node', getNewMoonThisMonth(currentDateTime, 0));
+    setTimeValue('this-new-moon-node', getNewMoonThisMonth(currentDateTime, 0).toUTCString());
 
     // Pop Culture
-    setTimeValue('shake-of-a-lambs-tail-node', getCurrentShakeOfALambsTail(currentDateTime));
+    //setTimeValue('shake-of-a-lambs-tail-node', getCurrentShakeOfALambsTail(currentDateTime));
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime));
     setTimeValue('dream-time-node', getInceptionDreamTime(currentDateTime));
 
