@@ -119,6 +119,7 @@ function updateDateAndTime(dateInput) {
     // Pop Culture
     setTimeValue('shake-of-a-lambs-tail-node', getCurrentShakeOfALambsTail(currentDateTime));
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime));
+    setTimeValue('dream-time-node', getInceptionDreamTime(currentDateTime));
 
     // Politics
     setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));

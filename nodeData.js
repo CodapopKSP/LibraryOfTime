@@ -473,7 +473,7 @@ const popCultureData = [
         type: 'Pop Culture',
         epoch: 'Midnight',
         confidence: 'High',
-        description: 'In the 1994 film Pulp Fiction, Mia Wallace (Uma Thurman) tells Vincent Vega (John Travolta) she will be down in \'two shakes of a lamb\'s tail\'. She takes a minute and 10 seconds to reach Vincent, indicating that one shake of a lamb\'s tail is 35 seconds. The current Shake of a Lamb\'s Tail is indicated here, resetting every local midnight.'
+        description: 'In the 1994 film Pulp Fiction, Mia Wallace (Uma Thurman) tells Vincent Vega (John Travolta) she will be down in \'two shakes of a lamb\'s tail\'. She takes a minute and 10 seconds to reach Vincent, indicating that one shake of a lamb\'s tail is 35 seconds, not to be confused with the length of time used in nuclear physics called a Shake. The current Shake of a Lamb\'s Tail is indicated here, resetting every local midnight.'
     },
 
     {
@@ -483,6 +483,15 @@ const popCultureData = [
         epoch: 'Midnight',
         confidence: 'Exact',
         description: 'One day/night cycle in Minecraft is exactly 20 minutes. Days typically start when the player wakes up from their bed, and although there is a clock in the game, it has little information to expand upon that. This representation of Minecraft time divides the Minecraft day into 24-hour segments with minutes and seconds, set to midnight in the real world when it also resets the day counter.'
+    },
+
+    {
+        name: 'Dream Time',
+        id: 'dream-time',
+        type: 'Pop Culture',
+        epoch: 'Midnight',
+        confidence: 'Exact',
+        description: 'According to the movie Inception, time in a dream is experienced 20 times slower, allowing for several days to be experienced in a single night\'s sleep. The time displayed here is the current time in your dream if you had begun sleeping at midnight.'
     },
 ]
 
