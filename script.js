@@ -92,6 +92,7 @@ function updateDateAndTime(dateInput) {
     setTimeValue('chinese-node', chineseCalendar);
     setTimeValue('vietnamese-node', getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam));
     setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina));
+    setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
 
     // Lunar Calendars
     setTimeValue('hijri-node', findCurrentHijriDate(currentDateTime));

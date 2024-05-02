@@ -4,6 +4,11 @@
 
 // A set of functions for calculating dates in the Lunisolar Calendars category.
 
+function isMetonicCycleLeapYear(year) {
+    const metonicCycle = [0, 3, 6, 8, 11, 14, 17];
+    return metonicCycle.includes(year);
+}
+
 function getChineseZodiacYear(year_) {
     let zodiacAnimals = ['鼠 (Rat)', '牛 (Ox)', '虎 (Tiger)', '兔 (Rabbit)', '龍 (Dragon)', '蛇 (Snake)', '馬 (Horse)', '羊 (Goat)', '猴 (Monkey)', '雞 (Rooster)', '狗 (Dog)', '豬 (Pig)'];
     // Adjusting for the start of the Chinese zodiac cycle, handling negative years
@@ -261,6 +266,64 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
     }
 }
 
+// Calculations are likely not starting at sunset the day before
+function calculateHebrewCalendar(currentDateTime) {
+    let yearsInHebrew = 5732;
+    const moladTishri5732 = new Date(Date.UTC(1971, 8, 20, 16, 0, 0)); // Sunset in Jerusalem (UTC+2)
+    const startOfBaseMoladDays = 0.32;
+    const millisecondsSince5732 = currentDateTime - moladTishri5732;
+    const yearsSince5732 = (millisecondsSince5732)/1000/24/60/60/365.25;
+    const metonicCyclesSince5732 = Math.trunc(yearsSince5732/19);
+    const yearsThisMetonicCycle = yearsSince5732 - (metonicCyclesSince5732*19);
+    let monthsSince5732 = metonicCyclesSince5732 * 235;
+    yearsInHebrew += (metonicCyclesSince5732*19);
+    const currentYear = yearsSince5732 + 5732;
 
+    for (let year = yearsInHebrew; year < currentYear-1; year++) {
+        if (isMetonicCycleLeapYear(year%19)) {
+            monthsSince5732 += 13;
+        } else {
+            monthsSince5732 += 12;
+        }
+        yearsInHebrew += 1;
+    }
+
+    let daysFromMoladTishri5732 = ((monthsSince5732 * 29.53059) + startOfBaseMoladDays);
+    let dayOfWeekOfTishri1 = (daysFromMoladTishri5732 + 2)%7;
+
+    // Apply Dechiyah: Molad Zakein
+    if ((dayOfWeekOfTishri1%1) > 0.5) {
+        dayOfWeekOfTishri1 += 1;
+        daysFromMoladTishri5732 += 1;
+
+    // Apply Dechiyah: Gatarad
+    } else if ((Math.trunc(dayOfWeekOfTishri1) === 3) && ((dayOfWeekOfTishri1%1) > 0.383) && !(isMetonicCycleLeapYear(Math.trunc(yearsThisMetonicCycle)))) {
+        // Day of week == Tuesday, Time of day > 9h 204p past Sunset of the preceeding day, Current Year is not a leap year
+        dayOfWeekOfTishri1 += 1;
+        daysFromMoladTishri5732 += 1;
+
+    // Apply Dechiyah: Betukafot
+    } else if ((Math.trunc(dayOfWeekOfTishri1) === 2) && ((dayOfWeekOfTishri1%1) > 0.6478) && (isMetonicCycleLeapYear(Math.trunc(yearsThisMetonicCycle-1)))) {
+        // Day of week == Monday, Time of day > 15h 589p past Sunset of the preceeding day, Previous Year was a leap year
+        dayOfWeekOfTishri1 += 1;
+        daysFromMoladTishri5732 += 1;
+    }
+
+    // Apply Dechiyah: Lo A"DU Rosh
+    if (Math.trunc(dayOfWeekOfTishri1) === 1 || Math.trunc(dayOfWeekOfTishri1) === 4 || Math.trunc(dayOfWeekOfTishri1) === 6) {
+        // Day of week is not Sunday, Wednesday, or Friday
+        dayOfWeekOfTishri1 += 1;
+        daysFromMoladTishri5732 += 1;
+    }
+
+    const millisecondsSinceMoladTishri5732 = daysFromMoladTishri5732 * 24*60*60*1000;
+    let dayOfRoshHashanahThisYear = new Date(moladTishri5732.getTime() + millisecondsSinceMoladTishri5732);;
+    
+    
+    
+
+
+    return dayOfRoshHashanahThisYear.toUTCString();
+}
 
 

@@ -10,7 +10,7 @@ function getCurrentSolsticeOrEquinox(currentDateTime, season) {
         const Y = (year-2000)/1000;
         let JDE_ = 0;
         if (season === 'spring') {
-            JDE_ = 2451623.80984 + 365242.37404*Y + 0.05169*Y**2 - 0.00411*Y**3 - 0.00057*Y**4;
+            JDE_ = (245162380984 + 36524237404*Y + 5169*Y**2 - 411*Y**3 - 57*Y**4)/100000;
         }
         if (season === 'summer') {
             JDE_ = 2451716.56767 + 365241.62603*Y + 0.00325*Y**2 + 0.00888*Y**3 - 0.00030*Y**4;
