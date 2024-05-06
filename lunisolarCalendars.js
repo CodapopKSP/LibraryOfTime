@@ -266,10 +266,11 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
     }
 }
 
+// Returns a wrong day for 1989 (after October 4) and 2024
 // Calculations are likely not starting at sunset the day before
-function calculateHebrewCalendar(currentDateTime) {
+function getStartOfTishri(currentDateTime) {
     let yearsInHebrew = 5732;
-    const moladTishri5732 = new Date(Date.UTC(1971, 8, 20, 16, 0, 0)); // Sunset in Jerusalem (UTC+2)
+    const moladTishri5732 = new Date(Date.UTC(1971, 8, 20, 0, 0, 0)); // Sunset in Jerusalem (UTC+2)
     const startOfBaseMoladDays = 0.32;
     const millisecondsSince5732 = currentDateTime - moladTishri5732;
     const yearsSince5732 = (millisecondsSince5732)/1000/24/60/60/365.25;
@@ -316,14 +317,85 @@ function calculateHebrewCalendar(currentDateTime) {
         daysFromMoladTishri5732 += 1;
     }
 
-    const millisecondsSinceMoladTishri5732 = daysFromMoladTishri5732 * 24*60*60*1000;
-    let dayOfRoshHashanahThisYear = new Date(moladTishri5732.getTime() + millisecondsSinceMoladTishri5732);;
-    
-    
-    
-
-
-    return dayOfRoshHashanahThisYear.toUTCString();
+    // Get the start of Tishri by going back one day (subtract 1)
+    const millisecondsSinceMoladTishri5732 = (daysFromMoladTishri5732-1) * 24*60*60*1000;
+    // Get sunset of Tishri 1
+    let startOfTishri = new Date(moladTishri5732.getTime() + millisecondsSinceMoladTishri5732);
+    startOfTishri.setUTCHours(20);
+    startOfTishri.setMinutes(0);
+    startOfTishri.setSeconds(0);
+    startOfTishri.setMilliseconds(0);
+    return startOfTishri;
 }
 
+function calculateHebrewCalendar(currentDateTime) {
+
+    // Number of days in each Hebrew month
+    const Hebrew_monthDaysDeficient = [30, 29, 29, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 353 or 383 days
+    const Hebrew_monthDaysRegular = [30, 29, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 354 or 384 days
+    const Hebrew_monthDaysComplete = [30, 30, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 355 or 385 days
+
+    const HebrewMonths = [
+        "Tishri",
+        "Heshvan",
+        "Kislev",
+        "Tevet",
+        "Shevat",
+        "Adar",
+        "Adar II", // In leap years only
+        "Nisan",
+        "Iyyar",
+        "Sivan",
+        "Tammuz",
+        "Av",
+        "Elul"
+    ];
+
+    const lastTishri = getStartOfTishri(currentDateTime);
+    // Next year, but add a few months to make sure we are past that year's Tishri 1
+    let nextYearPlusABit = new Date(lastTishri);
+    nextYearPlusABit.setFullYear(lastTishri.getFullYear() + 1);
+    nextYearPlusABit.setMonth(lastTishri.getMonth() + 3);
+    const nextTishri = getStartOfTishri(nextYearPlusABit);
+    const daysThisYear = (nextTishri - lastTishri) / 1000 / 24 / 60 / 60;
+
+    let remainingDays = Math.trunc((currentDateTime-lastTishri) / 1000 / 24 / 60 / 60);
+
+    // Check if it's a deficient, regular, or complete year
+    const isDeficientYear = [353, 383].includes(daysThisYear);
+    const isRegularYear = [354, 384].includes(daysThisYear);
+    const isCompleteYear = [355, 385].includes(daysThisYear);
+
+    // Determine which array of month days to use based on the year length
+    const Hebrew_monthDays = isDeficientYear ? Hebrew_monthDaysDeficient :
+                             isRegularYear ? Hebrew_monthDaysRegular :
+                             Hebrew_monthDaysComplete;
+
+    // Check if it's a leap year, remove Adar II if not
+    if (daysThisYear < 380) {
+        HebrewMonths.splice(5, 1); // Remove "Adar II"
+        Hebrew_monthDays.splice(5, 1);
+    }
+
+    // Iterate through months and deduct days from remaining days
+    let HebrewMonth = 1;
+    while (remainingDays >= Hebrew_monthDays[HebrewMonth - 1]) {
+        remainingDays -= Hebrew_monthDays[HebrewMonth - 1];
+        HebrewMonth++;
+    }
+
+    let year = currentDateTime.getUTCFullYear() + 3760;
+    if ((currentDateTime.getMonth()>8) && (HebrewMonth<5)) {
+        year += 1;
+    }
+
+    // Return the Hebrew date
+    const hebrewDate = {
+        year: year,
+        month: HebrewMonth-1,
+        day: remainingDays + 1 // Hebrew months start from 1
+    };
+
+    return hebrewDate.day + ' ' + HebrewMonths[hebrewDate.month] + ' ' + hebrewDate.year + 'AM';
+}
 

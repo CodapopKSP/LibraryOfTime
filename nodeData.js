@@ -393,9 +393,9 @@ const lunisolarCalendarsData = [
         name: 'Hebrew',
         id: 'hebrew',
         type: 'Lunisolar Calendar',
-        epoch: '',
-        confidence: '',
-        description: ''
+        epoch: 'October 6th, 3761 BCE',
+        confidence: 'High',
+        description: 'The Hebrew calendar is a lunisolar calendar used by the Jewish faith for religious and celebratory purposes, and it is also an official calendar of Israel. It features 12 months of 29 or 30 days that start approximately on the day of the New Moon, referred to as a Molad. It has an intercalary 13th month added after the month of Adar, called Adar II, based on the Metonic cycle which places 7 leap years in every cycle of 19 years. The Hebrew calendar is not strictly based on the moon, as it became a mathematical equation by the year 1178. Years are denoted with AM for \'Anno Mundi\', meaning \'in the year of the world\', referring to the Jewish date of Creation around the year 3761 BCE.\n\nMonths:\n  Tishri\n  Heshvan\n  Kislev\n  Tevet\n  Shevat\n  Adar\n  Adar II\n  Nisan\n  Iyyar\n  Sivan\n  Tammuz\n  Av\n  Elul'
     },
 ]
 
