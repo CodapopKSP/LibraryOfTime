@@ -266,15 +266,13 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
     }
 }
 
-// Returns a wrong day for 1989 (after October 4) and 2024
-// Calculations are likely not starting at sunset the day before
 function getStartOfTishri(currentDateTime) {
     let yearsInHebrew = 5732;
     const moladTishri5732 = new Date(Date.UTC(1971, 8, 20, 0, 0, 0)); // Sunset in Jerusalem (UTC+2)
     const startOfBaseMoladDays = 0.32;
     const millisecondsSince5732 = currentDateTime - moladTishri5732;
     const yearsSince5732 = (millisecondsSince5732)/1000/24/60/60/365.25;
-    const metonicCyclesSince5732 = Math.trunc(yearsSince5732/19);
+    const metonicCyclesSince5732 = Math.floor(yearsSince5732/19);
     const yearsThisMetonicCycle = yearsSince5732 - (metonicCyclesSince5732*19);
     let monthsSince5732 = metonicCyclesSince5732 * 235;
     yearsInHebrew += (metonicCyclesSince5732*19);

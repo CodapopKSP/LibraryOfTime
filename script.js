@@ -92,10 +92,10 @@ function updateDateAndTime(dateInput) {
     setTimeValue('chinese-node', chineseCalendar);
     setTimeValue('vietnamese-node', getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam));
     setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina));
-    setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
+    setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime)); // Returns a wrong day for October 10 1989
 
     // Lunar Calendars
-    setTimeValue('hijri-node', findCurrentHijriDate(currentDateTime));
+    setTimeValue('hijri-node', findCurrentHijriDate(currentDateTime)); // Returns a wrong day for May 8 2024
 
     // Proposed Calendars
     setTimeValue('human-era-node', getHumanEra(currentDateTime));
