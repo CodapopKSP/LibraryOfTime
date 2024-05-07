@@ -396,6 +396,6 @@ function calculateHebrewCalendar(currentDateTime) {
         day: remainingDays + 1 // Hebrew months start from 1
     };
 
-    return hebrewDate.day + ' ' + HebrewMonths[hebrewDate.month] + ' ' + hebrewDate.year + 'AM';
+    return hebrewDate.day + ' ' + HebrewMonths[hebrewDate.month] + ' ' + hebrewDate.year + ' AM';
 }
 
