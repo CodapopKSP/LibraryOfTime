@@ -85,6 +85,7 @@ function updateDateAndTime(dateInput) {
     setTimeValue('coptic-node', julianDayToCoptic(julianDay));
     setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
     setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
+    setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
 
     // Lunisolar Calendars
     let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00

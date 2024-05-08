@@ -359,6 +359,15 @@ const solarCalendarsData = [
         confidence: 'High',
         description: 'The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift from the Gregorian calendar. It features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and ‘Alá’, typically at the end of February. Days start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with \'BE\', meaning Baháʼí Era. The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year but is likely to self-correct. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession.\n\nMonths:\n  Bahá                    Mashíyyat\n  Jalál                     ‘Ilm\n  Jamál                   Qudrat\n  ‘Aẓamat               Qawl\n  Núr                      Masá’il\n  Raḥmat                Sharaf\n  Kalimát                Sulṭán\n  Kamál                  Mulk\n  Asmá’                  Ayyám-i-Há\n  ‘Izzat                   ‘Alá’'
     },
+
+    {
+        name: 'Mayan Long Count',
+        id: 'mayan-long-count',
+        type: 'Solar Calendar',
+        epoch: 'August 8th, 3113 BCE',
+        confidence: 'Exact',
+        description: 'The Mayan Long Count calendar is essentially a simple count of the number of days since the Mayan date of creation. It is a five digit number, typically expressed with periods between the digits, made up of base-20 counters with the exception of the middle-right digit which is base-18. Starting with the right, the smallest unit is the kʼin, which is equivalent to a day. Twenty kʼins make up one winal, 18 winals make up one tun, 20 tuns make up one kʼatun, and finally 20 kʼatuns make up one bʼakʼtun. A bʼakʼtun is roughly 394 solar years. The Mayan Long Count Calendar was of international interest in 2012 as it was the time when the bʼakʼtun incremented from 12 to 13, leading to superstitious theories and hysteria.'
+    },
 ]
 
 const lunisolarCalendarsData = [
