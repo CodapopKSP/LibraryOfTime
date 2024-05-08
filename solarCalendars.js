@@ -297,3 +297,87 @@ function getFlorentineCalendar(currentDateTime) {
     let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix;
     return dateString;
 }
+
+function getBahaiCalendar(currentDateTime, vernalEquinox) {
+    let startingEquinox = '';
+    let endingEquinox = '';
+    if (currentDateTime < vernalEquinox) {
+        let lastYear = new Date(currentDateTime);
+        lastYear.setFullYear(currentDateTime.getFullYear()-1);
+        lastYear.setMonth(10);
+        startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'spring');
+        endingEquinox = vernalEquinox;
+    } else {
+        let nextYear = new Date(currentDateTime);
+        nextYear.setFullYear(currentDateTime.getFullYear()+1);
+        nextYear.setMonth(10);
+        startingEquinox = vernalEquinox;
+        endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'spring');
+    }
+
+    // Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
+    startingEquinox = figureOutEquinoxBeforeAfterSunset(startingEquinox);
+    endingEquinox = figureOutEquinoxBeforeAfterSunset(endingEquinox);
+
+    // Calculate when today started based on sunset in Tehran (UTC+3:30)
+    currentDayOfYear = Math.trunc((currentDateTime - startingEquinox) /1000/24/60/60);
+    let todaySunsetInTehran = new Date(currentDateTime);
+    todaySunsetInTehran.setUTCHours(12);
+    todaySunsetInTehran.setMinutes(30);
+    todaySunsetInTehran.setMilliseconds(0);
+    if (currentDateTime > todaySunsetInTehran) {
+        currentDayOfYear += 1;
+    }
+
+    const BahaMonths = [
+        "Bahá","Jalál","Jamál","‘Aẓamat",
+        "Núr","Raḥmat","Kalimát","Kamál",
+        "Asmá’","‘Izzat","Mashíyyat","‘Ilm",
+        "Qudrat","Qawl","Masá’il","Sharaf",
+        "Sulṭán","Mulk","Ayyám-i-Há","‘Alá’"
+    ];
+
+    // Iterate through months from start until Mulk, find intercalary days, then iterate backwards for Ala
+    let monthIndex = 0;
+    while (currentDayOfYear >= 19) {
+        if (monthIndex<17) {
+            currentDayOfYear -= 19;
+            monthIndex++;
+        } else {
+            let firstDayOfFinalMonth = new Date(endingEquinox);
+            firstDayOfFinalMonth.setDate(endingEquinox.getDate() - 19);
+            console.log((currentDateTime - endingEquinox)/1000/24/60/60);
+            if (((currentDateTime - endingEquinox)/1000/24/60/60)<-19) {
+                currentDayOfYear -= 19;
+                monthIndex=18;
+            } else {
+                currentDayOfYear = Math.trunc((currentDateTime - firstDayOfFinalMonth)/1000/24/60/60);
+                monthIndex=19;
+            }
+        }
+    }
+    // Correct for 0 indexing
+    let day = currentDayOfYear + 1;
+
+    // If after February but less than Month 17 in Bahai, it's past the Bahai New Year
+    let year = currentDateTime.getUTCFullYear() - 1844;
+    if ((currentDateTime.getMonth()>1)&&(monthIndex<16)) {
+        year++
+    }
+    return day + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE';
+}
+
+// Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
+function figureOutEquinoxBeforeAfterSunset(equinox) {
+    let equinoxDaySunset = new Date(equinox);
+    equinoxDaySunset.setUTCHours(12);
+    equinoxDaySunset.setMinutes(30);
+    equinoxDaySunset.setMilliseconds(0);
+    if (equinox < equinoxDaySunset) {
+        equinox.setDate(equinox.getDate()-1);
+    }
+    equinox.setUTCHours(12);
+    equinox.setMinutes(30);
+    equinox.setMilliseconds(0);
+    return equinox;
+}

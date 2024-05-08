@@ -72,6 +72,7 @@ function updateDateAndTime(dateInput) {
     setTimeValue('binary-node', getBinaryTime(dayFraction));
 
     // Solar Calendars
+    const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
     setTimeValue('gregorian-node', gregorianLocal.date);
     setTimeValue('julian-node', getJulianCalendar(currentDateTime));
     setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
@@ -83,6 +84,7 @@ function updateDateAndTime(dateInput) {
     setTimeValue('juche-node', getJuche(currentDateTime));
     setTimeValue('coptic-node', julianDayToCoptic(julianDay));
     setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
+    setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
 
     // Lunisolar Calendars
     let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
@@ -103,7 +105,7 @@ function updateDateAndTime(dateInput) {
     setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
 
     // Astronomical Data
-    setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
+    setTimeValue('spring-equinox-node', springEquinox.toUTCString());
     setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
     setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
     setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());

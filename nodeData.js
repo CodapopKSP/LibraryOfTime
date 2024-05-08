@@ -350,6 +350,15 @@ const solarCalendarsData = [
         confidence: 'Exact',
         description: 'The Florentine calendar was the calendar used in the Republic of Florence during the Middle Ages. It followed the Julian calendar for its years, months, and days with a few key differences: the new year started on March 25th, meaning January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year. Days also started at sunset, which is displayed here as 6:00pm in Florence.\n\nMonths:\n  March\n  April\n  May\n  June\n  July\n  August\n  September\n  October\n  November\n  December\n  January\n  February\n  March'
     },
+
+    {
+        name: 'Baháʼí (IRST)',
+        id: 'bahai',
+        type: 'Solar Calendar',
+        epoch: 'March 3rd, 1844 CE',
+        confidence: 'High',
+        description: 'The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift from the Gregorian calendar. It features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and ‘Alá’, typically at the end of February. Days start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with \'BE\', meaning Baháʼí Era. The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year but is likely to self-correct. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession.\n\nMonths:\n  Bahá                    Mashíyyat\n  Jalál                     ‘Ilm\n  Jamál                   Qudrat\n  ‘Aẓamat               Qawl\n  Núr                      Masá’il\n  Raḥmat                Sharaf\n  Kalimát                Sulṭán\n  Kamál                  Mulk\n  Asmá’                  Ayyám-i-Há\n  ‘Izzat                   ‘Alá’'
+    },
 ]
 
 const lunisolarCalendarsData = [

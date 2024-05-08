@@ -267,9 +267,13 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
 }
 
 function getStartOfTishri(currentDateTime) {
+
+    // Begin with a bae molad of 5732, with 0.32 fraction of a day past midnight
     let yearsInHebrew = 5732;
     const moladTishri5732 = new Date(Date.UTC(1971, 8, 20, 0, 0, 0)); // Sunset in Jerusalem (UTC+2)
     const startOfBaseMoladDays = 0.32;
+
+    // Figure out how long since base molad, including Metonic cycles
     const millisecondsSince5732 = currentDateTime - moladTishri5732;
     const yearsSince5732 = (millisecondsSince5732)/1000/24/60/60/365.25;
     const metonicCyclesSince5732 = Math.floor(yearsSince5732/19);
@@ -278,6 +282,7 @@ function getStartOfTishri(currentDateTime) {
     yearsInHebrew += (metonicCyclesSince5732*19);
     const currentYear = yearsSince5732 + 5732;
 
+    // Figure out how many months and leap months since base molad
     for (let year = yearsInHebrew; year < currentYear-1; year++) {
         if (isMetonicCycleLeapYear(year%19)) {
             monthsSince5732 += 13;
@@ -287,6 +292,7 @@ function getStartOfTishri(currentDateTime) {
         yearsInHebrew += 1;
     }
 
+    // Figure out days since molad, then figure out day of week for Dechiyah calculations
     let daysFromMoladTishri5732 = ((monthsSince5732 * 29.53059) + startOfBaseMoladDays);
     let dayOfWeekOfTishri1 = (daysFromMoladTishri5732 + 2)%7;
 
@@ -334,19 +340,10 @@ function calculateHebrewCalendar(currentDateTime) {
     const Hebrew_monthDaysComplete = [30, 30, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 355 or 385 days
 
     const HebrewMonths = [
-        "Tishri",
-        "Heshvan",
-        "Kislev",
-        "Tevet",
-        "Shevat",
-        "Adar",
-        "Adar II", // In leap years only
-        "Nisan",
-        "Iyyar",
-        "Sivan",
-        "Tammuz",
-        "Av",
-        "Elul"
+        "Tishri","Heshvan","Kislev","Tevet",
+        "Shevat","Adar","Adar II", // In leap years only
+        "Nisan","Iyyar","Sivan","Tammuz",
+        "Av","Elul"
     ];
 
     const lastTishri = getStartOfTishri(currentDateTime);
@@ -382,6 +379,7 @@ function calculateHebrewCalendar(currentDateTime) {
         HebrewMonth++;
     }
 
+    // Calculate year, if late in Gregorian but early in Hebrew, it's past Hebrew New Year
     let year = currentDateTime.getUTCFullYear() + 3760;
     if ((currentDateTime.getMonth()>8) && (HebrewMonth<5)) {
         year += 1;
