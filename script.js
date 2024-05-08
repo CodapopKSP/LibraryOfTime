@@ -38,6 +38,7 @@ function updateDateAndTime(dateInput) {
     const gregorianLocal = getGregorianDateTime(currentDateTime);
     const julianDay = getJulianDayNumber(currentDateTime)
     const dayFraction = calculateDay(currentDateTime)
+    const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
 
     // All fractional times
     setTimeValue('local-time-node', gregorianLocal.time);
@@ -72,7 +73,6 @@ function updateDateAndTime(dateInput) {
     setTimeValue('binary-node', getBinaryTime(dayFraction));
 
     // Solar Calendars
-    const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
     setTimeValue('gregorian-node', gregorianLocal.date);
     setTimeValue('julian-node', getJulianCalendar(currentDateTime));
     setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
@@ -89,15 +89,16 @@ function updateDateAndTime(dateInput) {
     // Lunisolar Calendars
     let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
     let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, 15); // Vietnam midnight happens at UTC 15:00
+    let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, 17); // Korea midnight happens at UTC 17:00
     let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
     setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
     setTimeValue('chinese-node', chineseCalendar);
     setTimeValue('vietnamese-node', getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam));
-    setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina));
+    setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea));
     setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime)); // Returns a wrong day for October 10 1989
 
     // Lunar Calendars
-    setTimeValue('hijri-node', findCurrentHijriDate(currentDateTime)); // Returns a wrong day for May 8 2024
+    setTimeValue('hijri-node', getHijriDate(currentDateTime)); // Returns a wrong day for May 8 2024
 
     // Proposed Calendars
     setTimeValue('human-era-node', getHumanEra(currentDateTime));
@@ -113,7 +114,6 @@ function updateDateAndTime(dateInput) {
     setTimeValue('this-new-moon-node', getNewMoonThisMonth(currentDateTime, 0).toUTCString());
 
     // Pop Culture
-    //setTimeValue('shake-of-a-lambs-tail-node', getCurrentShakeOfALambsTail(currentDateTime));
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime));
     setTimeValue('dream-time-node', getInceptionDreamTime(currentDateTime));
 

@@ -4,33 +4,25 @@
 
 // A set of functions for calculating data in the Lunar Calendars category.
 
-// Find the last day that occurred after a New Moon happened before sunset in Mecca
-function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
-    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
-    
-    // Check if the New Moon has passed for this month
-    if (currentDateTime.getTime() > newMoonThisMonth.getTime()) {
-        // Check if the New Moon happened before 18:00 Mecca time (UTC+3), rough approximation of sunset
-        if (newMoonThisMonth.getUTCHours() < 15) {
-            return newMoonThisMonth;
-        } else {
-            // If it happened after sunset, return one day later
-            return new Date(newMoonThisMonth.setDate(newMoonThisMonth.getDate() + 1))
-        }
-    }
-    let dateBack29Days = new Date(currentDateTime);
-    dateBack29Days.setDate(dateBack29Days.getDate() - 29);
-    const newMoonLastMonth = getNewMoonThisMonth(dateBack29Days, 0);
-    // Check if the New Moon happened before 18:00 Mecca time (UTC+3), rough approximation of sunset
-    if (newMoonLastMonth.getUTCHours() < 15) {
-        return newMoonLastMonth;
-    } else {
-        // If it happened before sunset, return that day
-        return new Date(newMoonLastMonth.setDate(newMoonLastMonth.getDate()))
-    }
-}
 
-function findCurrentHijriDate(currentDateTime) {
+// Some dates are weird on month or year change
+// Returns a formatted Hijri calendar AST date
+function getHijriDate(currentDateTime) {
+
+    const HijriMonths = {
+        0: 'al-Muḥarram',
+        1: 'Ṣafar',
+        2: 'Rabīʿ al-ʾAwwal',
+        3: 'Rabīʿ ath-Thānī',
+        4: 'Jumādā al-ʾŪlā',
+        5: 'Jumādā al-ʾĀkhirah',
+        6: 'Rajab',
+        7: 'Shaʿbān',
+        8: 'Ramaḍān',
+        9: 'Shawwāl',
+        10: 'Dhū al-Qaʿdah',
+        11: 'Dhū al-Ḥijjah'
+    };
 
     // Get the date of last day of New Moon and calculate it's sunset at Mecca (6:00pm UTC+3)
     const firstDayOfIslamicMonth = dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime);
@@ -87,17 +79,28 @@ function calculateIslamicMonthAndYear(ln) {
     return { month: currentMonth, year: currentYear };
 }
 
-const HijriMonths = {
-    0: 'al-Muḥarram',
-    1: 'Ṣafar',
-    2: 'Rabīʿ al-ʾAwwal',
-    3: 'Rabīʿ ath-Thānī',
-    4: 'Jumādā al-ʾŪlā',
-    5: 'Jumādā al-ʾĀkhirah',
-    6: 'Rajab',
-    7: 'Shaʿbān',
-    8: 'Ramaḍān',
-    9: 'Shawwāl',
-    10: 'Dhū al-Qaʿdah',
-    11: 'Dhū al-Ḥijjah'
-};
+// Find the last day that occurred after a New Moon happened before sunset in Mecca
+function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
+    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+    
+    // Check if the New Moon has passed for this month
+    if (currentDateTime.getTime() > newMoonThisMonth.getTime()) {
+        // Check if the New Moon happened before 18:00 Mecca time (UTC+3), rough approximation of sunset
+        if (newMoonThisMonth.getUTCHours() < 15) {
+            return newMoonThisMonth;
+        } else {
+            // If it happened after sunset, return one day later
+            return new Date(newMoonThisMonth.setDate(newMoonThisMonth.getDate() + 1))
+        }
+    }
+    let dateBack29Days = new Date(currentDateTime);
+    dateBack29Days.setDate(dateBack29Days.getDate() - 29);
+    const newMoonLastMonth = getNewMoonThisMonth(dateBack29Days, 0);
+    // Check if the New Moon happened before 18:00 Mecca time (UTC+3), rough approximation of sunset
+    if (newMoonLastMonth.getUTCHours() < 15) {
+        return newMoonLastMonth;
+    } else {
+        // If it happened before sunset, return that day
+        return new Date(newMoonLastMonth.setDate(newMoonLastMonth.getDate()))
+    }
+}

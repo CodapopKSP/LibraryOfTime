@@ -390,21 +390,21 @@ const lunisolarCalendarsData = [
     },
 
     {
-        name: 'Dangun',
+        name: 'Dangun (KST)',
         id: 'dangun',
         type: 'Lunisolar Calendar',
         epoch: '1 CE',
         confidence: 'Medium',
-        description: 'The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while sharing years (년) with the Gregorian calendar, though it doesn\'t increment the year until the lunisolar new year in January or February.'
+        description: 'The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while sharing years (년) with the Gregorian calendar, though it doesn\'t increment the year until the lunisolar new year in January or February. The Dangun calendar is calculated based on midnight in Korea, and as such its dates may misalign, sometimes significantly, from the Chinese lunisolar calendar.'
     },
 
     {
-        name: 'Hebrew',
+        name: 'Hebrew (IST)',
         id: 'hebrew',
         type: 'Lunisolar Calendar',
         epoch: 'October 6th, 3761 BCE',
         confidence: 'High',
-        description: 'The Hebrew calendar is a lunisolar calendar used by the Jewish faith for religious and celebratory purposes, and it is also an official calendar of Israel. It features 12 months of 29 or 30 days that start approximately on the day of the New Moon, referred to as a Molad. It has an intercalary 13th month added after the month of Adar, called Adar II, based on the Metonic cycle which places 7 leap years in every cycle of 19 years. The Hebrew calendar is not strictly based on the moon, as it became a mathematical equation by the year 1178. Years are denoted with AM for \'Anno Mundi\', meaning \'in the year of the world\', referring to the Jewish date of Creation around the year 3761 BCE.\n\nMonths:\n  Tishri\n  Heshvan\n  Kislev\n  Tevet\n  Shevat\n  Adar\n  Adar II\n  Nisan\n  Iyyar\n  Sivan\n  Tammuz\n  Av\n  Elul'
+        description: 'The Hebrew calendar is a lunisolar calendar used by the Jewish faith for religious and celebratory purposes, and it is also an official calendar of Israel. It features 12 months of 29 or 30 days that start approximately on the day of the New Moon, referred to as a Molad. It has an intercalary 13th month added after the month of Adar, called Adar II, based on the Metonic cycle which places 7 leap years in every cycle of 19 years. The Hebrew calendar is not strictly based on the moon, as it became a mathematical equation by the year 1178. Years are denoted with AM for \'Anno Mundi\', meaning \'in the year of the world\', referring to the Jewish date of Creation around the year 3761 BCE. Days start at sunset, and this website uses 18:00 in Israel to approximate sunset.\n\nMonths:\n  Tishri\n  Heshvan\n  Kislev\n  Tevet\n  Shevat\n  Adar\n  Adar II\n  Nisan\n  Iyyar\n  Sivan\n  Tammuz\n  Av\n  Elul'
     },
 ]
 
@@ -484,16 +484,7 @@ const popCultureData = [
         confidence: 'Exact',
         description: 'One day/night cycle in Minecraft is exactly 20 minutes. Days typically start when the player wakes up from their bed, and although there is a clock in the game, it has little information to expand upon that. This representation of Minecraft time divides the Minecraft day into 24-hour segments with minutes and seconds, set to midnight in the real world when it also resets the day counter.'
     },
-    /*
-    {
-        name: 'Shake of a Lamb\'s Tail',
-        id: 'shake-of-a-lambs-tail',
-        type: 'Pop Culture',
-        epoch: 'Midnight',
-        confidence: 'High',
-        description: 'In the 1994 film Pulp Fiction, Mia Wallace (Uma Thurman) tells Vincent Vega (John Travolta) she will be down in \'two shakes of a lamb\'s tail\'. She takes a minute and 10 seconds to reach Vincent, indicating that one shake of a lamb\'s tail is 35 seconds, not to be confused with the length of time used in nuclear physics called a Shake. The current Shake of a Lamb\'s Tail is indicated here, resetting every local midnight.'
-    },
-    */
+
     {
         name: 'Dream Time',
         id: 'dream-time',

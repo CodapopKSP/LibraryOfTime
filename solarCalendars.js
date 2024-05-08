@@ -4,6 +4,52 @@
 
 // A set of functions for calculating dates in the Solar Calendars category.
 
+
+// Returns an unformatted Julian date object, useful for calculating many calendars
+function getJulianDate(currentDateTime) {
+    let year = currentDateTime.getFullYear();
+    let daysAhead = Math.trunc(year / 100) - Math.trunc(year / 400) - 2;
+    let julianDate = new Date(currentDateTime);
+    julianDate.setDate(julianDate.getDate() - daysAhead);
+    return julianDate;
+}
+
+// Converts a number to Roman numerals
+function toRomanNumerals(num) {
+    if (num === 0) {
+        return 'O';
+    }
+    if (num < 0) {
+        return '-' + toRomanNumerals(-num);
+    }
+
+    const romanNumerals = [
+        { value: 1000, symbol: 'M' },
+        { value: 900, symbol: 'CM' },
+        { value: 500, symbol: 'D' },
+        { value: 400, symbol: 'CD' },
+        { value: 100, symbol: 'C' },
+        { value: 90, symbol: 'XC' },
+        { value: 50, symbol: 'L' },
+        { value: 40, symbol: 'XL' },
+        { value: 10, symbol: 'X' },
+        { value: 9, symbol: 'IX' },
+        { value: 5, symbol: 'V' },
+        { value: 4, symbol: 'IV' },
+        { value: 1, symbol: 'I' }
+    ];
+
+    let result = '';
+    for (let i = 0; i < romanNumerals.length; i++) {
+        while (num >= romanNumerals[i].value) {
+            result += romanNumerals[i].symbol;
+            num -= romanNumerals[i].value;
+        }
+    }
+    return result;
+}
+
+// Returns a formatted Gregorian calendar local date and time
 function getGregorianDateTime(currentDateTime) {
     let day = currentDateTime.getDate().toString();
     let month = currentDateTime.getMonth();
@@ -22,14 +68,7 @@ function getGregorianDateTime(currentDateTime) {
     return {date: dateDisplayString, time: timeDisplayString};
 }
 
-function getJulianDate(currentDateTime) {
-    let year = currentDateTime.getFullYear();
-    let daysAhead = Math.trunc(year / 100) - Math.trunc(year / 400) - 2;
-    let julianDate = new Date(currentDateTime);
-    julianDate.setDate(julianDate.getDate() - daysAhead);
-    return julianDate;
-}
-
+// Returns a formatted Julian calendar local date
 function getJulianCalendar(currentDateTime) {
     const julianDate = getJulianDate(currentDateTime);
     // Extract year, month, and day components
@@ -47,6 +86,7 @@ function getJulianCalendar(currentDateTime) {
     return dateString;
 }
 
+// Returns a formatted Minguo local date
 function getMinguo(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
@@ -55,6 +95,7 @@ function getMinguo(currentDateTime) {
     return '民國 ' + year + '年 ' + month + '月 ' + day + '日';
 }
 
+// Returns a formatted Juche local date
 function getJuche(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
@@ -65,6 +106,7 @@ function getJuche(currentDateTime) {
     return 'Juche ' + year + '.' + monthString + '.' + day;
 }
 
+// Returns a formatted Thai solar local date
 function getThaiSolar(currentDateTime) {
     const thaiSolarMonths = [
         "มกราคม",
@@ -87,6 +129,7 @@ function getThaiSolar(currentDateTime) {
     return day + ' ' + thaiSolarMonths[month] + ' B.E. ' + year;
 }
 
+// Returns a formatted French Republican local date
 function getRepublicanCalendar(currentDateTime) {
     const FrenchRevolutionaryMonths = {
         1: 'Vendémiaire',
@@ -123,6 +166,7 @@ function getRepublicanCalendar(currentDateTime) {
     return day + " " + FrenchRevolutionaryMonths[month] + "\n" + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
+// Returns a formatted EF local date
 function getEraFascista(currentDateTime) {
     // Only update the year if past October 22nd, otherwise it is the previous year.
     let october22 = new Date(currentDateTime.getFullYear(), 9, 22);
@@ -134,40 +178,7 @@ function getEraFascista(currentDateTime) {
     return `Anno ${toRomanNumerals(yearsSince1922)}`;
 }
 
-function toRomanNumerals(num) {
-    if (num === 0) {
-        return 'O';
-    }
-    if (num < 0) {
-        return '-' + toRomanNumerals(-num);
-    }
-
-    const romanNumerals = [
-        { value: 1000, symbol: 'M' },
-        { value: 900, symbol: 'CM' },
-        { value: 500, symbol: 'D' },
-        { value: 400, symbol: 'CD' },
-        { value: 100, symbol: 'C' },
-        { value: 90, symbol: 'XC' },
-        { value: 50, symbol: 'L' },
-        { value: 40, symbol: 'XL' },
-        { value: 10, symbol: 'X' },
-        { value: 9, symbol: 'IX' },
-        { value: 5, symbol: 'V' },
-        { value: 4, symbol: 'IV' },
-        { value: 1, symbol: 'I' }
-    ];
-
-    let result = '';
-    for (let i = 0; i < romanNumerals.length; i++) {
-        while (num >= romanNumerals[i].value) {
-            result += romanNumerals[i].symbol;
-            num -= romanNumerals[i].value;
-        }
-    }
-    return result;
-}
-
+// Returns a formatted Coptic UTC date based on the Julian Day (not Julian date)
 function julianDayToCoptic(julianDay) {
     const copticMonths = [
         "Thout",
@@ -206,6 +217,7 @@ function julianDayToCoptic(julianDay) {
     return CopticDay + ' ' + copticMonths[CopticMonth-1] + ' ' + CopticYear + ' AM';
 }
 
+// Returns a formatted Ethiopian UTC date based on the Julian Day (not Julian date)
 function julianDayToEthiopian(julianDay) {
     const ethiopianMonths = [
         "Mäskäräm",
@@ -238,12 +250,13 @@ function julianDayToEthiopian(julianDay) {
         EthiopianMonth++;
     }
 
-    // Add 2 days for some reason but it keeps it in sync with Wiki
+    // Add 21 day for some reason but it keeps it in sync with Wiki
     const CopticDay = Math.trunc(remainingDays_ + 1);
 
     return CopticDay + ' ' + ethiopianMonths[EthiopianMonth-1] + ' ዓ.ም.' + EthiopianYear;
 }
 
+// Returns a formatted Byzantine local date
 function getByzantineCalendar(currentDateTime) {
     const julianDate = getJulianDate(currentDateTime);
     // Extract year, month, and day components
@@ -260,6 +273,7 @@ function getByzantineCalendar(currentDateTime) {
     return dateString;
 }
 
+// Returns a formatted Florentine CET date
 function getFlorentineCalendar(currentDateTime) {
     let florentineDate = getJulianDate(currentDateTime);
 
@@ -297,7 +311,25 @@ function getFlorentineCalendar(currentDateTime) {
     return dateString;
 }
 
+// Returns a formatted Baha'i IRST date
 function getBahaiCalendar(currentDateTime, vernalEquinox) {
+
+    // Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
+    function figureOutEquinoxBeforeAfterSunset(equinox) {
+        let equinoxDaySunset = new Date(equinox);
+        equinoxDaySunset.setUTCHours(12);
+        equinoxDaySunset.setMinutes(30);
+        equinoxDaySunset.setMilliseconds(0);
+        if (equinox < equinoxDaySunset) {
+            equinox.setDate(equinox.getDate()-1);
+        }
+        equinox.setUTCHours(12);
+        equinox.setMinutes(30);
+        equinox.setMilliseconds(0);
+        return equinox;
+    }
+
+    // Figure out if the beginning of Bahai year was last Gregorian year or this year based on equinox
     let startingEquinox = '';
     let endingEquinox = '';
     if (currentDateTime < vernalEquinox) {
@@ -329,11 +361,26 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     }
 
     const BahaMonths = [
-        "Bahá","Jalál","Jamál","‘Aẓamat",
-        "Núr","Raḥmat","Kalimát","Kamál",
-        "Asmá’","‘Izzat","Mashíyyat","‘Ilm",
-        "Qudrat","Qawl","Masá’il","Sharaf",
-        "Sulṭán","Mulk","Ayyám-i-Há","‘Alá’"
+        "Bahá",
+        "Jalál",
+        "Jamál",
+        "‘Aẓamat",
+        "Núr",
+        "Raḥmat",
+        "Kalimát",
+        "Kamál",
+        "Asmá’",
+        "‘Izzat",
+        "Mashíyyat",
+        "‘Ilm",
+        "Qudrat",
+        "Qawl",
+        "Masá’il",
+        "Sharaf",
+        "Sulṭán",
+        "Mulk",
+        "Ayyám-i-Há",
+        "‘Alá’"
     ];
 
     // Iterate through months from start until Mulk, find intercalary days, then iterate backwards for Ala
@@ -364,19 +411,4 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
         year++
     }
     return day + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE';
-}
-
-// Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
-function figureOutEquinoxBeforeAfterSunset(equinox) {
-    let equinoxDaySunset = new Date(equinox);
-    equinoxDaySunset.setUTCHours(12);
-    equinoxDaySunset.setMinutes(30);
-    equinoxDaySunset.setMilliseconds(0);
-    if (equinox < equinoxDaySunset) {
-        equinox.setDate(equinox.getDate()-1);
-    }
-    equinox.setUTCHours(12);
-    equinox.setMinutes(30);
-    equinox.setMilliseconds(0);
-    return equinox;
 }

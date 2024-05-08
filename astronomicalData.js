@@ -4,70 +4,8 @@
 
 // A set of functions for calculating data in the Astronomical Data category.
 
-function getCurrentSolsticeOrEquinox(currentDateTime, season) {
-    const year = currentDateTime.getUTCFullYear();
-    if (year > 999) {
-        const Y = (year-2000)/1000;
-        let JDE_ = 0;
-        if (season === 'spring') {
-            JDE_ = (245162380984 + 36524237404*Y + 5169*Y**2 - 411*Y**3 - 57*Y**4)/100000;
-        }
-        if (season === 'summer') {
-            JDE_ = 2451716.56767 + 365241.62603*Y + 0.00325*Y**2 + 0.00888*Y**3 - 0.00030*Y**4;
-        }
-        if (season === 'autumn') {
-            JDE_ = 2451810.21715 + 365242.01767*Y - 0.11575*Y**2 + 0.00337*Y**3 + 0.00078*Y**4;
-        }
-        if (season === 'winter') {
-            JDE_ = 2451900.05952 + 365242.74049*Y - 0.06223*Y**2 - 0.00823*Y**3 + 0.00032*Y**4;
-        }
-        const T = (JDE_ - 2451545)/36525;
-        const W = 35999.373*T - 2.47;
-        const DeltaLambda =  1 + (0.0334 * Math.cos(W* Math.PI / 180)) + (0.0007 * Math.cos(2*W* Math.PI / 180));
-        const S = sumSolsticeEquinoxTable(T);
-        const specialDay = JDE_ + ((0.00001*S)/DeltaLambda);
-        return new Date(calculateDateFromJDE(specialDay));
-    } else {
-        const Y = year/1000;
-        let JDE_ = 0;
-        if (season === 'spring') {
-            JDE_ = 1721139.29189 + 365242.13740*Y + 0.06134*Y**2 + 0.00111*Y**3 - 0.00071*Y**4;
-        }
-        if (season === 'summer') {
-            JDE_ = 1721233.25401 + 365241.72562*Y - 0.05323*Y**2 + 0.00907*Y**3 + 0.00025*Y**4;
-        }
-        if (season === 'autumn') {
-            JDE_ = 1721325.70455 + 365242.49558*Y - 0.11677*Y**2 - 0.00297*Y**3 + 0.00074*Y**4;
-        }
-        if (season === 'winter') {
-            JDE_ = 1721414.39987 + 365242.88257*Y - 0.00769*Y**2 - 0.00933*Y**3 - 0.00006*Y**4;
-        }
-        const T = (JDE_ - 2451545)/36525;
-        const W = 35999.373*T - 2.47;
-        const DeltaLambda =  1 + (0.0334 * Math.cos(W* Math.PI / 180)) + (0.0007 * Math.cos(2*W* Math.PI / 180));
-        const S = sumSolsticeEquinoxTable(T);
-        const specialDay = JDE_ + ((0.00001*S)/DeltaLambda);
-        return new Date(calculateDateFromJDE(specialDay));
-    }
-}
-
-function sumSolsticeEquinoxTable(T) {
-    const sum =
-    485 * Math.cos((324.96 + 1934.136*T)* Math.PI / 180) +
-    203 * Math.cos((337.23 + 32964.467*T)* Math.PI / 180) +
-    199 * Math.cos((342.08 + 20.186*T)* Math.PI / 180) +
-    182 * Math.cos((27.85 + 445267.112*T)* Math.PI / 180) +
-    156 * Math.cos((73.14 + 45036.886*T)* Math.PI / 180) +
-    136 * Math.cos((171.52 + 22518.443*T)* Math.PI / 180) +
-    77 * Math.cos((222.54 + 65928.934*T)* Math.PI / 180) +
-    74 * Math.cos((296.72 + 3034.906*T)* Math.PI / 180) +
-    70 * Math.cos((243.58 + 9037.513*T)* Math.PI / 180) +
-    58 * Math.cos((119.81 + 33718.147*T)* Math.PI / 180) +
-    52 * Math.cos((297.17 + 150.678*T)* Math.PI / 180) +
-    50 * Math.cos((21.02 + 2281.226*T)* Math.PI / 180);
-    return sum;
-}
-
+// Return an unformatted date from an unsigned JDE
+// This equation was sourced from Astronomical Algorithms
 function calculateDateFromJDE(JDE) {
     const newJDE = JDE + 0.5;
     const Z = Math.trunc(newJDE);
@@ -105,11 +43,106 @@ function calculateDateFromJDE(JDE) {
     const seconds = totalSecondsOfRemainingDay % 60;
     let unfixedDateTime = new Date(Date.UTC(year, month-1, day, hours, minutes, seconds));
     unfixedDateTime.setUTCFullYear(year);
+    // I think this is how to add Dynamical Time but I'm not sure
     const fixedDateTime = getDynamicalTimeBackward(unfixedDateTime);
     return fixedDateTime;
 }
 
+
+
+//|----------------------------|
+//|     Solar Calculations     |
+//|----------------------------|
+
+
+// Returns the unformatted date of a solstice or equinox
+// The equations and hardcoded values come from Astronomical Algorithms
+function getCurrentSolsticeOrEquinox(currentDateTime, season) {
+
+    // Sum up all the values in a table from Astronomical Algorithms
+    function sumSolsticeEquinoxTable(T) {
+        function sumSolsticeEquinoxTableHelper(T, num1, num2, num3) {
+            return num1 * Math.cos((num2 + num3*T)* Math.PI / 180);
+        }
+        const sum =
+        sumSolsticeEquinoxTableHelper(T, 485, 324.96, 1934.136) +
+        sumSolsticeEquinoxTableHelper(T, 203, 337.23, 32964.467) +
+        sumSolsticeEquinoxTableHelper(T, 199, 342.08, 20.186) +
+        sumSolsticeEquinoxTableHelper(T, 182, 27.85, 445267.112) +
+        sumSolsticeEquinoxTableHelper(T, 156, 73.14, 45036.886) +
+        sumSolsticeEquinoxTableHelper(T, 136, 171.52, 22518.443) +
+        sumSolsticeEquinoxTableHelper(T, 77, 222.54, 65928.934) +
+        sumSolsticeEquinoxTableHelper(T, 74, 296.72, 3034.906) +
+        sumSolsticeEquinoxTableHelper(T, 70, 243.58, 9037.513) +
+        sumSolsticeEquinoxTableHelper(T, 58, 119.81, 33718.147) +
+        sumSolsticeEquinoxTableHelper(T, 52, 297.17, 150.678) +
+        sumSolsticeEquinoxTableHelper(T, 50, 21.02, 2281.226)
+        return sum;
+    }
+
+    function calculateSolsEquiJDE(Y, num1, num2, num3, num4, num5) {
+        return num1 + num2*Y + num3*Y**2 + num4*Y**3 + num5*Y**4;
+    }
+
+    // Get the JDE for the event
+    const year = currentDateTime.getUTCFullYear();
+    if (year > 999) {
+        const Y = (year-2000)/1000;
+        let JDE_ = 0;
+        if (season === 'spring') {
+            JDE_ = calculateSolsEquiJDE(Y, 2451623.80984, 365242.37404, 0.05169, -0.00411, -0.00057);
+        }
+        if (season === 'summer') {
+            JDE_ = calculateSolsEquiJDE(Y, 2451716.56767, 365241.62603, 0.00325, 0.00888, -0.00030);
+        }
+        if (season === 'autumn') {
+            JDE_ = calculateSolsEquiJDE(Y, 2451810.21715, 365242.01767, -0.11575, 0.00337, 0.00078);
+        }
+        if (season === 'winter') {
+            JDE_ = calculateSolsEquiJDE(Y, 2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032);
+        }
+        const T = (JDE_ - 2451545)/36525;
+        const W = 35999.373*T - 2.47;
+        const DeltaLambda =  1 + (0.0334 * Math.cos(W* Math.PI / 180)) + (0.0007 * Math.cos(2*W* Math.PI / 180));
+        const S = sumSolsticeEquinoxTable(T);
+        const specialDay = JDE_ + ((0.00001*S)/DeltaLambda);
+        return new Date(calculateDateFromJDE(specialDay));
+    } else {
+        const Y = year/1000;
+        let JDE_ = 0;
+        if (season === 'spring') {
+            JDE_ = calculateSolsEquiJDE(Y, 1721139.29189, 365242.13740, 0.06134, 0.00111, -0.00071);
+        }
+        if (season === 'summer') {
+            JDE_ = calculateSolsEquiJDE(Y, 1721233.25401, 365241.72562, -0.05323, 0.00907, 0.00025);
+        }
+        if (season === 'autumn') {
+            JDE_ = calculateSolsEquiJDE(Y, 1721325.70455, 365242.49558, -0.11677, -0.00297, 0.00074);
+        }
+        if (season === 'winter') {
+            JDE_ = calculateSolsEquiJDE(Y, 1721414.39987, 365242.88257, -0.00769, -0.00933, -0.00006);
+        }
+        const T = (JDE_ - 2451545)/36525;
+        const W = 35999.373*T - 2.47;
+        const DeltaLambda =  1 + (0.0334 * Math.cos(W* Math.PI / 180)) + (0.0007 * Math.cos(2*W* Math.PI / 180));
+        const S = sumSolsticeEquinoxTable(T);
+        const specialDay = JDE_ + ((0.00001*S)/DeltaLambda);
+        return new Date(calculateDateFromJDE(specialDay));
+    }
+}
+
+// Returns the calculated longitude of the sun
+// This equation was sourced from Astronomical Algorithms
 function getLongitudeOfSun(currentDateTime) {
+
+    function normalizeAngleTo360(angle) {
+        let normalizeAngle = (angle+360)%360;
+        if (normalizeAngle<0) {
+            normalizeAngle += 360;
+        }
+        return normalizeAngle;
+    }
+
     const JD = getJulianDayNumber(currentDateTime);
     const T = (JD - 2451545.0)/36525;
     const L =  normalizeAngleTo360(280.46645 + 36000.76983*T + 0.0003032*T**2);
@@ -119,15 +152,66 @@ function getLongitudeOfSun(currentDateTime) {
     return normalizeAngleTo360(sunLongitude).toFixed(2);
 }
 
-function normalizeAngleTo360(angle) {
-    let normalizeAngle = (angle+360)%360;
-    if (normalizeAngle<0) {
-        normalizeAngle += 360;
-    }
-    return normalizeAngle;
+
+
+//|-----------------------------|
+//|     Lunar  Calculations     |
+//|-----------------------------|
+
+
+// Returns the number of lunations (lunar cycles) since January 6 2000
+// This equation was sourced from Astronomical Algorithms
+function calculateLunationNumber(currentDateTime) {
+    // Using Jean Meeus's date for lunation epoch
+    const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
+    const secondsSince2000 = (currentDateTime - firstNewMoon2000)/1000;
+
+    // Calculate the number of days since the first new moon of 2000
+    const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
+
+    // Calculate the number of lunations since Lunation 0
+    const lunationNumber = Math.trunc(daysSince2000 / 29.530588);
+    return lunationNumber;
 }
 
+// Returns the calculated unformatted date of the most recent New Moon
+// This equation was sourced from Astronomical Algorithms
 function getNewMoonThisMonth(currentDateTime, monthModifier) {
+
+    // Sum the New Moon table from Astronomical Algorithms
+    function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
+        function sumNewMoonTableHelper(num1, num2) {
+            return num1 * Math.sin((num2)* Math.PI / 180)
+        }
+        const sum =
+            sumNewMoonTableHelper(-0.40720, MoonM) +
+            sumNewMoonTableHelper(0.17241*E, SunM) +
+            sumNewMoonTableHelper(0.01608, MoonM*2) +
+            sumNewMoonTableHelper(0.01039, F*2) +
+            sumNewMoonTableHelper(0.00739*E, MoonM-SunM) +
+            sumNewMoonTableHelper(-0.00514*E, MoonM+SunM) +
+            sumNewMoonTableHelper(0.00208*E*2, SunM*2) +
+            sumNewMoonTableHelper(-0.00111, MoonM-F*2) +
+            sumNewMoonTableHelper(-0.00057, MoonM + F*2) +
+            sumNewMoonTableHelper(0.00056*E, 2*MoonM + SunM) +
+            sumNewMoonTableHelper(-0.00042, 3*MoonM) +
+            sumNewMoonTableHelper(0.00042*E, SunM + F*2) +
+            sumNewMoonTableHelper(0.00038*E, SunM - F*2) +
+            sumNewMoonTableHelper(-0.00024*E, 2*MoonM-SunM) +
+            sumNewMoonTableHelper(-0.00017, lunarNode) +
+            sumNewMoonTableHelper(-0.00007, MoonM+2*SunM) +
+            sumNewMoonTableHelper(0.00004, 2*MoonM - 2*F) +
+            sumNewMoonTableHelper(0.00004, 3*SunM) +
+            sumNewMoonTableHelper(0.00003, SunM + MoonM - 2*F) +
+            sumNewMoonTableHelper(0.00003, 2*MoonM + 2*F) +
+            sumNewMoonTableHelper(-0.00003, SunM + MoonM + 2*F) +
+            sumNewMoonTableHelper(0.00003, MoonM - SunM + 2*F) +
+            sumNewMoonTableHelper(-0.00002, MoonM - SunM - 2*F) +
+            sumNewMoonTableHelper(-0.00002, MoonM*3 + SunM) +
+            sumNewMoonTableHelper(0.00002, MoonM*4);
+        return sum;
+    }
+
     let year = currentDateTime.getUTCFullYear();
     year += calculateYear(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
@@ -145,37 +229,12 @@ function getNewMoonThisMonth(currentDateTime, monthModifier) {
     return new Date(calculateDateFromJDE(newMoonJDE));
 }
 
-function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
-    const sum =
-    - 0.40720     * Math.sin((MoonM)* Math.PI / 180)
-    + 0.17241*E   * Math.sin((SunM)* Math.PI / 180)
-    + 0.01608     * Math.sin((MoonM*2)* Math.PI / 180)
-    + 0.01039     * Math.sin((F*2)* Math.PI / 180)
-    + 0.00739*E   * Math.sin((MoonM-SunM)* Math.PI / 180)
-    - 0.00514*E   * Math.sin((MoonM+SunM)* Math.PI / 180)
-    + 0.00208*E*2 * Math.sin((SunM*2)* Math.PI / 180)
-    - 0.00111     * Math.sin((MoonM-F*2)* Math.PI / 180)
-    - 0.00057     * Math.sin((MoonM + F*2)* Math.PI / 180)
-    + 0.00056*E   * Math.sin((2*MoonM + SunM)* Math.PI / 180)
-    - 0.00042     * Math.sin((3*MoonM)* Math.PI / 180)
-    + 0.00042*E   * Math.sin((SunM + F*2)* Math.PI / 180)
-    + 0.00038*E   * Math.sin((SunM - F*2)* Math.PI / 180)
-    - 0.00024*E   * Math.sin((2*MoonM-SunM)* Math.PI / 180)
-    - 0.00017     * Math.sin((lunarNode)* Math.PI / 180)
-    - 0.00007     * Math.sin((MoonM+2*SunM)* Math.PI / 180)
-    + 0.00004     * Math.sin((2*MoonM - 2*F)* Math.PI / 180)
-    + 0.00004     * Math.sin((3*SunM)* Math.PI / 180)
-    + 0.00003     * Math.sin((SunM + MoonM - 2*F)* Math.PI / 180)
-    + 0.00003     * Math.sin((2*MoonM + 2*F)* Math.PI / 180)
-    - 0.00003     * Math.sin((SunM + MoonM + 2*F)* Math.PI / 180)
-    + 0.00003     * Math.sin((MoonM - SunM + 2*F)* Math.PI / 180)
-    - 0.00002     * Math.sin((MoonM - SunM - 2*F)* Math.PI / 180)
-    - 0.00002     * Math.sin((MoonM*3 + SunM)* Math.PI / 180)
-    + 0.00002     * Math.sin((MoonM*4)* Math.PI / 180);
-    return sum;
-}
-
+// Sum the All Phases table from Astronomical Algorithms
 function allPhaseTable(k, T) {
+    function allPhaseTableHelper(num, A) {
+        return num*Math.sin(A* Math.PI / 180);
+    }
+
     const A1 = 299.77+0.107408*k-0.009173*T**2;
     const A2 = 251.88+0.016321*k;
     const A3 = 251.83+26.651886*k;
@@ -190,36 +249,19 @@ function allPhaseTable(k, T) {
     const A12 = 161.72+24.198154*k;
     const A13 = 239.56+25.513099*k;
     const A14 = 331.55+3.592518*k;
-    let sum = allPhaseTableHelper(0.000325, A1);
-    sum += allPhaseTableHelper(0.000165, A2)
-    sum += allPhaseTableHelper(0.000164, A3)
-    sum += allPhaseTableHelper(0.000126, A4)
-    sum += allPhaseTableHelper(0.000110, A5)
-    sum += allPhaseTableHelper(0.000062, A6)
-    sum += allPhaseTableHelper(0.000060, A7)
-    sum += allPhaseTableHelper(0.000056, A8)
-    sum += allPhaseTableHelper(0.000047, A9)
-    sum += allPhaseTableHelper(0.000042, A10)
-    sum += allPhaseTableHelper(0.000040, A11)
-    sum += allPhaseTableHelper(0.000037, A12)
-    sum += allPhaseTableHelper(0.000035, A13)
-    sum += allPhaseTableHelper(0.000023, A14)
+    let sum = allPhaseTableHelper(0.000325, A1) +
+        allPhaseTableHelper(0.000165, A2) +
+        allPhaseTableHelper(0.000164, A3) +
+        allPhaseTableHelper(0.000126, A4) +
+        allPhaseTableHelper(0.000110, A5) +
+        allPhaseTableHelper(0.000062, A6) +
+        allPhaseTableHelper(0.000060, A7) +
+        allPhaseTableHelper(0.000056, A8) +
+        allPhaseTableHelper(0.000047, A9) +
+        allPhaseTableHelper(0.000042, A10) +
+        allPhaseTableHelper(0.000040, A11) +
+        allPhaseTableHelper(0.000037, A12) +
+        allPhaseTableHelper(0.000035, A13) +
+        allPhaseTableHelper(0.000023, A14);
     return sum;
-}
-
-function allPhaseTableHelper(num, A) {
-    return num*Math.sin(A* Math.PI / 180);
-}
-
-function calculateLunationNumber(currentDateTime) {
-    // Using Jean Meeus's date for lunation epoch
-    const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
-    const secondsSince2000 = (currentDateTime - firstNewMoon2000)/1000;
-
-    // Calculate the number of days since the first new moon of 2000
-    const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
-
-    // Calculate the number of lunations since Lunation 0
-    const lunationNumber = Math.trunc(daysSince2000 / 29.530588);
-    return lunationNumber;
 }
