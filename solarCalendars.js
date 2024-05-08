@@ -47,7 +47,6 @@ function getJulianCalendar(currentDateTime) {
     return dateString;
 }
 
-
 function getMinguo(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1

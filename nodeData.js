@@ -339,7 +339,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'July 19th, 5508 BCE',
         confidence: 'Exact',
-        description: 'The Byzantine calendar was the official calendar of the Byzantine Empire from 988 to 1453 and was used in Ukraine and Russia until 1700. It followed the Julian calendar but differed by the new year starting on September 1st and the epoch being September 1st, 5509 BC (July 19th, 5508 BCE in the Gregorian Astronomical). Years are counted in AM, or \'Anno Mundi\' meaning \'Year After Creation\'.\n\nMonths:\n  September\n  October\n  November\n  December\n  January\n  February\n  March\n  April\n  May\n  June\n  July\n  August'
+        description: 'The Byzantine calendar was the official calendar of the Byzantine Empire from 988 to 1453 and was used in Ukraine and Russia until 1700. It followed the Julian calendar but differed by the new year starting on September 1st and the epoch being September 1st, 5509 BC (July 19th, 5508 BCE in the proleptic Gregorian calendar). Years are counted in AM, or \'Anno Mundi\' meaning \'Year After Creation\'.\n\nMonths:\n  September\n  October\n  November\n  December\n  January\n  February\n  March\n  April\n  May\n  June\n  July\n  August'
     },
 
     {
