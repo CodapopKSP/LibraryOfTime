@@ -63,7 +63,7 @@ function getJuche(currentDateTime) {
     
     // Add leading zeros if necessary
     let monthString = (month < 10) ? '0' + month : month;
-    return day + ' ' + monthString + ' ' + year + ' Juche';
+    return 'Juche ' + year + '.' + monthString + '.' + day;
 }
 
 function getThaiSolar(currentDateTime) {
