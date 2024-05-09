@@ -117,7 +117,7 @@ a {
 }
 
 .other-calendars {
-    background-color: rgb(53, 50, 53);
+    background-color: rgb(50, 50, 54);
     color: rgb(220, 255, 191);
 }
 
@@ -216,7 +216,7 @@ a {
     z-index: 1;
     font-size: 1.8vh;
     width: 33vw;
-    top: 7vh;
+    top: 9vh;
 }
 
 .node:hover .tooltip {
@@ -241,7 +241,7 @@ a {
     background-color: #cbcbcb;
 }
 
-.tooltip-description {
+.tooltip-overview {
     text-align: left;
     padding: 1vh;
     white-space: pre-wrap;
@@ -268,7 +268,7 @@ a {
     padding-left: 1vh;
     padding-right: 1vh;
     font-size: 2vh;
-    top: 7vh;
+    top: 9vh;
 }
 
 .input-box-wrapper {
@@ -280,7 +280,6 @@ a {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    /*background-color: #313131;*/
     height: 5vh;
 }
 
@@ -318,4 +317,39 @@ a {
     color: rgb(214, 214, 214);
     font-size: 1.5vh; /* Change the font size of the label */
     margin-right: 1vh; /* Add some space between the checkbox and the label */
+}
+
+.header-button {
+    height: 2.5vh;
+    font-size: 1.2vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border-color: #1b1b1b;
+    flex: 1 0 auto;
+    box-shadow: none;
+}
+
+.description-button-wrapper {
+    position: absolute;
+    top: 5.3vh;
+    min-width: 32.9vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.selected {
+    border-bottom: 0;
+}
+
+.tooltip-info {
+    text-align: left;
+    padding: 1vh;
+    white-space: pre-wrap;
+}
+
+.tooltip-accuracy {
+    text-align: left;
+    padding: 1vh;
+    white-space: pre-wrap;
 }

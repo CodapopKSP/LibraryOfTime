@@ -66,7 +66,12 @@
                 <input type="datetime-local" id="date-input" placeholder="Year, Month, Day, Hour, Minute, Second">
                 <button id='change-date-button' onclick="changeDateTime()"><b>Accept</b></button>
             </div>
-
+            <div class="description-button-wrapper">
+                <button class="header-button" id='header-button-1' onclick="changeHeaderButton('header-button-1', 'welcomeDescription')"><b>About</b></button>
+                <button class="header-button" id='header-button-2' onclick="changeHeaderButton('header-button-2', 'welcomeDescription')"><b>Mission</b></button>
+                <button class="header-button" id='header-button-3' onclick="changeHeaderButton('header-button-3', 'welcomeDescription')"><b>Accuracy</b></button>
+                <button class="header-button" id='header-button-4' onclick="changeHeaderButton('header-button-4', 'welcomeDescription')"><b>Sources</b></button>
+            </div>
             <label class="pre-description">
                 Welcome to the Library of Time!<br>
                 <br>
@@ -103,9 +108,11 @@
     <script src="lunisolarCalendars.js" defer></script>
     <script src="lunarCalendars.js" defer></script>
     <script src="proposedCalendars.js" defer></script>
+    <script src="otherCalendars.js" defer></script>
     <script src="astronomicalData.js" defer></script>
     <script src="popCulture.js" defer></script>
     <script src="politics.js" defer></script>
+    <script src="welcomeDescription.js" defer></script>
     <script src="script.js" defer></script>
 </body>
 </html>

@@ -21,6 +21,7 @@ let visibleTooltip = document.querySelector('.pre-description');
 const nodeWrapper = document.querySelector('.node-wrapper');
 let selectedNode = '';
 let dateInput = '';
+let currentDescriptionPage = [];
 
 function updateDateAndTime(dateInput) {
     let currentDateTime = '';
@@ -172,6 +173,11 @@ function createnode(item) {
     const popCulture = document.querySelector('.pop-culture');
     const politics = document.querySelector('.politics');
 
+    const headerButton1 = document.getElementById('header-button-1');
+    const headerButton2 = document.getElementById('header-button-2');
+    const headerButton3 = document.getElementById('header-button-3');
+    const headerButton4 = document.getElementById('header-button-4');
+
     // Create a div element for the node
     const node = document.createElement('div');
     node.classList.add('node');
@@ -185,43 +191,112 @@ function createnode(item) {
     content.id = item.id + '-node';
     content.classList.add('content');
 
-    // Create a popup tooltip for the description
-    const description = document.createElement('div');
-    description.id = item.id + '-tooltip';
-    description.classList.add('tooltip');
+    // Function to create a title element
+    function createTitleElement(name) {
+        const titleElement = document.createElement('div');
+        titleElement.textContent = name;
+        titleElement.classList.add('tooltip-title');
+        return titleElement;
+    }
 
-    // Add tooltip elements
-    const titleElement = document.createElement('div');
-    titleElement.textContent = `${item.name}`;
-    titleElement.classList.add('tooltip-title');
-    description.appendChild(titleElement);
+    // Create the overview for the description
+    const overviewDescription = document.createElement('div');
+    overviewDescription.id = item.id + '-tooltip';
+    overviewDescription.classList.add('tooltip');
 
     const epochElement = document.createElement('div');
     epochElement.textContent = `Epoch: ${item.epoch}`;
     epochElement.classList.add('tooltip-epoch');
-    description.appendChild(epochElement);
 
     const confidenceElement = document.createElement('div');
     confidenceElement.textContent = `Confidence: ${item.confidence}`;
     confidenceElement.classList.add('tooltip-confidence');
-    description.appendChild(confidenceElement);
 
-    const descriptionElement = document.createElement('div');
-    descriptionElement.textContent = `${item.description}`;
-    descriptionElement.classList.add('tooltip-description');
-    description.appendChild(descriptionElement);
+    const overviewElement = document.createElement('div');
+    overviewElement.textContent = `${item.overview}`;
+    overviewElement.classList.add('tooltip-overview');
+
+    overviewDescription.appendChild(createTitleElement(item.name));
+    overviewDescription.appendChild(epochElement);
+    overviewDescription.appendChild(confidenceElement);
+    overviewDescription.appendChild(overviewElement);
+
+    // Add Info elements
+    const infoDescription = document.createElement('div');
+    infoDescription.id = item.id + '-tooltip';
+    infoDescription.classList.add('tooltip');
+
+    const infoElement = document.createElement('div');
+    infoElement.textContent = `${item.info}`;
+    infoElement.classList.add('tooltip-info');
+
+    infoDescription.appendChild(createTitleElement(item.name));
+    infoDescription.appendChild(infoElement);
+
+    // Add Accuracy elements
+    const accuracyDescription = document.createElement('div');
+    accuracyDescription.id = item.id + '-tooltip';
+    accuracyDescription.classList.add('tooltip');
+
+    const accuracyElement = document.createElement('div');
+    accuracyElement.textContent = `${item.accuracy}`;
+    accuracyElement.classList.add('tooltip-accuracy');
+
+    accuracyDescription.appendChild(createTitleElement(item.name));
+    accuracyDescription.appendChild(accuracyElement);
+
+    // Add Source elements
+    const sourceDescription = document.createElement('div');
+    sourceDescription.id = item.id + '-tooltip';
+    sourceDescription.classList.add('tooltip');
+
+    const sourceElement = document.createElement('div');
+    sourceElement.textContent = `${item.source}`;
+    sourceElement.classList.add('tooltip-accuracy');
+
+    sourceDescription.appendChild(createTitleElement(item.name));
+    sourceDescription.appendChild(sourceElement);
 
     // Append the label, content, and description to the node
     node.appendChild(label);
     node.appendChild(content);
-    document.querySelector('.description-wrapper').appendChild(description);
+    document.querySelector('.description-wrapper').appendChild(overviewDescription);
+    document.querySelector('.description-wrapper').appendChild(infoDescription);
+    document.querySelector('.description-wrapper').appendChild(accuracyDescription);
+    document.querySelector('.description-wrapper').appendChild(sourceDescription);
+
+    headerButton1.addEventListener('click', () => {
+        currentDescriptionPage[0].style.visibility = 'visible';
+        currentDescriptionPage[1].style.visibility = 'hidden';
+        currentDescriptionPage[2].style.visibility = 'hidden';
+        currentDescriptionPage[3].style.visibility = 'hidden';
+    });
+    headerButton2.addEventListener('click', () => {
+        currentDescriptionPage[0].style.visibility = 'hidden';
+        currentDescriptionPage[1].style.visibility = 'visible';
+        currentDescriptionPage[2].style.visibility = 'hidden';
+        currentDescriptionPage[3].style.visibility = 'hidden';
+    });
+    headerButton3.addEventListener('click', () => {
+        currentDescriptionPage[0].style.visibility = 'hidden';
+        currentDescriptionPage[1].style.visibility = 'hidden';
+        currentDescriptionPage[2].style.visibility = 'visible';
+        currentDescriptionPage[3].style.visibility = 'hidden';
+    });
+    headerButton4.addEventListener('click', () => {
+        currentDescriptionPage[0].style.visibility = 'hidden';
+        currentDescriptionPage[1].style.visibility = 'hidden';
+        currentDescriptionPage[2].style.visibility = 'hidden';
+        currentDescriptionPage[3].style.visibility = 'visible';
+    });
 
     node.addEventListener('click', () => {
         // Select a node and update the description while deselecting an old node
         visibleTooltip.style.visibility = 'hidden';
-        visibleTooltip = description;
-        description.style.visibility = 'visible';
+        visibleTooltip = overviewDescription;
+        overviewDescription.style.visibility = 'visible';
         document.querySelector('.pre-description').style.visibility = 'hidden';
+        currentDescriptionPage = [overviewDescription, infoDescription, accuracyDescription, sourceDescription];
         // Return border color of deselected node if there is one
         if (selectedNode !== '') {
             selectedNode.style.borderColor = '';
@@ -229,6 +304,10 @@ function createnode(item) {
         }
         selectedNode = content;
         content.style.borderColor = 'rgb(150, 150, 150)';
+        headerButton1.innerHTML = "<b>Overview</b>";
+        headerButton2.innerHTML = "<b>Info</b>";
+        headerButton3.innerHTML = "<b>Accuracy</b>";
+        headerButton4.innerHTML = "<b>Source</b>";
     });
 
 
@@ -261,7 +340,8 @@ function createnode(item) {
         if (!isNodeClick) {
             // Replace the tooltip with the landing text
             visibleTooltip.style.visibility = 'hidden';
-            visibleTooltip = description;
+            visibleTooltip = overviewDescription;
+            currentDescriptionPage = [];
             document.querySelector('.pre-description').style.visibility = 'visible';
 
             // Handle the highlighting of the deselected node
@@ -270,31 +350,38 @@ function createnode(item) {
                 selectedNode.style.backgroundColor = '';
             }
             selectedNode = '';
+            const headerButton1 = document.getElementById('header-button-1');
+            const headerButton2 = document.getElementById('header-button-2');
+            const headerButton3 = document.getElementById('header-button-3');
+            const headerButton4 = document.getElementById('header-button-4');
+            headerButton1.innerHTML = "<b>About</b>";
+            headerButton2.innerHTML = "<b>Mission</b>";
+            headerButton3.innerHTML = "<b>Accuracy</b>";
+            headerButton4.innerHTML = "<b>Sources</b>";
         }
     });
 
-    if (item.type === 'Solar Calendar') {
-        solarCalendars.appendChild(node);
-    } else if (item.type === 'Computing Time') {
-        computingTime.appendChild(node);
-    } else if (item.type === 'Standard Time') {
-        standardTime.appendChild(node);
-    } else if (item.type === 'Decimal Time') {
-        decimalTime.appendChild(node);
-    } else if (item.type === 'Lunisolar Calendar') {
-        lunisolarCalendars.appendChild(node);
-    } else if (item.type === 'Lunar Calendar') {
-        lunarCalendars.appendChild(node);
-    } else if (item.type === 'Proposed Calendar') {
-        proposedCalendars.appendChild(node);
-    } else if (item.type === 'Other Calendar') {
-        otherCalendars.appendChild(node);
-    } else if (item.type === 'Astronomical Data') {
-        astronomicalData.appendChild(node);
-    } else if (item.type === 'Pop Culture') {
-        popCulture.appendChild(node);
-    } else if (item.type === 'Politics') {
-        politics.appendChild(node);
+    // Mapping of item types to parent elements
+    const parentElements = {
+        'Solar Calendar': solarCalendars,
+        'Computing Time': computingTime,
+        'Standard Time': standardTime,
+        'Decimal Time': decimalTime,
+        'Lunisolar Calendar': lunisolarCalendars,
+        'Lunar Calendar': lunarCalendars,
+        'Proposed Calendar': proposedCalendars,
+        'Other Calendar': otherCalendars,
+        'Astronomical Data': astronomicalData,
+        'Pop Culture': popCulture,
+        'Politics': politics
+    };
+
+    // Append node to the corresponding parent element based on item type
+    const parentElement = parentElements[item.type];
+    if (parentElement) {
+        parentElement.appendChild(node);
+    } else {
+        console.error(`No parent element found for item type: ${item.type}`);
     }
 }
 let updateIntervalId;
@@ -306,6 +393,7 @@ createElements();
 updateIntervalId = setInterval(updateDateAndTime, 1);
 
 // Initial update
+changeHeaderButton('header-button-1', 'none')
 updateDateAndTime();
 
 function setTimeValue(type, value) {
@@ -332,4 +420,15 @@ function changeDateTime() {
             updateIntervalId = setInterval(updateDateAndTime, 1);
         }, 1);
     }
+}
+
+function changeHeaderButton(button, data) {
+    const buttons = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
+
+    buttons.forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        const isSelected = btnId === button;
+        btn.style.background = isSelected ? "rgb(55, 55, 55)" : "#2b2b2b";
+        btn.classList.toggle('selected', isSelected);
+    });
 }
