@@ -144,6 +144,9 @@ function createElements() {
     proposedCalendars.forEach(item => {
         createnode(item);
     });
+    otherCalendars.forEach(item => {
+        createnode(item);
+    });
     astronomicalData.forEach(item => {
         createnode(item);
     });
@@ -164,6 +167,7 @@ function createnode(item) {
     const lunisolarCalendars = document.querySelector('.lunisolar-calendars');
     const lunarCalendars = document.querySelector('.lunar-calendars');
     const proposedCalendars = document.querySelector('.proposed-calendars');
+    const otherCalendars = document.querySelector('.other-calendars');
     const astronomicalData = document.querySelector('.astronomical-data');
     const popCulture = document.querySelector('.pop-culture');
     const politics = document.querySelector('.politics');
@@ -283,6 +287,8 @@ function createnode(item) {
         lunarCalendars.appendChild(node);
     } else if (item.type === 'Proposed Calendar') {
         proposedCalendars.appendChild(node);
+    } else if (item.type === 'Other Calendar') {
+        otherCalendars.appendChild(node);
     } else if (item.type === 'Astronomical Data') {
         astronomicalData.appendChild(node);
     } else if (item.type === 'Pop Culture') {

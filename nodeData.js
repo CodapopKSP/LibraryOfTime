@@ -359,15 +359,6 @@ const solarCalendarsData = [
         confidence: 'High',
         description: 'The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift from the Gregorian calendar. It features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and ‘Alá’, typically at the end of February. Days start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with \'BE\', meaning Baháʼí Era. The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year but is likely to self-correct. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession.\n\nMonths:\n  Bahá                    Mashíyyat\n  Jalál                     ‘Ilm\n  Jamál                   Qudrat\n  ‘Aẓamat               Qawl\n  Núr                      Masá’il\n  Raḥmat                Sharaf\n  Kalimát                Sulṭán\n  Kamál                  Mulk\n  Asmá’                  Ayyám-i-Há\n  ‘Izzat                   ‘Alá’'
     },
-
-    {
-        name: 'Mayan Long Count',
-        id: 'mayan-long-count',
-        type: 'Solar Calendar',
-        epoch: 'August 8th, 3113 BCE',
-        confidence: 'Exact',
-        description: 'The Mayan Long Count calendar is essentially a simple count of the number of days since the Mayan date of creation. It is a five digit number, typically expressed with periods between the digits, made up of base-20 counters with the exception of the middle-right digit which is base-18. Starting with the right, the smallest unit is the kʼin, which is equivalent to a day. Twenty kʼins make up one winal, 18 winals make up one tun, 20 tuns make up one kʼatun, and finally 20 kʼatuns make up one bʼakʼtun. A bʼakʼtun is roughly 394 solar years. The Mayan Long Count Calendar was of international interest in 2012 as it was the time when the bʼakʼtun incremented from 12 to 13, leading to superstitious theories and hysteria.'
-    },
 ]
 
 const lunisolarCalendarsData = [
@@ -425,6 +416,46 @@ const lunarCalendarsData = [
         epoch: 'July 19, 622 CE',
         confidence: 'Medium',
         description: 'The Hijri calendar is the principal calendar used in Islam, and it is perhaps the only extant true lunar calendar in the world. It features 12 lunar months of 29 or 30 days, with days starting at sunset, for a total of 355 or 356 days per year, causing it to be out of sync with solar calendars. Era dates are denoted \'AH\' from \'Anno Hegirae\', meaning \'In the year of the Hijrah\'. Each month starts shortly after the New Moon when it begins to appear as a crescent. Many Muslim nations have their own rules for determining the start of the month, often based on direct observation, and as such their calendar dates may occasionally misalign for a month or two. The algorithm used by this website requires calculating the New Moon and uses 18:00 local time in Mecca for sunset. Its accuracy is dependent on the New Moon calculations and may not reflect historical records.\n\nMonths:\n  al-Muḥarram\n  Ṣafar\n  Rabīʿ al-ʾAwwal\n  Rabīʿ ath-Thānī\n  Jumādā al-ʾŪlā\n  Jumādā al-ʾĀkhirah\n  Rajab\n  Shaʿbān\n  Ramaḍān\n  Shawwāl\n  Dhū al-Qaʿdah\n  Dhū al-Ḥijjah'
+    },
+]
+
+const proposedCalendars = [
+    {
+        name: 'Human Era',
+        id: 'human-era',
+        type: 'Proposed Calendar',
+        epoch: 'January 1st, 9999 BCE',
+        confidence: 'Exact',
+        description: 'The Human Era, also known as the Holocene Era, is the calendar representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements. It was proposed by Cesare Emiliani in 1993 CE and is based on the Gregorian calendar.'
+    },
+
+    {
+        name: 'Invariable',
+        id: 'invariable',
+        type: 'Proposed Calendar',
+        epoch: 'January 1st, 1 CE',
+        confidence: 'Exact',
+        description: 'The Invariable calendar was proposed by L. A. Grosclaude in 1900 CE as well as by Gaston Armelin in 1887 CE. It features months in a repeating pattern of 30/30/31 days with New Years Day happening between December and January and Leap Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Monday, Wednesday, or Friday in a predictable pattern that is the same every year.'
+    },
+
+    {
+        name: 'The World Calendar',
+        id: 'world-calendar',
+        type: 'Proposed Calendar',
+        epoch: 'January 1st, 1 CE',
+        confidence: 'Exact',
+        description: 'The World Calendar was proposed by Elisabeth Achelis in 1930 CE and was nearly adopted by the League of Nations. It features months in a repeating pattern of 31/30/30 days with World\'s Day happening between December and January and Leapyear Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Sunday, Wednesday, or Friday in a predictable pattern that is the same every year.'
+    },
+]
+
+const otherCalendars = [
+    {
+        name: 'Mayan Long Count',
+        id: 'mayan-long-count',
+        type: 'Other Calendar',
+        epoch: 'August 8th, 3113 BCE',
+        confidence: 'Exact',
+        description: 'The Mayan Long Count calendar is essentially a simple count of the number of days since the Mayan date of creation. It is a five digit number, typically expressed with periods between the digits, made up of base-20 counters with the exception of the middle-right digit which is base-18. Starting with the right, the smallest unit is the kʼin, which is equivalent to a day. Twenty kʼins make up one winal, 18 winals make up one tun, 20 tuns make up one kʼatun, and finally 20 kʼatuns make up one bʼakʼtun. A bʼakʼtun is roughly 394 solar years. The Mayan Long Count Calendar was of international interest in 2012 as it was the time when the bʼakʼtun incremented from 12 to 13, leading to superstitious theories and hysteria.'
     },
 ]
 
@@ -512,34 +543,5 @@ const politics = [
         epoch: 'April 30, 1789',
         confidence: 'High',
         description: 'The term of the US president lasts 4 years, starting from January 20th at noon and ending January 20th at noon four years later. This is a running count of how many presidential terms have passed since the inauguration of George Washington in 1789. The inauguration date has changed over the years, making this display inaccurate for years before 1937.'
-    },
-]
-
-const proposedCalendars = [
-    {
-        name: 'Human Era',
-        id: 'human-era',
-        type: 'Proposed Calendar',
-        epoch: 'January 1st, 9999 BCE',
-        confidence: 'Exact',
-        description: 'The Human Era, also known as the Holocene Era, is the calendar representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements. It was proposed by Cesare Emiliani in 1993 CE and is based on the Gregorian calendar.'
-    },
-
-    {
-        name: 'Invariable',
-        id: 'invariable',
-        type: 'Proposed Calendar',
-        epoch: 'January 1st, 1 CE',
-        confidence: 'Exact',
-        description: 'The Invariable calendar was proposed by L. A. Grosclaude in 1900 CE as well as by Gaston Armelin in 1887 CE. It features months in a repeating pattern of 30/30/31 days with New Years Day happening between December and January and Leap Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Monday, Wednesday, or Friday in a predictable pattern that is the same every year.'
-    },
-
-    {
-        name: 'The World Calendar',
-        id: 'world-calendar',
-        type: 'Proposed Calendar',
-        epoch: 'January 1st, 1 CE',
-        confidence: 'Exact',
-        description: 'The World Calendar was proposed by Elisabeth Achelis in 1930 CE and was nearly adopted by the League of Nations. It features months in a repeating pattern of 31/30/30 days with World\'s Day happening between December and January and Leapyear Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Sunday, Wednesday, or Friday in a predictable pattern that is the same every year.'
     },
 ]

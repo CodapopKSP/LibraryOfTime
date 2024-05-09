@@ -116,6 +116,11 @@ a {
     color: rgb(191, 255, 252);
 }
 
+.other-calendars {
+    background-color: rgb(53, 50, 53);
+    color: rgb(220, 255, 191);
+}
+
 .decimal-time {
     background-color: rgb(54, 50, 50);
     color: rgb(232, 196, 255);
@@ -170,6 +175,10 @@ a {
 
 .proposed-calendars > .node > .content {
     border: 0.2vh solid #876a96;
+}
+
+.other-calendars > .node > .content {
+    border: 0.2vh solid #716a96;
 }
 
 .astronomical-data > .node > .content {
@@ -297,4 +306,16 @@ a {
 .centered {
     display: block;
     text-align: center;
+}
+
+#BCEcheckbox {
+    transform: scale(1.5);
+    color: #6f986a;
+    margin-right: 0.7vh;
+}
+
+#BCEcheckbox + label {
+    color: rgb(214, 214, 214);
+    font-size: 1.5vh; /* Change the font size of the label */
+    margin-right: 1vh; /* Add some space between the checkbox and the label */
 }

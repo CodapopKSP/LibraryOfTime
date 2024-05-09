@@ -53,10 +53,16 @@
                 <div class="proposed-calendars container">
                     <label class="container-name">Proposed Calendars</label>
                 </div>
+                <div class="other-calendars container">
+                    <label class="container-name">Other Calendars</label>
+                </div>
             </div>
         </div>
         <div class="description-wrapper">
             <div class="input-box-wrapper">
+                <input type="checkbox" id="BCEcheckbox" name="BCEcheckbox">
+                <label for="BCEcheckbox">BCE</label>
+
                 <input type="datetime-local" id="date-input" placeholder="Year, Month, Day, Hour, Minute, Second">
                 <button id='change-date-button' onclick="changeDateTime()"><b>Accept</b></button>
             </div>
