@@ -304,6 +304,7 @@ function createnode(item) {
         }
         selectedNode = content;
         content.style.borderColor = 'rgb(150, 150, 150)';
+        changeHeaderButton('header-button-1', 'none');
         headerButton1.innerHTML = "<b>Overview</b>";
         headerButton2.innerHTML = "<b>Info</b>";
         headerButton3.innerHTML = "<b>Accuracy</b>";
@@ -350,6 +351,7 @@ function createnode(item) {
                 selectedNode.style.backgroundColor = '';
             }
             selectedNode = '';
+            changeHeaderButton('header-button-1', 'none');
             const headerButton1 = document.getElementById('header-button-1');
             const headerButton2 = document.getElementById('header-button-2');
             const headerButton3 = document.getElementById('header-button-3');

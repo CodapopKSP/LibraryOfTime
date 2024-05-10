@@ -251,15 +251,13 @@ a {
     text-align: left;
     padding-left: 1vh;
     padding-right: 1vh;
+    padding-bottom: 1vh;
     padding-top: 3vh;
-    padding-bottom: 2vh;
 }
 
 .tooltip-confidence {
     text-align: left;
-    padding-left: 1vh;
-    padding-right: 1vh;
-    padding-bottom: 1vh;
+    padding: 1vh;
 }
 
 .pre-description {
@@ -345,11 +343,13 @@ a {
 .tooltip-info {
     text-align: left;
     padding: 1vh;
+    padding-top: 3vh;
     white-space: pre-wrap;
 }
 
 .tooltip-accuracy {
     text-align: left;
     padding: 1vh;
+    padding-top: 3vh;
     white-space: pre-wrap;
 }
