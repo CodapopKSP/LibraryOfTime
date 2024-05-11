@@ -27,28 +27,28 @@ let updateIntervalId;
 const aboutDescription = document.createElement('div');
 aboutDescription.classList.add('tooltip');
 const aboutElement = document.createElement('div');
-aboutElement.textContent = `${welcomeDescription[0].about}`;
+aboutElement.innerHTML = `${welcomeDescription[0].about}`;
 aboutElement.classList.add('tooltip-info');
 aboutDescription.appendChild(aboutElement);
 
 const missionDescription = document.createElement('div');
 missionDescription.classList.add('tooltip');
 const missionElement = document.createElement('div');
-missionElement.textContent = `${welcomeDescription[0].mission}`;
+missionElement.innerHTML = `${welcomeDescription[0].mission}`;
 missionElement.classList.add('tooltip-info');
 missionDescription.appendChild(missionElement);
 
 const accuracyDescription = document.createElement('div');
 accuracyDescription.classList.add('tooltip');
 const accuracyElement = document.createElement('div');
-accuracyElement.textContent = `${welcomeDescription[0].accuracy}`;
+accuracyElement.innerHTML = `${welcomeDescription[0].accuracy}`;
 accuracyElement.classList.add('tooltip-info');
 accuracyDescription.appendChild(accuracyElement);
 
 const sourcesDescription = document.createElement('div');
 sourcesDescription.classList.add('tooltip');
 const sourcesElement = document.createElement('div');
-sourcesElement.textContent = `${welcomeDescription[0].sources}`;
+sourcesElement.innerHTML = `${welcomeDescription[0].sources}`;
 sourcesElement.classList.add('tooltip-info');
 sourcesDescription.appendChild(sourcesElement);
 
@@ -223,15 +223,15 @@ function createnode(item) {
     overviewDescription.classList.add('tooltip');
 
     const epochElement = document.createElement('div');
-    epochElement.textContent = `Epoch: ${item.epoch}`;
+    epochElement.innerHTML = `Epoch: ${item.epoch}`;
     epochElement.classList.add('tooltip-epoch');
 
     const confidenceElement = document.createElement('div');
-    confidenceElement.textContent = `Confidence: ${item.confidence}`;
+    confidenceElement.innerHTML = `Confidence: ${item.confidence}`;
     confidenceElement.classList.add('tooltip-confidence');
 
     const overviewElement = document.createElement('div');
-    overviewElement.textContent = `${item.overview}`;
+    overviewElement.innerHTML = `${item.overview}`;
     overviewElement.classList.add('tooltip-overview');
 
     overviewDescription.appendChild(createTitleElement(item.name));
@@ -245,7 +245,7 @@ function createnode(item) {
     infoDescription.classList.add('tooltip');
 
     const infoElement = document.createElement('div');
-    infoElement.textContent = `${item.info}`;
+    infoElement.innerHTML = `${item.info}`;
     infoElement.classList.add('tooltip-info');
 
     infoDescription.appendChild(createTitleElement(item.name));
@@ -257,7 +257,7 @@ function createnode(item) {
     accuracyDescription.classList.add('tooltip');
 
     const accuracyElement = document.createElement('div');
-    accuracyElement.textContent = `${item.accuracy}`;
+    accuracyElement.innerHTML = `${item.accuracy}`;
     accuracyElement.classList.add('tooltip-accuracy');
 
     accuracyDescription.appendChild(createTitleElement(item.name));
@@ -269,7 +269,7 @@ function createnode(item) {
     sourceDescription.classList.add('tooltip');
 
     const sourceElement = document.createElement('div');
-    sourceElement.textContent = `${item.source}`;
+    sourceElement.innerHTML = `${item.source}`;
     sourceElement.classList.add('tooltip-accuracy');
 
     sourceDescription.appendChild(createTitleElement(item.name));

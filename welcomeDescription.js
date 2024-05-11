@@ -1,30 +1,17 @@
 const welcomeDescription = [
     {
-        about: `Welcome to the Library of Time!<br>
-        <br>
-        You may input a date and time above using numerals and commas.
-        Make sure they follow the correct format:<br>
-        <br>
-        <span class="centered">
-            <b>Year, Month, Day, Hour, Minute, Second</b><br>
-            <i>Example: 2024, 4, 8, 18, 19, 19<br>
-            (April 8th, 2024 at 18:19:19 UTC)</i>
-        </span>
-        <br>
-        To restart the current time ticker, send a blank date.<br>
-        <br>
-        This site is intended to be a collection of every calendar and timekeeping system that has a verifiable date.
-        By necessity, some parameters will need to be estimated or assumed. In those cases, the confidence level will be lower than 'Exact'.
-        If you have any information that would help improve any of these calculations, please do not hesitate to contact me on <a href="https://github.com/CodapopKSP">GitHub</a>
-        or <a href="https://old.reddit.com/user/CodapopKSP/">Reddit</a>.<br>
-        <br>
-        Many of the calculations on this site are borrowed from <i>Astronomical Algorithms</i> (1991) by Jean Meeus.
-        You can find a full text archive of it <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">here</a>.
-        These calculations are very complex, so it's possible I've made some mistakes or misinterpreted their steps.<br>
-        <br>
-        If you have any other interesting ideas or ways to tell time in recurring cycles, please let me know!`,
+        about: `Welcome to the Library of Time!<br><br>You may input a date and time above using numerals and commas. Make sure they follow the correct format:<br>
+        <br><span class="centered"><b>Year, Month, Day, Hour, Minute, Second</b><br><i>Example: 2024, 4, 8, 18, 19, 19<br>(April 8th, 2024 at 18:19:19 UTC)</i></span><br>To restart the current time ticker, send a blank date.<br><br>This site is intended to be a collection of every calendar and timekeeping system that has a verifiable date. By necessity, some parameters will need to be estimated or assumed. In those cases, the confidence level will be lower than 'Exact'. If you have any information that would help improve any of these calculations, please do not hesitate to contact me on <a href="https://github.com/CodapopKSP">GitHub</a>or <a href="https://old.reddit.com/user/CodapopKSP/">Reddit</a>.<br><br>Many of the calculations on this site are borrowed from <i>Astronomical Algorithms</i> (1991) by Jean Meeus. You can find a full text archive of it <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">here</a>. These calculations are very complex, so it's possible I've made some mistakes or misinterpreted their steps.<br><br>If you have any other interesting ideas or ways to tell time in recurring cycles, please let me know!`,
         mission: 'My mission is to test.',
-        accuracy: 'My test is very accurate.',
-        sources: 'I created my test.'
+
+
+
+
+        accuracy: 'It is no secret that working with dates and times in computing is no easy task. You can refer to <a href="https://www.youtube.com/watch?v=-5wpm-gesOY">this famous video by YouTuber Tom Scott</a> for a deeper explanation.\n\nErrors are possible simply due to the fact that some calendars don\'t have a year 0, instead jumping straight to 1 from -1. This website uses Astronomical Time for all of its calculations and other info such as epochs. For that reason, you may notice that the displayed date or epoch is one year off from what a source might tell you.\n\nFor many of the calendars, particularly lunar calendars that start as sunset at a particuilar location, I have opted to use 18:00 of that location as an approximation for sunset. Thus, it is certain that some calendars will be off to some degree at some point in history.\n\nMost calendars have gone through various changes throughout history, which typically is not shown on this website. This can lead to the displayed calendars not matching historical records.\n\nAnd finally, some of the calculations are just very difficult or require mathematical approximations. Dynamical Time in particular is just an approximation of how much the Earth\'s orbit and rotation are affected by the rest of the universe, which can lead to calculations such as the New Moon to be off by a significant margin the further away from the current day you go.\n\nThese reasons are why I do not suggest using this website as a primary source. It can be a useful calculator or an educational tool, but please take the dates here with a grain of salt.',
+
+
+
+
+        sources: 'There are two kinds of sources for many of the entries on this site: sources of initial calculations and, in the case of calendars still in use, sources of confirmation, such as a website displaying the current date of a particular calendar. When applicable, both will be listed in the Source tab of each entry.\n\nWhen necessary, I have made guesses and approximations, either because I wasn\'t able to locate the information, the information doesn\'t exist even at an academic level, or for the sake of reasonable simplicity. These will also be noted in the Source tabs.\n\nA lot of the information on this site comes from Wikipedia, but when necessary I have had to seek better, more informative, or more complete sources.\n\nThe underlying astronomical calculations have come from <i>Astronomical Algorithms</i> (1991) by Jean Meeus. You can find a full text archive of it <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">here</a>.\n\nSome of the Computing Time calculations came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this ancient website</a> with several broken links.\n\nI\'ve gotten a lot of info and inspiration from <a href="https://www.fourmilab.ch/documents/calendar/">this website</a> that is something of a precursor to the Library of Time.\n\nThe basis of my lunar calendar calculations used in many Asiatic calendars comes from <a href="https://ytliu0.github.io/ChineseCalendar/rules.html">this github page.</a>'
     },
 ]
