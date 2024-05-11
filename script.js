@@ -124,38 +124,24 @@ function updateDateAndTime(dateInput) {
 }
 
 function createElements() {
-    standardTimeData.forEach(item => {
-        createnode(item);
-    });
-    computingTimeData.forEach(item => {
-        createnode(item);
-    });
-    decimalTimeData.forEach(item => {
-        createnode(item);
-    });
-    solarCalendarsData.forEach(item => {
-        createnode(item);
-    });
-    lunisolarCalendarsData.forEach(item => {
-        createnode(item);
-    });
-    lunarCalendarsData.forEach(item => {
-        createnode(item);
-    });
-    proposedCalendars.forEach(item => {
-        createnode(item);
-    });
-    otherCalendars.forEach(item => {
-        createnode(item);
-    });
-    astronomicalData.forEach(item => {
-        createnode(item);
-    });
-    popCultureData.forEach(item => {
-        createnode(item);
-    });
-    politics.forEach(item => {
-        createnode(item);
+    const dataArrays = [
+        standardTimeData,
+        computingTimeData,
+        decimalTimeData,
+        solarCalendarsData,
+        lunisolarCalendarsData,
+        lunarCalendarsData,
+        proposedCalendars,
+        otherCalendars,
+        astronomicalData,
+        popCultureData,
+        politics
+    ];
+
+    dataArrays.forEach(dataArray => {
+        dataArray.forEach(item => {
+            createnode(item);
+        });
     });
 }
 
@@ -265,20 +251,29 @@ function createnode(item) {
         visibleTooltip.style.visibility = 'hidden';
         visibleTooltip = overviewDescription;
         overviewDescription.style.visibility = 'visible';
+
+        // Clear descriptions and load new ones
         document.querySelector('.pre-description').style.visibility = 'hidden';
         for (let i = 0; i < currentDescriptionPage.length; i++) {
             currentDescriptionPage[i].style.visibility = 'hidden';
         }
         currentDescriptionPage = [overviewDescription, infoDescription, accuracyDescription, sourceDescription];
-        // Return border color of deselected node if there is one
+
+        // Return border color of deselected node if there is one and set new node
         if (selectedNode !== '') {
             selectedNode.style.borderColor = '';
             selectedNode.style.backgroundColor = '';
         }
         selectedNode = content;
         content.style.borderColor = 'rgb(150, 150, 150)';
+
+        // Set up new description and formatting
         changeHeaderButton('header-button-1', 'none');
         currentDescriptionPage[0].style.visibility = 'visible';
+        const homeButton = document.getElementById('home-button');
+        homeButton.style.visibility = 'visible';
+
+        // Change header buttons to display node options
         const headerButton1 = document.getElementById('header-button-1');
         const headerButton2 = document.getElementById('header-button-2');
         const headerButton3 = document.getElementById('header-button-3');
@@ -309,39 +304,6 @@ function createnode(item) {
             content.style.transition = 'background-color 0.3s';
             content.style.backgroundColor = 'rgb(60, 60, 60)';
         }, 150);
-    });
-
-    nodeWrapper.addEventListener('click', (event) => {
-        // Check if the click target is a node or a descendant of a node
-        const isNodeClick = event.target.classList.contains('node') || event.target.closest('.node');
-
-        // If it's not a node click, deselect the node
-        if (!isNodeClick) {
-            // Replace the tooltip with the landing text
-            visibleTooltip.style.visibility = 'hidden';
-            visibleTooltip = overviewDescription;
-            for (let i = 0; i < currentDescriptionPage.length; i++) {
-                currentDescriptionPage[i].style.visibility = 'hidden';
-            }
-            currentDescriptionPage = [];
-            document.querySelector('.pre-description').style.visibility = 'visible';
-
-            // Handle the highlighting of the deselected node
-            if (selectedNode !== '') {
-                selectedNode.style.borderColor = '';
-                selectedNode.style.backgroundColor = '';
-            }
-            selectedNode = '';
-            changeHeaderButton('header-button-1', 'none');
-            const headerButton1 = document.getElementById('header-button-1');
-            const headerButton2 = document.getElementById('header-button-2');
-            const headerButton3 = document.getElementById('header-button-3');
-            const headerButton4 = document.getElementById('header-button-4');
-            headerButton1.innerHTML = "<b>About</b>";
-            headerButton2.innerHTML = "<b>Mission</b>";
-            headerButton3.innerHTML = "<b>Accuracy</b>";
-            headerButton4.innerHTML = "<b>Sources</b>";
-        }
     });
 
     // Mapping of item types to parent elements
@@ -405,6 +367,7 @@ function changeDateTime() {
     }
 }
 
+// Register a click of a header button
 function changeHeaderButton(button, index) {
     const buttons = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
 
@@ -422,4 +385,35 @@ function changeHeaderButton(button, index) {
             }
         }
     });
+}
+
+// Return site to home state
+function homeButton() {
+    // Clear old descriptions
+    for (let i = 0; i < currentDescriptionPage.length; i++) {
+        currentDescriptionPage[i].style.visibility = 'hidden';
+    }
+    currentDescriptionPage = [];
+    
+    // Change header buttons to original labels
+    const headerButton1 = document.getElementById('header-button-1');
+    const headerButton2 = document.getElementById('header-button-2');
+    const headerButton3 = document.getElementById('header-button-3');
+    const headerButton4 = document.getElementById('header-button-4');
+    headerButton1.innerHTML = "<b>About</b>";
+    headerButton2.innerHTML = "<b>Mission</b>";
+    headerButton3.innerHTML = "<b>Accuracy</b>";
+    headerButton4.innerHTML = "<b>Sources</b>";
+
+    // Return to home description
+    changeHeaderButton('header-button-1', 'none');
+    document.querySelector('.pre-description').style.visibility = 'visible';
+    const homeButton = document.getElementById('home-button');
+    homeButton.style.visibility = 'hidden';
+
+    // Return border color of deselected node if there is one
+    if (selectedNode !== '') {
+        selectedNode.style.borderColor = '';
+        selectedNode.style.backgroundColor = '';
+    }
 }

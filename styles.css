@@ -353,3 +353,16 @@ a {
     padding-top: 3vh;
     white-space: pre-wrap;
 }
+
+.home-button {
+    position: absolute;
+    height: 4vh;
+    width: 28vw;
+    bottom: 2vh;
+    font-size: 2vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border-color: #443c3c;
+    border-width: 0.2vh;
+    visibility: hidden;
+}
