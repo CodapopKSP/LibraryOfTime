@@ -17,11 +17,48 @@ Astronomical Time and determine if epoch displays need to be in AT or regular ti
 Hebrew/Thai/Chinese times
 */
 
-let visibleTooltip = document.querySelector('.pre-description');
+
 const nodeWrapper = document.querySelector('.node-wrapper');
 let selectedNode = '';
 let dateInput = '';
 let currentDescriptionPage = [];
+let updateIntervalId;
+
+const aboutDescription = document.createElement('div');
+aboutDescription.classList.add('tooltip');
+const aboutElement = document.createElement('div');
+aboutElement.textContent = `${welcomeDescription[0].about}`;
+aboutElement.classList.add('tooltip-info');
+aboutDescription.appendChild(aboutElement);
+
+const missionDescription = document.createElement('div');
+missionDescription.classList.add('tooltip');
+const missionElement = document.createElement('div');
+missionElement.textContent = `${welcomeDescription[0].mission}`;
+missionElement.classList.add('tooltip-info');
+missionDescription.appendChild(missionElement);
+
+const accuracyDescription = document.createElement('div');
+accuracyDescription.classList.add('tooltip');
+const accuracyElement = document.createElement('div');
+accuracyElement.textContent = `${welcomeDescription[0].accuracy}`;
+accuracyElement.classList.add('tooltip-info');
+accuracyDescription.appendChild(accuracyElement);
+
+const sourcesDescription = document.createElement('div');
+sourcesDescription.classList.add('tooltip');
+const sourcesElement = document.createElement('div');
+sourcesElement.textContent = `${welcomeDescription[0].sources}`;
+sourcesElement.classList.add('tooltip-info');
+sourcesDescription.appendChild(sourcesElement);
+
+document.querySelector('.description-wrapper').appendChild(aboutDescription);
+document.querySelector('.description-wrapper').appendChild(missionDescription);
+document.querySelector('.description-wrapper').appendChild(accuracyDescription);
+document.querySelector('.description-wrapper').appendChild(sourcesDescription);
+
+let visibleTooltip = aboutDescription;
+currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescription, sourcesDescription];
 
 function updateDateAndTime(dateInput) {
     let currentDateTime = '';
@@ -253,7 +290,6 @@ function createnode(item) {
         overviewDescription.style.visibility = 'visible';
 
         // Clear descriptions and load new ones
-        document.querySelector('.pre-description').style.visibility = 'hidden';
         for (let i = 0; i < currentDescriptionPage.length; i++) {
             currentDescriptionPage[i].style.visibility = 'hidden';
         }
@@ -329,17 +365,6 @@ function createnode(item) {
         console.error(`No parent element found for item type: ${item.type}`);
     }
 }
-let updateIntervalId;
-
-// Draw elements in HTML
-createElements();
-
-// Update the date and time every millisecond
-updateIntervalId = setInterval(updateDateAndTime, 1);
-
-// Initial update
-changeHeaderButton('header-button-1', 'none')
-updateDateAndTime();
 
 function setTimeValue(type, value) {
     document.getElementById(type).textContent = value;
@@ -376,12 +401,10 @@ function changeHeaderButton(button, index) {
         const isSelected = btnId === button;
         btn.style.background = isSelected ? "rgb(55, 55, 55)" : "#2b2b2b";
         btn.classList.toggle('selected', isSelected);
-
         if (isSelected) {
             // Show the corresponding description page
             for (let i = 0; i < currentDescriptionPage.length; i++) {
                 currentDescriptionPage[i].style.visibility = i === index ? 'visible' : 'hidden';
-                
             }
         }
     });
@@ -394,6 +417,7 @@ function homeButton() {
         currentDescriptionPage[i].style.visibility = 'hidden';
     }
     currentDescriptionPage = [];
+    currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescription, sourcesDescription];
     
     // Change header buttons to original labels
     const headerButton1 = document.getElementById('header-button-1');
@@ -406,8 +430,7 @@ function homeButton() {
     headerButton4.innerHTML = "<b>Sources</b>";
 
     // Return to home description
-    changeHeaderButton('header-button-1', 'none');
-    document.querySelector('.pre-description').style.visibility = 'visible';
+    changeHeaderButton('header-button-1', 0);
     const homeButton = document.getElementById('home-button');
     homeButton.style.visibility = 'hidden';
 
@@ -417,3 +440,13 @@ function homeButton() {
         selectedNode.style.backgroundColor = '';
     }
 }
+
+// Draw elements in HTML
+createElements();
+
+// Update the date and time every millisecond
+updateIntervalId = setInterval(updateDateAndTime, 1);
+changeHeaderButton('header-button-1', 0);
+
+// Initial update
+updateDateAndTime();
