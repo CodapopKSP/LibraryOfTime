@@ -482,10 +482,10 @@ const lunisolarCalendarsData = [
         type: 'Lunisolar Calendar',
         epoch: '2698 BCE',
         confidence: 'Medium',
-        overview: 'The Chinese lunisolar calendar is one of the most successful and widespread calendars in history. It has been used since ancient times and is still used today by much of East Asia. It features numerically-named months (月 "yue") of 29 or 30 days (日 "ri") that begin on the same day as the New Moon in China (CST), with an intercalary month added on leap years that happen roughly every 2 or 3 solar years (年 "nian"). Years are also named in a 12-year cycle of the 12 Earthly Branches (Chinese Zodiac). Different versions of this calendar use different eras, but this website uses 2698 BCE as the Year of the Yellow Emperor, a date which was standardized by Sun Yat-sen in 1912 despite there being controversy over the exact date. Calculating this calendar is very difficult and requires calculating the Winter Solstice, Spring Equinox, Longitude of the Sun, and any given New Moon. Due to the difficulty of this calculation, months and days might be off by 1 at times, though they typically self-correct by the next month. This equation was based off of the steps found here: https://ytliu0.github.io/ChineseCalendar/rules.html.',
+        overview: 'The Chinese lunisolar calendar is one of the most successful and widespread calendars in history. It has been used since ancient times and is still used today by much of East Asia. It features numerically-named months (月 "yue") of 29 or 30 days (日 "ri") that begin on the same day as the New Moon in China (CST), with an intercalary month added on leap years that happen roughly every 2 or 3 solar years (年 "nian"). Years are also named in a 12-year cycle of the 12 Earthly Branches (Chinese Zodiac).\n\nDifferent versions of this calendar use different eras, but this website uses 2698 BCE as the Year of the Yellow Emperor, a date which was standardized by Sun Yat-sen in 1912 despite there being controversy over the exact date.',
         info: 'Year Cycle:\n  Rat (鼠)\n  Ox (牛)\n  Tiger (虎)\n  Rabbit (兔)\n  Dragon (龍)\n  Snake (蛇)\n  Horse (馬)\n  Goat (羊)\n  Monkey (猴)\n  Rooster (雞)\n  Dog (狗)\n  Pig (豬)',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        accuracy: 'Calculating this calendar is very difficult and requires calculating the Winter Solstice, Spring Equinox, Longitude of the Sun, and any given New Moon. Due to the difficulty of this calculation, months and days might be off by 1 at times, though they typically self-correct by the next month.',
+        source: 'This equation was based off of the steps found here: https://ytliu0.github.io/ChineseCalendar/rules.html.'
     },
 
     {

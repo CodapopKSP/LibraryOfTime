@@ -173,11 +173,6 @@ function createnode(item) {
     const popCulture = document.querySelector('.pop-culture');
     const politics = document.querySelector('.politics');
 
-    const headerButton1 = document.getElementById('header-button-1');
-    const headerButton2 = document.getElementById('header-button-2');
-    const headerButton3 = document.getElementById('header-button-3');
-    const headerButton4 = document.getElementById('header-button-4');
-
     // Create a div element for the node
     const node = document.createElement('div');
     node.classList.add('node');
@@ -265,37 +260,15 @@ function createnode(item) {
     document.querySelector('.description-wrapper').appendChild(accuracyDescription);
     document.querySelector('.description-wrapper').appendChild(sourceDescription);
 
-    headerButton1.addEventListener('click', () => {
-        currentDescriptionPage[0].style.visibility = 'visible';
-        currentDescriptionPage[1].style.visibility = 'hidden';
-        currentDescriptionPage[2].style.visibility = 'hidden';
-        currentDescriptionPage[3].style.visibility = 'hidden';
-    });
-    headerButton2.addEventListener('click', () => {
-        currentDescriptionPage[0].style.visibility = 'hidden';
-        currentDescriptionPage[1].style.visibility = 'visible';
-        currentDescriptionPage[2].style.visibility = 'hidden';
-        currentDescriptionPage[3].style.visibility = 'hidden';
-    });
-    headerButton3.addEventListener('click', () => {
-        currentDescriptionPage[0].style.visibility = 'hidden';
-        currentDescriptionPage[1].style.visibility = 'hidden';
-        currentDescriptionPage[2].style.visibility = 'visible';
-        currentDescriptionPage[3].style.visibility = 'hidden';
-    });
-    headerButton4.addEventListener('click', () => {
-        currentDescriptionPage[0].style.visibility = 'hidden';
-        currentDescriptionPage[1].style.visibility = 'hidden';
-        currentDescriptionPage[2].style.visibility = 'hidden';
-        currentDescriptionPage[3].style.visibility = 'visible';
-    });
-
     node.addEventListener('click', () => {
         // Select a node and update the description while deselecting an old node
         visibleTooltip.style.visibility = 'hidden';
         visibleTooltip = overviewDescription;
         overviewDescription.style.visibility = 'visible';
         document.querySelector('.pre-description').style.visibility = 'hidden';
+        for (let i = 0; i < currentDescriptionPage.length; i++) {
+            currentDescriptionPage[i].style.visibility = 'hidden';
+        }
         currentDescriptionPage = [overviewDescription, infoDescription, accuracyDescription, sourceDescription];
         // Return border color of deselected node if there is one
         if (selectedNode !== '') {
@@ -305,6 +278,11 @@ function createnode(item) {
         selectedNode = content;
         content.style.borderColor = 'rgb(150, 150, 150)';
         changeHeaderButton('header-button-1', 'none');
+        currentDescriptionPage[0].style.visibility = 'visible';
+        const headerButton1 = document.getElementById('header-button-1');
+        const headerButton2 = document.getElementById('header-button-2');
+        const headerButton3 = document.getElementById('header-button-3');
+        const headerButton4 = document.getElementById('header-button-4');
         headerButton1.innerHTML = "<b>Overview</b>";
         headerButton2.innerHTML = "<b>Info</b>";
         headerButton3.innerHTML = "<b>Accuracy</b>";
@@ -342,6 +320,9 @@ function createnode(item) {
             // Replace the tooltip with the landing text
             visibleTooltip.style.visibility = 'hidden';
             visibleTooltip = overviewDescription;
+            for (let i = 0; i < currentDescriptionPage.length; i++) {
+                currentDescriptionPage[i].style.visibility = 'hidden';
+            }
             currentDescriptionPage = [];
             document.querySelector('.pre-description').style.visibility = 'visible';
 
@@ -424,13 +405,21 @@ function changeDateTime() {
     }
 }
 
-function changeHeaderButton(button, data) {
+function changeHeaderButton(button, index) {
     const buttons = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
 
-    buttons.forEach(btnId => {
+    buttons.forEach((btnId) => {
         const btn = document.getElementById(btnId);
         const isSelected = btnId === button;
         btn.style.background = isSelected ? "rgb(55, 55, 55)" : "#2b2b2b";
         btn.classList.toggle('selected', isSelected);
+
+        if (isSelected) {
+            // Show the corresponding description page
+            for (let i = 0; i < currentDescriptionPage.length; i++) {
+                currentDescriptionPage[i].style.visibility = i === index ? 'visible' : 'hidden';
+                
+            }
+        }
     });
 }
