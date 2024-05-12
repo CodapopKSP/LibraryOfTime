@@ -670,10 +670,10 @@ const astronomicalData = [
         type: 'Astronomical Data',
         epoch: 'New Moon',
         confidence: 'High',
-        overview: 'This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month.',
+        info: 'Calculating the New Moon is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site. Unfortunately it also must be calculated several times due to the nature of lunar calendars, though the date shown here is resused when possible. New Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon\'s orbit as well as other gravitational effects. Thus, it is often necessary to calculate each New Moon directly.',
+        accuracy: 'This calculation is <i>mostly</i> accurate, but it differs from Jean Meeus\'s solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Dynamical Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates far away from the current year are likely to be significantly off.',
+        source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus'
     },
 ]
 
@@ -685,9 +685,9 @@ const popCultureData = [
         epoch: 'Midnight',
         confidence: 'Exact',
         overview: 'One day/night cycle in Minecraft is exactly 20 minutes. Days typically start when the player wakes up from their bed, and although there is a clock in the game, it has little information to expand upon that. This representation of Minecraft time divides the Minecraft day into 24-hour segments with minutes and seconds, set to midnight in the real world when it also resets the day counter.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Time in Minecraft, and many games for that matter, is counted in ticks, which are the game loop cycles. One tick is 50ms, allowing for a rate of 20Hz. These are then counted and converted into game time.',
+        accuracy: 'This clock should be perfectly accurate, with the caveat that time in an actual Minecraft game can vary due to the fact that players can skip the night by sleeping in a bed.',
+        source: 'This calculation was sourced from <a href="https://minecraft.fandom.com/wiki/Daylight_cycle">the Minecraft Fandom Wiki</a>.'
     },
 
     {
@@ -697,9 +697,9 @@ const popCultureData = [
         epoch: 'Midnight',
         confidence: 'Exact',
         overview: 'According to the movie Inception, time in a dream is experienced 20 times slower, allowing for several days to be experienced in a single night\'s sleep. The time displayed here is the current time in your dream if you had begun sleeping at midnight.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'The concept of time dilation in dreams is actually a fascinating area of study, with some results showing little or no dilation while others show differences in reaction times in dreams. Whatever the real dilation ratio may be, it is nowhere near that expressed in the film.',
+        accuracy: 'This timekeeping system should be perfectly accurate but the epoch will not be the same for everyone, as people don\'t all sleep at the same time.',
+        source: 'This calculation was sourced from the movie <a href="https://en.wikipedia.org/wiki/Inception">Inception</a>.'
     },
 ]
 
@@ -711,8 +711,8 @@ const politics = [
         epoch: 'April 30, 1789',
         confidence: 'High',
         overview: 'The term of the US president lasts 4 years, starting from January 20th at noon and ending January 20th at noon four years later. This is a running count of how many presidential terms have passed since the inauguration of George Washington in 1789. The inauguration date has changed over the years, making this display inaccurate for years before 1937.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: `<div class="presidential-terms-container">George Washington 1789-1797\nJohn Adams 1797-1801\nThomas Jefferson 1801-1809\nJames Madison 1809-1817\nJames Monroe 1817-1825\nJohn Quincy Adams 1825-1829\nAndrew Jackson 1829-1837\nMartin Van Buren 1837-1841\nWilliam Henry Harrison 1841\nJohn Tyler 1841-1845\nJames K. Polk 1845-1849\nZachary Taylor 1849-1850\nMillard Fillmore 1850-1853\nFranklin Pierce 1853-1857\nJames Buchanan 1857-1861\nAbraham Lincoln 1861-1865\nAndrew Johnson 1865-1869\nUlysses S. Grant 1869-1877\nRutherford B. Hayes 1877-1881\nJames A. Garfield 1881\nChester A. Arthur 1881-1885\nGrover Cleveland 1885-1889\nBenjamin Harrison 1889-1893\nGrover Cleveland 1893-1897\nWilliam McKinley 1897-1901\nTheodore Roosevelt 1901-1909\nWilliam Howard Taft 1909-1913\nWoodrow Wilson 1913-1921\nWarren G. Harding 1921-1923\nCalvin Coolidge 1923-1929\nHerbert Hoover 1929-1933\nFranklin D. Roosevelt 1933-1945\nHarry S. Truman 1945-1953\nDwight D. Eisenhower 1953-1961\nJohn F. Kennedy 1961-1963\nLyndon B. Johnson 1963-1969\nRichard Nixon 1969-1974\nGerald Ford 1974-1977\nJimmy Carter 1977-1981\nRonald Reagan 1981-1989\nGeorge H. W. Bush 1989-1993\nBill Clinton 1993-2001\nGeorge W. Bush 2001-2009\nBarack Obama 2009-2017\nDonald Trump 2017-2021\nJoe Biden 2021-</div>`,
+        accuracy: 'US terms don\'t always start on January 20th, with certain stipulations such as if the 20th falls on a Sunday that could change the date slightly. The current system of terms starting on the 20th didn\'t start until 1937, and previously it was March 4th, with George Washington starting on April 30th.',
+        source: 'The data for this entry was sourced from <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States">this Wikipedia page</a>.'
     },
 ]

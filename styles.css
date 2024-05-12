@@ -366,3 +366,8 @@ a {
     border-width: 0.2vh;
     visibility: hidden;
 }
+
+.presidential-terms-container {
+    column-count: 2;
+    font-size: 1.3vh;
+}
