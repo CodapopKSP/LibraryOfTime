@@ -605,51 +605,51 @@ const otherCalendars = [
 
 const astronomicalData = [
     {
-        name: 'Spring Equinox',
+        name: 'Northward Equinox',
         id: 'spring-equinox',
         type: 'Astronomical Data',
-        epoch: 'Spring Equinox',
+        epoch: 'Northward Equinox',
         confidence: 'High',
-        overview: 'This is the approximate date and time of this year\'s spring equinox. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'This is the approximate date and time of this year\'s Northward Equinox. In the Northern Hemisphere this is known as the Spring Equinox. In the Southern Hemisphere it is known as the Fall Equinox. It is the time when the length of the day and night are equal all over the planet and the solar declination is heading northward.',
+        info: 'The Northward Equinox is an important starting point or anchor point in some calendars. It usually occurs around March 20th. Over time, roughly in a cycle of 25,772 years, Earth\'s axes precess, causing the equinoxes and solstices to slowly drift through the entire year.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Dynamical Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
+        source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
     
     {
-        name: 'Summer Solstice',
+        name: 'Northern Solstice',
         id: 'summer-solstice',
         type: 'Astronomical Data',
         epoch: 'Summer Solstice',
         confidence: 'High',
-        overview: 'This is the approximate date and time of this year\'s summer solstice. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'This is the approximate date and time of this year\'s Northern Solstice. In the Northern Hemisphere this is known as the Summer Solstice. In the Southern Hemisphere it is known as the Winter Solstice. It is the time when the Northern Hemisphere experiences its longest day while the Southern Hemisphere experiences its shortest day.',
+        info: 'The Northern Solstice usually occurs around June 20th. Over time, roughly in a cycle of 25,772 years, Earth\'s axes precess, causing the equinoxes and solstices to slowly drift through the entire year.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Dynamical Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
+        source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
     {
-        name: 'Autumn Equinox',
+        name: 'Southward Equinox',
         id: 'autumn-equinox',
         type: 'Astronomical Data',
-        epoch: 'Autumn Equinox',
+        epoch: 'Southward Equinox',
         confidence: 'High',
-        overview: 'This is the approximate date and time of this year\'s autumn equinox. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'This is the approximate date and time of this year\'s Southward Equinox. In the Northern Hemisphere this is known as the Fall Equinox. In the Southern Hemisphere it is known as the Spring Equinox. It is the time when the length of the day and night are equal all over the planet and the solar declination is heading southward.',
+        info: 'The Southward Equinox is an important starting point or anchor point in many calendars. It usually occurs around September 20th. Over time, roughly in a cycle of 25,772 years, Earth\'s axes precess, causing the equinoxes and solstices to slowly drift through the entire year.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Dynamical Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
+        source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
     {
-        name: 'Winter Solstice',
+        name: 'Southern Solstice',
         id: 'winter-solstice',
         type: 'Astronomical Data',
         epoch: 'Winter Solstice',
         confidence: 'High',
-        overview: 'This is the approximate date and time of this year\'s winter solstice. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'This is the approximate date and time of this year\'s Southern Solstice. In the Northern Hemisphere this is known as the Winter Solstice. In the Southern Hemisphere it is known as the Summer Solstice. It is the time when the Northern Hemisphere experiences its shortest day while the Southern Hemisphere experiences its longest day.',
+        info: 'The Southern Solstice is an important starting point or anchor point in some calendars. It usually occurs around December 20th. Over time, roughly in a cycle of 25,772 years, Earth\'s axes precess, causing the equinoxes and solstices to slowly drift through the entire year.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Dynamical Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
+        source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
     {
@@ -658,10 +658,10 @@ const astronomicalData = [
         type: 'Astronomical Data',
         epoch: 'Spring Equinox',
         confidence: 'High',
-        overview: 'This is the approximate longitude of the sun, the distance in degrees the Earth has traveled since the last Spring Equinox. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.',
+        overview: 'This is the approximate longitude of the sun, the distance in degrees the Earth has traveled since the last Spring Equinox.',
         info: 'calendar info',
         accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
     {
@@ -670,10 +670,10 @@ const astronomicalData = [
         type: 'Astronomical Data',
         epoch: 'New Moon',
         confidence: 'High',
-        overview: 'This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month.',
+        overview: 'This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month. It is an important event in many cultures, and most lunar or lunisolar calendars use the New Moon as the beginning of the month.',
         info: 'Calculating the New Moon is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site. Unfortunately it also must be calculated several times due to the nature of lunar calendars, though the date shown here is resused when possible. New Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon\'s orbit as well as other gravitational effects. Thus, it is often necessary to calculate each New Moon directly.',
         accuracy: 'This calculation is <i>mostly</i> accurate, but it differs from Jean Meeus\'s solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Dynamical Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates far away from the current year are likely to be significantly off.',
-        source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus'
+        source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 ]
 
