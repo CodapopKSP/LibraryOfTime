@@ -656,11 +656,11 @@ const astronomicalData = [
         name: 'Longitude of the Sun',
         id: 'sun-longitude',
         type: 'Astronomical Data',
-        epoch: 'Spring Equinox',
+        epoch: 'Northward Equinox',
         confidence: 'High',
-        overview: 'This is the approximate longitude of the sun, the distance in degrees the Earth has traveled since the last Spring Equinox.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
+        overview: 'This is the approximate longitude of the sun, the distance in degrees the Earth has traveled along its orbit since the last Northward Equinox.',
+        info: 'The longitude of the sun is an important factor in the Chinese lunisolar calendar and its derivatives. As a circle has 360 degrees and the year has roughly 365 days, the longitude of the sun increments a little less than 1 degree each day.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. My solutions for the example problems matched those from the book, so I am reasonably sure it is correct and only deviates slightly from reality.',
         source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
