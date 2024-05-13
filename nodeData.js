@@ -559,9 +559,9 @@ const proposedCalendars = [
         epoch: 'January 1st, 9999 BCE',
         confidence: 'Exact',
         overview: 'The Human Era, also known as the Holocene Era, is the calendar representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements. It was proposed by Cesare Emiliani in 1993 CE and is based on the Gregorian calendar.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: `The Human Era is an attempt to adapt the Gregorian calendar, which has become widespread enough that it could be considered the default calendar of the world, in a way that is free from religious influence. It chooses its epoch based on what may be the most significant moment in human history: the time when humans first created civilization. Conventiently, this occurs roughly 10000 years before 1 AD, allowing for simple math to arrive at the converted date.\n\n<table class=table-long><tr><th>Months</th><th>Days</th></tr><tr><td>January</td><td>30</td></tr><tr><td>February</td><td>30</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>30</td></tr><tr><td>June</td><td>31</td></tr><tr><td>July</td><td>30</td></tr><tr><td>August</td><td>30</td></tr><tr><td>September</td><td>31</td></tr><tr><td>October</td><td>30</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
+        accuracy: `As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.`,
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Holocene_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -571,9 +571,9 @@ const proposedCalendars = [
         epoch: 'January 1st, 1 CE',
         confidence: 'Exact',
         overview: 'The Invariable calendar was proposed by L. A. Grosclaude in 1900 CE as well as by Gaston Armelin in 1887 CE. It features months in a repeating pattern of 30/30/31 days with New Years Day happening between December and January and Leap Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Monday, Wednesday, or Friday in a predictable pattern that is the same every year.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: `<table class=table-short><tr><th>Calendar Unit</th><th>Days</th></tr><tr><td>New Years Day</td><td>1</td></tr><tr><td>January</td><td>30</td></tr><tr><td>February</td><td>30</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>30</td></tr><tr><td>June</td><td>31</td></tr><tr><td>(Leap Day)</td><td>1</td></tr><tr><td>July</td><td>30</td></tr><tr><td>August</td><td>30</td></tr><tr><td>September</td><td>31</td></tr><tr><td>October</td><td>30</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
+        accuracy: `As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.`,
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Invariable_Calendar">Wikipedia article</a>.'
     },
 
     {
@@ -583,9 +583,9 @@ const proposedCalendars = [
         epoch: 'January 1st, 1 CE',
         confidence: 'Exact',
         overview: 'The World Calendar was proposed by Elisabeth Achelis in 1930 CE and was nearly adopted by the League of Nations. It features months in a repeating pattern of 31/30/30 days with World\'s Day happening between December and January and Leapyear Day occurring between June and July in leap years, which happen in the same years as the Gregorian calendar. These two special days are not part of any week nor month, as if the calendar has paused for 24 hours. The regular month lengths ensure that the first of every month always lands on a Sunday, Wednesday, or Friday in a predictable pattern that is the same every year.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: `<table class=table-short><tr><th>Calendar Unit</th><th>Days</th></tr><tr><td>World's Day</td><td>1</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>30</td></tr><tr><td>March</td><td>30</td></tr><tr><td>April</td><td>31</td></tr><tr><td>May</td><td>30</td></tr><tr><td>June</td><td>30</td></tr><tr><td>(Leapyear Day)</td><td>1</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>30</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>30</td></tr></table>`,
+        accuracy: `As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.`,
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/World_Calendar">Wikipedia article</a>.'
     },
 ]
 
@@ -596,10 +596,10 @@ const otherCalendars = [
         type: 'Other Calendar',
         epoch: 'August 8th, 3113 BCE',
         confidence: 'Exact',
-        overview: 'The Mayan Long Count calendar is essentially a simple count of the number of days since the Mayan date of creation. It is a five digit number, typically expressed with periods between the digits, made up of base-20 counters with the exception of the middle-right digit which is base-18. Starting with the right, the smallest unit is the kʼin, which is equivalent to a day. Twenty kʼins make up one winal, 18 winals make up one tun, 20 tuns make up one kʼatun, and finally 20 kʼatuns make up one bʼakʼtun. A bʼakʼtun is roughly 394 solar years. The Mayan Long Count Calendar was of international interest in 2012 as it was the time when the bʼakʼtun incremented from 12 to 13, leading to superstitious theories and hysteria.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Mayan Long Count calendar is essentially a simple count of the number of days since the Mayan date of creation. It is a five digit number, typically expressed with periods between the digits, made up of base-20 counters with the exception of the middle-right digit which is base-18. Starting with the right, the smallest unit is the <b>kʼin</b>, which is equivalent to a day. Twenty kʼins make up one <b>winal</b>, 18 winals make up one <b>tun</b>, 20 tuns make up one <b>kʼatun</b>, and finally 20 kʼatuns make up one <b>bʼakʼtun</b>. A bʼakʼtun is roughly 394 solar years.\n\nThe Mayan Long Count Calendar was of international interest in 2012 as it was the time when the bʼakʼtun incremented from 12 to 13, leading to superstitious theories and hysteria.',
+        info: `Notably, winals are counted in base-18 rather than base-20 like the rest of the units. This is to reasonably match the tun to the length of the solar year. However, it is still over 5 days short, meaning it will drift about half as much as a true lunar calendar. 20 winals would be 400 days, which wouldn't have been as useful.\n\n<table class=table-short><tr><th>Mayan Unit</th><th>Length</th></tr><tr><td>kʼin</td><td>1 day</td></tr><tr><td>winal</td><td>20 kʼins, 20 days</td></tr><tr><td>tun</td><td>18 winals, 360 days</td></tr><tr><td>kʼatun</td><td>20 tuns, 7200 days</td></tr><tr><td>bʼakʼtun</td><td>20 kʼatuns, 144000 days</td></tr></table>`,
+        accuracy: 'Correlating the Mayan Long Count calendar was a matter of debate even in recent times. The vast majority of scholars seem to have accepted the Goodman–Martinez–Thompson (GMT) correlation as verifiable fact.\n\nWith that in mind, this calendar is actually very easy to calculate, as it is just a count of days since the epoch, not unlike the Julian Day Number. It has no concept of intercalary time such as leap days and the count is agnostic of the solar or lunar years. The only method of inaccuracy with this calendar could be when exactly each day increments, but that does not affect the rest of the calendar in any meaningful way.',
+        source: 'Much of the information on the Mayan Long Count calendar can be found at its <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Wikipedia article</a>.\n\nThe <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter.'
     },
 ]
 

@@ -5,7 +5,7 @@ body, html {
 }
 
 a {
-    color: rgb(255, 255, 255); /* Change the color of all links to blue */
+    color: rgb(255, 255, 255);
 }
 
 .page-wrapper {
@@ -57,7 +57,7 @@ a {
     margin-left: 2vh;
     margin-bottom: 0;
     background-color: rgb(55, 55, 55);
-    border: 0.1vh solid #000000;
+    border: 0.2vh solid #000000;
 }
 
 .node-wrapper {
@@ -370,4 +370,30 @@ a {
 .presidential-terms-container {
     column-count: 2;
     font-size: 1.3vh;
+    text-align: center;
+    background-color: rgb(47, 47, 47);
+    border: 0.2vh solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-long th,
+.table-long td {
+    padding: 0.4vh; /* Adjust the padding value as needed */
+}
+
+.table-short th,
+.table-short td {
+    padding: 0.6vh; /* Adjust the padding value as needed */
+}
+
+th, td {
+    border: 0.2vh solid black;
+    background-color: rgb(47, 47, 47);
+    text-align: center;
 }
