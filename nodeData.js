@@ -482,10 +482,10 @@ const lunisolarCalendarsData = [
         type: 'Lunisolar Calendar',
         epoch: '2698 BCE',
         confidence: 'Medium',
-        overview: 'The Chinese lunisolar calendar is one of the most successful and widespread calendars in history. It has been used since ancient times and is still used today by much of East Asia. It features numerically-named months (月 "yue") of 29 or 30 days (日 "ri") that begin on the same day as the New Moon in China (CST), with an intercalary month added on leap years that happen roughly every 2 or 3 solar years (年 "nian"). Years are also named in a 12-year cycle of the 12 Earthly Branches (Chinese Zodiac).\n\nDifferent versions of this calendar use different eras, but this website uses 2698 BCE as the Year of the Yellow Emperor, a date which was standardized by Sun Yat-sen in 1912 despite there being controversy over the exact date.',
-        info: 'Year Cycle:\n  Rat (鼠)\n  Ox (牛)\n  Tiger (虎)\n  Rabbit (兔)\n  Dragon (龍)\n  Snake (蛇)\n  Horse (馬)\n  Goat (羊)\n  Monkey (猴)\n  Rooster (雞)\n  Dog (狗)\n  Pig (豬)',
+        overview: 'The Chinese lunisolar calendar is one of the most successful and widespread calendars in history. It has been used since ancient times and is still used today by much of East Asia.\n\nIt features numerically-named months (月 "yue") of 29 or 30 days (日 "ri") that begin on the same day as the New Moon in China (CST), with an intercalary month added on leap years that happen roughly every 2 or 3 solar years (年 "nian"). Years are also named in a 12-year cycle of the 12 Earthly Branches (Chinese Zodiac).\n\nDifferent versions of this calendar use different eras, but this website uses 2698 BCE as the Year of the Yellow Emperor, a date which was standardized by Sun Yat-sen in 1912 despite there being controversy over the exact date.',
+        info: '<table class="table-long"><tr><th>Year Cycle</th><th>English</th></tr><tr><td>鼠</td><td>Rat</td></tr><tr><td>牛</td><td>Ox</td></tr><tr><td>虎</td><td>Tiger</td></tr><tr><td>兔</td><td>Rabbit</td></tr><tr><td>龍</td><td>Dragon</td></tr><tr><td>蛇</td><td>Snake</td></tr><tr><td>馬</td><td>Horse</td></tr><tr><td>羊</td><td>Goat</td></tr><tr><td>猴</td><td>Monkey</td></tr><tr><td>雞</td><td>Rooster</td></tr><tr><td>狗</td><td>Dog</td></tr><tr><td>豬</td><td>Pig</td></tr></table>',
         accuracy: 'Calculating this calendar is very difficult and requires calculating the Winter Solstice, Spring Equinox, Longitude of the Sun, and any given New Moon. Due to the difficulty of this calculation, months and days might be off by 1 at times, though they typically self-correct by the next month.',
-        source: 'This equation was based off of the steps found here: https://ytliu0.github.io/ChineseCalendar/rules.html.'
+        source: 'This equation was based off of the steps found <a href="https://ytliu0.github.io/ChineseCalendar/rules.html">here</a>.\n\nGeneral information was taken from the <a href="https://en.wikipedia.org/wiki/Chinese_calendar">Wikipedia article</a> for this calendar.'
     },
 
     {
@@ -495,9 +495,9 @@ const lunisolarCalendarsData = [
         epoch: '2698 BCE',
         confidence: 'High',
         overview: 'The Sexagenary Cycle is a system of counting years in the Chinese calendar (and several other aspects of life). It is a multiplication of the 10 Heavenly Stems and the 12 Earthly Branches (Chinese Zodiac) with half of the combinations left out, leading to a total cycle length of 60. The cycle moves to the next combination on the day of the New Year in the Chinese lunisolar calendar.',
-        info: '10 Heavenly Stems:          12 Earthly Branches:\n  甲 (Jia)                              子 (Zi)\n  乙 (Yi)                               丑 (Chou)\n  丙 (Bing)                           寅 (Yin)\n  丁 (Ding)                           卯 (Mao)\n  戊 (Wu)                             辰 (Chen)\n  己 (Ji)                                巳 (Si)\n  庚 (Geng)                          午 (Wu)\n  辛 (Xin)                             未 (Wei)\n  壬 (Ren)                            申 (Shen)\n  癸 (Gui)                             酉 (You)\n                                            戌 (Xu)\n                                            亥 (Hai)',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: '<table class="table-long"><tr><th>10 Heavenly Stems</th><th>12 Earthly Branches</th></tr><tr><td>甲 (Jia)</td><td>子 (Zi)</td></tr><tr><td>乙 (Yi)</td><td>丑 (Chou)</td></tr><tr><td>丙 (Bing)</td><td>寅 (Yin)</td></tr><tr><td>丁 (Ding)</td><td>卯 (Mao)</td></tr><tr><td>戊 (Wu)</td><td>辰 (Chen)</td></tr><tr><td>己 (Ji)</td><td>巳 (Si)</td></tr><tr><td>庚 (Geng)</td><td>午 (Wu)</td></tr><tr><td>辛 (Xin)</td><td>未 (Wei)</td></tr><tr><td>壬 (Ren)</td><td>申 (Shen)</td></tr><tr><td>癸 (Gui)</td><td>酉 (You)</td></tr><tr><td></td><td>戌 (Xu)</td></tr><tr><td></td><td>亥 (Hai)</td></tr></table>',
+        accuracy: 'This calendar system should be very accurate. At most it will be off by a few days at the start of a given year due to the inaccuracies from the Chinese lunisolar calendar calculations. However, it quickly corrects itself after a few days.',
+        source: 'Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Sexagenary_cycle">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.'
     },
 
     {
@@ -506,10 +506,10 @@ const lunisolarCalendarsData = [
         type: 'Lunisolar Calendar',
         epoch: '1 CE',
         confidence: 'Medium',
-        overview: 'The Đại lịch calendar is the traditional calendar of Vietnam. It is derived from the Chinese lunisolar calendar and shares many of the same elements, but it is set to Vietnamese time, meaning on rare occasions the two calendars can temporarily be significantly offset, only to realign again later. It features 12 months of 29 or 30 days with a leap month on average every 2-3 years. The Đại lịch calendar also follows a similar 12 Earthly Branches (Vietnamese Zodiac) theme for each year, though a few of the animals are different from the Chinese calendar. This calendar uses the same epoch as the Gregorian calendar and may not reflect historic epochs. Similarly, the calendar hasn\'t always been set to Vietnamese time, changing back from Chinese time in the mid-20th century, so dates before that are likely to be incorrect.',
-        info: 'Year Cycle:\n  Rat (𤝞)\n  Water Buffalo (𤛠)\n  Tiger (𧲫)\n  Cat (猫)\n  Dragon (龍)\n  Snake (𧋻)\n  Horse (馭)\n  Goat (羝)\n  Monkey (𤠳)\n  Rooster (𪂮)',
+        overview: 'The Đại lịch calendar is the traditional calendar of Vietnam. It is derived from the Chinese lunisolar calendar and shares many of the same elements, but it is set to Vietnamese time, meaning on rare occasions the two calendars can temporarily be significantly offset, only to realign again later.\n\nIt features 12 months of 29 or 30 days with a leap month on average every 2-3 years.\n\nThe Đại lịch calendar also follows a similar 12 Earthly Branches (Vietnamese Zodiac) theme for each year, though a few of the animals are different from the Chinese calendar.\n\nThis calendar uses the same epoch as the Gregorian calendar and may not reflect historic epochs. Similarly, the calendar hasn\'t always been set to Vietnamese time, changing back from Chinese time in the mid-20th century, so dates before that are likely to be incorrect.',
+        info: `<table class="table-long"><tr><th>Year Cycle</th><th>English</th></tr><tr><td>𤝞</td><td>Rat</td></tr><tr><td>𤛠</td><td>Water Buffalo</td></tr><tr><td>𧲫</td><td>Tiger</td></tr><tr><td>猫</td><td>Cat</td></tr><tr><td>龍</td><td>Dragon</td></tr><tr><td>𧋻</td><td>Snake</td></tr><tr><td>馭</td><td>Horse</td></tr><tr><td>羝</td><td>Goat</td></tr><tr><td>𤠳</td><td>Monkey</td></tr><tr><td>𪂮</td><td>Rooster</td></tr></table>`,
         accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        source: 'Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Vietnamese_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.'
     },
 
     {
@@ -518,10 +518,10 @@ const lunisolarCalendarsData = [
         type: 'Lunisolar Calendar',
         epoch: '1 CE',
         confidence: 'Medium',
-        overview: 'The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while sharing years (년) with the Gregorian calendar, though it doesn\'t increment the year until the lunisolar new year in January or February. The Dangun calendar is calculated based on midnight in Korea, and as such its dates may misalign, sometimes significantly, from the Chinese lunisolar calendar.',
+        overview: 'The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while sharing years (년) with the Gregorian calendar, though it doesn\'t increment the year until the lunisolar new year in January or February.\n\nThe Dangun calendar is calculated based on midnight in Korea, and as such its dates may misalign, sometimes significantly, from the Chinese lunisolar calendar.',
         info: 'calendar info',
         accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        source: 'Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Korean_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.'
     },
 
     {
