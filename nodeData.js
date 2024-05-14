@@ -444,10 +444,10 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'July 19th, 5508 BCE',
         confidence: 'Exact',
-        overview: 'The Byzantine calendar was the official calendar of the Byzantine Empire from 988 to 1453 and was used in Ukraine and Russia until 1700. It followed the Julian calendar but differed by the new year starting on September 1st and the epoch being September 1st, 5509 BC (July 19th, 5508 BCE in the proleptic Gregorian calendar). Years are counted in AM, or \'Anno Mundi\' meaning \'Year After Creation\'.',
-        info: 'Months:\n  September\n  October\n  November\n  December\n  January\n  February\n  March\n  April\n  May\n  June\n  July\n  August',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Byzantine calendar was the official calendar of the Byzantine Empire from 988 to 1453 and was used in Ukraine and Russia until 1700.\n\nIt followed the Julian calendar but differed by the new year starting on September 1st and the epoch being September 1st, 5509 BC (July 19th, 5508 BCE in the proleptic Gregorian calendar). Years are counted in AM, or \'Anno Mundi\' meaning \'Year After Creation\'.',
+        info: `<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr></table>`,
+        accuracy: 'The Byzantine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Byzantine_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -456,10 +456,10 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'March 21st, 0 BCE',
         confidence: 'Exact',
-        overview: 'The Florentine calendar was the calendar used in the Republic of Florence during the Middle Ages. It followed the Julian calendar for its years, months, and days with a few key differences: the new year started on March 25th, meaning January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year. Days also started at sunset, which is displayed here as 6:00pm in Florence.',
-        info: 'Months:\n  March\n  April\n  May\n  June\n  July\n  August\n  September\n  October\n  November\n  December\n  January\n  February\n  March',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Florentine calendar was the calendar used in the Republic of Florence during the Middle Ages. It followed the Julian calendar for its years, months, and days with a few key differences: the new year started on March 25th.\n\nThis meant that January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year.\n\nDays also started at sunset, which is approximated here as 6:00pm in Florence.',
+        info: `<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>March (25th - 31st)</td><td>7</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March (1st - 24th)</td><td>24</td></tr></table>`,
+        accuracy: 'The Florentine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate. The only inaccuracies are the differences in the approximation of sunset to the actual time of sunset, which is expected to only differ by a few hours or minutes per day.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Florentine_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -468,10 +468,10 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'March 3rd, 1844 CE',
         confidence: 'High',
-        overview: 'The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift from the Gregorian calendar. It features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and ‘Alá’, typically at the end of February. Days start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with \'BE\', meaning Baháʼí Era. The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year but is likely to self-correct. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession.',
-        info: 'Months:\n  Bahá\n  Jalál\n  Jamál\n  ‘Aẓamat\n  Núr\n  Raḥmat\n  Kalimát\n  Kamál\n  Asmá’\n  ‘Izzat\n  Mashíyyat\n  ‘Ilm\n  Qudrat\n  Qawl\n  Masá’il\n  Sharaf\n  Sulṭán\n  Mulk\n  Ayyám-i-Há\n  ‘Alá’',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift from the Gregorian calendar.\n\nIt features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and ‘Alá’, typically at the end of February.\n\nDays start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with \'BE\', meaning Baháʼí Era.',
+        info: `<table class="table-long"><tr><th>Months</th><th>Days</th><th>Approx. Gregorian Time</th></tr><tr><td>Bahá</td><td>19</td><td>Mar 21 - Apr 8</td></tr><tr><td>Jalál</td><td>19</td><td>Apr 9 - Apr 27</td></tr><tr><td>Jamál</td><td>19</td><td>Apr 28 - May 16</td></tr><tr><td>‘Aẓamat</td><td>19</td><td>May 17 - Jun 4</td></tr><tr><td>Núr</td><td>19</td><td>Jun 5 - Jun 23</td></tr><tr><td>Raḥmat</td><td>19</td><td>Jun 24 - Jul 12</td></tr><tr><td>Kalimát</td><td>19</td><td>Jul 13 - Jul 31</td></tr><tr><td>Kamál</td><td>19</td><td>Aug 1 - Aug 19</td></tr><tr><td>Asmá’</td><td>19</td><td>Aug 20 - Sep 7</td></tr><tr><td>‘Izzat</td><td>19</td><td>Sep 8 - Sep 26</td></tr><tr><td>Mashíyyat</td><td>19</td><td>Sep 27 - Oct 15</td></tr><tr><td>‘Ilm</td><td>19</td><td>Oct 16 - Nov 3</td></tr><tr><td>Qudrat</td><td>19</td><td>Nov 4 - Nov 22</td></tr><tr><td>Qawl</td><td>19</td><td>Nov 23 - Dec 11</td></tr><tr><td>Masá’il</td><td>19</td><td>Dec 12 - Dec 30</td></tr><tr><td>Sharaf</td><td>19</td><td>Dec 31 - Jan 18</td></tr><tr><td>Sulṭán</td><td>19</td><td>Jan 19 - Feb 6</td></tr><tr><td>Mulk</td><td>19</td><td>Feb 7 - Feb 25</td></tr><tr><td>Ayyám-i-Há</td><td>4 or 5</td><td>Feb 26 - Mar 1</td></tr><tr><td>‘Alá’</td><td>19</td><td>Mar 2 - Mar 20</td></tr></table>`,
+        accuracy: 'The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year， but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Dynamical Time invokes inaccuracies.\n\nThe sunset approximation is also likely to cause slight inaccuracies if the New Moon happens very near to sunset, though this is similarly likely to self-correct by the next year. On that note, the dates may change slightly too early or late depending on the real time of sunset.',
+        source: 'A lot of the information about this calendar came from its <a href="https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar">Wikipedia article</a>.\n\nDates can be referenced at the <a href="https://www.bahai.org/action/devotional-life/calendar">official Baháʼí website</a>.'
     },
 ]
 
