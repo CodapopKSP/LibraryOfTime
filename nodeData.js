@@ -287,9 +287,9 @@ const decimalTimeData = [
         epoch: 'Midnight',
         confidence: 'Exact',
         overview: 'Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day into 10 hours, each hour into 100 minutes, and each minute into 100 seconds. The French would have used Paris Mean Time (GMT + 00:09:21) but this website uses local time.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: '<table><tr><td>Revolutionary Time:</td><td>Standard Time:</td></tr><tr><td>Decimal Second</td><td>?</td></tr><tr><td>Decimal Minute</td><td>??</td></tr><tr><td>Decimal Hour</td><td>???</td></tr></table>',
+        accuracy: 'As this is a simple mathematical calculation, this clock is exactly accuerate.',
+        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.'
     },
 
     {
@@ -299,9 +299,9 @@ const decimalTimeData = [
         epoch: 'Midnight (BMT)',
         confidence: 'Exact',
         overview: '.beat time, also known as Swatch Internet Time, is a timekeeping system developed in 1998 by the Swatch corporation. It divides the day into 1000 equal parts, called .beats, and is set to the BMT timezone (UTC +2).',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: '<table class="table-long"><tr><th>.Beats</th><th>Seconds</th><th>Minutes</th></tr><tr><td>1</td><td>86.4</td><td>1.44</td></tr><tr><td>100</td><td>8640</td><td>144</td></tr><tr><td>200</td><td>17280</td><td>288</td></tr><tr><td>300</td><td>25920</td><td>432</td></tr><tr><td>400</td><td>34560</td><td>576</td></tr><tr><td>500</td><td>43200</td><td>720</td></tr><tr><td>600</td><td>51840</td><td>864</td></tr><tr><td>700</td><td>60480</td><td>1008</td></tr><tr><td>800</td><td>69120</td><td>1152</td></tr><tr><td>900</td><td>77760</td><td>1296</td></tr><tr><td>1000</td><td>86400</td><td>1440</td></tr></table>',
+        accuracy: 'As this is a simple mathematical calculation, this clock is exactly accuerate.',
+        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Swatch_Internet_Time">Wikipedia article</a>.'
     },
 
     {
@@ -311,9 +311,9 @@ const decimalTimeData = [
         epoch: 'Midnight',
         confidence: 'Exact',
         overview: 'Hexadecimal time is a simple representation of the current fraction of a day in hexadecimal. Midnight starts at .0000 and the moment just before midnight is .FFFF. The smallest unit of resolution is 675/512 seconds, or about 1.318 seconds.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: '<table class="table-long"><tr><th>Decimal</th><th>Hexadecimal</th></tr><tr><td>0</td><td>0000</td></tr><tr><td>1</td><td>0001</td></tr><tr><td>2</td><td>0002</td></tr><tr><td>3</td><td>0003</td></tr><tr><td>4</td><td>0004</td></tr><tr><td>5</td><td>0005</td></tr><tr><td>6</td><td>0006</td></tr><tr><td>7</td><td>0007</td></tr><tr><td>8</td><td>0008</td></tr><tr><td>9</td><td>0009</td></tr><tr><td>10</td><td>000A</td></tr><tr><td>11</td><td>000B</td></tr><tr><td>12</td><td>000C</td></tr><tr><td>13</td><td>000D</td></tr><tr><td>14</td><td>000E</td></tr><tr><td>15</td><td>000F</td></tr><tr><td>16</td><td>0010</td></tr><tr><td>17</td><td>0011</td></tr></table>',
+        accuracy: 'As this is a simple mathematical calculation, this clock is exactly accuerate.',
+        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -323,9 +323,9 @@ const decimalTimeData = [
         epoch: 'Midnight',
         confidence: 'Exact',
         overview: 'Binary time is the binary representation of the day divided into 2^16 (65,536) equal parts, with all 0s being midnight and a 1 followed by 15 zeros being exactly half the day (noon). The smallest unit of resolution is 675/512 seconds, or about 1.318 seconds.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: '<table class="table-long"><tr><th>Decimal</th><th>Binary</th></tr><tr><td>0</td><td>0000000000000000</td></tr><tr><td>1</td><td>0000000000000001</td></tr><tr><td>2</td><td>0000000000000010</td></tr><tr><td>3</td><td>0000000000000011</td></tr><tr><td>4</td><td>0000000000000100</td></tr><tr><td>5</td><td>0000000000000101</td></tr><tr><td>6</td><td>0000000000000110</td></tr><tr><td>7</td><td>0000000000000111</td></tr><tr><td>8</td><td>0000000000001000</td></tr><tr><td>9</td><td>0000000000001001</td></tr><tr><td>10</td><td>0000000000001010</td></tr><tr><td>11</td><td>0000000000001011</td></tr><tr><td>12</td><td>0000000000001100</td></tr><tr><td>13</td><td>0000000000001101</td></tr><tr><td>14</td><td>0000000000001110</td></tr><tr><td>15</td><td>0000000000001111</td></tr></table>',
+        accuracy: 'As this is a simple mathematical calculation, this clock is exactly accuerate.',
+        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Binary_clock">Wikipedia article</a>.'
     },
 ]
 
