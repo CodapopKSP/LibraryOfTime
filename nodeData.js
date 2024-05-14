@@ -336,10 +336,10 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1 CE',
         confidence: 'Exact',
-        overview: 'The Gregorian Calendar is the calendar used by most of the world. It has 365 days, with an extra leap day every year divisible by 4 unless divisible by 100, except for years also divisible by 400. The era is denoted \'CE\' meaning \'Common Era\' and \'BCE\' meaning \'Before Common Era\'.\n\nIt was issued by Pope Gregory XIII on October 15th, 1582 and is derived from the Julian Calendar after skipping 10 days between October 5th and 15th and differs via the 4-century leap year rule. This calendar is exactly accurate, however dates before October 15th 1582 are proleptic, and many countries did not adopt it until much later than 1582.',
-        info: 'Months:\n  January\n  February\n  March\n  April\n  May\n  June\n  July\n  August\n  September\n  October\n  November\n  December',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Gregorian Calendar is the calendar used by most of the world. It has 365 days, with an extra leap day every year divisible by 4 unless divisible by 100, except for years also divisible by 400.\n\nThe era is denoted \'CE\' meaning \'Common Era\' and \'BCE\' meaning \'Before Common Era\'. Dates can also be expressed in AD/BC as in the Julian calendar.\n\nThe calendar was issued by Pope Gregory XIII on October 15th, 1582 and is derived from the Julian Calendar after skipping 10 days between October 5th and 15th. The two calendars differ by the 400-year leap year rule.\n\nThis calendar is exactly accurate, however dates before October 15th 1582 are proleptic, and many countries did not adopt it until much later than 1582.',
+        info: `After the initial 10-day skip in 1582 and the following centuries to the 21st century, the Gregorian calendar and the Julian calendar are 13 days apart.\n\n<table class="table-long"><tr><th>Month</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
+        accuracy: 'The Gregorian calendar is exactly accurate, as it is what this entire site is based on. However, it does drift from the solar year ever so slightly at a rate of about 1 day every 3030 years without taking axial precession into account, or 1 day every 7700 years if taken into account.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -348,34 +348,34 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 3rd, 1 CE',
         confidence: 'High',
-        overview: 'The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date. It features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. Years are denoted \'AD\' or \'Anno Domini\', meaning \'in the year of the Lord\', as well as \'BC\' meaning \'Before Christ\'.\n\nThe Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar. It is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections. The date of leap days might not be exactly aligned with the Gregorian calendar here, but they are accurate to the year.',
-        info: 'Months:\n  January\n  February\n  March\n  April\n  May\n  June\n  July\n  August\n  September\n  October\n  November\n  December',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date.\n\nIt features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. Years are denoted \'AD\' or \'Anno Domini\', meaning \'in the year of the Lord\', as well as \'BC\' meaning \'Before Christ\'.\n\nThe Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar.',
+        info: `The Julian calendar drifts from the solar year by about 1 day every 129 years, as it has too many leap years. The Gregorian calendar is meant to correct this drift. As of the 21st century, the two calendars are 13 days apart.\n\n<table class="table-long"><tr><th>Month</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
+        accuracy: 'The Julian calendar is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections.\n\nThe date of leap days might not be exactly aligned with the Gregorian calendar here, but they are accurate to the year.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_calendar">Wikipedia article</a>.'
     },
 
     {
-        name: 'French Republican',
+        name: 'French Republican (CET)',
         id: 'french-republican',
         type: 'Solar Calendar',
         epoch: 'September 22nd, 1792 CE',
         confidence: 'High',
-        overview: `The French Republican calendar was used during and after the French Revolution from 1793 to 1805 and was a drastic change to the Gregorian calendar. It featured twelve months of 30 days each, broken into 3 weeks of 10 days. The remaining 5 or 6 days of each solar year were the Sansculottides, to be treated as national holidays at the end of the year. The new year started on September 22nd or 23rd of the Gregorian calendar, and years were written in Roman numerals with the era name of \'l\'ère républicaine\', or \'Republican Era\', abbreviated here as \'RE\'.`,
-        info: 'Months:\n  Vendémiaire\n  Brumaire\n  Frimaire\n  Nivôse\n  Pluviôse\n  Ventôse\n  Germinal\n  Floréal\n  Prairial\n  Messidor\n  Thermidor\n  Fructidor\n  Sansculottides',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: `The French Republican calendar was used during and after the French Revolution from 1793 to 1805 and was a drastic change to the Gregorian calendar.\n\nIt featured twelve months of 30 days each, broken into 3 weeks of 10 days. The remaining 5 or 6 days of each solar year were the Sansculottides, to be treated as national holidays at the end of the year.\n\nThe new year started on the Autumn Equinox, and years were written in Roman numerals with the era name of \'l\'ère républicaine\', or \'Republican Era\', abbreviated here as \'RE\'.`,
+        info: `<table class="table-long"><tr><th>Month</th><th>Days</th><th>Approx. Gregorian Dates</th></tr><tr><td>Vendémiaire</td><td>30</td><td>Sep 22 - Oct 21</td></tr><tr><td>Brumaire</td><td>30</td><td>Oct 22 - Nov 20</td></tr><tr><td>Frimaire</td><td>30</td><td>Nov 21 - Dec 20</td></tr><tr><td>Nivôse</td><td>30</td><td>Dec 21 - Jan 19</td></tr><tr><td>Pluviôse</td><td>30</td><td>Jan 20 - Feb 18</td></tr><tr><td>Ventôse</td><td>30</td><td>Feb 19 - Mar 20</td></tr><tr><td>Germinal</td><td>30</td><td>Mar 21 - Apr 19</td></tr><tr><td>Floréal</td><td>30</td><td>Apr 20 - May 19</td></tr><tr><td>Prairial</td><td>30</td><td>May 20 - Jun 18</td></tr><tr><td>Messidor</td><td>30</td><td>Jun 19 - Jul 18</td></tr><tr><td>Thermidor</td><td>30</td><td>Jul 19 - Aug 17</td></tr><tr><td>Fructidor</td><td>30</td><td>Aug 18 - Sep 16</td></tr><tr><td>Sansculottides</td><td>5 or 6</td><td>Sep 17 - Sep 21</td></tr></table>`,
+        accuracy: `This calendar depends on the accuracy of the equinox calculations, which are generally within a few minutes of accuracy and should only affect years where the equinox happens very close to midnight CET.\n\nThe French Republican calendar also had some issues with rules that contracticted each other, like a 4 year leap year rule conflicting with the date of the equinox. That rule has been ignored in favor of the equinox rule.`,
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/French_Republican_calendar">Wikipedia article</a>.'
     },
 
     {
         name: 'Era Fascista',
         id: 'era-fascista',
         type: 'Solar Calendar',
-        epoch: 'October 22nd, 1922 CE',
+        epoch: 'October 29th, 1922 CE',
         confidence: 'High',
-        overview: 'Era Fascista is a simple count of number of years since the start of the Fascist Era in Italy on October 22nd, 1922, starting with Anno I. Taking inspiration from the French Republican calendar, years were written in Roman numerals and it was intended to replace the Gregorian calendar.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'Era Fascista is a simple count of number of years since the start of the Fascist Era in Italy on October 29th, 1922, starting with Anno I.\n\nTaking inspiration from the French Republican calendar, years were written in Roman numerals and it was intended to replace the Gregorian calendar.',
+        info: `Era Fascista didn't really implement months, as it was used alongside the Gregorian calendar. Enscriptions marked in Era Fascista dates could use a number of different abbreviations, such as 'Anno', 'E.F.', 'Anno Fascista', 'A.F.', or simply 'A.'.`,
+        accuracy: 'Era Fascista is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Era_Fascista">Wikipedia article</a>.'
     },
 
     {
@@ -384,10 +384,10 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'August 29th, 284 CE',
         confidence: 'High',
-        overview: 'The Coptic calendar, also known as the Alexandrian calendar, was used in Egypt until the adoption of the Gregorian calendar in 1875. It is based on the ancient Egyptian calendar but with leap days every four years, keeping it in sync with the Julian calendar while sharing months and days with the Ge\'ez calendar. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. The new year starts on the 11th or 12th of September, and years are abbreviated with \'AM\', meaning Anno Martyrum, or \'Year of the Martyrs\'. The Coptic calendar is still in use today by Egyptian farmers as well as the Coptic Orthodox Church.',
-        info: 'Months:\n  Thout\n  Paopi\n  Hathor\n  Koiak\n  Tobi\n  Meshir\n  Paremhat\n  Parmouti\n  Pashons\n  Paoni\n  Epip\n  Mesori\n  Pi Kogi Enavot',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Coptic calendar, also known as the Alexandrian calendar, was used in Egypt until the adoption of the Gregorian calendar in 1875. It is based on the ancient Egyptian calendar but with leap days every four years, keeping it in sync with the Julian calendar while sharing months and days with the Ge\'ez calendar.\n\nIt has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. The new year starts on the 11th or 12th of September, and years are abbreviated with \'AM\', meaning Anno Martyrum, or \'Year of the Martyrs\'.\n\nThe Coptic calendar is still in use today by Egyptian farmers as well as the Coptic Orthodox Church.',
+        info: `The Ge\'ez calendar is precisely aligned with the Coptic calendar for its months and days. It's epoch, translated to 'Year of the Martyrs', is counted from the year Diocletian became Emperor of Rome, which was followed by a period of mass persecution of Christians.\n\n<table class="table-long"><tr><th>Month</th><th>Days</th><th>Approx. Gregorian Dates</th></tr><tr><td>Thout</td><td>30</td><td>Sep 11 - Oct 10</td></tr><tr><td>Paopi</td><td>30</td><td>Oct 11 - Nov 9</td></tr><tr><td>Hathor</td><td>30</td><td>Nov 10 - Dec 9</td></tr><tr><td>Koiak</td><td>30</td><td>Dec 10 - Jan 8</td></tr><tr><td>Tobi</td><td>30</td><td>Jan 9 - Feb 7</td></tr><tr><td>Meshir</td><td>30</td><td>Feb 8 - Mar 9</td></tr><tr><td>Paremhat</td><td>30</td><td>Mar 10 - Apr 8</td></tr><tr><td>Parmouti</td><td>30</td><td>Apr 9 - May 8</td></tr><tr><td>Pashons</td><td>30</td><td>May 9 - Jun 7</td></tr><tr><td>Paoni</td><td>30</td><td>Jun 8 - Jul 7</td></tr><tr><td>Epip</td><td>30</td><td>Jul 8 - Aug 6</td></tr><tr><td>Mesori</td><td>30</td><td>Aug 7 - Sep 5</td></tr><tr><td>Pi Kogi Enavot</td><td>5 or 6</td><td>Sep 6 - Sep 10</td></tr></table>`,
+        accuracy: 'The Coptic calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Coptic_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -396,10 +396,10 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'August 27th, 8 CE',
         confidence: 'High',
-        overview: 'The Ge\'ez calendar is the official calendar of Ethiopia. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. It has a leap day every 4 years, keeping it in sync with the Julian calendar while sharing months and days with the Coptic calendar. The New Year starts on September 11th or 12th, with years abbreviated with ዓ.ም. which is pronounced \'am\', short for Amätä Mihret, meaning \'Year of Mercy\'.',
-        info: 'Months:\n  Mäskäräm\n  Ṭəqəmt\n  Ḫədar\n  Taḫśaś\n  Ṭərr\n  Yäkatit\n  Mägabit\n  Miyazya\n  Gənbo\n  Säne\n  Ḥamle\n  Nähase\n  Ṗagume',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Ge\'ez calendar is the official calendar of Ethiopia. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. It has a leap day every 4 years, keeping it in sync with the Julian calendar while sharing months and days with the Coptic calendar.\n\nThe New Year starts on September 11th or 12th, with years abbreviated with ዓ.ም. which is pronounced \'am\', short for Amätä Mihret, meaning \'Year of Mercy\'.',
+        info: `The Ge\'ez calendar is precisely aligned with the Coptic calendar for its months and days. It nearly shares an epoch with the Julian calendar, as they both are counting years since the same event, but is actually 7-8 years behind due to a difference in calculation of the date of the Annunciation.\n\n<table class="table-long"><tr><th>Month</th><th>Days</th><th>Approx. Gregorian Dates</th></tr><tr><td>Mäskäräm</td><td>30</td><td>Sep 11 - Oct 10</td></tr><tr><td>Ṭəqəmt</td><td>30</td><td>Oct 11 - Nov 9</td></tr><tr><td>Ḫədar</td><td>30</td><td>Nov 10 - Dec 9</td></tr><tr><td>Taḫśaś</td><td>30</td><td>Dec 10 - Jan 8</td></tr><tr><td>Ṭərr</td><td>30</td><td>Jan 9 - Feb 7</td></tr><tr><td>Yäkatit</td><td>30</td><td>Feb 8 - Mar 9</td></tr><tr><td>Mägabit</td><td>30</td><td>Mar 10 - Apr 8</td></tr><tr><td>Miyazya</td><td>30</td><td>Apr 9 - May 8</td></tr><tr><td>Gənbo</td><td>30</td><td>May 9 - Jun 7</td></tr><tr><td>Säne</td><td>30</td><td>Jun 8 - Jul 7</td></tr><tr><td>Ḥamle</td><td>30</td><td>Jul 8 - Aug 6</td></tr><tr><td>Nähase</td><td>30</td><td>Aug 7 - Sep 5</td></tr><tr><td>Ṗagume</td><td>5 or 6</td><td>Sep 6 - Sep 10</td></tr></table>`,
+        accuracy: 'The Ge\'ez calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Ethiopian_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -408,22 +408,22 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: 'January 1st, 1912 CE',
         confidence: 'Exact',
-        overview: 'The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are counted in 民國 ("MinGuo"), translated as \'Year of the Republic\' with year 1 being the establishment of the ROC in 1912, while its numerical months (月 "yue") and days (日 "ri") follow the Gregorian calendar.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: `The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are counted in 民國 ('MinGuo'), translated as 'Year of the Republic' with year 1 being the establishment of the ROC in 1912, while its numerical months (月 "yue") and days (日 "ri") follow the Gregorian calendar.\n\nThe Minguo calendar was also used in China between 1912 and the fleeing of the ROC to Taiwan in 1949.`,
+        info: `Prior to the establishment of the Repiblic of China in 1912, the Chinese people and government used the traditional Chinese lunisolar calendar. The ROC adopted the Gregorian calendar for official business but used the new Era of the Republic as the epoch. After claiming victory over the Chinese mainland in 1949, the PRC opted to use the Gregorian calendar along with its epoch.`,
+        accuracy: 'The Minguo calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Republic_of_China_calendar">Wikipedia article</a>.'
     },
 
     {
-        name: 'Thai Solar',
-        id: 'thai-solar',
+        name: 'Thai',
+        id: 'thai',
         type: 'Solar Calendar',
         epoch: 'January 1st, 543 BCE',
         confidence: 'High',
-        overview: 'The Thai Solar calendar is used in Thailand and is 543 years ahead of the Gregorian calendar, though it shares the same months with different names. It represents the number of years of the current Buddhist Era (B.E.), the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.',
-        info: 'Months:\n  มกราคม\n  กุมภาพันธ์\n  มีนาคม\n  เมษายน\n  พฤษภาคม\n  มิถุนายน\n  กรกฎาคม\n  สิงหาคม\n  กันยายน\n  ตุลาคม\n  พฤศจิกายน\n  ธันวาคม',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Thai solar calendar is used in Thailand and is 543 years ahead of the Gregorian calendar, though it shares the same months with different names.\n\nIt represents the number of years of the current Buddhist Era (B.E.), the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.',
+        info: `<table class="table-long"><tr><th>Months</th><th>English</th><th>Days</th></tr><tr><td>มกราคม</td><td>January</td><td>31</td></tr><tr><td>กุมภาพันธ์</td><td>February</td><td>28 or 29</td></tr><tr><td>มีนาคม</td><td>March</td><td>31</td></tr><tr><td>เมษายน</td><td>April</td><td>30</td></tr><tr><td>พฤษภาคม</td><td>May</td><td>31</td></tr><tr><td>มิถุนายน</td><td>June</td><td>30</td></tr><tr><td>กรกฎาคม</td><td>July</td><td>31</td></tr><tr><td>สิงหาคม</td><td>August</td><td>31</td></tr><tr><td>กันยายน</td><td>September</td><td>30</td></tr><tr><td>ตุลาคม</td><td>October</td><td>31</td></tr><tr><td>พฤศจิกายน</td><td>November</td><td>30</td></tr><tr><td>ธันวาคม</td><td>December</td><td>31</td></tr></table>`,
+        accuracy: 'The Thai solar calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Thai_solar_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -433,9 +433,9 @@ const solarCalendarsData = [
         epoch: 'January 1st, 1912 CE',
         confidence: 'Exact',
         overview: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: `Juche refers to the specific ideology of the Worker's Party of Korea and is related to Marxist-Leninism.`,
+        accuracy: 'The Juche calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Juche_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -544,7 +544,7 @@ const lunarCalendarsData = [
         type: 'Lunar Calendar',
         epoch: 'July 19, 622 CE',
         confidence: 'Medium',
-        overview: `The Hijri calendar is the principal calendar used in Islam, and it is perhaps the only extant true lunar calendar in the world. It features 12 lunar months of 29 or 30 days, with days starting at sunset, for a total of 355 or 356 days per year, causing it to be out of sync with solar calendars.\n\nEra dates are denoted \'AH\' from \'Anno Hegirae\', meaning \'In the year of the Hijrah\'. Each month starts shortly after the New Moon when it begins to appear as a crescent.\n\nThe desert culture of Islam is apparent in this calendar, as such a civilization is less affected by seasonal changes than civilizations in most other biomes. Thus, they would have had no need to implement an intercalary month system to synchronize the calendar with the solar year.`,
+        overview: `The Hijri calendar is the principal calendar used in Islam, and it is perhaps the only extant true lunar calendar in the world. It features 12 lunar months of 29 or 30 days, with days starting at sunset, for a total of 355 or 356 days per year, causing it to be out of sync with solar calendars.\n\nEra dates are denoted \'AH\' from \'Anno Hegirae\', meaning \'In the year of the Hijrah\'. Each month starts shortly after the New Moon when it begins to appear as a crescent.\n\nThe desert-faring culture of Islam is apparent in this calendar, as such a civilization is less affected by seasonal changes than civilizations in most other biomes. Thus, they would have had no need to implement an intercalary month system to synchronize the calendar with the solar year.`,
         info: `The Hijri calendar is on a roughly 37-year cycle when compared with the solar year. Dates and holidays drift throughout the entire year before arriving back where they started 37 years prior.\n\n<table class="table-long"><tr><th>Months</th></tr><tr><td>al-Muḥarram</td></tr><tr><td>Ṣafar</td></tr><tr><td>Rabīʿ al-ʾAwwal</td></tr><tr><td>Rabīʿ ath-Thānī</td></tr><tr><td>Jumādā al-ʾŪlā</td></tr><tr><td>Jumādā al-ʾĀkhirah</td></tr><tr><td>Rajab</td></tr><tr><td>Shaʿbān</td></tr><tr><td>Ramaḍān</td></tr><tr><td>Shawwāl</td></tr><tr><td>Dhū al-Qaʿdah</td></tr><tr><td>Dhū al-Ḥijjah</td></tr></table>
         `,
         accuracy: `Many Muslim nations have their own rules for determining the start of the month, often based on direct observation, and as such their calendar dates may occasionally misalign for a month or two. The algorithm used by this website requires calculating the New Moon and uses 18:00 local time in Mecca for sunset. Its accuracy is dependent on the New Moon calculations and may not reflect historical records.`,

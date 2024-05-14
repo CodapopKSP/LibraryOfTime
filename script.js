@@ -77,6 +77,7 @@ function updateDateAndTime(dateInput) {
     const julianDay = getJulianDayNumber(currentDateTime)
     const dayFraction = calculateDay(currentDateTime)
     const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
+    const fallEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'autumn');
 
     // All fractional times
     setTimeValue('local-time-node', gregorianLocal.time);
@@ -115,10 +116,10 @@ function updateDateAndTime(dateInput) {
     setTimeValue('julian-node', getJulianCalendar(currentDateTime));
     setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
     setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
-    setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime));
+    setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, fallEquinox));
     setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
     setTimeValue('minguo-node', getMinguo(currentDateTime));
-    setTimeValue('thai-solar-node', getThaiSolar(currentDateTime));
+    setTimeValue('thai-node', getThaiSolar(currentDateTime));
     setTimeValue('juche-node', getJuche(currentDateTime));
     setTimeValue('coptic-node', julianDayToCoptic(julianDay));
     setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
@@ -147,7 +148,7 @@ function updateDateAndTime(dateInput) {
     // Astronomical Data
     setTimeValue('spring-equinox-node', springEquinox.toUTCString());
     setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
-    setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
+    setTimeValue('autumn-equinox-node', fallEquinox.toUTCString());
     setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
     setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
     setTimeValue('this-new-moon-node', getNewMoonThisMonth(currentDateTime, 0).toUTCString());
@@ -223,11 +224,11 @@ function createnode(item) {
     overviewDescription.classList.add('tooltip');
 
     const epochElement = document.createElement('div');
-    epochElement.innerHTML = `Epoch: ${item.epoch}`;
+    epochElement.innerHTML = `<table class="table-epoch"><tr><th><b>Epoch</th><tr><td>${item.epoch}</b></td></tr></tr></table>`;
     epochElement.classList.add('tooltip-epoch');
 
     const confidenceElement = document.createElement('div');
-    confidenceElement.innerHTML = `Confidence: ${item.confidence}`;
+    confidenceElement.innerHTML = `<table class="table-confidence"><tr><th><b>Confidence: ${item.confidence}</b></th></tr></table>`;
     confidenceElement.classList.add('tooltip-confidence');
 
     const overviewElement = document.createElement('div');

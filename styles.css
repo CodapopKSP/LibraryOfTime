@@ -5,7 +5,7 @@ body, html {
 }
 
 a {
-    color: rgb(255, 255, 255);
+    color: rgb(187, 211, 255);
 }
 
 .page-wrapper {
@@ -249,15 +249,17 @@ a {
 
 .tooltip-epoch {
     text-align: left;
-    padding-left: 1vh;
-    padding-right: 1vh;
+    padding-left: 10vh;
+    padding-right: 10vh;
     padding-bottom: 1vh;
     padding-top: 3vh;
 }
 
 .tooltip-confidence {
     text-align: left;
-    padding: 1vh;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 1vh;
 }
 
 .pre-description {
@@ -384,16 +386,24 @@ table {
 
 .table-long th,
 .table-long td {
-    padding: 0.4vh; /* Adjust the padding value as needed */
+    padding: 0.4vh;
 }
 
 .table-short th,
 .table-short td {
-    padding: 0.6vh; /* Adjust the padding value as needed */
+    padding: 0.6vh;
 }
 
 th, td {
     border: 0.2vh solid black;
     background-color: rgb(47, 47, 47);
     text-align: center;
+}
+
+.table-epoch th {
+    color: #c9b79a;
+}
+
+.table-confidence tr {
+    color: #6f986a;
 }

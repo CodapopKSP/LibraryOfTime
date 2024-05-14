@@ -130,7 +130,7 @@ function getThaiSolar(currentDateTime) {
 }
 
 // Returns a formatted French Republican local date
-function getRepublicanCalendar(currentDateTime) {
+function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     const FrenchRevolutionaryMonths = {
         1: 'Vendémiaire',
         2: 'Brumaire',
@@ -147,29 +147,60 @@ function getRepublicanCalendar(currentDateTime) {
         13: 'Sansculottides'
     };
 
-    // Date of September 22nd of the current year
-    let september22 = new Date(currentDateTime.getFullYear(), 8, 22); // Note: Month is 8 for September (0-indexed)
-    september22.setUTCFullYear(currentDateTime.getFullYear());
-    // If the current date is before September 22nd, subtract 1 year
-    if (currentDateTime < september22) {
-        september22.setFullYear(september22.getFullYear() - 1);
+    // Get starting and ending equinoxes, Paris Time (CET)
+    let startingEquinox = '';
+    let endingEquinox = '';
+    let thisYearEquinox = new Date(vernalEquinox);
+    thisYearEquinox.setUTCHours(1);
+    thisYearEquinox.setMinutes(0);
+    thisYearEquinox.setMilliseconds(0);
+    if (currentDateTime < thisYearEquinox) {
+        let lastYear = new Date(currentDateTime);
+        lastYear.setFullYear(currentDateTime.getFullYear()-1);
+        lastYear.setMonth(10);
+        startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'autumn');
+        endingEquinox = thisYearEquinox;
+    } else {
+        let nextYear = new Date(currentDateTime);
+        nextYear.setFullYear(currentDateTime.getFullYear()+1);
+        nextYear.setMonth(10);
+        startingEquinox = thisYearEquinox;
+        endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'autumn');
     }
+
+    // Get start of year, Paris Time (CET)
+    let startOfRepublicanYear = new Date(startingEquinox);
+    startOfRepublicanYear.setUTCHours(1);
+    startOfRepublicanYear.setMinutes(0);
+    startOfRepublicanYear.setMilliseconds(0);
+
     // Calculate the number of years since 1792
-    let yearsSince1792 = (september22.getFullYear() - 1792) + 1;
-    // Calculate the total number of days since the most recent September 22nd
-    let daysSinceSeptember22 = Math.trunc((currentDateTime - september22) / (1000 * 60 * 60 * 24));
+    let yearsSince1792 = (startOfRepublicanYear.getFullYear() - 1792) + 1;
+
+    // Increment up by 1 to account for no 0 day
+    let daysSinceSeptember22 = Math.trunc((currentDateTime - startOfRepublicanYear) / (1000 * 60 * 60 * 24));
+    
     let month = Math.trunc(daysSinceSeptember22 / 30) + 1;
-    if ((month > 12) || (month == 0)) {
-        month = 'Sansculottides';
+    if (month > 13) {
+        month = 0;
     }
     let day = Math.trunc(daysSinceSeptember22 % 30)+1;
+    console.log(startOfRepublicanYear);
     return day + " " + FrenchRevolutionaryMonths[month] + "\n" + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
+
+
+
+
+
+
+
+
 // Returns a formatted EF local date
 function getEraFascista(currentDateTime) {
-    // Only update the year if past October 22nd, otherwise it is the previous year.
-    let october22 = new Date(currentDateTime.getFullYear(), 9, 22);
+    // Only update the year if past October 29th, otherwise it is the previous year.
+    let october22 = new Date(currentDateTime.getFullYear(), 9, 29);
     october22.setFullYear(currentDateTime.getFullYear());
     if (currentDateTime < october22) {
         october22.setFullYear(october22.getFullYear() - 1);
@@ -356,9 +387,6 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     todaySunsetInTehran.setUTCHours(12);
     todaySunsetInTehran.setMinutes(30);
     todaySunsetInTehran.setMilliseconds(0);
-    if (currentDateTime > todaySunsetInTehran) {
-        currentDayOfYear += 1;
-    }
 
     const BahaMonths = [
         "Bahá",
@@ -402,6 +430,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
             }
         }
     }
+
     // Correct for 0 indexing
     let day = currentDayOfYear + 1;
 
