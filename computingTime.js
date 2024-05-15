@@ -104,3 +104,7 @@ function getLilianDate(julianDay) {
     const lilianDate = Math.trunc(julianDay - 2299159.5);
     return lilianDate;
 }
+
+function getMarsSolDate(julianDay) {
+    return (julianDay - 2451549.5 + (1/4000))/1.02749125 + 44796.0
+}

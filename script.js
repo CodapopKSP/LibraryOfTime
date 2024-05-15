@@ -78,6 +78,7 @@ function updateDateAndTime(dateInput) {
     const dayFraction = calculateDay(currentDateTime)
     const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
     const fallEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'autumn');
+    const marsSolDay = getMarsSolDate(julianDay);
 
     // All fractional times
     setTimeValue('local-time-node', gregorianLocal.time);
@@ -104,12 +105,16 @@ function updateDateAndTime(dateInput) {
     setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
     setTimeValue('dynamical-time-node', getDynamicalTimeForward(currentDateTime));
     setTimeValue('lilian-date-node', getLilianDate(julianDay));
+    setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
 
     // Decimal Time
     setTimeValue('revolutionary-time-node', getRevolutionaryTime(dayFraction));
     setTimeValue('beat-time-node', convertToSwatchBeats(currentDateTime));
     setTimeValue('hexadecimal-node', getHexadecimalTime(dayFraction));
     setTimeValue('binary-node', getBinaryTime(dayFraction));
+
+    // Other Time
+    setTimeValue('coordinated-mars-time-node', getMTC(marsSolDay));
 
     // Solar Calendars
     setTimeValue('gregorian-node', gregorianLocal.date);
@@ -166,6 +171,7 @@ function createElements() {
         standardTimeData,
         computingTimeData,
         decimalTimeData,
+        otherTimeData,
         solarCalendarsData,
         lunisolarCalendarsData,
         lunarCalendarsData,
@@ -188,6 +194,7 @@ function createnode(item) {
     const standardTime = document.querySelector('.standard-time');
     const computingTime = document.querySelector('.computing-time');
     const decimalTime = document.querySelector('.decimal-time');
+    const otherTime = document.querySelector('.other-time');
     const solarCalendars = document.querySelector('.solar-calendars');
     const lunisolarCalendars = document.querySelector('.lunisolar-calendars');
     const lunarCalendars = document.querySelector('.lunar-calendars');
@@ -349,6 +356,7 @@ function createnode(item) {
         'Computing Time': computingTime,
         'Standard Time': standardTime,
         'Decimal Time': decimalTime,
+        'Other Time': otherTime,
         'Lunisolar Calendar': lunisolarCalendars,
         'Lunar Calendar': lunarCalendars,
         'Proposed Calendar': proposedCalendars,

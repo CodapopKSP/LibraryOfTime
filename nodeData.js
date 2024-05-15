@@ -277,6 +277,18 @@ const computingTimeData = [
         accuracy: `Dynamical Time is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculation or due to a misunderstanding in some of the steps.`,
         source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
+
+    {
+        name: 'Mars Sol Date',
+        id: 'mars-sol-date',
+        type: 'Computing Time',
+        epoch: '',
+        confidence: 'Exact',
+        overview: '',
+        info: '',
+        accuracy: '',
+        source: ``
+    },
 ]
 
 const decimalTimeData = [
@@ -326,6 +338,20 @@ const decimalTimeData = [
         info: '<table class="table-long"><tr><th>Decimal</th><th>Binary</th></tr><tr><td>0</td><td>0000000000000000</td></tr><tr><td>1</td><td>0000000000000001</td></tr><tr><td>2</td><td>0000000000000010</td></tr><tr><td>3</td><td>0000000000000011</td></tr><tr><td>4</td><td>0000000000000100</td></tr><tr><td>5</td><td>0000000000000101</td></tr><tr><td>6</td><td>0000000000000110</td></tr><tr><td>7</td><td>0000000000000111</td></tr><tr><td>8</td><td>0000000000001000</td></tr><tr><td>9</td><td>0000000000001001</td></tr><tr><td>10</td><td>0000000000001010</td></tr><tr><td>11</td><td>0000000000001011</td></tr><tr><td>12</td><td>0000000000001100</td></tr><tr><td>13</td><td>0000000000001101</td></tr><tr><td>14</td><td>0000000000001110</td></tr><tr><td>15</td><td>0000000000001111</td></tr></table>',
         accuracy: 'As this is a simple mathematical calculation, this clock is exactly accuerate.',
         source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Binary_clock">Wikipedia article</a>.'
+    },
+]
+
+const otherTimeData = [
+    {
+        name: 'Coordinated Mars Time',
+        id: 'coordinated-mars-time',
+        type: 'Other Time',
+        epoch: '',
+        confidence: 'Exact',
+        overview: '',
+        info: '',
+        accuracy: '',
+        source: ``
     },
 ]
 
