@@ -19,9 +19,9 @@ const standardTimeData = [
         epoch: 'Local Midnight',
         confidence: 'Exact',
         overview: 'This is the current local time based on the timezone provided by your device.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Local Time can vary depending on location, timezone, Daylight Savings Time, and historical adjustments.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: `Local Time is sourced directly from JavaScript's Date library and your device's system time.`
     },
 
     {
@@ -30,10 +30,10 @@ const standardTimeData = [
         type: 'Standard Time',
         epoch: 'UTC Midnight',
         confidence: 'Exact',
-        overview: 'This is the current UTC time regardless of location.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'Coordinated Universal Time is the global time standard. The time expressed here is the same regardless of timezone. It is based on the timezone of the Prime Meridian at 0°.',
+        info: 'UTC is the successor to GMT.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: `UTC is sourced directly from JavaScript's Date library and your device's system time.`
     },
 
     {
@@ -43,9 +43,9 @@ const standardTimeData = [
         epoch: 'Every Second',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current second.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'This calculation is based on local time.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 
     {
@@ -55,9 +55,9 @@ const standardTimeData = [
         epoch: 'Every Minute',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current minute.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'This calculation is based on local time.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 
     {
@@ -67,9 +67,9 @@ const standardTimeData = [
         epoch: 'Every Hour',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current hour.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'This calculation is based on local time.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 
     {
@@ -79,9 +79,9 @@ const standardTimeData = [
         epoch: 'Every Day',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current day.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'This calculation is based on local time.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 
     {
@@ -91,9 +91,9 @@ const standardTimeData = [
         epoch: 'Every Month',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current month.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'This calculation is based on local time.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 
     {
@@ -103,9 +103,9 @@ const standardTimeData = [
         epoch: 'Every Year',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current year.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Due to leap days, this fraction might not be a perfect 10x multiplication of the century calculation.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 
     {
@@ -115,9 +115,9 @@ const standardTimeData = [
         epoch: 'Every Decade',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current decade.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Due to leap days, midnight on the 1st of January of the 6th year in the decade might not be exactly 50% of the way through the decade.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 
     {
@@ -127,9 +127,9 @@ const standardTimeData = [
         epoch: 'Every Century',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current century.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Due to leap days, midnight on the 1st of January of the 51st year in the century might not be exactly 50% of the way through the century.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 
     {
@@ -139,9 +139,9 @@ const standardTimeData = [
         epoch: 'Every Millennium',
         confidence: 'Exact',
         overview: 'This is the fraction of time passed in the current millennium.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Due to leap days, this fraction might not be a perfect /10 division of the century calculation.',
+        accuracy: 'This calculation is perfectly accurate to the millisecond.',
+        source: 'This is a simple calculation with no source.'
     },
 ]
 
@@ -152,10 +152,10 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: 'January 1st, 1970 CE',
         confidence: 'Exact',
-        overview: 'Unix is the most widespread timing system in computing and on the internet. It is a simple count of number of seconds since midnight on January 1st, 1970. Many of the calculations on this website are derived from Unix timestamps. It is exactly accurate.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'Unix is the most widespread timing system in computing and on the internet. It is a simple count of number of seconds since midnight on January 1st, 1970. Many of the calculations on this website are derived from Unix timestamps.',
+        info: 'Unix time skips leap seconds, operating as if that time never happened.',
+        accuracy: 'As Unix is the source of all timekeeping systems on this site, it is perfectly accurate.',
+        source: `Unix time is the source of all other timekeeping systems on this website. It is as accurate as JavaScript's Date library and your device's system time allow.\n\nSome information for this clock came from <a href="https://en.wikipedia.org/wiki/Unix_time">this website</a>.`
     },
 
     {
@@ -165,9 +165,9 @@ const computingTimeData = [
         epoch: 'January 6th, 1980 CE',
         confidence: 'Exact',
         overview: 'GPS time is the standard by which all GPS satellites and GPS-enabled devices coordinate their positions. It is a simple count of seconds from midnight on January 6th, 1980. When converted into the Gregorian calendar, it drifts ahead by a second every now and then as it does not follow leap seconds found in other timekeeping standards.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'GPC became available to the public in 2000 CE.',
+        accuracy: `This clock is considered to be perfectly accurate, as it's a simple calculation from Unix.`,
+        source: 'Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping">Wikipedia article</a>.\n\nSome information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.'
     },
 
     {
@@ -177,9 +177,9 @@ const computingTimeData = [
         epoch: 'January 1st, 1972 CE +10 seconds',
         confidence: 'Exact',
         overview: 'International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth\'s geoid. It is the basis for UTC but deviates from UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Ironically, the clock displayed here is derived from UTC even though it is itself the basis for UTC.',
+        accuracy: `This clock is considered to be perfectly accurate, as it's a simple calculation from UTC.`,
+        source: 'Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">Wikipedia article</a>.\n\nSome information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.'
     },
 
     {
@@ -189,9 +189,9 @@ const computingTimeData = [
         epoch: 'January 1st, 1958 CE',
         confidence: 'Exact',
         overview: 'Long Range Navigational time was the standard used by the US and other jurisdictions prior to the creation of GPS. It deviates from UTC by the number of leap seconds since 1972 and doesn\'t include the 10 extra leap seconds in TAI.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'LORAN-C uses a network of radio transmitters to determine distance using the synchronized time, similar to GPS that uses satellites.',
+        accuracy: 'It is difficult to find a current representation of LORAN-C despite it apparently still being in use. I have reconstructed this clock based off of the provided source as well as explanations of the specifics.',
+        source: 'Much of the information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.'
     },
 
     {
@@ -201,9 +201,9 @@ const computingTimeData = [
         epoch: 'January 1st, 1601 CE',
         confidence: 'Exact',
         overview: 'FILETIME is the timing method found on Windows filesystems. It is a simple count of number of nanoseconds since midnight on January 1st, 1601.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Most systems use Unix or a similar epoch. FILETIME is unique in its choice of the year 1601.',
+        accuracy: 'FILETIME is accurate to the microsecond, but it does not count nanoseconds.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Wikipedia article</a>.'
     },
 
     {
@@ -212,10 +212,10 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: 'Noon, November 24, 4713 BCE',
         confidence: 'Exact',
-        overview: 'The Julian Day Number is a simple count of number of days since 12:00 (noon) on November 24, 4713 BCE (or 4714 BCE when not using astronomical dates). The JDN is used by astronomers and programmers to simplify calculations for the passage of time, and many of the calculations in this calendar are based off of the JDN.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Julian Day Number is a simple count of number of days since 12:00 (noon) on November 24, 4713 BCE (or 4714 BCE when not using astronomical dates). The JDN is used by astronomers and programmers to simplify calculations for the passage of time, and many of the calculations in this website are based off of the JDN.',
+        info: 'There are many versions of the JDN, most of which involve truncating the large number for easier calculations.',
+        accuracy: 'This counter is rigorously-studied and exactly accurate, with the only question being the addition of Dynamical Time.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.'
     },
 
     {
@@ -225,9 +225,9 @@ const computingTimeData = [
         epoch: 'January 1st, 1 CE',
         confidence: 'Exact',
         overview: 'Rata Die is similar to the Julian Day Number and is a simple count of number of days in the Gregorian Calendar since January 1st, 1 CE.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Rata Die was created as a way to calculate calendars more easily, though most day-based calculations on this site still use the Julian Day.',
+        accuracy: 'The Rata Die is a simple count of days, meaning it is exactly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Rata_Die">Wikipedia article</a>.'
     },
 
     {
@@ -236,10 +236,10 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: '4712 BCE',
         confidence: 'High',
-        overview: 'The Julian Period is a cycle of 7980 years beginning in the year 4712 BCE (or 4713 BCE when not using astronomical dates). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect. Confidence is listed as high due to confusion regarding the exact epoch.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'The Julian Period is a cycle of 7980 years beginning in the year 4712 BCE (or 4713 BCE when not using astronomical dates). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect.',
+        info: 'The Julian Period is the count of days since the last time Indiction, Solar and Lunar cycles all started on the same day.',
+        accuracy: 'The Julian Period is a simple count of days, meaning it should be exactly accurate. However, I have had some difficulty ensuring this counter is perfectly calibrated.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.'
     },
 
     {
@@ -249,9 +249,9 @@ const computingTimeData = [
         epoch: 'October 15th, 1582 CE',
         confidence: 'Exact',
         overview: 'Lilian Date is a timekeeping standard similar to the Julian Day. It was invented by Bruce G. Ohms to be used with IBM systems and is named after Aloysius Lilius, the creator of the Gregorian calendar. It is a simple count of number of days since the beginning of the Gregorian calendar on October 15th, 1582 CE, which is Lilian 1.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        info: 'Lilian Date technically does not use a specific timezone for its calculation, so this website uses the Julian Day which is based on UTC.',
+        accuracy: 'The Lilian Date is a simple calculation on the Gregorian calendar, making it exactly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Lilian_date">Wikipedia article</a>.'
     },
 
     {
@@ -260,10 +260,10 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: 'January 1st, 1 CE',
         confidence: 'Exact',
-        overview: 'ISO 8601 is the standard of displaying date and time provided by the International Organization for Standardization. It is based off the Gregorian calendar and is thus exactly accurate.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'ISO 8601 is the standard of displaying date and time provided by the International Organization for Standardization. It is based off the Gregorian calendar.',
+        info: 'ISO 8601 is intended to provide a clear, unambiguous date time format for international use.',
+        accuracy: 'ISO 8601 is derived directly from Unix time and thus is exactly accurate.',
+        source: `ISO 8601 is actually a supported string of JavaScript's native Date library, so there is nothing for this website to calculate. General information came from its <a href="https://en.wikipedia.org/wiki/ISO_8601">Wikipedia article</a>.`
     },
 
     {
@@ -272,10 +272,10 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: 'Undefined',
         confidence: 'Medium',
-        overview: 'Dynamical Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE. This calculation was sourced from Astronomical Algorithms (1991) by Jean Meeus.',
-        info: 'calendar info',
-        accuracy: 'calendar accuracy',
-        source: 'calendar source'
+        overview: 'Dynamical Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.',
+        info: 'The exact time of the year is slowly changing on the order of a few seconds per year. This rate is not constant, though it can be estimated.',
+        accuracy: `Dynamical Time is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculation or due to a misunderstanding in some of the steps.`,
+        source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 ]
 
@@ -470,7 +470,7 @@ const solarCalendarsData = [
         confidence: 'High',
         overview: 'The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift from the Gregorian calendar.\n\nIt features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and ‘Alá’, typically at the end of February.\n\nDays start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with \'BE\', meaning Baháʼí Era.',
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th><th>Approx. Gregorian Time</th></tr><tr><td>Bahá</td><td>19</td><td>Mar 21 - Apr 8</td></tr><tr><td>Jalál</td><td>19</td><td>Apr 9 - Apr 27</td></tr><tr><td>Jamál</td><td>19</td><td>Apr 28 - May 16</td></tr><tr><td>‘Aẓamat</td><td>19</td><td>May 17 - Jun 4</td></tr><tr><td>Núr</td><td>19</td><td>Jun 5 - Jun 23</td></tr><tr><td>Raḥmat</td><td>19</td><td>Jun 24 - Jul 12</td></tr><tr><td>Kalimát</td><td>19</td><td>Jul 13 - Jul 31</td></tr><tr><td>Kamál</td><td>19</td><td>Aug 1 - Aug 19</td></tr><tr><td>Asmá’</td><td>19</td><td>Aug 20 - Sep 7</td></tr><tr><td>‘Izzat</td><td>19</td><td>Sep 8 - Sep 26</td></tr><tr><td>Mashíyyat</td><td>19</td><td>Sep 27 - Oct 15</td></tr><tr><td>‘Ilm</td><td>19</td><td>Oct 16 - Nov 3</td></tr><tr><td>Qudrat</td><td>19</td><td>Nov 4 - Nov 22</td></tr><tr><td>Qawl</td><td>19</td><td>Nov 23 - Dec 11</td></tr><tr><td>Masá’il</td><td>19</td><td>Dec 12 - Dec 30</td></tr><tr><td>Sharaf</td><td>19</td><td>Dec 31 - Jan 18</td></tr><tr><td>Sulṭán</td><td>19</td><td>Jan 19 - Feb 6</td></tr><tr><td>Mulk</td><td>19</td><td>Feb 7 - Feb 25</td></tr><tr><td>Ayyám-i-Há</td><td>4 or 5</td><td>Feb 26 - Mar 1</td></tr><tr><td>‘Alá’</td><td>19</td><td>Mar 2 - Mar 20</td></tr></table>`,
-        accuracy: 'The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year， but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Dynamical Time invokes inaccuracies.\n\nThe sunset approximation is also likely to cause slight inaccuracies if the New Moon happens very near to sunset, though this is similarly likely to self-correct by the next year. On that note, the dates may change slightly too early or late depending on the real time of sunset.',
+        accuracy: 'The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year, but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Dynamical Time invokes inaccuracies.\n\nThe sunset approximation is also likely to cause slight inaccuracies if the New Moon happens very near to sunset, though this is similarly likely to self-correct by the next year. On that note, the dates may change slightly too early or late depending on the real time of sunset.',
         source: 'A lot of the information about this calendar came from its <a href="https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar">Wikipedia article</a>.\n\nDates can be referenced at the <a href="https://www.bahai.org/action/devotional-life/calendar">official Baháʼí website</a>.'
     },
 ]
