@@ -439,6 +439,7 @@ function homeButton() {
     if (selectedNode !== '') {
         selectedNode.style.borderColor = '';
         selectedNode.style.backgroundColor = '';
+        selectedNode = '';
     }
 }
 
