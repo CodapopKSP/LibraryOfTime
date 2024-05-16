@@ -5,6 +5,7 @@
 //https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand
 //https://ytliu0.github.io/ChineseCalendar/rules.html
 //https://www.jewfaq.org/jewish_calendar_calculation
+//https://ops-alaska.com/time/gangale_converter/calendar_clock.htm
 
 /*
 TODO:

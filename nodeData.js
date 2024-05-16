@@ -284,7 +284,7 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: 'December 29th, 1873 CE',
         confidence: 'High',
-        overview: `The Mars Sol Date, similar to the Julian Day Number, is the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. Currently I haven't been able to figure out exactly why the epoch was chosen.`,
+        overview: `The Mars Sol Date, similar to the Julian Day Number, is the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. Currently I haven't been able to figure out exactly why the epoch was chosen. The day increments when the Airy-0 crater reaches midnight.`,
         info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
         accuracy: 'This clock should be very accurate, though I am unsure how Dynamical Time factors into it, which could cause it to be off by a few minutes.',
         source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.`
@@ -298,8 +298,8 @@ const decimalTimeData = [
         type: 'Decimal Time',
         epoch: 'Midnight',
         confidence: 'Exact',
-        overview: 'Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day into 10 hours, each hour into 100 minutes, and each minute into 100 seconds. The French would have used Paris Mean Time (GMT + 00:09:21) but this website uses local time.',
-        info: '<table><tr><td>Revolutionary Time:</td><td>Standard Time:</td></tr><tr><td>Decimal Second</td><td>?</td></tr><tr><td>Decimal Minute</td><td>??</td></tr><tr><td>Decimal Hour</td><td>???</td></tr></table>',
+        overview: 'Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day into 10 hours, each hour into 100 minutes, and each minute into 100 seconds.\n\nThe French would have used Paris Mean Time (GMT + 00:09:21) but this website uses local time.',
+        info: '<table class="table-short"><tr><td>Revolutionary Time</td><td>Standard Time</td></tr><tr><td>Decimal Second</td><td>0.864 Seconds</td></tr><tr><td>Decimal Minute</td><td>1.44 Minutes (86.4 Seconds)</td></tr><tr><td>Decimal Hour</td><td>2.4 Hours (144 Minutes)</td></tr></table>',
         accuracy: 'As this is a simple mathematical calculation, this clock is exactly accuerate.',
         source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.'
     },
@@ -349,7 +349,7 @@ const otherTimeData = [
         epoch: 'Martian Midnight',
         confidence: 'High',
         overview: `Coordinated Mars Time, also called MTC as well as Airy Mean Time (AMT), is a proposed clock for use on Mars which has gained some level of mainstream traction in the scientific community. It is intended to be a Martian analog to Earth's UTC. The time is displayed as hours, minutes, and seconds since midnight on Mars at the location of the Airy-0 crater. The clock is the same as clocks on Earth, with 24 hours and 60 minutes in an hour, though each unit is slightly longer due to the length of the sol being 39 minutes and 35 seconds longer than the day.`,
-        info: 'This clock uses the Mars Sol Date for the calculation determining where midnight begins.',
+        info: 'This clock uses the Mars Sol Date for the calculation determining where midnight begins.\n\n<table class="table-short"><tr><td>MTC</td><td>Standard Time</td></tr><tr><td>MTC Second</td><td>1.02749125 Seconds</td></tr><tr><td>MTC Minute</td><td>61.649475 Seconds</td></tr><tr><td>MTC Hour</td><td>61.649475 Minutes</td></tr></table>',
         accuracy: 'This clock should be reasonably accurate, though it might be off by a feww minutes or seconds due to Dynamical Time.',
         source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.`
     },

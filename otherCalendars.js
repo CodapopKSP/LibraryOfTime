@@ -22,3 +22,41 @@ function getCurrentMayanLongCount(currentDateTime) {
     
     return `${baktuns}.${katuns}.${tuns}.${uinals}.${kins}`;
 }
+
+function getDarianCalendar(currentDateTime) {
+
+    const DarianMonths = [
+        "Sagittarius",
+        "Dhanus",
+        "Capricornus",
+        "Makara",
+        "Aquarius",
+        "Khumba",
+        "Pisces",
+        "Mina",
+        "Aries",
+        "Mesha",
+        "Taurus",
+        "Rishabha",
+        "Gemini",
+        "Mithuna",
+        "Cancer",
+        "Karka",
+        "Leo",
+        "Simha",
+        "Virgo",
+        "Kanya",
+        "Libra",
+        "Tula",
+        "Scorpius",
+        "Vrishika"
+    ]
+
+
+
+
+
+
+
+    return currentDateTime;
+}

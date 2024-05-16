@@ -128,7 +128,7 @@ a {
 
 .other-time {
     background-color: rgb(54, 50, 50);
-    color: rgb(255, 235, 196);
+    color: rgb(203, 255, 196);
 }
 
 .astronomical-data {
@@ -175,7 +175,7 @@ a {
 }
 
 .other-time > .node > .content {
-    border: 0.2vh solid #88986a;
+    border: 0.2vh solid #98866a;
 }
 
 .lunar-calendars > .node > .content {
