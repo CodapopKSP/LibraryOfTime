@@ -282,12 +282,12 @@ const computingTimeData = [
         name: 'Mars Sol Date',
         id: 'mars-sol-date',
         type: 'Computing Time',
-        epoch: '',
-        confidence: 'Exact',
-        overview: '',
-        info: '',
-        accuracy: '',
-        source: ``
+        epoch: 'December 29th, 1873 CE',
+        confidence: 'High',
+        overview: `The Mars Sol Date, similar to the Julian Day Number, is the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. Currently I haven't been able to figure out exactly why the epoch was chosen.`,
+        info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
+        accuracy: 'This clock should be very accurate, though I am unsure how Dynamical Time factors into it, which could cause it to be off by a few minutes.',
+        source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.`
     },
 ]
 
@@ -346,12 +346,12 @@ const otherTimeData = [
         name: 'Coordinated Mars Time',
         id: 'coordinated-mars-time',
         type: 'Other Time',
-        epoch: '',
-        confidence: 'Exact',
-        overview: '',
-        info: '',
-        accuracy: '',
-        source: ``
+        epoch: 'Martian Midnight',
+        confidence: 'High',
+        overview: `Coordinated Mars Time, also called MTC as well as Airy Mean Time (AMT), is a proposed clock for use on Mars which has gained some level of mainstream traction in the scientific community. It is intended to be a Martian analog to Earth's UTC. The time is displayed as hours, minutes, and seconds since midnight on Mars at the location of the Airy-0 crater. The clock is the same as clocks on Earth, with 24 hours and 60 minutes in an hour, though each unit is slightly longer due to the length of the sol being 39 minutes and 35 seconds longer than the day.`,
+        info: 'This clock uses the Mars Sol Date for the calculation determining where midnight begins.',
+        accuracy: 'This clock should be reasonably accurate, though it might be off by a feww minutes or seconds due to Dynamical Time.',
+        source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.`
     },
 ]
 
