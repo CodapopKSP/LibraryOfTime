@@ -2,6 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     border: 0;
+    overflow-y: hidden;
 }
 
 a {
@@ -72,8 +73,12 @@ a {
     margin-right: 0vh;
     margin-top: 2vh;
     margin-bottom: 0;
-    grid-template-columns: repeat(auto-fit, minmax(10vw, 1fr)); /* Adjust column width as needed */
-    grid-gap: 1vw; /* Adjust the gap between columns */
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-gap: 1vw;
+}
+
+.container-wrapper {
+    position: relative;
 }
 
 .container {
@@ -406,6 +411,136 @@ th, td {
     color: #c9b79a;
 }
 
-.table-confidence tr {
+.table-confidence th {
     color: #6f986a;
+}
+
+
+/*
+|====================|
+|  Scaling Elements  |
+|====================|
+*/
+
+@media (max-aspect-ratio: 2/1.5) {
+    .node-wrapper {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .node {
+        width: 12vw;
+    }
+    .tooltip {
+        font-size: 1.6vh;
+    }
+    .table-epoch th {
+        min-width: 10vw;
+    }
+    
+    .table-confidence th {
+        min-width: 10vw;
+    }
+    .tooltip-epoch {
+        padding: 2vh;
+        padding-top: 3vh;
+        padding-bottom: 1vh;
+        min-width: 10vw;
+    }
+    
+    .tooltip-confidence {
+        padding: 2vh;
+        padding-top: 1vh;
+        min-width: 10vw;
+    }
+}
+
+@media (max-aspect-ratio: 2/1.85) {
+    .node-wrapper {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-gap: 0.2vw;
+    }
+    .container {
+        width: 18vw;
+    }
+    .node {
+        width: 16vw;
+        overflow: hidden;
+    }
+}
+
+@media (max-aspect-ratio: 2/1.95) {
+    .node-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 55vw;
+    }
+    .container {
+        width: 24vw;
+    }
+    .node {
+        width: 22vw;
+        overflow: hidden;
+    }
+    .tooltip {
+        font-size: 1.6vh;
+    }
+}
+
+@media (max-aspect-ratio: 2/2.1) {
+    .tooltip {
+        font-size: 1.5vh;
+    }
+    #date-input {
+        font-size: 1vh;
+    }
+    
+    #change-date-button {
+        height: 2.5vh;
+        width: 10vw;
+    }
+}
+
+@media (max-aspect-ratio: 2/2.2) {
+    .tooltip {
+        font-size: 1.4vh;
+    }
+    .tooltip-epoch {
+        padding: 0.5vh;
+        padding-top: 1vh;
+        min-width: 10vw;
+    }
+    
+    .tooltip-confidence {
+        padding: 0.5vh;
+        padding-top: 1vh;
+        min-width: 10vw;
+    }
+}
+
+@media (max-aspect-ratio: 2/2.3) {
+    .tooltip {
+        font-size: 1.3vh;
+    }
+    .header-button {
+        width: 2vw;
+        font-size: 1vh;
+    }
+    #date-input {
+        font-size: 0.9vh;
+        width: 20vw;
+    }
+    
+    #change-date-button {
+        height: 2.5vh;
+        width: 8vw;
+        font-size: 1vh;
+    }
+}
+
+@media (max-aspect-ratio: 2/2.4) {
+    .tooltip {
+        font-size: 1.2vh;
+    }
+    .header-button {
+        width: 2vw;
+        font-size: 0.8vh;
+    }
 }

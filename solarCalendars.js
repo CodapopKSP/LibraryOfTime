@@ -185,7 +185,6 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
         month = 0;
     }
     let day = Math.trunc(daysSinceSeptember22 % 30)+1;
-    console.log(startOfRepublicanYear);
     return day + " " + FrenchRevolutionaryMonths[month] + "\n" + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
@@ -420,7 +419,6 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
         } else {
             let firstDayOfFinalMonth = new Date(endingEquinox);
             firstDayOfFinalMonth.setDate(endingEquinox.getDate() - 19);
-            console.log((currentDateTime - endingEquinox)/1000/24/60/60);
             if (((currentDateTime - endingEquinox)/1000/24/60/60)<-19) {
                 currentDayOfYear -= 19;
                 monthIndex=18;
