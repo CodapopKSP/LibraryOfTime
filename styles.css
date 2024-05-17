@@ -18,7 +18,7 @@ a {
 }
 
 .title-wrapper {
-    position: relative;
+    position: absolute;
     width: 99vw;
     font-size: 4vh;
     color: #cbcbcb;
@@ -67,7 +67,7 @@ a {
     max-width: 60vw;
     width: 60vw;
     left: 0;
-    top: 1vh;
+    top: 6vh;
     margin-left: 3vh;
     margin-right: 0vh;
     margin-top: 2vh;
@@ -316,18 +316,6 @@ a {
     text-align: center;
 }
 
-#BCEcheckbox {
-    transform: scale(1.5);
-    color: #6f986a;
-    margin-right: 0.7vh;
-}
-
-#BCEcheckbox + label {
-    color: rgb(214, 214, 214);
-    font-size: 1.5vh; /* Change the font size of the label */
-    margin-right: 1vh; /* Add some space between the checkbox and the label */
-}
-
 .header-button {
     height: 2.5vh;
     font-size: 1.2vh;
@@ -401,6 +389,11 @@ table {
 .table-short th,
 .table-short td {
     padding: 0.6vh;
+}
+
+.table-very-long th,
+.table-very-long td {
+    padding: 0.1vh;
 }
 
 th, td {

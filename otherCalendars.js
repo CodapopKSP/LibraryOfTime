@@ -23,8 +23,7 @@ function getCurrentMayanLongCount(currentDateTime) {
     return `${baktuns}.${katuns}.${tuns}.${uinals}.${kins}`;
 }
 
-function getDarianCalendar(currentDateTime) {
-
+function getDarianCalendar(julianSolNumber) {
     const DarianMonths = [
         "Sagittarius",
         "Dhanus",
@@ -50,13 +49,38 @@ function getDarianCalendar(currentDateTime) {
         "Tula",
         "Scorpius",
         "Vrishika"
-    ]
+    ];
 
+    const daysOfMonthsLeapYear = [28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 28];
+    const daysOfMonthsNonLeapYear = [28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27];
 
+    // Odd years except if divisible by 10, but not 100 except for 500
+    function isLeapYear(year) {
+        return (((year % 2 !== 0) || (year % 10 === 0)) && ((year % 100 !== 0)||(year % 500 === 0)));
+    }
 
+    function getDaysInYear(year) {
+        return isLeapYear(year) ? 669 : 668;
+    }
 
+    // Start with Julian Sol Number
+    let remainingDays = julianSolNumber;
+    let year = 0;
 
+    // Subtract days based on if Leap Year or Normal Year
+    while (remainingDays >= getDaysInYear(year)) {
+        remainingDays -= getDaysInYear(year);
+        year++;
+    }
 
+    // Find the day and month based on remaining days
+    const daysOfMonths = isLeapYear(year) ? daysOfMonthsLeapYear : daysOfMonthsNonLeapYear;
+    let month = 0;
+    while (remainingDays >= daysOfMonths[month]) {
+        remainingDays -= daysOfMonths[month];
+        month++;
+    }
+    let day = Math.trunc(remainingDays) + 1; // Days in calendar start from 1
 
-    return currentDateTime;
+    return day + ' ' + DarianMonths[month] + ' ' + year;
 }

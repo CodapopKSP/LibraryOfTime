@@ -108,3 +108,7 @@ function getLilianDate(julianDay) {
 function getMarsSolDate(julianDay) {
     return (julianDay - 2451549.5 + (1/4000))/1.02749125 + 44796.0
 }
+
+function getJulianSolDate(marsSolDate) {
+    return marsSolDate + 94129;
+}

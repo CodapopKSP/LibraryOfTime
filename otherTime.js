@@ -6,7 +6,7 @@
 
 // Get the current Coordinated Mars Time
 function getMTC(marsSolDay) {
-    const MTCdecimal = (marsSolDay%1)*24;
+    const MTCdecimal = ((marsSolDay % 1) + 1) % 1 * 24;
     const hours = Math.floor(MTCdecimal);
     const fractionMinutes = MTCdecimal - hours;
     const minutes = Math.floor(fractionMinutes*60);

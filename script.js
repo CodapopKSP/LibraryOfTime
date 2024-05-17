@@ -66,7 +66,15 @@ function updateDateAndTime(dateInput) {
     if (dateInput === undefined) {
         currentDateTime = new Date();
     } else {
-        currentDateTime = new Date(dateInput);
+        const inputParts = dateInput.split(', ');
+        const inputYear = inputParts[0];
+        const inputMonth = inputParts[1] - 1;
+        const inputDay = inputParts[2];
+        const inputHour = inputParts[3];
+        const inputMinute = inputParts[4];
+        const inputSecond = inputParts[5];
+        currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond));
+        currentDateTime.setUTCFullYear(inputYear);
     }
     
     //let currentTimeZone = currentDateTime.getTimezoneOffset();
@@ -80,6 +88,7 @@ function updateDateAndTime(dateInput) {
     const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
     const fallEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'autumn');
     const marsSolDay = getMarsSolDate(julianDay);
+    const julianSolNumber = getJulianSolDate(marsSolDay);
 
     // All fractional times
     setTimeValue('local-time-node', gregorianLocal.time);
@@ -106,7 +115,8 @@ function updateDateAndTime(dateInput) {
     setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
     setTimeValue('dynamical-time-node', getDynamicalTimeForward(currentDateTime));
     setTimeValue('lilian-date-node', getLilianDate(julianDay));
-    setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
+    setTimeValue('mars-sol-date-node', marsSolDay.toFixed(0));
+    setTimeValue('julian-sol-number-node', julianSolNumber.toFixed(0));
 
     // Decimal Time
     setTimeValue('revolutionary-time-node', getRevolutionaryTime(dayFraction));
@@ -130,7 +140,10 @@ function updateDateAndTime(dateInput) {
     setTimeValue('coptic-node', julianDayToCoptic(julianDay));
     setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
     setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
+
+    // Other Calendars
     setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
+    setTimeValue('darian-node', getDarianCalendar(julianSolNumber));
 
     // Lunisolar Calendars
     let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
@@ -180,7 +193,7 @@ function createElements() {
         otherCalendars,
         astronomicalData,
         popCultureData,
-        politics
+        politicalCycles
     ];
 
     dataArrays.forEach(dataArray => {
@@ -203,7 +216,7 @@ function createnode(item) {
     const otherCalendars = document.querySelector('.other-calendars');
     const astronomicalData = document.querySelector('.astronomical-data');
     const popCulture = document.querySelector('.pop-culture');
-    const politics = document.querySelector('.politics');
+    const politicalCycles = document.querySelector('.politics');
 
     // Create a div element for the node
     const node = document.createElement('div');
@@ -364,7 +377,7 @@ function createnode(item) {
         'Other Calendar': otherCalendars,
         'Astronomical Data': astronomicalData,
         'Pop Culture': popCulture,
-        'Politics': politics
+        'Politics': politicalCycles
     };
 
     // Append node to the corresponding parent element based on item type
