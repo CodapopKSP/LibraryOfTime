@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function () {
 createElements();
 
 // Update the date and time every millisecond
-//updateIntervalId = setInterval(updateDateAndTime, 1);
+updateIntervalId = setInterval(updateDateAndTime, 1);
 changeHeaderButton('header-button-1', 0);
 
 // Initial update
