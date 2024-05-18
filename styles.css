@@ -66,29 +66,19 @@ a {
     display: grid;
     justify-content: center;
     max-width: 60vw;
-    width: 60vw;
-    left: 0;
     top: 6vh;
-    margin-left: 3vh;
-    margin-right: 0vh;
-    margin-top: 2vh;
-    margin-bottom: 0;
+    margin: 2vh 0 0 3vh;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     grid-gap: 1vw;
-}
-
-.container-wrapper {
-    position: relative;
 }
 
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: top;
     align-items: center;
     font-size: 1.3vh;
     border: 0.25vh solid #000000;
-    margin-bottom: 1vh;
+    margin: 0 1vh 1vh 0vh;
 }
 
 .standard-time {

@@ -61,6 +61,16 @@ document.querySelector('.description-wrapper').appendChild(sourcesDescription);
 let visibleTooltip = aboutDescription;
 currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescription, sourcesDescription];
 
+document.addEventListener('DOMContentLoaded', function () {
+    var grid = document.querySelector('.node-wrapper');
+    var msnry = new Masonry(grid, {
+        itemSelector: '.container',
+        columnWidth: '.container',
+        percentPosition: true,
+    });
+});
+
+
 function updateDateAndTime(dateInput) {
     let currentDateTime = '';
     if (dateInput === undefined) {
