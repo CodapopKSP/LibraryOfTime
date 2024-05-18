@@ -61,16 +61,6 @@ document.querySelector('.description-wrapper').appendChild(sourcesDescription);
 let visibleTooltip = aboutDescription;
 currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescription, sourcesDescription];
 
-document.addEventListener('DOMContentLoaded', function () {
-    var grid = document.querySelector('.node-wrapper');
-    var msnry = new Masonry(grid, {
-        itemSelector: '.container',
-        columnWidth: '.container',
-        percentPosition: true,
-    });
-});
-
-
 function updateDateAndTime(dateInput) {
     let currentDateTime = '';
     if (dateInput === undefined) {
@@ -475,11 +465,21 @@ function homeButton() {
     }
 }
 
+// Masonry Tiling library
+document.addEventListener('DOMContentLoaded', function () {
+    var grid = document.querySelector('.node-wrapper');
+    var msnry = new Masonry(grid, {
+        itemSelector: '.container',
+        columnWidth: '.container',
+        percentPosition: true,
+    });
+});
+
 // Draw elements in HTML
 createElements();
 
 // Update the date and time every millisecond
-updateIntervalId = setInterval(updateDateAndTime, 1);
+//updateIntervalId = setInterval(updateDateAndTime, 1);
 changeHeaderButton('header-button-1', 0);
 
 // Initial update

@@ -65,10 +65,12 @@ a {
     position: relative;
     display: grid;
     justify-content: center;
-    max-width: 60vw;
+    align-items: center;
+    max-width: 63vw;
     top: 6vh;
-    margin: 2vh 0 0 3vh;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    left: 1vh;
+    margin: 2vh 0 0 2vh;
+    grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
     grid-gap: 1vw;
 }
 
@@ -79,6 +81,7 @@ a {
     font-size: 1.3vh;
     border: 0.25vh solid #000000;
     margin: 0 1vh 1vh 0vh;
+    width: 17vh;
 }
 
 .standard-time {
@@ -144,7 +147,7 @@ a {
 
 .node {
     margin: 0.5vh;
-    width: 10vw;
+    width: 16vh;
     position: relative;
     display: inline-block;
 }
@@ -417,7 +420,7 @@ th, td {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
     .node {
-        width: 12vw;
+        width: 16vh;
     }
     .tooltip {
         font-size: 1.6vh;
@@ -448,26 +451,12 @@ th, td {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-gap: 0.2vw;
     }
-    .container {
-        width: 18vw;
-    }
-    .node {
-        width: 16vw;
-        overflow: hidden;
-    }
 }
 
 @media (max-aspect-ratio: 2/1.95) {
     .node-wrapper {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         width: 55vw;
-    }
-    .container {
-        width: 24vw;
-    }
-    .node {
-        width: 22vw;
-        overflow: hidden;
     }
     .tooltip {
         font-size: 1.6vh;
@@ -502,6 +491,12 @@ th, td {
         padding: 0.5vh;
         padding-top: 1vh;
         min-width: 10vw;
+    }
+    .container {
+        width: 15vh;
+    }
+    .node {
+        width: 14vh;
     }
 }
 
