@@ -185,7 +185,7 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
         month = 0;
     }
     let day = Math.trunc(daysSinceSeptember22 % 30)+1;
-    return day + " " + FrenchRevolutionaryMonths[month] + "\n" + toRomanNumerals(yearsSince1792) + ' RE';
+    return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
 

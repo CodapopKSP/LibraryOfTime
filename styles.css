@@ -518,6 +518,15 @@ th, td {
         width: 8vw;
         font-size: 1vh;
     }
+    .container {
+        width: 14vh;
+    }
+    .node {
+        width: 13vh;
+    }
+    .content {
+        font-size: 1vh;
+    }
 }
 
 @media (max-aspect-ratio: 2/2.4) {
@@ -527,5 +536,11 @@ th, td {
     .header-button {
         width: 2vw;
         font-size: 0.8vh;
+    }
+    .container {
+        width: 13vh;
+    }
+    .node {
+        width: 12.5vh;
     }
 }
