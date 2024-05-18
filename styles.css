@@ -422,7 +422,7 @@ th, td {
 |====================|
 */
 
-@media (max-aspect-ratio: 2/1.5) {
+@media (max-aspect-ratio: 2/1.51) {
     .node-wrapper {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
