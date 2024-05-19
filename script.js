@@ -94,17 +94,13 @@ function updateDateAndTime(dateInput, firstPass) {
     //currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
 
     const decimals = 10;
-    const gregorianLocal = getGregorianDateTime(currentDateTime);
     const julianDay = getJulianDayNumber(currentDateTime)
     const dayFraction = calculateDay(currentDateTime)
-    const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
-    const fallEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'autumn');
     const marsSolDay = getMarsSolDate(julianDay);
-    const julianSolNumber = getJulianSolDate(marsSolDay);
 
     // All fractional times
     if ((currentDateTime.getMilliseconds() < 50)||(currentPass===100)) {
-        setTimeValue('local-time-node', gregorianLocal.time);
+        setTimeValue('local-time-node', getGregorianDateTime(currentDateTime).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }
     setTimeValue('day-node', dayFraction.toFixed(decimals));
@@ -133,7 +129,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
         setTimeValue('lilian-date-node', getLilianDate(julianDay));
         setTimeValue('mars-sol-date-node', marsSolDay.toFixed(0));
-        setTimeValue('julian-sol-number-node', julianSolNumber.toFixed(0));
+        setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
         setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
     }
 
@@ -148,24 +144,24 @@ function updateDateAndTime(dateInput, firstPass) {
 
     // Solar Calendars
     if ((currentPass===5)||(currentPass===100)) {
-        setTimeValue('gregorian-node', gregorianLocal.date);
+        setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
         setTimeValue('julian-node', getJulianCalendar(currentDateTime));
         setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
         setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
-        setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, fallEquinox));
+        setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'autumn')));
         setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
         setTimeValue('minguo-node', getMinguo(currentDateTime));
         setTimeValue('thai-node', getThaiSolar(currentDateTime));
         setTimeValue('juche-node', getJuche(currentDateTime));
         setTimeValue('coptic-node', julianDayToCoptic(julianDay));
         setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
-        setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
+        setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'spring')));
     }
 
     // Other Calendars
     if ((currentPass===5)||(currentPass===100)) {
         setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
-        setTimeValue('darian-node', getDarianCalendar(julianSolNumber));
+        setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
     }
 
     // Lunisolar Calendars
@@ -202,9 +198,9 @@ function updateDateAndTime(dateInput, firstPass) {
 
     // Astronomical Data
     if ((currentPass===6)||(currentPass===100)) {
-        setTimeValue('spring-equinox-node', springEquinox.toUTCString());
+        setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
         setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
-        setTimeValue('autumn-equinox-node', fallEquinox.toUTCString());
+        setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
     }
     if ((currentPass===7)||(currentPass===100)) {
         setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
