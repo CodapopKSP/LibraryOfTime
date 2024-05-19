@@ -112,3 +112,10 @@ function getMarsSolDate(julianDay) {
 function getJulianSolDate(marsSolDate) {
     return marsSolDate + 94129;
 }
+
+// Return the Kali Ahargana from midnight (IST)
+function getKaliAhargana(currentDateTime) {
+    const kAOf10July2001 = 1863635;
+    const July10of2001 = new Date(Date.UTC(2001, 6, 9, 18, 30));
+    return differenceInDays(currentDateTime, July10of2001) + kAOf10July2001;
+}

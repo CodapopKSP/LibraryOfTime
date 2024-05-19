@@ -301,6 +301,18 @@ const computingTimeData = [
         accuracy: 'This clock should be very accurate, though I am unsure how Dynamical Time factors into it, which could cause it to be off by a few minutes.',
         source: `Much of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.\n\nDates can also be verified with <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">this website</a>, though some inaccuracies have been noted.`
     },
+
+    {
+        name: 'Kali Ahargaṅa (IST)',
+        id: 'kali-ahargaṅa',
+        type: 'Computing Time',
+        epoch: '18 February 3102 BCE',
+        confidence: 'High',
+        overview: ``,
+        info: '',
+        accuracy: '',
+        source: ``
+    },
 ]
 
 const decimalTimeData = [

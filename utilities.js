@@ -22,3 +22,7 @@ function getMidnightInUTC(dateToFind, utcMidnight) {
     midnightInChina.setMilliseconds(0);
     return midnightInChina;
 }
+
+function differenceInDays(date1, date2) {
+    return (date1 - date2)/1000/60/60/24;
+}
