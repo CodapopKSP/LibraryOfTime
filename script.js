@@ -64,14 +64,22 @@ currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescript
 function updateDateAndTime(dateInput, firstPass) {
     let currentPass = 0;
     let currentDateTime = '';
+    const decimals = 10; // Decimals to show in some nodes
+    const millisecondStart = 10; // The timeframe that 1s incrementing updates have each second, starting at 0ms
+
+    // If there is no date input
     if ((dateInput === 0)||(dateInput === undefined)) {
         currentDateTime = new Date();
+
+        // Create pass number for optimization so that calendars don't all update constantly
         for (let i = 0; i < 8; i++) {
             let lastDigit = currentDateTime.getSeconds() % 10;
             if (lastDigit === i) {
                 currentPass = i;
             }
         }
+
+    // There is a date input
     } else {
         const inputParts = dateInput.split(', ');
         const inputYear = inputParts[0];
@@ -85,16 +93,12 @@ function updateDateAndTime(dateInput, firstPass) {
         currentPass = 100;
     }
 
+    // Website just loaded, so update all calendars
     if (firstPass===true) {
         currentPass = 100;
     }
-    
-    //let currentTimeZone = currentDateTime.getTimezoneOffset();
-    //let fixedTimeZone = Math.floor(Math.abs(currentTimeZone/60));
-    //currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
 
-    const decimals = 10;
-    const millisecondStart = 10;
+    // Calculations that are used by multiple nodes
     const julianDay = getJulianDayNumber(currentDateTime)
     const dayFraction = calculateDay(currentDateTime)
     const marsSolDay = getMarsSolDate(julianDay);
@@ -219,6 +223,7 @@ function updateDateAndTime(dateInput, firstPass) {
     setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
 }
 
+// Create the nodes
 function createElements() {
     const dataArrays = [
         standardTimeData,
@@ -344,6 +349,7 @@ function createnode(item) {
     document.querySelector('.description-wrapper').appendChild(accuracyDescription);
     document.querySelector('.description-wrapper').appendChild(sourceDescription);
 
+    // Node is clicked
     node.addEventListener('click', () => {
         // Select a node and update the description while deselecting an old node
         visibleTooltip.style.visibility = 'hidden';
@@ -381,12 +387,11 @@ function createnode(item) {
         headerButton4.innerHTML = "<b>Source</b>";
     });
 
-
+    // Node is hovered
     node.addEventListener('mouseenter', () => {
         // Change border color when mouse is hovering
         content.style.borderColor = 'rgb(150, 150, 150)';
     });
-
     node.addEventListener('mouseleave', () => {
         // Change border back to default if not selected
         if (selectedNode !== content) {
@@ -394,6 +399,7 @@ function createnode(item) {
         }
     });
 
+    // Animation for node click
     node.addEventListener('mousedown', () => {
         // Change background color of a node when selected
         content.style.backgroundColor = 'rgb(150, 150, 150)';
@@ -428,6 +434,7 @@ function createnode(item) {
     }
 }
 
+// Main function for populating a node
 function setTimeValue(type, value) {
     document.getElementById(type).textContent = value;
 }
