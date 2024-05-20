@@ -24,6 +24,7 @@ function getMidnightInUTC(dateToFind, utcMidnight) {
 }
 
 function differenceInDays(date1, date2) {
-    const divisor = 1/1000/60/60/24;    //Do NOT touch this. Collapsing it to a one liner breaks the JS minifier used in ./actions/release.py
-    return (date1 - date2) * divisor;
+    const day = 86400000;       // Equals 1000*60*60*24, converts ms to days
+
+    return (date1 - date2) / day;
 }
