@@ -41,8 +41,12 @@ def main():
         
         # Minify HTML file and save again
         minified = minify_html.minify(pretty_html, minify_js=True, minify_css=True, remove_processing_instructions=True)
+
+        # The JS minifier doesn't parse correctly escape sequences: replace all double slashes "\\" with single ones "\"
+        unescaped_minified = minified.replace('\\\\', '\\')    
+
         with open('minified.html', 'w', encoding="utf-8") as out_file:
-            out_file.write(minified)
+            out_file.write(unescaped_minified)
 
 
 # Returns a string containing the content of all script tags
