@@ -9,7 +9,7 @@ def main():
         soup = BeautifulSoup(in_file, 'lxml')
 
         # Extract linked tags from the HTML
-        scripts = soup.find_all('script')
+        scripts = soup.body.find_all('script')
         styles = soup.find('link', rel='stylesheet')
         favicon = soup.find('link', rel='icon')
 
