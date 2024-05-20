@@ -361,12 +361,12 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
         lastYear.setFullYear(currentDateTime.getFullYear()-1);
         lastYear.setMonth(10);
         startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'spring');
-        endingEquinox = vernalEquinox;
+        endingEquinox = new Date(vernalEquinox);
     } else {
         let nextYear = new Date(currentDateTime);
         nextYear.setFullYear(currentDateTime.getFullYear()+1);
         nextYear.setMonth(10);
-        startingEquinox = vernalEquinox;
+        startingEquinox = new Date(vernalEquinox);
         endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'spring');
     }
 
@@ -518,6 +518,7 @@ function getDiscordianDate(currentDateTime) {
 
 function getSolarHijriDate(currentDateTime, vernalEquinox) {
 
+    console.log(vernalEquinox);
     // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
     function figureOutEquinoxBeforeAfterNoon(equinox) {
         let equinoxDayNoon = new Date(equinox);
@@ -543,12 +544,12 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         lastYear.setFullYear(currentDateTime.getFullYear()-1);
         lastYear.setMonth(10);
         startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'spring');
-        endingEquinox = vernalEquinox;
+        endingEquinox = new Date(vernalEquinox);
     } else {
         let nextYear = new Date(currentDateTime);
         nextYear.setFullYear(currentDateTime.getFullYear()+1);
         nextYear.setMonth(10);
-        startingEquinox = vernalEquinox;
+        startingEquinox = new Date(vernalEquinox);
         endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'spring');
     }
 
@@ -573,11 +574,10 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         "Esfand",
     ];
 
-    const daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,29];
-    if (leapYear===366) {
+    let daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,29];
+    if (leapYear) {
         daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,30];
     }
-    console.log(remainingDays);
 
     // Iterate through days of months and subtract from remaining days
     let monthIndex = 0;
@@ -586,6 +586,9 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
             break;
         }
         remainingDays -= daysOfMonths[monthIndex];
+    }
+    if (monthIndex>11) {
+        monthIndex=0;
     }
 
     const day = remainingDays+1;
