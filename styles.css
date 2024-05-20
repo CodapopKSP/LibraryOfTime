@@ -252,6 +252,8 @@ a {
     text-align: left;
     padding: 1vh;
     white-space: pre-wrap;
+    margin: auto 1rem auto 1rem;
+
 }
 
 .tooltip-epoch {
@@ -434,7 +436,7 @@ th, td {
     .table-epoch th {
         min-width: 10vw;
     }
-    
+
     .table-confidence th {
         min-width: 10vw;
     }
@@ -444,7 +446,7 @@ th, td {
         padding-bottom: 1vh;
         min-width: 10vw;
     }
-    
+
     .tooltip-confidence {
         padding: 2vh;
         padding-top: 1vh;
@@ -476,7 +478,7 @@ th, td {
     #date-input {
         font-size: 1vh;
     }
-    
+
     #change-date-button {
         height: 2.5vh;
         width: 10vw;
@@ -492,7 +494,7 @@ th, td {
         padding-top: 1vh;
         min-width: 10vw;
     }
-    
+
     .tooltip-confidence {
         padding: 0.5vh;
         padding-top: 1vh;
@@ -518,7 +520,7 @@ th, td {
         font-size: 0.9vh;
         width: 20vw;
     }
-    
+
     #change-date-button {
         height: 2.5vh;
         width: 8vw;
