@@ -1,0 +1,48 @@
+name: Publish minified HTML as release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: pip install -r./requirements.txt
+      working-directory: "./actions"
+
+    - name: Generate HTML
+      run: python release.py
+      working-directory: "./actions"
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v0.${{ github.run_id }}-${{ github.run_attempt }}
+        release_name: Minified site
+        body: The entire site compressed into a single .html file. This release is created automatically on every push to the repo. Please disregard the version number and simply download the latest one.
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: "./actions/minified.html"
+        asset_name: library_of_time.html
+        asset_content_type: text/html
