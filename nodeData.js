@@ -535,6 +535,18 @@ const solarCalendarsData = [
         accuracy: `The Pataphysical calendar is based off the Gregorian calendar and is thus exactly accurate.`,
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/%27Pataphysics#Pataphysical_calendar">Wikipedia article</a>.'
     },
+
+    {
+        name: 'Discordian',
+        id: 'discordian',
+        type: 'Solar Calendar',
+        epoch: '1 January 1165 BCE',
+        confidence: 'Exact',
+        overview: `The Discordian calendar is the calendar used in the virtual religion of Discordianism. It features 5 months, each of 73 days, with the year beginning on January 1st.\n\nIt follows Gregorian leap years, inserting a day between the 59th and 60th of the month of Chaos, lining up with February 29th on the Gregorian calendar. The leap day is called 'St. Tib's Day', and it takes place outside of any month or week, as though the calendar paused for a day.`,
+        info: `<table class="table-long"><tr><th>Months</th><th>Days</th><th>Approx. Gregorian Time</th></tr><tr><td>Chaos</td><td>73</td><td>Jan 1 - Mar 14</td></tr><tr><td>Discord</td><td>73</td><td>Mar 15 - May 26</td></tr><tr><td>Confusion</td><td>73</td><td>May 27 - Aug 8</td></tr><tr><td>Bureaucracy</td><td>73</td><td>Aug 9 - Oct 19</td></tr><tr><td>The Aftermath</td><td>73</td><td>Oct 20 - Dec 31</td></tr><tr><td>St. Tib's Day</td><td>1</td><td>Feb 29</td></tr></table>`,
+        accuracy: `The Discordian calendar is based off the Gregorian calendar and is thus exactly accurate.`,
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Discordian_calendar">Wikipedia article</a>.'
+    },
 ]
 
 const lunisolarCalendarsData = [

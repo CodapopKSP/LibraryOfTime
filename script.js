@@ -158,6 +158,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
         setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'spring')));
         setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime));
+        setTimeValue('discordian-node', getDiscordianDate(currentDateTime));
     }
 
     // Other Calendars

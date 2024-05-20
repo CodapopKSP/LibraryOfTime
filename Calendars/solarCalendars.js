@@ -463,13 +463,13 @@ function getPataphysicalDate(currentDateTime) {
         "Gidouille",
         "Tatane",
         "Phalle",
-    ]
+    ];
 
     // Last mont doesn't really have 30 days, but it's necessary
     let daysOfMonths = [28,28,28,28,28,28,28,28,28,28,29,28,29];
     let nextSept8 = new Date(mostRecentSept8);
     nextSept8.setFullYear(mostRecentSept8.getFullYear()+1);
-    const daysInYear = differenceInDays(nextSept8, mostRecentSept8)
+    const daysInYear = differenceInDays(nextSept8, mostRecentSept8);
 
     if (daysInYear===366) {
         daysOfMonths = [28,28,28,28,28,29,28,28,28,28,29,28,28];
@@ -489,4 +489,34 @@ function getPataphysicalDate(currentDateTime) {
     let year = mostRecentSept8.getFullYear()-1872; // Get epoch
 
     return day + ' ' + month + ' ' + year;
+}
+
+function getDiscordianDate(currentDateTime) {
+    const startOfYear = new Date(currentDateTime.getFullYear(), 0, 1);
+    const endOfYear = new Date(currentDateTime.getFullYear()+1, 0, 1);
+    let remainingDays = Math.floor(differenceInDays(currentDateTime, startOfYear)+1);
+    const leapYear = differenceInDays(endOfYear, startOfYear) === 366;
+
+    const months = [
+        "Chaos",
+        "Discord",
+        "Confusion",
+        "Bureaucracy",
+        "The Aftermath"
+    ];
+
+    if ((leapYear)&&(remainingDays>=60)) {
+        console.log(remainingDays);
+        if (remainingDays===60) {
+            return `St. Tib's Day`;
+        }
+        remainingDays--;
+    }
+
+    const daysPerMonth = 73;
+    let month = Math.floor(remainingDays / daysPerMonth);
+    let day = Math.floor(remainingDays % daysPerMonth);
+    let year = currentDateTime.getFullYear() + 1166;
+
+    return day + ' ' + months[month] + ' ' + year + ' YOLD';
 }
