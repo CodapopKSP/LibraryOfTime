@@ -188,14 +188,6 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
-
-
-
-
-
-
-
-
 // Returns a formatted EF local date
 function getEraFascista(currentDateTime) {
     // Only update the year if past October 29th, otherwise it is the previous year.
@@ -316,12 +308,14 @@ function getFlorentineCalendar(currentDateTime) {
     march25ThisYear.setSeconds(0);
     march25ThisYear.setMilliseconds(0);
 
+    // Figure out if past sunset
     if (florentineDate.getUTCHours()>=19) {
         florentineDate.setUTCDate(florentineDate.getUTCDate()+2);
     } else {
         florentineDate.setUTCDate(florentineDate.getUTCDate()+1);
     }
 
+    // Figure out in New Year has passed
     if (florentineDate>march25ThisYear) {
         florentineDate.setUTCFullYear(florentineDate.getUTCFullYear()+1);
     }
@@ -440,6 +434,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     return day + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE';
 }
 
+// Returns a formatted Pataphysical local date
 function getPataphysicalDate(currentDateTime) {
     let mostRecentSept8 = new Date(currentDateTime.getFullYear(), 8, 8);
     if (currentDateTime < mostRecentSept8) {
@@ -491,6 +486,7 @@ function getPataphysicalDate(currentDateTime) {
     return day + ' ' + month + ' ' + year;
 }
 
+// Returns a formatted Discordian local date
 function getDiscordianDate(currentDateTime) {
     const startOfYear = new Date(currentDateTime.getFullYear(), 0, 1);
     const endOfYear = new Date(currentDateTime.getFullYear()+1, 0, 1);
@@ -505,6 +501,7 @@ function getDiscordianDate(currentDateTime) {
         "The Aftermath"
     ];
 
+    // Figure out Leap Year logic
     if ((leapYear)&&(remainingDays>=60)) {
         console.log(remainingDays);
         if (remainingDays===60) {
@@ -513,6 +510,7 @@ function getDiscordianDate(currentDateTime) {
         remainingDays--;
     }
 
+    // Get final values
     const daysPerMonth = 73;
     let month = Math.floor(remainingDays / daysPerMonth);
     let day = Math.floor(remainingDays % daysPerMonth);
