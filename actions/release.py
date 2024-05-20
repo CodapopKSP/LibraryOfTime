@@ -14,15 +14,28 @@ def main():
         # Read linked files and extract into strings
         scripts = parse_scripts(scripts)
         styles = parse_styles(styles)
-        favicon_link = parse_favicon(favicon)
+        favicon_data = parse_favicon(favicon)
 
         # Remove linked tags from the original document
         for tag in soup(['script', 'style', 'link']):
             tag.decompose()
 
-        # print(scripts)
-        # print(styles)
-        # print(favicon_link)
+        # Append new tags
+        new_script_tag = soup.new_tag('script')
+        new_script_tag.string = scripts
+        soup.head.append(new_script_tag)
+
+        new_style_tag = soup.new_tag('style')
+        new_style_tag.string = styles
+        soup.head.append(new_style_tag)
+
+        new_favicon_tag = soup.new_tag("link", rel="icon", href='data:image/x-icon;base64,'+favicon_data)
+        soup.head.append(new_favicon_tag)
+
+        # Save to HTML file
+        pretty_html = soup.prettify()
+        with open('./full.html', "w", encoding="utf-8") as file:
+            file.write(pretty_html)
 
 
 # Returns a string containing the content of all script tags
