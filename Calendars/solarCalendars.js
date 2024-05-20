@@ -188,14 +188,6 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
-
-
-
-
-
-
-
-
 // Returns a formatted EF local date
 function getEraFascista(currentDateTime) {
     // Only update the year if past October 29th, otherwise it is the previous year.
@@ -349,12 +341,14 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
         let equinoxDaySunset = new Date(equinox);
         equinoxDaySunset.setUTCHours(12);
         equinoxDaySunset.setMinutes(30);
+        equinoxDaySunset.setSeconds(0);
         equinoxDaySunset.setMilliseconds(0);
         if (equinox < equinoxDaySunset) {
             equinox.setDate(equinox.getDate()-1);
         }
         equinox.setUTCHours(12);
         equinox.setMinutes(30);
+        equinox.setSeconds(0);
         equinox.setMilliseconds(0);
         return equinox;
     }
@@ -440,6 +434,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     return day + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE';
 }
 
+// Returns a formatted Pataphysical local date
 function getPataphysicalDate(currentDateTime) {
     let mostRecentSept8 = new Date(currentDateTime.getFullYear(), 8, 8);
     if (currentDateTime < mostRecentSept8) {
@@ -491,6 +486,7 @@ function getPataphysicalDate(currentDateTime) {
     return day + ' ' + month + ' ' + year;
 }
 
+// Returns a formatted Discordian local date
 function getDiscordianDate(currentDateTime) {
     const startOfYear = new Date(currentDateTime.getFullYear(), 0, 1);
     const endOfYear = new Date(currentDateTime.getFullYear()+1, 0, 1);
@@ -506,7 +502,6 @@ function getDiscordianDate(currentDateTime) {
     ];
 
     if ((leapYear)&&(remainingDays>=60)) {
-        console.log(remainingDays);
         if (remainingDays===60) {
             return `St. Tib's Day`;
         }
@@ -519,4 +514,83 @@ function getDiscordianDate(currentDateTime) {
     let year = currentDateTime.getFullYear() + 1166;
 
     return day + ' ' + months[month] + ' ' + year + ' YOLD';
+}
+
+function getSolarHijriDate(currentDateTime, vernalEquinox) {
+
+    // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
+    function figureOutEquinoxBeforeAfterNoon(equinox) {
+        let equinoxDayNoon = new Date(equinox);
+        equinoxDayNoon.setUTCHours(8);
+        equinoxDayNoon.setMinutes(30);
+        equinoxDayNoon.setSeconds(0);
+        equinoxDayNoon.setMilliseconds(0);
+        if (equinox > equinoxDayNoon) {
+            equinox.setDate(equinox.getDate()+1);
+        }
+        equinox.setUTCHours(20);
+        equinox.setMinutes(30);
+        equinox.setSeconds(0);
+        equinox.setMilliseconds(0);
+        return equinox;
+    }
+
+    let startingEquinox = '';
+    let endingEquinox = '';
+
+    if (currentDateTime < vernalEquinox) {
+        let lastYear = new Date(currentDateTime);
+        lastYear.setFullYear(currentDateTime.getFullYear()-1);
+        lastYear.setMonth(10);
+        startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'spring');
+        endingEquinox = vernalEquinox;
+    } else {
+        let nextYear = new Date(currentDateTime);
+        nextYear.setFullYear(currentDateTime.getFullYear()+1);
+        nextYear.setMonth(10);
+        startingEquinox = vernalEquinox;
+        endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'spring');
+    }
+
+    // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
+    startingEquinox = figureOutEquinoxBeforeAfterNoon(startingEquinox);
+    endingEquinox = figureOutEquinoxBeforeAfterNoon(endingEquinox);
+    const leapYear = differenceInDays(endingEquinox, startingEquinox) === 366;
+    let remainingDays = Math.floor(differenceInDays(currentDateTime, startingEquinox))+1;
+
+    const SolarHijri = [
+        "Farvardin",
+        "Ordibehesht",
+        "Khordad",
+        "Tir",
+        "Mordad",
+        "Shahrivar",
+        "Mehr",
+        "Aban",
+        "Azar",
+        "Dey",
+        "Bahman",
+        "Esfand",
+    ];
+
+    const daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,29];
+    if (leapYear===366) {
+        daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,30];
+    }
+    console.log(remainingDays);
+
+    // Iterate through days of months and subtract from remaining days
+    let monthIndex = 0;
+    for (; monthIndex < daysOfMonths.length; monthIndex++) {
+        if (remainingDays < daysOfMonths[monthIndex]) {
+            break;
+        }
+        remainingDays -= daysOfMonths[monthIndex];
+    }
+
+    const day = remainingDays+1;
+    const month = SolarHijri[monthIndex];
+
+
+    return day + ' ' + month;
 }

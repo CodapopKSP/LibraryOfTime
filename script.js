@@ -149,6 +149,7 @@ function updateDateAndTime(dateInput, firstPass) {
 
     // Solar Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
+        const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
         setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
         setTimeValue('julian-node', getJulianCalendar(currentDateTime));
         setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
@@ -160,9 +161,10 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('juche-node', getJuche(currentDateTime));
         setTimeValue('coptic-node', julianDayToCoptic(julianDay));
         setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
-        setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'spring')));
+        setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
         setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime));
         setTimeValue('discordian-node', getDiscordianDate(currentDateTime));
+        setTimeValue('solar-hijri-node', getSolarHijriDate(currentDateTime, springEquinox));
     }
 
     // Other Calendars

@@ -8,7 +8,10 @@ Node Data is a collection of data for each node.
     type:           The type of calendar/time.
     epoch:          The starting epoch of the calendar/time.
     confidence:     A measure of how confident I am in the node's accuracy.
-    overview:    The text that appears on hover.
+    overview:       The text that appears in the overview tab.
+    info:           The text that appears in the info tab.
+    accuracy:       The text that appears in the accuracy tab.
+    source:         The text that appears in the source tab.
 */
 
 const standardTimeData = [
@@ -546,6 +549,18 @@ const solarCalendarsData = [
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th><th>Approx. Gregorian Time</th></tr><tr><td>Chaos</td><td>73</td><td>Jan 1 - Mar 14</td></tr><tr><td>Discord</td><td>73</td><td>Mar 15 - May 26</td></tr><tr><td>Confusion</td><td>73</td><td>May 27 - Aug 8</td></tr><tr><td>Bureaucracy</td><td>73</td><td>Aug 9 - Oct 19</td></tr><tr><td>The Aftermath</td><td>73</td><td>Oct 20 - Dec 31</td></tr><tr><td>St. Tib's Day</td><td>1</td><td>Feb 29</td></tr></table>`,
         accuracy: `The Discordian calendar is based off the Gregorian calendar and is thus exactly accurate.`,
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Discordian_calendar">Wikipedia article</a>.'
+    },
+
+    {
+        name: 'Solar Hijri',
+        id: 'solar-hijri',
+        type: 'Solar Calendar',
+        epoch: '',
+        confidence: 'High',
+        overview: ``,
+        info: ``,
+        accuracy: ``,
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Solar_Hijri_calendar">Wikipedia article</a>.'
     },
 ]
 
