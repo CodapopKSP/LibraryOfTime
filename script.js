@@ -61,20 +61,32 @@ document.querySelector('.description-wrapper').appendChild(sourcesDescription);
 let visibleTooltip = aboutDescription;
 currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescription, sourcesDescription];
 
-function updateDateAndTime(dateInput) {
+function updateDateAndTime(dateInput, firstPass) {
+    let currentPass = 0;
     let currentDateTime = '';
-    if (dateInput === undefined) {
+    if ((dateInput === 0)||(dateInput === undefined)) {
         currentDateTime = new Date();
+        for (let i = 0; i < 8; i++) {
+            let lastDigit = currentDateTime.getSeconds() % 10;
+            if (lastDigit === i) {
+                currentPass = i;
+            }
+        }
     } else {
         const inputParts = dateInput.split(', ');
         const inputYear = inputParts[0];
         const inputMonth = inputParts[1] - 1;
         const inputDay = inputParts[2];
-        const inputHour = inputParts[3];
-        const inputMinute = inputParts[4];
-        const inputSecond = inputParts[5];
+        const inputHour = inputParts[3] || 0;
+        const inputMinute = inputParts[4] || 0;
+        const inputSecond = inputParts[5] || 0;
         currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond));
         currentDateTime.setUTCFullYear(inputYear);
+        currentPass = 100;
+    }
+
+    if (firstPass===true) {
+        currentPass = 100;
     }
     
     //let currentTimeZone = currentDateTime.getTimezoneOffset();
@@ -82,17 +94,16 @@ function updateDateAndTime(dateInput) {
     //currentDateTime.setHours(currentDateTime.getUTCHours() + fixedTimeZone);
 
     const decimals = 10;
-    const gregorianLocal = getGregorianDateTime(currentDateTime);
+    const millisecondStart = 10;
     const julianDay = getJulianDayNumber(currentDateTime)
     const dayFraction = calculateDay(currentDateTime)
-    const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
-    const fallEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'autumn');
     const marsSolDay = getMarsSolDate(julianDay);
-    const julianSolNumber = getJulianSolDate(marsSolDay);
 
     // All fractional times
-    setTimeValue('local-time-node', gregorianLocal.time);
-    setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
+    if ((currentDateTime.getMilliseconds() < millisecondStart)||(currentPass===100)) {
+        setTimeValue('local-time-node', getGregorianDateTime(currentDateTime).time);
+        setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
+    }
     setTimeValue('day-node', dayFraction.toFixed(decimals));
     setTimeValue('month-node', calculateMonth(currentDateTime).toFixed(decimals));
     setTimeValue('year-node', calculateYear(currentDateTime).toFixed(decimals));
@@ -101,22 +112,27 @@ function updateDateAndTime(dateInput) {
     setTimeValue('second-node', calculateSecond(currentDateTime).toFixed(decimals));
     setTimeValue('decade-node', calculateDecade(currentDateTime).toFixed(decimals));
     setTimeValue('century-node', calculateCentury(currentDateTime).toFixed(decimals));
-    setTimeValue('millennium-node', calculateMillennium(currentDateTime).toFixed(decimals));
+    if ((currentDateTime.getMilliseconds() > 900)||(currentPass===100)) {
+        setTimeValue('millennium-node', calculateMillennium(currentDateTime).toFixed(decimals));
+    }
 
     // Computing Times
-    setTimeValue('unix-node', getUnixTime(currentDateTime));
-    setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
-    setTimeValue('iso8601-node', currentDateTime.toISOString());
-    setTimeValue('gps-node', getGPSTime(currentDateTime));
     setTimeValue('julian-day-number-node', julianDay);
-    setTimeValue('julian-period-node', getJulianPeriod(currentDateTime));
-    setTimeValue('rata-die-node', getRataDie(currentDateTime));
-    setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
-    setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
     setTimeValue('dynamical-time-node', getDynamicalTimeForward(currentDateTime));
-    setTimeValue('lilian-date-node', getLilianDate(julianDay));
-    setTimeValue('mars-sol-date-node', marsSolDay.toFixed(0));
-    setTimeValue('julian-sol-number-node', julianSolNumber.toFixed(0));
+    setTimeValue('iso8601-node', currentDateTime.toISOString());
+    if ((currentDateTime.getMilliseconds() < millisecondStart)||(currentPass===100)) {
+        setTimeValue('unix-node', getUnixTime(currentDateTime));
+        setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
+        setTimeValue('gps-node', getGPSTime(currentDateTime));
+        setTimeValue('julian-period-node', getJulianPeriod(currentDateTime));
+        setTimeValue('rata-die-node', getRataDie(currentDateTime));
+        setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
+        setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
+        setTimeValue('lilian-date-node', getLilianDate(julianDay));
+        setTimeValue('mars-sol-date-node', marsSolDay.toFixed(0));
+        setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
+        setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
+    }
 
     // Decimal Time
     setTimeValue('revolutionary-time-node', getRevolutionaryTime(dayFraction));
@@ -128,49 +144,71 @@ function updateDateAndTime(dateInput) {
     setTimeValue('coordinated-mars-time-node', getMTC(marsSolDay));
 
     // Solar Calendars
-    setTimeValue('gregorian-node', gregorianLocal.date);
-    setTimeValue('julian-node', getJulianCalendar(currentDateTime));
-    setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
-    setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
-    setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, fallEquinox));
-    setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
-    setTimeValue('minguo-node', getMinguo(currentDateTime));
-    setTimeValue('thai-node', getThaiSolar(currentDateTime));
-    setTimeValue('juche-node', getJuche(currentDateTime));
-    setTimeValue('coptic-node', julianDayToCoptic(julianDay));
-    setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
-    setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
+        setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
+        setTimeValue('julian-node', getJulianCalendar(currentDateTime));
+        setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
+        setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
+        setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'autumn')));
+        setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
+        setTimeValue('minguo-node', getMinguo(currentDateTime));
+        setTimeValue('thai-node', getThaiSolar(currentDateTime));
+        setTimeValue('juche-node', getJuche(currentDateTime));
+        setTimeValue('coptic-node', julianDayToCoptic(julianDay));
+        setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
+        setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'spring')));
+        setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime));
+    }
 
     // Other Calendars
-    setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
-    setTimeValue('darian-node', getDarianCalendar(julianSolNumber));
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
+        setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
+        setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
+    }
 
     // Lunisolar Calendars
-    let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
-    let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, 15); // Vietnam midnight happens at UTC 15:00
-    let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, 17); // Korea midnight happens at UTC 17:00
-    let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
-    setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
-    setTimeValue('chinese-node', chineseCalendar);
-    setTimeValue('vietnamese-node', getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam));
-    setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea));
-    setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime)); // Returns a wrong day for October 10 1989
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===1))||(currentPass===100)) {
+        let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
+        let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
+        setTimeValue('chinese-node', chineseCalendar);
+        setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
+    }
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===2))||(currentPass===100)) {
+        let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, 15); // Vietnam midnight happens at UTC 15:00
+        setTimeValue('vietnamese-node', getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam));
+    }
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===3))||(currentPass===100)) {
+        let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, 17); // Korea midnight happens at UTC 17:00
+        setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea));
+        
+    }
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===3))||(currentPass===100)) {
+        setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime)); // Returns a wrong day for October 10 1989
+    }
 
     // Lunar Calendars
-    setTimeValue('hijri-node', getHijriDate(currentDateTime)); // Returns a wrong day for May 8 2024
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===4))||(currentPass===100)) {
+        setTimeValue('hijri-node', getHijriDate(currentDateTime)); // Returns a wrong day for May 8 2024
+    }
 
     // Proposed Calendars
-    setTimeValue('human-era-node', getHumanEra(currentDateTime));
-    setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
-    setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
+        setTimeValue('human-era-node', getHumanEra(currentDateTime));
+        setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
+        setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
+    }
 
     // Astronomical Data
-    setTimeValue('spring-equinox-node', springEquinox.toUTCString());
-    setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
-    setTimeValue('autumn-equinox-node', fallEquinox.toUTCString());
-    setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
-    setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
-    setTimeValue('this-new-moon-node', getNewMoonThisMonth(currentDateTime, 0).toUTCString());
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===6))||(currentPass===100)) {
+        setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
+        setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
+        setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
+    }
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===7))||(currentPass===100)) {
+        setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
+        setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
+        setTimeValue('this-new-moon-node', getNewMoonThisMonth(currentDateTime, 0).toUTCString());
+    }
 
     // Pop Culture
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime));
@@ -479,8 +517,8 @@ document.addEventListener('DOMContentLoaded', function () {
 createElements();
 
 // Update the date and time every millisecond
-updateIntervalId = setInterval(updateDateAndTime, 1);
+updateIntervalId = setInterval(updateDateAndTime, 10);
 changeHeaderButton('header-button-1', 0);
 
 // Initial update
-updateDateAndTime();
+updateDateAndTime(0, true);

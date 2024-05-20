@@ -337,11 +337,16 @@ a {
     border-bottom: 0;
 }
 
+.tooltip-overview {
+    text-align: justify;
+}
+
 .tooltip-info {
     text-align: left;
     padding: 1vh;
     padding-top: 3vh;
     white-space: pre-wrap;
+    text-align: justify;
 }
 
 .tooltip-accuracy {
@@ -349,6 +354,7 @@ a {
     padding: 1vh;
     padding-top: 3vh;
     white-space: pre-wrap;
+    text-align: justify;
 }
 
 .home-button {

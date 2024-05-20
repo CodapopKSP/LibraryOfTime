@@ -439,3 +439,54 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     }
     return day + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE';
 }
+
+function getPataphysicalDate(currentDateTime) {
+    let mostRecentSept8 = new Date(currentDateTime.getFullYear(), 8, 8);
+    if (currentDateTime < mostRecentSept8) {
+        mostRecentSept8.setFullYear(currentDateTime.getFullYear()-1);
+    }
+
+    // Get days since last September, add 1 because days are 0 based
+    let remainingDays = Math.floor(differenceInDays(currentDateTime, mostRecentSept8));
+
+    const months = [
+        "Absolu",
+        "Haha",
+        "As",
+        "Sable",
+        "Décervelage",
+        "Gueules",
+        "Pédale",
+        "Clinamen",
+        "Palotin",
+        "Merdre",
+        "Gidouille",
+        "Tatane",
+        "Phalle",
+    ]
+
+    // Last mont doesn't really have 30 days, but it's necessary
+    let daysOfMonths = [28,28,28,28,28,28,28,28,28,28,29,28,29];
+    let nextSept8 = new Date(mostRecentSept8);
+    nextSept8.setFullYear(mostRecentSept8.getFullYear()+1);
+    const daysInYear = differenceInDays(nextSept8, mostRecentSept8)
+
+    if (daysInYear===366) {
+        daysOfMonths = [28,28,28,28,28,29,28,28,28,28,29,28,28];
+    }
+
+    // Iterate through days of months and subtract from remaining days
+    let monthIndex = 0;
+    for (; monthIndex < daysOfMonths.length; monthIndex++) {
+        if (remainingDays < daysOfMonths[monthIndex]) {
+            break;
+        }
+        remainingDays -= daysOfMonths[monthIndex];
+    }
+
+    const day = remainingDays+1;
+    const month = months[monthIndex];
+    let year = mostRecentSept8.getFullYear()-1872; // Get epoch
+
+    return day + ' ' + month + ' ' + year;
+}
