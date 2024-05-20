@@ -21,7 +21,7 @@ def main():
             tag.decompose()
 
         # Append new tags
-        new_script_tag = soup.new_tag('script')
+        new_script_tag = soup.new_tag('script', defer=True)
         new_script_tag.string = scripts
         soup.head.append(new_script_tag)
 
@@ -32,10 +32,15 @@ def main():
         new_favicon_tag = soup.new_tag("link", rel="icon", href='data:image/x-icon;base64,'+favicon_data)
         soup.head.append(new_favicon_tag)
 
-        # Save to HTML file
+        # Save to HTML file (full)
         pretty_html = soup.prettify()
         with open('./full.html', "w", encoding="utf-8") as file:
             file.write(pretty_html)
+        
+        # Minify HTML file and save again
+        minified = minify_html.minify(pretty_html, minify_js=True, minify_css=True, remove_processing_instructions=True)
+        with open('minified.html', 'w', encoding="utf-8") as out_file:
+            out_file.write(minified)
 
 
 # Returns a string containing the content of all script tags
