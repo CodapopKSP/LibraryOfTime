@@ -23,7 +23,7 @@ def main():
         # Append new tags
         new_script_tag = soup.new_tag('script', defer=True)
         new_script_tag.string = scripts
-        soup.head.append(new_script_tag)
+        soup.body.append(new_script_tag)
 
         new_style_tag = soup.new_tag('style')
         new_style_tag.string = styles
