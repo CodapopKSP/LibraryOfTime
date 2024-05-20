@@ -36,21 +36,21 @@ const missionDescription = document.createElement('div');
 missionDescription.classList.add('tooltip');
 const missionElement = document.createElement('div');
 missionElement.innerHTML = `${welcomeDescription[0].mission}`;
-missionElement.classList.add('tooltip-info');
+missionElement.classList.add('tooltip-mission');
 missionDescription.appendChild(missionElement);
 
 const accuracyDescription = document.createElement('div');
 accuracyDescription.classList.add('tooltip');
 const accuracyElement = document.createElement('div');
 accuracyElement.innerHTML = `${welcomeDescription[0].accuracy}`;
-accuracyElement.classList.add('tooltip-info');
+accuracyElement.classList.add('tooltip-accuracy');
 accuracyDescription.appendChild(accuracyElement);
 
 const sourcesDescription = document.createElement('div');
 sourcesDescription.classList.add('tooltip');
 const sourcesElement = document.createElement('div');
 sourcesElement.innerHTML = `${welcomeDescription[0].sources}`;
-sourcesElement.classList.add('tooltip-info');
+sourcesElement.classList.add('tooltip-sources');
 sourcesDescription.appendChild(sourcesElement);
 
 document.querySelector('.description-wrapper').appendChild(aboutDescription);
