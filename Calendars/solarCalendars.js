@@ -328,41 +328,44 @@ function getByzantineCalendar(currentDateTime) {
 
 // Returns a formatted Florentine CET date
 function getFlorentineCalendar(currentDateTime) {
-  let florentineDate = getJulianDate(currentDateTime);
 
-  // Get March 25 of the Florentine calendar (sunset on the 24th UTC+1)
-  let march25ThisYear = new Date(florentineDate);
-  march25ThisYear.setMonth(2);
-  march25ThisYear.setUTCDate(24);
-  march25ThisYear.setUTCHours(19);
-  march25ThisYear.setMinutes(0);
-  march25ThisYear.setSeconds(0);
-  march25ThisYear.setMilliseconds(0);
+    let florentineDate = getJulianDate(currentDateTime);
 
-  if (florentineDate.getUTCHours() >= 19) {
-    florentineDate.setUTCDate(florentineDate.getUTCDate() + 2);
-  } else {
-    florentineDate.setUTCDate(florentineDate.getUTCDate() + 1);
-  }
+    // Get March 25 of the Florentine calendar (sunset on the 24th UTC+1)
+    let march25ThisYear = new Date(florentineDate);
+    march25ThisYear.setMonth(2);
+    march25ThisYear.setUTCDate(24);
+    march25ThisYear.setUTCHours(19);
+    march25ThisYear.setMinutes(0);
+    march25ThisYear.setSeconds(0);
+    march25ThisYear.setMilliseconds(0);
 
-  if (florentineDate > march25ThisYear) {
-    florentineDate.setUTCFullYear(florentineDate.getUTCFullYear() + 1);
-  }
+    // Figure out if past sunset
+    if (florentineDate.getUTCHours()>=19) {
+        florentineDate.setUTCDate(florentineDate.getUTCDate()+2);
+    } else {
+        florentineDate.setUTCDate(florentineDate.getUTCDate()+1);
+    }
 
-  // Extract year, month, and day components
-  let yearString = florentineDate.getUTCFullYear();
-  let monthIndex = florentineDate.getUTCMonth(); // Month is zero-based
-  let monthString = monthNames[monthIndex];
-  let dayString = florentineDate.getUTCDate();
+    // Figure out in New Year has passed
+    if (florentineDate>march25ThisYear) {
+        florentineDate.setUTCFullYear(florentineDate.getUTCFullYear()+1);
+    }
 
-  let yearSuffix = "AD";
-  if (yearString < 1) {
-    yearSuffix = "BC";
-  }
+    // Extract year, month, and day components
+    let yearString = florentineDate.getUTCFullYear();
+    let monthIndex = florentineDate.getUTCMonth(); // Month is zero-based
+    let monthString = monthNames[monthIndex];
+    let dayString = florentineDate.getUTCDate();
 
-  let dateString = dayString + " " + monthString + " " + yearString + " " +
-    yearSuffix;
-  return dateString;
+    let yearSuffix = 'AD';
+    if (yearString<1) {
+        yearSuffix = 'BC';
+    }
+    
+    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix;
+    return dateString;
+
 }
 
 // Returns a formatted Baha'i IRST date
@@ -467,6 +470,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
   return day + " " + BahaMonths[monthIndex] + " " + year + " BE";
 }
 
+// Returns a formatted Pataphysical local date
 function getPataphysicalDate(currentDateTime) {
   let mostRecentSept8 = new Date(currentDateTime.getFullYear(), 8, 8);
   if (currentDateTime < mostRecentSept8) {
@@ -520,7 +524,9 @@ function getPataphysicalDate(currentDateTime) {
   return day + " " + month + " " + year;
 }
 
+// Returns a formatted Discordian local date
 function getDiscordianDate(currentDateTime) {
+
   const startOfYear = new Date(currentDateTime.getFullYear(), 0, 1);
   const endOfYear = new Date(currentDateTime.getFullYear() + 1, 0, 1);
   let remainingDays = Math.floor(
@@ -540,14 +546,17 @@ function getDiscordianDate(currentDateTime) {
     console.log(remainingDays);
     if (remainingDays === 60) {
       return `St. Tib's Day`;
+
     }
     remainingDays--;
   }
+
 
   const daysPerMonth = 73;
   let month = Math.floor(remainingDays / daysPerMonth);
   let day = Math.floor(remainingDays % daysPerMonth);
   let year = currentDateTime.getFullYear() + 1166;
+
 
   return day + " " + months[month] + " " + year + " YOLD";
 }
