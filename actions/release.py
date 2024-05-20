@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
+from PIL import Image
 import minify_html
 import base64
+import io
 
 def main():
     with open('../index.html', 'r', encoding='utf-8') as in_file:
@@ -71,13 +73,20 @@ def parse_favicon(favicon):
     favicon_link = favicon['href']
     path = f'../{favicon_link}'    # Adjust path for static directory
 
-    # Open the image file in binary mode
-    with open(path, "rb") as image_file:
-        image_data = image_file.read()
+    with Image.open(path) as image:
+        resized_image = image.resize((32, 32))  # Shrink favicon to appropriate size
 
+        # Convert the resized image to bytes
+        buf = io.BytesIO()
+        resized_image.save(buf, format='PNG')
+        buf.seek(0)  # Move to the beginning of the buffer
+        
+        # Read the bytes from the buffer
+        image_data = buf.read()
+        
         base64_encoded_image = base64.b64encode(image_data)
         base64_string = base64_encoded_image.decode('utf-8')    # Convert base64 bytes to string
-
+        
         return base64_string
 
 if __name__ == "__main__":
