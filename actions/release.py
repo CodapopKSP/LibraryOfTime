@@ -78,7 +78,7 @@ def parse_favicon(favicon):
 
         # Convert the resized image to bytes
         buf = io.BytesIO()
-        resized_image.save(buf, format='PNG')
+        resized_image.save(buf, format='PNG', compress_level=9)
         buf.seek(0)  # Move to the beginning of the buffer
         
         # Read the bytes from the buffer
