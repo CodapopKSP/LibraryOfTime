@@ -523,6 +523,18 @@ const solarCalendarsData = [
         accuracy: 'The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year, but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Dynamical Time invokes inaccuracies.\n\nThe sunset approximation is also likely to cause slight inaccuracies if the New Moon happens very near to sunset, though this is similarly likely to self-correct by the next year. On that note, the dates may change slightly too early or late depending on the real time of sunset.',
         source: 'A lot of the information about this calendar came from its <a href="https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar">Wikipedia article</a>.\n\nDates can be referenced at the <a href="https://www.bahai.org/action/devotional-life/calendar">official Baháʼí website</a>.'
     },
+
+    {
+        name: 'Pataphysical',
+        id: 'pataphysical',
+        type: 'Solar Calendar',
+        epoch: '8 September 1873 CE',
+        confidence: 'Exact',
+        overview: `The Pataphysical calendar is a strange take on the Gregorian calendar. It is based off of the philosophy of Pataphysics, which is a parody of science created by Alfred Jarry in 1893, though the calendar wasn't created until 1949.\n\nIt features 13 months of 29 days, though for each month the 29th day is imaginary except for the month of Gidouille as well as Gueules in leap years. New Year is on September 8th of the Gregorian calendar, and the epoch is the day of Alfred Jarry's birth, 8 September 1873 CE.`,
+        info: `<table class="table-long"><tr><th>Months</th><th>Days</th><th>English</th><th>Approx. Gregorian Time</th></tr><tr><td>Absolu</td><td>28</td><td>Absolute</td><td>Sept 8 - Oct 5</td></tr><tr><td>Haha</td><td>28</td><td>Haha</td><td>Oct 6 - Nov 2</td></tr><tr><td>As</td><td>28</td><td>Skiff</td><td>Nov 3 - Nov 30</td></tr><tr><td>Sable</td><td>28</td><td>Sand or heraldic black</td><td>Dec 1 - Dec 28</td></tr><tr><td>Décervelage</td><td>28</td><td>Debraining</td><td>Dec 29 - Jan 25</td></tr><tr><td>Gueules</td><td>28 or 29</td><td>Heraldic red or gob</td><td>Jan 26 - Feb 22</td></tr><tr><td>Pédale</td><td>28</td><td>Bicycle pedal</td><td>Feb 23 - Mar 22</td></tr><tr><td>Clinamen</td><td>28</td><td>Swerve</td><td>Mar 23 - Apr 19</td></tr><tr><td>Palotin</td><td>28</td><td>Ubu's henchmen</td><td>Apr 20 - May 17</td></tr><tr><td>Merdre</td><td>28</td><td>Pshit</td><td>May 18 - Jun 14</td></tr><tr><td>Gidouille</td><td>29</td><td>Spiral</td><td>Jun 15 - Jul 13</td></tr><tr><td>Tatane</td><td>28</td><td>Shoe or being worn out</td><td>Jul 14 - Aug 10</td></tr><tr><td>Phalle</td><td>28</td><td>Phallus</td><td>Aug 11 - Sept 7</td></tr></table>`,
+        accuracy: `The Pataphysical calendar is based off the Gregorian calendar and is thus exactly accurate.`,
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/%27Pataphysics#Pataphysical_calendar">Wikipedia article</a>.'
+    },
 ]
 
 const lunisolarCalendarsData = [

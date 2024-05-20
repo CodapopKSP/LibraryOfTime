@@ -77,9 +77,9 @@ function updateDateAndTime(dateInput, firstPass) {
         const inputYear = inputParts[0];
         const inputMonth = inputParts[1] - 1;
         const inputDay = inputParts[2];
-        const inputHour = inputParts[3];
-        const inputMinute = inputParts[4];
-        const inputSecond = inputParts[5];
+        const inputHour = inputParts[3] || 0;
+        const inputMinute = inputParts[4] || 0;
+        const inputSecond = inputParts[5] || 0;
         currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond));
         currentDateTime.setUTCFullYear(inputYear);
         currentPass = 100;
@@ -157,6 +157,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('coptic-node', julianDayToCoptic(julianDay));
         setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
         setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'spring')));
+        setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime));
     }
 
     // Other Calendars
