@@ -56,21 +56,29 @@ function getDarianCalendar(julianSolNumber) {
 
     // Odd years except if divisible by 10, but not 100 except for 500
     function isLeapYear(year) {
-        return (((year % 2 !== 0) || (year % 10 === 0)) && ((year % 100 !== 0)||(year % 500 === 0)));
+        return (((year % 2 !== 0) || (year % 10 === 0)) && ((year % 100 !== 0) || (year % 500 === 0)));
     }
 
     function getDaysInYear(year) {
         return isLeapYear(year) ? 669 : 668;
     }
 
-    // Start with Julian Sol Number
+    // Handle negative Julian Sol Numbers
     let remainingDays = julianSolNumber;
     let year = 0;
 
-    // Subtract days based on if Leap Year or Normal Year
-    while (remainingDays >= getDaysInYear(year)) {
-        remainingDays -= getDaysInYear(year);
-        year++;
+    if (remainingDays >= 0) {
+        // Positive years
+        while (remainingDays >= getDaysInYear(year)) {
+            remainingDays -= getDaysInYear(year);
+            year++;
+        }
+    } else {
+        // Negative years
+        while (remainingDays < 0) {
+            year--;
+            remainingDays += getDaysInYear(year);
+        }
     }
 
     // Find the day and month based on remaining days
@@ -82,5 +90,5 @@ function getDarianCalendar(julianSolNumber) {
     }
     let day = Math.trunc(remainingDays) + 1; // Days in calendar start from 1
 
-    return day + ' ' + DarianMonths[month] + ' ' + year;
+    return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year); // Display negative years as negative
 }
