@@ -161,7 +161,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('juche-node', getJuche(currentDateTime));
         setTimeValue('coptic-node', julianDayToCoptic(julianDay));
         setTimeValue('ethiopian-node', julianDayToEthiopian(julianDay));
-        //setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
+        setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
         setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime));
         setTimeValue('discordian-node', getDiscordianDate(currentDateTime));
         setTimeValue('solar-hijri-node', getSolarHijriDate(currentDateTime, springEquinox));

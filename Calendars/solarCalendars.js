@@ -333,6 +333,7 @@ function getFlorentineCalendar(currentDateTime) {
     return dateString;
 }
 
+// Crashes the site on March 20 2020
 // Returns a formatted Baha'i IRST date
 function getBahaiCalendar(currentDateTime, vernalEquinox) {
 
@@ -375,7 +376,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     endingEquinox = figureOutEquinoxBeforeAfterSunset(endingEquinox);
 
     // Calculate when today started based on sunset in Tehran (UTC+3:30)
-    currentDayOfYear = Math.trunc((currentDateTime - startingEquinox) /1000/24/60/60);
+    currentDayOfYear = Math.trunc((currentDateTime - startingEquinox) /1000/24/60/60)+1;
     let todaySunsetInTehran = new Date(currentDateTime);
     todaySunsetInTehran.setUTCHours(12);
     todaySunsetInTehran.setMinutes(30);
@@ -406,32 +407,47 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
 
     // Iterate through months from start until Mulk, find intercalary days, then iterate backwards for Ala
     let monthIndex = 0;
-    while (currentDayOfYear >= 19) {
+    console.log(currentDayOfYear);
+    
+    while (currentDayOfYear > 19) {
+        // Months before intercalary days
         if (monthIndex<17) {
             currentDayOfYear -= 19;
             monthIndex++;
+
+        // Months after intercalary days
         } else {
+            // Get first day of final month, which is 19 days before the ending equinox
             let firstDayOfFinalMonth = new Date(endingEquinox);
             firstDayOfFinalMonth.setDate(endingEquinox.getDate() - 19);
-            if (((currentDateTime - endingEquinox)/1000/24/60/60)<-19) {
+
+            // If before that time, then it's the intercalary 4 or 5 days
+            if (currentDateTime < firstDayOfFinalMonth) {
                 currentDayOfYear -= 19;
                 monthIndex=18;
+
+            // It's after the start of the month
             } else {
-                currentDayOfYear = Math.trunc((currentDateTime - firstDayOfFinalMonth)/1000/24/60/60);
-                monthIndex=19;
+                // Get new current day of year by working from the final month
+                currentDayOfYear = Math.trunc((currentDateTime - firstDayOfFinalMonth)/1000/24/60/60)+1;
+                // Day is within final month
+                if (currentDayOfYear<20) {
+                    monthIndex=19;
+                // Day is after final month
+                } else {
+                    currentDayOfYear = 1;
+                    monthIndex = 0;
+                }
             }
         }
     }
-
-    // Correct for 0 indexing
-    let day = currentDayOfYear + 1;
 
     // If after February but less than Month 17 in Bahai, it's past the Bahai New Year
     let year = currentDateTime.getUTCFullYear() - 1844;
     if ((currentDateTime.getMonth()>1)&&(monthIndex<16)) {
         year++
     }
-    return day + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE';
+    return currentDayOfYear + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE';
 }
 
 // Returns a formatted Pataphysical local date
@@ -518,7 +534,6 @@ function getDiscordianDate(currentDateTime) {
 
 function getSolarHijriDate(currentDateTime, vernalEquinox) {
 
-    console.log(vernalEquinox);
     // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
     function figureOutEquinoxBeforeAfterNoon(equinox) {
         let equinoxDayNoon = new Date(equinox);
