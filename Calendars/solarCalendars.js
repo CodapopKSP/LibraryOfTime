@@ -608,7 +608,8 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
 
     const day = remainingDays+1;
     const month = SolarHijri[monthIndex];
+    const year = startingEquinox.getFullYear() - 621;
 
 
-    return day + ' ' + month;
+    return day + ' ' + month + ' ' + year + ' SH';
 }
