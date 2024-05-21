@@ -133,7 +133,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
         setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
         setTimeValue('lilian-date-node', getLilianDate(julianDay));
-        setTimeValue('mars-sol-date-node', marsSolDay.toFixed(0));
+        setTimeValue('mars-sol-date-node', marsSolDay.toFixed(10));
         setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
         setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
     }
