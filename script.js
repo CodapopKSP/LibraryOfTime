@@ -15,7 +15,7 @@ Divide nodes by region
 Fantasy calendars that can be verified, like Star Trek
 Metric Time
 Astronomical Time and determine if epoch displays need to be in AT or regular time
-Hebrew/Thai/Chinese/Byzantine times
+Hebrew/Thai/Chinese/Byzantine/Zoroastrian times
 */
 
 
@@ -165,6 +165,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime));
         setTimeValue('discordian-node', getDiscordianDate(currentDateTime));
         setTimeValue('solar-hijri-node', getSolarHijriDate(currentDateTime, springEquinox));
+        setTimeValue('qadimi-node', getQadimiDate(currentDateTime));
     }
 
     // Other Calendars

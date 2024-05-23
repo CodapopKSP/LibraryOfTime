@@ -407,7 +407,6 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
 
     // Iterate through months from start until Mulk, find intercalary days, then iterate backwards for Ala
     let monthIndex = 0;
-    console.log(currentDayOfYear);
     
     while (currentDayOfYear > 19) {
         // Months before intercalary days
@@ -532,8 +531,8 @@ function getDiscordianDate(currentDateTime) {
     return day + ' ' + months[month] + ' ' + year + ' YOLD';
 }
 
+// Returns a formatted Solar Hijri IRST date
 function getSolarHijriDate(currentDateTime, vernalEquinox) {
-
     // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
     function figureOutEquinoxBeforeAfterNoon(equinox) {
         let equinoxDayNoon = new Date(equinox);
@@ -612,4 +611,88 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
 
 
     return day + ' ' + month + ' ' + year + ' SH';
+}
+
+// Returns a formatted Qadimi IRST date
+function getQadimiDate(currentDateTime) {
+    // Noon in Iran in 19 June 632, a base Nowruz day
+    const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 2, 30, 0));
+    const daysSince632 = Math.floor(differenceInDays(currentDateTime, Nowruz632Noon));
+    const yearsSince632 = Math.floor(daysSince632/365);
+    let remainingDays = daysSince632 - (yearsSince632*365)+1;
+
+    // Zoroastrian calendar months 
+    let months = [
+        'Farvardin',
+        'Ardibehesht',
+        'Khordad',
+        'Tir',
+        'Amardad',
+        'Shehrevar',
+        'Mehr',
+        'Aban',
+        'Azar',
+        'Dae',
+        'Bahman',
+        'Asfand',
+        'Gatha'
+    ];
+
+    const zoroastrianDays = [
+        "Hormazd",      // Day 1
+        "Bahman",       // Day 2
+        "Ardibehesht",  // Day 3
+        "Shehrevar",    // Day 4
+        "Aspandard",    // Day 5
+        "Khordad",      // Day 6
+        "Amardad",      // Day 7
+        "Dae-Pa-Adar",  // Day 8
+        "Adar",         // Day 9
+        "Avan",         // Day 10
+        "Khorshed",     // Day 11
+        "Mohor",        // Day 12
+        "Tir",          // Day 13
+        "Gosh",         // Day 14
+        "Dae-Pa-Meher", // Day 15
+        "Meher",        // Day 16
+        "Srosh",        // Day 17
+        "Rashne",       // Day 18
+        "Fravardin",    // Day 19
+        "Behram",       // Day 20
+        "Ram",          // Day 21
+        "Govad",        // Day 22
+        "Dae-Pa-Din",   // Day 23
+        "Din",          // Day 24
+        "Ashishvangh",  // Day 25
+        "Ashtad",       // Day 26
+        "Asman",        // Day 27
+        "Zamyad",       // Day 28
+        "Mareshpand",   // Day 29
+        "Aneran",       // Day 30
+    ];
+
+    const gathaDays = [
+        "Ahunavaiti",
+        "Ushtavaiti",
+        "Spentamainyu",
+        "Vohuxshathra",
+        "Vahishtoishti"
+    ];
+
+    let monthIndex = 0;
+    while (remainingDays > 30) {
+        monthIndex++;
+        remainingDays -= 30;
+    }
+
+    let day = zoroastrianDays[remainingDays-1];
+    let month = months[monthIndex];
+    const year = yearsSince632 +1;
+
+    if ((monthIndex>11)&&(remainingDays<6)) {
+        day = gathaDays[remainingDays-1];
+        return day + ' ' + year + ' Y.Z.';
+    }
+
+  return day + ' ' + month + ' ' + year + ' Y.Z.';
 }

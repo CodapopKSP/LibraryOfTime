@@ -552,7 +552,7 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Solar Hijri',
+        name: 'Solar Hijri (IRST)',
         id: 'solar-hijri',
         type: 'Solar Calendar',
         epoch: '',
@@ -560,7 +560,19 @@ const solarCalendarsData = [
         overview: ``,
         info: ``,
         accuracy: ``,
-        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Solar_Hijri_calendar">Wikipedia article</a>.'
+        source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Solar_Hijri_calendar">Wikipedia article</a>.'
+    },
+
+    {
+        name: 'Qadimi (IRST)',
+        id: 'qadimi',
+        type: 'Solar Calendar',
+        epoch: '',
+        confidence: 'High',
+        overview: ``,
+        info: ``,
+        accuracy: ``,
+        source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia article</a>.\n\nThis calendar can be calibrated using the calculator at  <a href="http://www.zcserv.com/calendar/">this site</a>.'
     },
 ]
 
