@@ -550,9 +550,9 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         return equinox;
     }
 
+    // Figure out starting and ending equinoxes
     let startingEquinox = '';
     let endingEquinox = '';
-
     if (currentDateTime < vernalEquinox) {
         let lastYear = new Date(currentDateTime);
         lastYear.setFullYear(currentDateTime.getFullYear()-1);
@@ -573,6 +573,7 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
     const leapYear = differenceInDays(endingEquinox, startingEquinox) === 366;
     let remainingDays = Math.floor(differenceInDays(currentDateTime, startingEquinox))+1;
 
+    // Month names
     const SolarHijri = [
         "Farvardin",
         "Ordibehesht",
@@ -588,6 +589,7 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         "Esfand",
     ];
 
+    // Figure out how many days are in each month
     let daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,29];
     if (leapYear) {
         daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,30];
@@ -601,6 +603,7 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         }
         remainingDays -= daysOfMonths[monthIndex];
     }
+    // Handle weird roll over issues
     if (monthIndex>11) {
         monthIndex=0;
     }
@@ -638,6 +641,7 @@ function getQadimiDate(currentDateTime) {
         'Gatha'
     ];
 
+    // Names of Zoroastrian days
     const zoroastrianDays = [
         "Hormazd",      // Day 1
         "Bahman",       // Day 2
@@ -671,6 +675,7 @@ function getQadimiDate(currentDateTime) {
         "Aneran",       // Day 30
     ];
 
+    // The names of the days that happen at the end of the year
     const gathaDays = [
         "Ahunavaiti",
         "Ushtavaiti",
@@ -679,6 +684,7 @@ function getQadimiDate(currentDateTime) {
         "Vahishtoishti"
     ];
 
+    // Step through months
     let monthIndex = 0;
     while (remainingDays > 30) {
         monthIndex++;
@@ -689,6 +695,7 @@ function getQadimiDate(currentDateTime) {
     let month = months[monthIndex];
     const year = yearsSince632 +1;
 
+    // If Gatha days, use Gatha day names
     if ((monthIndex>11)&&(remainingDays<6)) {
         day = gathaDays[remainingDays-1];
         return day + ' ' + year + ' Y.Z.';

@@ -402,6 +402,11 @@ table {
     padding: 0.1vh;
 }
 
+.table-very-very-long th,
+.table-very-very-long td {
+    font-size: 1.5vh;
+}
+
 th, td {
     border: 0.2vh solid black;
     background-color: rgb(47, 47, 47);

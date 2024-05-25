@@ -177,7 +177,7 @@ const computingTimeData = [
         name: 'TAI',
         id: 'tai',
         type: 'Computing Time',
-        epoch: '1 January 1972 CE +10 seconds',
+        epoch: '1 January 1972 CE, +00:00:10',
         confidence: 'Exact',
         overview: 'International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth\'s geoid. It is the basis for UTC but deviates from UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.',
         info: 'Ironically, the clock displayed here is derived from UTC even though it is itself the basis for UTC.',
@@ -213,7 +213,7 @@ const computingTimeData = [
         name: 'Julian Day Number',
         id: 'julian-day-number',
         type: 'Computing Time',
-        epoch: '24 November 4713 BCE +12 hours',
+        epoch: '24 November 4713 BCE, +12:00:00',
         confidence: 'Exact',
         overview: 'The Julian Day Number is a simple count of number of days since 12:00 (noon) on November 24, 4713 BCE (or 4714 BCE when not using astronomical dates). The JDN is used by astronomers and programmers to simplify calculations for the passage of time, and many of the calculations in this website are based off of the JDN.',
         info: 'There are many versions of the JDN, most of which involve truncating the large number for easier calculations.',
@@ -237,7 +237,7 @@ const computingTimeData = [
         name: 'Julian Period',
         id: 'julian-period',
         type: 'Computing Time',
-        epoch: '24 November 4712 BCE +12 hours',
+        epoch: '24 November 4712 BCE, +12:00:00',
         confidence: 'High',
         overview: 'The Julian Period is a cycle of 7980 years beginning on 1 January 4712 BCE of the Julian calendar (or 4713 BCE when not using astronomical dates). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect.',
         info: 'The Julian Period is the count of days since the last time Indiction, Solar and Lunar cycles all started on the same day.',
@@ -299,7 +299,7 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: '12 March 1609 CE, 18:40:06',
         confidence: 'High',
-        overview: `The Julian Sol Number, similar to the Julian Day Number, is the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. This epoch marks an important Martian Vernal Equinox. The day increments when the Airy-0 crater reaches midnight.`,
+        overview: `The Julian Sol Number, created by Thomas Gangale, is similar to the Julian Day Number but it counts the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. This epoch marks an important Martian Vernal Equinox. The day increments when the Airy-0 crater reaches midnight.\n\nIn a chat I had with with Mr. Gangale, he expressed his desire for this standard to be deprecated, as the Mars Sol Date created by Michael Allison had received wider use. However, since it was used at one point, I have opted to include it in this website.\n\n"The sooner that things become standardized, the better, so consider the JS to be obsolete." -Thomas Gangale, 2024`,
         info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
         accuracy: 'This clock should be very accurate, though I am unsure how Dynamical Time factors into it, which could cause it to be off by a few minutes.',
         source: `Much of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.\n\nDates can also be verified with <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">this website</a>, though some inaccuracies have been noted.`
@@ -309,12 +309,12 @@ const computingTimeData = [
         name: 'Kali Ahargaṅa (IST)',
         id: 'kali-ahargaṅa',
         type: 'Computing Time',
-        epoch: '18 February 3102 BCE',
+        epoch: '23 January 3101 BCE +6:30:00',
         confidence: 'High',
-        overview: ``,
-        info: '',
-        accuracy: '',
-        source: ``
+        overview: `Kali Ahargaṅa is a simple count of days since the kali epoch. According to Hindu timekeeping, the current yuga, Kali Yuga, began in 3101 BCE and will last for 432,000 years, ending in 428,899 CE.\n\nKali Yuga is the fourth, shortest, and worst of the four yugas. `,
+        info: `Each yuga has a shorter dawn and duck period before and after the longer main period.\n\n<table><tr><th>Part</th><th>Start</th><th>Length</th></tr><tr><td>Kali-yuga-sandhya (dawn)</td><td>3102 BCE</td><td>36,000 (100)</td></tr><tr><td>Kali-yuga (proper)</td><td>32,899 CE</td><td>360,000 (1,000)</td></tr><tr><td>Kali-yuga-sandhyamsa (dusk)</td><td>392,899–428,899 CE</td><td>36,000 (100)</td></tr></table>`,
+        accuracy: 'The Kali Ahargaṅa is based off the Gregorian calendar and is considered to be very accurate compared with historical records.',
+        source: `Much of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Kali_ahargana">Wikipedia article</a>.\n\nYou can find another converter for this system <a href="https://planetcalc.com/9166/">here</a>.`
     },
 ]
 
@@ -555,11 +555,11 @@ const solarCalendarsData = [
         name: 'Solar Hijri (IRST)',
         id: 'solar-hijri',
         type: 'Solar Calendar',
-        epoch: '',
-        confidence: 'High',
-        overview: ``,
-        info: ``,
-        accuracy: ``,
+        epoch: '18 March 622, +20:30:00',
+        confidence: 'Medium',
+        overview: `The Solar Hijri calendar is a solar calendar used in Islam. It is the official calendar of Iran and Afghanistan. Each year begins on the Spring Equinox or the day after; thus it has no intrinsic error and it very slowly drifts through the Gregorian year following the precession of the equinoxes.\n\nIt features 12 months, corresponding to the zodiacal signs, with the first 6 having 31 days and the latter 6 having 30 (or 29) days to account for the sun traveling slower through the Zodiac due to Earth's oblong orbit. In Afghanistan the month names still refer to the Zodiac while elsewhere this calendar uses the Zoroastrian month names.\n\nUnlike the lunar Hijri calendar, days start at midnight, though they both share the same epoch of number of years from the Hijrah. In this calendar, years are denoted with 'SH', 'HS', 'AH', or 'AHSh', typically referencing the name of the calendar.`,
+        info: `The new year starts on the day that the equinox occurs before noon in Iran, or the next day if it occurs after noon. The starting of the new year results in the final month having 29 or 30 days depending on when exactly the equinox occurs.\n\n<table><tr><th>Month</th><th>Zodiac</th><th>Days</th></tr><tr><td>Farvardin</td><td>Aries</td><td>31</td></tr><tr><td>Ordibehesht</td><td>Taurus</td><td>31</td></tr><tr><td>Khordad</td><td>Gemini</td><td>31</td></tr><tr><td>Tir</td><td>Cancer</td><td>31</td></tr><tr><td>Mordad</td><td>Leo</td><td>31</td></tr><tr><td>Shahrivar</td><td>Virgo</td><td>31</td></tr><tr><td>Mehr</td><td>Libra</td><td>30</td></tr><tr><td>Aban</td><td>Scorpio</td><td>30</td></tr><tr><td>Azar</td><td>Sagittarius</td><td>30</td></tr><tr><td>Dey</td><td>Capricorn</td><td>30</td></tr><tr><td>Bahman</td><td>Aquarius</td><td>30</td></tr><tr><td>Esfand</td><td>Pisces</td><td>29 or 30</td></tr></table>`,
+        accuracy: `This calendar is reasonably accurate for modern years, but as its calculation relies on the calculation of the equinox, it may experience significant errors for years that are thousands of years out from modern times. It also approximates sunset in Tehran.\n\nThis calendar also may experience errors in its alignment with the Zodiac, as it is tied to the precession of the equinoxes.`,
         source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Solar_Hijri_calendar">Wikipedia article</a>.'
     },
 
@@ -567,11 +567,12 @@ const solarCalendarsData = [
         name: 'Qadimi (IRST)',
         id: 'qadimi',
         type: 'Solar Calendar',
-        epoch: '',
+        epoch: '19 June 632, +2:30:00',
         confidence: 'High',
-        overview: ``,
-        info: ``,
-        accuracy: ``,
+        overview: `The Qadimi calendar is one of the calendars of Zoroastrianism. It was intended to follow the Spring Equinox, but a lack of intercalary days has resulted in this calendar drifting significantly.\n\nIt features 12 months of 30 days, plus a period of 5 days at the end of each year called the Gatha days. Each of the 30 days of the month are named, as well as each of the Gatha days.\n\nYears are denoted with 'Y.Z.' for the 'Yazdegerdi era', a count of years since the accession of the last Sassanid ruler, Yazdegerd III, but there have been several epochs used in the past.\n\nCompared to the Gregorian calendar, the Qadimi calendar drifts by about 1 day every 3 years.`,
+        info: `<table class="table-very-very-long"><tr><th>Month</th><th>Days</th></tr><tr><td>Farvardin</td><td>30</td></tr><tr><td>Ardibehesht</td><td>30</td></tr><tr><td>Khordad</td><td>30</td></tr><tr><td>Tir</td><td>30</td></tr><tr><td>Amardad</td><td>30</td></tr><tr><td>Shehrevar</td><td>30</td></tr><tr><td>Mehr</td><td>30</td></tr><tr><td>Aban</td><td>30</td></tr><tr><td>Azar</td><td>30</td></tr><tr><td>Dae</td><td>30</td></tr><tr><td>Bahman</td><td>30</td></tr><tr><td>Asfand</td><td>30</td></tr><tr><td>Gatha</td><td>5</td></tr></table>\n<table class="table-very-very-long"><tr><th colspan="3">Day Names</th></tr><tr><td>1: Hormazd</td><td>2: Bahman</td><td>3: Ardibehesht</td></tr><tr><td>4: Shehrevar</td><td>5: Aspandard</td><td>6: Khordad</td></tr><tr><td>7: Amardad</td><td>8: Dae-Pa-Adar</td><td>9: Adar</td></tr><tr><td>10: Avan</td><td>11: Khorshed</td><td>12: Mohor</td></tr><tr><td>13: Tir</td><td>14: Gosh</td><td>15: Dae-Pa-Meher</td></tr><tr><td>16: Meher</td><td>17: Srosh</td><td>18: Rashne</td></tr><tr><td>19: Fravardin</td><td>20: Behram</td><td>21: Ram</td></tr><tr><td>22: Govad</td><td>23: Dae-Pa-Din</td><td>24: Din</td></tr><tr><td>25: Ashishvangh</td><td>26: Ashtad</td><td>27: Asman</td></tr><tr><td>28: Zamyad</td><td>29: Mareshpand</td><td>30: Aneran</td></tr></table>\n<table class="table-very-very-long"><tr><th colspan="3">Gatha Days</th></tr><tr><td>1: Ahunavaiti</td><td>2: Ushtavaiti</td><td>3: Spentamainyu</td></tr><tr><td>4: Vohuxshathra</td><td>5: Vahishtoishti</td><td></td></tr></table>
+        `,
+        accuracy: `This calendar is a simple calculation based off the Gregorian calendar. However, historically this calendar has received many revisions, particularly prior to 1006 CE, so the dates here might not accurately reflect historical dates.`,
         source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia article</a>.\n\nThis calendar can be calibrated using the calculator at  <a href="http://www.zcserv.com/calendar/">this site</a>.'
     },
 ]
@@ -714,6 +715,18 @@ const otherCalendars = [
         info: `<table class="table-very-long"><tr><th>Month</th><th>Days</th></tr><tr><td>Sagittarius</td><td>28</td></tr><tr><td>Dhanus</td><td>28</td></tr><tr><td>Capricornus</td><td>28</td></tr><tr><td>Makara</td><td>28</td></tr><tr><td>Aquarius</td><td>28</td></tr><tr><td>Khumba</td><td>27</td></tr><tr><td>Pisces</td><td>28</td></tr><tr><td>Mina</td><td>28</td></tr><tr><td>Aries</td><td>28</td></tr><tr><td>Mesha</td><td>28</td></tr><tr><td>Taurus</td><td>28</td></tr><tr><td>Rishabha</td><td>27</td></tr><tr><td>Gemini</td><td>28</td></tr><tr><td>Mithuna</td><td>28</td></tr><tr><td>Cancer</td><td>28</td></tr><tr><td>Karka</td><td>28</td></tr><tr><td>Leo</td><td>28</td></tr><tr><td>Simha</td><td>27</td></tr><tr><td>Virgo</td><td>28</td></tr><tr><td>Kanya</td><td>28</td></tr><tr><td>Libra</td><td>28</td></tr><tr><td>Tula</td><td>28</td></tr><tr><td>Scorpius</td><td>28</td></tr><tr><td>Vrishika</td><td>27 or 28</td></tr></table>`,
         accuracy: `This calendar depends on the Julian Sol Number which is in turn based on the Mars Sol Date. Assuming these are all accurate, then the Darian calendar should be correct.\n\nThere is one more stipulation that the current calendar is only perfectly accurate between the years 0 and 2000 due to the shortening of the Martian equinox year. Whether those are Martian years or Earth years isn't clear, but the difference is rather small and is currently ignored for this calendar.`,
         source: 'Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Darian_calendar">Wikipedia article</a>.\n\nThe actual creator of the calendar has a website and a date converter <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">here</a>, but it uses a slightly different Dynamical Time correction for the Mars sol.'
+    },
+
+    {
+        name: 'The Yuga Cycle (IST)',
+        id: 'yuga-cycle',
+        type: 'Other Calendar',
+        epoch: '3,891,102 BCE',
+        confidence: 'High',
+        overview: `The Yuga Cycle is the cyclic age in Hindu cosmology. It is divided into 4 yugas, each divided into dawn, proper, and dusk periods, that lasts for a total of 4,320,000 years.\n\nEach yuga in the cycle lasts for a shorter amount of time but, according to Hindu cosmology, also reduces the moral and phsical state of the world before a cataclysm and re-establishment of the dharma and restarting of the cycle.\n\nThe current yuga, Kali Yuga, is the shortest and worst. It will last until the year 428,899 CE.`,
+        info: `<table><tr><th>Yuga</th><th>Start</th><th>Length</th></tr><tr><td>Krita (Satya)</td><td>3,891,102 BCE</td><td>1,728,000</td></tr><tr><td>Treta</td><td>2,163,102 BCE</td><td>1,296,000</td></tr><tr><td>Dvapara</td><td>867,102 BCE</td><td>864,000</td></tr><tr><td>Kali</td><td>3102 BCE</td><td>432,000</td></tr></table>\n\n<table><tr><th>Yuga Part</th><th>Solar years</th></tr><tr><td>Satya Yuga: Sandhya (dawn)</td><td>144,000</td></tr><tr><td>Satya Yuga (proper)</td><td>1,440,000</td></tr><tr><td>Satya Yuga: Sandhyamsa (dusk)</td><td>144,000</td></tr><tr><td>Treta Yuga: Sandhya (dawn)</td><td>108,000</td></tr><tr><td>Treta Yuga (proper)</td><td>1,080,000</td></tr><tr><td>Treta Yuga: Sandhyamsa (dusk)</td><td>108,000</td></tr><tr><td>Dvapara Yuga: Sandhya (dawn)</td><td>72,000</td></tr><tr><td>Dvapara Yuga (proper)</td><td>720,000</td></tr><tr><td>Dvapara Yuga: Sandhyamsa (dusk)</td><td>72,000</td></tr><tr><td>Kali Yuga: Sandhya (dawn)</td><td>36,000</td></tr><tr><td>Kali Yuga (proper)</td><td>360,000</td></tr><tr><td>Kali Yuga: Sandhyamsa (dusk)</td><td>36,000</td></tr></table>`,
+        accuracy: 'The Yuga Cycle is ultimately based off the Gregorian calendar and is considered to be very accurate compared with historical records.',
+        source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Yuga_cycle">Wikipedia article</a>.`
     },
 ]
 

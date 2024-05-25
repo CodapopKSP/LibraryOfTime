@@ -6,6 +6,7 @@
 //https://ytliu0.github.io/ChineseCalendar/rules.html
 //https://www.jewfaq.org/jewish_calendar_calculation
 //https://ops-alaska.com/time/gangale_converter/calendar_clock.htm
+//https://planetcalc.com/9166/
 
 /*
 TODO:
@@ -133,7 +134,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
         setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
         setTimeValue('lilian-date-node', getLilianDate(julianDay));
-        setTimeValue('mars-sol-date-node', marsSolDay.toFixed(10));
+        setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
         setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
         setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
     }
@@ -172,6 +173,7 @@ function updateDateAndTime(dateInput, firstPass) {
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
         setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
         setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
+        setTimeValue('yuga-cycle-node', getYugaCycleDate(currentDateTime));
     }
 
     // Lunisolar Calendars

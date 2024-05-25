@@ -92,3 +92,62 @@ function getDarianCalendar(julianSolNumber) {
 
     return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year); // Display negative years as negative
 }
+
+function getYugaCycleDate(currentDateTime) {
+    const YugaCycle = [
+        /*
+        "Satya Yuga: Sandhya",
+        "Satya Yuga",
+        "Satya Yuga: Sandhyamsa",
+        "Treta Yuga: Sandhya",
+        "Treta Yuga",
+        "Treta Yuga: Sandhyamsa",
+        "Dvapara Yuga: Sandhya",*/
+        "Dvapara Yuga",
+        "Dvapara Yuga: Sandhyamsa",
+        "Kali Yuga: Sandhya",
+        "Kali Yuga",
+        "Kali Yuga: Sandhyamsa",
+    ];
+
+    const yearsOfYugas = [
+        /*
+        144000,
+        1440000,
+        144000,
+        108000,
+        1080000,
+        108000,
+        72000,*/
+        720000,
+        72000,
+        36000,
+        360000,
+        36000
+    ];
+
+    const kaliAhargana = getKaliAhargana(currentDateTime);
+    const yearsOfKaliYuga = Math.floor(kaliAhargana / 365.25);
+
+    // Get total years of cycle up until the start of Kali Yuga
+    const totalYugaCycleYearsUpToKaliYuga = 720000+72000;
+
+    // Get current year of Yuga Cycle
+    let yearsOfYugaCycle = totalYugaCycleYearsUpToKaliYuga + yearsOfKaliYuga;
+
+    // Find the current Yuga segment based on the yearsOfYugaCycle
+    let cycleIndex = 0;
+    for (let i = 0; i < yearsOfYugas.length; i++) {
+        
+        if (yearsOfYugaCycle <= 0) {
+            cycleIndex = i;
+            break;
+        }
+        yearsOfYugaCycle -= yearsOfYugas[i];
+    }
+
+    // Ensure cycleIndex is always between 0 and 11
+    cycleIndex = (cycleIndex-1) % 5;
+
+    return YugaCycle[cycleIndex];
+}
