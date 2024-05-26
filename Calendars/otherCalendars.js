@@ -93,7 +93,7 @@ function getDarianCalendar(julianSolNumber) {
     return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year); // Display negative years as negative
 }
 
-function getYugaCycleDate(currentDateTime) {
+function getYugaCycle(currentDateTime) {
     const YugaCycle = [
         /*
         "Satya Yuga: Sandhya",
@@ -150,4 +150,14 @@ function getYugaCycleDate(currentDateTime) {
     cycleIndex = (cycleIndex-1) % 5;
 
     return YugaCycle[cycleIndex];
+}
+
+function getSothicCycle(currentDateTime) {
+    const startOf139Cycle = new Date(139, 6, 19); // Start of a Sothic Cycle as per the wiki
+    const daysSinceStartOf139Cycle = differenceInDays(currentDateTime, startOf139Cycle);
+    const yearsSince139Cycle = Math.floor(daysSinceStartOf139Cycle/365.25);
+    const currentCycle = Math.floor(yearsSince139Cycle/1460)+3;
+    const yearsInCurrentCycle = yearsSince139Cycle%1460;
+
+    return 'Cycle: ' + currentCycle + ' | Year: ' + yearsInCurrentCycle;
 }

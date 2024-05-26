@@ -173,7 +173,8 @@ function updateDateAndTime(dateInput, firstPass) {
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
         setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
         setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
-        setTimeValue('yuga-cycle-node', getYugaCycleDate(currentDateTime));
+        setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
+        setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
     }
 
     // Lunisolar Calendars

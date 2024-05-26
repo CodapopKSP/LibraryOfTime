@@ -718,7 +718,7 @@ const otherCalendars = [
     },
 
     {
-        name: 'The Yuga Cycle (IST)',
+        name: 'Yuga Cycle (IST)',
         id: 'yuga-cycle',
         type: 'Other Calendar',
         epoch: '3,891,102 BCE',
@@ -727,6 +727,18 @@ const otherCalendars = [
         info: `<table><tr><th>Yuga</th><th>Start</th><th>Length</th></tr><tr><td>Krita (Satya)</td><td>3,891,102 BCE</td><td>1,728,000</td></tr><tr><td>Treta</td><td>2,163,102 BCE</td><td>1,296,000</td></tr><tr><td>Dvapara</td><td>867,102 BCE</td><td>864,000</td></tr><tr><td>Kali</td><td>3102 BCE</td><td>432,000</td></tr></table>\n\n<table><tr><th>Yuga Part</th><th>Solar years</th></tr><tr><td>Satya Yuga: Sandhya (dawn)</td><td>144,000</td></tr><tr><td>Satya Yuga (proper)</td><td>1,440,000</td></tr><tr><td>Satya Yuga: Sandhyamsa (dusk)</td><td>144,000</td></tr><tr><td>Treta Yuga: Sandhya (dawn)</td><td>108,000</td></tr><tr><td>Treta Yuga (proper)</td><td>1,080,000</td></tr><tr><td>Treta Yuga: Sandhyamsa (dusk)</td><td>108,000</td></tr><tr><td>Dvapara Yuga: Sandhya (dawn)</td><td>72,000</td></tr><tr><td>Dvapara Yuga (proper)</td><td>720,000</td></tr><tr><td>Dvapara Yuga: Sandhyamsa (dusk)</td><td>72,000</td></tr><tr><td>Kali Yuga: Sandhya (dawn)</td><td>36,000</td></tr><tr><td>Kali Yuga (proper)</td><td>360,000</td></tr><tr><td>Kali Yuga: Sandhyamsa (dusk)</td><td>36,000</td></tr></table>`,
         accuracy: 'The Yuga Cycle is ultimately based off the Gregorian calendar and is considered to be very accurate compared with historical records.',
         source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Yuga_cycle">Wikipedia article</a>.`
+    },
+
+    {
+        name: 'Sothic Cycle',
+        id: 'sothic-cycle',
+        type: 'Other Calendar',
+        epoch: '27 June 2781 BCE',
+        confidence: 'High',
+        overview: `The Sothic Cycle is the relationship between the start of the new year of the Egyptian calendar and the heliacal rising of the star of Sirius, which was originally what the calendar was based on.\n\nThe Egyptian calendar had years of exactly 365 days while the heliacal rising of Siruis is on a cycle of 365.25 days, causing the two to drift apart and eventually come together again over the course of 1460 years. This rate of error was one of the references for the creation of the Julian calendar, meaning the two calendars share the same relationship through the cycle. For every 1460 Julian years there are 1461 Egyptian years.\n\nThe first cycle is believed to begin on 27 June 2781 BCE, which is implied to be the date of the creation of the Egyptian calendar.\n\nThe Sothic Cycle was instrumental in calibrating the Egyptian date by historians.`,
+        info: `The Sothic Cycle shows a relationship between the Julian and Egyptian calendars of 1460/1461. The Gregorian calendar does not line up in the same way due to the revised leap year rules.\n\n<table class="table-short"><tr><th>Cycle</th><th>Julian Date</th><th>Gregorian Date</th></tr><tr><td>1</td><td>20 July 2781 BC</td><td>27 June 2781 BCE</td></tr><tr><td>2</td><td>20 July 1321 BC</td><td>8 July 1321 BCE</td></tr><tr><td>3</td><td>20 July 139 AD</td><td>19 July 139 CE</td></tr><tr><td>4</td><td>20 July 1599 AD</td><td>30 July 1599 CE</td></tr><tr><td>5</td><td>20 July 3059 AD</td><td>10 August 3059 CE</td></tr><tr><td>6</td><td>20 July 4519 AD</td><td>21 August 4519 CE</td></tr></table>`,
+        accuracy: `This calendar is mathematically exact, though my calculations are sometimes a day off from official sources. This could be due to leap day rules or due to astronomical dates.\n\nHistorians are also somewhat unsure about how many cycles have passed, and it's possible that there has been one more cycle before the accepted first cycle.`,
+        source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Sothic_cycle">Wikipedia article</a>.`
     },
 ]
 
