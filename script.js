@@ -114,7 +114,7 @@ function updateDateAndTime(dateInput, firstPass) {
     setTimeValue('year-node', calculateYear(currentDateTime).toFixed(decimals));
     setTimeValue('hour-node', calculateHour(currentDateTime).toFixed(decimals));
     setTimeValue('minute-node', calculateMinute(currentDateTime).toFixed(decimals));
-    setTimeValue('second-node', calculateSecond(currentDateTime).toFixed(decimals));
+    setTimeValue('second-node', calculateSecond(currentDateTime));
     setTimeValue('decade-node', calculateDecade(currentDateTime).toFixed(decimals));
     setTimeValue('century-node', calculateCentury(currentDateTime).toFixed(decimals));
     if ((currentDateTime.getMilliseconds() > 900)||(currentPass===100)) {

@@ -5,10 +5,31 @@
 // A set of functions for calculating fractions of units of time.
 
 function calculateSecond(currentDateTime) {
-    let secondStart = new Date(currentDateTime).setMilliseconds(0);
-    let nextSecondStart = new Date(secondStart).setMilliseconds(999);
-    let secondFraction = (currentDateTime - secondStart) / (nextSecondStart - secondStart);
-    return secondFraction;
+    // Ensure currentDateTime is a Date object
+    let dateTime = new Date(currentDateTime);
+
+    // Calculate the milliseconds fraction within the current second
+    let milliseconds = dateTime.getMilliseconds();
+    let secondFraction = milliseconds / 1000;
+
+    // Convert the fraction to a string with enough precision
+    let fractionString = secondFraction.toFixed(2);
+
+    // Extract the ones digit, the decimal, the tenths digit, and the hundredths digit
+    let onesDigit = fractionString[0]; // Should be '0' because seconds are always less than 1
+    let decimalPoint = fractionString[1]; // Should be '.'
+    let tenthsDigit = fractionString[2];
+    let hundredthsDigit = parseInt(fractionString[3], 10);
+
+    // Initialize the result string with the initial part
+    let result = `${onesDigit}${decimalPoint}${tenthsDigit}${hundredthsDigit}`;
+
+    // Add the incrementing hundredths digits
+    for (let i = 0; i < 8; i++) {
+        hundredthsDigit = (hundredthsDigit + 1) % 10; // Increment and wrap around if necessary
+        result += hundredthsDigit;
+    }
+    return result;
 }
 
 function calculateMinute(currentDateTime) {
