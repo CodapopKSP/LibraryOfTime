@@ -703,3 +703,53 @@ function getQadimiDate(currentDateTime) {
 
   return day + ' ' + month + ' ' + year + ' Y.Z.';
 }
+
+// Returns a formatted Egyptian Civil local date
+function getEgyptianDate(currentDateTime) {
+    const EgyptianSeasons = ["Akhet", "Peret", "Shemu", "Heriu Renpet"];
+    const EgyptianMonths = [
+        "Tekh",
+        "Menhet",
+        "Hwt-Hrw",
+        "Ka-Hr-Ka",
+        "Sf-Bdt",
+        "Rekh Wer",
+        "Rekh Neds",
+        "Renwet",
+        "Hnsw",
+        "Hnt-Htj",
+        "Ipt-Hmt",
+        "Wep-Renpet"
+    ];
+    const EgyptianIntercalaryDays = ["Osiris", "Horus the Elder", "Set", "Isis", "Nephthys"];
+    const EgyptianMonthNumbers = ["I", "II", "III", "IV"];
+
+    const startOfAkhet2781 = new Date(-2781, 5, 27);
+    const daysSincestartOfAkhet2781 = Math.floor(differenceInDays(currentDateTime, startOfAkhet2781));
+    const yearsSinceStartOfAkhet2781 = Math.floor(daysSincestartOfAkhet2781/365);
+    const currentDayOfYear = ((daysSincestartOfAkhet2781 % 365) + 365) % 365 + 1;
+
+    let currentSeason = '';
+    if (currentDayOfYear<121) {
+        currentSeason = EgyptianSeasons[0];
+    } else if (currentDayOfYear<241) {
+        currentSeason = EgyptianSeasons[1];
+    } else if (currentDayOfYear<361) {
+        currentSeason = EgyptianSeasons[2];
+    } else {
+        currentSeason = EgyptianSeasons[3];
+    }
+
+    const dayOfSeason = currentDayOfYear%120;
+    let currentMonthNumber = Math.floor(dayOfSeason/30);
+    const dayOfMonth = dayOfSeason%30;
+
+    let monthAndDayText = EgyptianMonthNumbers[currentMonthNumber] + ' ' + currentSeason + ' ' + dayOfMonth;
+
+    if (currentSeason=="Heriu Renpet") {
+        monthAndDayText = EgyptianIntercalaryDays[dayOfMonth-1];
+    }
+    
+
+    return monthAndDayText + ' (' + yearsSinceStartOfAkhet2781 + ')';
+}
