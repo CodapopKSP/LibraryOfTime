@@ -556,4 +556,35 @@ th, td {
     .node {
         width: 12.5vh;
     }
+    .tooltip-info,
+    .tooltip-mission,
+    .tooltip-sources,
+    .tooltip-overview,
+    .tooltip-accuracy {
+        margin: auto 0.1rem auto 0.1rem;
+        font-size: 1.2vh;
+    }
+    .table-long th,
+    .table-long td {
+        padding: 0.2vh;
+    }
+
+    .table-short th,
+    .table-short td {
+        padding: 0.3vh;
+    }
+
+    .table-very-long th,
+    .table-very-long td {
+        padding: 0.1vh;
+    }
+
+    .table-very-very-long th,
+    .table-very-very-long td {
+        font-size: 1.1vh;
+    }
+
+    th, td {
+        border: 0.1vh solid black;
+    }
 }
