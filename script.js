@@ -19,13 +19,12 @@ Astronomical Time and determine if epoch displays need to be in AT or regular ti
 Hebrew/Thai/Chinese/Byzantine/Zoroastrian/Egyptian times
 */
 
+let selectedNode = '';              // The current selected node, blank if none
+let dateInput = '';                 // Text string from the date input box
+let currentDescriptionPage = [];    // The current arrangement of information to be displayed in the description box
+let updateIntervalId;               // The current interval ID for spreading calculations out so they don't happen all at once
 
-const nodeWrapper = document.querySelector('.node-wrapper');
-let selectedNode = '';
-let dateInput = '';
-let currentDescriptionPage = [];
-let updateIntervalId;
-
+// About tab (Home Page)
 const aboutDescription = document.createElement('div');
 aboutDescription.classList.add('tooltip');
 const aboutElement = document.createElement('div');
@@ -33,6 +32,7 @@ aboutElement.innerHTML = `${welcomeDescription[0].about}`;
 aboutElement.classList.add('tooltip-info');
 aboutDescription.appendChild(aboutElement);
 
+// Mission tab (Home Page)
 const missionDescription = document.createElement('div');
 missionDescription.classList.add('tooltip');
 const missionElement = document.createElement('div');
@@ -40,6 +40,7 @@ missionElement.innerHTML = `${welcomeDescription[0].mission}`;
 missionElement.classList.add('tooltip-mission');
 missionDescription.appendChild(missionElement);
 
+// Accuracy tab (Home Page)
 const accuracyDescription = document.createElement('div');
 accuracyDescription.classList.add('tooltip');
 const accuracyElement = document.createElement('div');
@@ -47,6 +48,7 @@ accuracyElement.innerHTML = `${welcomeDescription[0].accuracy}`;
 accuracyElement.classList.add('tooltip-accuracy');
 accuracyDescription.appendChild(accuracyElement);
 
+// Sources tab (Home Page)
 const sourcesDescription = document.createElement('div');
 sourcesDescription.classList.add('tooltip');
 const sourcesElement = document.createElement('div');
@@ -54,14 +56,17 @@ sourcesElement.innerHTML = `${welcomeDescription[0].sources}`;
 sourcesElement.classList.add('tooltip-sources');
 sourcesDescription.appendChild(sourcesElement);
 
+// Add the tab text to the description window
 document.querySelector('.description-wrapper').appendChild(aboutDescription);
 document.querySelector('.description-wrapper').appendChild(missionDescription);
 document.querySelector('.description-wrapper').appendChild(accuracyDescription);
 document.querySelector('.description-wrapper').appendChild(sourcesDescription);
 
+// Update Description data with home page
 let visibleTooltip = aboutDescription;
 currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescription, sourcesDescription];
 
+// Main function for 
 function updateDateAndTime(dateInput, firstPass) {
     let currentPass = 0;
     let currentDateTime = '';
