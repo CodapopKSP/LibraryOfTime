@@ -7,6 +7,8 @@
 //https://www.jewfaq.org/jewish_calendar_calculation
 //https://ops-alaska.com/time/gangale_converter/calendar_clock.htm
 //https://planetcalc.com/9166/
+//https://assets.cambridge.org/97811070/57623/frontmatter/9781107057623_frontmatter.pdf
+///https://archive.org/details/calendrical-calculations/page/n11/mode/2up
 
 /*
 TODO:
@@ -213,6 +215,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('human-era-node', getHumanEra(currentDateTime));
         setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
         setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
+        setTimeValue('symmetry454-node', getSymmetry454Date(currentDateTime));
     }
 
     // Astronomical Data

@@ -125,3 +125,46 @@ function getWorldCalendarDate(currentDateTime) {
 
     return invariableDate + invariableMonth + ' ' + year + ' CE';
 }
+
+function getSymmetry454Date(currentDateTime) {
+    let monthDays = [28, 35, 28, 28, 35, 28, 28, 35, 28, 28, 35, 28];
+    
+    // Choose a date that has the same January 1st in both calendars
+    const knownJan1st = new Date(2001, 0, 1);
+    let daysSinceKnownJan1st = Math.floor(differenceInDays(currentDateTime, knownJan1st))+1;
+
+    // Iterate through years and subtract days based on if leap year or normal year
+    let symmetryYear = 2001;
+    let isLeapYear = false;
+    if (daysSinceKnownJan1st > 0) {
+        while (daysSinceKnownJan1st > (isLeapYear ? 371 : 364)) {
+            daysSinceKnownJan1st -= (isLeapYear ? 371 : 364);
+            symmetryYear++;
+            const nextYearRemainder = ((52 * symmetryYear) + 146) % 293;
+            isLeapYear = (nextYearRemainder < 52);
+        }
+    } else {
+        while (daysSinceKnownJan1st <= 0) {
+            symmetryYear--;
+            const previousYearRemainder = ((52 * symmetryYear) + 146) % 293;
+            isLeapYear = (previousYearRemainder < 52);
+            daysSinceKnownJan1st += (isLeapYear ? 371 : 364);
+        }
+    }
+    
+    // Set month days based on leap year
+    const yearRemainder = ((52*symmetryYear)+146)%293;
+    const thisYearIsLeapYear = (yearRemainder < 52);
+    if (thisYearIsLeapYear) {
+        monthDays = [28, 35, 28, 28, 35, 28, 28, 35, 28, 28, 35, 35];
+    }
+
+    // Calculate the Symmetry454 month and day
+    let symmetryMonth = 0;
+    while (daysSinceKnownJan1st > monthDays[symmetryMonth]) {
+        daysSinceKnownJan1st -= monthDays[symmetryMonth];
+        symmetryMonth++;
+    }
+
+    return daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE';
+}
