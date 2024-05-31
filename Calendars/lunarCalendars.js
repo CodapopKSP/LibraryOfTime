@@ -7,7 +7,7 @@
 
 // Some dates are weird on month or year change
 // Returns a formatted Hijri calendar AST date
-function getHijriDate(currentDateTime) {
+function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
 
     const HijriMonths = {
         0: 'al-Muḥarram',
@@ -25,7 +25,7 @@ function getHijriDate(currentDateTime) {
     };
 
     // Get the date of last day of New Moon and calculate it's sunset at Mecca (6:00pm UTC+3)
-    const firstDayOfIslamicMonth = dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime);
+    const firstDayOfIslamicMonth = dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime, newMoonThisMonth, newMoonLastMonth);
     firstDayOfIslamicMonth.setDate(firstDayOfIslamicMonth.getDate()-1);
     firstDayOfIslamicMonth.setUTCHours(18-3);
     firstDayOfIslamicMonth.setMinutes(0);
@@ -80,8 +80,7 @@ function calculateIslamicMonthAndYear(ln) {
 }
 
 // Find the last day that occurred after a New Moon happened before sunset in Mecca
-function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
-    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
     
     // Check if the New Moon has passed for this month
     if (currentDateTime.getTime() > newMoonThisMonth.getTime()) {
@@ -90,17 +89,16 @@ function dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime) {
             return newMoonThisMonth;
         } else {
             // If it happened after sunset, return one day later
-            return new Date(newMoonThisMonth.setDate(newMoonThisMonth.getDate() + 1))
+            let dayAfter = new Date(newMoonThisMonth);
+            return dayAfter.setDate(newMoonThisMonth.getDate()+1);
         }
     }
-    let dateBack29Days = new Date(currentDateTime);
-    dateBack29Days.setDate(dateBack29Days.getDate() - 29);
-    const newMoonLastMonth = getNewMoonThisMonth(dateBack29Days, 0);
     // Check if the New Moon happened before 18:00 Mecca time (UTC+3), rough approximation of sunset
     if (newMoonLastMonth.getUTCHours() < 15) {
         return newMoonLastMonth;
     } else {
         // If it happened before sunset, return that day
-        return new Date(newMoonLastMonth.setDate(newMoonLastMonth.getDate()))
+        let dayBefore = new Date(newMoonLastMonth);
+        return dayBefore.setDate(newMoonLastMonth.getDate()-1);
     }
 }

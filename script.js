@@ -144,6 +144,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
         setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
         setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
+        setTimeValue('lunation-node', calculateLunationNumber(currentDateTime));
     }
 
     // Decimal Time
@@ -185,29 +186,22 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
     }
 
-    // Lunisolar Calendars
+    // Lunisolar and Lunar Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===1))||(currentPass===100)) {
-        let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
+        const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+        const newMoonLastMonth = getNewMoonThisMonth(currentDateTime, -1);
+        let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, 16); // China midnight happens at UTC 16:00
         let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
         setTimeValue('chinese-node', chineseCalendar);
         setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
-    }
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===2))||(currentPass===100)) {
-        let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, 15); // Vietnam midnight happens at UTC 15:00
+        let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, 15); // Vietnam midnight happens at UTC 15:00
         setTimeValue('vietnamese-node', getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam));
-    }
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===3))||(currentPass===100)) {
-        let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, 17); // Korea midnight happens at UTC 17:00
+        let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, 17); // Korea midnight happens at UTC 17:00
         setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea));
-        
+        setTimeValue('hijri-node', getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth)); // Returns a wrong day for May 8 2024
     }
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===3))||(currentPass===100)) {
         setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime)); // Returns a wrong day for October 10 1989
-    }
-
-    // Lunar Calendars
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===4))||(currentPass===100)) {
-        setTimeValue('hijri-node', getHijriDate(currentDateTime)); // Returns a wrong day for May 8 2024
     }
 
     // Proposed Calendars
@@ -225,9 +219,10 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
     }
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===7))||(currentPass===100)) {
+        const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
         setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
         setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
-        setTimeValue('this-new-moon-node', getNewMoonThisMonth(currentDateTime, 0).toUTCString());
+        setTimeValue('this-new-moon-node', newMoonThisMonth.toUTCString());
     }
 
     // Pop Culture

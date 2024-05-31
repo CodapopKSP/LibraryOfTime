@@ -102,7 +102,7 @@ function getSexagenaryYear(chineseDate) {
 //|--------------------------|
 
 
-function getLunisolarCalendarDate(currentDateTime, utcMidnight) {
+function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, utcMidnight) {
     // Get Winter Solstice for this year. That is Month 11.
     const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
     const startOfMonthEleven = getMonthEleven(winterSolstice);
@@ -122,9 +122,9 @@ function getLunisolarCalendarDate(currentDateTime, utcMidnight) {
 
     // Not a leap year
     if (lunationsBetweenEleventhMonths===12) {
-        const startofThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+        const startofThisMonth = newMoonThisMonth;
         const midnightChinaStartOfMonth = getMidnightInUTC(startofThisMonth, utcMidnight);
-        const startofLastMonth = getNewMoonThisMonth(currentDateTime, -1);
+        const startofLastMonth = newMoonLastMonth;
         const midnightChinaStartOfLastMonth = getMidnightInUTC(startofLastMonth, utcMidnight);
         const daysSinceMonthEleven = (currentDateTime - midnightStartOfMonthEleven)/1000/60/60/24;
 
@@ -156,9 +156,9 @@ function getLunisolarCalendarDate(currentDateTime, utcMidnight) {
 
     // Leap Year
     if (lunationsBetweenEleventhMonths===13) {
-        const startofThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+        const startofThisMonth = newMoonThisMonth;
         const midnightChinaStartOfMonth = getMidnightInUTC(startofThisMonth, utcMidnight);
-        const startofLastMonth = getNewMoonThisMonth(currentDateTime, -1);
+        const startofLastMonth = newMoonLastMonth;
         const midnightChinaStartOfLastMonth = getMidnightInUTC(startofLastMonth, utcMidnight);
         const daysSinceMonthEleven = (currentDateTime - midnightStartOfMonthEleven)/1000/60/60/24;
         const leapMonth = calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear);
@@ -206,12 +206,12 @@ function getLunisolarCalendarDate(currentDateTime, utcMidnight) {
 
 // Returns 'major' or 'minor' depending on the latitude of the sun calculation
 function getSolarTermTypeThisMonth(startOfMonth) {
-    const newMoonThisMonth = startOfMonth;
+    const newMoonThisMonth_Lunation = startOfMonth;
     const millisecondsIn29_53Days = 29.53 * 24 * 60 * 60 * 1000; // THIS VALUE IS TECHNICALLY WRONG AND CAUSES PROBLEMS
-    let newMoonNextMonth = new Date(newMoonThisMonth.getTime()+millisecondsIn29_53Days);
+    const newMoonNextMonth_Lunation = new Date(newMoonThisMonth_Lunation.getTime()+millisecondsIn29_53Days);
     
-    const newMoonThisMonthLongitudeOfSun = getLongitudeOfSun(newMoonThisMonth);
-    const newMoonNextMonthLongitudeOfSun = getLongitudeOfSun(newMoonNextMonth);
+    const newMoonThisMonthLongitudeOfSun = getLongitudeOfSun(newMoonThisMonth_Lunation);
+    const newMoonNextMonthLongitudeOfSun = getLongitudeOfSun(newMoonNextMonth_Lunation);
 
     const MajorSolarTerms = [
         0, 30, 60, 90,
