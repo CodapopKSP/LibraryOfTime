@@ -412,7 +412,7 @@ const solarCalendarsData = [
         id: 'julian',
         type: 'Solar Calendar',
         epoch: '3 January 1 CE',
-        confidence: 'High',
+        confidence: 'Exact',
         overview: 'The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date.\n\nIt features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. Years are denoted \'AD\' or \'Anno Domini\', meaning \'in the year of the Lord\', as well as \'BC\' meaning \'Before Christ\'.\n\nThe Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar.',
         info: `The Julian calendar drifts from the solar year by about 1 day every 129 years, as it has too many leap years. The Gregorian calendar is meant to correct this drift. As of the 21st century, the two calendars are 13 days apart.\n\n<table class="table-long"><tr><th>Month</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
         accuracy: 'The Julian calendar is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections.\n\nThe date of leap days might not be exactly aligned with the Gregorian calendar here, but they are accurate to the year.',
@@ -436,7 +436,7 @@ const solarCalendarsData = [
         id: 'era-fascista',
         type: 'Solar Calendar',
         epoch: '29 October 1922 CE',
-        confidence: 'High',
+        confidence: 'Exact',
         overview: 'Era Fascista is a simple count of number of years since the start of the Fascist Era in Italy on October 29th, 1922, starting with Anno I.\n\nTaking inspiration from the French Republican calendar, years were written in Roman numerals and it was intended to replace the Gregorian calendar.',
         info: `Era Fascista didn't really implement months, as it was used alongside the Gregorian calendar. Enscriptions marked in Era Fascista dates could use a number of different abbreviations, such as 'Anno', 'E.F.', 'Anno Fascista', 'A.F.', or simply 'A.'.`,
         accuracy: 'Era Fascista is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.',
@@ -444,7 +444,7 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Coptic (UTC)',
+        name: 'Coptic (EET)',
         id: 'coptic',
         type: 'Solar Calendar',
         epoch: '29 August 284 CE',
@@ -452,11 +452,11 @@ const solarCalendarsData = [
         overview: 'The Coptic calendar, also known as the Alexandrian calendar, was used in Egypt until the adoption of the Gregorian calendar in 1875. It is based on the ancient Egyptian calendar but with leap days every four years, keeping it in sync with the Julian calendar while sharing months and days with the Ge\'ez calendar.\n\nIt has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. The new year starts on the 11th or 12th of September, and years are abbreviated with \'AM\', meaning Anno Martyrum, or \'Year of the Martyrs\'.\n\nThe Coptic calendar is still in use today by Egyptian farmers as well as the Coptic Orthodox Church.',
         info: `The Ge\'ez calendar is precisely aligned with the Coptic calendar for its months and days. It's epoch, translated to 'Year of the Martyrs', is counted from the year Diocletian became Emperor of Rome, which was followed by a period of mass persecution of Christians.\n\n<table class="table-long"><tr><th>Month</th><th>Days</th><th>Approx. Gregorian Dates</th></tr><tr><td>Thout</td><td>30</td><td>Sep 11 - Oct 10</td></tr><tr><td>Paopi</td><td>30</td><td>Oct 11 - Nov 9</td></tr><tr><td>Hathor</td><td>30</td><td>Nov 10 - Dec 9</td></tr><tr><td>Koiak</td><td>30</td><td>Dec 10 - Jan 8</td></tr><tr><td>Tobi</td><td>30</td><td>Jan 9 - Feb 7</td></tr><tr><td>Meshir</td><td>30</td><td>Feb 8 - Mar 9</td></tr><tr><td>Paremhat</td><td>30</td><td>Mar 10 - Apr 8</td></tr><tr><td>Parmouti</td><td>30</td><td>Apr 9 - May 8</td></tr><tr><td>Pashons</td><td>30</td><td>May 9 - Jun 7</td></tr><tr><td>Paoni</td><td>30</td><td>Jun 8 - Jul 7</td></tr><tr><td>Epip</td><td>30</td><td>Jul 8 - Aug 6</td></tr><tr><td>Mesori</td><td>30</td><td>Aug 7 - Sep 5</td></tr><tr><td>Pi Kogi Enavot</td><td>5 or 6</td><td>Sep 6 - Sep 10</td></tr></table>`,
         accuracy: 'The Coptic calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.',
-        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Coptic_calendar">Wikipedia article</a>.'
+        source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Coptic_calendar">Wikipedia article</a>.\n\nThis calendar has been calibrated using the calendar found <a href="https://www.copticbook.net/daily.php?m=9&d=25&mode=1&itemnum=1">here</a>.'
     },
 
     {
-        name: 'Ge\'ez (UTC)',
+        name: 'Ge\'ez (EAT)',
         id: 'ethiopian',
         type: 'Solar Calendar',
         epoch: '27 August 8 CE',
@@ -464,7 +464,7 @@ const solarCalendarsData = [
         overview: 'The Ge\'ez calendar is the official calendar of Ethiopia. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. It has a leap day every 4 years, keeping it in sync with the Julian calendar while sharing months and days with the Coptic calendar.\n\nThe New Year starts on September 11th or 12th, with years abbreviated with ዓ.ም. which is pronounced \'am\', short for Amätä Mihret, meaning \'Year of Mercy\'.',
         info: `The Ge\'ez calendar is precisely aligned with the Coptic calendar for its months and days. It nearly shares an epoch with the Julian calendar, as they both are counting years since the same event, but is actually 7-8 years behind due to a difference in calculation of the date of the Annunciation.\n\n<table class="table-long"><tr><th>Month</th><th>Days</th><th>Approx. Gregorian Dates</th></tr><tr><td>Mäskäräm</td><td>30</td><td>Sep 11 - Oct 10</td></tr><tr><td>Ṭəqəmt</td><td>30</td><td>Oct 11 - Nov 9</td></tr><tr><td>Ḫədar</td><td>30</td><td>Nov 10 - Dec 9</td></tr><tr><td>Taḫśaś</td><td>30</td><td>Dec 10 - Jan 8</td></tr><tr><td>Ṭərr</td><td>30</td><td>Jan 9 - Feb 7</td></tr><tr><td>Yäkatit</td><td>30</td><td>Feb 8 - Mar 9</td></tr><tr><td>Mägabit</td><td>30</td><td>Mar 10 - Apr 8</td></tr><tr><td>Miyazya</td><td>30</td><td>Apr 9 - May 8</td></tr><tr><td>Gənbo</td><td>30</td><td>May 9 - Jun 7</td></tr><tr><td>Säne</td><td>30</td><td>Jun 8 - Jul 7</td></tr><tr><td>Ḥamle</td><td>30</td><td>Jul 8 - Aug 6</td></tr><tr><td>Nähase</td><td>30</td><td>Aug 7 - Sep 5</td></tr><tr><td>Ṗagume</td><td>5 or 6</td><td>Sep 6 - Sep 10</td></tr></table>`,
         accuracy: 'The Ge\'ez calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.',
-        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Ethiopian_calendar">Wikipedia article</a>.'
+        source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Ethiopian_calendar">Wikipedia article</a>.\n\nThis calendar has been calibrated using the calendar found <a href="https://www.ethcalendar.com/">here</a>.'
     },
 
     {

@@ -149,7 +149,6 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
 
     // Get starting and ending equinoxes, Paris Time (CET)
     let startingEquinox = '';
-    let endingEquinox = '';
     let thisYearEquinox = new Date(vernalEquinox);
     thisYearEquinox.setUTCHours(1);
     thisYearEquinox.setMinutes(0);
@@ -159,13 +158,11 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
         lastYear.setFullYear(currentDateTime.getFullYear()-1);
         lastYear.setMonth(10);
         startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'autumn');
-        endingEquinox = thisYearEquinox;
     } else {
         let nextYear = new Date(currentDateTime);
         nextYear.setFullYear(currentDateTime.getFullYear()+1);
         nextYear.setMonth(10);
         startingEquinox = thisYearEquinox;
-        endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'autumn');
     }
 
     // Get start of year, Paris Time (CET)
@@ -177,14 +174,15 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     // Calculate the number of years since 1792
     let yearsSince1792 = (startOfRepublicanYear.getFullYear() - 1792) + 1;
 
-    // Increment up by 1 to account for no 0 day
-    let daysSinceSeptember22 = Math.trunc(differenceInDays(currentDateTime, startOfRepublicanYear));
+    // Find days in current year
+    let daysSinceSeptember22 = Math.floor(differenceInDays(currentDateTime, startOfRepublicanYear));
     
     let month = Math.trunc(daysSinceSeptember22 / 30) + 1;
     if (month > 13) {
         month = 0;
     }
-    let day = Math.trunc(daysSinceSeptember22 % 30)+1;
+    // Increment up by 1 to account for no 0 day
+    let day = Math.floor(daysSinceSeptember22 % 30)+1;
     return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE';
 }
 
@@ -201,7 +199,7 @@ function getEraFascista(currentDateTime) {
 }
 
 // Returns a formatted Coptic UTC date based on the Julian Day (not Julian date)
-function julianDayToCoptic(julianDay) {
+function getCopticDate(currentDateTime) {
     const copticMonths = [
         "Thout",
         "Paopi",
@@ -218,29 +216,37 @@ function julianDayToCoptic(julianDay) {
         "Pi Kogi Enavot"
     ];
 
-    const JD_epoch = 1824665.5; // Julian Day of the start of the Coptic calendar
-    const Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
+    // Number of days in each Coptic month
+    let Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
 
-    // Add 0.5 to JD to make it happen with UTC
-    const daysSinceEpoch = Math.trunc(julianDay+0.5) - JD_epoch;
-    const yearsSinceEpoch = Math.trunc((4 * daysSinceEpoch + 3) / 1461);
-    const CopticYear = yearsSinceEpoch;
+    // Fix months if Julian leap year
+    let currentJulianYear = getJulianDate(currentDateTime).getFullYear();
+    if (currentJulianYear % 4 === 0) {
+        Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
+    }
 
-    let remainingDays = daysSinceEpoch - (365 * yearsSinceEpoch + Math.trunc(yearsSinceEpoch / 4));
-    let CopticMonth = 1;
-    while (remainingDays >= Coptic_monthDays[CopticMonth - 1]) {
-        remainingDays -= Coptic_monthDays[CopticMonth - 1];
+    // Calculate days and years from epoch
+    const ThoutYear1 = new Date(Date.UTC(283, 7, 28, 21, 0, 0));
+    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, ThoutYear1));
+    const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
+    let CopticYear = yearsSinceEpoch;
+
+    let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
+    if (remainingDays < 0) {
+        CopticYear -= 1;
+        remainingDays += 365 + (CopticYear % 4 === 3 ? 1 : 0); // Adjust for leap year
+    }
+    let CopticMonth = 0;
+    while (remainingDays > Coptic_monthDays[CopticMonth]) {
+        remainingDays -= Coptic_monthDays[CopticMonth];
         CopticMonth++;
     }
 
-    // Add 2 days for some reason but it keeps it in sync with Wiki
-    const CopticDay = Math.trunc(remainingDays + 2);
-
-    return CopticDay + ' ' + copticMonths[CopticMonth-1] + ' ' + CopticYear + ' AM';
+    return remainingDays + ' ' + copticMonths[CopticMonth] + ' ' + CopticYear + ' AM ';
 }
 
 // Returns a formatted Ethiopian UTC date based on the Julian Day (not Julian date)
-function julianDayToEthiopian(julianDay) {
+function getEthiopianDate(currentDateTime) {
     const ethiopianMonths = [
         "Mäskäräm",
         "Ṭəqəmt",
@@ -257,25 +263,34 @@ function julianDayToEthiopian(julianDay) {
         "Ṗagume"
     ];
 
-    const JD_epoch = 1724221.5; // Julian Day of the start of the Coptic calendar
-    const Ethiopian_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5]; // Number of days in each Coptic month
+    // Number of days in each Coptic month
+    let Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
 
-    // Add 0.5 to JD to make it happen with UTC
-    const daysSinceEpoch_ = Math.trunc(julianDay+0.5) - JD_epoch;
-    const yearsSinceEpoch_ = Math.trunc((4 * daysSinceEpoch_ + 3) / 1461);
-    const EthiopianYear = yearsSinceEpoch_ + 2;
+    // Fix months if Julian leap year
+    let currentJulianYear = getJulianDate(currentDateTime).getFullYear();
+    if (currentJulianYear % 4 === 0) {
+        Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
+    }
 
-    let remainingDays_ = daysSinceEpoch_ - (365 * yearsSinceEpoch_ + Math.trunc(yearsSinceEpoch_ / 4));
-    let EthiopianMonth = 1;
-    while (remainingDays_ >= Ethiopian_monthDays[EthiopianMonth - 1]) {
-        remainingDays_ -= Ethiopian_monthDays[EthiopianMonth - 1];
+    // Calculate days and years from epoch
+    let ThoutYear1 = new Date(Date.UTC(7, 7, 26, 21, 0, 0));
+    ThoutYear1.setUTCFullYear(7);
+    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, ThoutYear1));
+    const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
+    let EthiopianYear = yearsSinceEpoch;
+
+    let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
+    if (remainingDays < 0) {
+        EthiopianYear -= 1;
+        remainingDays += 365 + (EthiopianYear % 4 === 3 ? 1 : 0); // Adjust for leap year
+    }
+    let EthiopianMonth = 0;
+    while (remainingDays > Coptic_monthDays[EthiopianMonth]) {
+        remainingDays -= Coptic_monthDays[EthiopianMonth];
         EthiopianMonth++;
     }
 
-    // Add 21 day for some reason but it keeps it in sync with Wiki
-    const CopticDay = Math.trunc(remainingDays_ + 1);
-
-    return CopticDay + ' ' + ethiopianMonths[EthiopianMonth-1] + ' ዓ.ም.' + EthiopianYear;
+    return remainingDays + ' ' + ethiopianMonths[EthiopianMonth] + ' ዓ.ም.' + EthiopianYear;
 }
 
 // Returns a formatted Byzantine local date
