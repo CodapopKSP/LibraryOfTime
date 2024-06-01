@@ -16,6 +16,6 @@ function getCurrentPresidentialTerm(currentDateTime) {
     if (currentDateTime<januaryThisYear) {
         yearsSinceEpoch-=1;
     }
-    let currentPresidentialTerm = (currentDateTime-january1789)/1000/60/60/24/365.25/4;
+    let currentPresidentialTerm = differenceInDays(currentDateTime, january1789)/365.25/4;
     return currentPresidentialTerm;
 }

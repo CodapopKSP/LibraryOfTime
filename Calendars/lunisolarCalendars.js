@@ -209,8 +209,8 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
         }
         
         // Move to the start of the next month
-        const millisecondsIn29_53Days = 29.53 * 24 * 60 * 60 * 1000;
-        dateToCheck.setTime(dateToCheck.getTime() + millisecondsIn29_53Days);
+        const millisecondsInLunarMonth = 29.53 * 24 * 60 * 60 * 1000;
+        dateToCheck.setTime(dateToCheck.getTime() + millisecondsInLunarMonth);
         lunations += 1;
     }
 }
@@ -242,9 +242,9 @@ function calculateHebrewCalendar(currentDateTime) {
     nextYearPlusABit.setFullYear(lastTishri.getFullYear() + 1);
     nextYearPlusABit.setMonth(lastTishri.getMonth() + 3);
     const nextTishri = getStartOfTishri(nextYearPlusABit);
-    const daysThisYear = (nextTishri - lastTishri) / 1000 / 24 / 60 / 60;
+    const daysThisYear = differenceInDays(nextTishri, lastTishri);
 
-    let remainingDays = Math.trunc((currentDateTime-lastTishri) / 1000 / 24 / 60 / 60);
+    let remainingDays = Math.floor(differenceInDays(currentDateTime, lastTishri));
 
     // Check if it's a deficient, regular, or complete year
     const isDeficientYear = [353, 383].includes(daysThisYear);

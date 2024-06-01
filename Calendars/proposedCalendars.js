@@ -8,7 +8,6 @@ function getHumanEra(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear() + 10000;
-
     return day + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE';
 }
 
@@ -16,7 +15,7 @@ function getInvariableCalendarDate(currentDateTime) {
     const year = currentDateTime.getFullYear();
     const startOfYear = new Date(year, 0, 1, 0, 0, 0);
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
-    const daysSinceStartOfYear = Math.trunc((currentDateTime.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24))+1;
+    const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
     // Need two lists for each for Leap Years and non Leap Years
@@ -73,7 +72,7 @@ function getWorldCalendarDate(currentDateTime) {
     const year = currentDateTime.getFullYear();
     const startOfYear = new Date(year, 0, 1, 0, 0, 0);
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
-    const daysSinceStartOfYear = Math.trunc((currentDateTime.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24))+1;
+    const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
     // Need two lists for each for Leap Years and non Leap Years

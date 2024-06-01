@@ -178,7 +178,7 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     let yearsSince1792 = (startOfRepublicanYear.getFullYear() - 1792) + 1;
 
     // Increment up by 1 to account for no 0 day
-    let daysSinceSeptember22 = Math.trunc((currentDateTime - startOfRepublicanYear) / (1000 * 60 * 60 * 24));
+    let daysSinceSeptember22 = Math.trunc(differenceInDays(currentDateTime, startOfRepublicanYear));
     
     let month = Math.trunc(daysSinceSeptember22 / 30) + 1;
     if (month > 13) {
@@ -376,7 +376,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     endingEquinox = figureOutEquinoxBeforeAfterSunset(endingEquinox);
 
     // Calculate when today started based on sunset in Tehran (UTC+3:30)
-    currentDayOfYear = Math.trunc((currentDateTime - startingEquinox) /1000/24/60/60)+1;
+    currentDayOfYear = Math.trunc(differenceInDays(currentDateTime, startingEquinox))+1;
     let todaySunsetInTehran = new Date(currentDateTime);
     todaySunsetInTehran.setUTCHours(12);
     todaySunsetInTehran.setMinutes(30);
@@ -428,7 +428,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
             // It's after the start of the month
             } else {
                 // Get new current day of year by working from the final month
-                currentDayOfYear = Math.trunc((currentDateTime - firstDayOfFinalMonth)/1000/24/60/60)+1;
+                currentDayOfYear = Math.trunc(differenceInDays(currentDateTime, firstDayOfFinalMonth))+1;
                 // Day is within final month
                 if (currentDayOfYear<20) {
                     monthIndex=19;
