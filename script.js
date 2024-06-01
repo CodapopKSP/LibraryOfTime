@@ -188,16 +188,20 @@ function updateDateAndTime(dateInput, firstPass) {
 
     // Lunisolar and Lunar Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===1))||(currentPass===100)) {
+        const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
+        let lastYear = new Date(currentDateTime);
+        lastYear.setFullYear(currentDateTime.getFullYear()-1);
+        const winterSolsticeLastYear = getCurrentSolsticeOrEquinox(lastYear, 'winter');
         const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
         const newMoonLastMonth = getNewMoonThisMonth(currentDateTime, -1);
-        let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, 16); // China midnight happens at UTC 16:00
-        let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina);
+        let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 16); // China midnight happens at UTC 16:00
+        let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina, 'china');
         setTimeValue('chinese-node', chineseCalendar);
         setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
-        let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, 15); // Vietnam midnight happens at UTC 15:00
-        setTimeValue('vietnamese-node', getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam));
-        let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, 17); // Korea midnight happens at UTC 17:00
-        setTimeValue('dangun-node', getDangunLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea));
+        let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 15); // Vietnam midnight happens at UTC 15:00
+        setTimeValue('vietnamese-node', getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam, 'vietnam'));
+        let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 17); // Korea midnight happens at UTC 17:00
+        setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea, 'korea'));
         setTimeValue('hijri-node', getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth)); // Returns a wrong day for May 8 2024
     }
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===3))||(currentPass===100)) {

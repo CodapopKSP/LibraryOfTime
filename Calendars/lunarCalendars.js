@@ -25,7 +25,7 @@ function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
     };
 
     // Get the date of last day of New Moon and calculate it's sunset at Mecca (6:00pm UTC+3)
-    const firstDayOfIslamicMonth = dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime, newMoonThisMonth, newMoonLastMonth);
+    let firstDayOfIslamicMonth = new Date(dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime, newMoonThisMonth, newMoonLastMonth));
     firstDayOfIslamicMonth.setDate(firstDayOfIslamicMonth.getDate()-1);
     firstDayOfIslamicMonth.setUTCHours(18-3);
     firstDayOfIslamicMonth.setMinutes(0);

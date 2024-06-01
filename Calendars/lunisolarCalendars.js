@@ -16,53 +16,41 @@ function isMetonicCycleLeapYear(year) {
 //|--------------------------------------|
 
 // Returns a formatted Chinese calendar CST date based on the lunisolar calculation
-function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate) {
-    const gregorianYyear = currentDateTime.getUTCFullYear();
+function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, country) {
+    const gregorianYear = currentDateTime.getUTCFullYear();
     const gregorianMonth = currentDateTime.getUTCMonth();
-    let year = gregorianYyear + 2698;
-    if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
-        year -= 1;
-    }
-    let zodiacAnimals = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
-    let positiveYear = year < 0 ? 60 + (year % 60) : year;
-    let earthlyBranchIndex = (positiveYear-2) % 12;
-
-    if (year < 0) {
-        earthlyBranchIndex++;
-    }
-
-    return `${year}年 ${lunisolarDate.month}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
-}
-
-// Returns a formatted Dangun calendar KST date based on the lunisolar calculation
-function getDangunLunisolarCalendarDate(currentDateTime, lunisolarDate) {
-    const gregorianYyear = currentDateTime.getUTCFullYear();
-    const gregorianMonth = currentDateTime.getUTCMonth();
-    let year = gregorianYyear;
+    let year = gregorianYear;
     if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
         year -= 1;
     }
 
-    return `${year}년 ${lunisolarDate.month}월 ${lunisolarDate.day}일`;
-}
-
-// Returns a formatted Vietnamese calendar IST date based on the lunisolar calculation
-function getVietnameseLunisolarCalendarDate(currentDateTime, lunisolarDate) {
-    const gregorianYyear = currentDateTime.getUTCFullYear();
-    const gregorianMonth = currentDateTime.getUTCMonth();
-    let year = gregorianYyear;
-    if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
-        year -= 1;
-    }
-    let zodiacAnimals = ['Rat (𤝞)', 'Water Buffalo (𤛠)', 'Tiger (𧲫)', 'Cat (猫)', 'Dragon (龍)', 'Snake (𧋻)', 'Horse (馭)', 'Goat (羝)', 'Monkey (𤠳)', 'Rooster (𪂮)', 'Dog (㹥)', 'Pig (㺧)'];
-    let positiveYear = year < 0 ? 60 + (year % 60) : year;
-    let earthlyBranchIndex = (positiveYear-4) % 12;
-
-    if (year < 0) {
-        earthlyBranchIndex++;
+    if (country==='china') {
+        year += 2698;
+        let zodiacAnimals = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
+        let positiveYear = year < 0 ? 60 + (year % 60) : year;
+        let earthlyBranchIndex = (positiveYear-2) % 12;
+        if (year < 0) {
+            earthlyBranchIndex++;
+        }
+        return `${year}年 ${lunisolarDate.month}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
     }
 
-    return `${year} ${lunisolarDate.month} ${lunisolarDate.day}\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+    if (country==='vietnam') {
+        let zodiacAnimals = ['Rat (𤝞)', 'Water Buffalo (𤛠)', 'Tiger (𧲫)', 'Cat (猫)', 'Dragon (龍)', 'Snake (𧋻)', 'Horse (馭)', 'Goat (羝)', 'Monkey (𤠳)', 'Rooster (𪂮)', 'Dog (㹥)', 'Pig (㺧)'];
+        let positiveYear = year < 0 ? 60 + (year % 60) : year;
+        let earthlyBranchIndex = (positiveYear-4) % 12;
+        if (year < 0) {
+            earthlyBranchIndex++;
+        }
+        return `${year} ${lunisolarDate.month} ${lunisolarDate.day}\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+    }
+
+    if (country==='korea') {
+        if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+            year -= 1;
+        }
+        return `${year}년 ${lunisolarDate.month}월 ${lunisolarDate.day}일`;
+    }
 }
 
 // Returns a formatted Sexagenary year CST date based on the lunisolar calculation
@@ -102,106 +90,68 @@ function getSexagenaryYear(chineseDate) {
 //|--------------------------|
 
 
-function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, utcMidnight) {
+function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, utcMidnight) {
     // Get Winter Solstice for this year. That is Month 11.
-    const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
+    
     const startOfMonthEleven = getMonthEleven(winterSolstice);
     const midnightStartOfMonthEleven = getMidnightInUTC(startOfMonthEleven, utcMidnight);
 
     // Get Winter solsice of last year, that's Month 11 of last year
-    let lastYear = new Date(currentDateTime);
-    lastYear.setFullYear(currentDateTime.getFullYear()-1);
-    const winterSolsticeLastYear = getCurrentSolsticeOrEquinox(lastYear, 'winter');
+    
     const startOfMonthElevenLastYear = getMonthEleven(winterSolsticeLastYear);
     const midnightStartOfMonthElevenLastYear = getMidnightInUTC(startOfMonthElevenLastYear, utcMidnight);
 
     // Find out roughly how many months between solstices
-    const daysBetweenEleventhMonths = Math.trunc((midnightStartOfMonthEleven - midnightStartOfMonthElevenLastYear)/1000/60/60/24);
+    const daysBetweenEleventhMonths = Math.floor(differenceInDays(midnightStartOfMonthEleven, midnightStartOfMonthElevenLastYear));
     const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
     let currentMonth = 0;
 
-    // Not a leap year
-    if (lunationsBetweenEleventhMonths===12) {
-        const startofThisMonth = newMoonThisMonth;
-        const midnightChinaStartOfMonth = getMidnightInUTC(startofThisMonth, utcMidnight);
-        const startofLastMonth = newMoonLastMonth;
-        const midnightChinaStartOfLastMonth = getMidnightInUTC(startofLastMonth, utcMidnight);
-        const daysSinceMonthEleven = (currentDateTime - midnightStartOfMonthEleven)/1000/60/60/24;
+    // Calculate the start of this and last months
+    const startofThisMonth = newMoonThisMonth;
+    const midnightChinaStartOfMonth = getMidnightInUTC(startofThisMonth, utcMidnight);
+    const startofLastMonth = newMoonLastMonth;
+    const midnightChinaStartOfLastMonth = getMidnightInUTC(startofLastMonth, utcMidnight);
+    const daysSinceMonthEleven = differenceInDays(currentDateTime, midnightStartOfMonthEleven);
 
-        // Get rough estimates of the current day/month,
-        // likely to be wrong if close to thebeginning or ending of a month
-        currentMonth = Math.trunc(daysSinceMonthEleven / 29.53);
-        currentDay = Math.trunc((currentDateTime-midnightChinaStartOfMonth)/1000/24/60/60)+1;
+    // Get rough estimates of the current day/month,
+    // likely to be wrong if close to the beginning or ending of a month
+    currentMonth = Math.floor(daysSinceMonthEleven / 29.53);
+    currentDay = Math.floor(differenceInDays(currentDateTime, midnightChinaStartOfMonth))+1;
 
-        // If the current day is less than 1, then it's the previous month
-        if (currentDay<1) {
-            currentDay = Math.trunc((currentDateTime-midnightChinaStartOfLastMonth)/1000/24/60/60)+1;
-        }
-        // Use round instead of trunc if the month is just starting to account for errors in the /29.53 math
-        if (currentDay<3) {
-            currentMonth = Math.round(daysSinceMonthEleven / 29.53);
-        }
-        // Add extra 'time' to the month to account for errors in the /29.53 math.
-        // This makes sure it is below the next month when close to the 1st of the next month.
-        if (currentDay>28) {
-            currentMonth = Math.round((daysSinceMonthEleven / 29.53)-0.8);
-        }
-
-        // For some reason the calculation needs to be corrected by adding 11
-        currentMonth += 11;
-        if (currentMonth<1) {
-            currentMonth+=12;
-        }
+    // If the current day is less than 1, then it's the previous month
+    if (currentDay<1) {
+        currentDay = Math.floor(differenceInDays(currentDateTime, midnightChinaStartOfLastMonth))+1;
     }
+    // If near the start of the month, use round
+    if (currentDay<5) {
+        currentMonth = Math.round(daysSinceMonthEleven / 29.53);
+    }
+    // Add extra 'time' to the month to account for errors in the /29.53 math.
+    // This makes sure it is below the next month when close to the 1st of the next month.
+    if (currentDay>28) {
+        currentMonth = Math.round((daysSinceMonthEleven / 29.53)-0.8);
+    }
+
+    // The calculation needs to be corrected by adding 11
+    currentMonth += 11;
 
     // Leap Year
     if (lunationsBetweenEleventhMonths===13) {
-        const startofThisMonth = newMoonThisMonth;
-        const midnightChinaStartOfMonth = getMidnightInUTC(startofThisMonth, utcMidnight);
-        const startofLastMonth = newMoonLastMonth;
-        const midnightChinaStartOfLastMonth = getMidnightInUTC(startofLastMonth, utcMidnight);
-        const daysSinceMonthEleven = (currentDateTime - midnightStartOfMonthEleven)/1000/60/60/24;
-        const leapMonth = calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear);
-
-        // Get rough estimates of the current day/month,
-        // likely to be wrong if close to thebeginning or ending of a month
-        currentMonth = Math.trunc(daysSinceMonthEleven / 29.53);
-        currentDay = Math.trunc((currentDateTime-midnightChinaStartOfMonth)/1000/24/60/60)+1;
-
-        // If the current day is less than 1, then it's the previous month
-        if (currentDay<1) {
-            currentDay = Math.trunc((currentDateTime-midnightChinaStartOfLastMonth)/1000/24/60/60)+1;
-        }
-        // Use round instead of trunc if the month is just starting to account for errors in the /29.53 math
-        if (currentDay<3) {
-            currentMonth = Math.round(daysSinceMonthEleven / 29.53);
-        }
-        // Add extra 'time' to the month to account for errors in the /29.53 math.
-        // This makes sure it is below the next month when close to the 1st of the next month.
-        if (currentDay>28) {
-            currentMonth = Math.round((daysSinceMonthEleven / 29.53)-0.8);
-        }
-
-        // For some reason the calculation needs to be corrected by adding 11
-        currentMonth += 11;
-
         // The leap month repeats the number of the last month, so subsequent months will be back by 1
+        const leapMonth = calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear);
         if (leapMonth>currentMonth) {
             currentMonth+=1;
         }
-        if (currentMonth<1) {
-            currentMonth+=12;
-        }
-        if (currentMonth>12) {
-            currentMonth-=12;
-        }
     }
+
+    // Ensure the currentMonth is within the range 1 to 12
+    currentMonth = ((currentMonth - 1) % 12 + 12) % 12 + 1;
+
 
     return {
         month: currentMonth,
         day: currentDay,
     };
-    
 }
 
 // Returns 'major' or 'minor' depending on the latitude of the sun calculation
@@ -243,7 +193,6 @@ function getMonthEleven(winterSolstice) {
         // Move to the previous month to find the start of the eleventh month
         closestConjunction = getNewMoonThisMonth(winterSolstice, currentMonth - 1);
     }
-
     return closestConjunction;
 }
 

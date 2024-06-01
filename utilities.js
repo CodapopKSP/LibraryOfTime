@@ -19,6 +19,5 @@ function getMidnightInUTC(dateToFind, utcMidnight) {
 // Takes two dates and returns the difference between them in days
 function differenceInDays(date1, date2) {
     const day = 86400000;       // Equals 1000*60*60*24, converts ms to days
-
     return (date1 - date2) / day;
 }
