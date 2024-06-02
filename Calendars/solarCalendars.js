@@ -221,7 +221,7 @@ function getCopticDate(currentDateTime) {
 
     // Fix months if Julian leap year
     let currentJulianYear = getJulianDate(currentDateTime).getFullYear();
-    if (currentJulianYear % 4 === 0) {
+    if (currentJulianYear % 4 === 2) {
         Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
     }
 
@@ -240,6 +240,14 @@ function getCopticDate(currentDateTime) {
     while (remainingDays > Coptic_monthDays[CopticMonth]) {
         remainingDays -= Coptic_monthDays[CopticMonth];
         CopticMonth++;
+    }
+
+    if ((remainingDays===0)) {
+        CopticMonth--;
+        if (CopticMonth<0) {
+            CopticMonth += 13;
+        }
+        remainingDays = Coptic_monthDays[CopticMonth];
     }
 
     return remainingDays + ' ' + copticMonths[CopticMonth] + ' ' + CopticYear + ' AM ';
@@ -268,7 +276,7 @@ function getEthiopianDate(currentDateTime) {
 
     // Fix months if Julian leap year
     let currentJulianYear = getJulianDate(currentDateTime).getFullYear();
-    if (currentJulianYear % 4 === 0) {
+    if (currentJulianYear % 4 === 2) {
         Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
     }
 
@@ -288,6 +296,14 @@ function getEthiopianDate(currentDateTime) {
     while (remainingDays > Coptic_monthDays[EthiopianMonth]) {
         remainingDays -= Coptic_monthDays[EthiopianMonth];
         EthiopianMonth++;
+    }
+
+    if ((remainingDays===0)) {
+        EthiopianMonth--;
+        if (EthiopianMonth<0) {
+            EthiopianMonth += 13;
+        }
+        remainingDays = Coptic_monthDays[EthiopianMonth];
     }
 
     return remainingDays + ' ' + ethiopianMonths[EthiopianMonth] + ' ዓ.ም.' + EthiopianYear;

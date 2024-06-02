@@ -8,7 +8,8 @@
 //https://ops-alaska.com/time/gangale_converter/calendar_clock.htm
 //https://planetcalc.com/9166/
 //https://assets.cambridge.org/97811070/57623/frontmatter/9781107057623_frontmatter.pdf
-///https://archive.org/details/calendrical-calculations/page/n11/mode/2up
+//https://archive.org/details/calendrical-calculations/page/n11/mode/2up
+//https://libgen.li/edition.php?id=138174808
 
 /*
 TODO:
@@ -19,6 +20,7 @@ Fantasy calendars that can be verified, like Star Trek
 Metric Time
 Astronomical Time and determine if epoch displays need to be in AT or regular time
 Hebrew/Thai/Chinese/Byzantine/Zoroastrian/Egyptian times
+Vikram Samvat lunar times (tithi)
 */
 
 let selectedNode = '';              // The current selected node, blank if none
