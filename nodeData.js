@@ -598,6 +598,18 @@ const solarCalendarsData = [
         accuracy: `This calendar is based on the Sothic Cycle, which is well-established to the Gregorian calendar via the Julian calendar. Some liberties were taken with the epoch, which is why it is in parentheses.\n\nSimilar to the Sothic Cycle, some of my dates did not perfectly match those provided by sources such as the Wiki, so there's a chance that these calculations are off by one, either in year or in day.`,
         source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Egyptian_calendar">Wikipedia article</a>.\n\nMonth names and other general data came from <a href="https://ancientegyptonline.co.uk/calendar/">this site</a>.'
     },
+
+    {
+        name: 'ISO Week Date',
+        id: 'iso-week-date',
+        type: 'Solar Calendar',
+        epoch: '1 January 1 CE',
+        confidence: 'Exact',
+        overview: `The ISO Week Date is part of the ISO standard for time. It breaks the year entirely into a whole number of weeks rather than months, which is often useful for business accounting.\n\nEach year can have either 52 weeks (364 days) or 53 weeks (371 days). It keeps in sync with the Gregorian calendar.`,
+        info: `The ISO Week Date follows the format of Year-Week-Weekday, with Monday being the first day of the week and Sunday being the 7th day of the week.`,
+        accuracy: `Being an ISO standard with a standard calculation, this calendar is expected to be perfectly accurate.`,
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/ISO_week_date">Wikipedia article</a>.'
+    },
 ]
 
 const lunisolarCalendarsData = [

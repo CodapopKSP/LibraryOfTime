@@ -784,3 +784,20 @@ function getEgyptianDate(currentDateTime) {
 
     return monthAndDayText + ' (' + yearsSinceStartOfAkhet2781 + ')';
 }
+
+function getISOWeekDate(currentDateTime) {
+    const target = new Date(currentDateTime.valueOf());
+    const dayNumber = (currentDateTime.getUTCDay() + 6) % 7 + 1; // ISO week day (1 = Monday, ..., 7 = Sunday)
+    
+    // Set to nearest Thursday (current date + 4 - current day number) to determine the ISO week year
+    target.setUTCDate(target.getUTCDate() + 4 - dayNumber);
+    const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+    
+    // Calculate ISO week number
+    const weekNumber = Math.ceil((((target - yearStart) / 86400000) + 1) / 7);
+    
+    // Calculate ISO week year
+    const weekYear = target.getUTCFullYear();
+
+    return weekYear + '-W' + weekNumber + '-' + dayNumber;
+}

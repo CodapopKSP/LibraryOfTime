@@ -178,6 +178,8 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('solar-hijri-node', getSolarHijriDate(currentDateTime, springEquinox));
         setTimeValue('qadimi-node', getQadimiDate(currentDateTime));
         setTimeValue('egyptian-civil-node', getEgyptianDate(currentDateTime));
+        setTimeValue('iso-week-date-node', getISOWeekDate(currentDateTime));
+
     }
 
     // Other Calendars
