@@ -641,9 +641,9 @@ const lunisolarCalendarsData = [
         name: 'Dangun (KST)',
         id: 'dangun',
         type: 'Lunisolar Calendar',
-        epoch: '1 CE',
+        epoch: '2333 BCE',
         confidence: 'Medium',
-        overview: 'The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while sharing years (년) with the Gregorian calendar, though it doesn\'t increment the year until the lunisolar new year in January or February.\n\nThe Dangun calendar is calculated based on midnight in Korea, and as such its dates may misalign, sometimes significantly, from the Chinese lunisolar calendar.',
+        overview: 'The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while years (년) are counted from 2333 BCE.\n\nThe Dangun calendar is calculated based on midnight in Korea, and as such its dates may misalign, sometimes significantly, from the Chinese lunisolar calendar.',
         info: 'calendar info',
         accuracy: 'calendar accuracy',
         source: 'Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Korean_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.'
@@ -774,6 +774,18 @@ const otherCalendars = [
         info: `The Sothic Cycle shows a relationship between the Julian and Egyptian calendars of 1460/1461. The Gregorian calendar does not line up in the same way due to the revised leap year rules.\n\n<table class="table-short"><tr><th>Cycle</th><th>Julian Date</th><th>Gregorian Date</th></tr><tr><td>1</td><td>20 July 2781 BC</td><td>27 June 2781 BCE</td></tr><tr><td>2</td><td>20 July 1321 BC</td><td>8 July 1321 BCE</td></tr><tr><td>3</td><td>20 July 139 AD</td><td>19 July 139 CE</td></tr><tr><td>4</td><td>20 July 1599 AD</td><td>30 July 1599 CE</td></tr><tr><td>5</td><td>20 July 3059 AD</td><td>10 August 3059 CE</td></tr><tr><td>6</td><td>20 July 4519 AD</td><td>21 August 4519 CE</td></tr></table>`,
         accuracy: `This calendar is mathematically exact, though my calculations are sometimes a day off from official sources. This could be due to leap day rules or due to astronomical dates.\n\nHistorians are also somewhat unsure about how many cycles have passed, and it's possible that there has been one more cycle before the accepted first cycle.`,
         source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Sothic_cycle">Wikipedia article</a>.`
+    },
+
+    {
+        name: 'Olympiad',
+        id: 'olympiad',
+        type: 'Other Calendar',
+        epoch: '25 July 775 BCE',
+        confidence: 'High',
+        overview: `The Olympiad is an ancient unit of measurement that corresponds with 4 solar years, counting the number of Olympic games since the first Olympic games in 775 BCE. It was used for over 1000 years by Ancient Greece as well as Ancient Rome.\n\nThe Olympics eventually ceaced to be held around 400 AD, and with it the Olympiad fell out of use.`,
+        info: `The ancient Olympiad has little connection to the modern olympic games, as they are out of phase with each other and start with a different epoch.`,
+        accuracy: `The exact start of the Olympic games is unclear, and most sources will just say it was held in the summer of 776 BCE. This website uses astronomical dates, so it is displayed here as 775 BCE. I have chosen to use 1 July for the start of summer.`,
+        source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Olympiad">Wikipedia article</a>.`
     },
 ]
 

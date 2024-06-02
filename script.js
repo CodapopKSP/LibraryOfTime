@@ -186,6 +186,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
         setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
         setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
+        setTimeValue('olympiad-node', getOlympiad(currentDateTime));
     }
 
     // Lunisolar and Lunar Calendars

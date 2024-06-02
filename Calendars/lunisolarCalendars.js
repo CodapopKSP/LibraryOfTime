@@ -46,6 +46,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, country
     }
 
     if (country==='korea') {
+        year += 2333;
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
         }
