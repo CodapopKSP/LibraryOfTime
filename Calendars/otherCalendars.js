@@ -164,9 +164,10 @@ function getSothicCycle(currentDateTime) {
 
 function getOlympiad(currentDateTime) {
     const julianDate = getJulianDate(currentDateTime);
-    const olympiad1 = new Date(-775, 6, 1); // Starting Olympiad, astronomical
-    const daysSinceOlympiad1 = Math.floor(differenceInDays(julianDate, olympiad1));
-    const yearsSinceOlympiad1 = Math.floor(daysSinceOlympiad1/365.25);
+    const olympiad1_ = new Date(-775, 6, 24); // Starting Olympiad, astronomical
+    const olympiad1 = getJulianDate(olympiad1_);
+    const daysSinceOlympiad1 = differenceInDays(julianDate, olympiad1);
+    const yearsSinceOlympiad1 = daysSinceOlympiad1/365.2425;
     const olympiad = Math.floor(yearsSinceOlympiad1/4)+1
     const currentYearOfOlympiad = (yearsSinceOlympiad1%4)+1;
     return olympiad + ' | Year: ' + currentYearOfOlympiad;
