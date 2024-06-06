@@ -119,3 +119,23 @@ function getKaliAhargana(currentDateTime) {
     const July10of2001 = new Date(Date.UTC(2001, 6, 9, 18, 30));
     return differenceInDays(currentDateTime, July10of2001) + kAOf10July2001;
 }
+
+function getBrownLunationNumber(lunationNumber) {
+    return lunationNumber + 953;
+}
+
+function getGoldstineLunationNumber(lunationNumber) {
+    return lunationNumber + 37105;
+}
+
+function getHebrewLunationNumber(lunationNumber) {
+    return lunationNumber + 71234;
+}
+
+function getIslamicLunationNumber(lunationNumber) {
+    return lunationNumber + 17038;
+}
+
+function getThaiLunationNumber(lunationNumber) {
+    return lunationNumber + 16843;
+}

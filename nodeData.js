@@ -318,15 +318,75 @@ const computingTimeData = [
     },
 
     {
-        name: 'Lunation',
-        id: 'lunation',
+        name: 'Lunation Number',
+        id: 'lunation-number',
         type: 'Computing Time',
-        epoch: '',
+        epoch: '6 January 2000 CE',
         confidence: 'High',
-        overview: ``,
-        info: ``,
-        accuracy: '',
-        source: ``
+        overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number was created by Jean Meeus in 1998. It uses the New Moon of 6 January 2000 CE for its epoch, in this case denoted as Lunation 0.`,
+        info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Lunation Number is the standard used by this website to calculate other lunation numbers as well as certain calendars and calculations.`,
+        accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
+        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+    },
+
+    {
+        name: 'Brown Lunation Number',
+        id: 'brown-lunation-number',
+        type: 'Computing Time',
+        epoch: '17 January 1923 CE',
+        confidence: 'High',
+        overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number was created by Ernest William Brown. It uses the New Moon of 17 January 1923 CE for its epoch, in this case denoted as Lunation 1.`,
+        info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Brown Lunation Number can be calculated by adding 953 to the Lunation Number.`,
+        accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
+        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+    },
+
+    {
+        name: 'Goldstine Lunation Number',
+        id: 'goldstine-lunation-number',
+        type: 'Computing Time',
+        epoch: '11 January 1001 CE',
+        confidence: 'High',
+        overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number was created by Herman Goldstine. It uses the New Moon of 11 January 1001 CE for its epoch, in this case denoted as Lunation 0.`,
+        info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Goldstine Lunation Number can be calculated by adding 37105 to the Lunation Number.`,
+        accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
+        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+    },
+
+    {
+        name: 'Hebrew Lunation Number',
+        id: 'hebrew-lunation-number',
+        type: 'Computing Time',
+        epoch: '6 October 3761 BCE?',
+        confidence: 'High',
+        overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number is used by the Hebrew calendar. It uses the New Moon of 6 October 3761 BCE? for its epoch, in this case denoted as Lunation 1.`,
+        info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Hebrew Lunation Number can be calculated by adding 71234 to the Lunation Number.`,
+        accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
+        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+    },
+
+    {
+        name: 'Islamic Lunation Number',
+        id: 'islamic-lunation-number',
+        type: 'Computing Time',
+        epoch: '18 July 622 CE',
+        confidence: 'High',
+        overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number is used by the Hijri calendar. It uses the New Moon of 18 July 622 CE for its epoch, in this case denoted as Lunation 1.`,
+        info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Islamic Lunation Number can be calculated by adding 17038 to the Lunation Number.`,
+        accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
+        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+    },
+
+    {
+        name: 'Thai Lunation Number',
+        id: 'thai-lunation-number',
+        type: 'Computing Time',
+        epoch: '22 March 638 CE',
+        confidence: 'High',
+        overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number is used by the Buddhist calendar. It uses the New Moon of 22 March 638 CE for its epoch, in this case denoted as Lunation 0.`,
+        info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Thai Lunation Number can be calculated by adding 16843 to the Lunation Number.`,
+        accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
+        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
     },
 ]
 
@@ -749,7 +809,19 @@ const otherCalendars = [
         overview: 'The Mayan Long Count calendar is essentially a simple count of the number of days since the Mayan date of creation. It is a five digit number, typically expressed with periods between the digits, made up of base-20 counters with the exception of the middle-right digit which is base-18.\n\nStarting with the right, the smallest unit is the <b>kʼin</b>, which is equivalent to a day. Twenty kʼins make up one <b>winal</b>, 18 winals make up one <b>tun</b>, 20 tuns make up one <b>kʼatun</b>, and finally 20 kʼatuns make up one <b>bʼakʼtun</b>. A bʼakʼtun is roughly 394 solar years.\n\nThe Mayan Long Count Calendar was of international interest in 2012 as it was the time when the bʼakʼtun incremented from 12 to 13, leading to superstitious theories and hysteria.',
         info: `Notably, winals are counted in base-18 rather than base-20 like the rest of the units. This is to reasonably match the tun to the length of the solar year. However, it is still over 5 days short, meaning it will drift about half as much as a true lunar calendar. 20 winals would be 400 days, which wouldn't have been as useful.\n\n<table class=table-short><tr><th>Mayan Unit</th><th>Length</th></tr><tr><td>kʼin</td><td>1 day</td></tr><tr><td>winal</td><td>20 kʼins, 20 days</td></tr><tr><td>tun</td><td>18 winals, 360 days</td></tr><tr><td>kʼatun</td><td>20 tuns, 7200 days</td></tr><tr><td>bʼakʼtun</td><td>20 kʼatuns, 144000 days</td></tr></table>`,
         accuracy: 'Correlating the Mayan Long Count calendar was a matter of debate even in recent times. The vast majority of scholars seem to have accepted the Goodman–Martinez–Thompson (GMT) correlation as verifiable fact.\n\nWith that in mind, this calendar is actually very easy to calculate, as it is just a count of days since the epoch, not unlike the Julian Day Number. It has no concept of intercalary time such as leap days and the count is agnostic of the solar or lunar years. The only method of inaccuracy with this calendar could be when exactly each day increments, but that does not affect the rest of the calendar in any meaningful way.',
-        source: 'Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Wikipedia article</a>.\n\nThe <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter.'
+        source: 'Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Wikipedia article</a>.\n\nThe <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter, though it is broken for dates before the epoch, and it confusingly uses Julian dates rather than Gregorian proleptic astronomical.'
+    },
+
+    {
+        name: 'Mayan Calendar Round',
+        id: 'mayan-calendar-round',
+        type: 'Other Calendar',
+        epoch: '~1100 BCE | ~550 BCE',
+        confidence: 'High',
+        overview: `The Mayan Calendar Round is actually a combination of two calendars; a 260-day calendar called the Tzolkin, and a 365-day calendar called the Haab.\n\nThe Haab is a solar calendar with a drift of 1 day every 4 years, but historians aren't sure of the significance of the 260 days of the Tzolkin. Suggestions include simple multiplications of important numbers as well as the length of a typical human gestation period.\n\nThe Haab features 18 months of 20 days plus a short month of 5 days, with days counted starting from 0. The Tzolkin is a bit more odd, with numbers increasing sequentially from 1-13 while the 20 day names also increment, leading to a system where 1 of a given day name is followed by 2 of the next day name, completing a cycle in 260 days.\n\nThe two calendars together create a cycle of 52 years, referred to as the Calendar Round. There are no years nor cycle numbers, but it is used together with the Mayan Long Count for determining dates over long periods.`,
+        info: `<table class="table-very-long"><tr><th colspan="4">Tzolkin</th></tr><tr><th>Day</th><th>Meaning</th><th>Day</th><th>Meaning</th></tr><tr><td>Imix</td><td>Crocodile</td><td>Chuwen</td><td>Monkey</td></tr><tr><td>Ik'</td><td>Wind</td><td>Eb'</td><td>Road</td></tr><tr><td>Ak'b'al</td><td>Night</td><td>B'en</td><td>Reed</td></tr><tr><td>K'an</td><td>Seed</td><td>Ix</td><td>Jaguar</td></tr><tr><td>Chikchan</td><td>Serpent</td><td>Men</td><td>Eagle</td></tr><tr><td>Kimi</td><td>Death</td><td>K'ib'</td><td>Wisdom</td></tr><tr><td>Manik'</td><td>Deer</td><td>Kaban</td><td>Earth</td></tr><tr><td>Lamat</td><td>Star</td><td>Etz'nab'</td><td>Flint</td></tr><tr><td>Muluk</td><td>Water</td><td>Kawak</td><td>Storm</td></tr><tr><td>Ok</td><td>Dog</td><td>Ajaw</td><td>Sun</td></tr></table>\n<table><tr><th colspan="4">Haab</th></tr><tr><th>Month</th><th>Days</th><th>Month</th><th>Days</th></tr><tr><td>Pop</td><td>20</td><td>Yax</td><td>20</td></tr><tr><td>Wo</td><td>20</td><td>Sak</td><td>20</td></tr><tr><td>Sip</td><td>20</td><td>Keh</td><td>20</td></tr><tr><td>Sotz'</td><td>20</td><td>Mak</td><td>20</td></tr><tr><td>Sek</td><td>20</td><td>K'ank'in</td><td>20</td></tr><tr><td>Xul</td><td>20</td><td>Muwan</td><td>20</td></tr><tr><td>Yaxk'in</td><td>20</td><td>Pax</td><td>20</td></tr><tr><td>Mol</td><td>20</td><td>K'ayab</td><td>20</td></tr><tr><td>Ch'en</td><td>20</td><td>Kumk'u</td><td>20</td></tr><tr><td></td><td></td><td>Wayeb'</td><td>5</td></tr></table>`,
+        accuracy: `This calendar is still used today in some Mayan groups, and it has been calibrated using the calculator provided by the Smithsonian National Museum of the American Indian. However, it also relies on the Long Count calendar being accurate.\n\nThe Smithsonian calculator does not handle dates before Long Count 0.0.0.0.0 very well, and it also confusingly seems to use Julian dates rather than Gregorian proleptic astronomical dates, so there's a chance I have improperly calibrated this calendar.`,
+        source: `Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Maya_calendar">Wikipedia article</a>.\n\nThe <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter, though it is broken for dates before the Long Count epoch, and it confusingly uses Julian dates rather than Gregorian proleptic astronomical.`
     },
 
     {

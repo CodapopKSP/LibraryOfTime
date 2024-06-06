@@ -169,7 +169,52 @@ function getOlympiad(currentDateTime) {
     const daysSinceOlympiad1 = differenceInDays(julianDate, olympiad1);
     const yearsSinceOlympiad1 = daysSinceOlympiad1/365.2425;
     const olympiad = Math.floor(yearsSinceOlympiad1/4)+1
-    const currentYearOfOlympiad = (yearsSinceOlympiad1%4)+1;
+    const currentYearOfOlympiad = Math.floor(yearsSinceOlympiad1%4)+1;
     return olympiad + ' | Year: ' + currentYearOfOlympiad;
-
 }
+
+function getMayanCalendarRoundDate(currentDateTime) {
+    const mayanLongCount0 = new Date(-3113, 7, 11);
+    const totalDays = Math.floor(differenceInDays(currentDateTime, mayanLongCount0));
+    const tzolkin = calculateTzolkin(totalDays);
+    const haab = calculateHaab(totalDays);
+    return tzolkin + ' | ' + haab;
+}
+
+function calculateTzolkin(totalDays) {
+    const tzolkinMonths = [
+        "Imix", "Ik'", "Ak'b'al", "K'an", "Chikchan",
+        "Kimi", "Manik'", "Lamat", "Muluk", "Ok",
+        "Chuwen", "Eb'", "B'en", "Ix", "Men",
+        "K'ib'", "Kab'an", "Etz'nab'", "Kawak", "Ajaw"
+    ];
+    
+    const startingTzolkinDay = 4; // 4 Ahau is the starting Tzolk'in day for 0.0.0.0.0
+    const startingTzolkinMonthIndex = tzolkinMonths.indexOf("Ajaw");
+
+    const adjustedDays = (totalDays % 260 + 260) % 260;
+    const dayNumber = (startingTzolkinDay + adjustedDays) % 13 || 13;
+    const monthIndex = (startingTzolkinMonthIndex + adjustedDays) % 20;
+    
+    return `${dayNumber} ${tzolkinMonths[monthIndex]}`;
+};
+
+function calculateHaab(totalDays) {
+    const haabMonths = [
+        "Pop", "Wo'", "Sip", "Sotz'", "Sek", "Xul",
+        "Yaxk'in'", "Mol", "Ch'en", "Yax", "Sak'",
+        "Keh", "Mak", "K'ank'in'", "Muwan", "Pax",
+        "K'ayab'", "Kumk'u", "Wayeb'"
+    ];
+    
+    const startingHaabDay = 8;
+    const startingHaabMonthIndex = haabMonths.indexOf("Kumk'u");
+
+    const daysInYear = 365;
+    const adjustedDays = (totalDays % daysInYear + daysInYear) % daysInYear;
+    const totalHaabDays = (startingHaabMonthIndex * 20 + startingHaabDay + adjustedDays) % daysInYear;
+    const haabMonthIndex = Math.floor(totalHaabDays / 20);
+    const haabDay = totalHaabDays % 20;
+    
+    return `${haabDay} ${haabMonths[haabMonthIndex]}`;
+};

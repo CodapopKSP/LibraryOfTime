@@ -146,7 +146,15 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
         setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
         setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
-        setTimeValue('lunation-node', calculateLunationNumber(currentDateTime));
+
+        const lunationNumber = calculateLunationNumber(currentDateTime);
+        setTimeValue('lunation-number-node', lunationNumber);
+
+        setTimeValue('brown-lunation-number-node', getBrownLunationNumber(lunationNumber));
+        setTimeValue('goldstine-lunation-number-node', getGoldstineLunationNumber(lunationNumber));
+        setTimeValue('hebrew-lunation-number-node', getHebrewLunationNumber(lunationNumber));
+        setTimeValue('islamic-lunation-number-node', getIslamicLunationNumber(lunationNumber));
+        setTimeValue('thai-lunation-number-node', getThaiLunationNumber(lunationNumber));
     }
 
     // Decimal Time
@@ -185,6 +193,7 @@ function updateDateAndTime(dateInput, firstPass) {
     // Other Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
         setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
+        setTimeValue('mayan-calendar-round-node', getMayanCalendarRoundDate(currentDateTime));
         setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
         setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
         setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
