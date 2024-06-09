@@ -167,7 +167,7 @@ function updateDateAndTime(dateInput, firstPass) {
     setTimeValue('coordinated-mars-time-node', getMTC(marsSolDay));
 
     // Solar Calendars
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===8))||(currentPass===100)) {
         const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
         setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
         setTimeValue('julian-node', getJulianCalendar(currentDateTime));
@@ -191,7 +191,7 @@ function updateDateAndTime(dateInput, firstPass) {
     }
 
     // Other Calendars
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===9))||(currentPass===100)) {
         setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
         setTimeValue('mayan-calendar-round-node', getMayanCalendarRoundDate(currentDateTime));
         setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
@@ -241,7 +241,10 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
         setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
         setTimeValue('this-new-moon-node', newMoonThisMonth.toUTCString());
-        setTimeValue('next-solar-eclipse-node', getNextSolarEclipse(currentDateTime));
+    }
+
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===4))||(currentPass===100)) {
+        setTimeValue('next-solar-eclipse-node', getNextSolarEclipse(currentDateTime, 0));
     }
 
     // Pop Culture

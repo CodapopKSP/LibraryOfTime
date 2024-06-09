@@ -48,6 +48,16 @@ function calculateDateFromJDE(JDE) {
     return fixedDateTime;
 }
 
+function calculateUTCYear(currentDateTime) {
+    year = currentDateTime.getUTCFullYear();
+    let yearStart = new Date(Date.UTC(year, 0, 1));
+    yearStart.setUTCFullYear(year);
+    let nextYearStart = new Date(Date.UTC(year + 1, 0, 1));
+    nextYearStart.setUTCFullYear(year + 1);
+    let yearFraction = (currentDateTime - yearStart) / (nextYearStart - yearStart);
+    return yearFraction;
+}
+
 
 
 //|----------------------------|
@@ -213,7 +223,7 @@ function getNewMoonThisMonth(currentDateTime, monthModifier) {
     }
 
     let year = currentDateTime.getUTCFullYear();
-    year += calculateYear(currentDateTime);
+    year += calculateUTCYear(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
     const T = k/1236.85;
     const E = 1 - 0.002516*T - 0.0000074*T**2;
@@ -266,22 +276,97 @@ function allPhaseTable(k, T) {
     return sum;
 }
 
-function getNextSolarEclipse(currentDateTime) {
+// Get formatted information about the next solar eclipse
+function getNextSolarEclipse(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
-    year += calculateYear(currentDateTime);
-    const k = Math.trunc((year - 2000)*12.3685) + 0;
+    year += calculateUTCYear(currentDateTime);
+    const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
     const T = k/1236.85;
     const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
-    let F_mod = F % 360; // Normalize F to the range 0 to 360 degrees
-    let result;
 
-    if (Math.abs(F_mod) < 13.9 || Math.abs(F_mod - 360) < 13.9 || Math.abs(F_mod - 180) < 13.9) {
-        result = 'Solar Eclipse Certain';
-    } else if (Math.abs(F_mod) > 21.0 && Math.abs(F_mod - 360) > 21.0 && Math.abs(F_mod - 180) > 21.0) {
-        result = 'No Solar Eclipse';
-    } else {
-        result = 'Maybe Solar Eclipse';
+    // Eclipse is impossible
+    if (Math.abs(Math.sin(F*(Math.PI / 180)))>0.36) {
+        return getNextSolarEclipse(currentDateTime, monthModifier+1);
     }
 
-    return result;
+    // Calculate a bunch of values from Astronomical Algorithms
+    const E = 1 - 0.002516*T - 0.0000074*T**2;
+    const SunM = 2.5534 + 29.10535669*k - 0.0000218*T**2 - 0.00000011*T**3;
+    const MoonM = 201.5643 + 385.81693528*k + 0.0107438*T**2 + 0.00001239*T**3 - 0.000000058*T**4;
+    const lunarNode = 124.7746 - 1.56375580*k + 0.0020691*T**2 + 0.00000215*T**3;
+    const F1 = F - 0.02665 * Math.sin(lunarNode*(Math.PI / 180));
+    const A1 = 299.77 + (0.107408*k) - (0.009173*T**2);
+
+    function PTableHelper(num1, num2) {
+        return num1*Math.sin(num2*(Math.PI / 180));
+    }
+    const P = PTableHelper(0.2070*E, SunM) +
+        PTableHelper(0.0024*E, 2*SunM) +
+        PTableHelper(-0.0392, MoonM) +
+        PTableHelper(0.0116, 2*MoonM) +
+        PTableHelper(-0.0073*E, MoonM+SunM) +
+        PTableHelper(0.0067*E, MoonM-SunM) +
+        PTableHelper(0.0118, 2*F1);
+
+    function QTableHelper(num1, num2) {
+        return num1*Math.cos(num2*(Math.PI / 180));
+    }
+    const Q = 5.2207+
+        QTableHelper(-0.0048*E, SunM) +
+        QTableHelper(0.0020*E, 2*SunM) +
+        QTableHelper(-0.3299, MoonM) +
+        QTableHelper(-0.0060*E, MoonM+SunM) +
+        QTableHelper(0.0041*E, MoonM-SunM);
+
+    const W = Math.abs(Math.cos(F1*(Math.PI / 180)));
+    const Y = (P*Math.cos(F1*(Math.PI / 180))+Q*Math.sin(F1*(Math.PI / 180)))*(1-0.0048*W);
+
+    function uTableHelper(num1, num2) {
+        return num1*Math.cos(num2*(Math.PI / 180));
+    }
+    const u = 0.0059 +
+        uTableHelper(0.0046*E, SunM) +
+        uTableHelper(-0.0182, MoonM) +
+        uTableHelper(0.0004, 2*MoonM) +
+        uTableHelper(-0.0005, SunM+MoonM);
+
+
+    // Umbra cannot be seen from Earth, not a solar eclipse
+    if (Math.abs(Y) > 1.5433+u) {
+        return getNextSolarEclipse(currentDateTime, monthModifier+1);
+    }
+
+    // Central eclipse
+    let eclipseType = 'None';
+    if ((Y>-0.9972)&&(Y<0.9972)) {
+        eclipseType = 'Annular';
+        if (u < 0) {
+            eclipseType = 'Total'
+        }
+    } else {
+        eclipseType = 'Partial';
+    }
+
+    // Calculate which hemisphere it will occur in
+    let hemisphere = '';
+    if (Y>0) {
+        hemisphere = 'Northern Hemisphere'
+    } else {
+        hemisphere = 'Southern Hemisphere'
+    }
+    
+    // Calculate Lunar Node, Ascending if ~360 and Descending if ~180
+    let eclipseNode = 'Ascending';
+    let Fdegrees = F %360;
+    if (Fdegrees < 0) {
+        Fdegrees += 360;
+    }
+    if ((Fdegrees < 200)&&(Fdegrees > 160)) {
+        eclipseNode = 'Descending';
+    }
+
+    // Get date of eclipse
+    const eclipseDate = getNewMoonThisMonth(currentDateTime, monthModifier)
+
+    return eclipseDate.toUTCString() + '\n' + eclipseType + ' | ' + eclipseNode + '\n' + hemisphere;
 }

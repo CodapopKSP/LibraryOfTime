@@ -950,11 +950,11 @@ const astronomicalData = [
         name: 'Next Solar Eclipse',
         id: 'next-solar-eclipse',
         type: 'Astronomical Data',
-        epoch: '',
+        epoch: 'Undefined',
         confidence: 'Medium',
-        overview: '',
-        info: '',
-        accuracy: '',
+        overview: `A solar eclipse occurs when the moon casts a shadow anywhere onto the Earth. It is a fairly rare event that always occurs during a New Moon.\n\nWhen the moon completely covers the disk of the sun from the perpective of a point on the Earth, it is called a Total Solar Eclipse. When the moon appears to be smaller than the sun, with the sun visible in a 'Ring of Fire' around the edge, it is called an Annular Solar Eclipse. When the moon covers part of the sun but doesn't intersect the center of the sun's disk, it is called a Partial Solar Eclipse.\n\nThis entry also displays the node at which the eclipse took place as well as the hemisphere of Earth where it is visible at its maximum.\n\nSolar eclipses typically are only viewable from a small area on the Eath's surface, and they are historically significant events that have inspired legend, religion, and myth. The solar eclipse of 8 April 2024 CE is what inspired me to build this website.`,
+        info: `Solar eclipses typically happen every one or two years, though total solar eclipses are rarer. They can only occur when a New Moon happens very near to the moon's ascending or descending nodes—the points along the lunar orbit that intersect the Earth's equator. These are at 0°/360° and 180° respectively.\n\nDue to the oblong shape of the moon's orbit, the moon can either appear larger or smaller than the sun from the perspective of Earth. This coincidence produces the two different types of central eclipses, total and annular.\n\nDuring a total solar eclipse, the sun's corona is visible to the naked eye, providing a spectacular sight as well as an opportunity to conduct science.`,
+        accuracy: 'This calculation is reasonably accurate within a few hundred years of 2000 CE. After that, errors are induced which can grow from hours to even days.\n\nThis calculation relies on the New Moon calculation as well as Dynamical Time, each of which have potential to induce errors, either due to my own misunderstanding of the source or because of the uncertainty of the cosmos.',
         source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 ]
