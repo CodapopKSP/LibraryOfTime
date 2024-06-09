@@ -265,3 +265,23 @@ function allPhaseTable(k, T) {
         allPhaseTableHelper(0.000023, A14);
     return sum;
 }
+
+function getNextSolarEclipse(currentDateTime) {
+    let year = currentDateTime.getUTCFullYear();
+    year += calculateYear(currentDateTime);
+    const k = Math.trunc((year - 2000)*12.3685) + 0;
+    const T = k/1236.85;
+    const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
+    let F_mod = F % 360; // Normalize F to the range 0 to 360 degrees
+    let result;
+
+    if (Math.abs(F_mod) < 13.9 || Math.abs(F_mod - 360) < 13.9 || Math.abs(F_mod - 180) < 13.9) {
+        result = 'Solar Eclipse Certain';
+    } else if (Math.abs(F_mod) > 21.0 && Math.abs(F_mod - 360) > 21.0 && Math.abs(F_mod - 180) > 21.0) {
+        result = 'No Solar Eclipse';
+    } else {
+        result = 'Maybe Solar Eclipse';
+    }
+
+    return result;
+}

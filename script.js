@@ -241,6 +241,7 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
         setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
         setTimeValue('this-new-moon-node', newMoonThisMonth.toUTCString());
+        setTimeValue('next-solar-eclipse-node', getNextSolarEclipse(currentDateTime));
     }
 
     // Pop Culture

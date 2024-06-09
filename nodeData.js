@@ -945,6 +945,18 @@ const astronomicalData = [
         accuracy: 'This calculation is <i>mostly</i> accurate, but it differs from Jean Meeus\'s solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Dynamical Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates far away from the current year are likely to be significantly off.',
         source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
+
+    {
+        name: 'Next Solar Eclipse',
+        id: 'next-solar-eclipse',
+        type: 'Astronomical Data',
+        epoch: '',
+        confidence: 'Medium',
+        overview: '',
+        info: '',
+        accuracy: '',
+        source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
+    },
 ]
 
 const popCultureData = [
