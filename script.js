@@ -75,19 +75,14 @@ function updateDateAndTime(dateInput, firstPass) {
     let currentPass = 0;
     let currentDateTime = '';
     const decimals = 10; // Decimals to show in some nodes
-    const millisecondStart = 10; // The timeframe that 1s incrementing updates have each second, starting at 0ms
+    const millisecondStart = 20; // The timeframe that 1s incrementing updates have each second, starting at 0ms
 
     // If there is no date input
     if ((dateInput === 0)||(dateInput === undefined)) {
         currentDateTime = new Date();
 
         // Create pass number for optimization so that calendars don't all update constantly
-        for (let i = 0; i < 8; i++) {
-            let lastDigit = currentDateTime.getSeconds() % 10;
-            if (lastDigit === i) {
-                currentPass = i;
-            }
-        }
+        currentPass = currentDateTime.getSeconds();
 
     // There is a date input
     } else {
@@ -123,7 +118,12 @@ function updateDateAndTime(dateInput, firstPass) {
     setTimeValue('year-node', calculateYear(currentDateTime).toFixed(decimals));
     setTimeValue('hour-node', calculateHour(currentDateTime).toFixed(decimals));
     setTimeValue('minute-node', calculateMinute(currentDateTime).toFixed(decimals));
-    setTimeValue('second-node', calculateSecond(currentDateTime));
+    // Create the illusion of actual microsecond calculation
+    if ((dateInput === 0)||(dateInput === undefined)) {
+        setTimeValue('second-node', calculateSecond(currentDateTime));
+    } else {
+        setTimeValue('second-node', '0.0000000000');
+    }
     setTimeValue('decade-node', calculateDecade(currentDateTime).toFixed(decimals));
     setTimeValue('century-node', calculateCentury(currentDateTime).toFixed(decimals));
     if ((currentDateTime.getMilliseconds() > 900)||(currentPass===100)) {
@@ -167,7 +167,7 @@ function updateDateAndTime(dateInput, firstPass) {
     setTimeValue('coordinated-mars-time-node', getMTC(marsSolDay));
 
     // Solar Calendars
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===8))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===8))||(currentPass===100)) {
         const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
         setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
         setTimeValue('julian-node', getJulianCalendar(currentDateTime));
@@ -191,7 +191,7 @@ function updateDateAndTime(dateInput, firstPass) {
     }
 
     // Other Calendars
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===9))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===9))||(currentPass===100)) {
         setTimeValue('mayan-long-count-node', getCurrentMayanLongCount(currentDateTime));
         setTimeValue('mayan-calendar-round-node', getMayanCalendarRoundDate(currentDateTime));
         setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
@@ -201,7 +201,7 @@ function updateDateAndTime(dateInput, firstPass) {
     }
 
     // Lunisolar and Lunar Calendars
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===1))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===1))||(currentPass===100)) {
         const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
         let lastYear = new Date(currentDateTime);
         lastYear.setFullYear(currentDateTime.getFullYear()-1);
@@ -218,12 +218,12 @@ function updateDateAndTime(dateInput, firstPass) {
         setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea, 'korea'));
         setTimeValue('hijri-node', getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth)); // Returns a wrong day for May 8 2024
     }
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===3))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===3))||(currentPass===100)) {
         setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime)); // Returns a wrong day for October 10 1989
     }
 
     // Proposed Calendars
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===5))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===5))||(currentPass===100)) {
         setTimeValue('human-era-node', getHumanEra(currentDateTime));
         setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
         setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
@@ -231,19 +231,19 @@ function updateDateAndTime(dateInput, firstPass) {
     }
 
     // Astronomical Data
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===6))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===6))||(currentPass===100)) {
         setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
         setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
         setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
     }
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===7))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===7))||(currentPass===100)) {
         const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
         setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
         setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime)+'°');
         setTimeValue('this-new-moon-node', newMoonThisMonth.toUTCString());
     }
 
-    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 510))&&(currentPass===4))||(currentPass===100)) {
+    if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===4))||(currentPass===100)) {
         setTimeValue('next-solar-eclipse-node', getNextSolarEclipse(currentDateTime, 0));
     }
 
@@ -481,14 +481,14 @@ function changeDateTime() {
     if (newDateString!=='') {
         updateDateAndTime(newDateString);
         setTimeout(() => {
-            updateIntervalId = setInterval(updateDateAndTime(newDateString), 1);
+            updateIntervalId = setInterval(updateDateAndTime(newDateString), 20);
         }, 1000);
     
     // Date was cleared, restart without argument
     } else {
-        updateDateAndTime;
+        updateDateAndTime(0, true);
         setTimeout(() => {
-            updateIntervalId = setInterval(updateDateAndTime, 1);
+            updateIntervalId = setInterval(updateDateAndTime, 20);
         }, 1);
     }
 }
@@ -557,7 +557,7 @@ document.addEventListener('DOMContentLoaded', function () {
 createElements();
 
 // Update the date and time every millisecond
-updateIntervalId = setInterval(updateDateAndTime, 10);
+updateIntervalId = setInterval(updateDateAndTime, 20);
 changeHeaderButton('header-button-1', 0);
 
 // Initial update
