@@ -30,6 +30,7 @@ a {
     font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
     z-index: 10;
     background-color: rgb(47, 47, 47);
+    overflow: hidden;
 }
 
 .title-wrapper:after {
@@ -59,6 +60,7 @@ a {
     margin-bottom: 0;
     background-color: rgb(55, 55, 55);
     border: 0.2vh solid #000000;
+    overflow: hidden;
 }
 
 .node-wrapper {
@@ -559,10 +561,13 @@ th, td {
     .tooltip-info,
     .tooltip-mission,
     .tooltip-sources,
-    .tooltip-overview,
-    .tooltip-accuracy {
+    .tooltip-overview {
         margin: auto 0.1rem auto 0.1rem;
         font-size: 1.2vh;
+    }
+    .tooltip-accuracy {
+        margin: auto 0.1rem auto 0.1rem;
+        font-size: 1.1vh;
     }
     .table-long th,
     .table-long td {
@@ -586,5 +591,18 @@ th, td {
 
     th, td {
         border: 0.1vh solid black;
+    }
+
+    .container-name {
+        font-size: 1.4vh;
+    }
+
+    .tooltip-title {
+        font-size: 1.5vh;
+    }
+
+    .tooltip-title:after {
+        top: 2.5vh;
+        height: 0.2vh;
     }
 }
