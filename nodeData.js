@@ -983,6 +983,18 @@ const popCultureData = [
         accuracy: 'This timekeeping system should be perfectly accurate but the epoch will not be the same for everyone, as people don\'t all sleep at the same time.',
         source: 'This calculation was sourced from the movie <a href="https://en.wikipedia.org/wiki/Inception">Inception</a>.'
     },
+
+    {
+        name: 'Termina Time (Slowed)',
+        id: 'termina-time',
+        type: 'Pop Culture',
+        epoch: '6:00:00',
+        confidence: 'Exact',
+        overview: `Termina Time is the timekeeping system found in The Legend of Zelda: Majora's Mask.\n\nIt features a cycle of 3 days of 24 hours that are each 150 seconds long when slowed. Days start at sunrise at 6:00am, so 5:00 of one day is followed by 6:00 of the next day.`,
+        info: 'Slowed time was chosen over regular time due to the former fitting cleanly within three real life hours. The entire 3-day cycle in regular time takes 54 minutes, which would create an awkward short cycle at each real life day change (or rather, 6:00am).',
+        accuracy: 'This timekeeping system should be perfectly accurate based on local time.',
+        source: 'This calculation was sourced from the <a href="https://zelda.fandom.com/wiki/Time#Majora\'s_Mask">Zelda Fandom Website</a>.'
+    },
 ]
 
 const politicalCycles = [

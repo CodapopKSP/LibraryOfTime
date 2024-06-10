@@ -250,6 +250,7 @@ function updateDateAndTime(dateInput, firstPass) {
     // Pop Culture
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime));
     setTimeValue('dream-time-node', getInceptionDreamTime(currentDateTime));
+    setTimeValue('termina-time-node', getTerminaTime(currentDateTime));
 
     // Politics
     setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
