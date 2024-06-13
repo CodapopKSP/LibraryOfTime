@@ -71,33 +71,88 @@ function getJulianPeriod(currentDateTime) {
 }
 
 function getDynamicalTimeForward(currentDateTime) {
-    let secondsAhead = getDynamicalTimeOffset(currentDateTime);
+    let secondsAhead = getTerrestrialTimeOffset(currentDateTime);
     const dynamicalTimestamp = currentDateTime.getTime() + (secondsAhead*1000);
     const dynamicalDateTime = new Date(dynamicalTimestamp);
     return dynamicalDateTime.toISOString();
 }
 
 function getDynamicalTimeBackward(currentDateTime) {
-    let secondsAhead = getDynamicalTimeOffset(currentDateTime);
+    let secondsAhead = getTerrestrialTimeOffset(currentDateTime);
     const dynamicalTimestamp = currentDateTime.getTime() - (secondsAhead*1000);
     const dynamicalDateTime = new Date(dynamicalTimestamp);
     return dynamicalDateTime.toISOString();
 }
 
-function getDynamicalTimeOffset(currentDateTime) {
-    let year = currentDateTime.getUTCFullYear();
-    const fractionOfCurrentYear = calculateYear(currentDateTime);
-    year = year + fractionOfCurrentYear;
-    const T = (year-2000)/100;
-    let secondsAhead = 0;
-    if (year < 949) {
-        secondsAhead = 2415.6 + (573.36*T) + (46.5*T**2);
-    } else if (year < 1601) {
-        secondsAhead = 50.6 + (67.5*T) + (22.5*T**2);
-    } else {
-        secondsAhead = 102.3 + (123.5*T) + (32.5*T**2);
+function getTerrestrialTimeOffset(currentDateTime) {
+    const year = currentDateTime.getUTCFullYear();
+    if (year < -500) {
+        const year_factor = (year - 1820) / 100;
+        return -20 + 32 * year_factor**2;
     }
-    return secondsAhead;
+    if (year < 500) {
+        const year_factor = year / 100;
+        return 10583.6 - 1014.41 * year_factor +
+            33.78311 * year_factor**2 - 5.952053 * year_factor**3 -
+            0.1798452 * year_factor**4 + 0.022174192 * year_factor**5 + 0.0090316521 * year_factor**6;
+    }
+    if (year < 1600) {
+        const year_factor = (year - 1000) / 100;
+        return 1574.2 - 556.01 * year_factor + 71.23472 * year_factor**2 + 
+            0.319781 * year_factor**3 - 0.8503463 * year_factor**4 - 
+            0.005050998 * year_factor**5 + 0.0083572073 * year_factor**6;
+    }
+    if (year < 1700) {
+        const year_factor = year - 1600;
+        return 120 - 0.9808 * year_factor - 0.01532 * year_factor**2 + year_factor**3 / 7129;
+    }
+    if (year < 1800) {
+        const year_factor = year - 1700;
+        return 8.83 + 0.1603 * year_factor - 0.0059285 * year_factor**2 + 0.00013336 * year_factor**3 - year_factor**4 / 1174000;
+    } 
+    if (year < 1860) {
+        const year_factor = year - 1800;
+        return 13.72 - 0.332447 * year_factor + 0.0068612 * year_factor**2 + 
+            0.0041116 * year_factor**3 - 0.00037436 * year_factor**4 + 
+            0.0000121272 * year_factor**5 - 0.0000001699 * year_factor**6 + 0.000000000875 * year_factor**7;
+    }
+    if (year < 1900) {
+        const year_factor = year - 1860;
+        return 7.62 + 0.5737 * year_factor - 0.251754 * year_factor**2 + 
+            0.01680668 * year_factor**3 - 0.0004473624 * year_factor**4 + year_factor**5 / 233174;
+    }
+    if (year < 1920) {
+        const year_factor = year - 1900;
+        return -2.79 + 1.494119 * year_factor - 0.0598939 * year_factor**2 + 
+            0.0061966 * year_factor**3 - 0.000197 * year_factor**4;
+    }
+    if (year < 1941) {
+        const year_factor = year - 1920;
+        return 21.20 + 0.84493 * year_factor - 
+            0.076100 * year_factor**2 + 0.0020936 * year_factor**3;
+    }
+    if (year < 1961) {
+        const year_factor = year - 1950;
+        return 29.07 + 0.407 * year_factor - year_factor**2 / 233 + (year_factor**3) / 2547;
+    }
+    if (year < 1986) {
+        const year_factor = year - 1975;
+        return 45.45 + 1.067 * year_factor - year_factor**2 / 260 - (year_factor**3) / 718;
+    }
+    if (year < 2005) {
+        const year_factor = year - 2000;
+        return 63.86 + 0.3345 * year_factor - 0.060374 * year_factor**2 + 
+            0.0017275 * year_factor**3 + 0.000651814 * year_factor**4 +0.00002373599 * year_factor**5;
+    }
+    if (year < 2050) {
+        const year_factor = year - 2000;
+        return 62.92 + 0.32217 * year_factor + 0.005589 * year_factor**2;
+    }
+    if (year < 2150) {
+        return -20 + 32 * (((year - 1820) / 100)**2) - 0.5628 * (2150 - year);
+    }
+    const year_factor = (year - 1820) / 100;
+    return -20 + 32 * year_factor**2;
 }
 
 function getLilianDate(julianDay) {

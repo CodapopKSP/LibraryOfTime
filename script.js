@@ -132,7 +132,7 @@ function updateDateAndTime(dateInput, firstPass) {
 
     // Computing Times
     setTimeValue('julian-day-number-node', julianDay);
-    setTimeValue('dynamical-time-node', getDynamicalTimeForward(currentDateTime));
+    setTimeValue('terrestrial-time-node', getTerrestrialTimeOffset(currentDateTime));
     setTimeValue('iso8601-node', currentDateTime.toISOString());
     if ((currentDateTime.getMilliseconds() < millisecondStart)||(currentPass===100)) {
         setTimeValue('unix-node', getUnixTime(currentDateTime));

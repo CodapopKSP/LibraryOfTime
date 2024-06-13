@@ -217,7 +217,7 @@ const computingTimeData = [
         confidence: 'Exact',
         overview: 'The Julian Day Number is a simple count of number of days since 12:00 (noon) on November 24, 4713 BCE (or 4714 BCE when not using astronomical dates). The JDN is used by astronomers and programmers to simplify calculations for the passage of time, and many of the calculations in this website are based off of the JDN.',
         info: 'There are many versions of the JDN, most of which involve truncating the large number for easier calculations.',
-        accuracy: 'This counter is rigorously-studied and exactly accurate, with the only question being the addition of Dynamical Time.',
+        accuracy: 'This counter is rigorously-studied and exactly accurate, with the only question being the addition of Terrestrial Time.',
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.'
     },
 
@@ -270,15 +270,15 @@ const computingTimeData = [
     },
 
     {
-        name: 'Dynamical Time',
-        id: 'dynamical-time',
+        name: 'Terrestrial Time',
+        id: 'terrestrial-time',
         type: 'Computing Time',
         epoch: 'Undefined',
         confidence: 'Medium',
-        overview: 'Dynamical Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.',
+        overview: 'Terrestrial Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.',
         info: 'The exact time of the year is slowly changing on the order of a few seconds per year. This rate is not constant, though it can be estimated.',
-        accuracy: `Dynamical Time is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculation or due to a misunderstanding in some of the steps.`,
-        source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
+        accuracy: `Terrestrial Time is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculation or due to a misunderstanding in some of the steps.`,
+        source: `This calculation was originally sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nI also borrowed much of the base code for this calculation from <a href="https://github.com/Fabiz/MeeusJs/blob/master/lib/Astro.DeltaT.js">this GitHub repository</a> as it seems to be based on a later version of Meeus's calculation.`
     },
 
     {
@@ -289,7 +289,7 @@ const computingTimeData = [
         confidence: 'High',
         overview: `The Mars Sol Date, similar to the Julian Day Number, is the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. Currently I haven't been able to figure out exactly why the epoch was chosen. The day increments when the Airy-0 crater reaches midnight.`,
         info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
-        accuracy: 'This clock should be very accurate, though I am unsure how Dynamical Time factors into it, which could cause it to be off by a few minutes.',
+        accuracy: 'This clock should be very accurate, though I am unsure how Terrestrial Time factors into it, which could cause it to be off by a few minutes.',
         source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.`
     },
 
@@ -301,7 +301,7 @@ const computingTimeData = [
         confidence: 'High',
         overview: `The Julian Sol Number, created by Thomas Gangale, is similar to the Julian Day Number but it counts the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. This epoch marks an important Martian Vernal Equinox. The day increments when the Airy-0 crater reaches midnight.\n\nIn a chat I had with with Mr. Gangale, he expressed his desire for this standard to be deprecated, as the Mars Sol Date created by Michael Allison had received wider use. However, since it was used at one point, I have opted to include it in this website.\n\n"The sooner that things become standardized, the better, so consider the JS to be obsolete." -Thomas Gangale, 2024`,
         info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
-        accuracy: 'This clock should be very accurate, though I am unsure how Dynamical Time factors into it, which could cause it to be off by a few minutes.',
+        accuracy: 'This clock should be very accurate, though I am unsure how Terrestrial Time factors into it, which could cause it to be off by a few minutes.',
         source: `Much of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.\n\nDates can also be verified with <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">this website</a>, though some inaccuracies have been noted.`
     },
 
@@ -449,7 +449,7 @@ const otherTimeData = [
         confidence: 'High',
         overview: `Coordinated Mars Time, also called MTC as well as Airy Mean Time (AMT), is a proposed clock for use on Mars which has gained some level of mainstream traction in the scientific community. It is intended to be a Martian analog to Earth's UTC. The time is displayed as hours, minutes, and seconds since midnight on Mars at the location of the Airy-0 crater. The clock is the same as clocks on Earth, with 24 hours and 60 minutes in an hour, though each unit is slightly longer due to the length of the sol being 39 minutes and 35 seconds longer than the day.`,
         info: 'This clock uses the Mars Sol Date for the calculation determining where midnight begins.\n\n<table class="table-short"><tr><td>MTC</td><td>Standard Time</td></tr><tr><td>MTC Second</td><td>1.02749125 Seconds</td></tr><tr><td>MTC Minute</td><td>61.649475 Seconds</td></tr><tr><td>MTC Hour</td><td>61.649475 Minutes</td></tr></table>',
-        accuracy: 'This clock should be reasonably accurate, though it might be off by a feww minutes or seconds due to Dynamical Time.',
+        accuracy: 'This clock should be reasonably accurate, though it might be off by a feww minutes or seconds due to Terrestrial Time.',
         source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.`
     },
 ]
@@ -591,11 +591,11 @@ const solarCalendarsData = [
         name: 'Baháʼí (IRST)',
         id: 'bahai',
         type: 'Solar Calendar',
-        epoch: '3 March 1844 CE',
+        epoch: '19? March 1844 CE +12:30:00',
         confidence: 'High',
         overview: 'The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift from the Gregorian calendar.\n\nIt features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and ‘Alá’, typically at the end of February.\n\nDays start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with \'BE\', meaning Baháʼí Era.',
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th><th>Approx. Gregorian Time</th></tr><tr><td>Bahá</td><td>19</td><td>Mar 21 - Apr 8</td></tr><tr><td>Jalál</td><td>19</td><td>Apr 9 - Apr 27</td></tr><tr><td>Jamál</td><td>19</td><td>Apr 28 - May 16</td></tr><tr><td>‘Aẓamat</td><td>19</td><td>May 17 - Jun 4</td></tr><tr><td>Núr</td><td>19</td><td>Jun 5 - Jun 23</td></tr><tr><td>Raḥmat</td><td>19</td><td>Jun 24 - Jul 12</td></tr><tr><td>Kalimát</td><td>19</td><td>Jul 13 - Jul 31</td></tr><tr><td>Kamál</td><td>19</td><td>Aug 1 - Aug 19</td></tr><tr><td>Asmá’</td><td>19</td><td>Aug 20 - Sep 7</td></tr><tr><td>‘Izzat</td><td>19</td><td>Sep 8 - Sep 26</td></tr><tr><td>Mashíyyat</td><td>19</td><td>Sep 27 - Oct 15</td></tr><tr><td>‘Ilm</td><td>19</td><td>Oct 16 - Nov 3</td></tr><tr><td>Qudrat</td><td>19</td><td>Nov 4 - Nov 22</td></tr><tr><td>Qawl</td><td>19</td><td>Nov 23 - Dec 11</td></tr><tr><td>Masá’il</td><td>19</td><td>Dec 12 - Dec 30</td></tr><tr><td>Sharaf</td><td>19</td><td>Dec 31 - Jan 18</td></tr><tr><td>Sulṭán</td><td>19</td><td>Jan 19 - Feb 6</td></tr><tr><td>Mulk</td><td>19</td><td>Feb 7 - Feb 25</td></tr><tr><td>Ayyám-i-Há</td><td>4 or 5</td><td>Feb 26 - Mar 1</td></tr><tr><td>‘Alá’</td><td>19</td><td>Mar 2 - Mar 20</td></tr></table>`,
-        accuracy: 'The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year, but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Dynamical Time invokes inaccuracies.\n\nThe sunset approximation is also likely to cause slight inaccuracies if the New Moon happens very near to sunset, though this is similarly likely to self-correct by the next year. On that note, the dates may change slightly too early or late depending on the real time of sunset.',
+        accuracy: 'The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year, but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Terrestrial Time invokes inaccuracies.\n\nThe sunset approximation is also likely to cause slight inaccuracies if the New Moon happens very near to sunset, though this is similarly likely to self-correct by the next year. On that note, the dates may change slightly too early or late depending on the real time of sunset.\n\nThere seems to be an issue with the stated epoch on Wikipedia being 1 day later than the calculated epoch here.',
         source: 'A lot of the information about this calendar came from its <a href="https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar">Wikipedia article</a>.\n\nDates can be referenced at the <a href="https://www.bahai.org/action/devotional-life/calendar">official Baháʼí website</a>.'
     },
 
@@ -833,7 +833,7 @@ const otherCalendars = [
         overview: 'The Darian calendar is a proposed calendar for use on Mars. It was created in 1985 by Thomas Gangale and named after his son, Darius.\n\nIt takes the ~668.5 sol Martian year (~687 Earth days) and divides it into 24 months of 28 or 27 sols. The new year is on the day of the Martian Northern Equinox.\n\nThe epoch is the Vernal Equinox of Julian Sol Number 0, taking place on 12 March 1609 CE at 18:40:06 UTC.\n\nLeap years add one extra day in the final month, and they take place if the year number is odd or divisible by 10, unless also divisible by 100 except if divisible by 500.',
         info: `<table class="table-very-long"><tr><th>Month</th><th>Days</th></tr><tr><td>Sagittarius</td><td>28</td></tr><tr><td>Dhanus</td><td>28</td></tr><tr><td>Capricornus</td><td>28</td></tr><tr><td>Makara</td><td>28</td></tr><tr><td>Aquarius</td><td>28</td></tr><tr><td>Khumba</td><td>27</td></tr><tr><td>Pisces</td><td>28</td></tr><tr><td>Mina</td><td>28</td></tr><tr><td>Aries</td><td>28</td></tr><tr><td>Mesha</td><td>28</td></tr><tr><td>Taurus</td><td>28</td></tr><tr><td>Rishabha</td><td>27</td></tr><tr><td>Gemini</td><td>28</td></tr><tr><td>Mithuna</td><td>28</td></tr><tr><td>Cancer</td><td>28</td></tr><tr><td>Karka</td><td>28</td></tr><tr><td>Leo</td><td>28</td></tr><tr><td>Simha</td><td>27</td></tr><tr><td>Virgo</td><td>28</td></tr><tr><td>Kanya</td><td>28</td></tr><tr><td>Libra</td><td>28</td></tr><tr><td>Tula</td><td>28</td></tr><tr><td>Scorpius</td><td>28</td></tr><tr><td>Vrishika</td><td>27 or 28</td></tr></table>`,
         accuracy: `This calendar depends on the Julian Sol Number which is in turn based on the Mars Sol Date. Assuming these are all accurate, then the Darian calendar should be correct.\n\nThere is one more stipulation that the current calendar is only perfectly accurate between the years 0 and 2000 due to the shortening of the Martian equinox year. Whether those are Martian years or Earth years isn't clear, but the difference is rather small and is currently ignored for this calendar.`,
-        source: 'Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Darian_calendar">Wikipedia article</a>.\n\nThe actual creator of the calendar has a website and a date converter <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">here</a>, but it uses a slightly different Dynamical Time correction for the Mars sol.'
+        source: 'Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Darian_calendar">Wikipedia article</a>.\n\nThe actual creator of the calendar has a website and a date converter <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">here</a>, but it uses a slightly different Terrestrial Time correction for the Mars sol.'
     },
 
     {
@@ -882,7 +882,7 @@ const astronomicalData = [
         confidence: 'High',
         overview: 'This is the approximate date and time of this year\'s Northward Equinox. In the Northern Hemisphere this is known as the Spring Equinox. In the Southern Hemisphere it is known as the Fall Equinox. It is the time when the length of the day and night are equal all over the planet and the solar declination is heading northward.',
         info: 'The Northward Equinox is an important starting point or anchor point in some calendars. It usually occurs around March 20th. Over time, roughly in a cycle of 25,772 years, Earth\'s axes precess, causing the equinoxes and solstices to slowly drift through the entire year.',
-        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Dynamical Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
         source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
     
@@ -894,7 +894,7 @@ const astronomicalData = [
         confidence: 'High',
         overview: 'This is the approximate date and time of this year\'s Northern Solstice. In the Northern Hemisphere this is known as the Summer Solstice. In the Southern Hemisphere it is known as the Winter Solstice. It is the time when the Northern Hemisphere experiences its longest day while the Southern Hemisphere experiences its shortest day.',
         info: 'The Northern Solstice usually occurs around June 20th. Over time, roughly in a cycle of 25,772 years, Earth\'s axes precess, causing the equinoxes and solstices to slowly drift through the entire year.',
-        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Dynamical Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
         source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
@@ -906,7 +906,7 @@ const astronomicalData = [
         confidence: 'High',
         overview: 'This is the approximate date and time of this year\'s Southward Equinox. In the Northern Hemisphere this is known as the Fall Equinox. In the Southern Hemisphere it is known as the Spring Equinox. It is the time when the length of the day and night are equal all over the planet and the solar declination is heading southward.',
         info: 'The Southward Equinox is an important starting point or anchor point in many calendars. It usually occurs around September 20th. Over time, roughly in a cycle of 25,772 years, Earth\'s axes precess, causing the equinoxes and solstices to slowly drift through the entire year.',
-        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Dynamical Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
         source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
@@ -918,7 +918,7 @@ const astronomicalData = [
         confidence: 'High',
         overview: 'This is the approximate date and time of this year\'s Southern Solstice. In the Northern Hemisphere this is known as the Winter Solstice. In the Southern Hemisphere it is known as the Summer Solstice. It is the time when the Northern Hemisphere experiences its shortest day while the Southern Hemisphere experiences its longest day.',
         info: 'The Southern Solstice is an important starting point or anchor point in some calendars. It usually occurs around December 20th. Over time, roughly in a cycle of 25,772 years, Earth\'s axes precess, causing the equinoxes and solstices to slowly drift through the entire year.',
-        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Dynamical Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
+        accuracy: 'The accuracy of this calculation depends on the precision of Meeus\'s calculations. On top of that, my solutions don\'t exactly match those provided by Meeus, either due to Javascript\'s base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality, but they aren\'t perfect.',
         source: 'This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
@@ -942,7 +942,7 @@ const astronomicalData = [
         confidence: 'High',
         overview: 'This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month. It is an important event in many cultures, and most lunar or lunisolar calendars use the New Moon as the beginning of the month.',
         info: 'Calculating the New Moon is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site. Unfortunately it also must be calculated several times due to the nature of lunar calendars, though the date shown here is resused when possible. New Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon\'s orbit as well as other gravitational effects. Thus, it is often necessary to calculate each New Moon directly.',
-        accuracy: 'This calculation is <i>mostly</i> accurate, but it differs from Jean Meeus\'s solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Dynamical Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates far away from the current year are likely to be significantly off.',
+        accuracy: 'This calculation is <i>mostly</i> accurate, but it differs from Jean Meeus\'s solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates far away from the current year are likely to be significantly off.',
         source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 
@@ -954,7 +954,7 @@ const astronomicalData = [
         confidence: 'Medium',
         overview: `A solar eclipse occurs when the moon casts a shadow anywhere onto the Earth. It is a fairly rare event that always occurs during a New Moon.\n\nWhen the moon completely covers the disk of the sun from the perpective of a point on the Earth, it is called a Total Solar Eclipse. When the moon appears to be smaller than the sun, with the sun visible in a 'Ring of Fire' around the edge, it is called an Annular Solar Eclipse. When the moon covers part of the sun but doesn't intersect the center of the sun's disk, it is called a Partial Solar Eclipse.\n\nThis entry also displays the node at which the eclipse took place as well as the hemisphere of Earth where it is visible at its maximum.\n\nSolar eclipses typically are only viewable from a small area on the Eath's surface, and they are historically significant events that have inspired legend, religion, and myth. The solar eclipse of 8 April 2024 CE is what inspired me to build this website.`,
         info: `Solar eclipses typically happen every one or two years, though total solar eclipses are rarer. They can only occur when a New Moon happens very near to the moon's ascending or descending nodes—the points along the lunar orbit that intersect the Earth's equator. These are at 0°/360° and 180° respectively.\n\nDue to the oblong shape of the moon's orbit, the moon can either appear larger or smaller than the sun from the perspective of Earth. This coincidence produces the two different types of central eclipses, total and annular.\n\nDuring a total solar eclipse, the sun's corona is visible to the naked eye, providing a spectacular sight as well as an opportunity to conduct science.`,
-        accuracy: 'This calculation is reasonably accurate within a few hundred years of 2000 CE. After that, errors are induced which can grow from hours to even days.\n\nThis calculation relies on the New Moon calculation as well as Dynamical Time, each of which have potential to induce errors, either due to my own misunderstanding of the source or because of the uncertainty of the cosmos.',
+        accuracy: 'This calculation is reasonably accurate within a few hundred years of 2000 CE. After that, errors are induced which can grow from hours to even days.\n\nThis calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce errors, either due to my own misunderstanding of the source or because of the uncertainty of the cosmos.',
         source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 ]
