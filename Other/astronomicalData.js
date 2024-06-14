@@ -180,7 +180,7 @@ function calculateLunationNumber(currentDateTime) {
     const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
 
     // Calculate the number of lunations since Lunation 0
-    const lunationNumber = Math.trunc(daysSince2000 / 29.530588);
+    const lunationNumber = Math.floor(daysSince2000 / 29.530588);
     return lunationNumber;
 }
 

@@ -70,7 +70,7 @@ function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
 function calculateIslamicMonthAndYear(ln) {
     // Add 9 lunations to get in sync with the calendar
     const lunation = ln + 9;
-    const islamicYears = Math.trunc(lunation / 12);
+    const islamicYears = Math.floor(lunation / 12);
     let currentMonth = (lunation % 12);
     if (currentMonth < 0) {
         currentMonth += 12;
