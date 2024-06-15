@@ -44,7 +44,12 @@ function calculateDateFromJDE(JDE) {
     let unfixedDateTime = new Date(Date.UTC(year, month-1, day, hours, minutes, seconds));
     unfixedDateTime.setUTCFullYear(year);
     // I think this is how to add Dynamical Time but I'm not sure
-    const fixedDateTime = getDynamicalTimeBackward(unfixedDateTime);
+    let fixedDateTime = new Date(getDynamicalTimeBackward(unfixedDateTime));
+    
+    const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
+    if ((fixedDateTime < startOfGregorian) && (calendarType==='gregorian-proleptic')) {
+        fixedDateTime.setUTCDate(fixedDateTime.getUTCDate() + gregJulDifference);
+    }
     return fixedDateTime;
 }
 

@@ -24,6 +24,8 @@ Vikram Samvat lunar times (tithi)
 */
 
 const updateMiliseconds = 20;
+let gregJulDifference = 0;
+let calendarType = 'gregorian-proleptic';
 
 let selectedNode = '';              // The current selected node, blank if none
 let dateInput = '';                 // Text string from the date input box
@@ -105,13 +107,11 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
         currentPass = 100;
     }
 
-    // User chose Gregorian (default)
-    let gregJulDifference = 0;
+    // Get difference between Julian and Gregorian
+    gregJulDifference = differenceInDays(currentDateTime, getJulianDate(currentDateTime));
 
     // User chose Julian
     if (calendarType==='julian-liturgical') {
-        gregJulDifference = differenceInDays(currentDateTime, getJulianDate(currentDateTime));
-
         // No Year 0 exists, so add 1 to negative years
         if (currentDateTime.getFullYear() < 0) {
             currentDateTime.setFullYear(currentDateTime.getFullYear()+1);
@@ -119,19 +119,16 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
         // No Year 0 exists, so return current date
         } else if (currentDateTime.getFullYear()===0) {
             currentDateTime = new Date();
-            gregJulDifference = 0;
         }
+        currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
 
     // User chose Astronomical
     } else if (calendarType==='astronomical') {
         const startOfGregorian = new Date(1582, 9, 15);
         if (currentDateTime<startOfGregorian) {
-            gregJulDifference = differenceInDays(currentDateTime, getJulianDate(currentDateTime));
+            currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
         }
     }
-
-    // Fix calendar based on user choice
-    currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
 
     // Calculations that are used by multiple nodes
     const julianDay = getJulianDayNumber(currentDateTime)
@@ -179,7 +176,6 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
 
         const lunationNumber = calculateLunationNumber(currentDateTime);
         setTimeValue('lunation-number-node', lunationNumber);
-
         setTimeValue('brown-lunation-number-node', getBrownLunationNumber(lunationNumber));
         setTimeValue('goldstine-lunation-number-node', getGoldstineLunationNumber(lunationNumber));
         setTimeValue('hebrew-lunation-number-node', getHebrewLunationNumber(lunationNumber));
@@ -508,7 +504,7 @@ function changeDateTime() {
     clearInterval(updateIntervalId);
     // Get the value entered in the input box
     const newDateString = document.getElementById('date-input').value;
-    const calendarType = document.getElementById('calendar-type').value;
+    calendarType = document.getElementById('calendar-type').value;
 
     // Date was input, add it as an argument
     if (newDateString!=='') {
