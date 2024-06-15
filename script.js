@@ -171,6 +171,7 @@ function updateDateAndTime(dateInput, firstPass) {
         const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
         setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
         setTimeValue('julian-node', getJulianCalendar(currentDateTime));
+        setTimeValue('astronomical-node', getAstronomicalDate(currentDateTime));
         setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
         setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
         setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'autumn')));

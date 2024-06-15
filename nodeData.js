@@ -480,6 +480,18 @@ const solarCalendarsData = [
     },
 
     {
+        name: 'Astronomical',
+        id: 'astronomical',
+        type: 'Solar Calendar',
+        epoch: '3 January 1 CE',
+        confidence: 'Exact',
+        overview: 'The Astronomical calendar is a combination of the Gregorian calendar for dates after midnight on 15 October 1582 and the Julian calendar for dates before.\n\nIt is a standard for calculating dates of astronomical events as well as historical events.',
+        info: `<table class="table-long"><tr><th>Month</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
+        accuracy: 'This calendar is a simple calculation and is considered to be exactly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Astronomical_year_numbering">Wikipedia article</a>.'
+    },
+
+    {
         name: 'French Republican (CET)',
         id: 'french-republican',
         type: 'Solar Calendar',

@@ -14,6 +14,30 @@ function getJulianDate(currentDateTime) {
     return julianDate;
 }
 
+function getAstronomicalDate(currentDateTime) {
+    const startOfGregorian = new Date(1582, 9, 15);
+    let astronomical = new Date(currentDateTime);
+    let year = astronomical.getFullYear();
+
+    let yearSuffix = 'CE';
+    if (year < 1) {
+        yearSuffix = 'BCE';
+    }
+
+    if (currentDateTime<startOfGregorian) {
+        astronomical = getJulianDate(currentDateTime);
+        year = astronomical.getFullYear();
+        yearSuffix = 'AD';
+        if (year < 1) {
+            yearSuffix = 'BC';
+        }
+    }
+    let day = astronomical.getDate().toString();
+    let month = astronomical.getMonth();
+
+    return day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix;
+}
+
 // Converts a number to Roman numerals
 function toRomanNumerals(num) {
     if (num === 0) {
