@@ -23,6 +23,8 @@ Hebrew/Thai/Chinese/Byzantine/Zoroastrian/Egyptian times
 Vikram Samvat lunar times (tithi)
 */
 
+const updateMiliseconds = 20;
+
 let selectedNode = '';              // The current selected node, blank if none
 let dateInput = '';                 // Text string from the date input box
 let currentDescriptionPage = [];    // The current arrangement of information to be displayed in the description box
@@ -71,7 +73,7 @@ let visibleTooltip = aboutDescription;
 currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescription, sourcesDescription];
 
 // Main function for 
-function updateDateAndTime(dateInput, firstPass) {
+function updateDateAndTime(dateInput, calendarType, firstPass) {
     let currentPass = 0;
     let currentDateTime = '';
     const decimals = 10; // Decimals to show in some nodes
@@ -102,6 +104,34 @@ function updateDateAndTime(dateInput, firstPass) {
     if (firstPass===true) {
         currentPass = 100;
     }
+
+    // User chose Gregorian (default)
+    let gregJulDifference = 0;
+
+    // User chose Julian
+    if (calendarType==='julian-liturgical') {
+        gregJulDifference = differenceInDays(currentDateTime, getJulianDate(currentDateTime));
+
+        // No Year 0 exists, so add 1 to negative years
+        if (currentDateTime.getFullYear() < 0) {
+            currentDateTime.setFullYear(currentDateTime.getFullYear()+1);
+        
+        // No Year 0 exists, so return current date
+        } else if (currentDateTime.getFullYear()===0) {
+            currentDateTime = new Date();
+            gregJulDifference = 0;
+        }
+
+    // User chose Astronomical
+    } else if (calendarType==='astronomical') {
+        const startOfGregorian = new Date(1582, 9, 15);
+        if (currentDateTime<startOfGregorian) {
+            gregJulDifference = differenceInDays(currentDateTime, getJulianDate(currentDateTime));
+        }
+    }
+
+    // Fix calendar based on user choice
+    currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
 
     // Calculations that are used by multiple nodes
     const julianDay = getJulianDayNumber(currentDateTime)
@@ -170,7 +200,7 @@ function updateDateAndTime(dateInput, firstPass) {
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===8))||(currentPass===100)) {
         const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
         setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
-        setTimeValue('julian-node', getJulianCalendar(currentDateTime));
+        setTimeValue('julian-node', getJulianCalendar(currentDateTime, calendarType));
         setTimeValue('astronomical-node', getAstronomicalDate(currentDateTime));
         setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
         setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
@@ -478,19 +508,20 @@ function changeDateTime() {
     clearInterval(updateIntervalId);
     // Get the value entered in the input box
     const newDateString = document.getElementById('date-input').value;
+    const calendarType = document.getElementById('calendar-type').value;
 
     // Date was input, add it as an argument
     if (newDateString!=='') {
-        updateDateAndTime(newDateString);
+        updateDateAndTime(newDateString, calendarType);
         setTimeout(() => {
-            updateIntervalId = setInterval(updateDateAndTime(newDateString), 20);
+            updateIntervalId = setInterval(updateDateAndTime(newDateString, calendarType), updateMiliseconds);
         }, 1000);
     
     // Date was cleared, restart without argument
     } else {
         updateDateAndTime(0, true);
         setTimeout(() => {
-            updateIntervalId = setInterval(updateDateAndTime, 20);
+            updateIntervalId = setInterval(updateDateAndTime, updateMiliseconds);
         }, 1);
     }
 }
@@ -559,8 +590,8 @@ document.addEventListener('DOMContentLoaded', function () {
 createElements();
 
 // Update the date and time every millisecond
-updateIntervalId = setInterval(updateDateAndTime, 20);
+updateIntervalId = setInterval(updateDateAndTime, updateMiliseconds);
 changeHeaderButton('header-button-1', 0);
 
 // Initial update
-updateDateAndTime(0, true);
+updateDateAndTime(0, 'gregorian-proleptic', true);

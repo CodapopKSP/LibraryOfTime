@@ -93,7 +93,7 @@ function getGregorianDateTime(currentDateTime) {
 }
 
 // Returns a formatted Julian calendar local date
-function getJulianCalendar(currentDateTime) {
+function getJulianCalendar(currentDateTime, calendarType) {
     const julianDate = getJulianDate(currentDateTime);
     // Extract year, month, and day components
     let yearString = julianDate.getFullYear();
@@ -104,6 +104,7 @@ function getJulianCalendar(currentDateTime) {
     let yearSuffix = 'AD';
     if (yearString<1) {
         yearSuffix = 'BC';
+        yearString--;
     }
     
     let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix;

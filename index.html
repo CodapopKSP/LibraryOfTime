@@ -58,6 +58,11 @@
         </div>
         <div class="description-wrapper">
             <div class="input-box-wrapper">
+                <select id="calendar-type">
+                    <option value="gregorian-proleptic">Gregorian (Proleptic)</option>
+                    <option value="julian-liturgical">Julian (Liturgical)</option>
+                    <option value="astronomical">Astronomical</option>
+                </select>
                 <input type="text" id="date-input" placeholder="Year, Month, Day, Hour, Minute, Second">
                 <button id='change-date-button' onclick="changeDateTime()"><b>Accept</b></button>
             </div>
