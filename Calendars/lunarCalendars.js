@@ -31,8 +31,7 @@ function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
     firstDayOfIslamicMonth.setMinutes(0);
     firstDayOfIslamicMonth.setSeconds(0);
     // Calculate the number of days since the first day of the Islamic month
-    const timeDifference = currentDateTime.getTime() - firstDayOfIslamicMonth.getTime();
-    const daysSinceStartOfMonth = Math.trunc(timeDifference / 60 / 60 / 24 / 1000);
+    const daysSinceStartOfMonth = Math.trunc(differenceInDays(currentDateTime, firstDayOfIslamicMonth));
     const currentLunationSince2000 = calculateLunationNumber(currentDateTime);
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
     
