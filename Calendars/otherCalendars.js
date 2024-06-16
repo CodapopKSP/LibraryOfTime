@@ -51,6 +51,8 @@ function getDarianCalendar(julianSolNumber) {
         "Vrishika"
     ];
 
+    const darianWeek = ['Solis', 'Lunae', 'Martis', 'Mercurii', 'Jovis', 'Veneris', 'Saturni'];
+
     const daysOfMonthsLeapYear = [28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 28];
     const daysOfMonthsNonLeapYear = [28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27];
 
@@ -90,7 +92,10 @@ function getDarianCalendar(julianSolNumber) {
     }
     let day = Math.trunc(remainingDays) + 1; // Days in calendar start from 1
 
-    return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year); // Display negative years as negative
+    const dayOfWeek = Math.floor(julianSolNumber+4) % 7;
+
+    // Display negative years as negative
+    return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year) + '\nSol ' + darianWeek[dayOfWeek];
 }
 
 function getYugaCycle(currentDateTime) {
