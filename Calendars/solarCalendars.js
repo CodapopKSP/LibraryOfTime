@@ -255,6 +255,16 @@ function getCopticDate(currentDateTime) {
         "Pi Kogi Enavot"
     ];
 
+    const copticWeek = [
+        "ⲁⲕⲃⲟⲩⲗ", // Sunday
+        "ⲥⲟⲙ",     // Monday
+        "ⲅⲃⲁⲣ",     // Tuesday
+        "ⲅⲟⲡ",     // Wednesday
+        "ⲃⲁⲣⲙⲁⲕ",   // Thursday
+        "ⲃⲉⲕⲃⲁⲧ",   // Friday
+        "ⲁⲧⲟⲃⲁⲣ"    // Saturday
+    ];
+
     // Number of days in each Coptic month
     let Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
 
@@ -269,6 +279,11 @@ function getCopticDate(currentDateTime) {
     const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, ThoutYear1));
     const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
     let CopticYear = yearsSinceEpoch;
+    
+    // Get the weekday based on midnight in Egypt
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()-3); // 3 hours ahead + midnight of 00:00 = 21 hours yesterday
+    const dayOfWeek = startOfToday.getDay();
 
     let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
     if (remainingDays < 0) {
@@ -289,7 +304,7 @@ function getCopticDate(currentDateTime) {
         remainingDays = Coptic_monthDays[CopticMonth];
     }
 
-    return remainingDays + ' ' + copticMonths[CopticMonth] + ' ' + CopticYear + ' AM ';
+    return remainingDays + ' ' + copticMonths[CopticMonth] + ' ' + CopticYear + ' AM\n' + copticWeek[dayOfWeek];
 }
 
 // Returns a formatted Ethiopian UTC date based on the Julian Day (not Julian date)
@@ -310,6 +325,16 @@ function getEthiopianDate(currentDateTime) {
         "Ṗagume"
     ];
 
+    const ethiopianWeek = [
+        "ሰንበት", // Sunday (Ge'ez)
+        "ሰኑይ",   // Monday (Ge'ez)
+        "ሠሉስ",   // Tuesday (Ge'ez)
+        "ረቡዕ",   // Wednesday (Ge'ez)
+        "ሓሙስ",   // Thursday (Ge'ez)
+        "ዓርብ",   // Friday (Ge'ez)
+        "ቀዳሚት"  // Saturday (Ge'ez)
+    ];
+
     // Number of days in each Coptic month
     let Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
 
@@ -325,6 +350,11 @@ function getEthiopianDate(currentDateTime) {
     const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, ThoutYear1));
     const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
     let EthiopianYear = yearsSinceEpoch;
+    
+    // Get the weekday based on midnight in Ethiopia
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()-3); // 3 hours ahead + midnight of 00:00 = 21 hours yesterday
+    const dayOfWeek = startOfToday.getDay();
 
     let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
     if (remainingDays < 0) {
@@ -345,7 +375,7 @@ function getEthiopianDate(currentDateTime) {
         remainingDays = Coptic_monthDays[EthiopianMonth];
     }
 
-    return remainingDays + ' ' + ethiopianMonths[EthiopianMonth] + ' ዓ.ም.' + EthiopianYear;
+    return remainingDays + ' ' + ethiopianMonths[EthiopianMonth] + ' ዓ.ም.' + EthiopianYear + '\n' + ethiopianWeek[dayOfWeek];
 }
 
 // Returns a formatted Byzantine local date
@@ -394,7 +424,11 @@ function getFlorentineCalendar(currentDateTime) {
     let monthIndex = florentineDate.getUTCMonth(); // Month is zero-based
     let monthString = monthNames[monthIndex];
     let dayString = florentineDate.getUTCDate();
-    const dayOfWeek = currentDateTime.getDay();
+    
+    // Get the weekday based on sunset in Florence
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()-5); // 1 hours ahead + sunset of 18:00 = 19 hours yesterday
+    const dayOfWeek = startOfToday.getDay();
 
     let yearSuffix = 'AD';
     if (yearString<1) {
@@ -477,6 +511,16 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
         "‘Alá’"
     ];
 
+    const bahaiWeek = [
+        "Jamál",    // Beauty
+        "Kamál",    // Perfection
+        "Fiḍál",    // Grace
+        "‘Idál",    // Justice
+        "Istijlál", // Majesty
+        "Istiqlál", // Independence
+        "Jalál"     // Glory
+    ];
+    
     // Iterate through months from start until Mulk, find intercalary days, then iterate backwards for Ala
     let monthIndex = 0;
     
@@ -518,7 +562,14 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     if ((currentDateTime.getMonth()>1)&&(monthIndex<16)) {
         year++
     }
-    return currentDayOfYear + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE';
+
+    // Get the weekday based on sunset in Tehran
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()-2); // 3.5 hours ahead + sunset of 18:00 = 21.5 hours yesterday
+    startOfToday.setUTCMinutes(currentDateTime.getUTCMinutes()-30);
+    const dayOfWeek = startOfToday.getDay();
+
+    return currentDayOfYear + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE\n' + bahaiWeek[dayOfWeek];
 }
 
 // Returns a formatted Pataphysical local date
@@ -547,6 +598,17 @@ function getPataphysicalDate(currentDateTime) {
         "Phalle",
     ];
 
+    const pataphysicalWeek = [
+        "Dimanche", // Sunday
+        "Lundi",    // Monday
+        "Mardi",    // Tuesday
+        "Mercredi", // Wednesday
+        "Jeudi",    // Thursday
+        "Vendredi", // Friday
+        "Samedi"    // Saturday
+    ];
+    
+
     // Last mont doesn't really have 30 days, but it's necessary
     let daysOfMonths = [28,28,28,28,28,28,28,28,28,28,29,28,29];
     let nextSept8 = new Date(mostRecentSept8);
@@ -569,8 +631,9 @@ function getPataphysicalDate(currentDateTime) {
     const day = remainingDays+1;
     const month = months[monthIndex];
     let year = mostRecentSept8.getFullYear()-1872; // Get epoch
+    const dayOfWeek = currentDateTime.getDay();
 
-    return day + ' ' + month + ' ' + year;
+    return day + ' ' + month + ' ' + year + '\n' + pataphysicalWeek[dayOfWeek];
 }
 
 // Returns a formatted Discordian local date
@@ -588,6 +651,14 @@ function getDiscordianDate(currentDateTime) {
         "The Aftermath"
     ];
 
+    const discordianWeek = [
+        "Sweetmorn",
+        "Boomtime",
+        "Pungenday",
+        "Prickle-Prickle",
+        "Setting Orange"
+    ];
+
     if ((leapYear)&&(remainingDays>=60)) {
         if (remainingDays===60) {
             return `St. Tib's Day`;
@@ -599,8 +670,9 @@ function getDiscordianDate(currentDateTime) {
     let month = Math.floor(remainingDays / daysPerMonth);
     let day = Math.floor(remainingDays % daysPerMonth);
     let year = currentDateTime.getFullYear() + 1166;
+    const dayOfWeek = remainingDays % 5;
 
-    return day + ' ' + months[month] + ' ' + year + ' YOLD';
+    return day + ' ' + months[month] + ' ' + year + ' YOLD\n' + discordianWeek[dayOfWeek];
 }
 
 // Returns a formatted Solar Hijri IRST date
@@ -661,6 +733,17 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         "Esfand",
     ];
 
+    const solarHijriWeek = [
+        "Yekshanbeh",   // Sunday
+        "Doshanbeh",    // Monday
+        "Seshanbeh",    // Tuesday
+        "Chaharshanbeh",// Wednesday
+        "Panjshanbeh",  // Thursday
+        "Jomeh",        // Friday
+        "Shanbeh"       // Saturday
+    ];
+    
+
     // Figure out how many days are in each month
     let daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,29];
     if (leapYear) {
@@ -684,8 +767,13 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
     const month = SolarHijri[monthIndex];
     const year = startingEquinox.getFullYear() - 621;
 
+    // Get the weekday based on sunset in Tehran
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()-2); // 3.5 hours ahead + sunset of 18:00 = 21.5 hours yesterday
+    startOfToday.setUTCMinutes(currentDateTime.getUTCMinutes()-30);
+    const dayOfWeek = startOfToday.getDay();
 
-    return day + ' ' + month + ' ' + year + ' SH';
+    return day + ' ' + month + ' ' + year + ' SH\n' + solarHijriWeek[dayOfWeek];
 }
 
 // Returns a formatted Qadimi IRST date
@@ -756,6 +844,17 @@ function getQadimiDate(currentDateTime) {
         "Vahishtoishti"
     ];
 
+    const qadimiWeek = [
+        "Yekshanbeh",   // Sunday
+        "Doshanbeh",    // Monday
+        "Seshanbeh",    // Tuesday
+        "Chaharshanbeh",// Wednesday
+        "Panjshanbeh",  // Thursday
+        "Jomeh",        // Friday
+        "Shanbeh"       // Saturday
+    ];
+    
+
     // Step through months
     let monthIndex = 0;
     while (remainingDays > 30) {
@@ -767,13 +866,19 @@ function getQadimiDate(currentDateTime) {
     let month = months[monthIndex];
     const year = yearsSince632 +1;
 
+    // Get the weekday based on noon in Tehran
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()+15);
+    startOfToday.setUTCMinutes(currentDateTime.getUTCMinutes()+30);
+    const dayOfWeek = startOfToday.getDay();
+
     // If Gatha days, use Gatha day names
     if ((monthIndex>11)&&(remainingDays<6)) {
         day = gathaDays[remainingDays-1];
-        return day + ' ' + year + ' Y.Z.';
+        return day + ' ' + year + ' Y.Z.\n' + qadimiWeek[dayOfWeek];
     }
 
-  return day + ' ' + month + ' ' + year + ' Y.Z.';
+  return day + ' ' + month + ' ' + year + ' Y.Z.\n' + qadimiWeek[dayOfWeek];
 }
 
 // Returns a formatted Egyptian Civil local date

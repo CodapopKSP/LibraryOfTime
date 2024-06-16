@@ -24,6 +24,17 @@ function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
         11: 'Dhū al-Ḥijjah'
     };
 
+    const islamicWeek = [
+        "Yawm al-Ahad",      // Sunday
+        "Yawm al-Ithnayn",   // Monday
+        "Yawm ath-Thulatha", // Tuesday
+        "Yawm al-Arba'a",    // Wednesday
+        "Yawm al-Khamis",    // Thursday
+        "Yawm al-Jumu'ah",   // Friday
+        "Yawm as-Sabt"       // Saturday
+    ];
+    
+
     // Get the date of last day of New Moon and calculate it's sunset at Mecca (6:00pm UTC+3)
     let firstDayOfIslamicMonth = new Date(dateOfLastDayAfterNewMoonBeforeSunset(currentDateTime, newMoonThisMonth, newMoonLastMonth));
     firstDayOfIslamicMonth.setDate(firstDayOfIslamicMonth.getDate()-1);
@@ -63,7 +74,12 @@ function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
         suffix = 'BH'
     }
 
-    return hijriDay + ' ' + hijriMonth + ' ' + hijriYear + ' ' + suffix;
+    // Get the weekday based on sunset in Mecca
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()-3); // 3 hours ahead + sunset of 18:00 = 21 hours yesterday
+    const dayOfWeek = startOfToday.getDay();
+
+    return hijriDay + ' ' + hijriMonth + ' ' + hijriYear + ' ' + suffix + '\n' + islamicWeek[dayOfWeek];
 }
 
 function calculateIslamicMonthAndYear(ln) {

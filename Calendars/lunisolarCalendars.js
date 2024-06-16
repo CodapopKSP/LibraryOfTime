@@ -237,6 +237,16 @@ function calculateHebrewCalendar(currentDateTime) {
         "Av","Elul"
     ];
 
+    const hebrewDaysOfWeek = [
+        "Yom Rishon",    // Sunday
+        "Yom Sheni",     // Monday
+        "Yom Shlishi",   // Tuesday
+        "Yom Revi'i",    // Wednesday
+        "Yom Chamishi",  // Thursday
+        "Yom Shishi",    // Friday
+        "Shabbat"        // Saturday
+    ];    
+
     const lastTishri = getStartOfTishri(currentDateTime);
     // Next year, but add a few months to make sure we are past that year's Tishri 1
     let nextYearPlusABit = new Date(lastTishri);
@@ -283,7 +293,12 @@ function calculateHebrewCalendar(currentDateTime) {
         day: remainingDays + 1 // Hebrew months start from 1
     };
 
-    return hebrewDate.day + ' ' + HebrewMonths[hebrewDate.month] + ' ' + hebrewDate.year + ' AM';
+    // Get the weekday based on sunset in Israel
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()-3); // 3 hours ahead + sunset of 18:00 = 21 hours yesterday
+    const dayOfWeek = startOfToday.getDay();
+
+    return hebrewDate.day + ' ' + HebrewMonths[hebrewDate.month] + ' ' + hebrewDate.year + ' AM\n' + hebrewDaysOfWeek[dayOfWeek];
 }
 
 // Returns the unformatted IST date of Tishri 1 of the current Hebrew year
