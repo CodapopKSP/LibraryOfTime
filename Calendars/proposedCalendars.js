@@ -8,7 +8,8 @@ function getHumanEra(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear() + 10000;
-    return day + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE';
+    const dayOfWeek = currentDateTime.getDay();
+    return day + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE\n' + weekNames[dayOfWeek];
 }
 
 function getInvariableCalendarDate(currentDateTime) {

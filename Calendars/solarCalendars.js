@@ -34,8 +34,9 @@ function getAstronomicalDate(currentDateTime) {
     }
     let day = astronomical.getDate().toString();
     let month = astronomical.getMonth();
+    const dayOfWeek = currentDateTime.getDay();
 
-    return day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix;
+    return day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
 }
 
 // Converts a number to Roman numerals
@@ -82,32 +83,31 @@ function getGregorianDateTime(currentDateTime) {
     let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
     let second = currentDateTime.getSeconds().toString().padStart(2, '0');
     const dayOfWeek = currentDateTime.getDay();
-    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let yearSuffix = 'CE';
     if (year<1) {
         yearSuffix = 'BCE';
     }
-    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix;
-    let timeDisplayString = dayNames[dayOfWeek] + ' ' + hour + ':' + minute + ':' + second;
+    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
+    let timeDisplayString = hour + ':' + minute + ':' + second;
     return {date: dateDisplayString, time: timeDisplayString};
 }
 
 // Returns a formatted Julian calendar local date
-function getJulianCalendar(currentDateTime, calendarType) {
+function getJulianCalendar(currentDateTime) {
     const julianDate = getJulianDate(currentDateTime);
     // Extract year, month, and day components
     let yearString = julianDate.getFullYear();
     let monthIndex = julianDate.getMonth(); // Month is zero-based
     let monthString = monthNames[monthIndex];
     let dayString = julianDate.getDate();
-
+    const dayOfWeek = currentDateTime.getDay();
     let yearSuffix = 'AD';
     if (yearString<1) {
         yearSuffix = 'BC';
         yearString--;
     }
     
-    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix;
+    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
     return dateString;
 }
 
@@ -116,8 +116,10 @@ function getMinguo(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
     let year = currentDateTime.getFullYear() - 1911;
+    let dayOfWeek = currentDateTime.getDay();
+    const minguoWeek = ['天','一','二','三','四','五','六']
     
-    return '民國 ' + year + '年 ' + month + '月 ' + day + '日';
+    return '民國 ' + year + '年 ' + month + '月 ' + day + '日\n星期' + minguoWeek[dayOfWeek];
 }
 
 // Returns a formatted Juche local date
@@ -125,10 +127,12 @@ function getJuche(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
     let year = currentDateTime.getFullYear() - 1911;
+    let dayOfWeek = currentDateTime.getDay();
+    const jucheWeek = ['일', '월', '화', '수', '목', '금', '토'];
     
     // Add leading zeros if necessary
     let monthString = (month < 10) ? '0' + month : month;
-    return 'Juche ' + year + '.' + monthString + '.' + day;
+    return 'Juche ' + year + '.' + monthString + '.' + day + '\n' + jucheWeek[dayOfWeek] + '요일';
 }
 
 // Returns a formatted Thai solar local date
@@ -147,11 +151,13 @@ function getThaiSolar(currentDateTime) {
         "พฤศจิกายน",
         "ธันวาคม"
     ];
+    const thaiSolarWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear() + 543;
-    return day + ' ' + thaiSolarMonths[month] + ' B.E. ' + year;
+    let dayOfWeek = currentDateTime.getDay();
+    return day + ' ' + thaiSolarMonths[month] + ' B.E. ' + year + '\n' + thaiSolarWeek[dayOfWeek];
 }
 
 // Returns a formatted French Republican local date
@@ -172,43 +178,51 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
         13: 'Sansculottides'
     };
 
+    const frenchWeek = ['Primidi', 'Duodi', 'Tridi', 'Quartidi', 'Quintidi', 'Sextidi', 'Septidi', 'Octidi', 'Nonidi', 'Décadi'];
+    const SansculottidesWeek = ['La Fête de la Vertu', 'La Fête du Génie', 'La Fête du Travail', 'La Fête de l\'Opinion', 'La Fête des Récompenses', 'La Fête de la Révolution'];
+
     // Get starting and ending equinoxes, Paris Time (CET)
-    let startingEquinox = '';
-    let thisYearEquinox = new Date(vernalEquinox);
-    thisYearEquinox.setUTCHours(1);
-    thisYearEquinox.setMinutes(0);
-    thisYearEquinox.setMilliseconds(0);
-    if (currentDateTime < thisYearEquinox) {
+    let startingEquinox = new Date(vernalEquinox);
+    startingEquinox.setUTCHours(1);
+    startingEquinox.setMinutes(0);
+    startingEquinox.setSeconds(0);
+    startingEquinox.setMilliseconds(0);
+    if (currentDateTime < startingEquinox) {
         let lastYear = new Date(currentDateTime);
         lastYear.setFullYear(currentDateTime.getFullYear()-1);
         lastYear.setMonth(10);
         startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'autumn');
-    } else {
-        let nextYear = new Date(currentDateTime);
-        nextYear.setFullYear(currentDateTime.getFullYear()+1);
-        nextYear.setMonth(10);
-        startingEquinox = thisYearEquinox;
+        startingEquinox.setUTCHours(1);
+        startingEquinox.setMinutes(0);
+        startingEquinox.setSeconds(0);
+        startingEquinox.setMilliseconds(0);
     }
 
     // Get start of year, Paris Time (CET)
     let startOfRepublicanYear = new Date(startingEquinox);
-    startOfRepublicanYear.setUTCHours(1);
-    startOfRepublicanYear.setMinutes(0);
-    startOfRepublicanYear.setMilliseconds(0);
 
     // Calculate the number of years since 1792
-    let yearsSince1792 = (startOfRepublicanYear.getFullYear() - 1792) + 1;
+    let yearsSince1792 = startOfRepublicanYear.getFullYear() - 1791;
 
     // Find days in current year
     let daysSinceSeptember22 = Math.floor(differenceInDays(currentDateTime, startOfRepublicanYear));
     
-    let month = Math.trunc(daysSinceSeptember22 / 30) + 1;
+    let month = Math.floor(daysSinceSeptember22 / 30) + 1;
     if (month > 13) {
         month = 0;
     }
+
     // Increment up by 1 to account for no 0 day
     let day = Math.floor(daysSinceSeptember22 % 30)+1;
-    return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE';
+
+    // Calculate day of week
+    let weekString = frenchWeek[(day-1)%10];
+    weekString += ' Décade ' + (Math.floor((day-1)/10)+1);
+    if (month===13) {
+        weekString = SansculottidesWeek[day-1];
+    }
+
+    return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE\n' + weekString;
 }
 
 // Returns a formatted EF local date
@@ -342,12 +356,13 @@ function getByzantineCalendar(currentDateTime) {
     let monthIndex = julianDate.getMonth(); // Month is zero-based
     let monthString = monthNames[monthIndex];
     let dayString = julianDate.getDate();
+    const dayOfWeek = currentDateTime.getDay();
 
     if (monthIndex>7) {
         yearString += 1;
     }
 
-    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' AM';
+    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' AM\n' + weekNames[dayOfWeek];
     return dateString;
 }
 
@@ -379,13 +394,14 @@ function getFlorentineCalendar(currentDateTime) {
     let monthIndex = florentineDate.getUTCMonth(); // Month is zero-based
     let monthString = monthNames[monthIndex];
     let dayString = florentineDate.getUTCDate();
+    const dayOfWeek = currentDateTime.getDay();
 
     let yearSuffix = 'AD';
     if (yearString<1) {
         yearSuffix = 'BC';
     }
     
-    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix;
+    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
     return dateString;
 }
 

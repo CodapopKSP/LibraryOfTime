@@ -5,6 +5,7 @@
 // A set of functions for calculating times in the Computing Time category.
 
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);
