@@ -190,7 +190,7 @@ function getSymmetry454Date(currentDateTime) {
         symmetryMonth++;
     }
 
-    const dayOfWeek = (daysSinceKnownJan1st-1) % 7;
+    const dayOfWeek = daysSinceKnownJan1st % 7;
 
     return daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + weekNames[dayOfWeek];
 }
