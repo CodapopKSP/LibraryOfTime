@@ -92,7 +92,7 @@ function getDarianCalendar(julianSolNumber) {
     }
     let day = Math.trunc(remainingDays) + 1; // Days in calendar start from 1
 
-    const dayOfWeek = Math.floor(julianSolNumber+4) % 7;
+    const dayOfWeek = (day-1) % 7;
 
     // Display negative years as negative
     return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year) + '\nSol ' + darianWeek[dayOfWeek];
