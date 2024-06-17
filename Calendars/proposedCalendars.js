@@ -32,6 +32,7 @@ function getInvariableCalendarDate(currentDateTime) {
     }
     let invariableMonth = '';
     let invariableDate = '';
+    let invariableWeek = '\n';
 
     // Iterate through month days to find the current month if a Leap Year
     if (leapYear===true) {
@@ -44,6 +45,13 @@ function getInvariableCalendarDate(currentDateTime) {
                 invariableDate = (daysRemaining + monthDaysLeapYear[i]) + ' ';
                 break;
             }
+        }
+
+        // Skip day of week if Leap Day or New Years Day, start on Monday
+        if (daysSinceStartOfYear >= 184) {
+            invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
+        } else {
+            invariableWeek += weekNames[(daysSinceStartOfYear-1) % 7];
         }
     }
 
@@ -59,14 +67,18 @@ function getInvariableCalendarDate(currentDateTime) {
                 break;
             }
         }
+
+        // Skip day of week if New Years Day, start on Monday
+        invariableWeek += weekNames[(daysSinceStartOfYear-1) % 7];
     }
 
-    // Remove the date string if using a named day
+    // Remove the date and week strings if using a named day
     if ((invariableMonth==='New Years Day') || (invariableMonth==='Leap Day')) {
         invariableDate = '';
+        invariableWeek = '';
     }
 
-    return invariableDate + invariableMonth + ' ' + year + ' CE';
+    return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
 }
 
 function getWorldCalendarDate(currentDateTime) {
@@ -89,6 +101,7 @@ function getWorldCalendarDate(currentDateTime) {
     }
     let invariableMonth = '';
     let invariableDate = '';
+    let invariableWeek = '\n';
 
     // Iterate through month days to find the current month if a Leap Year
     if (leapYear===true) {
@@ -101,6 +114,13 @@ function getWorldCalendarDate(currentDateTime) {
                 invariableDate = (daysRemaining + monthDaysLeapYear[i]) + ' ';
                 break;
             }
+        }
+
+        // Skip day of week if Leap Day or New Years Day, start on Sunday
+        if (daysSinceStartOfYear >= 184) {
+            invariableWeek += weekNames[(daysSinceStartOfYear-3) % 7];
+        } else {
+            invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
         }
     }
 
@@ -116,14 +136,18 @@ function getWorldCalendarDate(currentDateTime) {
                 break;
             }
         }
+
+        // Skip day of week if New Years Day, start on Sunday
+        invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
     }
 
     // Remove the date string if using a named day
     if ((invariableMonth==='World\'s Day') || (invariableMonth==='Leapyear Day')) {
         invariableDate = '';
+        invariableWeek = '';
     }
 
-    return invariableDate + invariableMonth + ' ' + year + ' CE';
+    return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
 }
 
 function getSymmetry454Date(currentDateTime) {
@@ -166,5 +190,7 @@ function getSymmetry454Date(currentDateTime) {
         symmetryMonth++;
     }
 
-    return daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE';
+    const dayOfWeek = (daysSinceKnownJan1st-1) % 7;
+
+    return daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + weekNames[dayOfWeek];
 }
