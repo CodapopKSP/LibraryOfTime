@@ -214,13 +214,14 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
         setTimeValue('qadimi-node', getQadimiDate(currentDateTime));
         setTimeValue('egyptian-civil-node', getEgyptianDate(currentDateTime));
         setTimeValue('iso-week-date-node', getISOWeekDate(currentDateTime));
-
+        setTimeValue('haab-node', getHaabDate(currentDateTime));
     }
 
     // Other Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===9))||(currentPass===100)) {
-        setTimeValue('maya-long-count-node', getCurrentMayanLongCount(currentDateTime));
-        setTimeValue('maya-calendar-round-node', getMayanCalendarRoundDate(currentDateTime));
+        setTimeValue('maya-long-count-node', getCurrentMayaLongCount(currentDateTime));
+        setTimeValue('tzolkin-node', getTzolkinDate(currentDateTime));
+        setTimeValue('lord-of-the-night-node', getLordOfTheNight(currentDateTime));
         setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
         setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
         setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));

@@ -4,9 +4,9 @@
 
 // A set of functions for calculating dates in the Other Calendars category.
 
-function getCurrentMayanLongCount(currentDateTime) {
-    const mayanStartDate = new Date(-3113, 7, 11); // September 6, 3113 BC
-    const daysSinceStart = Math.floor((currentDateTime - mayanStartDate) / (1000 * 60 * 60 * 24));
+function getCurrentMayaLongCount(currentDateTime) {
+    const mayaStartDate = new Date(-3113, 7, 11); // September 6, 3113 BC
+    const daysSinceStart = Math.floor((currentDateTime - mayaStartDate) / (1000 * 60 * 60 * 24));
     
     const baktuns = Math.floor(daysSinceStart / (20 * 20 * 18 * 20));
     const remainingDays1 = daysSinceStart % (20 * 20 * 18 * 20);
@@ -178,21 +178,16 @@ function getOlympiad(currentDateTime) {
     return olympiad + ' | Year: ' + currentYearOfOlympiad;
 }
 
-function getMayanCalendarRoundDate(currentDateTime) {
-    const mayanLongCount0 = new Date(-3113, 7, 11);
-    const totalDays = Math.floor(differenceInDays(currentDateTime, mayanLongCount0));
-    const tzolkin = calculateTzolkin(totalDays);
-    const haab = calculateHaab(totalDays);
-    return tzolkin + ' | ' + haab;
-}
-
-function calculateTzolkin(totalDays) {
+function getTzolkinDate(currentDateTime) {
     const tzolkinMonths = [
         "Imix", "Ik'", "Ak'b'al", "K'an", "Chikchan",
         "Kimi", "Manik'", "Lamat", "Muluk", "Ok",
         "Chuwen", "Eb'", "B'en", "Ix", "Men",
         "K'ib'", "Kab'an", "Etz'nab'", "Kawak", "Ajaw"
     ];
+
+    const mayaLongCount0 = new Date(-3113, 7, 11);
+    const totalDays = Math.floor(differenceInDays(currentDateTime, mayaLongCount0));
     
     const startingTzolkinDay = 4; // 4 Ahau is the starting Tzolk'in day for 0.0.0.0.0
     const startingTzolkinMonthIndex = tzolkinMonths.indexOf("Ajaw");
@@ -204,22 +199,16 @@ function calculateTzolkin(totalDays) {
     return `${dayNumber} ${tzolkinMonths[monthIndex]}`;
 };
 
-function calculateHaab(totalDays) {
-    const haabMonths = [
-        "Pop", "Wo'", "Sip", "Sotz'", "Sek", "Xul",
-        "Yaxk'in'", "Mol", "Ch'en", "Yax", "Sak'",
-        "Keh", "Mak", "K'ank'in'", "Muwan", "Pax",
-        "K'ayab'", "Kumk'u", "Wayeb'"
-    ];
-    
-    const startingHaabDay = 8;
-    const startingHaabMonthIndex = haabMonths.indexOf("Kumk'u");
-
-    const daysInYear = 365;
-    const adjustedDays = (totalDays % daysInYear + daysInYear) % daysInYear;
-    const totalHaabDays = (startingHaabMonthIndex * 20 + startingHaabDay + adjustedDays) % daysInYear;
-    const haabMonthIndex = Math.floor(totalHaabDays / 20);
-    const haabDay = totalHaabDays % 20;
-    
-    return `${haabDay} ${haabMonths[haabMonthIndex]}`;
-};
+function getLordOfTheNight(currentDateTime) {
+    const startingBaktun13 = new Date(2012, 11, 21);
+    const daysSince = differenceInDays(currentDateTime, startingBaktun13);
+    let lord = Math.floor(((daysSince % 9) + 9) % 9);
+    if (lord === 0) {
+        lord = 9;
+    }
+    let Y = Math.floor(((daysSince % 7) + 7) % 7);
+    if (Y === 0) {
+        Y = 7;
+    }
+    return 'G' + lord + ' | Y' + Y;
+}

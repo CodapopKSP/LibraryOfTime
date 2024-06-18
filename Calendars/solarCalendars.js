@@ -947,3 +947,26 @@ function getISOWeekDate(currentDateTime) {
 
     return weekYear + '-W' + weekNumber + '-' + dayNumber;
 }
+
+function getHaabDate(currentDateTime) {
+    const haabMonths = [
+        "Pop", "Wo'", "Sip", "Sotz'", "Sek", "Xul",
+        "Yaxk'in'", "Mol", "Ch'en", "Yax", "Sak'",
+        "Keh", "Mak", "K'ank'in'", "Muwan", "Pax",
+        "K'ayab'", "Kumk'u", "Wayeb'"
+    ];
+
+    const mayaLongCount0 = new Date(-3113, 7, 11);
+    const totalDays = Math.floor(differenceInDays(currentDateTime, mayaLongCount0));
+    
+    const startingHaabDay = 8;
+    const startingHaabMonthIndex = haabMonths.indexOf("Kumk'u");
+
+    const daysInYear = 365;
+    const adjustedDays = (totalDays % daysInYear + daysInYear) % daysInYear;
+    const totalHaabDays = (startingHaabMonthIndex * 20 + startingHaabDay + adjustedDays) % daysInYear;
+    const haabMonthIndex = Math.floor(totalHaabDays / 20);
+    const haabDay = totalHaabDays % 20;
+    
+    return `${haabDay} ${haabMonths[haabMonthIndex]}`;
+};
