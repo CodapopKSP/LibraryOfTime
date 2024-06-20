@@ -454,27 +454,51 @@ const otherTimeData = [
     },
 
     {
-        name: 'Io Prime Meridian Time',
-        id: 'io-prime-meridian-time',
+        name: 'Io Meridian Time',
+        id: 'io-meridian-time',
         type: 'Other Time',
-        epoch: '',
-        confidence: '',
-        overview: ``,
+        epoch: '31 December 2001 +16:07:45',
+        confidence: 'High',
+        overview: `Io Meridian Time is a measure of time passed since midnight on the prime meridian of Io, moon of Jupiter.\n\nIt features a similar 24-hour clock with Earth time, but the units are about 11.5% shorter. One Io solar day is about two Earth days, so the day is further broken up into two circads of 21 hours each.\n\nIo is tidally locked with Jupiter, meaning one side of the moon always faces the planet and the other side always faces away. The prime meridian is determined to be the meridian on the moon's surface that is facing directly at Jupiter. Midnight is thus the time when the moon is directly between Jupiter and the sun, though this is only used as an epoch for the beginning of the first circad in each solar day.`,
         info: '',
         accuracy: '',
-        source: ``
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.`
     },
 
     {
-        name: 'Europa Prime Meridian Time',
-        id: 'europa-prime-meridian-time',
+        name: 'Europa Meridian Time',
+        id: 'europa-meridian-time',
         type: 'Other Time',
-        epoch: '',
-        confidence: '',
+        epoch: '2 January 2002 +17:12:57',
+        confidence: 'High',
         overview: ``,
         info: '',
         accuracy: '',
-        source: ``
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.`
+    },
+
+    {
+        name: 'Ganymede Meridian Time',
+        id: 'ganymede-meridian-time',
+        type: 'Other Time',
+        epoch: '`1 January 2002 +11:08:29',
+        confidence: 'High',
+        overview: ``,
+        info: '',
+        accuracy: '',
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.`
+    },
+
+    {
+        name: 'Callisto Meridian Time',
+        id: 'callisto-meridian-time',
+        type: 'Other Time',
+        epoch: '28 December 2001 +12:27:23',
+        confidence: 'High',
+        overview: ``,
+        info: '',
+        accuracy: '',
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.`
     },
 ]
 

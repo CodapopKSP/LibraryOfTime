@@ -191,7 +191,10 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
 
     // Other Time
     setTimeValue('coordinated-mars-time-node', getMTC(marsSolDay));
-    setTimeValue('io-prime-meridian-time-node', getIoPrimeMeridianTime(currentDateTime));
+    setTimeValue('io-meridian-time-node', getIoPrimeMeridianTime(currentDateTime));
+    setTimeValue('europa-meridian-time-node', getEuropaPrimeMeridianTime(currentDateTime));
+    setTimeValue('ganymede-meridian-time-node', getGanymedePrimeMeridianTime(currentDateTime));
+    setTimeValue('callisto-meridian-time-node', getCallistoPrimeMeridianTime(currentDateTime));
 
     // Solar Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===8))||(currentPass===100)) {
