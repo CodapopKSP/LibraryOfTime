@@ -222,7 +222,8 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
         setTimeValue('maya-long-count-node', getCurrentMayaLongCount(currentDateTime));
         setTimeValue('tzolkin-node', getTzolkinDate(currentDateTime));
         setTimeValue('lord-of-the-night-node', getLordOfTheNight(currentDateTime));
-        setTimeValue('darian-node', getDarianCalendar(getJulianSolDate(marsSolDay)));
+        setTimeValue('darian-mars-node', getDarianMarsDate(getJulianSolDate(marsSolDay)));
+        setTimeValue('darian-io-node', getDarianIODate(currentDateTime));
         setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
         setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
         setTimeValue('olympiad-node', getOlympiad(currentDateTime));
