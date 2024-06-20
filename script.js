@@ -191,6 +191,7 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
 
     // Other Time
     setTimeValue('coordinated-mars-time-node', getMTC(marsSolDay));
+    setTimeValue('io-prime-meridian-time-node', getIoPrimeMeridianTime(currentDateTime));
 
     // Solar Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===8))||(currentPass===100)) {

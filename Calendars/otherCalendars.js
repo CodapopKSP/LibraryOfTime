@@ -203,7 +203,7 @@ function getDarianIODate(currentDateTime) {
 
     const ioDay = remainingDays + 1;
 
-    return ioDay + ' Io ' + GallileanMonths[ioMonth] + ' ' + ioYear + '\n' + dayOfWeek;
+    return ioDay + ' Io ' + GallileanMonths[ioMonth] + ' ' + ioYear + '\nIo ' + dayOfWeek;
 }
 
 function getYugaCycle(currentDateTime) {

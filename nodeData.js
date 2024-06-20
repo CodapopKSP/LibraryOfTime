@@ -452,6 +452,30 @@ const otherTimeData = [
         accuracy: 'This clock should be reasonably accurate, though it might be off by a feww minutes or seconds due to Terrestrial Time.',
         source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.`
     },
+
+    {
+        name: 'Io Prime Meridian Time',
+        id: 'io-prime-meridian-time',
+        type: 'Other Time',
+        epoch: '',
+        confidence: '',
+        overview: ``,
+        info: '',
+        accuracy: '',
+        source: ``
+    },
+
+    {
+        name: 'Europa Prime Meridian Time',
+        id: 'europa-prime-meridian-time',
+        type: 'Other Time',
+        epoch: '',
+        confidence: '',
+        overview: ``,
+        info: '',
+        accuracy: '',
+        source: ``
+    },
 ]
 
 const solarCalendarsData = [
