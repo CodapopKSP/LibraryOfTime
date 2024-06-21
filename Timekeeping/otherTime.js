@@ -23,23 +23,29 @@ function getMTC(marsSolDay) {
 
 function getIoPrimeMeridianTime(currentDateTime) {
     const epoch = new Date(Date.UTC(2001, 11, 31, 16, 7, 45));
-    const ioCircad = 21.238325;
+    const ioCircad = 21.23833;
     const ioDayMilliseconds = ioCircad * 60 * 60 * 1000;
-    const ioDaysSince = (currentDateTime-epoch)/ioDayMilliseconds;
-    let currentDayFraction = ioDaysSince - Math.floor(ioDaysSince);
+    const ioDaysSince = (currentDateTime - epoch) / ioDayMilliseconds;
 
-    const circad = (Math.floor(ioDaysSince)%2)+1;
+    // Handle negative dates correctly
+    let currentDayFraction = ioDaysSince - Math.floor(ioDaysSince);
+    if (currentDayFraction < 0) {
+        currentDayFraction += 1;
+    }
+
+    const circad = (Math.floor(ioDaysSince) % 2 + 2) % 2 + 1;
 
     let hour = currentDayFraction * 24;
-    let minute = (hour - Math.floor(hour))*60;
-    let second = (minute - Math.floor(minute))*60;
+    let minute = (hour - Math.floor(hour)) * 60;
+    let second = (minute - Math.floor(minute)) * 60;
 
     hour = String(Math.floor(hour)).padStart(2, '0');
     minute = String(Math.floor(minute)).padStart(2, '0');
     second = String(Math.floor(second)).padStart(2, '0');
 
-    return 'Circad ' + circad + ' | ' + hour + ':'+  minute + ':' + second;
+    return 'Circad ' + circad + ' | ' + hour + ':' + minute + ':' + second;
 }
+
 
 function getEuropaPrimeMeridianTime(currentDateTime) {
     const epoch = new Date(Date.UTC(2002, 0, 2, 17, 12, 57));
@@ -47,8 +53,11 @@ function getEuropaPrimeMeridianTime(currentDateTime) {
     const europaDayMilliseconds = europaCircad * 60 * 60 * 1000;
     const europaDaysSince = (currentDateTime-epoch)/europaDayMilliseconds;
     let currentDayFraction = europaDaysSince - Math.floor(europaDaysSince);
+    if (currentDayFraction < 0) {
+        currentDayFraction += 1;
+    }
 
-    const circad = (Math.floor(europaDaysSince)%4)+1;
+    const circad = ((Math.floor(europaDaysSince) % 4) + 4) % 4 + 1;
 
     let hour = currentDayFraction * 24;
     let minute = (hour - Math.floor(hour))*60;
@@ -67,8 +76,11 @@ function getGanymedePrimeMeridianTime(currentDateTime) {
     const ganymedeDayMilliseconds = ganymedeCircad * 60 * 60 * 1000;
     const ganymedeDaysSince = (currentDateTime-epoch)/ganymedeDayMilliseconds;
     let currentDayFraction = ganymedeDaysSince - Math.floor(ganymedeDaysSince);
+    if (currentDayFraction < 0) {
+        currentDayFraction += 1;
+    }
 
-    const circad = (Math.floor(ganymedeDaysSince)%8)+1;
+    const circad = ((Math.floor(ganymedeDaysSince) % 8) + 8) % 8 + 1;
 
     let hour = currentDayFraction * 24;
     let minute = (hour - Math.floor(hour))*60;
@@ -87,8 +99,11 @@ function getCallistoPrimeMeridianTime(currentDateTime) {
     const callistoDayMilliseconds = callistoCircad * 60 * 60 * 1000;
     const callistoDaysSince = (currentDateTime-epoch)/callistoDayMilliseconds;
     let currentDayFraction = callistoDaysSince - Math.floor(callistoDaysSince);
+    if (currentDayFraction < 0) {
+        currentDayFraction += 1;
+    }
 
-    const circad = (Math.floor(callistoDaysSince)%19)+1;
+    const circad = ((Math.floor(callistoDaysSince) % 19) + 19) % 19 + 1;
 
     let hour = currentDayFraction * 24;
     let minute = (hour - Math.floor(hour))*60;
