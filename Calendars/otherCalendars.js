@@ -111,7 +111,7 @@ function getDarianMarsDate(julianSolNumber) {
     return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year) + '\nSol ' + darianWeek[dayOfWeek];
 }
 
-function getDarianIODate(currentDateTime) {
+function getDarianGallileanDate(currentDateTime, body) {
     const GallileanMonths = [
         'Januarius',
         'Februarius',
@@ -128,82 +128,158 @@ function getDarianIODate(currentDateTime) {
         'December'
     ];
 
-    const GallileanWeek = [
-        'Solis',
-        'Lunae',
-        'Terrae',
-        'Martis',
-        'Mercurii',
-        'Jovis',
-        'Veneris',
-        'Saturni'
-    ];
-
+    const GallileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
     const daysInMonths = [32,32,32,32,32,32,32,32,32,32,32,32,24];
     const daysInMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32];
+    const daysInMonthsGanymedeShort = [32,32,32,32,32,32,24,32,32,32,32,32,24];
+    const daysInMonthsGanymedeLeap = [32,32,32,32,32,32,24,32,32,32,32,32,32];
 
-    function isLeapYear(Y) {
-        let leap = true;
-        if ((Y-2)%10 === 0) {
-            leap = false;
+    function isLeapYearIo(Y) {
+        if (Y === 0) {
+            return true;
         }
-        if ((Y-4)%10 === 0) {
-            leap = false;
+        if (Y % 1000 === 0) {
+            return true;
         }
-        if ((Y-7)%10 === 0) {
-            leap = false;
+        if (Y % 400 === 0) {
+            return false;
         }
-        if ((Y-9)%10 === 0) {
-            leap = false;
+        if (Y % 200 === 0) {
+            return true;
         }
-        if (Y%50 === 0) {
-            leap = true;
+        if (Y % 100 === 0) {
+            return false;
         }
-        if (Y%100 === 0) {
-            leap = false;
+        if (Y % 50 === 0) {
+            return true;
         }
-        if (Y%200 === 0) {
-            leap = true;
+        if ((Y % 10 === 2) || (Y % 10 === 4) || (Y % 10 === 7) || (Y % 10 === 9)) {
+            return false;
         }
-        if (Y%400 === 0) {
-            leap = false;
-        }
-        if (Y%1000 === 0) {
-            leap = true;
-        }
-        if (Y===0) {
-            leap = true;
-        }
-        return leap;
+        return true;
     }
 
-    const epoch = new Date(Date.UTC(2001, 11, 31, 16, 7, 45));
-    const ioCircad = 21.238325;
-    const ioDayMilliseconds = ioCircad * 60 * 60 * 1000;
-    let ioDaysSince = Math.floor((currentDateTime-epoch)/ioDayMilliseconds);
-    const dayOfWeek = GallileanWeek[ioDaysSince%8]
+    function isLeapYearEuropa(Y) {
+        if (Y === 0) {
+            return true;
+        }
+        if (Y % 1000 === 0) {
+            return false;
+        }
+        if (Y % 800 === 0) {
+            return true;
+        }
+        if (Y % 400 === 0) {
+            return false;
+        }
+        if (Y % 200 === 0) {
+            return true;
+        }
+        if (Y % 50 === 0) {
+            return false;
+        }
+        if ((Y % 5 === 0) || ((Y-2) % 5 === 0)) {
+            return true;
+        }
+        return false;
+    }
 
-    let ioYear = 2002; // starting year after the epoch
+    function isLeapYearGanymede(Y) {
+        if (Y % 40 === 0) {
+            return false;
+        }
+        if (Y % 60 === 0) {
+            return false;
+        }
+        return true;
+    }
+
+    function isLeapYearCallisto(Y) {
+        if (Y % 500 === 0) {
+            return true;
+        }
+        if (Y % 300 === 0) {
+            return true;
+        }
+        if (Y % 40 === 0) {
+            return true;
+        }
+        if (Y % 20 === 0) {
+            return false;
+        }
+        if ((Y-2) % 5 === 0) {
+            return false;
+        }
+        return true;
+    }
+
+    let epoch = new Date();
+    let circad = 0;
+    if (body==='Io') {
+        epoch = new Date(Date.UTC(2001, 11, 31, 16, 7, 45));
+        circad = 21.238325;
+    }
+    if (body==='Eu') {
+        epoch = new Date(Date.UTC(2002, 0, 2, 17, 12, 57));
+        circad = 21.32456;
+    }
+    if (body==='Gan') {
+        epoch = new Date(Date.UTC(2002, 0, 1, 11, 8, 29));
+        circad = 21.49916;
+    }
+    if (body==='Cal') {
+        epoch = new Date(Date.UTC(2001, 11, 28, 12, 27, 23));
+        circad = 21.16238;
+    }
+
+    const dayMilliseconds = circad * 60 * 60 * 1000;
+    let daysSince = Math.floor((currentDateTime-epoch)/dayMilliseconds);
+    const dayOfWeek = GallileanWeek[daysSince%8]
+    let year = 2002; // starting year after the epoch
     while (true) {
-        let daysInYear = isLeapYear(ioYear) ? 416 : 408;
-        if (ioDaysSince < daysInYear) {
+        let daysInYear = 0;
+        if (body==='Io') {
+            daysInYear = isLeapYearIo(year) ? 416 : 408;
+        }
+        if (body==='Eu') {
+            daysInYear = isLeapYearEuropa(year) ? 416 : 408;
+        }
+        if (body==='Gan') {
+            daysInYear = isLeapYearGanymede(year) ? 408 : 400;
+        }
+        if (body==='Cal') {
+            daysInYear = isLeapYearCallisto(year) ? 416 : 408;
+        }
+        if (daysSince < daysInYear) {
             break;
         }
-        ioDaysSince -= daysInYear;
-        ioYear++;
+        daysSince -= daysInYear;
+        year++;
+    }
+    let remainingDays = daysSince;
+    let daysInMonthsArray = '';
+
+    if (body==='Io') {
+        daysInMonthsArray = isLeapYearIo(year) ? daysInMonthsLeap : daysInMonths;
+    }
+    if (body==='Eu') {
+        daysInMonthsArray = isLeapYearEuropa(year) ? daysInMonthsLeap : daysInMonths;
+    }
+    if (body==='Gan') {
+        daysInMonthsArray = isLeapYearGanymede(year) ? daysInMonthsGanymedeLeap : daysInMonthsGanymedeShort;
+    }
+    if (body==='Cal') {
+        daysInMonthsArray = isLeapYearCallisto(year) ? daysInMonthsLeap : daysInMonths;
     }
 
-    let remainingDays = ioDaysSince;
-    const daysInMonthsArray = isLeapYear(ioYear) ? daysInMonthsLeap : daysInMonths;
-    let ioMonth = 0;
-    while (remainingDays >= daysInMonthsArray[ioMonth]) {
-        remainingDays -= daysInMonthsArray[ioMonth];
-        ioMonth++;
+    let month = 0;
+    while (remainingDays >= daysInMonthsArray[month]) {
+        remainingDays -= daysInMonthsArray[month];
+        month++;
     }
-
-    const ioDay = remainingDays + 1;
-
-    return ioDay + ' Io ' + GallileanMonths[ioMonth] + ' ' + ioYear + '\nIo ' + dayOfWeek;
+    console.log(month);
+    const day = remainingDays + 1;
+    return day + ' ' + body + ' ' + GallileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
 }
 
 function getYugaCycle(currentDateTime) {

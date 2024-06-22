@@ -481,7 +481,7 @@ const otherTimeData = [
         name: 'Ganymede Meridian Time',
         id: 'ganymede-meridian-time',
         type: 'Other Time',
-        epoch: '`1 January 2002 +11:08:29',
+        epoch: '1 January 2002 +11:08:29',
         confidence: 'High',
         overview: `Ganymede Meridian Time is a measure of time passed since midnight on the prime meridian of Ganymede, moon of Jupiter.\n\nIt features a similar 24-hour clock to Earth time, but the units are about 11.5% shorter. One Ganymede solar day is about eight Earth days, so the day is further broken up into eight circads of 21 hours each.\n\Ganymede is tidally locked with Jupiter, meaning one side of the moon always faces the planet and the other side always faces away. The prime meridian is determined to be the meridian on the moon's surface that is facing directly at Jupiter.\n\nMidnight is thus the time when the moon is directly between Jupiter and the sun, though this is only used as an epoch for the beginning of the first circad in each solar day. The fifth circad happens when the moon is on the opposite side of Jupiter from the sun.\n\Ganymede Meridian Time is a name that was chosen for this website and might not be accurate.`,
         info: `Ganymede is in a 2/4/8 Laplace resonance with Io and Europa, so their solar days are equally comprised of 2/4/8 circads, though the length of their circads are very slightly different. The circad of Ganymede is 21.49916 Earth hours long, which is then broken into 24 Ganymede hours.\n\n<table class="table-short"><tr><td>GMT</td><td>Standard Time</td></tr><tr><td>GMT Second</td><td>0.8957983 Seconds</td></tr><tr><td>GMT Minute</td><td>53.7479 Seconds</td></tr><tr><td>GMT Hour</td><td>53.7479 Minutes</td></tr></table>\n\n<table class="table-short"><tr><td>Moon</td><td>Circad Length</td><td>Circads Per Orbit</td></tr><tr><td>Io</td><td>21.23833 Hours</td><td>2</td></tr><tr><td>Europa</td><td>21.32456 Hours</td><td>4</td></tr><tr><td>Ganymede</td><td>21.49916 Hours</td><td>8</td></tr><tr><td>Callisto</td><td>21.16238 Hours</td><td>19</td></tr></table>\n\nAs the orbit of Ganymede is not very inclined, midnight on Circad 1 is also roughly the time of a total solar eclipse on Jupiter.`,
@@ -924,12 +924,48 @@ const otherCalendars = [
         name: 'Darian (Io)',
         id: 'darian-io',
         type: 'Other Calendar',
-        epoch: '',
-        confidence: 'High',
+        epoch: '31 December 2001 +16:07:45',
+        confidence: 'Medium',
         overview: '',
         info: ``,
-        accuracy: ``,
-        source: ''
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nI was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
+        name: 'Darian (Europa)',
+        id: 'darian-europa',
+        type: 'Other Calendar',
+        epoch: '2 January 2002 +17:12:57',
+        confidence: 'Medium',
+        overview: '',
+        info: ``,
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nI was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
+        name: 'Darian (Ganymede)',
+        id: 'darian-ganymede',
+        type: 'Other Calendar',
+        epoch: '1 January 2002 +11:08:29',
+        confidence: 'Medium',
+        overview: '',
+        info: ``,
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nI was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
+        name: 'Darian (Callisto)',
+        id: 'darian-callisto',
+        type: 'Other Calendar',
+        epoch: '28 December 2001 +12:27:23',
+        confidence: 'Medium',
+        overview: '',
+        info: ``,
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nI was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
     },
 
     {
