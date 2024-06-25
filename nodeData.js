@@ -921,10 +921,58 @@ const otherCalendars = [
     },
 
     {
+        name: 'Galilean (Io)',
+        id: 'galilean-io',
+        type: 'Other Calendar',
+        epoch: '31 December 2001 +16:07:45',
+        confidence: 'Medium',
+        overview: '',
+        info: ``,
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nI was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
+        name: 'Galilean (Europa)',
+        id: 'galilean-europa',
+        type: 'Other Calendar',
+        epoch: '2 January 2002 +17:12:57',
+        confidence: 'Medium',
+        overview: '',
+        info: ``,
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nI was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
+        name: 'Galilean (Ganymede)',
+        id: 'galilean-ganymede',
+        type: 'Other Calendar',
+        epoch: '1 January 2002 +11:08:29',
+        confidence: 'Medium',
+        overview: '',
+        info: ``,
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nI was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
+        name: 'Galilean (Callisto)',
+        id: 'galilean-callisto',
+        type: 'Other Calendar',
+        epoch: '28 December 2001 +12:27:23',
+        confidence: 'Medium',
+        overview: '',
+        info: ``,
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nI was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
         name: 'Darian (Io)',
         id: 'darian-io',
         type: 'Other Calendar',
-        epoch: '31 December 2001 +16:07:45',
+        epoch: '',
         confidence: 'Medium',
         overview: '',
         info: ``,
@@ -936,7 +984,7 @@ const otherCalendars = [
         name: 'Darian (Europa)',
         id: 'darian-europa',
         type: 'Other Calendar',
-        epoch: '2 January 2002 +17:12:57',
+        epoch: '',
         confidence: 'Medium',
         overview: '',
         info: ``,
@@ -948,7 +996,7 @@ const otherCalendars = [
         name: 'Darian (Ganymede)',
         id: 'darian-ganymede',
         type: 'Other Calendar',
-        epoch: '1 January 2002 +11:08:29',
+        epoch: '',
         confidence: 'Medium',
         overview: '',
         info: ``,
@@ -960,7 +1008,7 @@ const otherCalendars = [
         name: 'Darian (Callisto)',
         id: 'darian-callisto',
         type: 'Other Calendar',
-        epoch: '28 December 2001 +12:27:23',
+        epoch: '',
         confidence: 'Medium',
         overview: '',
         info: ``,

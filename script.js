@@ -227,10 +227,14 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
         setTimeValue('tzolkin-node', getTzolkinDate(currentDateTime));
         setTimeValue('lord-of-the-night-node', getLordOfTheNight(currentDateTime));
         setTimeValue('darian-mars-node', getDarianMarsDate(getJulianSolDate(marsSolDay)));
-        setTimeValue('darian-io-node', getDarianGallileanDate(currentDateTime, 'Io'));
-        setTimeValue('darian-europa-node', getDarianGallileanDate(currentDateTime, 'Eu'));
-        setTimeValue('darian-ganymede-node', getDarianGallileanDate(currentDateTime, 'Gan'));
-        setTimeValue('darian-callisto-node', getDarianGallileanDate(currentDateTime, 'Cal'));
+        setTimeValue('galilean-io-node', getGalileanDate(currentDateTime, 'Io'));
+        setTimeValue('galilean-europa-node', getGalileanDate(currentDateTime, 'Eu'));
+        setTimeValue('galilean-ganymede-node', getGalileanDate(currentDateTime, 'Gan'));
+        setTimeValue('galilean-callisto-node', getGalileanDate(currentDateTime, 'Cal'));
+        setTimeValue('darian-io-node', getDarianGalileanDate(currentDateTime, 'Io'));
+        setTimeValue('darian-europa-node', getDarianGalileanDate(currentDateTime, 'Eu'));
+        setTimeValue('darian-ganymede-node', getDarianGalileanDate(currentDateTime, 'Gan'));
+        setTimeValue('darian-callisto-node', getDarianGalileanDate(currentDateTime, 'Cal'));
         setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
         setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
         setTimeValue('olympiad-node', getOlympiad(currentDateTime));

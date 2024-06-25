@@ -111,8 +111,8 @@ function getDarianMarsDate(julianSolNumber) {
     return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year) + '\nSol ' + darianWeek[dayOfWeek];
 }
 
-function getDarianGallileanDate(currentDateTime, body) {
-    const GallileanMonths = [
+function getGalileanDate(currentDateTime, body) {
+    const GalileanMonths = [
         'Januarius',
         'Februarius',
         'Mercedonius',
@@ -128,7 +128,7 @@ function getDarianGallileanDate(currentDateTime, body) {
         'December'
     ];
 
-    const GallileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
+    const GalileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
     const daysInMonths = [32,32,32,32,32,32,32,32,32,32,32,32,24];
     const daysInMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32];
     const daysInMonthsGanymedeShort = [32,32,32,32,32,32,24,32,32,32,32,32,24];
@@ -234,7 +234,7 @@ function getDarianGallileanDate(currentDateTime, body) {
 
     const dayMilliseconds = circad * 60 * 60 * 1000;
     let daysSince = Math.floor((currentDateTime-epoch)/dayMilliseconds);
-    const dayOfWeek = GallileanWeek[daysSince%8]
+    const dayOfWeek = GalileanWeek[daysSince%8]
     let year = 2002; // starting year after the epoch
     while (true) {
         let daysInYear = 0;
@@ -279,7 +279,193 @@ function getDarianGallileanDate(currentDateTime, body) {
     }
     console.log(month);
     const day = remainingDays + 1;
-    return day + ' ' + body + ' ' + GallileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
+    return day + ' ' + body + ' ' + GalileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
+}
+
+function getDarianGalileanDate(currentDateTime, body) {
+    const DarianMonths = [
+        "Sagittarius",
+        "Dhanus",
+        "Capricornus",
+        "Makara",
+        "Aquarius",
+        "Khumba",
+        "Pisces",
+        "Mina",
+        "Aries",
+        "Mesha",
+        "Taurus",
+        "Rishabha",
+        "Gemini",
+        "Mithuna",
+        "Cancer",
+        "Karka",
+        "Leo",
+        "Simha",
+        "Virgo",
+        "Kanya",
+        "Libra",
+        "Tula",
+        "Scorpius",
+        "Vrishika"
+    ];
+
+    const GalileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
+
+    const daysInIoCallistoMonths = [32,32,32,32,32,32,32,32,32,32,32,40,32,32,32,32,32,32,32,32,32,32,32,32];
+    const daysInEuropaMonths = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32];
+    const daysInGanymedeMonths = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,24];
+
+    const daysInIoCallistoMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,40,32,32,32,32,32,32,32,32,32,32,32,40];
+    const daysInEuropaMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,40];
+    const daysInGanymedeMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32];
+
+    function isLeapYearIo(Y) {
+        if (Y === 0) {
+            return true;
+        }
+        if (Y % 1000 === 0) {
+            return true;
+        }
+        if (Y % 400 === 0) {
+            return false;
+        }
+        if (Y % 200 === 0) {
+            return true;
+        }
+        if (Y % 100 === 0) {
+            return false;
+        }
+        if (Y % 50 === 0) {
+            return true;
+        }
+        if ((Y % 10 === 2) || (Y % 10 === 4) || (Y % 10 === 7) || (Y % 10 === 9)) {
+            return false;
+        }
+        return true;
+    }
+
+    function isLeapYearEuropa(Y) {
+        if (Y === 0) {
+            return true;
+        }
+        if (Y % 1000 === 0) {
+            return false;
+        }
+        if (Y % 800 === 0) {
+            return true;
+        }
+        if (Y % 400 === 0) {
+            return false;
+        }
+        if (Y % 200 === 0) {
+            return true;
+        }
+        if (Y % 50 === 0) {
+            return false;
+        }
+        if ((Y % 5 === 0) || ((Y-2) % 5 === 0)) {
+            return true;
+        }
+        return false;
+    }
+
+    function isLeapYearGanymede(Y) {
+        if (Y % 40 === 0) {
+            return false;
+        }
+        if (Y % 60 === 0) {
+            return false;
+        }
+        return true;
+    }
+
+    function isLeapYearCallisto(Y) {
+        if (Y % 500 === 0) {
+            return true;
+        }
+        if (Y % 300 === 0) {
+            return true;
+        }
+        if (Y % 40 === 0) {
+            return true;
+        }
+        if (Y % 20 === 0) {
+            return false;
+        }
+        if ((Y-2) % 5 === 0) {
+            return false;
+        }
+        return true;
+    }
+
+    let epoch = new Date();
+    let circad = 0;
+    if (body==='Io') {
+        epoch = new Date(Date.UTC(1609, 2, 13, 5, 29, 26));
+        circad = 21.238325;
+    }
+    if (body==='Eu') {
+        epoch = new Date(Date.UTC(1609, 2, 12, 1, 19, 41));
+        circad = 21.32456;
+    }
+    if (body==='Gan') {
+        epoch = new Date(Date.UTC(1609, 2, 11, 9, 52, 12));
+        circad = 21.49916;
+    }
+    if (body==='Cal') {
+        epoch = new Date(Date.UTC(1609, 2, 17, 20, 57, 24));
+        circad = 21.16238;
+    }
+
+    const dayMilliseconds = circad * 60 * 60 * 1000;
+    let daysSince = Math.floor((currentDateTime-epoch)/dayMilliseconds);
+    const dayOfWeek = GalileanWeek[daysSince%8]
+    let year = 0; // starting year after the epoch
+    while (true) {
+        let daysInYear = 0;
+        if (body==='Io') {
+            daysInYear = isLeapYearIo(year) ? 784 : 776;
+        }
+        if (body==='Eu') {
+            daysInYear = isLeapYearEuropa(year) ? 776 : 768;
+        }
+        if (body==='Gan') {
+            daysInYear = isLeapYearGanymede(year) ? 768 : 760;
+        }
+        if (body==='Cal') {
+            daysInYear = isLeapYearCallisto(year) ? 784 : 776;
+        }
+        if (daysSince < daysInYear) {
+            break;
+        }
+        daysSince -= daysInYear;
+        year++;
+    }
+    let remainingDays = daysSince;
+    let daysInMonthsArray = '';
+
+    if (body==='Io') {
+        daysInMonthsArray = isLeapYearIo(year) ? daysInIoCallistoMonthsLeap : daysInIoCallistoMonths;
+    }
+    if (body==='Eu') {
+        daysInMonthsArray = isLeapYearEuropa(year) ? daysInEuropaMonthsLeap : daysInEuropaMonths;
+    }
+    if (body==='Gan') {
+        daysInMonthsArray = isLeapYearGanymede(year) ? daysInGanymedeMonthsLeap : daysInGanymedeMonths;
+    }
+    if (body==='Cal') {
+        daysInMonthsArray = isLeapYearCallisto(year) ? daysInIoCallistoMonthsLeap : daysInIoCallistoMonths;
+    }
+
+    let month = 0;
+    while (remainingDays >= daysInMonthsArray[month]) {
+        remainingDays -= daysInMonthsArray[month];
+        month++;
+    }
+    console.log(month);
+    const day = remainingDays + 1;
+    return day + ' ' + body + ' ' + DarianMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
 }
 
 function getYugaCycle(currentDateTime) {
