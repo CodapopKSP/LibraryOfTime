@@ -134,6 +134,7 @@ function getGalileanDate(currentDateTime, body) {
     const daysInMonthsGanymedeShort = [32,32,32,32,32,32,24,32,32,32,32,32,24];
     const daysInMonthsGanymedeLeap = [32,32,32,32,32,32,24,32,32,32,32,32,32];
 
+    // The original formula doesn't make sense to me, so I added my own
     function isLeapYearIo(Y) {
         if (Y === 0) {
             return true;
@@ -159,6 +160,7 @@ function getGalileanDate(currentDateTime, body) {
         return true;
     }
 
+    // The original formula doesn't make sense to me, so I added my own
     function isLeapYearEuropa(Y) {
         if (Y === 0) {
             return true;
@@ -184,6 +186,7 @@ function getGalileanDate(currentDateTime, body) {
         return false;
     }
 
+    // The original formula doesn't make sense to me, so I added my own
     function isLeapYearGanymede(Y) {
         if (Y % 40 === 0) {
             return false;
@@ -195,19 +198,16 @@ function getGalileanDate(currentDateTime, body) {
     }
 
     function isLeapYearCallisto(Y) {
-        if (Y % 500 === 0) {
-            return true;
-        }
-        if (Y % 300 === 0) {
+        if (Y % 400 === 0) {
             return true;
         }
         if (Y % 40 === 0) {
-            return true;
-        }
-        if (Y % 20 === 0) {
             return false;
         }
-        if ((Y-2) % 5 === 0) {
+        if ((Y-7) % 10 === 0) {
+            return false;
+        }
+        if ((Y-2) % 10 === 0) {
             return false;
         }
         return true;
