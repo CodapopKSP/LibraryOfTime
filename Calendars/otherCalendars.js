@@ -321,11 +321,27 @@ function getDarianGalileanDate(currentDateTime, body) {
     const daysInGanymedeMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32];
 
     function isLeapYearIo(Y) {
-        if (Y % 80 === 0) {
-            return true;
-        }
-        if (Y % 40 === 0) {
-            return false;
+        if (Y <= 3200) {
+            if (Y % 80 === 0) {
+                return true;
+            }
+            if (Y % 40 === 0) {
+                return false;
+            }
+        } else if (Y <= 9600) {
+            if (Y % 1600 === 0) {
+                return true;
+            }
+            if (Y % 80 === 0) {
+                return false;
+            }
+        } else if (Y > 9600) {
+            if (Y % 800 === 0) {
+                return true;
+            }
+            if (Y % 80 === 0) {
+                return false;
+            }
         }
         if (Y % 20 === 0) {
             return true;
@@ -336,6 +352,15 @@ function getDarianGalileanDate(currentDateTime, body) {
     function isLeapYearEuropa(Y) {
         if (Y === 0) {
             return false;
+        }
+        if (Y > 8000) {
+            if (Y % 800 === 0) {
+                return true;
+            }
+        } else if (Y > 3200) {
+            if (Y % 1600 === 0) {
+                return true;
+            }
         }
         if (Y % 200 === 0) {
             return false;
@@ -353,6 +378,15 @@ function getDarianGalileanDate(currentDateTime, body) {
     }
 
     function isLeapYearGanymede(Y) {
+        if (Y > 8400) {
+            if (Y % 800 === 0) {
+                return true;
+            }
+        } else if (Y > 3200) {
+            if (Y % 1200 === 0) {
+                return true;
+            }
+        }
         if (Y % 400 === 0) {
             return false;
         }
