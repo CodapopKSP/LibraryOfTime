@@ -321,82 +321,73 @@ function getDarianGalileanDate(currentDateTime, body) {
     const daysInGanymedeMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32];
 
     function isLeapYearIo(Y) {
-        if (Y === 0) {
+        if (Y % 80 === 0) {
             return true;
         }
-        if (Y % 1000 === 0) {
-            return true;
-        }
-        if (Y % 400 === 0) {
+        if (Y % 40 === 0) {
             return false;
         }
-        if (Y % 200 === 0) {
-            return true;
-        }
-        if (Y % 100 === 0) {
-            return false;
-        }
-        if (Y % 50 === 0) {
-            return true;
-        }
-        if ((Y % 10 === 2) || (Y % 10 === 4) || (Y % 10 === 7) || (Y % 10 === 9)) {
-            return false;
-        }
-        return true;
-    }
-
-    function isLeapYearEuropa(Y) {
-        if (Y === 0) {
-            return true;
-        }
-        if (Y % 1000 === 0) {
-            return false;
-        }
-        if (Y % 800 === 0) {
-            return true;
-        }
-        if (Y % 400 === 0) {
-            return false;
-        }
-        if (Y % 200 === 0) {
-            return true;
-        }
-        if (Y % 50 === 0) {
-            return false;
-        }
-        if ((Y % 5 === 0) || ((Y-2) % 5 === 0)) {
+        if (Y % 20 === 0) {
             return true;
         }
         return false;
     }
 
-    function isLeapYearGanymede(Y) {
-        if (Y % 40 === 0) {
+    function isLeapYearEuropa(Y) {
+        if (Y === 0) {
             return false;
         }
-        if (Y % 60 === 0) {
+        if (Y % 200 === 0) {
+            return false;
+        }
+        if (Y % 20 === 0) {
+            return true;
+        }
+        if (Y % 5 === 0) {
+            return false;
+        }
+        if ((Y-3) % 5 === 0) {
+            return false;
+        }
+        return true;
+    }
+
+    function isLeapYearGanymede(Y) {
+        if (Y % 400 === 0) {
+            return false;
+        }
+        if (Y % 80 === 0) {
+            return true;
+        }
+        if (Y % 20 === 0) {
+            return false;
+        }
+        if ((Y-5) % 10 === 0) {
             return false;
         }
         return true;
     }
 
     function isLeapYearCallisto(Y) {
-        if (Y % 500 === 0) {
+        if (Y % 1200 === 0) {
             return true;
         }
-        if (Y % 300 === 0) {
+        if (Y % 400 === 0) {
+            return false;
+        }
+        if (Y % 80 === 0) {
             return true;
         }
         if (Y % 40 === 0) {
-            return true;
-        }
-        if (Y % 20 === 0) {
             return false;
         }
         if ((Y-2) % 5 === 0) {
-            return false;
+            return true;
         }
-        return true;
+        if (Y % 5 === 0) {
+            return true;
+        }
+        return false;
     }
 
     let epoch = new Date();
