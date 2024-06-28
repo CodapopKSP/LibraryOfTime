@@ -233,42 +233,49 @@ function getGalileanDate(currentDateTime, body) {
     }
 
     const dayMilliseconds = circad * 60 * 60 * 1000;
-    let daysSince = Math.floor((currentDateTime-epoch)/dayMilliseconds);
-    const dayOfWeek = GalileanWeek[daysSince%8]
+    let daysSince = Math.floor((currentDateTime - epoch) / dayMilliseconds);
+    const isNegative = daysSince < 0;
+    daysSince = Math.abs(daysSince);
+
     let year = 2002; // starting year after the epoch
+    let daysInYear = 0;
     while (true) {
-        let daysInYear = 0;
-        if (body==='Io') {
+        if (body === 'Io') {
             daysInYear = isLeapYearIo(year) ? 416 : 408;
         }
-        if (body==='Eu') {
+        if (body === 'Eu') {
             daysInYear = isLeapYearEuropa(year) ? 416 : 408;
         }
-        if (body==='Gan') {
+        if (body === 'Gan') {
             daysInYear = isLeapYearGanymede(year) ? 408 : 400;
         }
-        if (body==='Cal') {
+        if (body === 'Cal') {
             daysInYear = isLeapYearCallisto(year) ? 416 : 408;
         }
         if (daysSince < daysInYear) {
             break;
         }
         daysSince -= daysInYear;
-        year++;
+        year += isNegative ? -1 : 1;
     }
+
+    if (isNegative) {
+        daysSince = daysInYear - daysSince;
+    }
+
     let remainingDays = daysSince;
     let daysInMonthsArray = '';
 
-    if (body==='Io') {
+    if (body === 'Io') {
         daysInMonthsArray = isLeapYearIo(year) ? daysInMonthsLeap : daysInMonths;
     }
-    if (body==='Eu') {
+    if (body === 'Eu') {
         daysInMonthsArray = isLeapYearEuropa(year) ? daysInMonthsLeap : daysInMonths;
     }
-    if (body==='Gan') {
+    if (body === 'Gan') {
         daysInMonthsArray = isLeapYearGanymede(year) ? daysInMonthsGanymedeLeap : daysInMonthsGanymedeShort;
     }
-    if (body==='Cal') {
+    if (body === 'Cal') {
         daysInMonthsArray = isLeapYearCallisto(year) ? daysInMonthsLeap : daysInMonths;
     }
 
@@ -277,8 +284,9 @@ function getGalileanDate(currentDateTime, body) {
         remainingDays -= daysInMonthsArray[month];
         month++;
     }
-    console.log(month);
+
     const day = remainingDays + 1;
+    const dayOfWeek = GalileanWeek[(isNegative ? -daysSince : daysSince) % 8];
     return day + ' ' + body + ' ' + GalileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
 }
 
@@ -444,42 +452,45 @@ function getDarianGalileanDate(currentDateTime, body) {
     }
 
     const dayMilliseconds = circad * 60 * 60 * 1000;
-    let daysSince = Math.floor((currentDateTime-epoch)/dayMilliseconds);
-    const dayOfWeek = GalileanWeek[daysSince%8]
-    let year = 0; // starting year after the epoch
+    let daysSince = Math.floor((currentDateTime - epoch) / dayMilliseconds);
+    const isNegative = daysSince < 0;
+    daysSince = Math.abs(daysSince);
+
+    const dayOfWeek = GalileanWeek[daysSince % 8];
+    let year = 0;
     while (true) {
         let daysInYear = 0;
-        if (body==='Io') {
+        if (body === 'Io') {
             daysInYear = isLeapYearIo(year) ? 784 : 776;
         }
-        if (body==='Eu') {
+        if (body === 'Eu') {
             daysInYear = isLeapYearEuropa(year) ? 776 : 768;
         }
-        if (body==='Gan') {
+        if (body === 'Gan') {
             daysInYear = isLeapYearGanymede(year) ? 768 : 760;
         }
-        if (body==='Cal') {
+        if (body === 'Cal') {
             daysInYear = isLeapYearCallisto(year) ? 784 : 776;
         }
         if (daysSince < daysInYear) {
             break;
         }
         daysSince -= daysInYear;
-        year++;
+        year += isNegative ? -1 : 1;
     }
     let remainingDays = daysSince;
     let daysInMonthsArray = '';
 
-    if (body==='Io') {
+    if (body === 'Io') {
         daysInMonthsArray = isLeapYearIo(year) ? daysInIoCallistoMonthsLeap : daysInIoCallistoMonths;
     }
-    if (body==='Eu') {
+    if (body === 'Eu') {
         daysInMonthsArray = isLeapYearEuropa(year) ? daysInEuropaMonthsLeap : daysInEuropaMonths;
     }
-    if (body==='Gan') {
+    if (body === 'Gan') {
         daysInMonthsArray = isLeapYearGanymede(year) ? daysInGanymedeMonthsLeap : daysInGanymedeMonths;
     }
-    if (body==='Cal') {
+    if (body === 'Cal') {
         daysInMonthsArray = isLeapYearCallisto(year) ? daysInIoCallistoMonthsLeap : daysInIoCallistoMonths;
     }
 
@@ -488,7 +499,7 @@ function getDarianGalileanDate(currentDateTime, body) {
         remainingDays -= daysInMonthsArray[month];
         month++;
     }
-    console.log(month);
+
     const day = remainingDays + 1;
     return day + ' ' + body + ' ' + DarianMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
 }
