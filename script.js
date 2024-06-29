@@ -172,6 +172,7 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
         setTimeValue('lilian-date-node', getLilianDate(julianDay));
         setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
         setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
+        setTimeValue('julian-circad-number-node', getJulianCircadNumber(currentDateTime).toFixed(0));
         setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
 
         const lunationNumber = calculateLunationNumber(currentDateTime);
@@ -195,6 +196,7 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
     setTimeValue('europa-meridian-time-node', getEuropaPrimeMeridianTime(currentDateTime));
     setTimeValue('ganymede-meridian-time-node', getGanymedePrimeMeridianTime(currentDateTime));
     setTimeValue('callisto-meridian-time-node', getCallistoPrimeMeridianTime(currentDateTime));
+    setTimeValue('titan-meridian-time-node', getTitanPrimeMeridianTime(currentDateTime));
 
     // Solar Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===8))||(currentPass===100)) {
@@ -235,6 +237,7 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
         setTimeValue('darian-europa-node', getDarianGalileanDate(currentDateTime, 'Eu'));
         setTimeValue('darian-ganymede-node', getDarianGalileanDate(currentDateTime, 'Gan'));
         setTimeValue('darian-callisto-node', getDarianGalileanDate(currentDateTime, 'Cal'));
+        setTimeValue('darian-titan-node', getDarianTitanDate(currentDateTime));
         setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
         setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
         setTimeValue('olympiad-node', getOlympiad(currentDateTime));

@@ -115,3 +115,26 @@ function getCallistoPrimeMeridianTime(currentDateTime) {
 
     return 'Circad ' + circad + ' | ' + hour + ':'+  minute + ':' + second;
 }
+
+function getTitanPrimeMeridianTime(currentDateTime) {
+    const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32));
+    const titanCircad = 0.998068439;
+    const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
+    const titanDaysSince = (currentDateTime-epoch)/titanDayMilliseconds;
+    let currentDayFraction = titanDaysSince - Math.floor(titanDaysSince);
+    if (currentDayFraction < 0) {
+        currentDayFraction += 1;
+    }
+
+    const circad = ((Math.floor(titanDaysSince) % 16) + 16) % 16 + 1;
+
+    let hour = currentDayFraction * 24;
+    let minute = (hour - Math.floor(hour))*60;
+    let second = (minute - Math.floor(minute))*60;
+
+    hour = String(Math.floor(hour)).padStart(2, '0');
+    minute = String(Math.floor(minute)).padStart(2, '0');
+    second = String(Math.floor(second)).padStart(2, '0');
+
+    return 'Circad ' + circad + ' | ' + hour + ':'+  minute + ':' + second;
+}

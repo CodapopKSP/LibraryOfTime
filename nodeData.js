@@ -306,6 +306,18 @@ const computingTimeData = [
     },
 
     {
+        name: 'Julian Circad Number',
+        id: 'julian-circad-number',
+        type: 'Computing Time',
+        epoch: '15 March 1609 +18:37:32',
+        confidence: 'High',
+        overview: ``,
+        info: '',
+        accuracy: '',
+        source: ``
+    },
+
+    {
         name: 'Kali Ahargaṅa (IST)',
         id: 'kali-ahargaṅa',
         type: 'Computing Time',
@@ -499,6 +511,18 @@ const otherTimeData = [
         info: `Though Callisto isn't in Laplace resonance with the other three Galilean moons, its orbit can still be broken down into 19 circads of a similar length. The circad of Callisto is 21.16238 Earth hours long, which is then broken into 24 Callisto hours.\n\n<table class="table-short"><tr><td>CMT</td><td>Standard Time</td></tr><tr><td>CMT Second</td><td>0.8817658 Seconds</td></tr><tr><td>CMT Minute</td><td>52.90595 Seconds</td></tr><tr><td>CMT Hour</td><td>52.90595 Minutes</td></tr></table>\n\n<table class="table-short"><tr><td>Moon</td><td>Circad Length</td><td>Circads Per Orbit</td></tr><tr><td>Io</td><td>21.23833 Hours</td><td>2</td></tr><tr><td>Europa</td><td>21.32456 Hours</td><td>4</td></tr><tr><td>Ganymede</td><td>21.49916 Hours</td><td>8</td></tr><tr><td>Callisto</td><td>21.16238 Hours</td><td>19</td></tr></table>\n\nAs the orbit of Callisto is not very inclined, midnight on Circad 1 is also roughly the time of a total solar eclipse on Jupiter.`,
         accuracy: `The accuracy of this timekeeping system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.\n\nThe name of this timekeeping system is my own creation, as Mr. Gangale did not give it a name himself.`,
         source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
+        name: 'Titan Meridian Time',
+        id: 'titan-meridian-time',
+        type: 'Other Time',
+        epoch: '15 March 1609 +18:37:32',
+        confidence: '',
+        overview: ``,
+        info: ``,
+        accuracy: ``,
+        source: ``
     },
 ]
 
@@ -969,7 +993,7 @@ const otherCalendars = [
     },
 
     {
-        name: 'Galileo Darian (Io)',
+        name: 'Darian (Io)',
         id: 'darian-io',
         type: 'Other Calendar',
         epoch: '13 March 1609 +05:29:26',
@@ -981,7 +1005,7 @@ const otherCalendars = [
     },
 
     {
-        name: 'Galileo Darian (Europa)',
+        name: 'Darian (Europa)',
         id: 'darian-europa',
         type: 'Other Calendar',
         epoch: '12 March 1609 +01:19:41',
@@ -993,7 +1017,7 @@ const otherCalendars = [
     },
 
     {
-        name: 'Galileo Darian (Ganymede)',
+        name: 'Darian (Ganymede)',
         id: 'darian-ganymede',
         type: 'Other Calendar',
         epoch: '11 March 1609 +09:52:12',
@@ -1005,7 +1029,7 @@ const otherCalendars = [
     },
 
     {
-        name: 'Galileo Darian (Callisto)',
+        name: 'Darian (Callisto)',
         id: 'darian-callisto',
         type: 'Other Calendar',
         epoch: '17 March 1609 +20:57:24',
@@ -1014,6 +1038,18 @@ const otherCalendars = [
         info: `All four of the Galilean calendars use roughly the same epoch, within a week, as the Gregorian calendar. However, all four have their own epoch which corresponds with their Meridian Time.\n\n<table class="table-very-very-long"><tr><th>Callisto Month</th><th>Circads</th></tr><tr><td>Cal Sagittarius</td><td>32</td></tr><tr><td>Cal Dhanus</td><td>32</td></tr><tr><td>Cal Capricornus</td><td>32</td></tr><tr><td>Cal Makara</td><td>32</td></tr><tr><td>Cal Aquarius</td><td>32</td></tr><tr><td>Cal Khumba</td><td>32</td></tr><tr><td>Cal Pisces</td><td>32</td></tr><tr><td>Cal Mina</td><td>32</td></tr><tr><td>Cal Aries</td><td>32</td></tr><tr><td>Cal Mesha</td><td>32</td></tr><tr><td>Cal Taurus</td><td>32</td></tr><tr><td>Cal Rishabha</td><td>40</td></tr><tr><td>Cal Gemini</td><td>32</td></tr><tr><td>Cal Mithuna</td><td>32</td></tr><tr><td>Cal Cancer</td><td>32</td></tr><tr><td>Cal Karka</td><td>32</td></tr><tr><td>Cal Leo</td><td>32</td></tr><tr><td>Cal Simha</td><td>32</td></tr><tr><td>Cal Virgo</td><td>32</td></tr><tr><td>Cal Kanya</td><td>32</td></tr><tr><td>Cal Libra</td><td>32</td></tr><tr><td>Cal Tula</td><td>32</td></tr><tr><td>Cal Scorpius</td><td>32</td></tr><tr><td>Cal Vrishika</td><td>32-40</td></tr></table>`,
         accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter.`,
         source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.`
+    },
+
+    {
+        name: 'Darian (Titan)',
+        id: 'darian-titan',
+        type: 'Other Calendar',
+        epoch: '15 March 1609 +18:37:32',
+        confidence: 'High',
+        overview: `The Darian calendar for Titan, moon of Saturn, was created by Thomas Gangale and is a continuation of the calendars created for Mars and the four Galilean moons of Jupiter. It is intended to closely align with the Martian Darian calendar, roughly sharing an epoch as well as all 24 months.\n\nAs the solar day of Titan is nearly 16 Earth days long, its day is broken into 16 units of time called 'circads' that are ~23 hours each and act as calendar days.\n\nThis calendar features 24 months of 28 or 32 circads each, allowing for a clean division of the 8-circad week.\n\nLeap years add an entire week, split evenly between the 12th and 24th months, adding 4 circads each for a total of 32 circads, allowing it to stay in sync with the Martian Darian calendar.\n\nYears don't always begin and end at midnight on Titan's prime meridian, as the circad system takes precedence over the solar day.`,
+        info: `<table class="table-very-very-long"><tr><th>Titan Month</th><th>Circads</th></tr><tr><td>Ti Sagittarius</td><td>28</td></tr><tr><td>Ti Dhanus</td><td>28</td></tr><tr><td>Ti Capricornus</td><td>32</td></tr><tr><td>Ti Makara</td><td>28</td></tr><tr><td>Ti Aquarius</td><td>28</td></tr><tr><td>Ti Khumba</td><td>28</td></tr><tr><td>Ti Pisces</td><td>28</td></tr><tr><td>Ti Mina</td><td>28</td></tr><tr><td>Ti Aries</td><td>32</td></tr><tr><td>Ti Mesha</td><td>28</td></tr><tr><td>Ti Taurus</td><td>28</td></tr><tr><td>Ti Rishabha</td><td>28-32</td></tr><tr><td>Ti Gemini</td><td>28</td></tr><tr><td>Ti Mithuna</td><td>28</td></tr><tr><td>Ti Cancer</td><td>32</td></tr><tr><td>Ti Karka</td><td>28</td></tr><tr><td>Ti Leo</td><td>28</td></tr><tr><td>Ti Simha</td><td>28</td></tr><tr><td>Ti Virgo</td><td>28</td></tr><tr><td>Ti Kanya</td><td>28</td></tr><tr><td>Ti Libra</td><td>32</td></tr><tr><td>Ti Tula</td><td>28</td></tr><tr><td>Ti Scorpius</td><td>28</td></tr><tr><td>Ti Vrishika</td><td>28-32</td></tr></table>`,
+        accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter in the Galilean calendars, but it isn't clear if it has also been accounted for in this calendar.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.`
     },
 
     {
@@ -1131,10 +1167,10 @@ const astronomicalData = [
         id: 'next-solar-eclipse',
         type: 'Astronomical Data',
         epoch: 'Undefined',
-        confidence: 'Medium',
+        confidence: 'High',
         overview: `A solar eclipse occurs when the moon casts a shadow anywhere onto the Earth. It is a fairly rare event that always occurs during a New Moon.\n\nWhen the moon completely covers the disk of the sun from the perpective of a point on the Earth, it is called a Total Solar Eclipse. When the moon appears to be smaller than the sun, with the sun visible in a 'Ring of Fire' around the edge, it is called an Annular Solar Eclipse. When the moon covers part of the sun but doesn't intersect the center of the sun's disk, it is called a Partial Solar Eclipse.\n\nThis entry also displays the node at which the eclipse took place as well as the hemisphere of Earth where it is visible at its maximum.\n\nSolar eclipses typically are only viewable from a small area on the Eath's surface, and they are historically significant events that have inspired legend, religion, and myth. The solar eclipse of 8 April 2024 CE is what inspired me to build this website.`,
         info: `Solar eclipses typically happen every one or two years, though total solar eclipses are rarer. They can only occur when a New Moon happens very near to the moon's ascending or descending nodes—the points along the lunar orbit that intersect the Earth's equator. These are at 0°/360° and 180° respectively.\n\nDue to the oblong shape of the moon's orbit, the moon can either appear larger or smaller than the sun from the perspective of Earth. This coincidence produces the two different types of central eclipses, total and annular.\n\nDuring a total solar eclipse, the sun's corona is visible to the naked eye, providing a spectacular sight as well as an opportunity to conduct science.`,
-        accuracy: 'This calculation is reasonably accurate within a few hundred years of 2000 CE. After that, errors are induced which can grow from hours to even days.\n\nThis calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce errors, either due to my own misunderstanding of the source or because of the uncertainty of the cosmos.',
+        accuracy: 'This calculation is reasonably accurate within thousands of years of 2000 CE. After that, errors are induced which can grow from hours to even days.\n\nThis calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce errors, either due to my own misunderstanding of the source or because of the uncertainty of the cosmos.',
         source: 'This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.'
     },
 ]

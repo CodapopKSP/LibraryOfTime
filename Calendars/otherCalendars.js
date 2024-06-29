@@ -504,6 +504,80 @@ function getDarianGalileanDate(currentDateTime, body) {
     return day + ' ' + body + ' ' + DarianMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
 }
 
+function getDarianTitanDate(currentDateTime, body) {
+    const DarianMonths = [
+        "Sagittarius",
+        "Dhanus",
+        "Capricornus",
+        "Makara",
+        "Aquarius",
+        "Khumba",
+        "Pisces",
+        "Mina",
+        "Aries",
+        "Mesha",
+        "Taurus",
+        "Rishabha",
+        "Gemini",
+        "Mithuna",
+        "Cancer",
+        "Karka",
+        "Leo",
+        "Simha",
+        "Virgo",
+        "Kanya",
+        "Libra",
+        "Tula",
+        "Scorpius",
+        "Vrishika"
+    ];
+
+    const GalileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
+
+    const titanMonthDays = [28,28,32,28,28,28,28,28,32,28,28,28,28,28,32,28,28,28,28,28,32,28,28,28];
+    const titanMonthDaysLeap = [28,28,32,28,28,28,28,28,32,28,28,32,28,28,32,28,28,28,28,28,32,28,28,32];
+
+    function isLeapYear(Y) {
+        if (Y % 400 === 0) {
+            return false;
+        }
+        if (Y % 25 === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32));
+    const titanCircad = 0.998068439;
+    const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
+    let titanDaysSince = (currentDateTime-epoch)/titanDayMilliseconds;
+    const isNegative = titanDaysSince < 0;
+    titanDaysSince = Math.abs(titanDaysSince);
+
+    const dayOfWeek = GalileanWeek[Math.floor(titanDaysSince % 8)];
+    let year = 0;
+    while (true) {
+        let daysInYear = 0;
+        daysInYear = isLeapYear(year) ? 696 : 688;
+        titanDaysSince -= daysInYear;
+        year += isNegative ? -1 : 1;
+        if (titanDaysSince < daysInYear) {
+            break;
+        }
+    }
+    let remainingDays = titanDaysSince;
+    let daysInMonthsArray = '';
+    daysInMonthsArray = isLeapYear(year) ? titanMonthDaysLeap : titanMonthDays;
+    let month = 0;
+    while (remainingDays >= daysInMonthsArray[month]) {
+        remainingDays -= daysInMonthsArray[month];
+        month++;
+    }
+
+    const day = Math.floor(remainingDays) + 1;
+    return day + ' Ti ' + DarianMonths[month] + ' ' + year + '\nTi ' + dayOfWeek;
+}
+
 function getYugaCycle(currentDateTime) {
     const YugaCycle = [
         /*
