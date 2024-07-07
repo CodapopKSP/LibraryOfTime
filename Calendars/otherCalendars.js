@@ -58,20 +58,47 @@ function getDarianMarsDate(julianSolNumber) {
 
     // Odd years except if divisible by 10, but not 100 except for 500
     function isLeapYear(year) {
-        let leap = false;
-        if ((year-1)%2 === 0) {
-            leap = true;
+        if (year <= 2000) {
+            if (year%1000 == 0) {
+                return true;
+            }
+            if (year%100 == 0) {
+                return false;
+            }
         }
+
+        if ((year > 2000) && (year <= 4800)) {
+            if (year%150 == 0) {
+                return false;
+            }
+        }
+
+        if ((year > 4800) && (year <= 6800)) {
+            if (year%200 == 0) {
+                return false;
+            }
+        }
+
+        if ((year > 6800) && (year <= 8400)) {
+            if (year%300 == 0) {
+                return false;
+            }
+        }
+
+        if ((year > 8400) && (year <= 10000)) {
+            if (year%600 == 0) {
+                return false;
+            }
+        }
+
         if (year%10 === 0) {
-            leap = true;
+            return true;
         }
-        if (year%100 == 0) {
-            leap = false;
+        if ((year-1)%2 === 0) {
+            return true;
         }
-        if (year%500 == 0) {
-            leap = true;
-        }
-        return leap;
+        
+        return false;
     }
 
     function getDaysInYear(year) {
