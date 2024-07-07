@@ -30,6 +30,14 @@ let dateInput = '';                 // Text string from the date input box
 let currentDescriptionPage = [];    // The current arrangement of information to be displayed in the description box
 let updateIntervalId;               // The current interval ID for spreading calculations out so they don't happen all at once
 
+const now = new Date();
+const timezoneOffset = now.getTimezoneOffset();
+// Convert offset to hours and minutes
+const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
+const offsetMinutes = Math.abs(timezoneOffset) % 60;
+const offsetSign = timezoneOffset > 0 ? "-" : "+";
+let formattedOffset = `UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
+
 // About tab (Home Page)
 const aboutDescription = document.createElement('div');
 aboutDescription.classList.add('tooltip');
@@ -73,7 +81,7 @@ let visibleTooltip = aboutDescription;
 currentDescriptionPage = [aboutDescription, missionDescription, accuracyDescription, sourcesDescription];
 
 // Main function for 
-function updateDateAndTime(dateInput, calendarType, firstPass) {
+function updateDateAndTime(dateInput, calendarType, timezoneOffset, firstPass) {
     let currentPass = 0;
     let currentDateTime = '';
     const decimals = 10; // Decimals to show in some nodes
@@ -88,14 +96,43 @@ function updateDateAndTime(dateInput, calendarType, firstPass) {
 
     // There is a date input
     } else {
-        const inputParts = dateInput.split(', ');
-        const inputYear = inputParts[0];
-        const inputMonth = inputParts[1] - 1;
-        const inputDay = inputParts[2];
-        const inputHour = inputParts[3] || 0;
-        const inputMinute = inputParts[4] || 0;
-        const inputSecond = inputParts[5] || 0;
-        currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute, inputSecond));
+        let inputYear = 0;
+        let inputMonth = 0;
+        let inputDay = 1; // Default to 1st if not provided
+        let inputHour = 0;
+        let inputMinute = 0;
+        let inputSecond = 0;
+
+        const dateTimeParts = dateInput.split(', ');
+
+        if (dateTimeParts[0]) {
+            const dateParts = dateTimeParts[0].split('-');
+            if (dateParts[0]) {
+                inputYear = dateParts[0];
+            }
+            if (dateParts[1]) {
+                inputMonth = dateParts[1] - 1; // Month is zero-based
+            }
+            if (dateParts[2]) {
+                inputDay = dateParts[2];
+            }
+        }
+
+        if (dateTimeParts[1]) {
+            const timeParts = dateTimeParts[1].split(':');
+            if (timeParts[0]) {
+                inputHour = timeParts[0];
+            }
+            if (timeParts[1]) {
+                inputMinute = timeParts[1];
+            }
+            if (timeParts[2]) {
+                inputSecond = timeParts[2];
+            }
+        }
+
+        const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
+        currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute-offsetInMinutes, inputSecond));
         currentDateTime.setUTCFullYear(inputYear);
         currentPass = 100;
     }
@@ -519,12 +556,13 @@ function changeDateTime() {
     // Get the value entered in the input box
     const newDateString = document.getElementById('date-input').value;
     calendarType = document.getElementById('calendar-type').value;
+    let timezoneChoice = document.getElementById('timezone').value;
 
     // Date was input, add it as an argument
     if (newDateString!=='') {
-        updateDateAndTime(newDateString, calendarType);
+        updateDateAndTime(newDateString, calendarType, timezoneChoice);
         setTimeout(() => {
-            updateIntervalId = setInterval(updateDateAndTime(newDateString, calendarType), updateMiliseconds);
+            updateIntervalId = setInterval(updateDateAndTime(newDateString, calendarType, timezoneChoice), updateMiliseconds);
         }, 1000);
     
     // Date was cleared, restart without argument
@@ -586,15 +624,57 @@ function homeButton() {
     }
 }
 
-// Masonry Tiling library
 document.addEventListener('DOMContentLoaded', function () {
+    // Masonry Tiling library
     var grid = document.querySelector('.node-wrapper');
     var msnry = new Masonry(grid, {
         itemSelector: '.container',
         columnWidth: '.container',
         percentPosition: true,
     });
+
+    const timezoneSelect = document.getElementById('timezone');
+    const timezones = [
+        'UTC-12:00', 'UTC-11:00', 'UTC-10:00', 'UTC-09:30', 'UTC-09:00',
+        'UTC-08:00', 'UTC-07:00', 'UTC-06:00', 'UTC-05:00', 'UTC-04:00',
+        'UTC-03:30', 'UTC-03:00', 'UTC-02:00', 'UTC-01:00', 'UTC+00:00',
+        'UTC+01:00', 'UTC+02:00', 'UTC+03:00', 'UTC+03:30', 'UTC+04:00',
+        'UTC+04:30', 'UTC+05:00', 'UTC+05:30', 'UTC+05:45', 'UTC+06:00',
+        'UTC+06:30', 'UTC+07:00', 'UTC+08:00', 'UTC+08:45', 'UTC+09:00',
+        'UTC+09:30', 'UTC+10:00', 'UTC+10:30', 'UTC+11:00', 'UTC+12:00',
+        'UTC+12:45', 'UTC+13:00', 'UTC+14:00'
+    ];
+
+    timezones.forEach(timezone => {
+        const option = document.createElement('option');
+        option.value = timezone;
+        option.text = timezone;
+        if (timezone === formattedOffset) {
+            option.selected = true;
+        }
+        timezoneSelect.appendChild(option);
+    });
 });
+
+function convertUTCOffsetToMinutes(offsetString) {
+    // Validate the input format
+    const regex = /^UTC([+-])(\d{2}):(\d{2})$/;
+    const match = offsetString.trim().match(regex);
+
+    if (!match) {
+        throw new Error("Invalid UTC offset format. Expected format: UTC±HH:MM");
+    }
+
+    // Extract the sign, hours, and minutes from the matched parts
+    const sign = match[1] === "+" ? 1 : -1;
+    const hours = parseInt(match[2], 10);
+    const minutes = parseInt(match[3], 10);
+
+    // Convert the total offset to minutes
+    const totalMinutes = sign * (hours * 60 + minutes);
+
+    return totalMinutes;
+}
 
 // Draw elements in HTML
 createElements();
@@ -604,4 +684,4 @@ updateIntervalId = setInterval(updateDateAndTime, updateMiliseconds);
 changeHeaderButton('header-button-1', 0);
 
 // Initial update
-updateDateAndTime(0, 'gregorian-proleptic', true);
+updateDateAndTime(0, 'gregorian-proleptic', formattedOffset, true);
