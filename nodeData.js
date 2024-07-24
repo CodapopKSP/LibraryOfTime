@@ -206,7 +206,7 @@ const computingTimeData = [
         overview: 'FILETIME is the timing method found on Windows filesystems. It is a simple count of number of nanoseconds since midnight on January 1st, 1601.',
         info: 'Most systems use Unix or a similar epoch. FILETIME is unique in its choice of the year 1601.',
         accuracy: 'FILETIME is accurate to the microsecond, but it does not count nanoseconds.',
-        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Wikipedia article</a>.'
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/System_time">Wikipedia article</a>.'
     },
 
     {
