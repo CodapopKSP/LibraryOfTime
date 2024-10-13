@@ -11,8 +11,6 @@ a {
 
 .page-wrapper {
     background-color: rgb(47, 47, 47);
-    /*background-color: rgb(129, 131, 119);*/
-    /*background-color: rgb(0, 0, 0);*/
     height: 100vh;
     width: 100vw;
     overflow: auto;
@@ -212,11 +210,24 @@ a {
     white-space: pre-wrap;
 }
 
+.node .content.hover {
+    border-color: rgb(150, 150, 150) !important;
+}
+
+.node .content.active {
+    background-color: rgb(60, 60, 60);
+    border-color: rgb(150, 150, 150);
+}
+
+.content.clicking {
+    background-color: rgb(150, 150, 150);
+}
+
 .container-name {
     font-size: 1.6vh;
 }
 
-.tooltip {
+.nodeinfo {
     position: relative;
     visibility: hidden;
     color: rgb(214, 214, 214);
@@ -228,18 +239,14 @@ a {
     top: 9vh;
 }
 
-.node:hover .tooltip {
-    visibility: visible;
-}
-
-.tooltip-title {
+.nodeinfo-title {
     font-size: 2.5vh;
     font-weight: bold;
     padding: 0.5vh;
     color: rgb(214, 214, 214);
 }
 
-.tooltip-title:after {
+.nodeinfo-title:after {
     content: '';
     position: absolute;
     left: 50%;
@@ -250,7 +257,7 @@ a {
     background-color: #cbcbcb;
 }
 
-.tooltip-epoch {
+.nodeinfo-epoch {
     text-align: left;
     padding-left: 10vh;
     padding-right: 10vh;
@@ -258,7 +265,7 @@ a {
     padding-top: 3vh;
 }
 
-.tooltip-confidence {
+.nodeinfo-confidence {
     text-align: left;
     padding-left: 10vh;
     padding-right: 10vh;
@@ -340,6 +347,14 @@ a {
     box-shadow: none;
 }
 
+.description-page {
+    visibility: hidden;
+}
+
+.active {
+    visibility: visible;
+}
+
 .description-button-wrapper {
     position: absolute;
     top: 5.3vh;
@@ -351,9 +366,10 @@ a {
 
 .selected {
     border-bottom: 0;
+    background: rgb(55, 55, 55);
 }
 
-.tooltip-overview {
+.nodeinfo-overview {
     text-align: left;
     padding: 1vh;
     white-space: pre-wrap;
@@ -361,9 +377,9 @@ a {
     margin: auto 1rem auto 1rem;
 }
 
-.tooltip-info,
-.tooltip-mission,
-.tooltip-sources {
+.nodeinfo-info,
+.nodeinfo-mission,
+.nodeinfo-sources {
     text-align: left;
     padding: 1vh;
     padding-top: 3vh;
@@ -372,7 +388,7 @@ a {
     margin: auto 1rem auto 1rem;
 }
 
-.tooltip-accuracy {
+.nodeinfo-accuracy {
     text-align: left;
     padding: 1vh;
     padding-top: 3vh;
@@ -457,7 +473,7 @@ th, td {
     .node {
         width: 16vh;
     }
-    .tooltip {
+    .nodeinfo {
         font-size: 1.6vh;
     }
     .table-epoch th {
@@ -467,14 +483,14 @@ th, td {
     .table-confidence th {
         min-width: 10vw;
     }
-    .tooltip-epoch {
+    .nodeinfo-epoch {
         padding: 2vh;
         padding-top: 3vh;
         padding-bottom: 1vh;
         min-width: 10vw;
     }
     
-    .tooltip-confidence {
+    .nodeinfo-confidence {
         padding: 2vh;
         padding-top: 1vh;
         min-width: 10vw;
@@ -493,13 +509,13 @@ th, td {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         width: 55vw;
     }
-    .tooltip {
+    .nodeinfo {
         font-size: 1.6vh;
     }
 }
 
 @media (max-aspect-ratio: 2/2.1) {
-    .tooltip {
+    .nodeinfo {
         font-size: 1.5vh;
     }
     #date-input {
@@ -513,16 +529,16 @@ th, td {
 }
 
 @media (max-aspect-ratio: 2/2.2) {
-    .tooltip {
+    .nodeinfo {
         font-size: 1.4vh;
     }
-    .tooltip-epoch {
+    .nodeinfo-epoch {
         padding: 0.5vh;
         padding-top: 1vh;
         min-width: 10vw;
     }
     
-    .tooltip-confidence {
+    .nodeinfo-confidence {
         padding: 0.5vh;
         padding-top: 1vh;
         min-width: 10vw;
@@ -536,7 +552,7 @@ th, td {
 }
 
 @media (max-aspect-ratio: 2/2.3) {
-    .tooltip {
+    .nodeinfo {
         font-size: 1.3vh;
     }
     .header-button {
@@ -565,7 +581,7 @@ th, td {
 }
 
 @media (max-aspect-ratio: 2/2.4) {
-    .tooltip {
+    .nodeinfo {
         font-size: 1.2vh;
     }
     .header-button {
@@ -578,14 +594,14 @@ th, td {
     .node {
         width: 12.5vh;
     }
-    .tooltip-info,
-    .tooltip-mission,
-    .tooltip-sources,
-    .tooltip-overview {
+    .nodeinfo-info,
+    .nodeinfo-mission,
+    .nodeinfo-sources,
+    .nodeinfo-overview {
         margin: auto 0.1rem auto 0.1rem;
         font-size: 1.2vh;
     }
-    .tooltip-accuracy {
+    .nodeinfo-accuracy {
         margin: auto 0.1rem auto 0.1rem;
         font-size: 1.1vh;
     }
@@ -617,11 +633,11 @@ th, td {
         font-size: 1.4vh;
     }
 
-    .tooltip-title {
+    .nodeinfo-title {
         font-size: 1.5vh;
     }
 
-    .tooltip-title:after {
+    .nodeinfo-title:after {
         top: 2.5vh;
         height: 0.2vh;
     }

@@ -1,7 +1,14 @@
-// Define a function to create description elements
+/*
+    |=========================|
+    |    Description Panel    |
+    |=========================|
+
+    This is a collection of functions for drawing and handling the Description Panel.
+*/
+
 function createHomePageDescription(contentKey, contentClass) {
     const description = document.createElement('div');
-    description.classList.add('tooltip');
+    description.classList.add('nodeinfo');
     const contentElement = document.createElement('div');
     contentElement.innerHTML = welcomeDescription[0][contentKey];
     contentElement.classList.add(contentClass);
@@ -9,118 +16,109 @@ function createHomePageDescription(contentKey, contentClass) {
     return description;
 }
 
-// Create descriptions for home page tabs
+// Create descriptions for Home Page tabs
 const homePageDescriptions = {
-    about: createHomePageDescription('about', 'tooltip-info'),
-    mission: createHomePageDescription('mission', 'tooltip-mission'),
-    accuracy: createHomePageDescription('accuracy', 'tooltip-accuracy'),
-    sources: createHomePageDescription('sources', 'tooltip-sources'),
+    about: createHomePageDescription('about', 'nodeinfo-info'),
+    mission: createHomePageDescription('mission', 'nodeinfo-mission'),
+    accuracy: createHomePageDescription('accuracy', 'nodeinfo-accuracy'),
+    sources: createHomePageDescription('sources', 'nodeinfo-sources'),
 };
 
-// Helper function to create title element
 function createTitleElement(name) {
     const titleElement = document.createElement('div');
     titleElement.textContent = name;
-    titleElement.classList.add('tooltip-title');
+    titleElement.classList.add('nodeinfo-title');
     return titleElement;
 }
 
-// Helper function to create description elements
-function createDescription(item, type) {
+function createNodeDescription(item, type) {
     const description = document.createElement('div');
-    description.id = `${item.id}-tooltip-${type}`;
-    description.classList.add('tooltip');
+    description.id = `${item.id}-nodeinfo-${type}`;
+    description.classList.add('nodeinfo');
 
     // Create and append the title
     description.appendChild(createTitleElement(item.name));
 
     // Create content based on type
     let contentElement = document.createElement('div');
-    contentElement.classList.add(`tooltip-${type}`);
+    contentElement.classList.add(`nodeinfo-${type}`);
 
     if (type === 'overview') {
-        // Overview includes epoch and confidence
-        const epochElement = document.createElement('div');
-        epochElement.innerHTML = `
-            <table class="table-epoch">
-                <tr><th><b>Epoch</b></th></tr>
-                <tr><td>${item.epoch}</td></tr>
-            </table>`;
-        epochElement.classList.add('tooltip-epoch');
-
-        const confidenceElement = document.createElement('div');
-        confidenceElement.innerHTML = `
-            <table class="table-confidence">
-                <tr><th><b>Confidence: ${item.confidence}</b></th></tr>
-            </table>`;
-        confidenceElement.classList.add('tooltip-confidence');
-
         const overviewElement = document.createElement('div');
         overviewElement.innerHTML = item.overview;
-        overviewElement.classList.add('tooltip-overview');
-
-        description.appendChild(epochElement);
-        description.appendChild(confidenceElement);
+        overviewElement.classList.add('nodeinfo-overview');
+        description.appendChild(createEpochElement(item));
+        description.appendChild(createConfidenceElement(item));
         description.appendChild(overviewElement);
     } else {
         // For 'info', 'accuracy', 'source'
         contentElement.innerHTML = item[type];
         description.appendChild(contentElement);
     }
-
     return description;
 }
 
-// Register a click of a header button
-function changeActiveHeaderButton(button, index) {
-    const buttons = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
+function createEpochElement(item) {
+    const epochElement = document.createElement('div');
+    epochElement.innerHTML = `
+        <table class="table-epoch">
+            <tr><th><b>Epoch</b></th></tr>
+            <tr><td>${item.epoch}</td></tr>
+        </table>`;
+    epochElement.classList.add('nodeinfo-epoch');
+    return epochElement;
+}
 
-    buttons.forEach((btnId) => {
-        const btn = document.getElementById(btnId);
-        const isSelected = btnId === button;
-        btn.style.background = isSelected ? "rgb(55, 55, 55)" : "#2b2b2b";
-        btn.classList.toggle('selected', isSelected);
-        if (isSelected) {
-            // Show the corresponding description page
-            for (let i = 0; i < currentDescriptionPage.length; i++) {
-                currentDescriptionPage[i].style.visibility = i === index ? 'visible' : 'hidden';
-            }
-        }
+function createConfidenceElement(item) {
+    const confidenceElement = document.createElement('div');
+    confidenceElement.innerHTML = `
+        <table class="table-confidence">
+            <tr><th><b>Confidence: ${item.confidence}</b></th></tr>
+        </table>`;
+    confidenceElement.classList.add('nodeinfo-confidence');
+    return confidenceElement;
+}
+
+function changeActiveHeaderTab(selectedTab, index) {
+    // Toggle selected tab header
+    headerTabs.forEach((tabID) => {
+        const tab = document.getElementById(tabID);
+        const isSelected = tabID === selectedTab;
+        tab.classList.toggle('selected', isSelected);
+    });
+
+    // Toggle tab info
+    currentDescriptionTab.forEach((page, i) => {
+        page.classList.toggle('active', i === index);
     });
 }
 
-// Return site to home state
 function homeButton() {
-    const tooltips = document.querySelectorAll('.tooltip');
-    deleteAllTooltips();
-    Object.values(homePageDescriptions).forEach(description => {
-        document.querySelector('.description-wrapper').appendChild(description);
-    });
-    currentDescriptionPage = Object.values(homePageDescriptions);
-    visibleTooltip = homePageDescriptions['about'];
-    updateHeaderButtonTitles(['About','Mission','Accuracy','Sources']);
-
-    // Return to home description
-    changeActiveHeaderButton('header-button-1', 0);
+    // Clear the Description Panel
+    clearDescriptionPanel();
+    clearSelectedNode();
     const homeButton = document.getElementById('home-button');
     homeButton.style.visibility = 'hidden';
 
-    // Return border color of deselected node if there is one
-    clearSelectedNode()
+    // Build the Home Description Panel
+    Object.values(homePageDescriptions).forEach(description => {
+        document.querySelector('.description-wrapper').appendChild(description);
+    });
+    currentDescriptionTab = Object.values(homePageDescriptions);
+    updateHeaderTabTitles(['About','Mission','Accuracy','Sources']);
+    changeActiveHeaderTab('header-button-1', 0);
 }
 
-// Function to update header buttons
-function updateHeaderButtonTitles(labels) {
-    const headerButtons = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
-    headerButtons.forEach((btnId, index) => {
+function updateHeaderTabTitles(labels) {
+    headerTabs.forEach((btnId, index) => {
         const btn = document.getElementById(btnId);
         btn.innerHTML = `<b>${labels[index]}</b>`;
     });
 }
 
-function deleteAllTooltips() {
-    const tooltips = document.querySelectorAll('.tooltip');
-    tooltips.forEach(tooltip => {
-        tooltip.parentNode.removeChild(tooltip);
+function clearDescriptionPanel() {
+    const nodeinfos = document.querySelectorAll('.nodeinfo');
+    nodeinfos.forEach(nodeinfo => {
+        nodeinfo.parentNode.removeChild(nodeinfo);
     });
 }

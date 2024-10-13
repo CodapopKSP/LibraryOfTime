@@ -17,8 +17,9 @@ let calendarType = 'gregorian-proleptic';
 
 let selectedNode = '';              // The current selected node, blank if none
 let dateInput = '';                 // Text string from the date input box
-let currentDescriptionPage = [];    // The current arrangement of information to be displayed in the description box
+let currentDescriptionTab = [];    // The current arrangement of information to be displayed in the description box
 let updateIntervalId;               // The current interval ID for spreading calculations out so they don't happen all at once
+const headerTabs = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
 
 // Get Timezone offset for Timezone dropdown
 const now = new Date();
@@ -29,7 +30,22 @@ const offsetMinutes = Math.abs(timezoneOffset) % 60;
 const offsetSign = timezoneOffset > 0 ? "-" : "+";
 let formattedOffset = `UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
 
-// Create the nodes
+// Node parent elements
+const parentElements = {
+    'Solar Calendar': document.querySelector('.solar-calendars'),
+    'Computing Time': document.querySelector('.computing-time'),
+    'Standard Time': document.querySelector('.standard-time'),
+    'Decimal Time': document.querySelector('.decimal-time'),
+    'Other Time': document.querySelector('.other-time'),
+    'Lunisolar Calendar': document.querySelector('.lunisolar-calendars'),
+    'Lunar Calendar': document.querySelector('.lunar-calendars'),
+    'Proposed Calendar': document.querySelector('.proposed-calendars'),
+    'Other Calendar': document.querySelector('.other-calendars'),
+    'Astronomical Data': document.querySelector('.astronomical-data'),
+    'Pop Culture': document.querySelector('.pop-culture'),
+    'Politics': document.querySelector('.politics')
+};
+
 const nodeDataArrays = [
     standardTimeData,
     computingTimeData,
@@ -45,6 +61,7 @@ const nodeDataArrays = [
     politicalCycles
 ];
 
+// Create the node arrays
 nodeDataArrays.forEach(dataArray => {
     dataArray.forEach(item => {
         createNode(item);
@@ -53,10 +70,10 @@ nodeDataArrays.forEach(dataArray => {
 
 // Main function for 
 function updateDateAndTime(dateInput, calendarType, timezoneOffset, firstPass) {
-    let currentPass = 0;
-    let currentDateTime = '';
-    const decimals = 10; // Decimals to show in some nodes
-    const millisecondStart = 20; // The timeframe that 1s incrementing updates have each second, starting at 0ms
+    let currentPass = 0;            // The current update, used for offsetting when nodes are updated
+    let currentDateTime = '';       // Container for display datetime
+    const decimals = 10;            // Decimals to show in some nodes
+    const millisecondStart = 20;    // The timeframe that 1s incrementing updates have each second, starting at 0ms
 
     // If there is no date input
     if ((dateInput === 0)||(dateInput === undefined)) {
@@ -386,12 +403,12 @@ function convertUTCOffsetToMinutes(offsetString) {
     return totalMinutes;
 }
 
-// Display the initial panel info
+// Display the initial Description Panel
 homeButton();
 
 // Update the date and time every update tick
 updateIntervalId = setInterval(updateDateAndTime, updateMiliseconds);
-changeActiveHeaderButton('header-button-1', 0);
+changeActiveHeaderTab('header-button-1', 0);
 
 // Initial update
 updateDateAndTime(0, 'gregorian-proleptic', formattedOffset, true);
