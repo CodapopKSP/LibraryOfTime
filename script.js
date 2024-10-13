@@ -15,9 +15,9 @@ const updateMiliseconds = 20;       // Update tick length
 let gregJulDifference = 0;          // Place holder for calculating Julian/Gregorian/Astronomical display date
 let calendarType = 'gregorian-proleptic';
 
-let selectedNode = '';              // The current selected node, blank if none
-let dateInput = '';                 // Text string from the date input box
-let currentDescriptionTab = [];    // The current arrangement of information to be displayed in the description box
+let selectedNode = '';              // The current selected Node, blank if none
+let dateInput = '';                 // Text string from the Date Input
+let currentDescriptionTab = [];     // The current arrangement of information to be displayed in the Description Panel
 let updateIntervalId;               // The current interval ID for spreading calculations out so they don't happen all at once
 const headerTabs = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
 
