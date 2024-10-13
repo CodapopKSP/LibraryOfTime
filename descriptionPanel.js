@@ -6,6 +6,8 @@
     This is a collection of functions for drawing and handling the Description Panel.
 */
 
+const headerTabs = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
+
 function createHomePageDescription(contentKey, contentClass) {
     const description = document.createElement('div');
     description.classList.add('nodeinfo');

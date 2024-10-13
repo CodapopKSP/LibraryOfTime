@@ -11,24 +11,14 @@
 //https://archive.org/details/calendrical-calculations/page/n11/mode/2up
 //https://libgen.li/edition.php?id=138174808
 
-const updateMiliseconds = 20;       // Update tick length
-let gregJulDifference = 0;          // Place holder for calculating Julian/Gregorian/Astronomical display date
-let calendarType = 'gregorian-proleptic';
+// Settings
+const updateMiliseconds = 20;   // Update tick length
+const decimals = 10;            // Decimals to show in some nodes
+const millisecondStart = 20;    // The timeframe that 1s incrementing updates have each second, starting at 0ms
 
+// Global Containers
 let selectedNode = '';              // The current selected Node, blank if none
-let dateInput = '';                 // Text string from the Date Input
 let currentDescriptionTab = [];     // The current arrangement of information to be displayed in the Description Panel
-let updateIntervalId;               // The current interval ID for spreading calculations out so they don't happen all at once
-const headerTabs = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
-
-// Get Timezone offset for Timezone dropdown
-const now = new Date();
-const timezoneOffset = now.getTimezoneOffset();
-// Convert offset to hours and minutes
-const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
-const offsetMinutes = Math.abs(timezoneOffset) % 60;
-const offsetSign = timezoneOffset > 0 ? "-" : "+";
-let formattedOffset = `UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
 
 // Node parent elements
 const parentElements = {
@@ -68,235 +58,104 @@ nodeDataArrays.forEach(dataArray => {
     });
 });
 
-// Main function for 
-function updateDateAndTime(dateInput, calendarType, timezoneOffset, firstPass) {
-    let currentPass = 0;            // The current update, used for offsetting when nodes are updated
-    let currentDateTime = '';       // Container for display datetime
-    const decimals = 10;            // Decimals to show in some nodes
-    const millisecondStart = 20;    // The timeframe that 1s incrementing updates have each second, starting at 0ms
+function getFormattedTimezoneOffset() {
+    const now = new Date();
+    const timezoneOffset = now.getTimezoneOffset();
+    const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
+    const offsetMinutes = Math.abs(timezoneOffset) % 60;
+    const offsetSign = timezoneOffset > 0 ? "-" : "+";
+    return formattedOffset = `UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
+}
 
-    // If there is no date input
-    if ((dateInput === 0)||(dateInput === undefined)) {
-        currentDateTime = new Date();
+function parseInputDate(dateInput, timezoneOffset) {
+    let [inputDate, inputTime] = dateInput.split(', ');
+    let [inputYear, inputMonth, inputDay] = inputDate ? inputDate.split('-') : [0, 0, 1];
+    let [inputHour, inputMinute, inputSecond] = inputTime ? inputTime.split(':') : [0, 0, 0];
+    
+    const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
+    let dateTime = new Date(Date.UTC(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute - offsetInMinutes, inputSecond));
+    dateTime.setUTCFullYear(inputYear);
 
-        // Create pass number for optimization so that calendars don't all update constantly
-        currentPass = currentDateTime.getSeconds();
+    return dateTime;
+}
 
-    // There is a date input
-    } else {
-        let inputYear = 0;
-        let inputMonth = 0;
-        let inputDay = 1; // Default to 1st if not provided
-        let inputHour = 0;
-        let inputMinute = 0;
-        let inputSecond = 0;
-
-        const dateTimeParts = dateInput.split(', ');
-
-        if (dateTimeParts[0]) {
-            const dateParts = dateTimeParts[0].split('-');
-            if (dateParts[0]) {
-                inputYear = dateParts[0];
-            }
-            if (dateParts[1]) {
-                inputMonth = dateParts[1] - 1; // Month is zero-based
-            }
-            if (dateParts[2]) {
-                inputDay = dateParts[2];
-            }
-        }
-
-        if (dateTimeParts[1]) {
-            const timeParts = dateTimeParts[1].split(':');
-            if (timeParts[0]) {
-                inputHour = timeParts[0];
-            }
-            if (timeParts[1]) {
-                inputMinute = timeParts[1];
-            }
-            if (timeParts[2]) {
-                inputSecond = timeParts[2];
-            }
-        }
-
-        const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
-        currentDateTime = new Date(Date.UTC(inputYear, inputMonth, inputDay, inputHour, inputMinute-offsetInMinutes, inputSecond));
-        currentDateTime.setUTCFullYear(inputYear);
-        currentPass = 100;
-    }
-
-    // Website just loaded, so update all calendars
-    if (firstPass===true) {
-        currentPass = 100;
-    }
-
-    // Get difference between Julian and Gregorian
+function adjustCalendarDate(currentDateTime, calendarType) {
+    let gregJulDifference = 0;
     gregJulDifference = differenceInDays(currentDateTime, getJulianDate(currentDateTime));
-
-    // User chose Julian
-    if (calendarType==='julian-liturgical') {
-        // No Year 0 exists, so add 1 to negative years
-        if (currentDateTime.getFullYear() < 0) {
-            currentDateTime.setFullYear(currentDateTime.getFullYear()+1);
-        
-        // No Year 0 exists, so return current date
-        } else if (currentDateTime.getFullYear()===0) {
-            currentDateTime = new Date();
-        }
-        currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
-
-    // User chose Astronomical
-    } else if (calendarType==='astronomical') {
-        const startOfGregorian = new Date(1582, 9, 15);
-        if (currentDateTime<startOfGregorian) {
-            currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
-        }
+    switch (calendarType) {
+        case 'julian-liturgical':
+            currentDateTime = adjustForJulianLiturgical(currentDateTime, gregJulDifference);
+            break;
+        case 'astronomical':
+            currentDateTime = adjustForAstronomical(currentDateTime, gregJulDifference);
+            break;
     }
+    return currentDateTime;
+}
+
+function adjustForJulianLiturgical(currentDateTime, gregJulDifference) {
+    // No Year 0 exists, so add 1 to negative years
+    if (currentDateTime.getFullYear() < 0) {
+        currentDateTime.setFullYear(currentDateTime.getFullYear()+1);
+    
+    // No Year 0 exists, so return current date as fallback
+    } else if (currentDateTime.getFullYear()===0) {
+        currentDateTime = new Date();
+    }
+    currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
+    return currentDateTime;
+}
+
+function adjustForAstronomical(currentDateTime, gregJulDifference) {
+    const startOfGregorian = new Date(1582, 9, 15);
+    if (currentDateTime < startOfGregorian) {
+        currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
+    }
+    return currentDateTime;
+}
+
+function updateDateAndTime(dateInput, calendarType, timezoneOffset, firstPass) {
+    let currentDateTime = dateInput ? parseInputDate(dateInput, timezoneOffset) : new Date();
+    let currentPass = (firstPass || dateInput) ? 100 : currentDateTime.getSeconds();
+
+    // Make adjustments based on calendar choice
+    currentDateTime = adjustCalendarDate(currentDateTime, calendarType);
 
     // Calculations that are used by multiple nodes
     const julianDay = getJulianDayNumber(currentDateTime)
     const dayFraction = calculateDay(currentDateTime)
     const marsSolDay = getMarsSolDate(julianDay);
 
-    // All fractional times
     if ((currentDateTime.getMilliseconds() < millisecondStart)||(currentPass===100)) {
         setTimeValue('local-time-node', getGregorianDateTime(currentDateTime).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }
-    setTimeValue('day-node', dayFraction.toFixed(decimals));
-    setTimeValue('month-node', calculateMonth(currentDateTime).toFixed(decimals));
-    setTimeValue('year-node', calculateYear(currentDateTime).toFixed(decimals));
-    setTimeValue('hour-node', calculateHour(currentDateTime).toFixed(decimals));
-    setTimeValue('minute-node', calculateMinute(currentDateTime).toFixed(decimals));
-    // Create the illusion of actual microsecond calculation
-    if ((dateInput === 0)||(dateInput === undefined)) {
-        setTimeValue('second-node', calculateSecond(currentDateTime));
-    } else {
-        setTimeValue('second-node', '0.0000000000');
-    }
-    setTimeValue('decade-node', calculateDecade(currentDateTime).toFixed(decimals));
-    setTimeValue('century-node', calculateCentury(currentDateTime).toFixed(decimals));
+    updateFractionalTimes(currentDateTime, dayFraction, dateInput);
     if ((currentDateTime.getMilliseconds() > 900)||(currentPass===100)) {
         setTimeValue('millennium-node', calculateMillennium(currentDateTime).toFixed(decimals));
     }
-
-    // Computing Times
     setTimeValue('julian-day-number-node', julianDay);
     setTimeValue('terrestrial-time-node', getTerrestrialTimeOffset(currentDateTime));
     setTimeValue('iso8601-node', currentDateTime.toISOString());
     if ((currentDateTime.getMilliseconds() < millisecondStart)||(currentPass===100)) {
-        setTimeValue('unix-node', getUnixTime(currentDateTime));
-        setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
-        setTimeValue('gps-node', getGPSTime(currentDateTime));
-        setTimeValue('julian-period-node', getJulianPeriod(currentDateTime));
-        setTimeValue('rata-die-node', getRataDie(currentDateTime));
-        setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
-        setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
-        setTimeValue('lilian-date-node', getLilianDate(julianDay));
-        setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
-        setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
-        setTimeValue('julian-circad-number-node', getJulianCircadNumber(currentDateTime).toFixed(0));
-        setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
-
-        const lunationNumber = calculateLunationNumber(currentDateTime);
-        setTimeValue('lunation-number-node', lunationNumber);
-        setTimeValue('brown-lunation-number-node', getBrownLunationNumber(lunationNumber));
-        setTimeValue('goldstine-lunation-number-node', getGoldstineLunationNumber(lunationNumber));
-        setTimeValue('hebrew-lunation-number-node', getHebrewLunationNumber(lunationNumber));
-        setTimeValue('islamic-lunation-number-node', getIslamicLunationNumber(lunationNumber));
-        setTimeValue('thai-lunation-number-node', getThaiLunationNumber(lunationNumber));
+        updateComputingTimes(currentDateTime, julianDay, marsSolDay);
     }
-
-    // Decimal Time
-    setTimeValue('revolutionary-time-node', getRevolutionaryTime(dayFraction));
-    setTimeValue('beat-time-node', convertToSwatchBeats(currentDateTime));
-    setTimeValue('hexadecimal-node', getHexadecimalTime(dayFraction));
-    setTimeValue('binary-node', getBinaryTime(dayFraction));
-
-    // Other Time
-    setTimeValue('coordinated-mars-time-node', getMTC(marsSolDay));
-    setTimeValue('io-meridian-time-node', getIoPrimeMeridianTime(currentDateTime));
-    setTimeValue('europa-meridian-time-node', getEuropaPrimeMeridianTime(currentDateTime));
-    setTimeValue('ganymede-meridian-time-node', getGanymedePrimeMeridianTime(currentDateTime));
-    setTimeValue('callisto-meridian-time-node', getCallistoPrimeMeridianTime(currentDateTime));
-    setTimeValue('titan-meridian-time-node', getTitanPrimeMeridianTime(currentDateTime));
-
-    // Solar Calendars
+    updateOtherAndDecimalTimes(currentDateTime, dayFraction, marsSolDay);
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===8))||(currentPass===100)) {
-        const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
-        setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
-        setTimeValue('julian-node', getJulianCalendar(currentDateTime, calendarType));
-        setTimeValue('astronomical-node', getAstronomicalDate(currentDateTime));
-        setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
-        setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
-        setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'autumn')));
-        setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
-        setTimeValue('minguo-node', getMinguo(currentDateTime));
-        setTimeValue('thai-node', getThaiSolar(currentDateTime));
-        setTimeValue('juche-node', getJuche(currentDateTime));
-        setTimeValue('coptic-node', getCopticDate(currentDateTime));
-        setTimeValue('ethiopian-node', getEthiopianDate(currentDateTime));
-        setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
-        setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime));
-        setTimeValue('discordian-node', getDiscordianDate(currentDateTime));
-        setTimeValue('solar-hijri-node', getSolarHijriDate(currentDateTime, springEquinox));
-        setTimeValue('qadimi-node', getQadimiDate(currentDateTime));
-        setTimeValue('egyptian-civil-node', getEgyptianDate(currentDateTime));
-        setTimeValue('iso-week-date-node', getISOWeekDate(currentDateTime));
-        setTimeValue('haab-node', getHaabDate(currentDateTime));
+        updateSolarCalendars(currentDateTime, calendarType);
     }
-
-    // Other Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===9))||(currentPass===100)) {
-        setTimeValue('maya-long-count-node', getCurrentMayaLongCount(currentDateTime));
-        setTimeValue('tzolkin-node', getTzolkinDate(currentDateTime));
-        setTimeValue('lord-of-the-night-node', getLordOfTheNight(currentDateTime));
-        setTimeValue('darian-mars-node', getDarianMarsDate(getJulianSolDate(marsSolDay)));
-        setTimeValue('galilean-io-node', getGalileanDate(currentDateTime, 'Io'));
-        setTimeValue('galilean-europa-node', getGalileanDate(currentDateTime, 'Eu'));
-        setTimeValue('galilean-ganymede-node', getGalileanDate(currentDateTime, 'Gan'));
-        setTimeValue('galilean-callisto-node', getGalileanDate(currentDateTime, 'Cal'));
-        setTimeValue('darian-io-node', getDarianGalileanDate(currentDateTime, 'Io'));
-        setTimeValue('darian-europa-node', getDarianGalileanDate(currentDateTime, 'Eu'));
-        setTimeValue('darian-ganymede-node', getDarianGalileanDate(currentDateTime, 'Gan'));
-        setTimeValue('darian-callisto-node', getDarianGalileanDate(currentDateTime, 'Cal'));
-        setTimeValue('darian-titan-node', getDarianTitanDate(currentDateTime));
-        setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
-        setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
-        setTimeValue('olympiad-node', getOlympiad(currentDateTime));
+        updateOtherCalendars(currentDateTime, marsSolDay);
     }
-
-    // Lunisolar and Lunar Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===1))||(currentPass===100)) {
-        const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
-        let lastYear = new Date(currentDateTime);
-        lastYear.setFullYear(currentDateTime.getFullYear()-1);
-        const winterSolsticeLastYear = getCurrentSolsticeOrEquinox(lastYear, 'winter');
-        const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
-        const newMoonLastMonth = getNewMoonThisMonth(currentDateTime, -1);
-        let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 16); // China midnight happens at UTC 16:00
-        let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina, 'china');
-        setTimeValue('chinese-node', chineseCalendar);
-        setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
-        let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 15); // Vietnam midnight happens at UTC 15:00
-        setTimeValue('vietnamese-node', getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam, 'vietnam'));
-        let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 17); // Korea midnight happens at UTC 17:00
-        setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea, 'korea'));
-        setTimeValue('hijri-node', getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth)); // Returns a wrong day for May 8 2024
+        updateLunisolarCalendars(currentDateTime);
     }
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===3))||(currentPass===100)) {
         setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime)); // Returns a wrong day for October 10 1989
     }
-
-    // Proposed Calendars
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===5))||(currentPass===100)) {
-        setTimeValue('human-era-node', getHumanEra(currentDateTime));
-        setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
-        setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
-        setTimeValue('symmetry454-node', getSymmetry454Date(currentDateTime));
+        updateProposedCalendars(currentDateTime);
     }
-
-    // Astronomical Data
     if ((((currentDateTime.getMilliseconds() > 500)&&(currentDateTime.getMilliseconds() < 500 + millisecondStart))&&(currentPass===6))||(currentPass===100)) {
         setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
         setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
@@ -322,6 +181,129 @@ function updateDateAndTime(dateInput, calendarType, timezoneOffset, firstPass) {
     setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
 }
 
+function updateSolarCalendars(currentDateTime, calendarType) {
+    const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
+    setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
+    setTimeValue('julian-node', getJulianCalendar(currentDateTime, calendarType));
+    setTimeValue('astronomical-node', getAstronomicalDate(currentDateTime));
+    setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
+    setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
+    setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'autumn')));
+    setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
+    setTimeValue('minguo-node', getMinguo(currentDateTime));
+    setTimeValue('thai-node', getThaiSolar(currentDateTime));
+    setTimeValue('juche-node', getJuche(currentDateTime));
+    setTimeValue('coptic-node', getCopticDate(currentDateTime));
+    setTimeValue('ethiopian-node', getEthiopianDate(currentDateTime));
+    setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
+    setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime));
+    setTimeValue('discordian-node', getDiscordianDate(currentDateTime));
+    setTimeValue('solar-hijri-node', getSolarHijriDate(currentDateTime, springEquinox));
+    setTimeValue('qadimi-node', getQadimiDate(currentDateTime));
+    setTimeValue('egyptian-civil-node', getEgyptianDate(currentDateTime));
+    setTimeValue('iso-week-date-node', getISOWeekDate(currentDateTime));
+    setTimeValue('haab-node', getHaabDate(currentDateTime));
+}
+
+function updateLunisolarCalendars(currentDateTime) {
+    const winterSolstice = getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
+    let lastYear = new Date(currentDateTime);
+    lastYear.setFullYear(currentDateTime.getFullYear()-1);
+    const winterSolsticeLastYear = getCurrentSolsticeOrEquinox(lastYear, 'winter');
+    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
+    const newMoonLastMonth = getNewMoonThisMonth(currentDateTime, -1);
+    let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 16); // China midnight happens at UTC 16:00
+    let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina, 'china');
+    setTimeValue('chinese-node', chineseCalendar);
+    setTimeValue('sexagenary-year-node', getSexagenaryYear(chineseCalendar));
+    let lunisolarCalendarVietnam = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 15); // Vietnam midnight happens at UTC 15:00
+    setTimeValue('vietnamese-node', getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam, 'vietnam'));
+    let lunisolarCalendarKorea = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 17); // Korea midnight happens at UTC 17:00
+    setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea, 'korea'));
+    setTimeValue('hijri-node', getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth)); // Returns a wrong day for May 8 2024
+}
+
+function updateOtherCalendars(currentDateTime, marsSolDay) {
+    setTimeValue('maya-long-count-node', getCurrentMayaLongCount(currentDateTime));
+    setTimeValue('tzolkin-node', getTzolkinDate(currentDateTime));
+    setTimeValue('lord-of-the-night-node', getLordOfTheNight(currentDateTime));
+    setTimeValue('darian-mars-node', getDarianMarsDate(getJulianSolDate(marsSolDay)));
+    setTimeValue('galilean-io-node', getGalileanDate(currentDateTime, 'Io'));
+    setTimeValue('galilean-europa-node', getGalileanDate(currentDateTime, 'Eu'));
+    setTimeValue('galilean-ganymede-node', getGalileanDate(currentDateTime, 'Gan'));
+    setTimeValue('galilean-callisto-node', getGalileanDate(currentDateTime, 'Cal'));
+    setTimeValue('darian-io-node', getDarianGalileanDate(currentDateTime, 'Io'));
+    setTimeValue('darian-europa-node', getDarianGalileanDate(currentDateTime, 'Eu'));
+    setTimeValue('darian-ganymede-node', getDarianGalileanDate(currentDateTime, 'Gan'));
+    setTimeValue('darian-callisto-node', getDarianGalileanDate(currentDateTime, 'Cal'));
+    setTimeValue('darian-titan-node', getDarianTitanDate(currentDateTime));
+    setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
+    setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
+    setTimeValue('olympiad-node', getOlympiad(currentDateTime));
+}
+
+function updateFractionalTimes(currentDateTime, dayFraction, dateInput) {
+    setTimeValue('day-node', dayFraction.toFixed(decimals));
+    setTimeValue('month-node', calculateMonth(currentDateTime).toFixed(decimals));
+    setTimeValue('year-node', calculateYear(currentDateTime).toFixed(decimals));
+    setTimeValue('hour-node', calculateHour(currentDateTime).toFixed(decimals));
+    setTimeValue('minute-node', calculateMinute(currentDateTime).toFixed(decimals));
+    // Create the illusion of actual microsecond calculation
+    if ((dateInput === 0)||(dateInput === undefined)) {
+        setTimeValue('second-node', calculateSecond(currentDateTime));
+    } else {
+        setTimeValue('second-node', '0.0000000000');
+    }
+    setTimeValue('decade-node', calculateDecade(currentDateTime).toFixed(decimals));
+    setTimeValue('century-node', calculateCentury(currentDateTime).toFixed(decimals));
+}
+
+function updateComputingTimes(currentDateTime, julianDay, marsSolDay) {
+    setTimeValue('unix-node', getUnixTime(currentDateTime));
+    setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
+    setTimeValue('gps-node', getGPSTime(currentDateTime));
+    setTimeValue('julian-period-node', getJulianPeriod(currentDateTime));
+    setTimeValue('rata-die-node', getRataDie(currentDateTime));
+    setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
+    setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
+    setTimeValue('lilian-date-node', getLilianDate(julianDay));
+    setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
+    setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
+    setTimeValue('julian-circad-number-node', getJulianCircadNumber(currentDateTime).toFixed(0));
+    setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
+
+    const lunationNumber = calculateLunationNumber(currentDateTime);
+    setTimeValue('lunation-number-node', lunationNumber);
+    setTimeValue('brown-lunation-number-node', getBrownLunationNumber(lunationNumber));
+    setTimeValue('goldstine-lunation-number-node', getGoldstineLunationNumber(lunationNumber));
+    setTimeValue('hebrew-lunation-number-node', getHebrewLunationNumber(lunationNumber));
+    setTimeValue('islamic-lunation-number-node', getIslamicLunationNumber(lunationNumber));
+    setTimeValue('thai-lunation-number-node', getThaiLunationNumber(lunationNumber));
+}
+
+function updateProposedCalendars(currentDateTime) {
+    setTimeValue('human-era-node', getHumanEra(currentDateTime));
+    setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime));
+    setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime));
+    setTimeValue('symmetry454-node', getSymmetry454Date(currentDateTime));
+}
+
+function updateOtherAndDecimalTimes(currentDateTime, dayFraction, marsSolDay) {
+    // Decimal Time
+    setTimeValue('revolutionary-time-node', getRevolutionaryTime(dayFraction));
+    setTimeValue('beat-time-node', convertToSwatchBeats(currentDateTime));
+    setTimeValue('hexadecimal-node', getHexadecimalTime(dayFraction));
+    setTimeValue('binary-node', getBinaryTime(dayFraction));
+
+    // Other Time
+    setTimeValue('coordinated-mars-time-node', getMTC(marsSolDay));
+    setTimeValue('io-meridian-time-node', getIoPrimeMeridianTime(currentDateTime));
+    setTimeValue('europa-meridian-time-node', getEuropaPrimeMeridianTime(currentDateTime));
+    setTimeValue('ganymede-meridian-time-node', getGanymedePrimeMeridianTime(currentDateTime));
+    setTimeValue('callisto-meridian-time-node', getCallistoPrimeMeridianTime(currentDateTime));
+    setTimeValue('titan-meridian-time-node', getTitanPrimeMeridianTime(currentDateTime));
+}
+
 // Main function for populating a node
 function setTimeValue(type, value) {
     document.getElementById(type).textContent = value;
@@ -332,6 +314,7 @@ function changeDateTime() {
     clearInterval(updateIntervalId);
     // Get the value entered in the input box
     const newDateString = document.getElementById('date-input').value;
+    let calendarType = 'gregorian-proleptic';
     calendarType = document.getElementById('calendar-type').value;
     let timezoneChoice = document.getElementById('timezone').value;
 
@@ -376,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const option = document.createElement('option');
         option.value = timezone;
         option.text = timezone;
-        if (timezone === formattedOffset) {
+        if (timezone === getFormattedTimezoneOffset()) {
             option.selected = true;
         }
         timezoneSelect.appendChild(option);
@@ -388,27 +371,19 @@ function convertUTCOffsetToMinutes(offsetString) {
     const regex = /^UTC([+-])(\d{2}):(\d{2})$/;
     const match = offsetString.trim().match(regex);
 
-    if (!match) {
-        throw new Error("Invalid UTC offset format. Expected format: UTC±HH:MM");
-    }
-
     // Extract the sign, hours, and minutes from the matched parts
     const sign = match[1] === "+" ? 1 : -1;
     const hours = parseInt(match[2], 10);
     const minutes = parseInt(match[3], 10);
 
     // Convert the total offset to minutes
-    const totalMinutes = sign * (hours * 60 + minutes);
-
-    return totalMinutes;
+    return sign * (hours * 60 + minutes);
 }
 
 // Display the initial Description Panel
 homeButton();
-
-// Update the date and time every update tick
-updateIntervalId = setInterval(updateDateAndTime, updateMiliseconds);
 changeActiveHeaderTab('header-button-1', 0);
 
 // Initial update
-updateDateAndTime(0, 'gregorian-proleptic', formattedOffset, true);
+let updateIntervalId = setInterval(updateDateAndTime, updateMiliseconds);
+updateDateAndTime(0, 'gregorian-proleptic', getFormattedTimezoneOffset(), true);
