@@ -65,10 +65,73 @@ function createEpochElement(item) {
     epochElement.innerHTML = `
         <table class="table-epoch">
             <tr><th><b>Epoch</b></th></tr>
-            <tr><td>${item.epoch}</td></tr>
+            <tr><td class="clickable-epoch">${item.epoch}</td></tr>
         </table>`;
     epochElement.classList.add('nodeinfo-epoch');
+
+    // Enable Epoch to be clicked
+    const tdElement = epochElement.querySelector('.clickable-epoch');
+    tdElement.addEventListener('click', function() {
+        handleEpochClick(item.epoch); // Function to be called on click
+    });
+
+    tdElement.addEventListener('mouseenter', function() {
+        tdElement.classList.add('hovering');
+    });
+    tdElement.addEventListener('mouseleave', function() {
+        tdElement.classList.remove('hovering');
+    });
+
     return epochElement;
+}
+
+function handleEpochClick(epoch) {
+    console.log(formatDateTime(epoch));
+    changeDateTime(formatDateTime(epoch));
+}
+
+
+function formatDateTime(dateString) {
+    // Handle BCE/CE
+    let era = '';
+    if (dateString.includes('BCE')) {
+        era = 'BCE';
+        dateString = dateString.replace('BCE', '').trim();
+    } else if (dateString.includes('CE')) {
+        era = 'CE';
+        dateString = dateString.replace('CE', '').trim();
+    }
+
+    // Extract the date and time parts
+    let [datePart, timePart] = dateString.split('+');
+
+    // Extract the day, month, and year from the date part
+    let [day, monthStr, yearStr] = datePart.split(' ');
+    const inputYear = parseInt(yearStr, 10);
+    const monthIndex = monthNames.indexOf(monthStr);
+
+    // Create a new Date object with the proper day, month, and year
+    const date = new Date(Date.UTC(inputYear, monthIndex, parseInt(day, 10)));
+
+    // Set the actual year correctly using setUTCFullYear for BCE/CE
+    date.setUTCFullYear(era === 'BCE' ? -inputYear : inputYear);
+
+    // Format the date into yyyy-mm-dd
+    const year = String(date.getUTCFullYear()).padStart(4, '0'); // Ensure year is always four digits
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const dayFormatted = String(date.getUTCDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${dayFormatted}`;
+
+    // Handle time part (optional)
+    let formattedTime = '00:00:00';
+    if (timePart) {
+        // Format time into hh:mm:ss
+        const [hours, minutes, seconds] = timePart.split(':');
+        formattedTime = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
+    }
+
+    // Return formatted date and time
+    return `${formattedDate}, ${formattedTime}`;
 }
 
 function createConfidenceElement(item) {

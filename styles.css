@@ -459,6 +459,12 @@ th, td {
     color: #6f986a;
 }
 
+.clickable-epoch.hovering {
+    background-color: rgb(60, 60, 60);
+    cursor: pointer;
+    z-index: 100;
+}
+
 
 /*
 |====================|

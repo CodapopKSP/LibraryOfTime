@@ -12,6 +12,8 @@ const decimals = 10;            // Decimals to show in some nodes
 // Global Containers
 let selectedNode = '';              // The current selected Node, blank if none
 let currentDescriptionTab = [];     // The current arrangement of information to be displayed in the Description Panel
+let calendarType = 'gregorian-proleptic';
+let gregJulDifference = 0;
 
 // Node parent elements
 const parentElements = {
@@ -69,12 +71,31 @@ function convertUTCOffsetToMinutes(offsetString) {
 // Return a formatted dateTime based on the user's date from the input field
 function parseInputDate(dateInput, timezoneOffset) {
     let [inputDate, inputTime] = dateInput.split(', ');
-    let [inputYear, inputMonth, inputDay] = inputDate ? inputDate.split('-') : [0, 0, 1];
-    let [inputHour, inputMinute, inputSecond] = inputTime ? inputTime.split(':') : [0, 0, 0];
-    
+    let BCE = false;
+
+    // Check if the year is BCE and remove the leading '-' if present
+    if (inputDate.startsWith('-')) {
+        BCE = true;
+        inputDate = inputDate.substring(1); // Remove the '-' from the year part
+    }
+
+    // Parse date parts
+    let [inputYear, inputMonth, inputDay] = inputDate ? inputDate.split('-').map(Number) : [0, 1, 1];
+    let [inputHour, inputMinute, inputSecond] = inputTime ? inputTime.split(':').map(Number) : [0, 0, 0];
+
+    // Calculate timezone offset in minutes
     const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
-    let dateTime = new Date(Date.UTC(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute - offsetInMinutes, inputSecond));
-    dateTime.setUTCFullYear(inputYear);
+
+    // Create a Date object using Date.UTC, setting the year to 0 initially
+    let dateTime = new Date(Date.UTC(0, inputMonth - 1, inputDay, inputHour, inputMinute - offsetInMinutes, inputSecond));
+
+    // Set the correct year using setUTCFullYear
+    if (BCE) {
+        // Handle BCE dates: Negative year
+        dateTime.setUTCFullYear(inputYear * -1);
+    } else {
+        dateTime.setUTCFullYear(inputYear);
+    }
     return dateTime;
 }
 
@@ -126,7 +147,7 @@ function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPass) {
     let currentPass = (firstPass || dateInput) ? 100 : currentDateTime.getSeconds();
 
     // Make adjustments based on calendar choice
-    currentDateTime = adjustCalendarDate(currentDateTime, calendarType);
+    //currentDateTime = adjustCalendarDate(currentDateTime, calendarType);
 
     // Calculations that are used by multiple nodes
     const julianDay = getJulianDayNumber(currentDateTime)
@@ -191,11 +212,13 @@ function setTimeValue(type, value) {
 }
 
 // Read the input box and set the date or restart the current time ticker
-function changeDateTime() {
+function changeDateTime(newDateString = '') {
     clearInterval(updateIntervalId);
-    // Get the value entered in the input box
-    const newDateString = document.getElementById('date-input').value;
-    let calendarType = 'gregorian-proleptic';
+
+    // If newDateString isn't provided, use the input box value
+    if (newDateString === '') {
+        newDateString = document.getElementById('date-input').value;
+    }
     calendarType = document.getElementById('calendar-type').value;
     let timezoneChoice = document.getElementById('timezone').value;
 
