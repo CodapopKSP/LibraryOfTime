@@ -168,7 +168,7 @@ const computingTimeData = [
         epoch: '6 January 1980 CE',
         confidence: 'Exact',
         overview: 'GPS time is the standard by which all GPS satellites and GPS-enabled devices coordinate their positions. It is a simple count of seconds from midnight on January 6th, 1980. When converted into the Gregorian calendar, it drifts ahead by a second every now and then as it does not follow leap seconds found in other timekeeping standards.',
-        info: 'GPC became available to the public in 2000 CE.',
+        info: 'GPS became available to the public in 2000 CE.',
         accuracy: `This clock is considered to be perfectly accurate, as it's a simple calculation from Unix.`,
         source: 'Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping">Wikipedia article</a>.\n\nSome information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.'
     },
