@@ -20,10 +20,10 @@ function createHomePageDescription(contentKey, contentClass) {
 
 // Create descriptions for Home Page tabs
 const homePageDescriptions = {
-    about: createHomePageDescription('about', 'nodeinfo-info'),
-    mission: createHomePageDescription('mission', 'nodeinfo-mission'),
-    accuracy: createHomePageDescription('accuracy', 'nodeinfo-accuracy'),
-    sources: createHomePageDescription('sources', 'nodeinfo-sources'),
+    about: createHomePageDescription('about', 'home-info'),
+    mission: createHomePageDescription('mission', 'home-mission'),
+    accuracy: createHomePageDescription('accuracy', 'home-accuracy'),
+    sources: createHomePageDescription('sources', 'home-sources'),
 };
 
 function createTitleElement(name) {
@@ -144,17 +144,17 @@ function createConfidenceElement(item) {
     return confidenceElement;
 }
 
-function changeActiveHeaderTab(selectedTab, index) {
-    // Toggle selected tab header
+function changeActiveHeaderTab(activeTab, index) {
+    // Toggle active tab header
     headerTabs.forEach((tabID) => {
         const tab = document.getElementById(tabID);
-        const isSelected = tabID === selectedTab;
-        tab.classList.toggle('selected', isSelected);
+        const isSelected = tabID === activeTab;
+        tab.classList.toggle('activeTab', isSelected);
     });
 
     // Toggle tab info
     currentDescriptionTab.forEach((page, i) => {
-        page.classList.toggle('active', i === index);
+        page.classList.toggle('activePage', i === index);
     });
 }
 

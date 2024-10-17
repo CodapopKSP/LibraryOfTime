@@ -9,6 +9,13 @@ a {
     color: rgb(187, 211, 255);
 }
 
+
+/*
+|==========|
+|  Layout  |
+|==========|
+*/
+
 .page-wrapper {
     background-color: rgb(47, 47, 47);
     height: 100vh;
@@ -74,6 +81,13 @@ a {
     grid-gap: 1vw;
 }
 
+
+/*
+|==============|
+|  Containers  |
+|==============|
+*/
+
 .container {
     display: flex;
     flex-direction: column;
@@ -82,6 +96,10 @@ a {
     border: 0.25vh solid #000000;
     margin: 0 1vh 1vh 0vh;
     width: 17vh;
+}
+
+.container-name {
+    font-size: 1.6vh;
 }
 
 .standard-time {
@@ -144,6 +162,12 @@ a {
     color: rgb(196, 215, 255);
 }
 
+
+/*
+|=========|
+|  Nodes  |
+|=========|
+*/
 
 .node {
     margin: 0.5vh;
@@ -223,63 +247,12 @@ a {
     background-color: rgb(150, 150, 150);
 }
 
-.container-name {
-    font-size: 1.6vh;
-}
 
-.nodeinfo {
-    position: relative;
-    visibility: hidden;
-    color: rgb(214, 214, 214);
-    text-align: center;
-    position: absolute;
-    z-index: 1;
-    font-size: 1.8vh;
-    width: 33vw;
-    top: 9vh;
-}
-
-.nodeinfo-title {
-    font-size: 2.5vh;
-    font-weight: bold;
-    padding: 0.5vh;
-    color: rgb(214, 214, 214);
-}
-
-.nodeinfo-title:after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 4vh;
-    transform: translateX(-50%);
-    width: 50%;
-    height: 0.3vh;
-    background-color: #cbcbcb;
-}
-
-.nodeinfo-epoch {
-    text-align: left;
-    padding-left: 10vh;
-    padding-right: 10vh;
-    padding-bottom: 1vh;
-    padding-top: 3vh;
-}
-
-.nodeinfo-confidence {
-    text-align: left;
-    padding-left: 10vh;
-    padding-right: 10vh;
-    padding-bottom: 1vh;
-}
-
-.pre-description {
-    position: absolute;
-    color: rgb(214, 214, 214);
-    padding-left: 1vh;
-    padding-right: 1vh;
-    font-size: 2vh;
-    top: 9vh;
-}
+/*
+|===============|
+|  Input Panel  |
+|===============|
+*/
 
 .input-box-wrapper {
     position: absolute;
@@ -332,9 +305,64 @@ a {
     border-color: #443c3c;
 }
 
-.centered {
-    display: block;
+
+/*
+|=====================|
+|  Description Pages  |
+|=====================|
+*/
+
+.nodeinfo {
+    position: relative;
+    visibility: hidden;
+    color: rgb(214, 214, 214);
     text-align: center;
+    position: absolute;
+    z-index: 1;
+    font-size: 1.8vh;
+    width: 33vw;
+    top: 9vh;
+}
+
+.nodeinfo-title {
+    font-size: 2.5vh;
+    font-weight: bold;
+    padding: 0.5vh;
+}
+
+.nodeinfo-title:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 4vh;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 0.3vh;
+    background-color: #cbcbcb;
+}
+
+.nodeinfo-epoch {
+    text-align: left;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 1vh;
+    padding-top: 3vh;
+}
+
+.nodeinfo-confidence {
+    text-align: left;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-bottom: 1vh;
+}
+
+.description-button-wrapper {
+    position: absolute;
+    top: 5.3vh;
+    min-width: 32.9vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .header-button {
@@ -347,26 +375,37 @@ a {
     box-shadow: none;
 }
 
+.activeTab {
+    border-bottom: 0;
+    background: rgb(55, 55, 55);
+}
+
 .description-page {
     visibility: hidden;
 }
 
-.active {
+.activePage {
     visibility: visible;
 }
 
-.description-button-wrapper {
-    position: absolute;
-    top: 5.3vh;
-    min-width: 32.9vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.home-info,
+.home-mission,
+.home-sources {
+    text-align: left;
+    padding: 1vh;
+    padding-top: 3vh;
+    white-space: pre-wrap;
+    text-align: justify;
+    margin: auto 1rem auto 1rem;
 }
 
-.selected {
-    border-bottom: 0;
-    background: rgb(55, 55, 55);
+.home-accuracy {
+    text-align: left;
+    padding: 1vh;
+    padding-top: 3vh;
+    white-space: pre-wrap;
+    text-align: justify;
+    margin: auto 0.5rem auto 0.5rem;
 }
 
 .nodeinfo-overview {
@@ -377,24 +416,21 @@ a {
     margin: auto 1rem auto 1rem;
 }
 
+.clickable-epoch.hovering {
+    background-color: rgb(60, 60, 60);
+    cursor: pointer;
+    z-index: 100;
+}
+
 .nodeinfo-info,
-.nodeinfo-mission,
-.nodeinfo-sources {
+.nodeinfo-accuracy,
+.nodeinfo-source {
     text-align: left;
     padding: 1vh;
     padding-top: 3vh;
     white-space: pre-wrap;
     text-align: justify;
     margin: auto 1rem auto 1rem;
-}
-
-.nodeinfo-accuracy {
-    text-align: left;
-    padding: 1vh;
-    padding-top: 3vh;
-    white-space: pre-wrap;
-    text-align: justify;
-    margin: auto 0.5rem auto 0.5rem;
 }
 
 .home-button {
@@ -409,6 +445,13 @@ a {
     border-width: 0.2vh;
     visibility: hidden;
 }
+
+
+/*
+|=======================|
+|  Tables and Elements  |
+|=======================|
+*/
 
 .presidential-terms-container {
     column-count: 2;
@@ -457,12 +500,6 @@ th, td {
 
 .table-confidence th {
     color: #6f986a;
-}
-
-.clickable-epoch.hovering {
-    background-color: rgb(60, 60, 60);
-    cursor: pointer;
-    z-index: 100;
 }
 
 
