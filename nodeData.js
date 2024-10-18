@@ -567,7 +567,7 @@ const solarCalendarsData = [
         name: 'French Republican (CET)',
         id: 'french-republican',
         type: 'Solar Calendar',
-        epoch: '22 September 1792 CE',
+        epoch: '22 September 1792 CE, +1:00:00',
         confidence: 'High',
         overview: `The French Republican calendar was used during and after the French Revolution from 1793 to 1805 and was a drastic change to the Gregorian calendar.\n\nIt featured twelve months of 30 days each, broken into 3 weeks of 10 days. The remaining 5 or 6 days of each solar year were the Sansculottides, to be treated as national holidays at the end of the year.\n\nThe new year started on the Autumn Equinox, and years were written in Roman numerals with the era name of \'l\'ère républicaine\', or \'Republican Era\', abbreviated here as \'RE\'.`,
         info: `<table class="table-long"><tr><th>Month</th><th>Days</th><th>Approx. Gregorian Dates</th></tr><tr><td>Vendémiaire</td><td>30</td><td>Sep 22 - Oct 21</td></tr><tr><td>Brumaire</td><td>30</td><td>Oct 22 - Nov 20</td></tr><tr><td>Frimaire</td><td>30</td><td>Nov 21 - Dec 20</td></tr><tr><td>Nivôse</td><td>30</td><td>Dec 21 - Jan 19</td></tr><tr><td>Pluviôse</td><td>30</td><td>Jan 20 - Feb 18</td></tr><tr><td>Ventôse</td><td>30</td><td>Feb 19 - Mar 20</td></tr><tr><td>Germinal</td><td>30</td><td>Mar 21 - Apr 19</td></tr><tr><td>Floréal</td><td>30</td><td>Apr 20 - May 19</td></tr><tr><td>Prairial</td><td>30</td><td>May 20 - Jun 18</td></tr><tr><td>Messidor</td><td>30</td><td>Jun 19 - Jul 18</td></tr><tr><td>Thermidor</td><td>30</td><td>Jul 19 - Aug 17</td></tr><tr><td>Fructidor</td><td>30</td><td>Aug 18 - Sep 16</td></tr><tr><td>Sansculottides</td><td>5 or 6</td><td>Sep 17 - Sep 21</td></tr></table>`,
