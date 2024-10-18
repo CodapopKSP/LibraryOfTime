@@ -357,7 +357,7 @@ const computingTimeData = [
         name: 'Goldstine Lunation Number',
         id: 'goldstine-lunation-number',
         type: 'Computing Time',
-        epoch: '11 January 1001 CE',
+        epoch: '11 January 1000 BCE',
         confidence: 'High',
         overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number was created by Herman Goldstine. It uses the New Moon of 11 January 1001 CE for its epoch, in this case denoted as Lunation 0.`,
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Goldstine Lunation Number can be calculated by adding 37105 to the Lunation Number.`,

@@ -319,41 +319,21 @@ function getGalileanDate(currentDateTime, body) {
 
 function getDarianGalileanDate(currentDateTime, body) {
     const DarianMonths = [
-        "Sagittarius",
-        "Dhanus",
-        "Capricornus",
-        "Makara",
-        "Aquarius",
-        "Khumba",
-        "Pisces",
-        "Mina",
-        "Aries",
-        "Mesha",
-        "Taurus",
-        "Rishabha",
-        "Gemini",
-        "Mithuna",
-        "Cancer",
-        "Karka",
-        "Leo",
-        "Simha",
-        "Virgo",
-        "Kanya",
-        "Libra",
-        "Tula",
-        "Scorpius",
-        "Vrishika"
+        "Sagittarius", "Dhanus", "Capricornus", "Makara", "Aquarius", "Khumba",
+        "Pisces", "Mina", "Aries", "Mesha", "Taurus", "Rishabha", 
+        "Gemini", "Mithuna", "Cancer", "Karka", "Leo", "Simha", 
+        "Virgo", "Kanya", "Libra", "Tula", "Scorpius", "Vrishika"
     ];
 
-    const GalileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
+    const GalileanWeek = ['Solis', 'Lunae', 'Terrae', 'Martis', 'Mercurii', 'Jovis', 'Veneris', 'Saturni'];
 
-    const daysInIoCallistoMonths = [32,32,32,32,32,32,32,32,32,32,32,40,32,32,32,32,32,32,32,32,32,32,32,32];
-    const daysInEuropaMonths = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32];
-    const daysInGanymedeMonths = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,24];
+    const daysInIoCallistoMonths = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
+    const daysInEuropaMonths = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
+    const daysInGanymedeMonths = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 24];
 
-    const daysInIoCallistoMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,40,32,32,32,32,32,32,32,32,32,32,32,40];
-    const daysInEuropaMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,40];
-    const daysInGanymedeMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32];
+    const daysInIoCallistoMonthsLeap = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40];
+    const daysInEuropaMonthsLeap = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40];
+    const daysInGanymedeMonthsLeap = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
 
     function isLeapYearIo(Y) {
         if (Y <= 3200) {
@@ -461,30 +441,32 @@ function getDarianGalileanDate(currentDateTime, body) {
 
     let epoch = new Date();
     let circad = 0;
-    if (body==='Io') {
+    if (body === 'Io') {
         epoch = new Date(Date.UTC(1609, 2, 13, 5, 29, 26));
         circad = 21.238325;
     }
-    if (body==='Eu') {
+    if (body === 'Eu') {
         epoch = new Date(Date.UTC(1609, 2, 12, 1, 19, 41));
         circad = 21.32456;
     }
-    if (body==='Gan') {
+    if (body === 'Gan') {
         epoch = new Date(Date.UTC(1609, 2, 11, 9, 52, 12));
         circad = 21.49916;
     }
-    if (body==='Cal') {
+    if (body === 'Cal') {
         epoch = new Date(Date.UTC(1609, 2, 17, 20, 57, 24));
         circad = 21.16238;
     }
 
     const dayMilliseconds = circad * 60 * 60 * 1000;
-    let daysSince = Math.floor((currentDateTime - epoch) / dayMilliseconds);
+    let daysSince = (currentDateTime - epoch) / dayMilliseconds;
     const isNegative = daysSince < 0;
     daysSince = Math.abs(daysSince);
 
-    const dayOfWeek = GalileanWeek[daysSince % 8];
+    const dayOfWeek = GalileanWeek[Math.floor(daysSince % 8)];
     let year = 0;
+    
+    // Calculate the year and day remaining within the year
     while (true) {
         let daysInYear = 0;
         if (body === 'Io') {
@@ -499,15 +481,23 @@ function getDarianGalileanDate(currentDateTime, body) {
         if (body === 'Cal') {
             daysInYear = isLeapYearCallisto(year) ? 784 : 776;
         }
+        
+        // Adjust for negative years and decrement properly
         if (daysSince < daysInYear) {
             break;
         }
         daysSince -= daysInYear;
         year += isNegative ? -1 : 1;
     }
+
+    if (isNegative) {
+        year--;  // Properly decrement the year if going backwards
+        daysSince = (isLeapYearIo(year) ? 784 : 776) - daysSince;
+    }
+
     let remainingDays = daysSince;
     let daysInMonthsArray = '';
-
+    
     if (body === 'Io') {
         daysInMonthsArray = isLeapYearIo(year) ? daysInIoCallistoMonthsLeap : daysInIoCallistoMonths;
     }
@@ -527,42 +517,23 @@ function getDarianGalileanDate(currentDateTime, body) {
         month++;
     }
 
-    const day = remainingDays + 1;
-    return day + ' ' + body + ' ' + DarianMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
+    const day = Math.trunc(remainingDays) + 1;
+    return `${day} ${body} ${DarianMonths[month]} ${year}\n${body} ${dayOfWeek}`;
 }
+
 
 function getDarianTitanDate(currentDateTime, body) {
     const DarianMonths = [
-        "Sagittarius",
-        "Dhanus",
-        "Capricornus",
-        "Makara",
-        "Aquarius",
-        "Khumba",
-        "Pisces",
-        "Mina",
-        "Aries",
-        "Mesha",
-        "Taurus",
-        "Rishabha",
-        "Gemini",
-        "Mithuna",
-        "Cancer",
-        "Karka",
-        "Leo",
-        "Simha",
-        "Virgo",
-        "Kanya",
-        "Libra",
-        "Tula",
-        "Scorpius",
-        "Vrishika"
+        "Sagittarius", "Dhanus", "Capricornus", "Makara", "Aquarius", "Khumba", 
+        "Pisces", "Mina", "Aries", "Mesha", "Taurus", "Rishabha", 
+        "Gemini", "Mithuna", "Cancer", "Karka", "Leo", "Simha", 
+        "Virgo", "Kanya", "Libra", "Tula", "Scorpius", "Vrishika"
     ];
 
     const GalileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
 
-    const titanMonthDays = [28,28,32,28,28,28,28,28,32,28,28,28,28,28,32,28,28,28,28,28,32,28,28,28];
-    const titanMonthDaysLeap = [28,28,32,28,28,28,28,28,32,28,28,32,28,28,32,28,28,28,28,28,32,28,28,32];
+    const titanMonthDays = [28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28];
+    const titanMonthDaysLeap = [28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 32, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 32];
 
     function isLeapYear(Y) {
         if (Y % 400 === 0) {
@@ -574,36 +545,51 @@ function getDarianTitanDate(currentDateTime, body) {
         return false;
     }
 
-    const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32));
-    const titanCircad = 0.998068439;
+    const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32)); // Titan epoch
+    const titanCircad = 0.998068439; // Titan "day" in Earth days
     const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
-    let titanDaysSince = (currentDateTime-epoch)/titanDayMilliseconds;
+    
+    // Calculate the total days since the epoch (positive or negative)
+    let titanDaysSince = (currentDateTime - epoch) / titanDayMilliseconds;
     const isNegative = titanDaysSince < 0;
     titanDaysSince = Math.abs(titanDaysSince);
 
     const dayOfWeek = GalileanWeek[Math.floor(titanDaysSince % 8)];
     let year = 0;
+    
+    // Calculate the year and remaining days within the year
     while (true) {
-        let daysInYear = 0;
-        daysInYear = isLeapYear(year) ? 696 : 688;
-        titanDaysSince -= daysInYear;
-        year += isNegative ? -1 : 1;
+        let daysInYear = isLeapYear(year) ? 696 : 688;
+        
         if (titanDaysSince < daysInYear) {
             break;
         }
+
+        titanDaysSince -= daysInYear;
+        year += isNegative ? -1 : 1;
     }
+    
+    // Handle negative years and reverse time correctly
+    if (isNegative) {
+        year -= 1;  // Adjust for a full reverse year
+        titanDaysSince = (isLeapYear(year) ? 696 : 688) - titanDaysSince;
+    }
+
+    // Calculate the month and day
     let remainingDays = titanDaysSince;
-    let daysInMonthsArray = '';
-    daysInMonthsArray = isLeapYear(year) ? titanMonthDaysLeap : titanMonthDays;
+    const daysInMonthsArray = isLeapYear(year) ? titanMonthDaysLeap : titanMonthDays;
     let month = 0;
+
     while (remainingDays >= daysInMonthsArray[month]) {
         remainingDays -= daysInMonthsArray[month];
         month++;
     }
 
     const day = Math.floor(remainingDays) + 1;
+
     return day + ' Ti ' + DarianMonths[month] + ' ' + year + '\nTi ' + dayOfWeek;
 }
+
 
 function getYugaCycle(currentDateTime) {
     const YugaCycle = [

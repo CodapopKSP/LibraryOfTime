@@ -15,7 +15,7 @@ function getMinecraftTime(currentDateTime) {
     // Convert milliseconds to Minecraft time
     const minecraftTime = Math.floor(millisecondsSinceMidnight / 50); // 1 Minecraft hour = 50 milliseconds
     const hoursSinceMidnight = Math.floor(minecraftTime / 1000);
-    let day = Math.trunc(hoursSinceMidnight / 24);
+    let day = Math.trunc(hoursSinceMidnight / 24)+1;
     let hours = hoursSinceMidnight % day;
     const minutes = Math.floor((minecraftTime % 1000) * 0.06);
     const seconds = Math.floor(((minecraftTime % 1000) * 0.06 - minutes) * 60);
