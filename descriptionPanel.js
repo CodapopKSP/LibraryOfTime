@@ -87,7 +87,7 @@ function createEpochElement(item) {
 
 function handleEpochClick(epoch) {
     console.log(formatDateTime(epoch));
-    changeDateTime(formatDateTime(epoch));
+    changeDateTime(formatDateTime(epoch), "UTC+00:00");
 }
 
 

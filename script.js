@@ -212,7 +212,7 @@ function setTimeValue(type, value) {
 }
 
 // Read the input box and set the date or restart the current time ticker
-function changeDateTime(newDateString = '') {
+function changeDateTime(newDateString = '', timezonePassthrough = '') {
     clearInterval(updateIntervalId);
 
     // If newDateString isn't provided, use the input box value
@@ -221,6 +221,9 @@ function changeDateTime(newDateString = '') {
     }
     calendarType = document.getElementById('calendar-type').value;
     let timezoneChoice = document.getElementById('timezone').value;
+    if (timezonePassthrough) {
+        timezoneChoice = timezonePassthrough;
+    }
 
     // Date was input, add it as an argument
     if (newDateString!=='') {
