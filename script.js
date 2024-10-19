@@ -102,7 +102,7 @@ function parseInputDate(dateInput, timezoneOffset) {
 // Calculate display date for user's calendar choice
 function adjustCalendarDate(currentDateTime, calendarType) {
     let gregJulDifference = 0;
-    gregJulDifference = differenceInDays(currentDateTime, getJulianDate(currentDateTime));
+    gregJulDifference = differenceInDays(currentDateTime, getRealJulianDate(currentDateTime));
     switch (calendarType) {
         case 'julian-liturgical':
             currentDateTime = adjustForJulianLiturgical(currentDateTime, gregJulDifference);
