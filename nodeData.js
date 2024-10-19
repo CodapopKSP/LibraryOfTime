@@ -237,7 +237,7 @@ const computingTimeData = [
         name: 'Julian Period',
         id: 'julian-period',
         type: 'Computing Time',
-        epoch: '24 November 4712 BCE, +12:00:00',
+        epoch: '24 November 4713 BCE, +12:00:00',
         confidence: 'High',
         overview: 'The Julian Period is a cycle of 7980 years beginning on 1 January 4712 BCE of the Julian calendar (or 4713 BCE when not using astronomical dates). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect.',
         info: 'The Julian Period is the count of days since the last time Indiction, Solar and Lunar cycles all started on the same day.',
