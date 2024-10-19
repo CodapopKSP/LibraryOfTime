@@ -324,7 +324,7 @@ const computingTimeData = [
         epoch: '23 January 3101 BCE +6:30:00',
         confidence: 'High',
         overview: `Kali Ahargaṅa is a simple count of days since the kali epoch. According to Hindu timekeeping, the current yuga, Kali Yuga, began in 3101 BCE and will last for 432,000 years, ending in 428,899 CE.\n\nKali Yuga is the fourth, shortest, and worst of the four yugas.`,
-        info: `Each yuga has a shorter dawn and duck period before and after the longer main period.\n\n<table><tr><th>Part</th><th>Start</th><th>Length</th></tr><tr><td>Kali-yuga-sandhya (dawn)</td><td>3102 BCE</td><td>36,000 (100)</td></tr><tr><td>Kali-yuga (proper)</td><td>32,899 CE</td><td>360,000 (1,000)</td></tr><tr><td>Kali-yuga-sandhyamsa (dusk)</td><td>392,899–428,899 CE</td><td>36,000 (100)</td></tr></table>`,
+        info: `Each yuga has a shorter dawn and dusk period before and after the longer main period.\n\n<table><tr><th>Part</th><th>Start</th><th>Length</th></tr><tr><td>Kali-yuga-sandhya (dawn)</td><td>3102 BCE</td><td>36,000 (100)</td></tr><tr><td>Kali-yuga (proper)</td><td>32,899 CE</td><td>360,000 (1,000)</td></tr><tr><td>Kali-yuga-sandhyamsa (dusk)</td><td>392,899–428,899 CE</td><td>36,000 (100)</td></tr></table>`,
         accuracy: 'The Kali Ahargaṅa is based off the Gregorian calendar and is considered to be very accurate compared with historical records.',
         source: `Much of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Kali_ahargana">Wikipedia article</a>.\n\nYou can find another converter for this system <a href="https://planetcalc.com/9166/">here</a>.`
     },
