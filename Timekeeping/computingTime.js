@@ -4,9 +4,6 @@
 
 // A set of functions for calculating times in the Computing Time category.
 
-// This is a manual count of the total number of leap seconds. Last updated 4/18/2024.
-const leapSeconds_ = 27;
-
 function getUnixTime(currentDateTime) {
     return Math.trunc(currentDateTime.getTime()/1000);
 }
@@ -39,18 +36,22 @@ function getGPSTime(currentDateTime) {
 
 function getTAI(currentDateTime) {
     let taiDateTime = new Date(currentDateTime);
+
+    // Calculate how many leap seconds have occurred before the currentDateTime
     let leapSecondsCount = 0;
     TAIleapSeconds.forEach(leapSecond => {
         if (new Date(leapSecond).getTime() <= currentDateTime) {
             leapSecondsCount++;
         }
     });
+    // Add accumulated leap seconds plus the initial 10
     taiDateTime.setSeconds(taiDateTime.getSeconds() + (10 + leapSecondsCount));
     return taiDateTime;
 }
 
 function getLORANC(currentDateTime) {
     let taiDateTime = getTAI(currentDateTime);
+    // LORAN-C is always 10s behind TAI
     taiDateTime.setSeconds(taiDateTime.getSeconds() - 10);
     return taiDateTime;
 }
