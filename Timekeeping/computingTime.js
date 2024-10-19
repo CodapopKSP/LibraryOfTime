@@ -5,7 +5,7 @@
 // A set of functions for calculating times in the Computing Time category.
 
 // This is a manual count of the total number of leap seconds. Last updated 4/18/2024.
-const leapSeconds = 27;
+const leapSeconds_ = 27;
 
 function getUnixTime(currentDateTime) {
     return Math.trunc(currentDateTime.getTime()/1000);
@@ -18,8 +18,41 @@ function getCurrentFiletime(currentDateTime) {
 }
 
 function getGPSTime(currentDateTime) {
-    const gpsTime = Math.trunc((currentDateTime - new Date("1980-01-06T00:00:00Z").getTime()) / 1000) + leapSeconds - 8;
+    const gpsEpoch = new Date("1980-01-06T00:00:00Z").getTime();
+    
+    // Calculate total time difference in seconds
+    let gpsTime = Math.trunc((currentDateTime - gpsEpoch) / 1000);
+    
+    // Calculate how many leap seconds have occurred before the currentDateTime
+    let leapSecondsCount = 0;
+    GPSleapSeconds.forEach(leapSecond => {
+        if (new Date(leapSecond).getTime() <= currentDateTime) {
+            leapSecondsCount++;
+        }
+    });
+
+    // Add leap seconds to account for the growing difference between GPS and UTC.
+    gpsTime += leapSecondsCount;
+    
     return gpsTime;
+}
+
+function getTAI(currentDateTime) {
+    let taiDateTime = new Date(currentDateTime);
+    let leapSecondsCount = 0;
+    TAIleapSeconds.forEach(leapSecond => {
+        if (new Date(leapSecond).getTime() <= currentDateTime) {
+            leapSecondsCount++;
+        }
+    });
+    taiDateTime.setSeconds(taiDateTime.getSeconds() + (10 + leapSecondsCount));
+    return taiDateTime;
+}
+
+function getLORANC(currentDateTime) {
+    let taiDateTime = getTAI(currentDateTime);
+    taiDateTime.setSeconds(taiDateTime.getSeconds() - 10);
+    return taiDateTime;
 }
 
 function getJulianDayNumber(currentDateTime) {
@@ -51,18 +84,6 @@ function getRataDie(currentDateTime) {
     const JD = getJulianDayNumber(currentDateTime);
     const RD = Math.trunc(JD - 1721424.5);
     return RD;
-}
-
-function getTAI(currentDateTime) {
-    let taiDateTime = new Date(currentDateTime);
-    taiDateTime.setSeconds(taiDateTime.getSeconds() + 10 + leapSeconds);
-    return taiDateTime;
-}
-
-function getLORANC(currentDateTime) {
-    let taiDateTime = getTAI(currentDateTime);
-    taiDateTime.setSeconds(taiDateTime.getSeconds() - 10);
-    return taiDateTime;
 }
 
 function getJulianPeriod(currentDateTime) {

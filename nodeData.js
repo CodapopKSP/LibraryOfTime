@@ -177,7 +177,7 @@ const computingTimeData = [
         name: 'TAI',
         id: 'tai',
         type: 'Computing Time',
-        epoch: '1 January 1972 CE, +00:00:10',
+        epoch: '31 December 1971 CE, +23:59:50',
         confidence: 'Exact',
         overview: 'International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth\'s geoid. It is the basis for UTC but deviates from UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.',
         info: 'Ironically, the clock displayed here is derived from UTC even though it is itself the basis for UTC.',
