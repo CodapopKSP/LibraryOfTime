@@ -5,8 +5,61 @@
 // A set of functions for calculating dates in the Solar Calendars category.
 
 
-// Returns an unformatted Julian date object, useful for calculating many calendars
+// Function to compute the Julian Day Number from a Gregorian date
+function gregorianToJDN(year, month, day) {
+    if (month <= 2) {
+        year -= 1;
+        month += 12;
+    }
+    const A = Math.floor(year / 100);
+    const B = 2 - A + Math.floor(A / 4);
+    const JDN = Math.floor(365.25 * (year + 4716)) +
+                Math.floor(30.6001 * (month + 1)) +
+                day + B - 1524;
+    return JDN;
+}
+
+// Function to convert a JDN to a Julian calendar date
+function JDNToJulianDate(JDN) {
+    const J = JDN + 0.5;
+    const Z = Math.floor(J);
+    const F = J - Z;
+    let A = Z;
+    const B = A + 1524;
+    const C = Math.floor((B - 122.1) / 365.25);
+    const D = Math.floor(365.25 * C);
+    const E = Math.floor((B - D) / 30.6001);
+
+    const day = B - D - Math.floor(30.6001 * E) + F;
+    let month = (E < 14) ? E - 1 : E - 13;
+    let year = (month > 2) ? C - 4716 : C - 4715;
+
+    // Adjust for fractional day
+    const dayInt = Math.floor(day);
+    const fractionalDay = day - dayInt;
+
+    return { year, month, day: dayInt, fractionalDay };
+}
+
+// Revised getJulianDate function using JDN conversion
 function getJulianDate(currentDateTime) {
+    // Extract Gregorian date components
+    const year = currentDateTime.getFullYear();
+    const month = currentDateTime.getMonth() + 1; // JavaScript months are 0-based
+    const day = currentDateTime.getDate();
+
+    // Compute JDN from Gregorian date
+    const JDN = gregorianToJDN(year, month, day);
+
+    // Convert JDN to Julian date
+    const julianDate = JDNToJulianDate(JDN);
+
+    // Return Julian date object
+    return julianDate;
+}
+
+// Returns an unformatted Julian date object, useful for calculating many calendars
+function getJulianDate_(currentDateTime) {
     let year = currentDateTime.getFullYear();
     let daysAhead = Math.trunc(year / 100) - Math.trunc(year / 400) - 2;
     let julianDate = new Date(currentDateTime);
@@ -25,11 +78,12 @@ function getAstronomicalDate(currentDateTime) {
     }
 
     if (currentDateTime<startOfGregorian) {
-        astronomical = getJulianDate(currentDateTime);
+        astronomical = getJulianDate_(currentDateTime);
         year = astronomical.getFullYear();
         yearSuffix = 'AD';
         if (year < 1) {
             yearSuffix = 'BC';
+            year = Math.abs(year);
         }
     }
     let day = astronomical.getDate().toString();
@@ -83,32 +137,32 @@ function getGregorianDateTime(currentDateTime) {
     let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
     let second = currentDateTime.getSeconds().toString().padStart(2, '0');
     const dayOfWeek = currentDateTime.getDay();
+    
+    // Set year suffix based on the value of year
     let yearSuffix = 'CE';
-    if (year<1) {
+    if (year < 1) {
         yearSuffix = 'BCE';
+        year = Math.abs(year);  // Adjust year for BCE without negative sign
     }
+    
     let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
     let timeDisplayString = hour + ':' + minute + ':' + second;
     return {date: dateDisplayString, time: timeDisplayString};
 }
 
+
 // Returns a formatted Julian calendar local date
 function getJulianCalendar(currentDateTime) {
     const julianDate = getJulianDate(currentDateTime);
-    // Extract year, month, and day components
-    let yearString = julianDate.getFullYear();
-    let monthIndex = julianDate.getMonth(); // Month is zero-based
-    let monthString = monthNames[monthIndex];
-    let dayString = julianDate.getDate();
     const dayOfWeek = currentDateTime.getDay();
+    const { year, month, day } = julianDate;
     let yearSuffix = 'AD';
-    if (yearString<1) {
+    let displayYear = year;
+    if (year <= 0) {
         yearSuffix = 'BC';
-        yearString--;
+        displayYear = -year + 1; // Convert to BC notation
     }
-    
-    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
-    return dateString;
+    return `${day} ${monthNames[month-1]} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
 }
 
 // Returns a formatted Minguo local date
@@ -240,26 +294,15 @@ function getEraFascista(currentDateTime) {
 // Returns a formatted Coptic UTC date based on the Julian Day (not Julian date)
 function getCopticDate(currentDateTime) {
     const copticMonths = [
-        "Thout",
-        "Paopi",
-        "Hathor",
-        "Koiak",
-        "Tobi",
-        "Meshir",
-        "Paremhat",
-        "Parmouti",
-        "Pashons",
-        "Paoni",
-        "Epip",
-        "Mesori",
-        "Pi Kogi Enavot"
+        "Thout", "Paopi", "Hathor", "Koiak", "Tobi", "Meshir",
+        "Paremhat", "Parmouti", "Pashons", "Paoni", "Epip", "Mesori", "Pi Kogi Enavot"
     ];
 
     const copticWeek = [
-        "ⲁⲕⲃⲟⲩⲗ", // Sunday
-        "ⲥⲟⲙ",     // Monday
+        "ⲁⲕⲃⲟⲩⲗ",   // Sunday
+        "ⲥⲟⲙ",      // Monday
         "ⲅⲃⲁⲣ",     // Tuesday
-        "ⲅⲟⲡ",     // Wednesday
+        "ⲅⲟⲡ",      // Wednesday
         "ⲃⲁⲣⲙⲁⲕ",   // Thursday
         "ⲃⲉⲕⲃⲁⲧ",   // Friday
         "ⲁⲧⲟⲃⲁⲣ"    // Saturday
@@ -269,7 +312,7 @@ function getCopticDate(currentDateTime) {
     let Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
 
     // Fix months if Julian leap year
-    let currentJulianYear = getJulianDate(currentDateTime).getFullYear();
+    let currentJulianYear = getJulianDate_(currentDateTime).getFullYear();
     if (currentJulianYear % 4 === 2) {
         Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
     }
@@ -339,7 +382,7 @@ function getEthiopianDate(currentDateTime) {
     let Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
 
     // Fix months if Julian leap year
-    let currentJulianYear = getJulianDate(currentDateTime).getFullYear();
+    let currentJulianYear = getJulianDate_(currentDateTime).getFullYear();
     if (currentJulianYear % 4 === 2) {
         Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
     }
@@ -380,7 +423,7 @@ function getEthiopianDate(currentDateTime) {
 
 // Returns a formatted Byzantine local date
 function getByzantineCalendar(currentDateTime) {
-    const julianDate = getJulianDate(currentDateTime);
+    const julianDate = getJulianDate_(currentDateTime);
     // Extract year, month, and day components
     let yearString = julianDate.getFullYear() + 5509 - 1; // Year 1 being 5509
     let monthIndex = julianDate.getMonth(); // Month is zero-based
@@ -398,7 +441,7 @@ function getByzantineCalendar(currentDateTime) {
 
 // Returns a formatted Florentine CET date
 function getFlorentineCalendar(currentDateTime) {
-    let florentineDate = getJulianDate(currentDateTime);
+    let florentineDate = getJulianDate_(currentDateTime);
 
     // Get March 25 of the Florentine calendar (sunset on the 24th UTC+1)
     let march25ThisYear = new Date(florentineDate);
