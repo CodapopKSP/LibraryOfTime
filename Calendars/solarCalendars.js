@@ -6,7 +6,10 @@
 
 
 // Function to compute the Julian Day Number from a Gregorian date
-function gregorianToJDN(year, month, day) {
+function gregorianToJDN(currentDateTime) {
+    let year = currentDateTime.getUTCFullYear();
+    let month = currentDateTime.getUTCMonth() + 1; // JavaScript months are 0-based
+    let day = currentDateTime.getUTCDate();
     if (month <= 2) {
         year -= 1;
         month += 12;
@@ -43,13 +46,8 @@ function JDNToJulianDate(JDN) {
 
 // Revised getJulianDate function using JDN conversion
 function getRealJulianDate(currentDateTime) {
-    // Extract Gregorian date components
-    const year = currentDateTime.getFullYear();
-    const month = currentDateTime.getMonth() + 1; // JavaScript months are 0-based
-    const day = currentDateTime.getDate();
-
     // Compute JDN from Gregorian date
-    const JDN = gregorianToJDN(year, month, day);
+    const JDN = gregorianToJDN(currentDateTime);
 
     // Convert JDN to Julian date
     const julianDate = JDNToJulianDate(JDN);
@@ -93,41 +91,6 @@ function getAstronomicalDate(currentDateTime) {
     return day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
 }
 
-// Converts a number to Roman numerals
-function toRomanNumerals(num) {
-    if (num === 0) {
-        return 'O';
-    }
-    if (num < 0) {
-        return '-' + toRomanNumerals(-num);
-    }
-
-    const romanNumerals = [
-        { value: 1000, symbol: 'M' },
-        { value: 900, symbol: 'CM' },
-        { value: 500, symbol: 'D' },
-        { value: 400, symbol: 'CD' },
-        { value: 100, symbol: 'C' },
-        { value: 90, symbol: 'XC' },
-        { value: 50, symbol: 'L' },
-        { value: 40, symbol: 'XL' },
-        { value: 10, symbol: 'X' },
-        { value: 9, symbol: 'IX' },
-        { value: 5, symbol: 'V' },
-        { value: 4, symbol: 'IV' },
-        { value: 1, symbol: 'I' }
-    ];
-
-    let result = '';
-    for (let i = 0; i < romanNumerals.length; i++) {
-        while (num >= romanNumerals[i].value) {
-            result += romanNumerals[i].symbol;
-            num -= romanNumerals[i].value;
-        }
-    }
-    return result;
-}
-
 // Returns a formatted Gregorian calendar local date and time
 function getGregorianDateTime(currentDateTime) {
     let day = currentDateTime.getDate().toString();
@@ -163,6 +126,41 @@ function getJulianCalendar(currentDateTime) {
         displayYear = -year + 1; // Convert to BC notation
     }
     return `${day} ${monthNames[month-1]} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+}
+
+// Converts a number to Roman numerals
+function toRomanNumerals(num) {
+    if (num === 0) {
+        return 'O';
+    }
+    if (num < 0) {
+        return '-' + toRomanNumerals(-num);
+    }
+
+    const romanNumerals = [
+        { value: 1000, symbol: 'M' },
+        { value: 900, symbol: 'CM' },
+        { value: 500, symbol: 'D' },
+        { value: 400, symbol: 'CD' },
+        { value: 100, symbol: 'C' },
+        { value: 90, symbol: 'XC' },
+        { value: 50, symbol: 'L' },
+        { value: 40, symbol: 'XL' },
+        { value: 10, symbol: 'X' },
+        { value: 9, symbol: 'IX' },
+        { value: 5, symbol: 'V' },
+        { value: 4, symbol: 'IV' },
+        { value: 1, symbol: 'I' }
+    ];
+
+    let result = '';
+    for (let i = 0; i < romanNumerals.length; i++) {
+        while (num >= romanNumerals[i].value) {
+            result += romanNumerals[i].symbol;
+            num -= romanNumerals[i].value;
+        }
+    }
+    return result;
 }
 
 // Returns a formatted Minguo local date
@@ -423,66 +421,65 @@ function getEthiopianDate(currentDateTime) {
 
 // Returns a formatted Byzantine local date
 function getByzantineCalendar(currentDateTime) {
-    const julianDate = getApproxJulianDate(currentDateTime);
-    // Extract year, month, and day components
-    let yearString = julianDate.getFullYear() + 5509 - 1; // Year 1 being 5509
-    let monthIndex = julianDate.getMonth(); // Month is zero-based
-    let monthString = monthNames[monthIndex];
-    let dayString = julianDate.getDate();
-    const dayOfWeek = currentDateTime.getDay();
+    // Get Julian date from Gregorian via JDN
+    const JDN = gregorianToJDN(currentDateTime);
+    const julianDate = JDNToJulianDate(JDN);
+    let byzantineYear = julianDate.year + 5508; // Start with 5508
 
-    if (monthIndex>7) {
-        yearString += 1;
+    // Determine if date is on or after September 1 in Julian calendar
+    if (julianDate.month > 7) {
+        byzantineYear += 1;
     }
 
-    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' AM\n' + weekNames[dayOfWeek];
+    const dayOfWeek = currentDateTime.getDay();
+    const monthString = monthNames[julianDate.month - 1]; // Adjust for 0-based index
+    const dayString = julianDate.day;
+
+    let dateString = `${dayString} ${monthString} ${byzantineYear} AM\n${weekNames[dayOfWeek]}`;
     return dateString;
 }
 
-// Returns a formatted Florentine CET date
+
+// Returns a formatted Florentine local date
 function getFlorentineCalendar(currentDateTime) {
-    let florentineDate = getApproxJulianDate(currentDateTime);
 
-    // Get March 25 of the Florentine calendar (sunset on the 24th UTC+1)
-    let march25ThisYear = new Date(florentineDate);
-    march25ThisYear.setMonth(2);
-    march25ThisYear.setUTCDate(24);
-    march25ThisYear.setUTCHours(19);
-    march25ThisYear.setMinutes(0);
-    march25ThisYear.setSeconds(0);
-    march25ThisYear.setMilliseconds(0);
-
-    if (florentineDate.getUTCHours()>=19) {
-        florentineDate.setUTCDate(florentineDate.getUTCDate()+2);
-    } else {
-        florentineDate.setUTCDate(florentineDate.getUTCDate()+1);
+    // Check for approximate sunset and increment the day
+    const utcHour = currentDateTime.getUTCHours();
+    let dayModifier = 0;
+    if (utcHour >= 17) {
+        dayModifier = 1;
     }
 
-    if (florentineDate>march25ThisYear) {
-        florentineDate.setUTCFullYear(florentineDate.getUTCFullYear()+1);
+    // Recompute JDN for the adjusted date
+    const adjustedJDN = gregorianToJDN(currentDateTime);
+    const adjustedJulianDate = JDNToJulianDate(adjustedJDN);
+
+    // Determine Florentine year (starts on March 25 in Julian calendar)
+    let florentineYear = adjustedJulianDate.year;
+    if (
+        adjustedJulianDate.month < 3 ||
+        (adjustedJulianDate.month === 3 && adjustedJulianDate.day < 25)
+    ) {
+        // Before March 25, subtract one year
+        florentineYear -= 1;
     }
 
-    // Extract year, month, and day components
-    let yearString = florentineDate.getUTCFullYear();
-    let monthIndex = florentineDate.getUTCMonth(); // Month is zero-based
-    let monthString = monthNames[monthIndex];
-    let dayString = florentineDate.getUTCDate();
-    
-    // Get the weekday based on sunset in Florence
-    let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours()-5); // 1 hours ahead + sunset of 18:00 = 19 hours yesterday
-    const dayOfWeek = startOfToday.getDay();
+    // Prepare date components for display
+    const dayOfWeek = currentDateTime.getDay();
+    const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
+    const dayString = adjustedJulianDate.day + dayModifier;
 
     let yearSuffix = 'AD';
-    if (yearString<1) {
+    let displayYear = florentineYear;
+    if (florentineYear <= 0) {
         yearSuffix = 'BC';
+        displayYear = -florentineYear + 1; // Adjust for BC notation
     }
-    
-    let dateString = dayString + ' ' + monthString + ' ' + yearString + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
+
+    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
     return dateString;
 }
 
-// Crashes the site on March 20 2020
 // Returns a formatted Baha'i IRST date
 function getBahaiCalendar(currentDateTime, vernalEquinox) {
 

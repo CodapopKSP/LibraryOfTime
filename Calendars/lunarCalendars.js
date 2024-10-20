@@ -4,8 +4,6 @@
 
 // A set of functions for calculating data in the Lunar Calendars category.
 
-
-// Some dates are weird on month or year change
 // Returns a formatted Hijri calendar AST date
 function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
 
