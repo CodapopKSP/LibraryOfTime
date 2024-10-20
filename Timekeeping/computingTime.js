@@ -221,5 +221,5 @@ function getJulianCircadNumber(currentDateTime) {
     const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32));
     const titanCircad = 0.998068439;
     const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
-    return ((currentDateTime-epoch)/titanDayMilliseconds)+1;
+    return ((currentDateTime-epoch)/titanDayMilliseconds);
 }

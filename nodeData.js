@@ -285,7 +285,7 @@ const computingTimeData = [
         name: 'Mars Sol Date',
         id: 'mars-sol-date',
         type: 'Computing Time',
-        epoch: '29 December 1873 CE 12:02:29',
+        epoch: '29 December 1873 CE +12:02:29',
         confidence: 'High',
         overview: `The Mars Sol Date, similar to the Julian Day Number, is the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. Currently I haven't been able to figure out exactly why the epoch was chosen. The day increments when the Airy-0 crater reaches midnight.`,
         info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
@@ -297,7 +297,7 @@ const computingTimeData = [
         name: 'Julian Sol Number',
         id: 'julian-sol-number',
         type: 'Computing Time',
-        epoch: '12 March 1609 CE, 18:40:06',
+        epoch: '11 March 1609 CE, +18:40:06',
         confidence: 'High',
         overview: `The Julian Sol Number, created by Thomas Gangale, is similar to the Julian Day Number but it counts the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. This epoch marks an important Martian Vernal Equinox. The day increments when the Airy-0 crater reaches midnight.\n\nIn a chat I had with with Mr. Gangale, he expressed his desire for this standard to be deprecated, as the Mars Sol Date created by Michael Allison had received wider use. However, since it was used at one point, I have opted to include it in this website.\n\n"The sooner that things become standardized, the better, so consider the JS to be obsolete." -Thomas Gangale, 2024`,
         info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
@@ -311,10 +311,10 @@ const computingTimeData = [
         type: 'Computing Time',
         epoch: '15 March 1609 +18:37:32',
         confidence: 'High',
-        overview: ``,
-        info: '',
-        accuracy: '',
-        source: ``
+        overview: `The Julian Circad Number was a system created by Thomas Gangale in tandem with the Darian calendar for the Saturn moon, Titan. It is inspired by the Julian Day Number, but it counts circads from an epoch rather than days.\n\nThe epoch was chosen as the conjunction of the sun and Titan (when Titan was directly between the sun and Saturn) that occurred nearest to the epoch generally shared by the other Darian calendars.`,
+        info: 'One circad is about 23 hours, 57 minutes and 13.11 seconds (0.998068439 days).',
+        accuracy: `The accuracy of this timekeeping system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter in the Galilean calendars, but it isn't clear if it has also been accounted for in this clock.`,
+        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.`
     },
 
     {
@@ -521,7 +521,7 @@ const otherTimeData = [
         confidence: 'High',
         overview: `Titan Meridian Time is a measure of time passed since midnight on the prime meridian of Titan, moon of Saturn.\n\nIt features a similar 24-hour clock to Earth time, but the units are very slightly shorter by roughly 3 minutes every day. One Titan solar day is about sixteen Earth days, so the day is further broken up into sixteen circads of ~23.95 hours each.\n\Titan is tidally locked with Saturn, meaning one side of the moon always faces the planet and the other side always faces away. The prime meridian is determined to be the meridian on the moon's surface that is facing directly at Saturn.\n\nMidnight is thus the time when the moon is directly between Saturn and the sun, though this is only used as an epoch for the beginning of the first circad in each solar day.\n\nTiutan Meridian Time is a name that was chosen for this website and might not be accurate.`,
         info: `As the orbit of Titan is not very inclined, midnight on Circad 1 is also roughly the time of a total solar eclipse on Saturn.\n\n<table class="table-short"><tr><td>TMT</td><td>Standard Time</td></tr><tr><td>TMT Second</td><td>0.998068 Seconds</td></tr><tr><td>TMT Minute</td><td>59.88410 Seconds</td></tr><tr><td>TMT Hour</td><td>59.88410 Minutes</td></tr></table>`,
-        accuracy: `The accuracy of this timekeeping system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter in the Galilean calendars, but it isn't clear if it has also been accounted for in this calendar.`,
+        accuracy: `The accuracy of this timekeeping system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter in the Galilean calendars, but it isn't clear if it has also been accounted for in this clock.`,
         source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.`
     },
 ]
@@ -1046,7 +1046,7 @@ const otherCalendars = [
         type: 'Other Calendar',
         epoch: '15 March 1609 +18:37:32',
         confidence: 'High',
-        overview: `The Darian calendar for Titan, moon of Saturn, was created by Thomas Gangale and is a continuation of the calendars created for Mars and the four Galilean moons of Jupiter. It is intended to closely align with the Martian Darian calendar, roughly sharing an epoch as well as all 24 months.\n\nAs the solar day of Titan is nearly 16 Earth days long, its day is broken into 16 units of time called 'circads' that are ~23 hours each and act as calendar days.\n\nThis calendar features 24 months of 28 or 32 circads each, allowing for a clean division of the 8-circad week.\n\nLeap years add an entire week, split evenly between the 12th and 24th months, adding 4 circads each for a total of 32 circads, allowing it to stay in sync with the Martian Darian calendar.\n\nYears don't always begin and end at midnight on Titan's prime meridian, as the circad system takes precedence over the solar day.`,
+        overview: `The Darian calendar for Titan, moon of Saturn, was created by Thomas Gangale and is a continuation of the calendars created for Mars and the four Galilean moons of Jupiter. It is intended to closely align with the Martian Darian calendar, roughly sharing an epoch as well as all 24 months.\n\nAs the solar day of Titan is nearly 16 Earth days long, its day is broken into 16 units of time called 'circads' that are ~24 hours each and act as calendar days.\n\nThis calendar features 24 months of 28 or 32 circads each, allowing for a clean division of the 8-circad week.\n\nLeap years add an entire week, split evenly between the 12th and 24th months, adding 4 circads each for a total of 32 circads, allowing it to stay in sync with the Martian Darian calendar.\n\nYears don't always begin and end at midnight on Titan's prime meridian, as the circad system takes precedence over the solar day.`,
         info: `<table class="table-very-very-long"><tr><th>Titan Month</th><th>Circads</th></tr><tr><td>Ti Sagittarius</td><td>28</td></tr><tr><td>Ti Dhanus</td><td>28</td></tr><tr><td>Ti Capricornus</td><td>32</td></tr><tr><td>Ti Makara</td><td>28</td></tr><tr><td>Ti Aquarius</td><td>28</td></tr><tr><td>Ti Khumba</td><td>28</td></tr><tr><td>Ti Pisces</td><td>28</td></tr><tr><td>Ti Mina</td><td>28</td></tr><tr><td>Ti Aries</td><td>32</td></tr><tr><td>Ti Mesha</td><td>28</td></tr><tr><td>Ti Taurus</td><td>28</td></tr><tr><td>Ti Rishabha</td><td>28-32</td></tr><tr><td>Ti Gemini</td><td>28</td></tr><tr><td>Ti Mithuna</td><td>28</td></tr><tr><td>Ti Cancer</td><td>32</td></tr><tr><td>Ti Karka</td><td>28</td></tr><tr><td>Ti Leo</td><td>28</td></tr><tr><td>Ti Simha</td><td>28</td></tr><tr><td>Ti Virgo</td><td>28</td></tr><tr><td>Ti Kanya</td><td>28</td></tr><tr><td>Ti Libra</td><td>32</td></tr><tr><td>Ti Tula</td><td>28</td></tr><tr><td>Ti Scorpius</td><td>28</td></tr><tr><td>Ti Vrishika</td><td>28-32</td></tr></table>`,
         accuracy: `The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter in the Galilean calendars, but it isn't clear if it has also been accounted for in this calendar.`,
         source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.`
