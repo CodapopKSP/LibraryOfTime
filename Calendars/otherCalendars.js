@@ -662,12 +662,23 @@ function getSothicCycle(currentDateTime) {
 
 function getOlympiad(currentDateTime) {
     const julianDate = getApproxJulianDate(currentDateTime);
-    const olympiad1_ = new Date(-775, 6, 24); // Starting Olympiad, astronomical
+    const olympiad1_ = new Date(-775, 6, 24); // Starting Olympiad (776 BC), astronomical
     const olympiad1 = getApproxJulianDate(olympiad1_);
+    
     const daysSinceOlympiad1 = differenceInDays(julianDate, olympiad1);
-    const yearsSinceOlympiad1 = daysSinceOlympiad1/365.2425;
-    const olympiad = Math.floor(yearsSinceOlympiad1/4)+1
-    const currentYearOfOlympiad = Math.floor(yearsSinceOlympiad1%4)+1;
+    
+    // Convert days to years, accounting for the Julian calendar's average year length
+    const yearsSinceOlympiad1 = daysSinceOlympiad1 / 365.2425;
+    
+    let olympiad = Math.floor(yearsSinceOlympiad1 / 4) + 1;
+    let currentYearOfOlympiad = Math.floor(yearsSinceOlympiad1 % 4) + 1;
+
+    // Handling BC dates and adjusting calculation
+    if (yearsSinceOlympiad1 < 0) {
+        olympiad = Math.ceil(yearsSinceOlympiad1 / 4) + 1;
+        currentYearOfOlympiad = (Math.ceil(yearsSinceOlympiad1 % 4) + 4) % 4 || 4;  // Fix modulo handling for BC
+    }
+
     return olympiad + ' | Year: ' + currentYearOfOlympiad;
 }
 
