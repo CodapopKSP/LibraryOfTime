@@ -15,6 +15,33 @@ let currentDescriptionTab = [];     // The current arrangement of information to
 let calendarType = 'gregorian-proleptic';
 let gregJulDifference = 0;
 
+const panel = document.getElementById("floating-panel");
+const toggleButton = document.getElementById("floating-panel-toggle-button");
+let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
+
+// Show/Hide the panel when the button is clicked
+toggleButton.addEventListener("click", () => {
+    if (panel.style.display === "none" || panel.style.display === "") {
+      panel.style.display = "block";
+    } else {
+      panel.style.display = "none";
+    }
+});
+
+panel.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    
+    // Get the mouse cursor position at startup
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    // Call the function when the cursor moves
+    document.addEventListener("mousemove", movePanel);
+    
+    // Stop moving when mouse button is released
+    document.addEventListener("mouseup", stopDrag);
+});
+
 // Node parent elements
 const parentElements = {
     'Solar Calendar': document.querySelector('.solar-calendars'),

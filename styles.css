@@ -305,6 +305,41 @@ a {
     border-color: #443c3c;
 }
 
+#floating-panel {
+    width: 30vh;
+    height: 10vh;
+    background-color: rgb(75, 75, 75);
+    border: 0.2vh solid #000000;
+    border-radius: 0.7vh;
+    position: absolute;
+    top: 20vh;
+    left: 50vh;
+    cursor: move;
+    z-index: 10;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+#floating-panel-toggle-button {
+    position: fixed;
+    top: 4vh;
+    right: 4vh;
+    padding: 1vh 2vh;
+    background-color: #4f4f4f; /* Green background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 0.2vh solid #000000;
+}
+
+#floating-panel-toggle-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+  
+
 
 /*
 |=====================|
