@@ -223,3 +223,16 @@ function getJulianCircadNumber(currentDateTime) {
     const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
     return ((currentDateTime-epoch)/titanDayMilliseconds);
 }
+
+function getSpreadsheetNowTime(currentDateTime = new Date()) {
+    // Base date: December 30, 1899
+    let baseDate = new Date(1899, 11, 30);
+    
+    // Difference in time (milliseconds)
+    let timeDifference = currentDateTime.getTime() - baseDate.getTime();
+    
+    // Convert milliseconds to days (1 day = 86400000 ms)
+    let daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+    
+    return Math.floor(daysDifference); // Return the whole number of days
+}

@@ -400,6 +400,18 @@ const computingTimeData = [
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
         source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
     },
+
+    {
+        name: 'Spreadsheet =NOW()',
+        id: 'spreadsheet-now',
+        type: 'Computing Time',
+        epoch: '30 December 1899',
+        confidence: 'Exact',
+        overview: `When using spreadsheets such as Excel or Google Sheets, =NOW() can be used to return the current date. This is saved in the background as a single floating point number, which can be revealed if the user incorrectly formats the date to a number.\n\nDays are counted from the epoch of 30 December 1899, which can also be seen if the user formats a zero to a date.`,
+        info: `One might notice that the epoch of 30 December 1899 is an odd choice. It is very close to 1 January 1900. Assuming that is day 1, then day 0 should be 31 December 1899.\n\nThe reason for this discrepancy is due to Microsoft Excel originally needing to be compatible with Lotus 1-2-3. The date system in Lotus 1-2-3 incorrectly determined the year 1900 to be a leap year (which was true in the Julian calendar but not the Gregorian). This error added an extra date of 29 February, which did not exist. Thus, in order for days after 28 February 1900 to be correct, the epoch must be shifted backwards by one day.`,
+        accuracy: `This calculation is a simple count based on a Gregorian date and is thus exactly accurate.`,
+        source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.`
+    },
 ]
 
 const decimalTimeData = [
@@ -412,7 +424,7 @@ const decimalTimeData = [
         overview: 'Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day into 10 hours, each hour into 100 minutes, and each minute into 100 seconds.\n\nThe French would have used Paris Mean Time (GMT + 00:09:21) but this website uses local time.',
         info: '<table class="table-short"><tr><td>Revolutionary Time</td><td>Standard Time</td></tr><tr><td>Decimal Second</td><td>0.864 Seconds</td></tr><tr><td>Decimal Minute</td><td>1.44 Minutes (86.4 Seconds)</td></tr><tr><td>Decimal Hour</td><td>2.4 Hours (144 Minutes)</td></tr></table>',
         accuracy: 'As this is a simple mathematical calculation, this clock is exactly accuerate.',
-        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.'
+        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Year_1900_problem">Wikipedia article</a>.'
     },
 
     {

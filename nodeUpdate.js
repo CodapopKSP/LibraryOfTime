@@ -98,6 +98,7 @@ function updateComputingTimes(currentDateTime, julianDay, marsSolDay) {
     setTimeValue('julian-sol-number-node', getJulianSolDate(marsSolDay).toFixed(0));
     setTimeValue('julian-circad-number-node', getJulianCircadNumber(currentDateTime).toFixed(0));
     setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
+    setTimeValue('spreadsheet-now-node',getSpreadsheetNowTime(currentDateTime));
 
     const lunationNumber = calculateLunationNumber(currentDateTime);
     setTimeValue('lunation-number-node', lunationNumber);
