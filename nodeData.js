@@ -663,12 +663,36 @@ const solarCalendarsData = [
         name: 'Florentine (CET)',
         id: 'florentine',
         type: 'Solar Calendar',
-        epoch: '22 March 0 BCE',
-        confidence: 'Exact',
+        epoch: '22 March 1 CE, +17:00:00',
+        confidence: 'High',
         overview: 'The Florentine calendar was the calendar used in the Republic of Florence during the Middle Ages. It followed the Julian calendar for its years, months, and days with a few key differences: the new year started on March 25th.\n\nThis meant that January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year.\n\nDays also started at sunset, which is approximated here as 6:00pm in Florence.',
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>March (25th - 31st)</td><td>7</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March (1st - 24th)</td><td>24</td></tr></table>`,
         accuracy: 'The Florentine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate. The only inaccuracies are the differences in the approximation of sunset to the actual time of sunset, which is expected to only differ by a few hours or minutes per day.',
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Florentine_calendar">Wikipedia article</a>.'
+    },
+
+    {
+        name: 'Pisan (CET)',
+        id: 'pisan',
+        type: 'Solar Calendar',
+        epoch: '22 March 0 BCE, +23:00:00',
+        confidence: 'Exact',
+        overview: 'The Pisan calendar was a variation of the Julian calendar used in the Republic of Pisa from the Middle Ages until the adoption of the Gregorian calendar in the 18th century.\n\nIt matches the Julian calendar for days and months, but with years beginning on March 25th, meaning March 24th of one year is followed by March 25th of the next year. The Pisan calendar runs ahead of the Julian calendar, with the two calendars sharing dates only during January, February, and the beginning of March before the Pisan calendar year increments. It is one year ahead of the Florentine calendar.',
+        info: `<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>March (25th - 31st)</td><td>7</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March (1st - 24th)</td><td>24</td></tr></table>`,
+        accuracy: 'This calendar is based on the Julian calendar and is considered to be exactly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Pisan_calendar">Wikipedia article</a>.'
+    },
+
+    {
+        name: 'Venetian (CET)',
+        id: 'venetian',
+        type: 'Solar Calendar',
+        epoch: '26 February 0 BCE, +23:00:00',
+        confidence: 'Exact',
+        overview: 'The Venetian calendar was a variation of the Julian calendar used in the Republic of Venice from the Middle Ages until the adoption of the Gregorian calendar in the 18th century.\n\nIt matches the Julian calendar for days and months, but with years beginning on March 1st. The Venetian year runs behind the Julian calendar during the months of January and February before syncronizing for the remaining months.',
+        info: `<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr></table>`,
+        accuracy: 'This calendar is based on the Julian calendar and is considered to be exactly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/More_veneto">Wikipedia article</a>.'
     },
 
     {
@@ -689,7 +713,7 @@ const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: '8 September 1873 CE',
         confidence: 'Exact',
-        overview: `The Pataphysical calendar is a strange take on the Gregorian calendar. It is based off of the philosophy of Pataphysics, which is a parody of science created by Alfred Jarry in 1893, though the calendar wasn't created until 1949.\n\nIt features 13 months of 29 days, though for each month the 29th day is imaginary except for the month of Gidouille as well as Gueules in leap years. New Year is on September 8th of the Gregorian calendar, and the epoch is the day of Alfred Jarry's birth, 8 September 1873 CE.`,
+        overview: `The Pataphysical calendar is a strange take on the Gregorian calendar. It is based off of the philosophy of Pataphysics, which is a parody of science created by Alfred Jarry in 1893, though the calendar wasn't created until 1949.\n\nIt features 13 months of 29 days, though for each month the 29th day is imaginary except for the month of Gidouille as well as Gueules in leap years. New Year is on September 8th of the Gregorian calendar, and the epoch, denoted A.P., is the day of Alfred Jarry's birth on 8 September 1873 CE.`,
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th><th>English</th><th>Approx. Gregorian Time</th></tr><tr><td>Absolu</td><td>28</td><td>Absolute</td><td>Sept 8 - Oct 5</td></tr><tr><td>Haha</td><td>28</td><td>Haha</td><td>Oct 6 - Nov 2</td></tr><tr><td>As</td><td>28</td><td>Skiff</td><td>Nov 3 - Nov 30</td></tr><tr><td>Sable</td><td>28</td><td>Sand or heraldic black</td><td>Dec 1 - Dec 28</td></tr><tr><td>Décervelage</td><td>28</td><td>Debraining</td><td>Dec 29 - Jan 25</td></tr><tr><td>Gueules</td><td>28 or 29</td><td>Heraldic red or gob</td><td>Jan 26 - Feb 22</td></tr><tr><td>Pédale</td><td>28</td><td>Bicycle pedal</td><td>Feb 23 - Mar 22</td></tr><tr><td>Clinamen</td><td>28</td><td>Swerve</td><td>Mar 23 - Apr 19</td></tr><tr><td>Palotin</td><td>28</td><td>Ubu's henchmen</td><td>Apr 20 - May 17</td></tr><tr><td>Merdre</td><td>28</td><td>Pshit</td><td>May 18 - Jun 14</td></tr><tr><td>Gidouille</td><td>29</td><td>Spiral</td><td>Jun 15 - Jul 13</td></tr><tr><td>Tatane</td><td>28</td><td>Shoe or being worn out</td><td>Jul 14 - Aug 10</td></tr><tr><td>Phalle</td><td>28</td><td>Phallus</td><td>Aug 11 - Sept 7</td></tr></table>`,
         accuracy: `The Pataphysical calendar is based off the Gregorian calendar and is thus exactly accurate.`,
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/%27Pataphysics#Pataphysical_calendar">Wikipedia article</a>.'

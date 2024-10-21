@@ -440,7 +440,7 @@ function getByzantineCalendar(currentDateTime) {
 }
 
 
-// Returns a formatted Florentine local date
+// Returns a formatted Florentine (CET) date
 function getFlorentineCalendar(currentDateTime) {
 
     // Check for approximate sunset and increment the day
@@ -474,6 +474,78 @@ function getFlorentineCalendar(currentDateTime) {
     if (florentineYear <= 0) {
         yearSuffix = 'BC';
         displayYear = -florentineYear + 1; // Adjust for BC notation
+    }
+
+    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    return dateString;
+}
+
+// Returns a formatted Pisan (CET) date
+function getPisanCalendar(currentDateTime) {
+
+    // Adjust for timezone
+    let pisanDay = new Date(currentDateTime);
+    pisanDay.setTime(pisanDay.getTime() + 3600000);
+
+
+    // Recompute JDN for the adjusted date
+    const adjustedJDN = gregorianToJDN(pisanDay);
+    const adjustedJulianDate = JDNToJulianDate(adjustedJDN);
+
+    // Determine Pisan year (starts on March 25 in Julian calendar)
+    let pisanYear = adjustedJulianDate.year +1;
+    if (
+        adjustedJulianDate.month < 3 ||
+        (adjustedJulianDate.month === 3 && adjustedJulianDate.day < 25)
+    ) {
+        // Before March 25, subtract one year
+        pisanYear -= 1;
+    }
+
+    // Prepare date components for display
+    const dayOfWeek = pisanDay.getDay();
+    const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
+    const dayString = adjustedJulianDate.day;
+
+    let yearSuffix = 'AD';
+    let displayYear = pisanYear;
+    if (pisanYear <= 0) {
+        yearSuffix = 'BC';
+        displayYear = -pisanYear + 1; // Adjust for BC notation
+    }
+
+    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    return dateString;
+}
+
+// Returns a formatted Venetian (CET) date
+function getVenetianCalendar(currentDateTime) {
+
+    // Adjust for timezone
+    let venetianDay = new Date(currentDateTime);
+    venetianDay.setTime(venetianDay.getTime() + 3600000);
+
+    // Recompute JDN for the adjusted date
+    const adjustedJDN = gregorianToJDN(venetianDay);
+    const adjustedJulianDate = JDNToJulianDate(adjustedJDN);
+
+    // Determine Venetian year (starts on March 25 in Julian calendar)
+    let venetianYear = adjustedJulianDate.year;
+    if (adjustedJulianDate.month < 3) {
+        // Before March 1, subtract one year
+        venetianYear -= 1;
+    }
+
+    // Prepare date components for display
+    const dayOfWeek = venetianDay.getDay();
+    const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
+    const dayString = adjustedJulianDate.day;
+
+    let yearSuffix = 'AD';
+    let displayYear = venetianYear;
+    if (venetianYear <= 0) {
+        yearSuffix = 'BC';
+        displayYear = -venetianYear + 1; // Adjust for BC notation
     }
 
     let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
@@ -673,7 +745,7 @@ function getPataphysicalDate(currentDateTime) {
     let year = mostRecentSept8.getFullYear()-1872; // Get epoch
     const dayOfWeek = currentDateTime.getDay();
 
-    return day + ' ' + month + ' ' + year + '\n' + pataphysicalWeek[dayOfWeek];
+    return day + ' ' + month + ' ' + year + ' A.P.\n' + pataphysicalWeek[dayOfWeek];
 }
 
 // Returns a formatted Discordian local date

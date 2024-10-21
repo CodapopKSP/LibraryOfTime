@@ -13,6 +13,8 @@ function updateSolarCalendars(currentDateTime, calendarType) {
     setTimeValue('astronomical-node', getAstronomicalDate(currentDateTime));
     setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
     setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
+    setTimeValue('pisan-node', getPisanCalendar(currentDateTime));
+    setTimeValue('venetian-node', getVenetianCalendar(currentDateTime));
     setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, getCurrentSolsticeOrEquinox(currentDateTime, 'autumn')));
     setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
     setTimeValue('minguo-node', getMinguo(currentDateTime));
