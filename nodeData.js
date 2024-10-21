@@ -540,7 +540,7 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Julian',
+        name: 'Julian (UTC)',
         id: 'julian',
         type: 'Solar Calendar',
         epoch: '30 December 0 BCE',
@@ -552,7 +552,7 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Astronomical',
+        name: 'Astronomical (UTC)',
         id: 'astronomical',
         type: 'Solar Calendar',
         epoch: '30 December 0 BCE',
@@ -612,10 +612,10 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Minguo',
+        name: 'Minguo (CST)',
         id: 'minguo',
         type: 'Solar Calendar',
-        epoch: '1 January 1912 CE',
+        epoch: '31 December 1911 CE, +16:00:00',
         confidence: 'Exact',
         overview: `The Minguo calendar, also known as the Republic of China calendar, is used in Taiwan and its territories. Following the traditional convention of numbering years after the current dynastic era, dates are counted in 民國 ('MinGuo'), translated as 'Year of the Republic' with year 1 being the establishment of the ROC in 1912, while its numerical months (月 "yue") and days (日 "ri") follow the Gregorian calendar.\n\nThe Minguo calendar was also used in China between 1912 and the fleeing of the ROC to Taiwan in 1949.`,
         info: `Prior to the establishment of the Repiblic of China in 1912, the Chinese people and government used the traditional Chinese lunisolar calendar. The ROC adopted the Gregorian calendar for official business but used the new Era of the Republic as the epoch. After claiming victory over the Chinese mainland in 1949, the PRC opted to use the Gregorian calendar along with its epoch.`,
@@ -624,10 +624,10 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Thai',
+        name: 'Thai (THB)',
         id: 'thai',
         type: 'Solar Calendar',
-        epoch: '1 January 543 BCE',
+        epoch: '31 December 544 BCE, +17:00:00',
         confidence: 'High',
         overview: 'The Thai solar calendar is used in Thailand and is 543 years ahead of the Gregorian calendar, though it shares the same months with different names.\n\nIt represents the number of years of the current Buddhist Era (B.E.), the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.',
         info: `<table class="table-long"><tr><th>Months</th><th>English</th><th>Days</th></tr><tr><td>มกราคม</td><td>January</td><td>31</td></tr><tr><td>กุมภาพันธ์</td><td>February</td><td>28 or 29</td></tr><tr><td>มีนาคม</td><td>March</td><td>31</td></tr><tr><td>เมษายน</td><td>April</td><td>30</td></tr><tr><td>พฤษภาคม</td><td>May</td><td>31</td></tr><tr><td>มิถุนายน</td><td>June</td><td>30</td></tr><tr><td>กรกฎาคม</td><td>July</td><td>31</td></tr><tr><td>สิงหาคม</td><td>August</td><td>31</td></tr><tr><td>กันยายน</td><td>September</td><td>30</td></tr><tr><td>ตุลาคม</td><td>October</td><td>31</td></tr><tr><td>พฤศจิกายน</td><td>November</td><td>30</td></tr><tr><td>ธันวาคม</td><td>December</td><td>31</td></tr></table>`,
@@ -636,10 +636,10 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Juche',
+        name: 'Juche (KST)',
         id: 'juche',
         type: 'Solar Calendar',
-        epoch: '1 January 1912 CE',
+        epoch: '31 December 1911 CE, +15:00:00',
         confidence: 'Exact',
         overview: 'The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar.',
         info: `Juche refers to the specific ideology of the Worker's Party of Korea and is related to Marxist-Leninism.`,

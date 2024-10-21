@@ -58,17 +58,17 @@ function getRealJulianDate(currentDateTime) {
 
 // Returns an unformatted Julian date object, useful for calculating many calendars
 function getApproxJulianDate(currentDateTime) {
-    let year = currentDateTime.getFullYear();
+    let year = currentDateTime.getUTCFullYear();
     let daysAhead = Math.trunc(year / 100) - Math.trunc(year / 400) - 2;
     let julianDate = new Date(currentDateTime);
-    julianDate.setDate(julianDate.getDate() - daysAhead);
+    julianDate.setUTCDate(julianDate.getUTCDate() - daysAhead);
     return julianDate;
 }
 
 function getAstronomicalDate(currentDateTime) {
     const startOfGregorian = new Date(1582, 9, 15);
     let astronomical = new Date(currentDateTime);
-    let year = astronomical.getFullYear();
+    let year = astronomical.getUTCFullYear();
 
     let yearSuffix = 'CE';
     if (year < 1) {
@@ -76,17 +76,11 @@ function getAstronomicalDate(currentDateTime) {
     }
 
     if (currentDateTime<startOfGregorian) {
-        astronomical = getApproxJulianDate(currentDateTime);
-        year = astronomical.getFullYear();
-        yearSuffix = 'AD';
-        if (year < 1) {
-            yearSuffix = 'BC';
-            year = Math.abs(year);
-        }
+        return getJulianCalendar(currentDateTime);
     }
-    let day = astronomical.getDate().toString();
-    let month = astronomical.getMonth();
-    const dayOfWeek = currentDateTime.getDay();
+    let day = astronomical.getUTCDate().toString();
+    let month = astronomical.getUTCMonth();
+    const dayOfWeek = currentDateTime.getUTCDay();
 
     return day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
 }
@@ -117,7 +111,7 @@ function getGregorianDateTime(currentDateTime) {
 // Returns a formatted Julian calendar local date
 function getJulianCalendar(currentDateTime) {
     const julianDate = getRealJulianDate(currentDateTime);
-    const dayOfWeek = currentDateTime.getDay();
+    const dayOfWeek = currentDateTime.getUTCDay();
     const { year, month, day } = julianDate;
     let yearSuffix = 'AD';
     let displayYear = year;
@@ -165,10 +159,12 @@ function toRomanNumerals(num) {
 
 // Returns a formatted Minguo local date
 function getMinguo(currentDateTime) {
-    let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
-    let year = currentDateTime.getFullYear() - 1911;
-    let dayOfWeek = currentDateTime.getDay();
+    let taiwanTime = new Date(currentDateTime);
+    taiwanTime.setTime(taiwanTime.getTime()+(8*3600000));
+    let day = taiwanTime.getUTCDate();
+    let month = taiwanTime.getUTCMonth() + 1; // Month is zero-based, so add 1
+    let year = taiwanTime.getUTCFullYear() - 1911;
+    let dayOfWeek = taiwanTime.getUTCDay();
     const minguoWeek = ['天','一','二','三','四','五','六']
     
     return '民國 ' + year + '年 ' + month + '月 ' + day + '日\n星期' + minguoWeek[dayOfWeek];
@@ -176,10 +172,12 @@ function getMinguo(currentDateTime) {
 
 // Returns a formatted Juche local date
 function getJuche(currentDateTime) {
-    let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth() + 1; // Month is zero-based, so add 1
-    let year = currentDateTime.getFullYear() - 1911;
-    let dayOfWeek = currentDateTime.getDay();
+    let jucheTime = new Date(currentDateTime);
+    jucheTime.setTime(jucheTime.getTime()+(9*3600000));
+    let day = jucheTime.getUTCDate();
+    let month = jucheTime.getUTCMonth() + 1; // Month is zero-based, so add 1
+    let year = jucheTime.getUTCFullYear() - 1911;
+    let dayOfWeek = jucheTime.getUTCDay();
     const jucheWeek = ['일', '월', '화', '수', '목', '금', '토'];
     
     // Add leading zeros if necessary
@@ -205,10 +203,12 @@ function getThaiSolar(currentDateTime) {
     ];
     const thaiSolarWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 
-    let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear() + 543;
-    let dayOfWeek = currentDateTime.getDay();
+    let thaiTime = new Date(currentDateTime);
+    thaiTime.setTime(thaiTime.getTime()+(7*3600000));
+    let day = thaiTime.getUTCDate();
+    let month = thaiTime.getUTCMonth();
+    let year = thaiTime.getUTCFullYear() + 543;
+    let dayOfWeek = thaiTime.getUTCDay();
     return day + ' ' + thaiSolarMonths[month] + ' B.E. ' + year + '\n' + thaiSolarWeek[dayOfWeek];
 }
 
@@ -465,7 +465,7 @@ function getFlorentineCalendar(currentDateTime) {
     }
 
     // Prepare date components for display
-    const dayOfWeek = currentDateTime.getDay();
+    const dayOfWeek = currentDateTime.getUTCDay();
     const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
     const dayString = adjustedJulianDate.day + dayModifier;
 
@@ -503,7 +503,7 @@ function getPisanCalendar(currentDateTime) {
     }
 
     // Prepare date components for display
-    const dayOfWeek = pisanDay.getDay();
+    const dayOfWeek = pisanDay.getUTCDay();
     const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
     const dayString = adjustedJulianDate.day;
 
@@ -537,7 +537,7 @@ function getVenetianCalendar(currentDateTime) {
     }
 
     // Prepare date components for display
-    const dayOfWeek = venetianDay.getDay();
+    const dayOfWeek = venetianDay.getUTCDay();
     const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
     const dayString = adjustedJulianDate.day;
 
