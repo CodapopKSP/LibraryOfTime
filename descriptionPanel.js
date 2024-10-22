@@ -8,6 +8,32 @@
 
 const headerTabs = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
 
+function addHeaderTabHoverEffect() {
+    headerTabs.forEach((tabID) => {
+        const tab = document.getElementById(tabID);
+
+        // Add hover event listeners
+        tab.addEventListener('mouseenter', () => {
+            tab.classList.add('hoveringTab');
+        });
+        tab.addEventListener('mouseleave', () => {
+            tab.classList.remove('hoveringTab');
+        });
+    });
+}
+
+function addHomeButtonHoverEffect() {
+    const homeButton = document.getElementById('home-button');
+
+    // Add hover event listeners
+    homeButton.addEventListener('mouseenter', () => {
+        homeButton.classList.add('hoveringHome');
+    });
+    homeButton.addEventListener('mouseleave', () => {
+        homeButton.classList.remove('hoveringHome');
+    });
+}
+
 function createHomePageDescription(contentKey, contentClass) {
     const description = document.createElement('div');
     description.classList.add('nodeinfo');

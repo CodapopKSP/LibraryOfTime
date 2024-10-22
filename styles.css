@@ -306,8 +306,8 @@ a {
 }
 
 #floating-panel {
-    width: 30vh;
-    height: 10vh;
+    height: 14vh;
+    width: 36vh;
     background-color: rgb(75, 75, 75);
     border: 0.2vh solid #000000;
     border-radius: 0.7vh;
@@ -316,18 +316,35 @@ a {
     left: 50vh;
     cursor: move;
     z-index: 10;
-    padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: none;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-end;
 }
+
+#floating-box-node-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    height: 5vh;
+}
+
+
 
 #floating-panel-toggle-button {
     position: fixed;
     top: 4vh;
     right: 4vh;
     padding: 1vh 2vh;
-    background-color: #4f4f4f; /* Green background */
-    color: white; /* White text */
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -336,7 +353,7 @@ a {
 }
 
 #floating-panel-toggle-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #4f4f4f; /* Darker green on hover */
 }
   
 
@@ -410,6 +427,10 @@ a {
     box-shadow: none;
 }
 
+.header-button.hoveringTab {
+    background: rgb(55, 55, 55);
+}
+
 .activeTab {
     border-bottom: 0;
     background: rgb(55, 55, 55);
@@ -479,6 +500,10 @@ a {
     border-color: #443c3c;
     border-width: 0.2vh;
     visibility: hidden;
+}
+
+#home-button.hoveringHome {
+    background-color: rgb(45, 45, 45);
 }
 
 
