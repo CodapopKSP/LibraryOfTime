@@ -70,8 +70,40 @@ function createNode(item) {
         }, 150);
     });
 
+    // Add right-click event for dropdown
+    node.addEventListener('contextmenu', (event) => {
+        event.preventDefault(); // Prevent default context menu
+        showNodeMenu(event, item);
+    });
+
     const parentElement = parentElements[item.type];
     parentElement.appendChild(node);
+}
+
+function showNodeMenu(event, item) {
+    const dropdownMenu = document.getElementById('node-menu');
+    dropdownMenu.style.display = 'block';
+    dropdownMenu.style.left = `${event.pageX}px`; // Position the menu
+    dropdownMenu.style.top = `${event.pageY}px`; // Position the menu
+
+    // Optionally, you can attach data to the menu for further actions
+    dropdownMenu.dataset.nodeId = item.id;
+
+    // Add event listeners for dropdown actions
+    document.getElementById('node-place').onclick = () => {
+        nodePlace(item.id); // Define this function to handle edit
+        dropdownMenu.style.display = 'none'; // Hide the menu after action
+    };
+
+    // Hide the menu when clicking outside
+    window.addEventListener('click', hideNodeMenu);
+}
+
+// Hide the dropdown menu
+function hideNodeMenu() {
+    const dropdownMenu = document.getElementById('node-menu');
+    dropdownMenu.style.display = 'none'; // Hide the menu
+    window.removeEventListener('click', hideNodeMenu); // Remove listener
 }
 
 function clearSelectedNode() {
@@ -80,3 +112,4 @@ function clearSelectedNode() {
         selectedNode = '';
     }
 }
+

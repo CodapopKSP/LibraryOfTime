@@ -247,6 +247,32 @@ a {
     background-color: rgb(150, 150, 150);
 }
 
+.node-menu {
+    position: absolute; /* Position it absolutely to the viewport */
+    font-size: 1.2vh;
+    width: 7vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border: 0.3vh solid #1f1f1f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100; /* Ensure it's on top */
+}
+
+.node-menu ul {
+    list-style-type: none; /* Remove bullet points */
+    margin: 0;
+    padding: 5px;
+}
+
+.node-menu li {
+    cursor: pointer;
+}
+
+.node-menu li:hover {
+    background-color: rgb(60, 60, 60);; /* Highlight on hover */
+}
+
+
 
 /*
 |===============|
@@ -335,8 +361,6 @@ a {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     height: 5vh;
 }
-
-
 
 #floating-panel-toggle-button {
     position: fixed;

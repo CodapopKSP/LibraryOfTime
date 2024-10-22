@@ -19,28 +19,6 @@ const panel = document.getElementById("floating-panel");
 const toggleButton = document.getElementById("floating-panel-toggle-button");
 let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
 
-// Show/Hide the panel when the button is clicked
-toggleButton.addEventListener("click", () => {
-    if (panel.style.display === "none" || panel.style.display === "") {
-      panel.style.display = "flex";
-    } else {
-      panel.style.display = "none";
-    }
-});
-
-panel.addEventListener("mousedown", (e) => {
-    e.preventDefault();
-    
-    // Get the mouse cursor position at startup
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    
-    // Call the function when the cursor moves
-    document.addEventListener("mousemove", movePanel);
-    
-    // Stop moving when mouse button is released
-    document.addEventListener("mouseup", stopDrag);
-});
 
 // Node parent elements
 const parentElements = {
@@ -312,10 +290,11 @@ function getFormattedTimezoneOffset() {
 
 // Display the initial Description Panel
 homeButton();
-addHeaderTabHoverEffect();
-addHomeButtonHoverEffect();
 changeActiveHeaderTab('header-button-1', 0);
 
+addHeaderTabHoverEffect();
+addHomeButtonHoverEffect();
+instantiateFloatingPanel();
 
 // Initial update
 let updateIntervalId = setInterval(updateAllNodes, updateMiliseconds);
