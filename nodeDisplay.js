@@ -31,6 +31,13 @@ function handleNodeClick(content, item) {
 }
 
 function createNode(item) {
+    let node = createNode_(item)
+
+    const parentElement = parentElements[item.type];
+    parentElement.appendChild(node);
+}
+
+function createNode_(item) {
     // Create the node element
     const node = document.createElement('div');
     node.classList.add('node');
@@ -46,11 +53,15 @@ function createNode(item) {
     content.classList.add('content');
     node.appendChild(content);
 
-    node.addEventListener('click', () => {
-        clearDescriptionPanel();
-        handleNodeClick(content, item);
+    // Handle left-click (selection)
+    node.addEventListener('click', (event) => {
+        if (event.button === 0) { // Check if it's a left-click
+            clearDescriptionPanel();
+            handleNodeClick(content, item);
+        }
     });
 
+    // Handle mouse hover effects
     node.addEventListener('mouseenter', () => {
         content.classList.add('hover');
     });
@@ -59,26 +70,27 @@ function createNode(item) {
         content.classList.remove('hover');
     });
     
-    node.addEventListener('mousedown', () => {
-        // Temporarily add the 'clicking' class
-        content.classList.add('clicking');
-    
-        // Remove the 'clicking' class and add 'active' class after 150ms
-        setTimeout(() => {
-            content.classList.remove('clicking');
-            content.classList.add('active');
-        }, 150);
+    // Handle left mouse down to add 'clicking' class
+    node.addEventListener('mousedown', (event) => {
+        if (event.button === 0) { // Check if it's a left-click
+            content.classList.add('clicking');
+            setTimeout(() => {
+                content.classList.remove('clicking');
+                content.classList.add('active');
+            }, 150);
+        }
     });
 
-    // Add right-click event for dropdown
+    // Add right-click event for custom dropdown menu (prevent selection)
     node.addEventListener('contextmenu', (event) => {
         event.preventDefault(); // Prevent default context menu
-        showNodeMenu(event, item);
+        event.stopPropagation(); // Stop event propagation
+        showNodeMenu(event, item); // Show custom context menu
     });
 
-    const parentElement = parentElements[item.type];
-    parentElement.appendChild(node);
+    return node; // Return the created node for appending elsewhere
 }
+
 
 function showNodeMenu(event, item) {
     const dropdownMenu = document.getElementById('node-menu');
@@ -90,8 +102,20 @@ function showNodeMenu(event, item) {
     dropdownMenu.dataset.nodeId = item.id;
 
     // Add event listeners for dropdown actions
-    document.getElementById('node-place').onclick = () => {
-        nodePlace(item.id); // Define this function to handle edit
+    document.getElementById('node-place1').onclick = () => {
+        nodePlace(item, 1); // Define this function to handle edit
+        dropdownMenu.style.display = 'none'; // Hide the menu after action
+    };
+    document.getElementById('node-place2').onclick = () => {
+        nodePlace(item, 2); // Define this function to handle edit
+        dropdownMenu.style.display = 'none'; // Hide the menu after action
+    };
+    document.getElementById('node-place3').onclick = () => {
+        nodePlace(item, 3); // Define this function to handle edit
+        dropdownMenu.style.display = 'none'; // Hide the menu after action
+    };
+    document.getElementById('node-place4').onclick = () => {
+        nodePlace(item, 4); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
 
