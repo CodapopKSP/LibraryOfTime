@@ -45,25 +45,27 @@ function instantiateFloatingPanel() {
 
 // Function to redraw everything inside grid-item 1
 function nodePlace(item, grid) {
-    // Select the grid item based on the grid parameter
-    const gridItem = document.querySelector(`.grid-item${grid}`); // Use template literal to include grid in the selector
-    // Clear existing content
-    gridItem.innerHTML = ''; 
+    const gridItem = document.querySelector(`.grid-item${grid}`);
+    gridItem.innerHTML = '';
+    // Remove any class that doesn't start with "grid"
+    gridItem.classList.forEach(className => {
+        if (!className.startsWith('grid')) {
+            gridItem.classList.remove(className);
+        }
+    });
 
-    // Get the source element using the item's id
     const sourceElement = document.getElementById(`${item.id}-node`);
 
     if (sourceElement) {
-        // Get the parent of the source element
         const parentElement = sourceElement.parentElement;
-        
-        // Get the grandparent of the source element
         const grandparentElement = parentElement.parentElement;
 
-        // Clone the parent element, including its structure and classes
-        const clonedParent = parentElement.cloneNode(true); // true to clone all child nodes
+        const clonedParent = parentElement.cloneNode(true);
 
-        // Add classes of the grandparent to grid-item
+        // Add the node ID as a class to the cloned content so it can be updated
+        const clonedContent = clonedParent.querySelector('.content');
+        clonedContent.classList.add(`${item.id}-node`);
+
         if (grandparentElement) {
             const grandparentClasses = Array.from(grandparentElement.classList);
             grandparentClasses.forEach(className => {
@@ -71,12 +73,12 @@ function nodePlace(item, grid) {
             });
         }
 
-        // Append the cloned parent to grid-item
         gridItem.appendChild(clonedParent);
     } else {
         console.error(`Element with id ${item.id}-node not found.`);
     }
 }
+
 
 
 

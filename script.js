@@ -213,8 +213,19 @@ function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPass) {
 
 // Main function for populating a node
 function setTimeValue(type, value) {
-    document.getElementById(type).textContent = value;
+    // Update the original node
+    const originalNode = document.getElementById(type);
+    if (originalNode) {
+        originalNode.textContent = value;
+    }
+
+    // Update cloned nodes, if any
+    const clonedNodes = document.querySelectorAll(`.grid-item .${type}`);
+    clonedNodes.forEach(clonedNode => {
+        clonedNode.textContent = value;
+    });
 }
+
 
 // Read the input box and set the date or restart the current time ticker
 function changeDateTime(newDateString = '', timezonePassthrough = '') {
