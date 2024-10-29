@@ -176,10 +176,12 @@ function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPass) {
                 setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
                 setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
             case 7:
-                const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
                 setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
                 setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime) + '°');
-                setTimeValue('this-new-moon-node', newMoonThisMonth.toUTCString());
+                setTimeValue('this-new-moon-node', getMoonPhase(currentDateTime, 0).toUTCString());
+                setTimeValue('this-first-quarter-moon-node', getMoonPhase(currentDateTime, 0.25).toUTCString());
+                setTimeValue('this-full-moon-node', getMoonPhase(currentDateTime, 0.5).toUTCString());
+                setTimeValue('this-last-quarter-moon-node', getMoonPhase(currentDateTime, 0.75).toUTCString());
             case 8:
                 updateSolarCalendars(currentDateTime, calendarType);
             case 9:

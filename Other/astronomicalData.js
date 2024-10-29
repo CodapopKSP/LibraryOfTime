@@ -53,7 +53,7 @@ function calculateDateFromJDE(JDE) {
     return fixedDateTime;
 }
 
-function calculateUTCYear(currentDateTime) {
+function calculateUTCYearFraction(currentDateTime) {
     year = currentDateTime.getUTCFullYear();
     let yearStart = new Date(Date.UTC(year, 0, 1));
     yearStart.setUTCFullYear(year);
@@ -189,46 +189,10 @@ function calculateLunationNumber(currentDateTime) {
     return lunationNumber;
 }
 
-// Returns the calculated unformatted date of the most recent New Moon
-// This equation was sourced from Astronomical Algorithms
-function getNewMoonThisMonth(currentDateTime, monthModifier) {
-
-    // Sum the New Moon table from Astronomical Algorithms
-    function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
-        function sumNewMoonTableHelper(num1, num2) {
-            return num1 * Math.sin((num2)* Math.PI / 180)
-        }
-        const sum =
-            sumNewMoonTableHelper(-0.40720, MoonM) +
-            sumNewMoonTableHelper(0.17241*E, SunM) +
-            sumNewMoonTableHelper(0.01608, MoonM*2) +
-            sumNewMoonTableHelper(0.01039, F*2) +
-            sumNewMoonTableHelper(0.00739*E, MoonM-SunM) +
-            sumNewMoonTableHelper(-0.00514*E, MoonM+SunM) +
-            sumNewMoonTableHelper(0.00208*E*2, SunM*2) +
-            sumNewMoonTableHelper(-0.00111, MoonM-F*2) +
-            sumNewMoonTableHelper(-0.00057, MoonM + F*2) +
-            sumNewMoonTableHelper(0.00056*E, 2*MoonM + SunM) +
-            sumNewMoonTableHelper(-0.00042, 3*MoonM) +
-            sumNewMoonTableHelper(0.00042*E, SunM + F*2) +
-            sumNewMoonTableHelper(0.00038*E, SunM - F*2) +
-            sumNewMoonTableHelper(-0.00024*E, 2*MoonM-SunM) +
-            sumNewMoonTableHelper(-0.00017, lunarNode) +
-            sumNewMoonTableHelper(-0.00007, MoonM+2*SunM) +
-            sumNewMoonTableHelper(0.00004, 2*MoonM - 2*F) +
-            sumNewMoonTableHelper(0.00004, 3*SunM) +
-            sumNewMoonTableHelper(0.00003, SunM + MoonM - 2*F) +
-            sumNewMoonTableHelper(0.00003, 2*MoonM + 2*F) +
-            sumNewMoonTableHelper(-0.00003, SunM + MoonM + 2*F) +
-            sumNewMoonTableHelper(0.00003, MoonM - SunM + 2*F) +
-            sumNewMoonTableHelper(-0.00002, MoonM - SunM - 2*F) +
-            sumNewMoonTableHelper(-0.00002, MoonM*3 + SunM) +
-            sumNewMoonTableHelper(0.00002, MoonM*4);
-        return sum;
-    }
-
+// Calculates a moon phase
+function getMoonPhase(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
-    year += calculateUTCYear(currentDateTime);
+    year += calculateUTCYearFraction(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
     const T = k/1236.85;
     const E = 1 - 0.002516*T - 0.0000074*T**2;
@@ -237,11 +201,139 @@ function getNewMoonThisMonth(currentDateTime, monthModifier) {
     const MoonM = 201.5643 + 385.81693528*k + 0.0107438*T**2 + 0.00001239*T**3 - 0.000000058*T**4;
     const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
     const lunarNode = 124.7746 - 1.56375580*k + 0.0020691*T**2 + 0.00000215*T**3;
-    const sumOfNewMoonTable = sumNewMoonTable(SunM, MoonM, F, E, lunarNode);
     const sumOfAllPhaseTable = allPhaseTable(k, T);
+    let tableSum = 0;
+    if (monthModifier % 1 === 0) {
+        tableSum = sumNewMoonTable(SunM, MoonM, F, E, lunarNode);
+    }
+    else if (monthModifier % 1 === 0.5) {
+        tableSum = sumFullMoonTable(SunM, MoonM, F, E, lunarNode);
+    }
+    else {
+        tableSum = sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier);
+    }    
 
-    const newMoonJDE = JDE + sumOfNewMoonTable + sumOfAllPhaseTable;
-    return new Date(calculateDateFromJDE(newMoonJDE));
+    const calculatedMoonPhaseJDE = JDE + sumOfAllPhaseTable + tableSum;
+    return new Date(calculateDateFromJDE(calculatedMoonPhaseJDE));
+}
+
+// Sum the New Moon table from Astronomical Algorithms
+function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
+    function sumNewMoonTableHelper(num1, num2) {
+        return num1 * Math.sin((num2)* Math.PI / 180)
+    }
+    const sum =
+        sumNewMoonTableHelper(-0.40720, MoonM) +
+        sumNewMoonTableHelper(0.17241*E, SunM) +
+        sumNewMoonTableHelper(0.01608, MoonM*2) +
+        sumNewMoonTableHelper(0.01039, F*2) +
+        sumNewMoonTableHelper(0.00739*E, MoonM-SunM) +
+        sumNewMoonTableHelper(-0.00514*E, MoonM+SunM) +
+        sumNewMoonTableHelper(0.00208*E*E, SunM*2) +
+        sumNewMoonTableHelper(-0.00111, MoonM-F*2) +
+        sumNewMoonTableHelper(-0.00057, MoonM + F*2) +
+        sumNewMoonTableHelper(0.00056*E, 2*MoonM + SunM) +
+        sumNewMoonTableHelper(-0.00042, 3*MoonM) +
+        sumNewMoonTableHelper(0.00042*E, SunM + F*2) +
+        sumNewMoonTableHelper(0.00038*E, SunM - F*2) +
+        sumNewMoonTableHelper(-0.00024*E, 2*MoonM-SunM) +
+        sumNewMoonTableHelper(-0.00017, lunarNode) +
+        sumNewMoonTableHelper(-0.00007, MoonM+2*SunM) +
+        sumNewMoonTableHelper(0.00004, 2*MoonM - 2*F) +
+        sumNewMoonTableHelper(0.00004, 3*SunM) +
+        sumNewMoonTableHelper(0.00003, SunM + MoonM - 2*F) +
+        sumNewMoonTableHelper(0.00003, 2*MoonM + 2*F) +
+        sumNewMoonTableHelper(-0.00003, SunM + MoonM + 2*F) +
+        sumNewMoonTableHelper(0.00003, MoonM - SunM + 2*F) +
+        sumNewMoonTableHelper(-0.00002, MoonM - SunM - 2*F) +
+        sumNewMoonTableHelper(-0.00002, MoonM*3 + SunM) +
+        sumNewMoonTableHelper(0.00002, MoonM*4);
+    return sum;
+}
+
+// Sum the New Moon table from Astronomical Algorithms
+function sumFullMoonTable(SunM, MoonM, F, E, lunarNode) {
+    function sumFullMoonTableHelper(num1, num2) {
+        return num1 * Math.sin((num2)* Math.PI / 180)
+    }
+    const sum =
+        sumFullMoonTableHelper(-0.40614, MoonM) +
+        sumFullMoonTableHelper(0.17302*E, SunM) +
+        sumFullMoonTableHelper(0.01614, MoonM*2) +
+        sumFullMoonTableHelper(0.01043, F*2) +
+        sumFullMoonTableHelper(0.00734*E, MoonM-SunM) +
+        sumFullMoonTableHelper(-0.00515*E, MoonM+SunM) +
+        sumFullMoonTableHelper(0.00209*E*E, SunM*2) +
+        sumFullMoonTableHelper(-0.00111, MoonM-F*2) +
+        sumFullMoonTableHelper(-0.00057, MoonM + F*2) +
+        sumFullMoonTableHelper(0.00056*E, 2*MoonM + SunM) +
+        sumFullMoonTableHelper(-0.00042, 3*MoonM) +
+        sumFullMoonTableHelper(0.00042*E, SunM + F*2) +
+        sumFullMoonTableHelper(0.00038*E, SunM - F*2) +
+        sumFullMoonTableHelper(-0.00024*E, 2*MoonM-SunM) +
+        sumFullMoonTableHelper(-0.00017, lunarNode) +
+        sumFullMoonTableHelper(-0.00007, MoonM+2*SunM) +
+        sumFullMoonTableHelper(0.00004, 2*MoonM - 2*F) +
+        sumFullMoonTableHelper(0.00004, 3*SunM) +
+        sumFullMoonTableHelper(0.00003, SunM + MoonM - 2*F) +
+        sumFullMoonTableHelper(0.00003, 2*MoonM + 2*F) +
+        sumFullMoonTableHelper(-0.00003, SunM + MoonM + 2*F) +
+        sumFullMoonTableHelper(0.00003, MoonM - SunM + 2*F) +
+        sumFullMoonTableHelper(-0.00002, MoonM - SunM - 2*F) +
+        sumFullMoonTableHelper(-0.00002, MoonM*3 + SunM) +
+        sumFullMoonTableHelper(0.00002, MoonM*4);
+    return sum;
+}
+
+// Sum the New Moon table from Astronomical Algorithms
+function sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier) {
+    function sumQuarterMoonTableHelper(num1, num2) {
+        return num1 * Math.sin((num2)* Math.PI / 180)
+    }
+    function sumQuarterMoonTableHelperW(num1, num2) {
+        return num1 * Math.cos((num2)* Math.PI / 180)
+    }
+    let sum =
+        sumQuarterMoonTableHelper(-0.62801, MoonM) +
+        sumQuarterMoonTableHelper(0.17172*E, SunM) +
+        sumQuarterMoonTableHelper(-0.01183*E, MoonM+SunM) +
+        sumQuarterMoonTableHelper(0.00862, MoonM*2) +
+        sumQuarterMoonTableHelper(0.00804, F*2) +
+        sumQuarterMoonTableHelper(0.00454*E, MoonM-SunM) +
+        sumQuarterMoonTableHelper(0.00204*E*E, SunM*2) +
+        sumQuarterMoonTableHelper(-0.00180, MoonM-F*2) +
+        sumQuarterMoonTableHelper(-0.00070, MoonM + F*2) +
+        sumQuarterMoonTableHelper(-0.00040, 3*MoonM) +
+        sumQuarterMoonTableHelper(-0.00034*E, 2*MoonM-SunM) +
+        sumQuarterMoonTableHelper(0.00032*E, SunM + F*2) +
+        sumQuarterMoonTableHelper(0.00032*E, SunM - F*2) +
+        sumQuarterMoonTableHelper(-0.00028*E*E, MoonM+SunM*2) +
+        sumQuarterMoonTableHelper(0.00027*E, MoonM*2+SunM) +
+        sumQuarterMoonTableHelper(-0.00017, lunarNode) +
+        sumQuarterMoonTableHelper(-0.00005, MoonM-SunM - 2*F) +
+        sumQuarterMoonTableHelper(0.00004, MoonM*2+F*2) +
+        sumQuarterMoonTableHelper(-0.00004, SunM + MoonM + 2*F) +
+        sumQuarterMoonTableHelper(0.00004, MoonM - SunM*2) +
+        sumQuarterMoonTableHelper(0.00003, SunM + MoonM - 2*F) +
+        sumQuarterMoonTableHelper(0.00003, 3*SunM) +
+        sumQuarterMoonTableHelper(0.00002, 2*MoonM - 2*F) +
+        sumQuarterMoonTableHelper(0.00002, MoonM - SunM + F*2) +
+        sumQuarterMoonTableHelper(-0.00002, MoonM*3+SunM);
+    
+    const w = 0.00306 -
+        sumQuarterMoonTableHelperW(0.00038*E, SunM) +
+        sumQuarterMoonTableHelperW(0.00026, MoonM) +
+        sumQuarterMoonTableHelperW(-0.00002, MoonM-SunM) +
+        sumQuarterMoonTableHelperW(0.00002, MoonM+SunM) +
+        sumQuarterMoonTableHelperW(0.00002, F*2);
+
+    if (monthModifier % 1 === 0.25) {
+        sum += w;
+    }
+    else {
+        sum -= w;
+    }
+    return sum;
 }
 
 // Sum the All Phases table from Astronomical Algorithms
@@ -284,7 +376,7 @@ function allPhaseTable(k, T) {
 // Get formatted information about the next solar eclipse
 function getNextSolarEclipse(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
-    year += calculateUTCYear(currentDateTime);
+    year += calculateUTCYearFraction(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
     const T = k/1236.85;
     const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
@@ -371,7 +463,7 @@ function getNextSolarEclipse(currentDateTime, monthModifier) {
     }
 
     // Get date of eclipse
-    const eclipseDate = getNewMoonThisMonth(currentDateTime, monthModifier)
+    const eclipseDate = getMoonPhase(currentDateTime, monthModifier)
 
     return eclipseDate.toUTCString() + '\n' + eclipseType + ' | ' + eclipseNode + '\n' + hemisphere;
 }

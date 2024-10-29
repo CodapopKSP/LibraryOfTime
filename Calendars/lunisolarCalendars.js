@@ -187,12 +187,12 @@ function getMonthEleven(winterSolstice) {
     let currentMonth = 0; // Start from the current month
 
     // Get the lunar conjunction closest to the winter solstice
-    let closestConjunction = getNewMoonThisMonth(winterSolstice, currentMonth);
+    let closestConjunction = getMoonPhase(winterSolstice, currentMonth);
 
     // Check if the closest conjunction is after the winter solstice
     if (closestConjunction > winterSolstice) {
         // Move to the previous month to find the start of the eleventh month
-        closestConjunction = getNewMoonThisMonth(winterSolstice, currentMonth - 1);
+        closestConjunction = getMoonPhase(winterSolstice, currentMonth - 1);
     }
     return closestConjunction;
 }

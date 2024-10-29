@@ -37,8 +37,8 @@ function updateLunisolarCalendars(currentDateTime) {
     let lastYear = new Date(currentDateTime);
     lastYear.setFullYear(currentDateTime.getFullYear()-1);
     const winterSolsticeLastYear = getCurrentSolsticeOrEquinox(lastYear, 'winter');
-    const newMoonThisMonth = getNewMoonThisMonth(currentDateTime, 0);
-    const newMoonLastMonth = getNewMoonThisMonth(currentDateTime, -1);
+    const newMoonThisMonth = getMoonPhase(currentDateTime, 0);
+    const newMoonLastMonth = getMoonPhase(currentDateTime, -1);
     let lunisolarCalendarChina = getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 16); // China midnight happens at UTC 16:00
     let chineseCalendar = getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina, 'china');
     setTimeValue('chinese-node', chineseCalendar);
