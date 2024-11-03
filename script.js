@@ -169,6 +169,7 @@ function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPass) {
                 setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
             case 4:
                 setTimeValue('next-solar-eclipse-node', getNextSolarEclipse(currentDateTime, 0));
+                setTimeValue('next-lunar-eclipse-node', getNextSolarEclipse(currentDateTime, 0.5));
             case 5:
                 updateProposedCalendars(currentDateTime);
             case 6:

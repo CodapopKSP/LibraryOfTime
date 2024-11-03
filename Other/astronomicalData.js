@@ -427,21 +427,14 @@ function getNextSolarEclipse(currentDateTime, monthModifier) {
         uTableHelper(0.0004, 2*MoonM) +
         uTableHelper(-0.0005, SunM+MoonM);
 
-
-    // Umbra cannot be seen from Earth, not a solar eclipse
-    if (Math.abs(Y) > 1.5433+u) {
-        return getNextSolarEclipse(currentDateTime, monthModifier+1);
+    // Calculate Lunar Node, Ascending if ~360 and Descending if ~180
+    let eclipseNode = 'Ascending';
+    let Fdegrees = F %360;
+    if (Fdegrees < 0) {
+        Fdegrees += 360;
     }
-
-    // Central eclipse
-    let eclipseType = 'None';
-    if ((Y>-0.9972)&&(Y<0.9972)) {
-        eclipseType = 'Annular';
-        if (u < 0) {
-            eclipseType = 'Total'
-        }
-    } else {
-        eclipseType = 'Partial';
+    if ((Fdegrees < 200)&&(Fdegrees > 160)) {
+        eclipseNode = 'Descending';
     }
 
     // Calculate which hemisphere it will occur in
@@ -451,15 +444,53 @@ function getNextSolarEclipse(currentDateTime, monthModifier) {
     } else {
         hemisphere = 'Southern Hemisphere'
     }
-    
-    // Calculate Lunar Node, Ascending if ~360 and Descending if ~180
-    let eclipseNode = 'Ascending';
-    let Fdegrees = F %360;
-    if (Fdegrees < 0) {
-        Fdegrees += 360;
-    }
-    if ((Fdegrees < 200)&&(Fdegrees > 160)) {
-        eclipseNode = 'Descending';
+
+    let eclipseType = 'None';
+
+    // Lunar Eclipse
+    if ((monthModifier%1)===0.5) {
+        // Not an umbral eclipse
+        const umbra = 0.7403 - u;
+        const umbralEclipseMagnitude = (1.0128 - u - Math.abs(Y))/0.5450;
+        if (umbralEclipseMagnitude < 0) {
+            eclipseType = 'Penumbral';
+        }
+
+        const umbralP = 1.0128 - u;
+        const umbralT = 0.4678 - u;
+        const umbraln = 0.5458 + 0.0400 * Math.cos(MoonM*(Math.PI / 180));
+
+        // Partial phase
+        const partialPhase = (60 / umbraln) * Math.sqrt(Math.pow(umbralP, 2) - Math.pow(Y, 2));
+
+        // Total phase
+        const totalPhase = (60 / umbraln) * Math.sqrt(Math.pow(umbralT, 2) - Math.pow(Y, 2));
+
+        if (partialPhase>0) {
+            eclipseType = 'Partial';
+        }
+
+        if (totalPhase>0) {
+            eclipseType = 'Total';
+        }
+
+    // Solar Eclipse
+    } else {
+        // Umbra cannot be seen from Earth, not a solar eclipse
+        if (Math.abs(Y) > 1.5433+u) {
+            return getNextSolarEclipse(currentDateTime, monthModifier+1);
+        }
+
+        // Central eclipse
+
+        if ((Y>-0.9972)&&(Y<0.9972)) {
+            eclipseType = 'Annular';
+            if (u < 0) {
+                eclipseType = 'Total';
+            }
+        } else {
+            eclipseType = 'Partial';
+        }
     }
 
     // Get date of eclipse
