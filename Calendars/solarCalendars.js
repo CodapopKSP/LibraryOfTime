@@ -797,7 +797,7 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         equinoxDayNoon.setSeconds(0);
         equinoxDayNoon.setMilliseconds(0);
         if (equinox > equinoxDayNoon) {
-            equinox.setDate(equinox.getDate()+1);
+            equinox.setDate(equinox.getDate() + 1);
         }
         equinox.setUTCHours(20);
         equinox.setMinutes(30);
@@ -806,87 +806,82 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         return equinox;
     }
 
-    // Figure out starting and ending equinoxes
-    let startingEquinox = '';
-    let endingEquinox = '';
+    // Determine the starting and ending equinoxes
+    let startingEquinox, endingEquinox;
     if (currentDateTime < vernalEquinox) {
         let lastYear = new Date(currentDateTime);
-        lastYear.setFullYear(currentDateTime.getFullYear()-1);
+        lastYear.setFullYear(currentDateTime.getFullYear() - 1);
         lastYear.setMonth(10);
         startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'spring');
         endingEquinox = new Date(vernalEquinox);
     } else {
         let nextYear = new Date(currentDateTime);
-        nextYear.setFullYear(currentDateTime.getFullYear()+1);
+        nextYear.setFullYear(currentDateTime.getFullYear() + 1);
         nextYear.setMonth(10);
         startingEquinox = new Date(vernalEquinox);
         endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'spring');
     }
 
-    // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
     startingEquinox = figureOutEquinoxBeforeAfterNoon(startingEquinox);
     endingEquinox = figureOutEquinoxBeforeAfterNoon(endingEquinox);
     const leapYear = differenceInDays(endingEquinox, startingEquinox) === 366;
-    let remainingDays = Math.floor(differenceInDays(currentDateTime, startingEquinox))+1;
+    let remainingDays = Math.floor(differenceInDays(currentDateTime, startingEquinox)) + 1;
 
-    // Month names
-    const SolarHijri = [
-        "Farvardin",
-        "Ordibehesht",
-        "Khordad",
-        "Tir",
-        "Mordad",
-        "Shahrivar",
-        "Mehr",
-        "Aban",
-        "Azar",
-        "Dey",
-        "Bahman",
-        "Esfand",
+    // Solar Hijri month and week names
+    const SolarHijriMonths = [
+        "Farvardin", "Ordibehesht", "Khordad", "Tir", "Mordad", "Shahrivar",
+        "Mehr", "Aban", "Azar", "Dey", "Bahman", "Esfand"
     ];
 
-    const solarHijriWeek = [
-        "Yekshanbeh",   // Sunday
-        "Doshanbeh",    // Monday
-        "Seshanbeh",    // Tuesday
-        "Chaharshanbeh",// Wednesday
-        "Panjshanbeh",  // Thursday
-        "Jomeh",        // Friday
-        "Shanbeh"       // Saturday
+    const SolarHijriWeek = [
+        "Yekshanbeh", "Doshanbeh", "Seshanbeh", "Chaharshanbeh",
+        "Panjshanbeh", "Jomeh", "Shanbeh"
     ];
-    
 
-    // Figure out how many days are in each month
-    let daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,29];
+    // Days per month in Solar Hijri calendar
+    let daysOfMonths = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
     if (leapYear) {
-        daysOfMonths = [31,31,31,31,31,31,30,30,30,30,30,30];
+        daysOfMonths[11] = 30;
     }
 
-    // Iterate through days of months and subtract from remaining days
+    // Iterate through months to find the current month and day
     let monthIndex = 0;
     for (; monthIndex < daysOfMonths.length; monthIndex++) {
-        if (remainingDays < daysOfMonths[monthIndex]) {
+        if (remainingDays <= daysOfMonths[monthIndex]) {
             break;
         }
         remainingDays -= daysOfMonths[monthIndex];
     }
-    // Handle weird roll over issues
-    if (monthIndex>11) {
-        monthIndex=0;
+
+    // It is next month if days are still too many
+    let day = remainingDays+1;
+    if (day > daysOfMonths[monthIndex]) {
+        day = 1;
+        monthIndex += 1;
     }
 
-    const day = remainingDays+1;
-    const month = SolarHijri[monthIndex];
-    const year = startingEquinox.getFullYear() - 621;
+    // If monthIndex rolls over, adjust to first month of the next year
+    if (monthIndex > 11) {
+        monthIndex = 0;
+    }
+    
+    const month = SolarHijriMonths[monthIndex];
+    let year = startingEquinox.getFullYear() - 621;
 
-    // Get the weekday based on sunset in Tehran
+    // Adjust for dates before epoch
+    if (year <= 0) {
+        year -= 1; // Correct 0 year to -1
+    }
+
+    // Determine weekday based on sunset in Tehran (21:30 UTC the previous day)
     let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours()-2); // 3.5 hours ahead + sunset of 18:00 = 21.5 hours yesterday
-    startOfToday.setUTCMinutes(currentDateTime.getUTCMinutes()-30);
+    startOfToday.setUTCHours(currentDateTime.getUTCHours() - 2); // 3.5 hours ahead + sunset of 18:00 = 21.5 hours yesterday
+    startOfToday.setUTCMinutes(currentDateTime.getUTCMinutes() - 30);
     const dayOfWeek = startOfToday.getDay();
 
-    return day + ' ' + month + ' ' + year + ' SH\n' + solarHijriWeek[dayOfWeek];
+    return day + ' ' + month + ' ' + year + ' SH\n' + SolarHijriWeek[dayOfWeek];
 }
+
 
 // Returns a formatted Qadimi IRST date
 function getQadimiDate(currentDateTime) {
