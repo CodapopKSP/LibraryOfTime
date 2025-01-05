@@ -9,7 +9,7 @@
 function updateSolarCalendars(currentDateTime, calendarType) {
     const springEquinox = getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
     setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime).date);
-    setTimeValue('julian-node', getJulianCalendar(currentDateTime, calendarType));
+    setTimeValue('julian-node', getJulianCalendar(currentDateTime));
     setTimeValue('astronomical-node', getAstronomicalDate(currentDateTime));
     setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
     setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
