@@ -92,7 +92,10 @@ function parseInputDate(dateInput, timezoneOffset) {
     const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
 
     // Create a Date object using Date.UTC, setting the year to 0 initially
-    let dateTime = new Date(Date.UTC(0, inputMonth - 1, inputDay, inputHour, inputMinute - offsetInMinutes, inputSecond));
+    let dateTime = new Date(Date.UTC(0, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond));
+
+    // Adjust by the timezone offset
+    dateTime.setUTCMinutes(dateTime.getUTCMinutes() + offsetInMinutes);
 
     // Set the correct year using setUTCFullYear
     if (BCE) {

@@ -44,6 +44,12 @@ testGregorianAgainstKnownDate(
     getGregorianDateTime
 );
 
+testGregorianAgainstKnownDate(
+    new Date(2012, 1, 29, 16, 0, 0), 
+    {date: "29 February 2012 CE\nWednesday", time: "16:00:00"}, 
+    getGregorianDateTime
+);
+
 testJulianAgainstKnownDate(
     new Date(1950, 0, 1, 0, 0, 0), 
     "18 December 1949 AD\nSaturday", 
