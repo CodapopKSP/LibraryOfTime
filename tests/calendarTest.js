@@ -1,5 +1,3 @@
-
-
 function testGregorianAgainstKnownDate(currentDateTime, knownDate, functionToTest) {
     const result = functionToTest(currentDateTime);
     if ((result.date === knownDate.date)&&(result.time === knownDate.time)) {
@@ -27,7 +25,7 @@ function testJulianAgainstKnownDate(currentDateTime, knownDate, functionToTest) 
 }
 
 testGregorianAgainstKnownDate(
-    new Date(1950, 0, 1, 0, 0, 0), 
+    parseInputDate('1950-1-1, 00:00:00', 'UTC+00:00'), 
     {date: "1 January 1950 CE\nSunday", time: "00:00:00"}, 
     getGregorianDateTime
 );
@@ -61,3 +59,59 @@ testJulianAgainstKnownDate(
     "2 January 100 AD\nThursday", 
     getJulianCalendar
 );
+
+function testTimezoneFormatter() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testTimezoneFormatter_test(timezoneTest, minutesTest) {
+        testCount += 1;
+        let minutes = convertUTCOffsetToMinutes(timezoneTest);
+        if (minutes==minutesTest){
+            passedTestCount += 1;
+        } else {
+            console.error('Timezone Offset: Test ' + testCount + ' failed.');
+        }
+    }
+
+    // Tests - Timezone, Output Minutes
+    testTimezoneFormatter_test('UTC+08:00', 480);
+    testTimezoneFormatter_test('UTC+00:00', 0);
+    testTimezoneFormatter_test('UTC-12:00', -720);
+
+    // Cumulative Test Check
+    if (testCount==passedTestCount){
+        console.log('Timezone Offset: All Tests Passed');
+    }
+}
+
+function testParseDate() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testParseDate_test(testedDate, testedTimezone, parsedDateTest) {
+        testCount += 1;
+        let parsedDate = parseInputDate(testedDate, testedTimezone);
+        parsedDate = parsedDate.toUTCString();
+        if (parsedDate==parsedDateTest){
+            passedTestCount += 1;
+        } else {
+            console.error('Parse Date: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+    }
+
+    // Tests - Input Date, Timezone, Output Date
+    testParseDate_test('1950-1-1, 00:00:00', 'UTC+00:00', 'Sun, 01 Jan 1950 00:00:00 GMT');
+    testParseDate_test('2000-12-31, 00:00:00', 'UTC+08:00', 'Sun, 31 Dec 2000 08:00:00 GMT');
+    testParseDate_test('2016-2-29, 00:00:00', 'UTC+12:00', 'Mon, 29 Feb 2016 12:00:00 GMT');
+
+    // Cumulative Test Check
+    if (testCount==passedTestCount){
+        console.log('Parse Date: All Tests Passed');
+    }
+}
+
+// Run all tests
+testParseDate();
+testTimezoneFormatter();
