@@ -92,7 +92,7 @@ function parseInputDate(dateInput, timezoneOffset) {
     const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
 
     // Create a Date object using Date.UTC, setting the year to 0 initially
-    let dateTime = new Date(Date.UTC(4, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond));
+    let dateTime = new Date(Date.UTC(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond));
 
     // Adjust by the timezone offset
     dateTime.setUTCMinutes(dateTime.getUTCMinutes() + offsetInMinutes);
@@ -108,9 +108,16 @@ function parseInputDate(dateInput, timezoneOffset) {
 }
 
 // Calculate display date for user's calendar choice
-function adjustCalendarDate(currentDateTime, calendarType) {
+function adjustCalendarType(currentDateTime, calendarType) {
     let gregJulDifference = 0;
-    gregJulDifference = differenceInDays(currentDateTime, getRealJulianDate(currentDateTime));
+    let julianDateParts = getRealJulianDate(currentDateTime);
+    const totalSeconds = (julianDateParts.fractionalDay) * 24 * 60 * 60; // Total seconds in the fraction
+    const hours = Math.floor(totalSeconds / 3600); // Get the whole hours
+    const minutes = Math.floor((totalSeconds % 3600) / 60); // Remaining minutes
+    const seconds = Math.floor(totalSeconds % 60); // Remaining seconds
+    let julianDate = new Date(Date.UTC(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds));
+    julianDate.setTime(julianDate.getTime() - 0.5 * 24 * 60 * 60 * 1000);
+    gregJulDifference = differenceInDays(currentDateTime, julianDate);
     switch (calendarType) {
         case 'julian-liturgical':
             currentDateTime = adjustForJulianLiturgical(currentDateTime, gregJulDifference);

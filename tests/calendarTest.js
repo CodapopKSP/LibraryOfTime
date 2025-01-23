@@ -112,6 +112,36 @@ function testParseDate() {
     }
 }
 
+function testCalendarType() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testCalendarType_test(testedDate, testedCalendarType, parsedDateTest) {
+        testCount += 1;
+        let parsedDate = adjustCalendarType(testedDate, testedCalendarType);
+        parsedDate = parsedDate.toUTCString();
+        if (parsedDate==parsedDateTest){
+            passedTestCount += 1;
+        } else {
+            console.error('Calendar Type: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+    }
+
+    // Tests - Input Date, Calendar Type, Output Date
+    testCalendarType_test(new Date(Date.UTC(2024,0,1,0,0,0)), 'gregorian', 'Mon, 01 Jan 2024 00:00:00 GMT');
+    testCalendarType_test(new Date(Date.UTC(2000,0,1,0,0,0)), 'julian-liturgical', 'Fri, 14 Jan 2000 00:00:00 GMT');
+    testCalendarType_test(new Date(Date.UTC(1000,0,1,0,0,0)), 'astronomical', 'Mon, 06 Jan 1000 00:00:00 GMT');
+
+    // Cumulative Test Check
+    if (testCount==passedTestCount){
+        console.log('Calendar Type: All Tests Passed');
+    }
+}
+
+
+
 // Run all tests
 testParseDate();
 testTimezoneFormatter();
+testCalendarType();
