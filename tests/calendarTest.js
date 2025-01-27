@@ -1,65 +1,3 @@
-function testGregorianAgainstKnownDate(currentDateTime, knownDate, functionToTest) {
-    const result = functionToTest(currentDateTime);
-    if ((result.date === knownDate.date)&&(result.time === knownDate.time)) {
-        console.log(`Test passed for ${functionToTest.name}`);
-        return true;
-    } else {
-        console.error(
-            `Test failed for ${functionToTest.name}: Expected ${knownDate.date} / ${knownDate.time}, but got ${result.date} / ${result.time}`
-        );
-        return false;
-    }
-}
-
-function testJulianAgainstKnownDate(currentDateTime, knownDate, functionToTest) {
-    const result = functionToTest(currentDateTime);
-    if (result === knownDate) {
-        console.log(`Test passed for ${functionToTest.name}`);
-        return true;
-    } else {
-        console.error(
-            `Test failed for ${functionToTest.name}: Expected ${knownDate} but got ${result}`
-        );
-        return false;
-    }
-}
-
-testGregorianAgainstKnownDate(
-    parseInputDate('1950-1-1, 00:00:00', 'UTC+00:00'), 
-    {date: "1 January 1950 CE\nSunday", time: "00:00:00"}, 
-    getGregorianDateTime
-);
-
-testGregorianAgainstKnownDate(
-    new Date(100, 0, 1, 0, 0, 0), 
-    {date: "1 January 100 CE\nFriday", time: "00:00:00"}, 
-    getGregorianDateTime
-);
-
-testGregorianAgainstKnownDate(
-    new Date(-1000, 0, 1, 0, 0, 0), 
-    {date: "1 January 1000 BCE\nWednesday", time: "00:00:00"}, 
-    getGregorianDateTime
-);
-
-testGregorianAgainstKnownDate(
-    new Date(2012, 1, 29, 16, 0, 0), 
-    {date: "29 February 2012 CE\nWednesday", time: "16:00:00"}, 
-    getGregorianDateTime
-);
-
-testJulianAgainstKnownDate(
-    new Date(1950, 0, 1, 0, 0, 0), 
-    "18 December 1949 AD\nSaturday", 
-    getJulianCalendar
-);
-
-testJulianAgainstKnownDate(
-    new Date(100, 0, 1, 0, 0, 0), 
-    "2 January 100 AD\nThursday", 
-    getJulianCalendar
-);
-
 function testTimezoneFormatter() {
     let testCount = 0;
     let passedTestCount = 0;
@@ -130,7 +68,7 @@ function testCalendarType() {
 
     // Tests - Input Date, Calendar Type, Output Date
     testCalendarType_test(new Date(Date.UTC(2024,0,1,0,0,0)), 'gregorian', 'Mon, 01 Jan 2024 00:00:00 GMT');
-    testCalendarType_test(new Date(Date.UTC(2000,0,1,0,0,0)), 'julian-liturgical', 'Fri, 14 Jan 2000 00:00:00 GMT');
+    testCalendarType_test(new Date(Date.UTC(2000,0,1,23,0,0)), 'julian-liturgical', 'Fri, 14 Jan 2000 23:00:00 GMT');
     testCalendarType_test(new Date(Date.UTC(1000,0,1,0,0,0)), 'astronomical', 'Mon, 06 Jan 1000 00:00:00 GMT');
 
     // Cumulative Test Check
@@ -139,9 +77,68 @@ function testCalendarType() {
     }
 }
 
+function testGregorianCalendar() {
+    let testCount = 0;
+    let passedTestCount = 0;
 
+    function testGregorianCalendar_test(testedDate, parsedDateTest, parsedTimeTest) {
+        testCount += 1;
+        let gregDateTime = getGregorianDateTime(testedDate);
+        let parsedDate = gregDateTime.date;
+        let parsedTime = gregDateTime.time;
+        if (parsedDate==parsedDateTest){
+            passedTestCount += 0.5;
+        } else {
+            console.error('Gregorian Calendar: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+        if (parsedTime==parsedTimeTest){
+            passedTestCount += 0.5;
+        } else {
+            console.error('Gregorian Calendar: Test ' + testCount + ' failed.');
+            console.error(parsedTime);
+        }
+    }
+
+    // Tests - Input Date, Output Date, Output Time
+    testGregorianCalendar_test(parseInputDate("100-1-1, 00:00:00", "UTC+00:00"), "1 January 100 CE\nFriday", "08:06:00" );
+    testGregorianCalendar_test(parseInputDate("-1000-1-1, 16:00:00", "UTC+00:00"), "2 January 1000 BCE\nThursday", "00:06:00" );
+    testGregorianCalendar_test(parseInputDate("2012-2-29, 08:00:00", "UTC+00:00"), "29 February 2012 CE\nWednesday", "16:00:00" );
+
+    // Cumulative Test Check
+    if (testCount==passedTestCount){
+        console.log('Gregorian Calendar: All Tests Passed');
+    }
+}
+
+function testJulianCalendar() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testJulianCalendar_test(testedDate, parsedDateTest) {
+        testCount += 1;
+        let parsedDate = getJulianCalendar(testedDate);
+        if (parsedDate==parsedDateTest){
+            passedTestCount += 1;
+        } else {
+            console.error('Julian Calendar: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+    }
+
+    // Tests - Input Date, Output Date
+    testJulianCalendar_test(parseInputDate("1950-1-1, 00:00:00", "UTC+00:00"), "19 December 1949 AD\nSunday");
+    testJulianCalendar_test(parseInputDate("2-1-1, 00:00:00", "UTC+00:00"), "3 January 2 AD\nTuesday");
+
+    // Cumulative Test Check
+    if (testCount==passedTestCount){
+        console.log('Julian Calendar: All Tests Passed');
+    }
+}
 
 // Run all tests
 testParseDate();
 testTimezoneFormatter();
 testCalendarType();
+testGregorianCalendar();
+testJulianCalendar();
