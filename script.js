@@ -26,21 +26,23 @@ if (typeof module !== "undefined") {
     module.exports = { parseInputDate, adjustCalendarType, convertUTCOffsetToMinutes };
 }
 
-// Node parent elements
-const parentElements = {
-    'Solar Calendar': document.querySelector('.solar-calendars'),
-    'Computing Time': document.querySelector('.computing-time'),
-    'Standard Time': document.querySelector('.standard-time'),
-    'Decimal Time': document.querySelector('.decimal-time'),
-    'Other Time': document.querySelector('.other-time'),
-    'Lunisolar Calendar': document.querySelector('.lunisolar-calendars'),
-    'Lunar Calendar': document.querySelector('.lunar-calendars'),
-    'Proposed Calendar': document.querySelector('.proposed-calendars'),
-    'Other Calendar': document.querySelector('.other-calendars'),
-    'Astronomical Data': document.querySelector('.astronomical-data'),
-    'Pop Culture': document.querySelector('.pop-culture'),
-    'Politics': document.querySelector('.politics')
-};
+if (typeof document !== "undefined") {
+    // Node parent elements
+    var parentElements = {
+        'Solar Calendar': document.querySelector('.solar-calendars'),
+        'Computing Time': document.querySelector('.computing-time'),
+        'Standard Time': document.querySelector('.standard-time'),
+        'Decimal Time': document.querySelector('.decimal-time'),
+        'Other Time': document.querySelector('.other-time'),
+        'Lunisolar Calendar': document.querySelector('.lunisolar-calendars'),
+        'Lunar Calendar': document.querySelector('.lunar-calendars'),
+        'Proposed Calendar': document.querySelector('.proposed-calendars'),
+        'Other Calendar': document.querySelector('.other-calendars'),
+        'Astronomical Data': document.querySelector('.astronomical-data'),
+        'Pop Culture': document.querySelector('.pop-culture'),
+        'Politics': document.querySelector('.politics')
+    };
+}
 
 const nodeDataArrays = [
     standardTimeData,
