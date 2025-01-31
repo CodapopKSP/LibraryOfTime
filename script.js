@@ -42,29 +42,29 @@ if (typeof document !== "undefined") {
         'Pop Culture': document.querySelector('.pop-culture'),
         'Politics': document.querySelector('.politics')
     };
-}
 
-const nodeDataArrays = [
-    standardTimeData,
-    computingTimeData,
-    decimalTimeData,
-    otherTimeData,
-    solarCalendarsData,
-    lunisolarCalendarsData,
-    lunarCalendarsData,
-    proposedCalendars,
-    otherCalendars,
-    astronomicalData,
-    popCultureData,
-    politicalCycles
-];
+    var nodeDataArrays = [
+        standardTimeData,
+        computingTimeData,
+        decimalTimeData,
+        otherTimeData,
+        solarCalendarsData,
+        lunisolarCalendarsData,
+        lunarCalendarsData,
+        proposedCalendars,
+        otherCalendars,
+        astronomicalData,
+        popCultureData,
+        politicalCycles
+    ];
 
-// Create the node arrays
-nodeDataArrays.forEach(dataArray => {
-    dataArray.forEach(item => {
-        createNode(item);
+    // Create the node arrays
+    nodeDataArrays.forEach(dataArray => {
+        dataArray.forEach(item => {
+            createNode(item);
+        });
     });
-});
+}
 
 // Convert chosen timezone into minutes to add
 function convertUTCOffsetToMinutes(offsetString) {
