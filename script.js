@@ -26,7 +26,7 @@ if (typeof module !== "undefined") {
     module.exports = { parseInputDate, adjustCalendarType, convertUTCOffsetToMinutes };
 }
 if (typeof require !== "undefined") {
-    var { getRealJulianDate } = require("../Calendars/solarCalendars.js");
+    var { getRealJulianDate } = require("./Calendars/solarCalendars.js");
 }
 
 if (typeof document !== "undefined") {
