@@ -8,6 +8,7 @@
 // Export required functions for testing
 if (typeof module !== "undefined") {
     module.exports = { getGregorianDateTime, getJulianCalendar, getRealJulianDate };
+    const { monthNames, weekNames } = require('../utilities.js');
 }
 
 if (typeof require !== "undefined") {
