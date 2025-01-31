@@ -318,14 +318,16 @@ function getFormattedTimezoneOffset() {
     return formattedOffset = `UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
 }
 
-// Display the initial Description Panel
-homeButton();
-changeActiveHeaderTab('header-button-1', 0);
+if (typeof document !== "undefined") {
+    // Display the initial Description Panel
+    homeButton();
+    changeActiveHeaderTab('header-button-1', 0);
 
-addHeaderTabHoverEffect();
-addHomeButtonHoverEffect();
-instantiateFloatingPanel();
+    addHeaderTabHoverEffect();
+    addHomeButtonHoverEffect();
+    instantiateFloatingPanel();
 
-// Initial update
-let updateIntervalId = setInterval(updateAllNodes, updateMiliseconds);
-updateAllNodes(0, 'gregorian-proleptic', getFormattedTimezoneOffset(), true);
+    // Initial update
+    let updateIntervalId = setInterval(updateAllNodes, updateMiliseconds);
+    updateAllNodes(0, 'gregorian-proleptic', getFormattedTimezoneOffset(), true);
+}
