@@ -15,8 +15,10 @@ let currentDescriptionTab = [];     // The current arrangement of information to
 let calendarType = 'gregorian-proleptic';
 let gregJulDifference = 0;
 
-const panel = document.getElementById("floating-panel");
-const toggleButton = document.getElementById("floating-panel-toggle-button");
+if (typeof document !== "undefined") {
+    var panel = document.getElementById("floating-panel");
+    var toggleButton = document.getElementById("floating-panel-toggle-button");
+}
 let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
 
 // Export required functions for testing
