@@ -7,7 +7,7 @@
 
 // Export required functions for testing
 if (typeof module !== "undefined") {
-    module.exports = { getGregorianDateTime, getJulianCalendar };
+    module.exports = { getGregorianDateTime, getJulianCalendar, getRealJulianDate };
 }
 
 // Function to compute the Julian Day Number from a Gregorian date
