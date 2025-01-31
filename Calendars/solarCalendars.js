@@ -10,6 +10,10 @@ if (typeof module !== "undefined") {
     module.exports = { getGregorianDateTime, getJulianCalendar, getRealJulianDate };
 }
 
+if (typeof require !== "undefined") {
+    var { differenceInDays, monthNames, weekNames } = require("./utilities.js");
+}
+
 // Function to compute the Julian Day Number from a Gregorian date
 function gregorianToJDN(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
