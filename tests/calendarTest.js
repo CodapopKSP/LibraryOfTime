@@ -129,6 +129,7 @@ function testJulianCalendar() {
     // Tests - Input Date, Output Date
     testJulianCalendar_test(parseInputDate("1950-1-1, 00:00:00", "UTC+00:00"), "19 December 1949 AD\nSunday");
     testJulianCalendar_test(parseInputDate("2-1-1, 00:00:00", "UTC+00:00"), "3 January 2 AD\nTuesday");
+    testJulianCalendar_test(parseInputDate("1917-11-7, 00:00:00", "UTC+12:00"), "25 October 1917 AD\nWednesday");
 
     // Cumulative Test Check
     if (testCount==passedTestCount){
