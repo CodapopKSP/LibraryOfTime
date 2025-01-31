@@ -1,3 +1,8 @@
+if (typeof require !== "undefined") {
+    var { parseInputDate, adjustCalendarType, convertUTCOffsetToMinutes } = require("../script.js");
+}
+
+
 function testTimezoneFormatter() {
     let testCount = 0;
     let passedTestCount = 0;

@@ -323,3 +323,11 @@ instantiateFloatingPanel();
 // Initial update
 let updateIntervalId = setInterval(updateAllNodes, updateMiliseconds);
 updateAllNodes(0, 'gregorian-proleptic', getFormattedTimezoneOffset(), true);
+
+
+
+
+// Export required functions for testing
+if (typeof module !== "undefined") {
+    module.exports = { parseInputDate, adjustCalendarType, convertUTCOffsetToMinutes };
+}
