@@ -27,7 +27,7 @@ if (typeof module !== "undefined") {
 }
 if (typeof require !== "undefined") {
     var { getRealJulianDate } = require("./Calendars/solarCalendars.js");
-    var { differenceInDays } = require("../utilities.js");
+    var { differenceInDays } = require("./utilities.js");
 }
 
 if (typeof document !== "undefined") {
