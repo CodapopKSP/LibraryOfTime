@@ -4,12 +4,6 @@
 
 // A set of functions for calculating times in the Computing Time category.
 
-
-// Export required functions for testing
-if (typeof module !== "undefined") {
-    module.exports = { differenceInDays, getMidnightInUTC };
-}
-
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -80,4 +74,7 @@ const GPSleapSeconds = [
     "2016-12-31T23:59:59Z"
 ];
   
-  
+// Export required functions for testing
+if (typeof module !== "undefined") {
+    module.exports = { differenceInDays, getMidnightInUTC, TAIleapSeconds, GPSleapSeconds, monthNames, weekNames };
+}
