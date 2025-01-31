@@ -5,6 +5,11 @@
 // A set of functions for calculating dates in the Solar Calendars category.
 
 
+// Export required functions for testing
+if (typeof module !== "undefined") {
+    module.exports = { getGregorianDateTime, getJulianCalendar };
+}
+
 // Function to compute the Julian Day Number from a Gregorian date
 function gregorianToJDN(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
