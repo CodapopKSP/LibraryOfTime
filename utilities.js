@@ -7,7 +7,7 @@
 
 // Export required functions for testing
 if (typeof module !== "undefined") {
-    module.exports = { differenceInDays, getMidnightInUTC, TAIleapSeconds, GPSleapSeconds, monthNames, weekNames };
+    module.exports = { differenceInDays, getMidnightInUTC };
 }
 
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
