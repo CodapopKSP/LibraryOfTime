@@ -25,6 +25,9 @@ let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
 if (typeof module !== "undefined") {
     module.exports = { parseInputDate, adjustCalendarType, convertUTCOffsetToMinutes };
 }
+if (typeof require !== "undefined") {
+    var { getRealJulianDate } = require("../Calendars/solarCalendars.js");
+}
 
 if (typeof document !== "undefined") {
     // Node parent elements
