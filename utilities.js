@@ -74,7 +74,6 @@ const GPSleapSeconds = [
     "2016-12-31T23:59:59Z"
 ];
   
-// Export required functions for testing
 if (typeof module !== "undefined") {
     module.exports = { differenceInDays, getMidnightInUTC, TAIleapSeconds, GPSleapSeconds, monthNames, weekNames };
 }

@@ -1,7 +1,7 @@
 if (typeof require !== "undefined") {
     var { parseInputDate, adjustCalendarType, convertUTCOffsetToMinutes } = require("../script.js");
     var { getGregorianDateTime, getJulianCalendar } = require("../Calendars/solarCalendars.js");
-    var { differenceInDays, getMidnightInUTC } = require("../utilities.js");
+    const { monthNames, weekNames } = require('../utilities.js');
 }
 
 function testTimezoneFormatter() {
