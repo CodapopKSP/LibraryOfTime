@@ -8,13 +8,18 @@
 // Export required functions for testing
 if (typeof module !== "undefined") {
     module.exports = { getGregorianDateTime, getJulianCalendar, getRealJulianDate };
-    const { monthNames, weekNames } = require('../utilities.js');
 }
+
+let monthNamesLocal, weekNamesLocal;
 
 if (typeof require !== "undefined") {
-    const { monthNames, weekNames } = require('../utilities.js');
+    // In Node: load from utilities.js
+    ({ monthNames: monthNamesLocal, weekNames: weekNamesLocal } = require('../utilities.js'));
+} else {
+    // In the browser: assume utilities.js has already run
+    monthNamesLocal = monthNames;
+    weekNamesLocal = weekNames;
 }
-
 // Function to compute the Julian Day Number from a Gregorian date
 function gregorianToJDN(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
