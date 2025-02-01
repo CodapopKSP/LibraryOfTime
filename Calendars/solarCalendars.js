@@ -97,7 +97,7 @@ function getAstronomicalDate(currentDateTime) {
     let month = astronomical.getUTCMonth();
     const dayOfWeek = currentDateTime.getUTCDay();
 
-    return day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
+    return day + ' ' + monthNamesLocal[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNamesLocal[dayOfWeek];
 }
 
 // Returns a formatted Gregorian calendar local date and time
@@ -117,7 +117,7 @@ function getGregorianDateTime(currentDateTime) {
         year = Math.abs(year);  // Adjust year for BCE without negative sign
     }
     
-    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
+    let dateDisplayString = day + ' ' + monthNamesLocal[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNamesLocal[dayOfWeek];
     let timeDisplayString = hour + ':' + minute + ':' + second;
     return {date: dateDisplayString, time: timeDisplayString};
 }
@@ -134,7 +134,7 @@ function getJulianCalendar(currentDateTime) {
         yearSuffix = 'BC';
         displayYear = -year + 1; // Convert to BC notation
     }
-    return `${day} ${monthNames[month-1]} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    return `${day} ${monthNamesLocal[month-1]} ${displayYear} ${yearSuffix}\n${weekNamesLocal[dayOfWeek]}`;
 }
 
 // Converts a number to Roman numerals
@@ -447,10 +447,10 @@ function getByzantineCalendar(currentDateTime) {
     }
 
     const dayOfWeek = currentDateTime.getDay();
-    const monthString = monthNames[julianDate.month - 1]; // Adjust for 0-based index
+    const monthString = monthNamesLocal[julianDate.month - 1]; // Adjust for 0-based index
     const dayString = julianDate.day;
 
-    let dateString = `${dayString} ${monthString} ${byzantineYear} AM\n${weekNames[dayOfWeek]}`;
+    let dateString = `${dayString} ${monthString} ${byzantineYear} AM\n${weekNamesLocal[dayOfWeek]}`;
     return dateString;
 }
 
