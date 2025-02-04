@@ -167,10 +167,3 @@ const exportsObject = {
     Object.assign(global, exportsObject);
   }
 })(typeof window !== 'undefined' ? window : global);
-
-// Run all tests
-testParseDate();
-testTimezoneFormatter();
-testCalendarType();
-testGregorianCalendar();
-testJulianCalendar();
