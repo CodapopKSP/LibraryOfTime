@@ -1,14 +1,16 @@
 (function (global) {
     // If running in Node, load dependencies (here, utilities.js)
     // In the browser, these names are already in the global scope.
-    let monthNames, weekNames, differenceInDays;
+    let monthNames, weekNames, differenceInDays, getRealJulianDate;
     if (typeof require !== 'undefined') {
       // Adjust the relative path as needed
       ({ monthNames, weekNames, differenceInDays } = require('./utilities.js'));
+      ({ getRealJulianDate } = require('./Calendars/solarCalendars.js'));
     } else {
       monthNames = global.monthNames;
       weekNames = global.weekNames;
       differenceInDays = global.differenceInDays;
+      getRealJulianDate = global.getRealJulianDate;
     }
 
 
