@@ -5,13 +5,14 @@
     if (typeof require !== 'undefined' && typeof module !== 'undefined' && module.exports) {
         // In Node, require the module(s) that export these functions.
         // Adjust the relative path as needed.
-        const script = require('../script.js');
+        const userInterface = require('../userInterface.js');
+        const solarCalendars = require('../Calendars/solarCalendars.js');
         // Now assign each function from the module.
-        convertUTCOffsetToMinutes = script.convertUTCOffsetToMinutes;
-        parseInputDate = script.parseInputDate;
-        adjustCalendarType = script.adjustCalendarType;
-        getGregorianDateTime = script.getGregorianDateTime;
-        getJulianCalendar = script.getJulianCalendar;
+        convertUTCOffsetToMinutes = userInterface.convertUTCOffsetToMinutes;
+        parseInputDate = userInterface.parseInputDate;
+        adjustCalendarType = userInterface.adjustCalendarType;
+        getGregorianDateTime = solarCalendars.getGregorianDateTime;
+        getJulianCalendar = solarCalendars.getJulianCalendar;
     } else {
         // In the browser, assume they are attached to the global object.
         convertUTCOffsetToMinutes = global.convertUTCOffsetToMinutes;
