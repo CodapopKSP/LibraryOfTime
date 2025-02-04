@@ -4,6 +4,8 @@
 
 // A set of functions for calculating times in the Computing Time category.
 
+(function (global) {
+
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -74,4 +76,20 @@ const GPSleapSeconds = [
     "2016-12-31T23:59:59Z"
 ];
   
-  
+const exportsObject = {
+    monthNames,
+    weekNames,
+    getMidnightInUTC,
+    differenceInDays,
+    TAIleapSeconds,
+    GPSleapSeconds
+  };
+
+  // If running in Node (or in a test runner), export via module.exports.
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = exportsObject;
+  } else {
+    // Otherwise (in the browser), attach to the global object.
+    Object.assign(global, exportsObject);
+  }
+})(typeof window !== 'undefined' ? window : global);

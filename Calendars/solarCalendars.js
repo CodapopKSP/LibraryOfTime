@@ -4,6 +4,19 @@
 
 // A set of functions for calculating dates in the Solar Calendars category.
 
+(function (global) {
+    // If running in Node, load dependencies (here, utilities.js)
+    // In the browser, these names are already in the global scope.
+    let monthNames, weekNames, differenceInDays;
+    if (typeof require !== 'undefined') {
+      // Adjust the relative path as needed
+      ({ monthNames, weekNames, differenceInDays } = require('../utilities.js'));
+    } else {
+      monthNames = global.monthNames;
+      weekNames = global.weekNames;
+      differenceInDays = global.differenceInDays;
+    }
+
 
 // Function to compute the Julian Day Number from a Gregorian date
 function gregorianToJDN(currentDateTime) {
@@ -1078,3 +1091,42 @@ function getHaabDate(currentDateTime) {
     
     return `${haabDay} ${haabMonths[haabMonthIndex]}`;
 };
+
+
+// Export the functions
+const exportsObject = {
+    gregorianToJDN,
+    JDNToJulianDate,
+    getRealJulianDate,
+    getApproxJulianDate,
+    getAstronomicalDate,
+    getGregorianDateTime,
+    getJulianCalendar,
+    toRomanNumerals,
+    getMinguo,
+    getJuche,
+    getThaiSolar,
+    getRepublicanCalendar,
+    getEraFascista,
+    getCopticDate,
+    getEthiopianDate,
+    getByzantineCalendar,
+    getFlorentineCalendar,
+    getPisanCalendar,
+    getVenetianCalendar,
+    getBahaiCalendar,
+    getPataphysicalDate,
+    getDiscordianDate,
+    getSolarHijriDate,
+    getQadimiDate,
+    getEgyptianDate,
+    getISOWeekDate,
+    getHaabDate
+  };
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = exportsObject;
+  } else {
+    Object.assign(global, exportsObject);
+  }
+})(typeof window !== 'undefined' ? window : global);
