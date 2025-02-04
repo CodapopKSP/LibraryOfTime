@@ -4,7 +4,7 @@
     let monthNames, weekNames, differenceInDays;
     if (typeof require !== 'undefined') {
       // Adjust the relative path as needed
-      ({ monthNames, weekNames, differenceInDays } = require('../utilities.js'));
+      ({ monthNames, weekNames, differenceInDays } = require('./utilities.js'));
     } else {
       monthNames = global.monthNames;
       weekNames = global.weekNames;
