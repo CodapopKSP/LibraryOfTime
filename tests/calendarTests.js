@@ -1,3 +1,18 @@
+(function (global) {
+    // If running in Node, load dependencies (here, utilities.js)
+    // In the browser, these names are already in the global scope.
+    let convertUTCOffsetToMinutes, parseInputDate, adjustCalendarType, getGregorianDateTime, getJulianCalendar;
+    if (typeof require !== 'undefined') {
+      // Adjust the relative path as needed
+      ({ monthNames, weekNames, differenceInDays } = require('../utilities.js'));
+    } else {
+        convertUTCOffsetToMinutes = global.convertUTCOffsetToMinutes;
+        parseInputDate = global.parseInputDate;
+        adjustCalendarType = global.adjustCalendarType;
+        getGregorianDateTime = global.getGregorianDateTime;
+        getJulianCalendar = global.getJulianCalendar;
+    }
+
 function testTimezoneFormatter() {
     let testCount = 0;
     let passedTestCount = 0;
@@ -136,6 +151,22 @@ function testJulianCalendar() {
         console.log('Julian Calendar: All Tests Passed');
     }
 }
+
+// Export the functions
+const exportsObject = {
+    testTimezoneFormatter,
+    testParseDate,
+    testCalendarType,
+    testGregorianCalendar,
+    testJulianCalendar,
+  };
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = exportsObject;
+  } else {
+    Object.assign(global, exportsObject);
+  }
+})(typeof window !== 'undefined' ? window : global);
 
 // Run all tests
 testParseDate();
