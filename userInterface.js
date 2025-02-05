@@ -1,17 +1,9 @@
-(function (global) {
-    // If running in Node, load dependencies (here, utilities.js)
-    // In the browser, these names are already in the global scope.
-    let monthNames, weekNames, differenceInDays, getRealJulianDate;
-    if (typeof require !== 'undefined') {
-      // Adjust the relative path as needed
-      ({ monthNames, weekNames, differenceInDays } = require('./utilities.js'));
-      ({ getRealJulianDate } = require('./Calendars/solarCalendars.js'));
-    } else {
-      monthNames = global.monthNames;
-      weekNames = global.weekNames;
-      differenceInDays = global.differenceInDays;
-      getRealJulianDate = global.getRealJulianDate;
-    }
+/*
+    |======================|
+    |    User Interface    |
+    |======================|
+
+*/
 
 
 // Convert chosen timezone into minutes to add
@@ -235,20 +227,3 @@ function getFormattedTimezoneOffset() {
     const offsetSign = timezoneOffset > 0 ? "-" : "+";
     return formattedOffset = `UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
 }
-
-// Export the functions
-const exportsObject = {
-    convertUTCOffsetToMinutes,
-    parseInputDate,
-    adjustCalendarType,
-    updateAllNodes,
-    setTimeValue,
-    getFormattedTimezoneOffset
-  };
-
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = exportsObject;
-  } else {
-    Object.assign(global, exportsObject);
-  }
-})(typeof window !== 'undefined' ? window : global);
