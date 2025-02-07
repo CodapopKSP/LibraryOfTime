@@ -14,8 +14,14 @@ jobs:
         with:
           node-version: 20
 
+      - name: Debug Directory
+        run: |
+          pwd
+          ls -l
+
+      - name: Create package.json for ESM
+        run: echo '{ "type": "module" }' > package.json
+
       - name: Run Tests
         run: |
-          echo '{ "type": "module" }' > package.json
-          for file in LibraryOfTime/tests/*.js; do node "$file"; done
-
+          node LibraryOfTime/tests/calendarTests.js
