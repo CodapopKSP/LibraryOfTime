@@ -28,4 +28,4 @@ jobs:
 
       - name: Run Tests
         run: |
-          node LibraryOfTime/tests/test1.js
+          node tests/calendarTests.js
