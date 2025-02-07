@@ -1,6 +1,6 @@
 
-import * as userInterface from '.../userInterface.js';
-import * as solarCalendars from '.../Calendars/solarCalendars.js';
+import * as userInterface from '../userInterface.js';
+import * as solarCalendars from '../Calendars/solarCalendars.js';
 
 
 function testTimezoneFormatter() {
