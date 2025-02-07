@@ -5,18 +5,18 @@
 
 */
 
-import * as solarCalendars from '../Calendars/solarCalendars.js';
-import * as computingTime from '../Timekeeping/computingTime.js';
-import * as timeFractions from '../Timekeeping/timeFractions.js';
-import * as otherTime from '../Timekeeping/otherTime.js';
-import * as otherCalendars from '../Calendars/otherCalendars.js';
-import * as nodeUpdate from '../nodeUpdate.js';
-import * as lunisolarCalendars from '../Calendars/lunisolarCalendars.js';
-import * as astronomicalData from '../Other/astronomicalData.js';
-import * as popCulture from '../Other/popCulture.js';
-import * as politics from '../Other/politics.js';
-import * as script from '../script.js';
-import * as utilities from '../utilities.js';
+import * as solarCalendars from './Calendars/solarCalendars.js';
+import * as computingTime from './Timekeeping/computingTime.js';
+import * as timeFractions from './Timekeeping/timeFractions.js';
+import * as otherTime from './Timekeeping/otherTime.js';
+import * as otherCalendars from './Calendars/otherCalendars.js';
+import * as nodeUpdate from './nodeUpdate.js';
+import * as lunisolarCalendars from './Calendars/lunisolarCalendars.js';
+import * as astronomicalData from './Other/astronomicalData.js';
+import * as popCulture from './Other/popCulture.js';
+import * as politics from './Other/politics.js';
+import * as script from './script.js';
+import * as utilities from './utilities.js';
 
 
 // Convert chosen timezone into minutes to add
