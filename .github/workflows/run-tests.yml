@@ -15,7 +15,7 @@ jobs:
           node-version: 20
 
       - name: Run Tests
-        working-directory: LibraryOfTime
         run: |
-            echo '{ "type": "module" }' > package.json
-            for file in tests/*.js; do node "$file"; done
+          echo '{ "type": "module" }' > package.json
+          for file in LibraryOfTime/tests/*.js; do node "$file"; done
+
