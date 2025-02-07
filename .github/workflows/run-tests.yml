@@ -18,5 +18,4 @@ jobs:
         working-directory: LibraryOfTime
         run: |
             echo '{ "type": "module" }' > package.json
-            cd LibraryOfTime  # Ensure we're in the right directory
             for file in tests/*.js; do node "$file"; done
