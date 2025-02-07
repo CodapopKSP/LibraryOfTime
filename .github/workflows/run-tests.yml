@@ -9,15 +9,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Debug Directory
+        run: |
+          echo "Printing directory structure..."
+          pwd
+          ls -l  # List files to verify the structure
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
-
-      - name: Debug Directory
-        run: |
-          pwd
-          ls -l
 
       - name: Create package.json for ESM
         run: |
@@ -25,8 +26,7 @@ jobs:
                 "type": "module"
             }' > package.json
 
-
-      - name: Run Tests
-        working-directory: LibraryOfTime  # Explicitly set working directory
+      - name: Set working directory and run tests
+        working-directory: ./LibraryOfTime  # Set working directory correctly to avoid double 'LibraryOfTime'
         run: |
           node tests/calendarTests.js
