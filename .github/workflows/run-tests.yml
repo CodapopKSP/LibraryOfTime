@@ -27,5 +27,6 @@ jobs:
 
 
       - name: Run Tests
+        working-directory: LibraryOfTime  # Explicitly set working directory
         run: |
           node tests/calendarTests.js
