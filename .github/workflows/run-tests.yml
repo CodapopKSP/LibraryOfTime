@@ -27,6 +27,6 @@ jobs:
             }' > package.json
 
       - name: Set working directory and run tests
-        working-directory: $GITHUB_WORKSPACE/LibraryOfTime  # Use the full GITHUB_WORKSPACE path
+        working-directory: ${{ github.workspace }}/LibraryOfTime  # Fixing the expansion issue
         run: |
           node tests/calendarTests.js
