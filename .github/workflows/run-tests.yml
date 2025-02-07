@@ -11,7 +11,7 @@ jobs:
 
       - name: Debug Directory
         run: |
-          echo "Printing directory structure..."
+          echo "Printing current directory structure..."
           pwd
           ls -l  # List files to verify the structure
 
@@ -27,6 +27,6 @@ jobs:
             }' > package.json
 
       - name: Set working directory and run tests
-        working-directory: ./LibraryOfTime  # Set working directory correctly to avoid double 'LibraryOfTime'
+        working-directory: $GITHUB_WORKSPACE/LibraryOfTime  # Use the full GITHUB_WORKSPACE path
         run: |
           node tests/calendarTests.js
