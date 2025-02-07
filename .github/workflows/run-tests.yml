@@ -20,8 +20,12 @@ jobs:
           ls -l
 
       - name: Create package.json for ESM
-        run: echo '{ "type": "module" }' > package.json
+        run: |
+            echo '{
+                "type": "module"
+            }' > package.json
+
 
       - name: Run Tests
         run: |
-          node LibraryOfTime/tests/calendarTests.js
+          node LibraryOfTime/tests/test1.js
