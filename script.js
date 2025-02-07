@@ -5,11 +5,11 @@
 
 */
 
-import * as nodeData from '../nodeData.js';
-import * as nodeDisplay from '../nodeDisplay.js';
-import * as descriptionPanel from '../descriptionPanel.js';
-import * as userPanel from '../userPanel.js';
-import * as userInterface from '../userInterface.js';
+import * as nodeData from './nodeData.js';
+import * as nodeDisplay from './nodeDisplay.js';
+import * as descriptionPanel from './descriptionPanel.js';
+import * as userPanel from './userPanel.js';
+import * as userInterface from './userInterface.js';
 
 // Settings
 const updateMiliseconds = 20;   // Update tick length

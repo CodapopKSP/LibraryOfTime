@@ -6,18 +6,18 @@
     This is a collection of container functions for updating nodes.
 */
 
-import * as solarCalendars from '../Calendars/solarCalendars.js';
-import * as proposedCalendars from '../Calendars/proposedCalendars.js';
-import * as computingTime from '../Timekeeping/computingTime.js';
-import * as timeFractions from '../Timekeeping/timeFractions.js';
-import * as otherTime from '../Timekeeping/otherTime.js';
-import * as decimalTime from '../Timekeeping/decimalTime.js';
-import * as otherCalendars from '../Calendars/otherCalendars.js';
-import * as astronomicalData from '../Other/astronomicalData.js';
-import * as lunisolarCalendars from '../Calendars/lunisolarCalendars.js';
-import * as lunarCalendars from '../Calendars/lunarCalendars.js';
-import * as userInterface from '../userInterface.js';
-import * as script from '../script.js';
+import * as solarCalendars from './Calendars/solarCalendars.js';
+import * as proposedCalendars from './Calendars/proposedCalendars.js';
+import * as computingTime from './Timekeeping/computingTime.js';
+import * as timeFractions from './Timekeeping/timeFractions.js';
+import * as otherTime from './Timekeeping/otherTime.js';
+import * as decimalTime from './Timekeeping/decimalTime.js';
+import * as otherCalendars from './Calendars/otherCalendars.js';
+import * as astronomicalData from './Other/astronomicalData.js';
+import * as lunisolarCalendars from './Calendars/lunisolarCalendars.js';
+import * as lunarCalendars from './Calendars/lunarCalendars.js';
+import * as userInterface from './userInterface.js';
+import * as script from './script.js';
 
 export function updateSolarCalendars(currentDateTime, calendarType) {
     const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
