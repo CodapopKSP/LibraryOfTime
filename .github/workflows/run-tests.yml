@@ -16,5 +16,6 @@ jobs:
 
       - name: Run Tests
         run: |
-          echo '{ "type": "module" }' > package.json
-          for file in tests/*.js; do node "$file"; done
+            echo '{ "type": "module" }' > package.json
+            cd LibraryOfTime  # Ensure we're in the right directory
+            for file in tests/*.js; do node "$file"; done
