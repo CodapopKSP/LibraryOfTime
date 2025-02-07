@@ -5,10 +5,10 @@
 // A set of functions for calculating times in the Computing Time category.
 
 
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+export const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-function getMidnightInUTC(dateToFind, utcMidnight) {
+export function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);
     midnightInChina.setUTCDate(dateToFind.getDate()-1);
     midnightInChina.setUTCHours(utcMidnight);
@@ -19,12 +19,12 @@ function getMidnightInUTC(dateToFind, utcMidnight) {
 }
 
 // Takes two dates and returns the difference between them in days
-function differenceInDays(date1, date2) {
+export function differenceInDays(date1, date2) {
     const day = 86400000;       // Equals 1000*60*60*24, converts ms to days
     return (date1 - date2) / day;
 }
 
-const TAIleapSeconds = [
+export const TAIleapSeconds = [
     "1972-06-30T23:59:59Z",
     "1972-12-31T23:59:59Z",
     "1973-12-31T23:59:59Z",
@@ -54,7 +54,7 @@ const TAIleapSeconds = [
     "2016-12-31T23:59:59Z"
 ];
 
-const GPSleapSeconds = [
+export const GPSleapSeconds = [
     "1981-06-30T23:59:59Z",
     "1982-06-30T23:59:59Z",
     "1983-06-30T23:59:59Z",

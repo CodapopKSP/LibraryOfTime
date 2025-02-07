@@ -13,8 +13,7 @@ Node Data is a collection of data for each node.
     accuracy:       The text that appears in the accuracy tab.
     source:         The text that appears in the source tab.
 */
-
-const standardTimeData = [
+export const standardTimeData = [
     {
         name: 'Local Time',
         id: 'local-time',
@@ -148,7 +147,7 @@ const standardTimeData = [
     },
 ]
 
-const computingTimeData = [
+export const computingTimeData = [
     {
         name: 'Unix',
         id: 'unix',
@@ -193,7 +192,7 @@ const computingTimeData = [
         confidence: 'Exact',
         overview: 'Long Range Navigational time was the standard used by the US and other jurisdictions prior to the creation of GPS. It deviates from UTC by the number of leap seconds since 1972 and doesn\'t include the 10 extra leap seconds in TAI.',
         info: 'LORAN-C uses a network of radio transmitters to determine distance using the synchronized time, similar to GPS that uses satellites.',
-        accuracy: 'It is difficult to find a current representation of LORAN-C despite it apparently still being in use. I have reconstructed this clock based off of the provided source as well as explanations of the specifics.',
+        accuracy: 'It is difficult to find a current representation of LORAN-C despite it apparently still being in use. I have reexport constructed this clock based off of the provided source as well as explanations of the specifics.',
         source: 'Much of the information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.'
     },
 
@@ -276,7 +275,7 @@ const computingTimeData = [
         epoch: 'Undefined',
         confidence: 'Medium',
         overview: 'Terrestrial Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.',
-        info: 'The exact time of the year is slowly changing on the order of a few seconds per year. This rate is not constant, though it can be estimated.',
+        info: 'The exact time of the year is slowly changing on the order of a few seconds per year. This rate is not export constant, though it can be estimated.',
         accuracy: `Terrestrial Time is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculation or due to a misunderstanding in some of the steps.`,
         source: `This calculation was originally sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nI also borrowed much of the base code for this calculation from <a href="https://github.com/Fabiz/MeeusJs/blob/master/lib/Astro.DeltaT.js">this GitHub repository</a> as it seems to be based on a later version of Meeus's calculation.`
     },
@@ -414,7 +413,7 @@ const computingTimeData = [
     },
 ]
 
-const decimalTimeData = [
+export const decimalTimeData = [
     {
         name: 'Revolutionary Time',
         id: 'revolutionary-time',
@@ -464,7 +463,7 @@ const decimalTimeData = [
     },
 ]
 
-const otherTimeData = [
+export const otherTimeData = [
     {
         name: 'Coordinated Mars Time',
         id: 'coordinated-mars-time',
@@ -538,7 +537,7 @@ const otherTimeData = [
     },
 ]
 
-const solarCalendarsData = [
+export const solarCalendarsData = [
     {
         name: 'Gregorian',
         id: 'gregorian',
@@ -804,7 +803,7 @@ const solarCalendarsData = [
     },
 ]
 
-const lunisolarCalendarsData = [
+export const lunisolarCalendarsData = [
     {
         name: 'Chinese (CST)',
         id: 'chinese',
@@ -866,7 +865,7 @@ const lunisolarCalendarsData = [
     },
 ]
 
-const lunarCalendarsData = [
+export const lunarCalendarsData = [
     {
         name: 'Hijri (AST)',
         id: 'hijri',
@@ -881,7 +880,7 @@ const lunarCalendarsData = [
     },
 ]
 
-const proposedCalendars = [
+export const proposedCalendars = [
     {
         name: 'Human Era',
         id: 'human-era',
@@ -931,7 +930,7 @@ const proposedCalendars = [
     },
 ]
 
-const otherCalendars = [
+export const otherCalendars = [
     {
         name: 'Maya Long Count',
         id: 'maya-long-count',
@@ -1125,7 +1124,7 @@ const otherCalendars = [
     },
 ]
 
-const astronomicalData = [
+export const astronomicalData = [
     {
         name: 'Northward Equinox',
         id: 'spring-equinox',
@@ -1259,7 +1258,7 @@ const astronomicalData = [
     },
 ]
 
-const popCultureData = [
+export const popCultureData = [
     {
         name: 'Minecraft Time',
         id: 'minecraft-time',
@@ -1297,7 +1296,7 @@ const popCultureData = [
     },
 ]
 
-const politicalCycles = [
+export const politicalCycles = [
     {
         name: 'US Presidential Terms',
         id: 'us-presidential-terms',

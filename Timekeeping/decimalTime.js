@@ -4,7 +4,7 @@
 
 // A set of functions for calculating times in the Decimal Time category.
 
-function getRevolutionaryTime(dayFraction) {
+export function getRevolutionaryTime(dayFraction) {
     let decimalHour = Math.trunc(dayFraction * 10);
     let decimalMinute = Math.trunc(dayFraction * 1000) - (decimalHour * 100);
     let decimalSecond = Math.trunc(dayFraction * 100000) - (decimalHour * 10000) - (decimalMinute * 100);
@@ -18,7 +18,7 @@ function getRevolutionaryTime(dayFraction) {
 }
 
 
-function convertToSwatchBeats(currentDateTime) {
+export function convertToSwatchBeats(currentDateTime) {
     // Get UTC time
     let utcDateTime = new Date(currentDateTime.getTime() + currentDateTime.getTimezoneOffset() * 60000);
     // Get the day fraction and convert to BMT
@@ -30,7 +30,7 @@ function convertToSwatchBeats(currentDateTime) {
     return swatchBeats.toFixed(2);
 }
 
-function getHexadecimalTime(dayFraction) {
+export function getHexadecimalTime(dayFraction) {
     // Convert the day fraction to hexadecimal format
     let hexadecimalFraction = Math.trunc((dayFraction * 65536)).toString(16).toUpperCase();
     // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
@@ -40,7 +40,7 @@ function getHexadecimalTime(dayFraction) {
     return "." + hexadecimalFraction;
 }
 
-function getBinaryTime(dayFraction) {
+export function getBinaryTime(dayFraction) {
     // Convert the day fraction to the equivalent binary count
     let binaryCount = Math.trunc(dayFraction * 65536).toString(2);
     
@@ -53,7 +53,7 @@ function getBinaryTime(dayFraction) {
     return binaryCount;
 }
 
-function get6DigitHexadecimalTime(dayFraction) {
+export function get6DigitHexadecimalTime(dayFraction) {
     // Convert the day fraction to hexadecimal format
     let hexadecimalFraction = Math.trunc((dayFraction * 16777215)).toString(16).toUpperCase();
     // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
@@ -63,7 +63,7 @@ function get6DigitHexadecimalTime(dayFraction) {
     return hexadecimalFraction;
 }
 
-function hexToRGBA(hex, alpha) {
+export function hexToRGBA(hex, alpha) {
     // Convert hex color to RGB
     const bigint = parseInt(hex, 16);
     const r = (bigint >> 16) & 255;

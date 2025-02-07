@@ -4,6 +4,9 @@
 
 // A set of functions for calculating dates in the Lunisolar Calendars category.
 
+import * as astronomicalData from '../Other/astronomicalData.js';
+import * as utilities from '../utilities.js';
+
 function isMetonicCycleLeapYear(year) {
     const metonicCycle = [0, 3, 6, 8, 11, 14, 17];
     return metonicCycle.includes(year);
@@ -16,7 +19,7 @@ function isMetonicCycleLeapYear(year) {
 //|--------------------------------------|
 
 // Returns a formatted Chinese calendar CST date based on the lunisolar calculation
-function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, country) {
+export function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, country) {
     const gregorianYear = currentDateTime.getUTCFullYear();
     const gregorianMonth = currentDateTime.getUTCMonth();
     let year = gregorianYear;
@@ -55,7 +58,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, country
 }
 
 // Returns a formatted Sexagenary year CST date based on the lunisolar calculation
-function getSexagenaryYear(chineseDate) {
+export function getSexagenaryYear(chineseDate) {
     let heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
     let earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 
@@ -91,37 +94,37 @@ function getSexagenaryYear(chineseDate) {
 //|--------------------------|
 
 
-function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, utcMidnight) {
+export function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, utcMidnight) {
     // Get Winter Solstice for this year. That is Month 11.
     
     const startOfMonthEleven = getMonthEleven(winterSolstice);
-    const midnightStartOfMonthEleven = getMidnightInUTC(startOfMonthEleven, utcMidnight);
+    const midnightStartOfMonthEleven = utilities.getMidnightInUTC(startOfMonthEleven, utcMidnight);
 
     // Get Winter solsice of last year, that's Month 11 of last year
     
     const startOfMonthElevenLastYear = getMonthEleven(winterSolsticeLastYear);
-    const midnightStartOfMonthElevenLastYear = getMidnightInUTC(startOfMonthElevenLastYear, utcMidnight);
+    const midnightStartOfMonthElevenLastYear = utilities.getMidnightInUTC(startOfMonthElevenLastYear, utcMidnight);
 
     // Find out roughly how many months between solstices
-    const daysBetweenEleventhMonths = Math.floor(differenceInDays(midnightStartOfMonthEleven, midnightStartOfMonthElevenLastYear));
+    const daysBetweenEleventhMonths = Math.floor(utilities.differenceInDays(midnightStartOfMonthEleven, midnightStartOfMonthElevenLastYear));
     const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
     let currentMonth = 0;
 
     // Calculate the start of this and last months
     const startofThisMonth = newMoonThisMonth;
-    const midnightChinaStartOfMonth = getMidnightInUTC(startofThisMonth, utcMidnight);
+    const midnightChinaStartOfMonth = utilities.getMidnightInUTC(startofThisMonth, utcMidnight);
     const startofLastMonth = newMoonLastMonth;
-    const midnightChinaStartOfLastMonth = getMidnightInUTC(startofLastMonth, utcMidnight);
-    const daysSinceMonthEleven = differenceInDays(currentDateTime, midnightStartOfMonthEleven);
+    const midnightChinaStartOfLastMonth = utilities.getMidnightInUTC(startofLastMonth, utcMidnight);
+    const daysSinceMonthEleven = utilities.differenceInDays(currentDateTime, midnightStartOfMonthEleven);
 
     // Get rough estimates of the current day/month,
     // likely to be wrong if close to the beginning or ending of a month
     currentMonth = Math.floor(daysSinceMonthEleven / 29.53);
-    currentDay = Math.floor(differenceInDays(currentDateTime, midnightChinaStartOfMonth))+1;
+    let currentDay = Math.floor(utilities.differenceInDays(currentDateTime, midnightChinaStartOfMonth))+1;
 
     // If the current day is less than 1, then it's the previous month
     if (currentDay<1) {
-        currentDay = Math.floor(differenceInDays(currentDateTime, midnightChinaStartOfLastMonth))+1;
+        currentDay = Math.floor(utilities.differenceInDays(currentDateTime, midnightChinaStartOfLastMonth))+1;
     }
     // If near the start of the month, use round
     if (currentDay<5) {
@@ -156,13 +159,13 @@ function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLast
 }
 
 // Returns 'major' or 'minor' depending on the latitude of the sun calculation
-function getSolarTermTypeThisMonth(startOfMonth) {
+export function getSolarTermTypeThisMonth(startOfMonth) {
     const newMoonThisMonth_Lunation = startOfMonth;
     const millisecondsIn29_53Days = 29.53 * 24 * 60 * 60 * 1000; // THIS VALUE IS TECHNICALLY WRONG AND CAUSES PROBLEMS
     const newMoonNextMonth_Lunation = new Date(newMoonThisMonth_Lunation.getTime()+millisecondsIn29_53Days);
     
-    const newMoonThisMonthLongitudeOfSun = getLongitudeOfSun(newMoonThisMonth_Lunation);
-    const newMoonNextMonthLongitudeOfSun = getLongitudeOfSun(newMoonNextMonth_Lunation);
+    const newMoonThisMonthLongitudeOfSun = astronomicalData.getLongitudeOfSun(newMoonThisMonth_Lunation);
+    const newMoonNextMonthLongitudeOfSun = astronomicalData.getLongitudeOfSun(newMoonNextMonth_Lunation);
 
     const MajorSolarTerms = [
         0, 30, 60, 90,
@@ -182,23 +185,23 @@ function getSolarTermTypeThisMonth(startOfMonth) {
 
 // Possible errors here if the conjunction happens a few hours after the solstice but before midnight
 // Returns an unformatted date object of the last New Moon before the Winter Solstice
-function getMonthEleven(winterSolstice) {
+export function getMonthEleven(winterSolstice) {
     // Iterate through the lunar conjunctions to find the range containing the winter solstice
     let currentMonth = 0; // Start from the current month
 
     // Get the lunar conjunction closest to the winter solstice
-    let closestConjunction = getMoonPhase(winterSolstice, currentMonth);
+    let closestConjunction = astronomicalData.getMoonPhase(winterSolstice, currentMonth);
 
     // Check if the closest conjunction is after the winter solstice
     if (closestConjunction > winterSolstice) {
         // Move to the previous month to find the start of the eleventh month
-        closestConjunction = getMoonPhase(winterSolstice, currentMonth - 1);
+        closestConjunction = astronomicalData.getMoonPhase(winterSolstice, currentMonth - 1);
     }
     return closestConjunction;
 }
 
 // Returns the first month in the Chinese calendar that doesn't contain a major solar term
-function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear) {
+export function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear) {
     let dateToCheck = new Date(midnightStartOfMonthElevenLastYear);
     let lunations = 0;
     while (true) {
@@ -223,7 +226,7 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
 //|-------------------------|
 
 // Returns a formatted Hebrew calendar IST date
-function calculateHebrewCalendar(currentDateTime) {
+export function calculateHebrewCalendar(currentDateTime) {
 
     // Number of days in each Hebrew month
     const Hebrew_monthDaysDeficient = [30, 29, 29, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 353 or 383 days
@@ -253,9 +256,9 @@ function calculateHebrewCalendar(currentDateTime) {
     nextYearPlusABit.setFullYear(lastTishri.getFullYear() + 1);
     nextYearPlusABit.setMonth(lastTishri.getMonth() + 3);
     const nextTishri = getStartOfTishri(nextYearPlusABit);
-    const daysThisYear = differenceInDays(nextTishri, lastTishri);
+    const daysThisYear = utilities.differenceInDays(nextTishri, lastTishri);
 
-    let remainingDays = Math.floor(differenceInDays(currentDateTime, lastTishri));
+    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, lastTishri));
 
     // Check if it's a deficient, regular, or complete year
     const isDeficientYear = [353, 383].includes(daysThisYear);
@@ -302,7 +305,7 @@ function calculateHebrewCalendar(currentDateTime) {
 }
 
 // Returns the unformatted IST date of Tishri 1 of the current Hebrew year
-function getStartOfTishri(currentDateTime) {
+export function getStartOfTishri(currentDateTime) {
 
     // Begin with a bae molad of 5732, with 0.32 fraction of a day past midnight
     let yearsInHebrew = 5732;

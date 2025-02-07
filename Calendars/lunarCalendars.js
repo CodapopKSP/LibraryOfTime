@@ -4,8 +4,11 @@
 
 // A set of functions for calculating data in the Lunar Calendars category.
 
+import * as utilities from '../utilities.js';
+import * as astronomicalData from '../Other/astronomicalData.js';
+
 // Returns a formatted Hijri calendar AST date
-function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
+export function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
 
     const HijriMonths = {
         0: 'al-Muḥarram',
@@ -40,8 +43,8 @@ function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
     firstDayOfIslamicMonth.setMinutes(0);
     firstDayOfIslamicMonth.setSeconds(0);
     // Calculate the number of days since the first day of the Islamic month
-    const daysSinceStartOfMonth = Math.trunc(differenceInDays(currentDateTime, firstDayOfIslamicMonth));
-    const currentLunationSince2000 = calculateLunationNumber(currentDateTime);
+    const daysSinceStartOfMonth = Math.trunc(utilities.differenceInDays(currentDateTime, firstDayOfIslamicMonth));
+    const currentLunationSince2000 = astronomicalData.calculateLunationNumber(currentDateTime);
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
     
     let hijriMonthIndex = hijriMonthYear.month;

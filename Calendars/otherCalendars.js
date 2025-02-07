@@ -1,10 +1,14 @@
 //|-------------------------|
-//|     Solar Calendars     |
+//|     Other Calendars     |
 //|-------------------------|
 
 // A set of functions for calculating dates in the Other Calendars category.
 
-function getCurrentMayaLongCount(currentDateTime) {
+import * as utilities from '../utilities.js';
+import * as computingTime from '../Timekeeping/computingTime.js';
+import * as solarCalendars from '../Calendars/solarCalendars.js';
+
+export function getCurrentMayaLongCount(currentDateTime) {
     const mayaStartDate = new Date(-3113, 7, 11); // September 6, 3113 BC
     const daysSinceStart = Math.floor((currentDateTime - mayaStartDate) / (1000 * 60 * 60 * 24));
     
@@ -23,7 +27,7 @@ function getCurrentMayaLongCount(currentDateTime) {
     return `${baktuns}.${katuns}.${tuns}.${uinals}.${kins}`;
 }
 
-function getDarianMarsDate(julianSolNumber) {
+export function getDarianMarsDate(julianSolNumber) {
     const DarianMonths = [
         "Sagittarius",
         "Dhanus",
@@ -138,7 +142,7 @@ function getDarianMarsDate(julianSolNumber) {
     return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year) + '\nSol ' + darianWeek[dayOfWeek];
 }
 
-function getGalileanDate(currentDateTime, body) {
+export function getGalileanDate(currentDateTime, body) {
     const GalileanMonths = [
         'Januarius',
         'Februarius',
@@ -317,7 +321,7 @@ function getGalileanDate(currentDateTime, body) {
     return day + ' ' + body + ' ' + GalileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
 }
 
-function getDarianGalileanDate(currentDateTime, body) {
+export function getDarianGalileanDate(currentDateTime, body) {
     const DarianMonths = [
         "Sagittarius", "Dhanus", "Capricornus", "Makara", "Aquarius", "Khumba",
         "Pisces", "Mina", "Aries", "Mesha", "Taurus", "Rishabha", 
@@ -522,7 +526,7 @@ function getDarianGalileanDate(currentDateTime, body) {
 }
 
 
-function getDarianTitanDate(currentDateTime, body) {
+export function getDarianTitanDate(currentDateTime, body) {
     const DarianMonths = [
         "Sagittarius", "Dhanus", "Capricornus", "Makara", "Aquarius", "Khumba", 
         "Pisces", "Mina", "Aries", "Mesha", "Taurus", "Rishabha", 
@@ -590,8 +594,7 @@ function getDarianTitanDate(currentDateTime, body) {
     return day + ' Ti ' + DarianMonths[month] + ' ' + year + '\nTi ' + dayOfWeek;
 }
 
-
-function getYugaCycle(currentDateTime) {
+export function getYugaCycle(currentDateTime) {
     const YugaCycle = [
         /*
         "Satya Yuga: Sandhya",
@@ -624,7 +627,7 @@ function getYugaCycle(currentDateTime) {
         36000
     ];
 
-    const kaliAhargana = getKaliAhargana(currentDateTime);
+    const kaliAhargana = computingTime.getKaliAhargana(currentDateTime);
     const yearsOfKaliYuga = Math.floor(kaliAhargana / 365.25);
 
     // Get total years of cycle up until the start of Kali Yuga
@@ -650,9 +653,9 @@ function getYugaCycle(currentDateTime) {
     return YugaCycle[cycleIndex];
 }
 
-function getSothicCycle(currentDateTime) {
+export function getSothicCycle(currentDateTime) {
     const startOf139Cycle = new Date(139, 6, 19); // Start of a Sothic Cycle as per the wiki
-    const daysSinceStartOf139Cycle = differenceInDays(currentDateTime, startOf139Cycle);
+    const daysSinceStartOf139Cycle = utilities.differenceInDays(currentDateTime, startOf139Cycle);
     const yearsSince139Cycle = Math.floor(daysSinceStartOf139Cycle/365.25);
     const currentCycle = Math.floor(yearsSince139Cycle/1460)+3;
     const yearsInCurrentCycle = yearsSince139Cycle%1460;
@@ -660,12 +663,12 @@ function getSothicCycle(currentDateTime) {
     return 'Cycle: ' + currentCycle + ' | Year: ' + yearsInCurrentCycle;
 }
 
-function getOlympiad(currentDateTime) {
-    const julianDate = getApproxJulianDate(currentDateTime);
+export function getOlympiad(currentDateTime) {
+    const julianDate = solarCalendars.getApproxJulianDate(currentDateTime);
     const olympiad1_ = new Date(-775, 6, 24); // Starting Olympiad (776 BC), astronomical
-    const olympiad1 = getApproxJulianDate(olympiad1_);
+    const olympiad1 = solarCalendars.getApproxJulianDate(olympiad1_);
     
-    const daysSinceOlympiad1 = differenceInDays(julianDate, olympiad1);
+    const daysSinceOlympiad1 = utilities.differenceInDays(julianDate, olympiad1);
     
     // Convert days to years, accounting for the Julian calendar's average year length
     const yearsSinceOlympiad1 = daysSinceOlympiad1 / 365.2425;
@@ -682,7 +685,7 @@ function getOlympiad(currentDateTime) {
     return olympiad + ' | Year: ' + currentYearOfOlympiad;
 }
 
-function getTzolkinDate(currentDateTime) {
+export function getTzolkinDate(currentDateTime) {
     const tzolkinMonths = [
         "Imix", "Ik'", "Ak'b'al", "K'an", "Chikchan",
         "Kimi", "Manik'", "Lamat", "Muluk", "Ok",
@@ -691,7 +694,7 @@ function getTzolkinDate(currentDateTime) {
     ];
 
     const mayaLongCount0 = new Date(-3113, 7, 11);
-    const totalDays = Math.floor(differenceInDays(currentDateTime, mayaLongCount0));
+    const totalDays = Math.floor(utilities.differenceInDays(currentDateTime, mayaLongCount0));
     
     const startingTzolkinDay = 4; // 4 Ahau is the starting Tzolk'in day for 0.0.0.0.0
     const startingTzolkinMonthIndex = tzolkinMonths.indexOf("Ajaw");
@@ -703,9 +706,9 @@ function getTzolkinDate(currentDateTime) {
     return `${dayNumber} ${tzolkinMonths[monthIndex]}`;
 };
 
-function getLordOfTheNight(currentDateTime) {
+export function getLordOfTheNight(currentDateTime) {
     const startingBaktun13 = new Date(2012, 11, 21);
-    const daysSince = differenceInDays(currentDateTime, startingBaktun13);
+    const daysSince = utilities.differenceInDays(currentDateTime, startingBaktun13);
     let lord = Math.floor(((daysSince % 9) + 9) % 9);
     if (lord === 0) {
         lord = 9;

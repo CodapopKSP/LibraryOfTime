@@ -5,7 +5,7 @@
 // A set of functions for calculating times in the Other Time category.
 
 // Get the current Coordinated Mars Time
-function getMTC(marsSolDay) {
+export function getMTC(marsSolDay) {
     const MTCdecimal = ((marsSolDay % 1) + 1) % 1 * 24;
     const hours = Math.floor(MTCdecimal);
     const fractionMinutes = MTCdecimal - hours;
@@ -21,7 +21,7 @@ function getMTC(marsSolDay) {
     return formattedHours + ':' + formattedMinutes + ':' + formattedSeconds;
 }
 
-function getIoPrimeMeridianTime(currentDateTime) {
+export function getIoPrimeMeridianTime(currentDateTime) {
     const epoch = new Date(Date.UTC(2001, 11, 31, 16, 7, 45));
     const ioCircad = 21.23833;
     const ioDayMilliseconds = ioCircad * 60 * 60 * 1000;
@@ -47,7 +47,7 @@ function getIoPrimeMeridianTime(currentDateTime) {
 }
 
 
-function getEuropaPrimeMeridianTime(currentDateTime) {
+export function getEuropaPrimeMeridianTime(currentDateTime) {
     const epoch = new Date(Date.UTC(2002, 0, 2, 17, 12, 57));
     const europaCircad = 21.32456;
     const europaDayMilliseconds = europaCircad * 60 * 60 * 1000;
@@ -70,7 +70,7 @@ function getEuropaPrimeMeridianTime(currentDateTime) {
     return 'Circad ' + circad + ' | ' + hour + ':'+  minute + ':' + second;
 }
 
-function getGanymedePrimeMeridianTime(currentDateTime) {
+export function getGanymedePrimeMeridianTime(currentDateTime) {
     const epoch = new Date(Date.UTC(2002, 0, 1, 11, 8, 29));
     const ganymedeCircad = 21.49916;
     const ganymedeDayMilliseconds = ganymedeCircad * 60 * 60 * 1000;
@@ -93,7 +93,7 @@ function getGanymedePrimeMeridianTime(currentDateTime) {
     return 'Circad ' + circad + ' | ' + hour + ':'+  minute + ':' + second;
 }
 
-function getCallistoPrimeMeridianTime(currentDateTime) {
+export function getCallistoPrimeMeridianTime(currentDateTime) {
     const epoch = new Date(Date.UTC(2001, 11, 28, 12, 27, 23));
     const callistoCircad = 21.16238;
     const callistoDayMilliseconds = callistoCircad * 60 * 60 * 1000;
@@ -116,7 +116,7 @@ function getCallistoPrimeMeridianTime(currentDateTime) {
     return 'Circad ' + circad + ' | ' + hour + ':'+  minute + ':' + second;
 }
 
-function getTitanPrimeMeridianTime(currentDateTime) {
+export function getTitanPrimeMeridianTime(currentDateTime) {
     const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32));
     const titanCircad = 0.998068439;
     const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;

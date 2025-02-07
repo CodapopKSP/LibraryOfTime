@@ -5,18 +5,19 @@
 
 */
 
+import * as nodeData from '../nodeData.js';
+import * as nodeDisplay from '../nodeDisplay.js';
+import * as descriptionPanel from '../descriptionPanel.js';
+import * as userPanel from '../userPanel.js';
+import * as userInterface from '../userInterface.js';
+
 // Settings
 const updateMiliseconds = 20;   // Update tick length
-const decimals = 10;            // Decimals to show in some nodes
+export const decimals = 10;            // Decimals to show in some nodes
 
 // Global Containers
-let selectedNode = '';              // The current selected Node, blank if none
-let currentDescriptionTab = [];     // The current arrangement of information to be displayed in the Description Panel
 let calendarType = 'gregorian-proleptic';
 let gregJulDifference = 0;
-
-const panel = document.getElementById("floating-panel");
-const toggleButton = document.getElementById("floating-panel-toggle-button");
 let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
 
 // Node parent elements
@@ -36,24 +37,24 @@ const parentElements = {
 };
 
 const nodeDataArrays = [
-    standardTimeData,
-    computingTimeData,
-    decimalTimeData,
-    otherTimeData,
-    solarCalendarsData,
-    lunisolarCalendarsData,
-    lunarCalendarsData,
-    proposedCalendars,
-    otherCalendars,
-    astronomicalData,
-    popCultureData,
-    politicalCycles
+    nodeData.standardTimeData,
+    nodeData.computingTimeData,
+    nodeData.decimalTimeData,
+    nodeData.otherTimeData,
+    nodeData.solarCalendarsData,
+    nodeData.lunisolarCalendarsData,
+    nodeData.lunarCalendarsData,
+    nodeData.proposedCalendars,
+    nodeData.otherCalendars,
+    nodeData.astronomicalData,
+    nodeData.popCultureData,
+    nodeData.politicalCycles
 ];
 
 // Create the node arrays
 nodeDataArrays.forEach(dataArray => {
     dataArray.forEach(item => {
-        createNode(item);
+        nodeDisplay.createNode(item, parentElements);
     });
 });
 
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const option = document.createElement('option');
         option.value = timezone;
         option.text = timezone;
-        if (timezone === getFormattedTimezoneOffset()) {
+        if (timezone === userInterface.getFormattedTimezoneOffset()) {
             option.selected = true;
         }
         timezoneSelect.appendChild(option);
@@ -90,13 +91,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Display the initial Description Panel
-homeButton();
-changeActiveHeaderTab('header-button-1', 0);
+descriptionPanel.homeButton();
+descriptionPanel.changeActiveHeaderTab('header-button-1', 0);
 
-addHeaderTabHoverEffect();
-addHomeButtonHoverEffect();
-instantiateFloatingPanel();
+descriptionPanel.addHeaderTabHoverEffect();
+descriptionPanel.addHomeButtonHoverEffect();
+userPanel.instantiateFloatingPanel();
 
 // Initial update
-let updateIntervalId = setInterval(updateAllNodes, updateMiliseconds);
-updateAllNodes(0, 'gregorian-proleptic', getFormattedTimezoneOffset(), true);
+let updateIntervalId = setInterval(userInterface.updateAllNodes, updateMiliseconds);
+userInterface.updateAllNodes(0, 'gregorian-proleptic', userInterface.getFormattedTimezoneOffset(), true, updateMiliseconds);

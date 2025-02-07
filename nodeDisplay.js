@@ -6,7 +6,10 @@
     This is a collection of functions for drawing and handling Nodes.
 */
 
-function handleNodeClick(content, item) {
+// The current selected Node, blank if none
+let selectedNode = '';
+
+export function handleNodeClick(content, item) {
     // Build the description format
     const descriptionTypes = ['overview', 'info', 'accuracy', 'source'];
     const descriptions = descriptionTypes.map(type => createNodeDescription(item, type));
@@ -30,14 +33,14 @@ function handleNodeClick(content, item) {
     changeActiveHeaderTab('header-button-1', 0);
 }
 
-function createNode(item) {
+export function createNode(item, parentElements) {
     let node = createNode_(item)
 
     const parentElement = parentElements[item.type];
     parentElement.appendChild(node);
 }
 
-function createNode_(item) {
+export function createNode_(item) {
     // Create the node element
     const node = document.createElement('div');
     node.classList.add('node');
@@ -92,7 +95,7 @@ function createNode_(item) {
 }
 
 
-function showNodeMenu(event, item) {
+export function showNodeMenu(event, item) {
     const dropdownMenu = document.getElementById('node-menu');
     dropdownMenu.style.display = 'block';
     dropdownMenu.style.left = `${event.pageX}px`; // Position the menu
@@ -124,13 +127,13 @@ function showNodeMenu(event, item) {
 }
 
 // Hide the dropdown menu
-function hideNodeMenu() {
+export function hideNodeMenu() {
     const dropdownMenu = document.getElementById('node-menu');
     dropdownMenu.style.display = 'none'; // Hide the menu
     window.removeEventListener('click', hideNodeMenu); // Remove listener
 }
 
-function clearSelectedNode() {
+export function clearSelectedNode() {
     if (selectedNode !== '') {
         selectedNode.classList.remove('active');
         selectedNode = '';

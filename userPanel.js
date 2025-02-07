@@ -1,3 +1,7 @@
+
+const toggleButton = document.getElementById("floating-panel-toggle-button");
+const panel = document.getElementById("floating-panel");
+
 function movePanel(e) {
     e.preventDefault();
     
@@ -18,7 +22,7 @@ function stopDrag() {
     document.removeEventListener("mouseup", stopDrag);
 }
 
-function instantiateFloatingPanel() {
+export function instantiateFloatingPanel() {
     // Show/Hide the panel when the button is clicked
     toggleButton.addEventListener("click", () => {
         if (panel.style.display === "none" || panel.style.display === "") {

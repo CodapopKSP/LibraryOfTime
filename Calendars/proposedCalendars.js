@@ -4,19 +4,21 @@
 
 // A set of functions for calculating dates in the Proposed Calendars category.
 
-function getHumanEra(currentDateTime) {
+import * as utilities from '../utilities.js';
+
+export function getHumanEra(currentDateTime) {
     let day = currentDateTime.getDate();
     let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear() + 10000;
     const dayOfWeek = currentDateTime.getDay();
-    return day + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE\n' + weekNames[dayOfWeek];
+    return day + ' ' + utilities.monthNames[month] + ' ' + year + ' ' + 'HE\n' + utilities.weekNames[dayOfWeek];
 }
 
-function getInvariableCalendarDate(currentDateTime) {
+export function getInvariableCalendarDate(currentDateTime) {
     const year = currentDateTime.getFullYear();
     const startOfYear = new Date(year, 0, 1, 0, 0, 0);
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
-    const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear))+1;
+    const daysSinceStartOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
     // Need two lists for each for Leap Years and non Leap Years
@@ -40,7 +42,7 @@ function getInvariableCalendarDate(currentDateTime) {
             // Find the last month before daysRemaining turns negative
             daysRemaining -= monthDaysLeapYear[i];
             if (daysRemaining <= 0) {
-                invariableMonth = monthNamesLeapYear[i];
+                invariableMonth = utilities.monthNamesLeapYear[i];
                 // Add a space after for formatting
                 invariableDate = (daysRemaining + monthDaysLeapYear[i]) + ' ';
                 break;
@@ -49,9 +51,9 @@ function getInvariableCalendarDate(currentDateTime) {
 
         // Skip day of week if Leap Day or New Years Day, start on Monday
         if (daysSinceStartOfYear >= 184) {
-            invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
+            invariableWeek += utilities.weekNames[(daysSinceStartOfYear-2) % 7];
         } else {
-            invariableWeek += weekNames[(daysSinceStartOfYear-1) % 7];
+            invariableWeek += utilities.weekNames[(daysSinceStartOfYear-1) % 7];
         }
     }
 
@@ -61,7 +63,7 @@ function getInvariableCalendarDate(currentDateTime) {
             // Find the last month before daysRemaining turns negative
             daysRemaining -= monthDays[i];
             if (daysRemaining <= 0) {
-                invariableMonth = monthNames[i];
+                invariableMonth = utilities.monthNames[i];
                 // Add a space after for formatting
                 invariableDate = (daysRemaining + monthDays[i]) + ' ';
                 break;
@@ -69,7 +71,7 @@ function getInvariableCalendarDate(currentDateTime) {
         }
 
         // Skip day of week if New Years Day, start on Monday
-        invariableWeek += weekNames[(daysSinceStartOfYear-1) % 7];
+        invariableWeek += utilities.weekNames[(daysSinceStartOfYear-1) % 7];
     }
 
     // Remove the date and week strings if using a named day
@@ -81,11 +83,11 @@ function getInvariableCalendarDate(currentDateTime) {
     return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
 }
 
-function getWorldCalendarDate(currentDateTime) {
+export function getWorldCalendarDate(currentDateTime) {
     const year = currentDateTime.getFullYear();
     const startOfYear = new Date(year, 0, 1, 0, 0, 0);
     const endOfYear = new Date(year, 11, 31, 23, 59, 59);
-    const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear))+1;
+    const daysSinceStartOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
     // Need two lists for each for Leap Years and non Leap Years
@@ -109,7 +111,7 @@ function getWorldCalendarDate(currentDateTime) {
             // Find the last month before daysRemaining turns negative
             daysRemaining -= monthDaysLeapYear[i];
             if (daysRemaining <= 0) {
-                invariableMonth = monthNamesLeapYear[i];
+                invariableMonth = utilities.monthNamesLeapYear[i];
                 // Add a space after for formatting
                 invariableDate = (daysRemaining + monthDaysLeapYear[i]) + ' ';
                 break;
@@ -118,9 +120,9 @@ function getWorldCalendarDate(currentDateTime) {
 
         // Skip day of week if Leap Day or New Years Day, start on Sunday
         if (daysSinceStartOfYear >= 184) {
-            invariableWeek += weekNames[(daysSinceStartOfYear-3) % 7];
+            invariableWeek += utilities.weekNames[(daysSinceStartOfYear-3) % 7];
         } else {
-            invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
+            invariableWeek += utilities.weekNames[(daysSinceStartOfYear-2) % 7];
         }
     }
 
@@ -130,7 +132,7 @@ function getWorldCalendarDate(currentDateTime) {
             // Find the last month before daysRemaining turns negative
             daysRemaining -= monthDays[i];
             if (daysRemaining <= 0) {
-                invariableMonth = monthNames[i];
+                invariableMonth = utilities.monthNames[i];
                 // Add a space after for formatting
                 invariableDate = (daysRemaining + monthDays[i]) + ' ';
                 break;
@@ -138,7 +140,7 @@ function getWorldCalendarDate(currentDateTime) {
         }
 
         // Skip day of week if New Years Day, start on Sunday
-        invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
+        invariableWeek += utilities.weekNames[(daysSinceStartOfYear-2) % 7];
     }
 
     // Remove the date string if using a named day
@@ -150,12 +152,12 @@ function getWorldCalendarDate(currentDateTime) {
     return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
 }
 
-function getSymmetry454Date(currentDateTime) {
+export function getSymmetry454Date(currentDateTime) {
     let monthDays = [28, 35, 28, 28, 35, 28, 28, 35, 28, 28, 35, 28];
     
     // Choose a date that has the same January 1st in both calendars
     const knownJan1st = new Date(2001, 0, 1);
-    let daysSinceKnownJan1st = Math.floor(differenceInDays(currentDateTime, knownJan1st))+1;
+    let daysSinceKnownJan1st = Math.floor(utilities.differenceInDays(currentDateTime, knownJan1st))+1;
 
     // Iterate through years and subtract days based on if leap year or normal year
     let symmetryYear = 2001;
@@ -192,5 +194,5 @@ function getSymmetry454Date(currentDateTime) {
 
     const dayOfWeek = daysSinceKnownJan1st % 7;
 
-    return daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + weekNames[dayOfWeek];
+    return daysSinceKnownJan1st + ' ' + utilities.monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + utilities.weekNames[dayOfWeek];
 }

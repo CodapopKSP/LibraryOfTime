@@ -1,4 +1,4 @@
-const welcomeDescription = [
+export const welcomeDescription = [
     {
         about: `Welcome to the Library of Time!\n\nYou may input a date and time above using numerals and commas. Make sure they follow the correct format:\n\n<table><tr><th>Year-Month-Day, Hour:Minute:Second</th></tr><tr><td><i>Example: 2024-04-08, 18:20:20\n(April 8th, 2024 at 18:20:20 UTC)</i></td></tr><table>\nTo restart the current time ticker, send a blank date.\n\nIf you have any other interesting ideas or ways to tell time in recurring cycles, please let me know!\n\nYou may access the source code of this website <a href="https://github.com/CodapopKSP/LibraryOfTime">here</a>. Feel free to contact me on <a href="https://github.com/CodapopKSP">GitHub</a> or on <a href="https://old.reddit.com/user/CodapopKSP/">Reddit</a> for any questions, ideas, or offers of help. You can also join the <a href="https://discord.gg/AWjSachwPU">Discord channel</a> for this project.`,
 

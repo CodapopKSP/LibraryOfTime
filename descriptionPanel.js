@@ -6,9 +6,16 @@
     This is a collection of functions for drawing and handling the Description Panel.
 */
 
+
+// The current arrangement of information to be displayed in the Description Panel
+let currentDescriptionTab = [];
+
+import { welcomeDescription } from './welcomeDescription.js';
+import * as nodeDisplay from './nodeDisplay.js';
+
 const headerTabs = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
 
-function addHeaderTabHoverEffect() {
+export function addHeaderTabHoverEffect() {
     headerTabs.forEach((tabID) => {
         const tab = document.getElementById(tabID);
 
@@ -22,7 +29,7 @@ function addHeaderTabHoverEffect() {
     });
 }
 
-function addHomeButtonHoverEffect() {
+export function addHomeButtonHoverEffect() {
     const homeButton = document.getElementById('home-button');
 
     // Add hover event listeners
@@ -170,7 +177,7 @@ function createConfidenceElement(item) {
     return confidenceElement;
 }
 
-function changeActiveHeaderTab(activeTab, index) {
+export function changeActiveHeaderTab(activeTab, index) {
     // Toggle active tab header
     headerTabs.forEach((tabID) => {
         const tab = document.getElementById(tabID);
@@ -184,10 +191,10 @@ function changeActiveHeaderTab(activeTab, index) {
     });
 }
 
-function homeButton() {
+export function homeButton() {
     // Clear the Description Panel
     clearDescriptionPanel();
-    clearSelectedNode();
+    nodeDisplay.clearSelectedNode();
     const homeButton = document.getElementById('home-button');
     homeButton.style.visibility = 'hidden';
 

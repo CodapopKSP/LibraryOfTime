@@ -8,7 +8,7 @@ function pad(num, size) {
     return ('000' + num).slice(-size);
 }
 
-function getMinecraftTime(currentDateTime) {
+export function getMinecraftTime(currentDateTime) {
     // Convert date to milliseconds since midnight
     const millisecondsSinceMidnight = currentDateTime - new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate());
 
@@ -23,7 +23,7 @@ function getMinecraftTime(currentDateTime) {
     return  'Day: ' + day + ' | ' + pad(hours,2) + ':' + pad(minutes,2) + ':' + pad(seconds,2);
 }
 
-function getInceptionDreamTime(currentDateTime) {
+export function getInceptionDreamTime(currentDateTime) {
     // Convert date to milliseconds since midnight
     const millisecondsSinceMidnight = currentDateTime - new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate());
 
@@ -36,7 +36,7 @@ function getInceptionDreamTime(currentDateTime) {
     return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
 }
 
-function getTerminaTime(currentDateTime) {
+export function getTerminaTime(currentDateTime) {
     // Days start at 6am
     let SixAMToday = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate(), 6);
     if (currentDateTime<SixAMToday) {
@@ -53,7 +53,7 @@ function getTerminaTime(currentDateTime) {
     const currentSecond = Math.floor(((((totalHoursSinceEpoch%24) - (currentHour))*60)-currentMinute)*60);
 
     // Build Hours Remains message
-    remainingHours = 72 - ((currentHour) + ((currentDay-1)*24));
+    let remainingHours = 72 - ((currentHour) + ((currentDay-1)*24));
     let remainingHoursMessage = remainingHours + ' Hours Remain';
     if (remainingHours===1) {
         remainingHoursMessage = remainingHours + ' Hour Remains';

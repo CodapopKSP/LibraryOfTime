@@ -4,7 +4,7 @@
 
 // A set of functions for calculating fractions of units of time.
 
-function calculateSecond(currentDateTime) {
+export function calculateSecond(currentDateTime) {
     // Ensure currentDateTime is a Date object
     let dateTime = new Date(currentDateTime);
 
@@ -32,12 +32,12 @@ function calculateSecond(currentDateTime) {
     return result;
 }
 
-function calculateMinute(currentDateTime) {
-    day = currentDateTime.getDate();
-    month = currentDateTime.getMonth();
-    year = currentDateTime.getFullYear();
-    hour = currentDateTime.getHours();
-    minute = currentDateTime.getMinutes();
+export function calculateMinute(currentDateTime) {
+    let day = currentDateTime.getDate();
+    let month = currentDateTime.getMonth();
+    let year = currentDateTime.getFullYear();
+    let hour = currentDateTime.getHours();
+    let minute = currentDateTime.getMinutes();
     let minuteStart = new Date(year, month, day, hour, minute);
     minuteStart.setFullYear(year)
     let nextMinuteStart = new Date(year, month, day, hour, minute + 1);
@@ -46,11 +46,11 @@ function calculateMinute(currentDateTime) {
     return minuteFraction;
 }
 
-function calculateHour(currentDateTime) {
-    day = currentDateTime.getDate();
-    month = currentDateTime.getMonth();
-    year = currentDateTime.getFullYear();
-    hour = currentDateTime.getHours();
+export function calculateHour(currentDateTime) {
+    let day = currentDateTime.getDate();
+    let month = currentDateTime.getMonth();
+    let year = currentDateTime.getFullYear();
+    let hour = currentDateTime.getHours();
     let hourStart = new Date(year, month, day, hour);
     hourStart.setFullYear(year);
     let nextHourStart = new Date(year, month, day, hour + 1);
@@ -59,10 +59,10 @@ function calculateHour(currentDateTime) {
     return hourFraction;
 }
 
-function calculateDay(currentDateTime) {
-    day = currentDateTime.getDate();
-    month = currentDateTime.getMonth();
-    year = currentDateTime.getFullYear();
+export function calculateDay(currentDateTime) {
+    let day = currentDateTime.getDate();
+    let month = currentDateTime.getMonth();
+    let year = currentDateTime.getFullYear();
     let dayStart = new Date(year, month, day);
     dayStart.setFullYear(year);
     let nextDayStart = new Date(year, month, day + 1);
@@ -71,9 +71,9 @@ function calculateDay(currentDateTime) {
     return dayFraction;
 }
 
-function calculateMonth(currentDateTime) {
-    month = currentDateTime.getMonth();
-    year = currentDateTime.getFullYear();
+export function calculateMonth(currentDateTime) {
+    let month = currentDateTime.getMonth();
+    let year = currentDateTime.getFullYear();
     let monthStart = new Date(year, month, 1);
     monthStart.setFullYear(year);
     let nextMonthStart = new Date(year, month + 1, 1);
@@ -82,8 +82,8 @@ function calculateMonth(currentDateTime) {
     return monthFraction;
 }
 
-function calculateYear(currentDateTime) {
-    year = currentDateTime.getFullYear();
+export function calculateYear(currentDateTime) {
+    let year = currentDateTime.getFullYear();
     let yearStart = new Date(year, 0, 1);
     yearStart.setFullYear(year);
     let nextYearStart = new Date(year + 1, 0, 1);
@@ -92,8 +92,8 @@ function calculateYear(currentDateTime) {
     return yearFraction;
 }
 
-function calculateDecade(currentDateTime) {
-    year = currentDateTime.getFullYear();
+export function calculateDecade(currentDateTime) {
+    let year = currentDateTime.getFullYear();
     let decadeStart = new Date(Math.trunc(year / 10) * 10, 0, 1, 0, 0);
     decadeStart.setFullYear(Math.trunc(year / 10) * 10);
     let nextDecadeStart = new Date(Math.trunc(year / 10) * 10 + 10, 0, 1, 0, 0);
@@ -102,8 +102,8 @@ function calculateDecade(currentDateTime) {
     return decadeFraction;
 }
 
-function calculateCentury(currentDateTime) {
-    year = currentDateTime.getFullYear();
+export function calculateCentury(currentDateTime) {
+    let year = currentDateTime.getFullYear();
     let centuryStart = new Date(Math.trunc(year / 100) * 100, 0, 1);
     centuryStart.setFullYear(Math.trunc(year / 100) * 100);
     let nextCenturyStart = new Date(Math.trunc(year / 100) * 100 + 100, 0, 1);
@@ -112,8 +112,8 @@ function calculateCentury(currentDateTime) {
     return centuryFraction;
 }
 
-function calculateMillennium(currentDateTime) {
-    year = currentDateTime.getFullYear();
+export function calculateMillennium(currentDateTime) {
+    let year = currentDateTime.getFullYear();
     let millenniumStart = new Date(Math.trunc(year / 1000) * 1000, 0, 1);
     millenniumStart.setFullYear(Math.trunc(year / 1000) * 1000);
     let nextMillenniumStart = new Date(Math.trunc(year / 1000) * 1000 + 1000, 0, 1);

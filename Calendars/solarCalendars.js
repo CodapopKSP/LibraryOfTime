@@ -4,9 +4,12 @@
 
 // A set of functions for calculating dates in the Solar Calendars category.
 
+import * as utilities from '../utilities.js';
+import * as astronomicalData from '../Other/astronomicalData.js';
+
 
 // Function to compute the Julian Day Number from a Gregorian date
-function gregorianToJDN(currentDateTime) {
+export function gregorianToJDN(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
     let month = currentDateTime.getUTCMonth() + 1; // JavaScript months are 0-based
     let day = currentDateTime.getUTCDate();
@@ -23,7 +26,7 @@ function gregorianToJDN(currentDateTime) {
 }
 
 // Function to convert a JDN to a Julian calendar date
-function JDNToJulianDate(JDN) {
+export function JDNToJulianDate(JDN) {
     const J = JDN + 0.5;
     const Z = Math.floor(J);
     const F = J - Z;
@@ -45,7 +48,7 @@ function JDNToJulianDate(JDN) {
 }
 
 // Revised getJulianDate function using JDN conversion
-function getRealJulianDate(currentDateTime) {
+export function getRealJulianDate(currentDateTime) {
     // Compute JDN from Gregorian date
     const JDN = gregorianToJDN(currentDateTime);
 
@@ -57,7 +60,7 @@ function getRealJulianDate(currentDateTime) {
 }
 
 // Returns an unformatted Julian date object, useful for calculating many calendars
-function getApproxJulianDate(currentDateTime) {
+export function getApproxJulianDate(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
     let daysAhead = Math.trunc(year / 100) - Math.trunc(year / 400) - 2;
     let julianDate = new Date(currentDateTime);
@@ -65,7 +68,7 @@ function getApproxJulianDate(currentDateTime) {
     return julianDate;
 }
 
-function getAstronomicalDate(currentDateTime) {
+export function getAstronomicalDate(currentDateTime) {
     const startOfGregorian = new Date(1582, 9, 15);
     let astronomical = new Date(currentDateTime);
     let year = astronomical.getUTCFullYear();
@@ -82,11 +85,11 @@ function getAstronomicalDate(currentDateTime) {
     let month = astronomical.getUTCMonth();
     const dayOfWeek = currentDateTime.getUTCDay();
 
-    return day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
+    return day + ' ' + utilities.monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + utilities.weekNames[dayOfWeek];
 }
 
 // Returns a formatted Gregorian calendar local date and time
-function getGregorianDateTime(currentDateTime) {
+export function getGregorianDateTime(currentDateTime) {
     let day = currentDateTime.getDate().toString();
     let month = currentDateTime.getMonth();
     let year = currentDateTime.getFullYear();
@@ -102,14 +105,14 @@ function getGregorianDateTime(currentDateTime) {
         year = Math.abs(year);  // Adjust year for BCE without negative sign
     }
     
-    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
+    let dateDisplayString = day + ' ' + utilities.monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + utilities.weekNames[dayOfWeek];
     let timeDisplayString = hour + ':' + minute + ':' + second;
     return {date: dateDisplayString, time: timeDisplayString};
 }
 
 
 // Returns a formatted Julian calendar local date
-function getJulianCalendar(currentDateTime) {
+export function getJulianCalendar(currentDateTime) {
     const julianDate = getRealJulianDate(currentDateTime);
     const dayOfWeek = currentDateTime.getUTCDay();
     const { year, month, day } = julianDate;
@@ -119,11 +122,11 @@ function getJulianCalendar(currentDateTime) {
         yearSuffix = 'BC';
         displayYear = -year + 1; // Convert to BC notation
     }
-    return `${day} ${monthNames[month-1]} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    return `${day} ${utilities.monthNames[month-1]} ${displayYear} ${yearSuffix}\n${utilities.weekNames[dayOfWeek]}`;
 }
 
 // Converts a number to Roman numerals
-function toRomanNumerals(num) {
+export function toRomanNumerals(num) {
     if (num === 0) {
         return 'O';
     }
@@ -158,7 +161,7 @@ function toRomanNumerals(num) {
 }
 
 // Returns a formatted Minguo local date
-function getMinguo(currentDateTime) {
+export function getMinguo(currentDateTime) {
     let taiwanTime = new Date(currentDateTime);
     taiwanTime.setTime(taiwanTime.getTime()+(8*3600000));
     let day = taiwanTime.getUTCDate();
@@ -171,7 +174,7 @@ function getMinguo(currentDateTime) {
 }
 
 // Returns a formatted Juche local date
-function getJuche(currentDateTime) {
+export function getJuche(currentDateTime) {
     let jucheTime = new Date(currentDateTime);
     jucheTime.setTime(jucheTime.getTime()+(9*3600000));
     let day = jucheTime.getUTCDate();
@@ -186,7 +189,7 @@ function getJuche(currentDateTime) {
 }
 
 // Returns a formatted Thai solar local date
-function getThaiSolar(currentDateTime) {
+export function getThaiSolar(currentDateTime) {
     const thaiSolarMonths = [
         "มกราคม",
         "กุมภาพันธ์",
@@ -213,7 +216,7 @@ function getThaiSolar(currentDateTime) {
 }
 
 // Returns a formatted French Republican local date
-function getRepublicanCalendar(currentDateTime, vernalEquinox) {
+export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     const FrenchRevolutionaryMonths = {
         1: 'Vendémiaire',
         2: 'Brumaire',
@@ -243,7 +246,7 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
         let lastYear = new Date(currentDateTime);
         lastYear.setFullYear(currentDateTime.getFullYear()-1);
         lastYear.setMonth(10);
-        startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'autumn');
+        startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'autumn');
         startingEquinox.setUTCHours(1);
         startingEquinox.setMinutes(0);
         startingEquinox.setSeconds(0);
@@ -257,7 +260,7 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     let yearsSince1792 = startOfRepublicanYear.getFullYear() - 1791;
 
     // Find days in current year
-    let daysSinceSeptember22 = Math.floor(differenceInDays(currentDateTime, startOfRepublicanYear));
+    let daysSinceSeptember22 = Math.floor(utilities.differenceInDays(currentDateTime, startOfRepublicanYear));
     
     let month = Math.floor(daysSinceSeptember22 / 30) + 1;
     if (month > 13) {
@@ -278,7 +281,7 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
 }
 
 // Returns a formatted EF local date
-function getEraFascista(currentDateTime) {
+export function getEraFascista(currentDateTime) {
     // Only update the year if past October 29th, otherwise it is the previous year.
     let october22 = new Date(currentDateTime.getFullYear(), 9, 29);
     october22.setFullYear(currentDateTime.getFullYear());
@@ -290,7 +293,7 @@ function getEraFascista(currentDateTime) {
 }
 
 // Returns a formatted Coptic UTC date based on the Julian Day (not Julian date)
-function getCopticDate(currentDateTime) {
+export function getCopticDate(currentDateTime) {
     const copticMonths = [
         "Thout", "Paopi", "Hathor", "Koiak", "Tobi", "Meshir",
         "Paremhat", "Parmouti", "Pashons", "Paoni", "Epip", "Mesori", "Pi Kogi Enavot"
@@ -317,7 +320,7 @@ function getCopticDate(currentDateTime) {
 
     // Calculate days and years from epoch
     const ThoutYear1 = new Date(Date.UTC(283, 7, 28, 21, 0, 0));
-    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, ThoutYear1));
+    const daysSinceEpoch = Math.floor(utilities.differenceInDays(currentDateTime, ThoutYear1));
     const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
     let CopticYear = yearsSinceEpoch;
     
@@ -349,7 +352,7 @@ function getCopticDate(currentDateTime) {
 }
 
 // Returns a formatted Ethiopian UTC date based on the Julian Day (not Julian date)
-function getEthiopianDate(currentDateTime) {
+export function getEthiopianDate(currentDateTime) {
     const ethiopianMonths = [
         "Mäskäräm",
         "Ṭəqəmt",
@@ -388,7 +391,7 @@ function getEthiopianDate(currentDateTime) {
     // Calculate days and years from epoch
     let ThoutYear1 = new Date(Date.UTC(7, 7, 26, 21, 0, 0));
     ThoutYear1.setUTCFullYear(7);
-    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, ThoutYear1));
+    const daysSinceEpoch = Math.floor(utilities.differenceInDays(currentDateTime, ThoutYear1));
     const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
     let EthiopianYear = yearsSinceEpoch;
     
@@ -420,7 +423,7 @@ function getEthiopianDate(currentDateTime) {
 }
 
 // Returns a formatted Byzantine local date
-function getByzantineCalendar(currentDateTime) {
+export function getByzantineCalendar(currentDateTime) {
     // Get Julian date from Gregorian via JDN
     const JDN = gregorianToJDN(currentDateTime);
     const julianDate = JDNToJulianDate(JDN);
@@ -432,16 +435,16 @@ function getByzantineCalendar(currentDateTime) {
     }
 
     const dayOfWeek = currentDateTime.getDay();
-    const monthString = monthNames[julianDate.month - 1]; // Adjust for 0-based index
+    const monthString = utilities.monthNames[julianDate.month - 1]; // Adjust for 0-based index
     const dayString = julianDate.day;
 
-    let dateString = `${dayString} ${monthString} ${byzantineYear} AM\n${weekNames[dayOfWeek]}`;
+    let dateString = `${dayString} ${monthString} ${byzantineYear} AM\n${utilities.weekNames[dayOfWeek]}`;
     return dateString;
 }
 
 
 // Returns a formatted Florentine (CET) date
-function getFlorentineCalendar(currentDateTime) {
+export function getFlorentineCalendar(currentDateTime) {
 
     // Check for approximate sunset and increment the day
     const utcHour = currentDateTime.getUTCHours();
@@ -466,7 +469,7 @@ function getFlorentineCalendar(currentDateTime) {
 
     // Prepare date components for display
     const dayOfWeek = currentDateTime.getUTCDay();
-    const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
+    const monthString = utilities.monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
     const dayString = adjustedJulianDate.day + dayModifier;
 
     let yearSuffix = 'AD';
@@ -476,12 +479,12 @@ function getFlorentineCalendar(currentDateTime) {
         displayYear = -florentineYear + 1; // Adjust for BC notation
     }
 
-    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${utilities.weekNames[dayOfWeek]}`;
     return dateString;
 }
 
 // Returns a formatted Pisan (CET) date
-function getPisanCalendar(currentDateTime) {
+export function getPisanCalendar(currentDateTime) {
 
     // Adjust for timezone
     let pisanDay = new Date(currentDateTime);
@@ -504,7 +507,7 @@ function getPisanCalendar(currentDateTime) {
 
     // Prepare date components for display
     const dayOfWeek = pisanDay.getUTCDay();
-    const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
+    const monthString = utilities.monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
     const dayString = adjustedJulianDate.day;
 
     let yearSuffix = 'AD';
@@ -514,12 +517,12 @@ function getPisanCalendar(currentDateTime) {
         displayYear = -pisanYear + 1; // Adjust for BC notation
     }
 
-    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${utilities.weekNames[dayOfWeek]}`;
     return dateString;
 }
 
 // Returns a formatted Venetian (CET) date
-function getVenetianCalendar(currentDateTime) {
+export function getVenetianCalendar(currentDateTime) {
 
     // Adjust for timezone
     let venetianDay = new Date(currentDateTime);
@@ -538,7 +541,7 @@ function getVenetianCalendar(currentDateTime) {
 
     // Prepare date components for display
     const dayOfWeek = venetianDay.getUTCDay();
-    const monthString = monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
+    const monthString = utilities.monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
     const dayString = adjustedJulianDate.day;
 
     let yearSuffix = 'AD';
@@ -548,12 +551,12 @@ function getVenetianCalendar(currentDateTime) {
         displayYear = -venetianYear + 1; // Adjust for BC notation
     }
 
-    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${utilities.weekNames[dayOfWeek]}`;
     return dateString;
 }
 
 // Returns a formatted Baha'i IRST date
-function getBahaiCalendar(currentDateTime, vernalEquinox) {
+export function getBahaiCalendar(currentDateTime, vernalEquinox) {
 
     // Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
     function figureOutEquinoxBeforeAfterSunset(equinox) {
@@ -579,14 +582,14 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
         let lastYear = new Date(currentDateTime);
         lastYear.setFullYear(currentDateTime.getFullYear()-1);
         lastYear.setMonth(10);
-        startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'spring');
+        startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'spring');
         endingEquinox = new Date(vernalEquinox);
     } else {
         let nextYear = new Date(currentDateTime);
         nextYear.setFullYear(currentDateTime.getFullYear()+1);
         nextYear.setMonth(10);
         startingEquinox = new Date(vernalEquinox);
-        endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'spring');
+        endingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(nextYear, 'spring');
     }
 
     // Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
@@ -594,7 +597,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     endingEquinox = figureOutEquinoxBeforeAfterSunset(endingEquinox);
 
     // Calculate when today started based on sunset in Tehran (UTC+3:30)
-    currentDayOfYear = Math.trunc(differenceInDays(currentDateTime, startingEquinox))+1;
+    let currentDayOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, startingEquinox))+1;
     let todaySunsetInTehran = new Date(currentDateTime);
     todaySunsetInTehran.setUTCHours(12);
     todaySunsetInTehran.setMinutes(30);
@@ -656,7 +659,7 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
             // It's after the start of the month
             } else {
                 // Get new current day of year by working from the final month
-                currentDayOfYear = Math.trunc(differenceInDays(currentDateTime, firstDayOfFinalMonth))+1;
+                currentDayOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, firstDayOfFinalMonth))+1;
                 // Day is within final month
                 if (currentDayOfYear<20) {
                     monthIndex=19;
@@ -685,14 +688,14 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
 }
 
 // Returns a formatted Pataphysical local date
-function getPataphysicalDate(currentDateTime) {
+export function getPataphysicalDate(currentDateTime) {
     let mostRecentSept8 = new Date(currentDateTime.getFullYear(), 8, 8);
     if (currentDateTime < mostRecentSept8) {
         mostRecentSept8.setFullYear(currentDateTime.getFullYear()-1);
     }
 
     // Get days since last September, add 1 because days are 0 based
-    let remainingDays = Math.floor(differenceInDays(currentDateTime, mostRecentSept8));
+    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, mostRecentSept8));
 
     const months = [
         "Absolu",
@@ -725,7 +728,7 @@ function getPataphysicalDate(currentDateTime) {
     let daysOfMonths = [28,28,28,28,28,28,28,28,28,28,29,28,29];
     let nextSept8 = new Date(mostRecentSept8);
     nextSept8.setFullYear(mostRecentSept8.getFullYear()+1);
-    const daysInYear = differenceInDays(nextSept8, mostRecentSept8);
+    const daysInYear = utilities.differenceInDays(nextSept8, mostRecentSept8);
 
     if (daysInYear===366) {
         daysOfMonths = [28,28,28,28,28,29,28,28,28,28,29,28,28];
@@ -749,11 +752,11 @@ function getPataphysicalDate(currentDateTime) {
 }
 
 // Returns a formatted Discordian local date
-function getDiscordianDate(currentDateTime) {
+export function getDiscordianDate(currentDateTime) {
     const startOfYear = new Date(currentDateTime.getFullYear(), 0, 1);
     const endOfYear = new Date(currentDateTime.getFullYear()+1, 0, 1);
-    let remainingDays = Math.floor(differenceInDays(currentDateTime, startOfYear)+1);
-    const leapYear = differenceInDays(endOfYear, startOfYear) === 366;
+    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, startOfYear)+1);
+    const leapYear = utilities.differenceInDays(endOfYear, startOfYear) === 366;
 
     const months = [
         "Chaos",
@@ -788,7 +791,7 @@ function getDiscordianDate(currentDateTime) {
 }
 
 // Returns a formatted Solar Hijri IRST date
-function getSolarHijriDate(currentDateTime, vernalEquinox) {
+export function getSolarHijriDate(currentDateTime, vernalEquinox) {
     // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
     function figureOutEquinoxBeforeAfterNoon(equinox) {
         let equinoxDayNoon = new Date(equinox);
@@ -812,20 +815,20 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
         let lastYear = new Date(currentDateTime);
         lastYear.setFullYear(currentDateTime.getFullYear() - 1);
         lastYear.setMonth(10);
-        startingEquinox = getCurrentSolsticeOrEquinox(lastYear, 'spring');
+        startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'spring');
         endingEquinox = new Date(vernalEquinox);
     } else {
         let nextYear = new Date(currentDateTime);
         nextYear.setFullYear(currentDateTime.getFullYear() + 1);
         nextYear.setMonth(10);
         startingEquinox = new Date(vernalEquinox);
-        endingEquinox = getCurrentSolsticeOrEquinox(nextYear, 'spring');
+        endingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(nextYear, 'spring');
     }
 
     startingEquinox = figureOutEquinoxBeforeAfterNoon(startingEquinox);
     endingEquinox = figureOutEquinoxBeforeAfterNoon(endingEquinox);
-    const leapYear = differenceInDays(endingEquinox, startingEquinox) === 366;
-    let remainingDays = Math.floor(differenceInDays(currentDateTime, startingEquinox)) + 1;
+    const leapYear = utilities.differenceInDays(endingEquinox, startingEquinox) === 366;
+    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, startingEquinox)) + 1;
 
     // Solar Hijri month and week names
     const SolarHijriMonths = [
@@ -884,10 +887,10 @@ function getSolarHijriDate(currentDateTime, vernalEquinox) {
 
 
 // Returns a formatted Qadimi IRST date
-function getQadimiDate(currentDateTime) {
+export function getQadimiDate(currentDateTime) {
     // Noon in Iran in 19 June 632, a base Nowruz day
     const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 2, 30, 0));
-    const daysSince632 = Math.floor(differenceInDays(currentDateTime, Nowruz632Noon));
+    const daysSince632 = Math.floor(utilities.differenceInDays(currentDateTime, Nowruz632Noon));
     const yearsSince632 = Math.floor(daysSince632/365);
     let remainingDays = daysSince632 - (yearsSince632*365)+1;
 
@@ -989,7 +992,7 @@ function getQadimiDate(currentDateTime) {
 }
 
 // Returns a formatted Egyptian Civil local date
-function getEgyptianDate(currentDateTime) {
+export function getEgyptianDate(currentDateTime) {
     const EgyptianSeasons = ["Akhet", "Peret", "Shemu", "Heriu Renpet"];
     const EgyptianMonths = [
         "Tekh",
@@ -1009,7 +1012,7 @@ function getEgyptianDate(currentDateTime) {
     const EgyptianMonthNumbers = ["I", "II", "III", "IV"];
 
     const startOfAkhet2781 = new Date(-2781, 5, 27);
-    const daysSincestartOfAkhet2781 = Math.floor(differenceInDays(currentDateTime, startOfAkhet2781));
+    const daysSincestartOfAkhet2781 = Math.floor(utilities.differenceInDays(currentDateTime, startOfAkhet2781));
     const yearsSinceStartOfAkhet2781 = Math.floor(daysSincestartOfAkhet2781/365);
     const currentDayOfYear = ((daysSincestartOfAkhet2781 % 365) + 365) % 365 + 1;
 
@@ -1038,7 +1041,7 @@ function getEgyptianDate(currentDateTime) {
     return monthAndDayText + ' (' + yearsSinceStartOfAkhet2781 + ')';
 }
 
-function getISOWeekDate(currentDateTime) {
+export function getISOWeekDate(currentDateTime) {
     const target = new Date(currentDateTime.valueOf());
     target.setUTCFullYear(currentDateTime.getUTCFullYear());
 
@@ -1056,7 +1059,7 @@ function getISOWeekDate(currentDateTime) {
     return `${weekYear}-W${weekNumber}-${dayNumber}`;
 }
 
-function getHaabDate(currentDateTime) {
+export function getHaabDate(currentDateTime) {
     const haabMonths = [
         "Pop", "Wo'", "Sip", "Sotz'", "Sek", "Xul",
         "Yaxk'in'", "Mol", "Ch'en", "Yax", "Sak'",
@@ -1065,7 +1068,7 @@ function getHaabDate(currentDateTime) {
     ];
 
     const mayaLongCount0 = new Date(-3113, 7, 11);
-    const totalDays = Math.floor(differenceInDays(currentDateTime, mayaLongCount0));
+    const totalDays = Math.floor(utilities.differenceInDays(currentDateTime, mayaLongCount0));
     
     const startingHaabDay = 8;
     const startingHaabMonthIndex = haabMonths.indexOf("Kumk'u");

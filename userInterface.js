@@ -5,9 +5,22 @@
 
 */
 
+import * as solarCalendars from '../Calendars/solarCalendars.js';
+import * as computingTime from '../Timekeeping/computingTime.js';
+import * as timeFractions from '../Timekeeping/timeFractions.js';
+import * as otherTime from '../Timekeeping/otherTime.js';
+import * as otherCalendars from '../Calendars/otherCalendars.js';
+import * as nodeUpdate from '../nodeUpdate.js';
+import * as lunisolarCalendars from '../Calendars/lunisolarCalendars.js';
+import * as astronomicalData from '../Other/astronomicalData.js';
+import * as popCulture from '../Other/popCulture.js';
+import * as politics from '../Other/politics.js';
+import * as script from '../script.js';
+import * as utilities from '../utilities.js';
+
 
 // Convert chosen timezone into minutes to add
-function convertUTCOffsetToMinutes(offsetString) {
+export function convertUTCOffsetToMinutes(offsetString) {
     // Validate the input format
     const regex = /^UTC([+-])(\d{2}):(\d{2})$/;
     const match = offsetString.trim().match(regex);
@@ -22,7 +35,7 @@ function convertUTCOffsetToMinutes(offsetString) {
 }
 
 // Return a formatted dateTime based on the user's date from the input field
-function parseInputDate(dateInput, timezoneOffset) {
+export function parseInputDate(dateInput, timezoneOffset) {
     let [inputDate, inputTime] = dateInput.split(', ');
     let BCE = false;
 
@@ -56,16 +69,16 @@ function parseInputDate(dateInput, timezoneOffset) {
 }
 
 // Calculate display date for user's calendar choice
-function adjustCalendarType(currentDateTime, calendarType) {
+export function adjustCalendarType(currentDateTime, calendarType) {
     let gregJulDifference = 0;
-    let julianDateParts = getRealJulianDate(currentDateTime);
+    let julianDateParts = solarCalendars.getRealJulianDate(currentDateTime);
     const totalSeconds = (julianDateParts.fractionalDay) * 24 * 60 * 60; // Total seconds in the fraction
     const hours = Math.floor(totalSeconds / 3600); // Get the whole hours
     const minutes = Math.floor((totalSeconds % 3600) / 60); // Remaining minutes
     const seconds = Math.floor(totalSeconds % 60); // Remaining seconds
     let julianDate = new Date(Date.UTC(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds));
     julianDate.setTime(julianDate.getTime() - 0.5 * 24 * 60 * 60 * 1000);
-    gregJulDifference = differenceInDays(currentDateTime, julianDate);
+    gregJulDifference = utilities.differenceInDays(currentDateTime, julianDate);
     switch (calendarType) {
         case 'julian-liturgical':
             currentDateTime = adjustForJulianLiturgical(currentDateTime, gregJulDifference);
@@ -78,7 +91,7 @@ function adjustCalendarType(currentDateTime, calendarType) {
 }
 
 // Calculate display date if user chooses Julian (Liturtgical)
-function adjustForJulianLiturgical(currentDateTime, gregJulDifference) {
+export function adjustForJulianLiturgical(currentDateTime, gregJulDifference) {
     // No Year 0 exists, so add 1 to negative years
     if (currentDateTime.getFullYear() < 0) {
         currentDateTime.setFullYear(currentDateTime.getFullYear()+1);
@@ -92,7 +105,7 @@ function adjustForJulianLiturgical(currentDateTime, gregJulDifference) {
 }
 
 // Calculate display date if user chooses Astronomical
-function adjustForAstronomical(currentDateTime, gregJulDifference) {
+export function adjustForAstronomical(currentDateTime, gregJulDifference) {
     const startOfGregorian = new Date(1582, 9, 15);
     if (currentDateTime < startOfGregorian) {
         currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
@@ -100,7 +113,7 @@ function adjustForAstronomical(currentDateTime, gregJulDifference) {
     return currentDateTime;
 }
 
-function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPass) {
+export function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPass, updateMiliseconds) {
 
     // Get the current datetime, keeping in mind the timezone, calendar type, and Date() bullshit
     let currentDateTime = dateInput ? parseInputDate(dateInput, timezoneOffset) : new Date();
@@ -113,67 +126,67 @@ function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPass) {
     //currentDateTime = adjustCalendarDate(currentDateTime, calendarType);
 
     // Calculations that are used by multiple nodes
-    const julianDay = getJulianDayNumber(currentDateTime)
-    const dayFraction = calculateDay(currentDateTime)
-    const marsSolDay = getMarsSolDate(julianDay);
+    const julianDay = computingTime.getJulianDayNumber(currentDateTime)
+    const dayFraction = timeFractions.calculateDay(currentDateTime)
+    const marsSolDay = computingTime.getMarsSolDate(julianDay);
 
     // Check if in the middle of a second, and update in a staggered fashion
     if (((currentDateTime.getMilliseconds() > 500) && (currentDateTime.getMilliseconds() < 500 + updateMiliseconds))||(currentPass===100)) {
         switch (currentPass) {
             case 100: // Update all nodes
             case 1:
-                updateLunisolarCalendars(currentDateTime);
+                nodeUpdate.updateLunisolarCalendars(currentDateTime);
             case 3:
-                setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
+                setTimeValue('hebrew-node', lunisolarCalendars.calculateHebrewCalendar(currentDateTime));
             case 4:
-                setTimeValue('next-solar-eclipse-node', getNextSolarEclipse(currentDateTime, 0));
-                setTimeValue('next-lunar-eclipse-node', getNextSolarEclipse(currentDateTime, 0.5));
+                setTimeValue('next-solar-eclipse-node', astronomicalData.getNextSolarEclipse(currentDateTime, 0));
+                setTimeValue('next-lunar-eclipse-node', astronomicalData.getNextSolarEclipse(currentDateTime, 0.5));
             case 5:
-                updateProposedCalendars(currentDateTime);
+                nodeUpdate.updateProposedCalendars(currentDateTime);
             case 6:
-                setTimeValue('spring-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
-                setTimeValue('summer-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
-                setTimeValue('autumn-equinox-node', getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
+                setTimeValue('spring-equinox-node', astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
+                setTimeValue('summer-solstice-node', astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
+                setTimeValue('autumn-equinox-node', astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
             case 7:
-                setTimeValue('winter-solstice-node', getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
-                setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime) + '°');
-                setTimeValue('this-new-moon-node', getMoonPhase(currentDateTime, 0).toUTCString());
-                setTimeValue('this-first-quarter-moon-node', getMoonPhase(currentDateTime, 0.25).toUTCString());
-                setTimeValue('this-full-moon-node', getMoonPhase(currentDateTime, 0.5).toUTCString());
-                setTimeValue('this-last-quarter-moon-node', getMoonPhase(currentDateTime, 0.75).toUTCString());
+                setTimeValue('winter-solstice-node', astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
+                setTimeValue('sun-longitude-node', astronomicalData.getLongitudeOfSun(currentDateTime) + '°');
+                setTimeValue('this-new-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0).toUTCString());
+                setTimeValue('this-first-quarter-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.25).toUTCString());
+                setTimeValue('this-full-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.5).toUTCString());
+                setTimeValue('this-last-quarter-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.75).toUTCString());
             case 8:
-                updateSolarCalendars(currentDateTime, calendarType);
+                nodeUpdate.updateSolarCalendars(currentDateTime, calendarType);
             case 9:
-                updateOtherCalendars(currentDateTime, marsSolDay);
+                nodeUpdate.updateOtherCalendars(currentDateTime, marsSolDay);
         }
     }
 
     // Update if at the beginning of a second
     if ((currentDateTime.getMilliseconds() < updateMiliseconds)||(currentPass===100)) {
-        updateComputingTimes(currentDateTime, julianDay, marsSolDay);
-        setTimeValue('local-time-node', getGregorianDateTime(currentDateTime).time);
+        nodeUpdate.updateComputingTimes(currentDateTime, julianDay, marsSolDay);
+        setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }
     
     // Update if at the end of a second
     if ((currentDateTime.getMilliseconds() > 1000-updateMiliseconds)||(currentPass===100)) {
-        setTimeValue('millennium-node', calculateMillennium(currentDateTime).toFixed(decimals));
+        setTimeValue('millennium-node', timeFractions.calculateMillennium(currentDateTime).toFixed(script.decimals));
     }
 
     // Update everything that needs to change constantly
     setTimeValue('julian-day-number-node', julianDay);
-    setTimeValue('terrestrial-time-node', getTerrestrialTimeOffset(currentDateTime));
+    setTimeValue('terrestrial-time-node', computingTime.getTerrestrialTimeOffset(currentDateTime));
     setTimeValue('iso8601-node', currentDateTime.toISOString());
-    updateOtherAndDecimalTimes(currentDateTime, dayFraction, marsSolDay);
-    updateFractionalTimes(currentDateTime, dayFraction, dateInput);
-    setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime));
-    setTimeValue('dream-time-node', getInceptionDreamTime(currentDateTime));
-    setTimeValue('termina-time-node', getTerminaTime(currentDateTime));
-    setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
+    nodeUpdate.updateOtherAndDecimalTimes(currentDateTime, dayFraction, marsSolDay);
+    nodeUpdate.updateFractionalTimes(currentDateTime, dayFraction, dateInput);
+    setTimeValue('minecraft-time-node', popCulture.getMinecraftTime(currentDateTime));
+    setTimeValue('dream-time-node', popCulture.getInceptionDreamTime(currentDateTime));
+    setTimeValue('termina-time-node', popCulture.getTerminaTime(currentDateTime));
+    setTimeValue('us-presidential-terms-node', politics.getCurrentPresidentialTerm(currentDateTime).toFixed(10));
 }
 
 // Main function for populating a node
-function setTimeValue(type, value) {
+export function setTimeValue(type, value) {
     // Update the original node
     const originalNode = document.getElementById(type);
     if (originalNode) {
@@ -189,7 +202,7 @@ function setTimeValue(type, value) {
 
 
 // Read the input box and set the date or restart the current time ticker
-function changeDateTime(newDateString = '', timezonePassthrough = '') {
+export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     clearInterval(updateIntervalId);
 
     // If newDateString isn't provided, use the input box value
@@ -219,11 +232,11 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
 }
 
 // Get local timezone for dropdown menu default option
-function getFormattedTimezoneOffset() {
+export function getFormattedTimezoneOffset() {
     const now = new Date();
     const timezoneOffset = now.getTimezoneOffset();
     const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
     const offsetMinutes = Math.abs(timezoneOffset) % 60;
     const offsetSign = timezoneOffset > 0 ? "-" : "+";
-    return formattedOffset = `UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
+    return `UTC${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
 }
