@@ -28,4 +28,4 @@ jobs:
 
       - name: Set working directory and run tests
         run: |
-          node calendarTests.js
+          node tests/calendarTests.js
