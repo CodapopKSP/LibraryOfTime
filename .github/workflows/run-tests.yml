@@ -15,6 +15,7 @@ jobs:
           node-version: 20
 
       - name: Run Tests
+        working-directory: LibraryOfTime
         run: |
             echo '{ "type": "module" }' > package.json
             cd LibraryOfTime  # Ensure we're in the right directory
