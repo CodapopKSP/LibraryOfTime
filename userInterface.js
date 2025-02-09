@@ -199,6 +199,7 @@ export function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPas
 
 // Main function for populating a node
 export function setTimeValue(type, value) {
+    if (typeof document === 'undefined') return;  // Prevents execution in Node.js
     // Update the original node
     const originalNode = document.getElementById(type);
     if (originalNode) {
