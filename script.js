@@ -12,11 +12,6 @@ import * as userPanel from './userPanel.js';
 import * as userInterface from './userInterface.js';
 import * as utilities from './utilities.js';
 
-// Global Containers
-let calendarType = 'gregorian-proleptic';
-let gregJulDifference = 0;
-let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
-
 // Node parent elements
 const parentElements = {
     'Solar Calendar': document.querySelector('.solar-calendars'),

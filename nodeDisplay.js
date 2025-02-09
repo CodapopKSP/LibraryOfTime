@@ -7,6 +7,7 @@
 */
 
 import * as descriptionPanel from '../descriptionPanel.js';
+import * as userPanel from '../userPanel.js';
 
 // The current selected Node, blank if none
 let selectedNode = '';
@@ -108,19 +109,19 @@ export function showNodeMenu(event, item) {
 
     // Add event listeners for dropdown actions
     document.getElementById('node-place1').onclick = () => {
-        nodePlace(item, 1); // Define this function to handle edit
+        userPanel.nodePlace(item, 1); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
     document.getElementById('node-place2').onclick = () => {
-        nodePlace(item, 2); // Define this function to handle edit
+        userPanel.nodePlace(item, 2); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
     document.getElementById('node-place3').onclick = () => {
-        nodePlace(item, 3); // Define this function to handle edit
+        userPanel.nodePlace(item, 3); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
     document.getElementById('node-place4').onclick = () => {
-        nodePlace(item, 4); // Define this function to handle edit
+        userPanel.nodePlace(item, 4); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
 

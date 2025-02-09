@@ -18,9 +18,11 @@ import * as politics from './Other/politics.js';
 import * as utilities from './utilities.js';
 
 
-document.getElementById('change-date-button').addEventListener('click', () => changeDateTime());
+if (typeof document !== 'undefined') {
+    document.getElementById('change-date-button')?.addEventListener('click', () => changeDateTime());
+}
 
-
+let calendarType = 'gregorian-proleptic';
 
 let _currentUpdateInterval = setInterval(updateAllNodes, utilities.updateMilliseconds);
 export function getCurrentUpdateInterval() {

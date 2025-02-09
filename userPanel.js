@@ -2,6 +2,8 @@
 const toggleButton = document.getElementById("floating-panel-toggle-button");
 const panel = document.getElementById("floating-panel");
 
+let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
+
 function movePanel(e) {
     e.preventDefault();
     
@@ -48,7 +50,7 @@ export function instantiateFloatingPanel() {
 }
 
 // Function to redraw everything inside grid-item 1
-function nodePlace(item, grid) {
+export function nodePlace(item, grid) {
     const gridItem = document.querySelector(`.grid-item${grid}`);
     gridItem.innerHTML = '';
     // Remove any class that doesn't start with "grid"
