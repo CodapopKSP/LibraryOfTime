@@ -15,8 +15,20 @@ import * as lunisolarCalendars from './Calendars/lunisolarCalendars.js';
 import * as astronomicalData from './Other/astronomicalData.js';
 import * as popCulture from './Other/popCulture.js';
 import * as politics from './Other/politics.js';
-import * as script from './script.js';
 import * as utilities from './utilities.js';
+
+
+document.getElementById('change-date-button').addEventListener('click', () => changeDateTime());
+
+
+
+let _currentUpdateInterval = setInterval(updateAllNodes, utilities.updateMilliseconds);
+export function getCurrentUpdateInterval() {
+    return _currentUpdateInterval;
+}
+export function setCurrentUpdateInterval(newTab) {
+    _currentUpdateInterval = newTab;
+}
 
 
 // Convert chosen timezone into minutes to add
@@ -170,7 +182,7 @@ export function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPas
     
     // Update if at the end of a second
     if ((currentDateTime.getMilliseconds() > 1000-updateMiliseconds)||(currentPass===100)) {
-        setTimeValue('millennium-node', timeFractions.calculateMillennium(currentDateTime).toFixed(script.decimals));
+        setTimeValue('millennium-node', timeFractions.calculateMillennium(currentDateTime).toFixed(utilities.decimals));
     }
 
     // Update everything that needs to change constantly
@@ -203,13 +215,13 @@ export function setTimeValue(type, value) {
 
 // Read the input box and set the date or restart the current time ticker
 export function changeDateTime(newDateString = '', timezonePassthrough = '') {
-    clearInterval(updateIntervalId);
+    clearInterval(_currentUpdateInterval);
 
     // If newDateString isn't provided, use the input box value
     if (newDateString === '') {
         newDateString = document.getElementById('date-input').value;
     }
-    calendarType = document.getElementById('calendar-type').value;
+    let calendarType = document.getElementById('calendar-type').value;
     let timezoneChoice = document.getElementById('timezone').value;
     if (timezonePassthrough) {
         timezoneChoice = timezonePassthrough;
@@ -219,14 +231,14 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     if (newDateString!=='') {
         updateAllNodes(newDateString, calendarType, timezoneChoice);
         setTimeout(() => {
-            updateIntervalId = setInterval(updateAllNodes(newDateString, calendarType, timezoneChoice), updateMiliseconds);
+            setCurrentUpdateInterval(setInterval(updateAllNodes(newDateString, calendarType, timezoneChoice), utilities.updateMilliseconds));
         }, 1000);
     
     // Date was cleared, restart without argument
     } else {
         updateAllNodes(0, true);
         setTimeout(() => {
-            updateIntervalId = setInterval(updateAllNodes, updateMiliseconds);
+            setCurrentUpdateInterval(setInterval(updateAllNodes, utilities.updateMilliseconds));
         }, 1);
     }
 }

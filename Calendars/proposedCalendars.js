@@ -42,7 +42,7 @@ export function getInvariableCalendarDate(currentDateTime) {
             // Find the last month before daysRemaining turns negative
             daysRemaining -= monthDaysLeapYear[i];
             if (daysRemaining <= 0) {
-                invariableMonth = utilities.monthNamesLeapYear[i];
+                invariableMonth = monthNamesLeapYear[i];
                 // Add a space after for formatting
                 invariableDate = (daysRemaining + monthDaysLeapYear[i]) + ' ';
                 break;
@@ -63,7 +63,7 @@ export function getInvariableCalendarDate(currentDateTime) {
             // Find the last month before daysRemaining turns negative
             daysRemaining -= monthDays[i];
             if (daysRemaining <= 0) {
-                invariableMonth = utilities.monthNames[i];
+                invariableMonth = monthNames[i];
                 // Add a space after for formatting
                 invariableDate = (daysRemaining + monthDays[i]) + ' ';
                 break;
@@ -111,7 +111,7 @@ export function getWorldCalendarDate(currentDateTime) {
             // Find the last month before daysRemaining turns negative
             daysRemaining -= monthDaysLeapYear[i];
             if (daysRemaining <= 0) {
-                invariableMonth = utilities.monthNamesLeapYear[i];
+                invariableMonth = monthNamesLeapYear[i];
                 // Add a space after for formatting
                 invariableDate = (daysRemaining + monthDaysLeapYear[i]) + ' ';
                 break;
@@ -132,7 +132,7 @@ export function getWorldCalendarDate(currentDateTime) {
             // Find the last month before daysRemaining turns negative
             daysRemaining -= monthDays[i];
             if (daysRemaining <= 0) {
-                invariableMonth = utilities.monthNames[i];
+                invariableMonth = monthNames[i];
                 // Add a space after for formatting
                 invariableDate = (daysRemaining + monthDays[i]) + ' ';
                 break;

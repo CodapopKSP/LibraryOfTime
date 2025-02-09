@@ -7,13 +7,37 @@
 */
 
 
-// The current arrangement of information to be displayed in the Description Panel
-let currentDescriptionTab = [];
 
 import { welcomeDescription } from './welcomeDescription.js';
 import * as nodeDisplay from './nodeDisplay.js';
+import * as utilities from './utilities.js';
+import * as userInterface from './userInterface.js';
+
+document.getElementById('home-button').addEventListener('click', homeButton);
+
+// Attach event listeners to all header buttons
+document.getElementById('header-button-1').addEventListener('click', () => changeActiveHeaderTab('header-button-1', 0));
+document.getElementById('header-button-2').addEventListener('click', () => changeActiveHeaderTab('header-button-2', 1));
+document.getElementById('header-button-3').addEventListener('click', () => changeActiveHeaderTab('header-button-3', 2));
+document.getElementById('header-button-4').addEventListener('click', () => changeActiveHeaderTab('header-button-4', 3));
 
 const headerTabs = ['header-button-1', 'header-button-2', 'header-button-3', 'header-button-4'];
+
+// The current arrangement of information to be displayed in the Description Panel
+let _currentDescriptionTab = [];
+
+export function getCurrentDescriptionTab() {
+    return _currentDescriptionTab;
+}
+
+export function setCurrentDescriptionTab(newTab) {
+    if (Array.isArray(newTab)) {
+        _currentDescriptionTab = newTab;
+    } else {
+        throw new Error("setCurrentDescriptionTab expects an array");
+    }
+}
+
 
 export function addHeaderTabHoverEffect() {
     headerTabs.forEach((tabID) => {
@@ -66,7 +90,7 @@ function createTitleElement(name) {
     return titleElement;
 }
 
-function createNodeDescription(item, type) {
+export function createNodeDescription(item, type) {
     const description = document.createElement('div');
     description.id = `${item.id}-nodeinfo-${type}`;
     description.classList.add('nodeinfo');
@@ -120,7 +144,7 @@ function createEpochElement(item) {
 
 function handleEpochClick(epoch) {
     console.log(formatDateTime(epoch));
-    changeDateTime(formatDateTime(epoch), "UTC+00:00");
+    userInterface.changeDateTime(formatDateTime(epoch), "UTC+00:00");
 }
 
 
@@ -141,7 +165,7 @@ function formatDateTime(dateString) {
     // Extract the day, month, and year from the date part
     let [day, monthStr, yearStr] = datePart.split(' ');
     const inputYear = parseInt(yearStr, 10);
-    const monthIndex = monthNames.indexOf(monthStr);
+    const monthIndex = utilities.monthNames.indexOf(monthStr);
 
     // Create a new Date object with the proper day, month, and year
     const date = new Date(Date.UTC(inputYear, monthIndex, parseInt(day, 10)));
@@ -186,7 +210,7 @@ export function changeActiveHeaderTab(activeTab, index) {
     });
 
     // Toggle tab info
-    currentDescriptionTab.forEach((page, i) => {
+    getCurrentDescriptionTab().forEach((page, i) => {
         page.classList.toggle('activePage', i === index);
     });
 }
@@ -202,19 +226,19 @@ export function homeButton() {
     Object.values(homePageDescriptions).forEach(description => {
         document.querySelector('.description-wrapper').appendChild(description);
     });
-    currentDescriptionTab = Object.values(homePageDescriptions);
+    setCurrentDescriptionTab(Object.values(homePageDescriptions));
     updateHeaderTabTitles(['About','Mission','Accuracy','Sources']);
     changeActiveHeaderTab('header-button-1', 0);
 }
 
-function updateHeaderTabTitles(labels) {
+export function updateHeaderTabTitles(labels) {
     headerTabs.forEach((btnId, index) => {
         const btn = document.getElementById(btnId);
         btn.innerHTML = `<b>${labels[index]}</b>`;
     });
 }
 
-function clearDescriptionPanel() {
+export function clearDescriptionPanel() {
     const nodeinfos = document.querySelectorAll('.nodeinfo');
     nodeinfos.forEach(nodeinfo => {
         nodeinfo.parentNode.removeChild(nodeinfo);

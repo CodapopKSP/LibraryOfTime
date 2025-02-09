@@ -10,10 +10,7 @@ import * as nodeDisplay from './nodeDisplay.js';
 import * as descriptionPanel from './descriptionPanel.js';
 import * as userPanel from './userPanel.js';
 import * as userInterface from './userInterface.js';
-
-// Settings
-const updateMiliseconds = 20;   // Update tick length
-export const decimals = 10;            // Decimals to show in some nodes
+import * as utilities from './utilities.js';
 
 // Global Containers
 let calendarType = 'gregorian-proleptic';
@@ -99,5 +96,5 @@ descriptionPanel.addHomeButtonHoverEffect();
 userPanel.instantiateFloatingPanel();
 
 // Initial update
-let updateIntervalId = setInterval(userInterface.updateAllNodes, updateMiliseconds);
-userInterface.updateAllNodes(0, 'gregorian-proleptic', userInterface.getFormattedTimezoneOffset(), true, updateMiliseconds);
+userInterface.getCurrentUpdateInterval();
+userInterface.updateAllNodes(0, 'gregorian-proleptic', userInterface.getFormattedTimezoneOffset(), true, utilities.updateMiliseconds);

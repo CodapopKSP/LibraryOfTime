@@ -17,7 +17,7 @@ import * as astronomicalData from './Other/astronomicalData.js';
 import * as lunisolarCalendars from './Calendars/lunisolarCalendars.js';
 import * as lunarCalendars from './Calendars/lunarCalendars.js';
 import * as userInterface from './userInterface.js';
-import * as script from './script.js';
+import * as utilities from './utilities.js';
 
 export function updateSolarCalendars(currentDateTime, calendarType) {
     const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
@@ -83,19 +83,19 @@ export function updateOtherCalendars(currentDateTime, marsSolDay) {
 }
 
 export function updateFractionalTimes(currentDateTime, dayFraction, dateInput) {
-    userInterface.setTimeValue('day-node', dayFraction.toFixed(script.decimals));
-    userInterface.setTimeValue('month-node', timeFractions.calculateMonth(currentDateTime).toFixed(script.decimals));
-    userInterface.setTimeValue('year-node', timeFractions.calculateYear(currentDateTime).toFixed(script.decimals));
-    userInterface.setTimeValue('hour-node', timeFractions.calculateHour(currentDateTime).toFixed(script.decimals));
-    userInterface.setTimeValue('minute-node', timeFractions.calculateMinute(currentDateTime).toFixed(script.decimals));
+    userInterface.setTimeValue('day-node', dayFraction.toFixed(utilities.decimals));
+    userInterface.setTimeValue('month-node', timeFractions.calculateMonth(currentDateTime).toFixed(utilities.decimals));
+    userInterface.setTimeValue('year-node', timeFractions.calculateYear(currentDateTime).toFixed(utilities.decimals));
+    userInterface.setTimeValue('hour-node', timeFractions.calculateHour(currentDateTime).toFixed(utilities.decimals));
+    userInterface.setTimeValue('minute-node', timeFractions.calculateMinute(currentDateTime).toFixed(utilities.decimals));
     // Create the illusion of actual microsecond calculation
     if ((dateInput === 0)||(dateInput === undefined)) {
         userInterface.setTimeValue('second-node', timeFractions.calculateSecond(currentDateTime));
     } else {
         userInterface.setTimeValue('second-node', '0.0000000000');
     }
-    userInterface.setTimeValue('decade-node', timeFractions.calculateDecade(currentDateTime).toFixed(script.decimals));
-    userInterface.setTimeValue('century-node', timeFractions.calculateCentury(currentDateTime).toFixed(script.decimals));
+    userInterface.setTimeValue('decade-node', timeFractions.calculateDecade(currentDateTime).toFixed(utilities.decimals));
+    userInterface.setTimeValue('century-node', timeFractions.calculateCentury(currentDateTime).toFixed(utilities.decimals));
 }
 
 export function updateComputingTimes(currentDateTime, julianDay, marsSolDay) {

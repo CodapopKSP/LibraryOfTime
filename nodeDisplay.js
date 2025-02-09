@@ -6,19 +6,21 @@
     This is a collection of functions for drawing and handling Nodes.
 */
 
+import * as descriptionPanel from '../descriptionPanel.js';
+
 // The current selected Node, blank if none
 let selectedNode = '';
 
 export function handleNodeClick(content, item) {
     // Build the description format
     const descriptionTypes = ['overview', 'info', 'accuracy', 'source'];
-    const descriptions = descriptionTypes.map(type => createNodeDescription(item, type));
+    const descriptions = descriptionTypes.map(type => descriptionPanel.createNodeDescription(item, type));
     const descriptionWrapper = document.querySelector('.description-wrapper');
     descriptions.forEach(description => {
         descriptionWrapper.appendChild(description);
     });
-    currentDescriptionTab = descriptions;
-    updateHeaderTabTitles(['Overview', 'Info', 'Accuracy', 'Source']);
+    descriptionPanel.setCurrentDescriptionTab(descriptions);
+    descriptionPanel.updateHeaderTabTitles(['Overview', 'Info', 'Accuracy', 'Source']);
 
     // Update the selected node
     if (selectedNode && selectedNode !== content) {
@@ -30,7 +32,7 @@ export function handleNodeClick(content, item) {
     document.getElementById('home-button').style.visibility = 'visible';
 
     // Show the first description by default
-    changeActiveHeaderTab('header-button-1', 0);
+    descriptionPanel.changeActiveHeaderTab('header-button-1', 0);
 }
 
 export function createNode(item, parentElements) {
@@ -59,7 +61,7 @@ export function createNode_(item) {
     // Handle left-click (selection)
     node.addEventListener('click', (event) => {
         if (event.button === 0) { // Check if it's a left-click
-            clearDescriptionPanel();
+            descriptionPanel.clearDescriptionPanel();
             handleNodeClick(content, item);
         }
     });
