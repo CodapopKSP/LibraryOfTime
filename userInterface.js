@@ -141,7 +141,7 @@ export function adjustForAstronomical(currentDateTime, gregJulDifference) {
     return currentDateTime;
 }
 
-export function updateAllNodes(dateInput, timezoneOffset, firstPass, updateMiliseconds) {
+export function updateAllNodes(dateInput, timezoneOffset, firstPass) {
 
     let calendarType = getCalendarType();
 
@@ -161,7 +161,7 @@ export function updateAllNodes(dateInput, timezoneOffset, firstPass, updateMilis
     const marsSolDay = computingTime.getMarsSolDate(julianDay);
 
     // Check if in the middle of a second, and update in a staggered fashion
-    if (((currentDateTime.getMilliseconds() > 500) && (currentDateTime.getMilliseconds() < 500 + updateMiliseconds))||(currentPass===100)) {
+    if (((currentDateTime.getMilliseconds() > 500) && (currentDateTime.getMilliseconds() < 500 + utilities.updateMilliseconds))||(currentPass===100)) {
         switch (currentPass) {
             case 100: // Update all nodes
             case 1:
@@ -192,14 +192,14 @@ export function updateAllNodes(dateInput, timezoneOffset, firstPass, updateMilis
     }
 
     // Update if at the beginning of a second
-    if ((currentDateTime.getMilliseconds() < updateMiliseconds)||(currentPass===100)) {
+    if ((currentDateTime.getMilliseconds() < utilities.updateMilliseconds)||(currentPass===100)) {
         nodeUpdate.updateComputingTimes(currentDateTime, julianDay, marsSolDay);
         setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }
     
     // Update if at the end of a second
-    if ((currentDateTime.getMilliseconds() > 1000-updateMiliseconds)||(currentPass===100)) {
+    if ((currentDateTime.getMilliseconds() > 1000-utilities.updateMilliseconds)||(currentPass===100)) {
         setTimeValue('millennium-node', timeFractions.calculateMillennium(currentDateTime).toFixed(utilities.decimals));
     }
 
@@ -255,7 +255,7 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     
     // Date was cleared, restart without argument
     } else {
-        updateAllNodes(0, true);
+        updateAllNodes(0, getFormattedTimezoneOffset(), true);
         setTimeout(() => {
             setCurrentUpdateInterval(setInterval(updateAllNodes, utilities.updateMilliseconds));
         }, 1);
