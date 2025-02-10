@@ -1,5 +1,5 @@
 
-import {convertUTCOffsetToMinutes, parseInputDate, adjustCalendarType} from '../userInterface.js';
+import {convertUTCOffsetToMinutes, parseInputDate, adjustCalendarType, setCalendarType} from '../userInterface.js';
 import * as solarCalendars from '../Calendars/solarCalendars.js';
 
 
@@ -59,9 +59,9 @@ function testCalendarType() {
     let testCount = 0;
     let passedTestCount = 0;
 
-    function testCalendarType_test(testedDate, testedCalendarType, parsedDateTest) {
+    function testCalendarType_test(testedDate, parsedDateTest) {
         testCount += 1;
-        let parsedDate = adjustCalendarType(testedDate, testedCalendarType);
+        let parsedDate = adjustCalendarType(testedDate);
         parsedDate = parsedDate.toUTCString();
         if (parsedDate === parsedDateTest) {
             passedTestCount += 1;
@@ -72,9 +72,12 @@ function testCalendarType() {
     }
 
     // Tests - Input Date, Calendar Type, Output Date
-    testCalendarType_test(new Date(Date.UTC(2024, 0, 1, 0, 0, 0)), 'gregorian', 'Mon, 01 Jan 2024 00:00:00 GMT');
-    testCalendarType_test(new Date(Date.UTC(2000, 0, 1, 23, 0, 0)), 'julian-liturgical', 'Fri, 14 Jan 2000 23:00:00 GMT');
-    testCalendarType_test(new Date(Date.UTC(1000, 0, 1, 0, 0, 0)), 'astronomical', 'Mon, 06 Jan 1000 00:00:00 GMT');
+    testCalendarType_test(new Date(Date.UTC(2024, 0, 1, 0, 0, 0)), 'Mon, 01 Jan 2024 00:00:00 GMT');
+    setCalendarType('julian-liturgical');
+    testCalendarType_test(new Date(Date.UTC(2000, 0, 1, 23, 0, 0)), 'Fri, 14 Jan 2000 23:00:00 GMT');
+    setCalendarType('astronomical');
+    testCalendarType_test(new Date(Date.UTC(1000, 0, 1, 0, 0, 0)), 'Mon, 06 Jan 1000 00:00:00 GMT');
+    setCalendarType('gregorian-proleptic');
 
     // Cumulative Test Check
     if (testCount === passedTestCount) {

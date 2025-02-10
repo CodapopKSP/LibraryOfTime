@@ -20,14 +20,29 @@ if (typeof document !== 'undefined') {
     document.getElementById('change-date-button')?.addEventListener('click', () => changeDateTime());
 }
 
-let calendarType = 'gregorian-proleptic';
+let _calendarType = 'gregorian-proleptic';
+export function getCalendarType() {
+    return _calendarType;
+}
+export function setCalendarType(newCalendarType) {
+    _calendarType = newCalendarType;
+}
+
+let _gregJulianDifference = 0;
+export function getGregJulianDifference() {
+    return _gregJulianDifference;
+}
+export function setGregJulianDifference(newDifference) {
+    _gregJulianDifference = newDifference;
+}
+
 
 let _currentUpdateInterval = setInterval(updateAllNodes, utilities.updateMilliseconds);
 export function getCurrentUpdateInterval() {
     return _currentUpdateInterval;
 }
-export function setCurrentUpdateInterval(newTab) {
-    _currentUpdateInterval = newTab;
+export function setCurrentUpdateInterval(newInterval) {
+    _currentUpdateInterval = newInterval;
 }
 
 
@@ -81,7 +96,7 @@ export function parseInputDate(dateInput, timezoneOffset) {
 }
 
 // Calculate display date for user's calendar choice
-export function adjustCalendarType(currentDateTime, calendarType) {
+export function adjustCalendarType(currentDateTime) {
     let gregJulDifference = 0;
     let julianDateParts = solarCalendars.getRealJulianDate(currentDateTime);
     const totalSeconds = (julianDateParts.fractionalDay) * 24 * 60 * 60; // Total seconds in the fraction
@@ -91,6 +106,7 @@ export function adjustCalendarType(currentDateTime, calendarType) {
     let julianDate = new Date(Date.UTC(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds));
     julianDate.setTime(julianDate.getTime() - 0.5 * 24 * 60 * 60 * 1000);
     gregJulDifference = utilities.differenceInDays(currentDateTime, julianDate);
+    let calendarType = getCalendarType();
     switch (calendarType) {
         case 'julian-liturgical':
             currentDateTime = adjustForJulianLiturgical(currentDateTime, gregJulDifference);
@@ -125,7 +141,9 @@ export function adjustForAstronomical(currentDateTime, gregJulDifference) {
     return currentDateTime;
 }
 
-export function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPass, updateMiliseconds) {
+export function updateAllNodes(dateInput, timezoneOffset, firstPass, updateMiliseconds) {
+
+    let calendarType = getCalendarType();
 
     // Get the current datetime, keeping in mind the timezone, calendar type, and Date() bullshit
     let currentDateTime = dateInput ? parseInputDate(dateInput, timezoneOffset) : new Date();
@@ -135,7 +153,7 @@ export function updateAllNodes(dateInput, calendarType, timezoneOffset, firstPas
     let currentPass = (firstPass || dateInput) ? 100 : currentDateTime.getSeconds();
 
     // Make adjustments based on calendar choice
-    //currentDateTime = adjustCalendarDate(currentDateTime, calendarType);
+    currentDateTime = adjustCalendarType(currentDateTime);
 
     // Calculations that are used by multiple nodes
     const julianDay = computingTime.getJulianDayNumber(currentDateTime)
@@ -222,7 +240,7 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     if (newDateString === '') {
         newDateString = document.getElementById('date-input').value;
     }
-    let calendarType = document.getElementById('calendar-type').value;
+    setCalendarType(document.getElementById('calendar-type').value);
     let timezoneChoice = document.getElementById('timezone').value;
     if (timezonePassthrough) {
         timezoneChoice = timezonePassthrough;
@@ -230,9 +248,9 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
 
     // Date was input, add it as an argument
     if (newDateString!=='') {
-        updateAllNodes(newDateString, calendarType, timezoneChoice);
+        updateAllNodes(newDateString, timezoneChoice);
         setTimeout(() => {
-            setCurrentUpdateInterval(setInterval(updateAllNodes(newDateString, calendarType, timezoneChoice), utilities.updateMilliseconds));
+            setCurrentUpdateInterval(setInterval(updateAllNodes(newDateString, timezoneChoice), utilities.updateMilliseconds));
         }, 1000);
     
     // Date was cleared, restart without argument

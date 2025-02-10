@@ -92,4 +92,4 @@ userPanel.instantiateFloatingPanel();
 
 // Initial update
 userInterface.getCurrentUpdateInterval();
-userInterface.updateAllNodes(0, 'gregorian-proleptic', userInterface.getFormattedTimezoneOffset(), true, utilities.updateMiliseconds);
+userInterface.updateAllNodes(0, userInterface.getFormattedTimezoneOffset(), true, utilities.updateMiliseconds);

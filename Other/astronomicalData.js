@@ -5,6 +5,7 @@
 // A set of functions for calculating data in the Astronomical Data category.
 
 import * as computingTime from '../Timekeeping/computingTime.js';
+import { getCalendarType, getGregJulianDifference } from '../userInterface.js';
 
 // Return an unformatted date from an unsigned JDE
 // This equation was sourced from Astronomical Algorithms
@@ -49,8 +50,8 @@ export function calculateDateFromJDE(JDE) {
     let fixedDateTime = new Date(computingTime.getDynamicalTimeBackward(unfixedDateTime));
     
     const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
-    if ((fixedDateTime < startOfGregorian) && (calendarType==='gregorian-proleptic')) {
-        fixedDateTime.setUTCDate(fixedDateTime.getUTCDate() + gregJulDifference);
+    if ((fixedDateTime < startOfGregorian) && (getCalendarType()==='gregorian-proleptic')) {
+        fixedDateTime.setUTCDate(fixedDateTime.getUTCDate() + getGregJulianDifference());
     }
     return fixedDateTime;
 }
