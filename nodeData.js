@@ -1309,3 +1309,18 @@ export const politicalCycles = [
         source: 'The data for this entry was sourced from <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States">this Wikipedia page</a>.'
     },
 ]
+
+export const nodeDataArrays = [
+    standardTimeData,
+    computingTimeData,
+    decimalTimeData,
+    otherTimeData,
+    solarCalendarsData,
+    lunisolarCalendarsData,
+    lunarCalendarsData,
+    proposedCalendars,
+    otherCalendars,
+    astronomicalData,
+    popCultureData,
+    politicalCycles
+];

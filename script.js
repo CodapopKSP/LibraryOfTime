@@ -5,12 +5,22 @@
 
 */
 
-import * as nodeData from './nodeData.js';
+import { nodeDataArrays } from './nodeData.js';
 import * as nodeDisplay from './nodeDisplay.js';
 import * as descriptionPanel from './descriptionPanel.js';
 import * as userPanel from './userPanel.js';
 import * as userInterface from './userInterface.js';
 import * as utilities from './utilities.js';
+
+const urlParameters = new URLSearchParams(window.location.search);
+const urlDateString = urlParameters.get('datetime');
+
+function getDateTimeFromURL(urlDateString) {
+    if (!urlDateString) return null; // Return null if no parameter is provided
+    const [date, time] = urlDateString.split('_');
+    const formattedTime = time.replace(/-/g, ':');
+    return `${date}, ${formattedTime}`; // Return as a string
+}
 
 // Node parent elements
 const parentElements = {
@@ -27,21 +37,6 @@ const parentElements = {
     'Pop Culture': document.querySelector('.pop-culture'),
     'Politics': document.querySelector('.politics')
 };
-
-const nodeDataArrays = [
-    nodeData.standardTimeData,
-    nodeData.computingTimeData,
-    nodeData.decimalTimeData,
-    nodeData.otherTimeData,
-    nodeData.solarCalendarsData,
-    nodeData.lunisolarCalendarsData,
-    nodeData.lunarCalendarsData,
-    nodeData.proposedCalendars,
-    nodeData.otherCalendars,
-    nodeData.astronomicalData,
-    nodeData.popCultureData,
-    nodeData.politicalCycles
-];
 
 // Create the node arrays
 nodeDataArrays.forEach(dataArray => {
@@ -91,5 +86,12 @@ descriptionPanel.addHomeButtonHoverEffect();
 userPanel.instantiateFloatingPanel();
 
 // Initial update
-userInterface.getCurrentUpdateInterval();
-userInterface.updateAllNodes(0, userInterface.getFormattedTimezoneOffset(), true, utilities.updateMiliseconds);
+if (urlDateString) {
+    const targetDateInput = getDateTimeFromURL(urlDateString);
+    userInterface.updateAllNodes(targetDateInput, userInterface.getFormattedTimezoneOffset(), true);
+    // Prevent from updating on repeat
+    clearInterval(userInterface.getCurrentUpdateInterval());
+  } else {
+    // Use current date
+    userInterface.updateAllNodes(0, userInterface.getFormattedTimezoneOffset(), true);
+  }

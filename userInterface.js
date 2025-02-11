@@ -232,9 +232,20 @@ export function setTimeValue(type, value) {
 }
 
 
+function formatDateTimeForURL(dateTimeString) {
+    if (!dateTimeString) return null; // Return null if no string is provided
+    // Split the string into the date and time parts (assuming they are separated by ", ")
+    const [date, time] = dateTimeString.split(', ');
+    // Replace colons in the time with dashes
+    const formattedTime = time.replace(/:/g, '-');
+    // Return the URL parameter format with an underscore between date and time
+    return `${date}_${formattedTime}`;
+}
+
+
 // Read the input box and set the date or restart the current time ticker
 export function changeDateTime(newDateString = '', timezonePassthrough = '') {
-    clearInterval(_currentUpdateInterval);
+    clearInterval(getCurrentUpdateInterval());
 
     // If newDateString isn't provided, use the input box value
     if (newDateString === '') {
@@ -246,16 +257,20 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
         timezoneChoice = timezonePassthrough;
     }
 
+    const currentUrl = new URL(window.location.href);
     // Date was input, add it as an argument
     if (newDateString!=='') {
+        currentUrl.searchParams.set("datetime", formatDateTimeForURL(newDateString));
+        window.history.replaceState(null, '', currentUrl);
         updateAllNodes(newDateString, timezoneChoice);
-        setTimeout(() => {
-            setCurrentUpdateInterval(setInterval(updateAllNodes(newDateString, timezoneChoice), utilities.updateMilliseconds));
-        }, 1000);
     
     // Date was cleared, restart without argument
     } else {
+        // Remove the datetime parameter completely
+        currentUrl.searchParams.delete("datetime");
+        window.history.replaceState(null, '', currentUrl);
         updateAllNodes(0, getFormattedTimezoneOffset(), true);
+        // Start repeating update
         setTimeout(() => {
             setCurrentUpdateInterval(setInterval(updateAllNodes, utilities.updateMilliseconds));
         }, 1);
