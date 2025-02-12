@@ -242,6 +242,13 @@ function formatDateTimeForURL(dateTimeString) {
     return `${date}_${formattedTime}`;
 }
 
+function getURLFormattedTimezone(timezone) {
+    if (!timezone) return "UTC~00_00"; // Default URL-safe format
+
+    // Convert '+' to '~' and ':' to '_'
+    return timezone.replace('+', '~').replace(':', '_');
+}
+
 
 // Read the input box and set the date or restart the current time ticker
 export function changeDateTime(newDateString = '', timezonePassthrough = '') {
@@ -261,14 +268,17 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     // Date was input, add it as an argument
     if (newDateString!=='') {
         currentUrl.searchParams.set("datetime", formatDateTimeForURL(newDateString));
+        currentUrl.searchParams.set("timezone", getURLFormattedTimezone(timezoneChoice));
+        currentUrl.searchParams.set("type", getCalendarType());
         window.history.replaceState(null, '', currentUrl);
         updateAllNodes(newDateString, timezoneChoice);
     
     // Date was cleared, restart without argument
     } else {
-        // Remove the datetime parameter completely
-        currentUrl.searchParams.delete("datetime");
-        window.history.replaceState(null, '', currentUrl);
+        currentUrl.search = ""; // Removes all query parameters
+
+        // Update the browser's URL without reloading the page
+        window.history.replaceState(null, "", currentUrl);
         updateAllNodes(0, getFormattedTimezoneOffset(), true);
         // Start repeating update
         setTimeout(() => {

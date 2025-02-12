@@ -12,8 +12,22 @@ import * as userPanel from './userPanel.js';
 import * as userInterface from './userInterface.js';
 import * as utilities from './utilities.js';
 
+const timezones = [
+    'UTC-12:00', 'UTC-11:00', 'UTC-10:00', 'UTC-09:30', 'UTC-09:00',
+    'UTC-08:00', 'UTC-07:00', 'UTC-06:00', 'UTC-05:00', 'UTC-04:00',
+    'UTC-03:30', 'UTC-03:00', 'UTC-02:00', 'UTC-01:00', 'UTC+00:00',
+    'UTC+01:00', 'UTC+02:00', 'UTC+03:00', 'UTC+03:30', 'UTC+04:00',
+    'UTC+04:30', 'UTC+05:00', 'UTC+05:30', 'UTC+05:45', 'UTC+06:00',
+    'UTC+06:30', 'UTC+07:00', 'UTC+08:00', 'UTC+08:45', 'UTC+09:00',
+    'UTC+09:30', 'UTC+10:00', 'UTC+10:30', 'UTC+11:00', 'UTC+12:00',
+    'UTC+12:45', 'UTC+13:00', 'UTC+14:00'
+];
+
 const urlParameters = new URLSearchParams(window.location.search);
 const urlDateString = urlParameters.get('datetime');
+const urlTimezone = urlParameters.get('timezone');
+const urlCalendarType = urlParameters.get('type');
+userInterface.setCalendarType(getFormattedCalendarType(urlCalendarType));
 
 function getDateTimeFromURL(urlDateString) {
     if (!urlDateString) return null; // Return null if no parameter is provided
@@ -21,6 +35,21 @@ function getDateTimeFromURL(urlDateString) {
     const formattedTime = time.replace(/-/g, ':');
     return `${date}, ${formattedTime}`; // Return as a string
 }
+
+function getFormattedTimezone(urlTimezone) {
+    if (!urlTimezone) return "UTC+00:00"; // Default to UTC
+    // Convert '~' to '+', and '_' to ':'
+    const formattedTimezone = urlTimezone.replace('_', ':').replace('~', '+');
+    // Check if formatted timezone exists in the valid timezones array
+    return timezones.includes(formattedTimezone) ? formattedTimezone : "UTC+00:00";
+}
+
+function getFormattedCalendarType(urlCalendarType) {
+    if (!urlCalendarType) return "gregorian-proleptic"; // Default to Gregorian
+    return urlCalendarType;
+}
+
+console.log(getFormattedTimezone(urlTimezone));
 
 // Node parent elements
 const parentElements = {
@@ -54,23 +83,22 @@ document.addEventListener('DOMContentLoaded', function () {
         percentPosition: true,
     });
 
-    // User's timezone dropdown selection
+    // Get user's local timezone offset
+    const localTimezone = userInterface.getFormattedTimezoneOffset();
+
+    // Get URL Timezone parameter
+    const urlTimezoneFormatted = getFormattedTimezone(urlTimezone);
+
+    // Determine which timezone to use (URL timezone if valid, else local timezone)
+    const selectedTimezone = timezones.includes(urlTimezoneFormatted) ? urlTimezoneFormatted : localTimezone;
+
+    // Populate the dropdown with timezones
     const timezoneSelect = document.getElementById('timezone');
-    const timezones = [
-        'UTC-12:00', 'UTC-11:00', 'UTC-10:00', 'UTC-09:30', 'UTC-09:00',
-        'UTC-08:00', 'UTC-07:00', 'UTC-06:00', 'UTC-05:00', 'UTC-04:00',
-        'UTC-03:30', 'UTC-03:00', 'UTC-02:00', 'UTC-01:00', 'UTC+00:00',
-        'UTC+01:00', 'UTC+02:00', 'UTC+03:00', 'UTC+03:30', 'UTC+04:00',
-        'UTC+04:30', 'UTC+05:00', 'UTC+05:30', 'UTC+05:45', 'UTC+06:00',
-        'UTC+06:30', 'UTC+07:00', 'UTC+08:00', 'UTC+08:45', 'UTC+09:00',
-        'UTC+09:30', 'UTC+10:00', 'UTC+10:30', 'UTC+11:00', 'UTC+12:00',
-        'UTC+12:45', 'UTC+13:00', 'UTC+14:00'
-    ];
     timezones.forEach(timezone => {
         const option = document.createElement('option');
         option.value = timezone;
         option.text = timezone;
-        if (timezone === userInterface.getFormattedTimezoneOffset()) {
+        if (timezone === selectedTimezone) {
             option.selected = true;
         }
         timezoneSelect.appendChild(option);
@@ -86,9 +114,8 @@ descriptionPanel.addHomeButtonHoverEffect();
 userPanel.instantiateFloatingPanel();
 
 // Initial update
-if (urlDateString) {
-    const targetDateInput = getDateTimeFromURL(urlDateString);
-    userInterface.updateAllNodes(targetDateInput, userInterface.getFormattedTimezoneOffset(), true);
+if (urlDateString && urlTimezone) {
+    userInterface.updateAllNodes(getDateTimeFromURL(urlDateString), getFormattedTimezone(urlTimezone), true);
     // Prevent from updating on repeat
     clearInterval(userInterface.getCurrentUpdateInterval());
   } else {
