@@ -81,17 +81,16 @@ export function parseInputDate(dateInput, timezoneOffset) {
 
     // Create a Date object using Date.UTC, setting the year to 0 initially
     let dateTime = new Date(Date.UTC(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond));
-
-    // Adjust by the timezone offset
-    dateTime.setUTCMinutes(dateTime.getUTCMinutes() + offsetInMinutes);
-
     // Set the correct year using setUTCFullYear
     if (BCE) {
         // Handle BCE dates: Negative year
-        dateTime.setUTCFullYear(inputYear * -1);
+        dateTime.setFullYear(inputYear * -1);
     } else {
-        dateTime.setUTCFullYear(inputYear);
+        dateTime.setFullYear(inputYear);
     }
+
+    // Adjust by the timezone offset
+    dateTime.setMinutes(dateTime.getMinutes() - offsetInMinutes);
     return dateTime;
 }
 
@@ -141,7 +140,13 @@ export function adjustForAstronomical(currentDateTime, gregJulDifference) {
     return currentDateTime;
 }
 
-export function updateAllNodes(dateInput, timezoneOffset, firstPass) {
+export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
+
+    // Set Timezone to local time if there is none specified
+    let timezoneOffset = timezoneOffset_;
+    if (timezoneOffset === undefined) {
+        timezoneOffset = getFormattedTimezoneOffset()
+    }
 
     let calendarType = getCalendarType();
 
@@ -152,6 +157,7 @@ export function updateAllNodes(dateInput, timezoneOffset, firstPass) {
     // 100 is used to update all nodes
     let currentPass = (firstPass || dateInput) ? 100 : currentDateTime.getSeconds();
 
+
     // Make adjustments based on calendar choice
     currentDateTime = adjustCalendarType(currentDateTime);
 
@@ -159,6 +165,7 @@ export function updateAllNodes(dateInput, timezoneOffset, firstPass) {
     const julianDay = computingTime.getJulianDayNumber(currentDateTime)
     const dayFraction = timeFractions.calculateDay(currentDateTime)
     const marsSolDay = computingTime.getMarsSolDate(julianDay);
+
 
     // Check if in the middle of a second, and update in a staggered fashion
     if (((currentDateTime.getMilliseconds() > 500) && (currentDateTime.getMilliseconds() < 500 + utilities.updateMilliseconds))||(currentPass===100)) {
@@ -185,7 +192,7 @@ export function updateAllNodes(dateInput, timezoneOffset, firstPass) {
                 setTimeValue('this-full-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.5).toUTCString());
                 setTimeValue('this-last-quarter-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.75).toUTCString());
             case 8:
-                nodeUpdate.updateSolarCalendars(currentDateTime, calendarType);
+                nodeUpdate.updateSolarCalendars(currentDateTime, calendarType, convertUTCOffsetToMinutes(timezoneOffset));
             case 9:
                 nodeUpdate.updateOtherCalendars(currentDateTime, marsSolDay);
         }
@@ -194,7 +201,7 @@ export function updateAllNodes(dateInput, timezoneOffset, firstPass) {
     // Update if at the beginning of a second
     if ((currentDateTime.getMilliseconds() < utilities.updateMilliseconds)||(currentPass===100)) {
         nodeUpdate.updateComputingTimes(currentDateTime, julianDay, marsSolDay);
-        setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime).time);
+        setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime, convertUTCOffsetToMinutes(timezoneOffset)).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }
     

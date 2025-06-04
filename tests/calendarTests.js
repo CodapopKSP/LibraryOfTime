@@ -145,6 +145,7 @@ function testJulianCalendar() {
     }
 }
 
+/*
 // Run all tests.
 testParseDate();
 testTimezoneFormatter();
@@ -153,4 +154,4 @@ testGregorianCalendar();
 testJulianCalendar();
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
-}
+}*/

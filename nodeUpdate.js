@@ -19,9 +19,10 @@ import * as lunarCalendars from './Calendars/lunarCalendars.js';
 import * as userInterface from './userInterface.js';
 import * as utilities from './utilities.js';
 
-export function updateSolarCalendars(currentDateTime, calendarType) {
+export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffset) {
     const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
-    userInterface.setTimeValue('gregorian-node', solarCalendars.getGregorianDateTime(currentDateTime).date);
+    console.log(currentDateTime);
+    userInterface.setTimeValue('gregorian-node', solarCalendars.getGregorianDateTime(currentDateTime, timezoneOffset).date);
     userInterface.setTimeValue('julian-node', solarCalendars.getJulianCalendar(currentDateTime));
     userInterface.setTimeValue('astronomical-node', solarCalendars.getAstronomicalDate(currentDateTime));
     userInterface.setTimeValue('byzantine-node', solarCalendars.getByzantineCalendar(currentDateTime));

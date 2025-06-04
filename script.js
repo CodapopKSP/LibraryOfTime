@@ -49,8 +49,6 @@ function getFormattedCalendarType(urlCalendarType) {
     return urlCalendarType;
 }
 
-console.log(getFormattedTimezone(urlTimezone));
-
 // Node parent elements
 const parentElements = {
     'Solar Calendar': document.querySelector('.solar-calendars'),

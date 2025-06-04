@@ -33,91 +33,62 @@ export function calculateSecond(currentDateTime) {
 }
 
 export function calculateMinute(currentDateTime) {
-    let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear();
-    let hour = currentDateTime.getHours();
-    let minute = currentDateTime.getMinutes();
-    let minuteStart = new Date(year, month, day, hour, minute);
-    minuteStart.setFullYear(year)
-    let nextMinuteStart = new Date(year, month, day, hour, minute + 1);
-    nextMinuteStart.setFullYear(year)
-    let minuteFraction = (currentDateTime - minuteStart) / (nextMinuteStart - minuteStart);
-    return minuteFraction;
+    return (currentDateTime.getSeconds() + currentDateTime.getMilliseconds() / 1000) / 60;
 }
 
 export function calculateHour(currentDateTime) {
-    let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear();
-    let hour = currentDateTime.getHours();
-    let hourStart = new Date(year, month, day, hour);
-    hourStart.setFullYear(year);
-    let nextHourStart = new Date(year, month, day, hour + 1);
-    nextHourStart.setFullYear(year);
-    let hourFraction = (currentDateTime - hourStart) / (nextHourStart - hourStart);
-    return hourFraction;
+    return (currentDateTime.getMinutes() + 
+            currentDateTime.getSeconds() / 60 + 
+            currentDateTime.getMilliseconds() / 60000) / 60;
 }
 
 export function calculateDay(currentDateTime) {
-    let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear();
-    let dayStart = new Date(year, month, day);
-    dayStart.setFullYear(year);
-    let nextDayStart = new Date(year, month, day + 1);
-    nextDayStart.setFullYear(year);
-    let dayFraction = (currentDateTime - dayStart) / (nextDayStart - dayStart);
-    return dayFraction;
+    return (currentDateTime.getHours() + 
+            currentDateTime.getMinutes() / 60 + 
+            currentDateTime.getSeconds() / 3600 + 
+            currentDateTime.getMilliseconds() / 3600000) / 24;
 }
 
 export function calculateMonth(currentDateTime) {
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear();
-    let monthStart = new Date(year, month, 1);
-    monthStart.setFullYear(year);
-    let nextMonthStart = new Date(year, month + 1, 1);
-    nextMonthStart.setFullYear(year);
-    let monthFraction = (currentDateTime - monthStart) / (nextMonthStart - monthStart);
-    return monthFraction;
+    const year = currentDateTime.getFullYear();
+    const month = currentDateTime.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get last day of the month
+    return (currentDateTime.getDate() - 1 + 
+            currentDateTime.getHours() / 24 + 
+            currentDateTime.getMinutes() / 1440 + 
+            currentDateTime.getSeconds() / 86400 + 
+            currentDateTime.getMilliseconds() / 86400000) / daysInMonth;
 }
 
 export function calculateYear(currentDateTime) {
-    let year = currentDateTime.getFullYear();
-    let yearStart = new Date(year, 0, 1);
-    yearStart.setFullYear(year);
-    let nextYearStart = new Date(year + 1, 0, 1);
-    nextYearStart.setFullYear(year + 1);
-    let yearFraction = (currentDateTime - yearStart) / (nextYearStart - yearStart);
-    return yearFraction;
+    const year = currentDateTime.getFullYear();
+    const startOfYear = new Date(year, 0, 1);
+    const daysInYear = (new Date(year + 1, 0, 1) - startOfYear) / 86400000; // Total days in year
+    return (currentDateTime - startOfYear) / (daysInYear * 86400000);
 }
 
 export function calculateDecade(currentDateTime) {
-    let year = currentDateTime.getFullYear();
-    let decadeStart = new Date(Math.trunc(year / 10) * 10, 0, 1, 0, 0);
-    decadeStart.setFullYear(Math.trunc(year / 10) * 10);
-    let nextDecadeStart = new Date(Math.trunc(year / 10) * 10 + 10, 0, 1, 0, 0);
-    nextDecadeStart.setFullYear(Math.trunc(year / 10) * 10 + 10);
-    let decadeFraction = (currentDateTime - decadeStart) / (nextDecadeStart - decadeStart);
-    return decadeFraction;
+    const year = currentDateTime.getFullYear();
+    const decadeStartYear = Math.floor(year / 10) * 10;
+    const startOfDecade = new Date(decadeStartYear, 0, 1);
+    const nextDecadeStart = new Date(decadeStartYear + 10, 0, 1);
+
+    return (currentDateTime - startOfDecade) / (nextDecadeStart - startOfDecade);
 }
 
 export function calculateCentury(currentDateTime) {
-    let year = currentDateTime.getFullYear();
-    let centuryStart = new Date(Math.trunc(year / 100) * 100, 0, 1);
-    centuryStart.setFullYear(Math.trunc(year / 100) * 100);
-    let nextCenturyStart = new Date(Math.trunc(year / 100) * 100 + 100, 0, 1);
-    nextCenturyStart.setFullYear(Math.trunc(year / 100) * 100 + 100);
-    let centuryFraction = (currentDateTime - centuryStart) / (nextCenturyStart - centuryStart);
-    return centuryFraction;
+    const year = currentDateTime.getFullYear();
+    const centuryStartYear = Math.floor(year / 100) * 100;
+    const startOfCentury = new Date(centuryStartYear, 0, 1);
+    const nextCenturyStart = new Date(centuryStartYear + 100, 0, 1);
+    return (currentDateTime - startOfCentury) / (nextCenturyStart - startOfCentury);
 }
 
 export function calculateMillennium(currentDateTime) {
-    let year = currentDateTime.getFullYear();
-    let millenniumStart = new Date(Math.trunc(year / 1000) * 1000, 0, 1);
-    millenniumStart.setFullYear(Math.trunc(year / 1000) * 1000);
-    let nextMillenniumStart = new Date(Math.trunc(year / 1000) * 1000 + 1000, 0, 1);
-    nextMillenniumStart.setFullYear(Math.trunc(year / 1000) * 1000 + 1000);
-    let millenniumFraction = (currentDateTime - millenniumStart) / (nextMillenniumStart - millenniumStart);
-    return millenniumFraction;
+    const year = currentDateTime.getFullYear();
+    const millenniumStartYear = Math.floor(year / 1000) * 1000;
+    const startOfMillennium = new Date(millenniumStartYear, 0, 1);
+    const nextMillenniumStart = new Date(millenniumStartYear + 1000, 0, 1);
+    return (currentDateTime - startOfMillennium) / (nextMillenniumStart - startOfMillennium);
 }
+

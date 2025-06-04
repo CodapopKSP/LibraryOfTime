@@ -20,7 +20,7 @@ export const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Local Midnight',
         confidence: 'Exact',
-        overview: 'This is the current local time based on the timezone provided by your device.',
+        overview: 'This is the current local time based on the timezone provided by your device or the timezone selected in the datetime selection.',
         info: 'Local Time can vary depending on location, timezone, Daylight Savings Time, and historical adjustments.',
         accuracy: 'This calculation is perfectly accurate to the millisecond.',
         source: `Local Time is sourced directly from JavaScript's Date library and your device's system time.`
@@ -80,7 +80,7 @@ export const standardTimeData = [
         type: 'Standard Time',
         epoch: 'Every Day',
         confidence: 'Exact',
-        overview: 'This is the fraction of time passed in the current day.',
+        overview: 'This is the fraction of time passed in the current day, based on the local timezone.',
         info: 'This calculation is based on local time.',
         accuracy: 'This calculation is perfectly accurate to the millisecond.',
         source: 'This is a simple calculation with no source.'
@@ -539,7 +539,7 @@ export const otherTimeData = [
 
 export const solarCalendarsData = [
     {
-        name: 'Gregorian',
+        name: 'Gregorian (Local)',
         id: 'gregorian',
         type: 'Solar Calendar',
         epoch: '1 January 1 CE',

@@ -89,15 +89,21 @@ export function getAstronomicalDate(currentDateTime) {
 }
 
 // Returns a formatted Gregorian calendar local date and time
-export function getGregorianDateTime(currentDateTime) {
-    let day = currentDateTime.getDate().toString();
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear();
-    let hour = currentDateTime.getHours().toString().padStart(2, '0');
-    let minute = currentDateTime.getMinutes().toString().padStart(2, '0');
-    let second = currentDateTime.getSeconds().toString().padStart(2, '0');
-    const dayOfWeek = currentDateTime.getDay();
-    
+export function getGregorianDateTime(currentDateTime, timezoneOffset) {
+    // Convert timezone offset from minutes to milliseconds
+    const offsetMilliseconds = timezoneOffset * 60 * 1000;
+
+    // Adjust the date with the offset
+    const adjustedDate = new Date(currentDateTime.getTime() + offsetMilliseconds);
+
+    let day = adjustedDate.getUTCDate().toString();
+    let month = adjustedDate.getUTCMonth();
+    let year = adjustedDate.getUTCFullYear();
+    let hour = adjustedDate.getUTCHours().toString().padStart(2, '0');
+    let minute = adjustedDate.getUTCMinutes().toString().padStart(2, '0');
+    let second = adjustedDate.getUTCSeconds().toString().padStart(2, '0');
+    const dayOfWeek = adjustedDate.getUTCDay();
+
     // Set year suffix based on the value of year
     let yearSuffix = 'CE';
     if (year < 1) {
@@ -283,12 +289,13 @@ export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
 // Returns a formatted EF local date
 export function getEraFascista(currentDateTime) {
     // Only update the year if past October 29th, otherwise it is the previous year.
-    let october22 = new Date(currentDateTime.getFullYear(), 9, 29);
-    october22.setFullYear(currentDateTime.getFullYear());
-    if (currentDateTime < october22) {
-        october22.setFullYear(october22.getFullYear() - 1);
+    let october29 = new Date(Date.UTC(currentDateTime.getUTCFullYear(), 9, 28, 23));
+    console.log('Fix Era Facista');
+    october29.setUTCFullYear(currentDateTime.getUTCFullYear());
+    if (currentDateTime < october29) {
+        october29.setUTCFullYear(october29.getUTCFullYear() - 1);
     }
-    let yearsSince1922 = october22.getFullYear() - 1921;
+    let yearsSince1922 = october29.getUTCFullYear() - 1921;
     return `Anno ${toRomanNumerals(yearsSince1922)}`;
 }
 
