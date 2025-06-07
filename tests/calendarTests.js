@@ -145,6 +145,7 @@ function testJulianCalendar() {
     testJulianCalendar_test("1950-1-1, 00:00:00", "UTC+00:00", "19 December 1949 AD\nSunday");
     testJulianCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday");
     testJulianCalendar_test("1917-11-7, 00:00:00", "UTC+00:00", "25 October 1917 AD\nWednesday");
+    testJulianCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "11 January 1001 BC\nWednesday");
 
     // Cumulative Test Check
     if (testCount === passedTestCount) {
@@ -152,6 +153,89 @@ function testJulianCalendar() {
     }
 }
 
+function testAstronomicalCalendar() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testAstronomicalCalendar_test(testedDate_, testedTimezone, parsedDateTest) {
+        testCount += 1;
+
+        let testedDate = parseInputDate(testedDate_, testedTimezone);
+        let parsedDate = solarCalendars.getAstronomicalDate(testedDate);
+        if (parsedDate === parsedDateTest) {
+            passedTestCount += 1;
+        } else {
+            console.error('Astronomical Calendar: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+    }
+
+    // Tests - Input Date, Output Date
+    testAstronomicalCalendar_test("1950-1-1, 00:00:00", "UTC+00:00", "1 January 1950 CE\nSunday");
+    testAstronomicalCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday");
+    testAstronomicalCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "11 January 1001 BC\nWednesday");
+
+    // Cumulative Test Check
+    if (testCount === passedTestCount) {
+        console.log('Astronomical Calendar: All Tests Passed');
+    }
+}
+
+function testMinguoCalendar() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testMinguoCalendar_test(testedDate_, testedTimezone, parsedDateTest) {
+        testCount += 1;
+
+        let testedDate = parseInputDate(testedDate_, testedTimezone);
+        let parsedDate = solarCalendars.getMinguo(testedDate);
+        if (parsedDate === parsedDateTest) {
+            passedTestCount += 1;
+        } else {
+            console.error('Minguo Calendar: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+    }
+
+    // Tests - Input Date, Output Date
+    testMinguoCalendar_test("1950-1-1, 00:00:00", "UTC+08:00", "民國 39年 1月 1日\n星期天");
+    testMinguoCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "民國 -1909年 1月 1日\n星期二");
+    testMinguoCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "民國 -2911年 1月 1日\n星期三");
+
+    // Cumulative Test Check
+    if (testCount === passedTestCount) {
+        console.log('Minguo Calendar: All Tests Passed');
+    }
+}
+
+function testJucheCalendar() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testJucheCalendar_test(testedDate_, testedTimezone, parsedDateTest) {
+        testCount += 1;
+
+        let testedDate = parseInputDate(testedDate_, testedTimezone);
+        let parsedDate = solarCalendars.getJuche(testedDate);
+        if (parsedDate === parsedDateTest) {
+            passedTestCount += 1;
+        } else {
+            console.error('Juche Calendar: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+    }
+
+    // Tests - Input Date, Output Date
+    testJucheCalendar_test("1950-1-1, 00:00:00", "UTC+08:00", "Juche 39.01.1\n일요일");
+    testJucheCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "Juche -1909.01.1\n화요일");
+    testJucheCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "Juche -2911.01.1\n수요일");
+
+    // Cumulative Test Check
+    if (testCount === passedTestCount) {
+        console.log('Juche Calendar: All Tests Passed');
+    }
+}
 
 // Run all tests.
 testParseDate();
@@ -159,6 +243,9 @@ testTimezoneFormatter();
 testCalendarType();
 testGregorianCalendar();
 testJulianCalendar();
+testAstronomicalCalendar();
+testMinguoCalendar();
+testJucheCalendar();
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
 }
