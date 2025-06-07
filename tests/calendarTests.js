@@ -133,7 +133,6 @@ function testJulianCalendar() {
 
         let testedDate = parseInputDate(testedDate_, testedTimezone);
         let parsedDate = solarCalendars.getJulianCalendar(testedDate);
-        console.log(parsedDate);
         if (parsedDate === parsedDateTest) {
             passedTestCount += 1;
         } else {
