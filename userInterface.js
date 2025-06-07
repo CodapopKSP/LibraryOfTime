@@ -62,6 +62,7 @@ export function convertUTCOffsetToMinutes(offsetString) {
 }
 
 // Return a formatted dateTime based on the user's date from the input field
+// THIS BREAKS JS DATE TIME BECAUSE TAIWAN TIME IS UTC+08:06 BEFORE CERTAIN DATES
 export function parseInputDate(dateInput, timezoneOffset) {
     let [inputDate, inputTime] = dateInput.split(', ');
     let BCE = false;
@@ -72,27 +73,30 @@ export function parseInputDate(dateInput, timezoneOffset) {
         inputDate = inputDate.substring(1); // Remove the '-' from the year part
     }
 
-    // Parse date parts
+    // Parse date and time components
     let [inputYear, inputMonth, inputDay] = inputDate ? inputDate.split('-').map(Number) : [0, 1, 1];
     let [inputHour, inputMinute, inputSecond] = inputTime ? inputTime.split(':').map(Number) : [0, 0, 0];
 
-    // Calculate timezone offset in minutes
+    // Convert timezone offset string (e.g., "+08:00") to minutes
     const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
 
-    // Create a Date object using Date.UTC, setting the year to 0 initially
-    let dateTime = new Date(Date.UTC(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond));
-    // Set the correct year using setUTCFullYear
+    // Construct UTC time in milliseconds
+    let utcMillis = Date.UTC(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond);
+
+    // Apply BCE year handling
+    let dateTime = new Date(utcMillis);
     if (BCE) {
-        // Handle BCE dates: Negative year
-        dateTime.setFullYear(inputYear * -1);
+        dateTime.setUTCFullYear(inputYear * -1);
     } else {
-        dateTime.setFullYear(inputYear);
+        dateTime.setUTCFullYear(inputYear);
     }
 
-    // Adjust by the timezone offset
-    dateTime.setMinutes(dateTime.getMinutes() - offsetInMinutes);
+    // Subtract the timezone offset from the UTC date to get the raw UTC datetime
+    dateTime = new Date(dateTime.getTime() - offsetInMinutes * 60 * 1000);
+
     return dateTime;
 }
+
 
 // Calculate display date for user's calendar choice
 export function adjustCalendarType(currentDateTime) {

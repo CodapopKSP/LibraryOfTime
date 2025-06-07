@@ -46,8 +46,9 @@ function testParseDate() {
 
     // Tests - Input Date, Timezone, Output Date
     testParseDate_test('1950-1-1, 00:00:00', 'UTC+00:00', 'Sun, 01 Jan 1950 00:00:00 GMT');
-    testParseDate_test('2000-12-31, 00:00:00', 'UTC+08:00', 'Sun, 31 Dec 2000 08:00:00 GMT');
-    testParseDate_test('2016-2-29, 00:00:00', 'UTC+12:00', 'Mon, 29 Feb 2016 12:00:00 GMT');
+    testParseDate_test('2000-12-31, 00:00:00', 'UTC+08:00', 'Sat, 30 Dec 2000 16:00:00 GMT');
+    testParseDate_test('2016-2-29, 00:00:00', 'UTC+12:00', 'Sun, 28 Feb 2016 12:00:00 GMT');
+    testParseDate_test('0001-1-2, 00:00:00', 'UTC-10:00', 'Tue, 02 Jan 0001 10:00:00 GMT');
 
     // Cumulative Test Check
     if (testCount === passedTestCount) {
@@ -59,8 +60,9 @@ function testCalendarType() {
     let testCount = 0;
     let passedTestCount = 0;
 
-    function testCalendarType_test(testedDate, parsedDateTest) {
+    function testCalendarType_test(testedDate_, testedTimezone, parsedDateTest) {
         testCount += 1;
+        let testedDate = parseInputDate(testedDate_, testedTimezone);
         let parsedDate = adjustCalendarType(testedDate);
         parsedDate = parsedDate.toUTCString();
         if (parsedDate === parsedDateTest) {
@@ -72,11 +74,11 @@ function testCalendarType() {
     }
 
     // Tests - Input Date, Calendar Type, Output Date
-    testCalendarType_test(new Date(Date.UTC(2024, 0, 1, 0, 0, 0)), 'Mon, 01 Jan 2024 00:00:00 GMT');
+    testCalendarType_test("2024-1-1, 00:00:00", "UTC+00:00", 'Mon, 01 Jan 2024 00:00:00 GMT');
     setCalendarType('julian-liturgical');
-    testCalendarType_test(new Date(Date.UTC(2000, 0, 1, 23, 0, 0)), 'Fri, 14 Jan 2000 23:00:00 GMT');
+    testCalendarType_test("2000-1-1, 23:00:00", "UTC+00:00", 'Fri, 14 Jan 2000 23:00:00 GMT');
     setCalendarType('astronomical');
-    testCalendarType_test(new Date(Date.UTC(1000, 0, 1, 0, 0, 0)), 'Mon, 06 Jan 1000 00:00:00 GMT');
+    testCalendarType_test("1000-1-1, 00:00:00", "UTC+00:00", 'Mon, 06 Jan 1000 00:00:00 GMT');
     setCalendarType('gregorian-proleptic');
 
     // Cumulative Test Check
@@ -89,9 +91,12 @@ function testGregorianCalendar() {
     let testCount = 0;
     let passedTestCount = 0;
 
-    function testGregorianCalendar_test(testedDate, parsedDateTest, parsedTimeTest) {
+    function testGregorianCalendar_test(testedDate_, testedTimezone, parsedDateTest, parsedTimeTest) {
         testCount += 1;
-        let gregDateTime = solarCalendars.getGregorianDateTime(testedDate);
+
+        let testedDate = parseInputDate(testedDate_, testedTimezone);
+        let testedTimezoneOffset = convertUTCOffsetToMinutes(testedTimezone)
+        let gregDateTime = solarCalendars.getGregorianDateTime(testedDate, testedTimezoneOffset);
         let parsedDate = gregDateTime.date;
         let parsedTime = gregDateTime.time;
         if (parsedDate === parsedDateTest) {
@@ -109,9 +114,9 @@ function testGregorianCalendar() {
     }
 
     // Tests - Input Date, Output Date, Output Time
-    testGregorianCalendar_test(parseInputDate("100-1-1, 00:00:00", "UTC+00:00"), "1 January 100 CE\nFriday", "08:06:00");
-    testGregorianCalendar_test(parseInputDate("-1000-1-1, 16:00:00", "UTC+00:00"), "2 January 1000 BCE\nThursday", "00:06:00");
-    testGregorianCalendar_test(parseInputDate("2012-2-29, 08:00:00", "UTC+00:00"), "29 February 2012 CE\nWednesday", "16:00:00");
+    testGregorianCalendar_test("100-1-1, 00:00:00", "UTC+00:00", "1 January 100 CE\nFriday", "00:00:00");
+    testGregorianCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "1 January 1000 BCE\nWednesday", "16:00:00");
+    testGregorianCalendar_test("2012-2-29, 08:00:00", "UTC+00:00", "29 February 2012 CE\nWednesday", "08:00:00");
 
     // Cumulative Test Check
     if (testCount === passedTestCount) {
@@ -123,9 +128,12 @@ function testJulianCalendar() {
     let testCount = 0;
     let passedTestCount = 0;
 
-    function testJulianCalendar_test(testedDate, parsedDateTest) {
+    function testJulianCalendar_test(testedDate_, testedTimezone, parsedDateTest) {
         testCount += 1;
+
+        let testedDate = parseInputDate(testedDate_, testedTimezone);
         let parsedDate = solarCalendars.getJulianCalendar(testedDate);
+        console.log(parsedDate);
         if (parsedDate === parsedDateTest) {
             passedTestCount += 1;
         } else {
@@ -135,9 +143,9 @@ function testJulianCalendar() {
     }
 
     // Tests - Input Date, Output Date
-    testJulianCalendar_test(parseInputDate("1950-1-1, 00:00:00", "UTC+00:00"), "19 December 1949 AD\nSunday");
-    testJulianCalendar_test(parseInputDate("2-1-1, 00:00:00", "UTC+00:00"), "3 January 2 AD\nTuesday");
-    testJulianCalendar_test(parseInputDate("1917-11-7, 00:00:00", "UTC+12:00"), "25 October 1917 AD\nWednesday");
+    testJulianCalendar_test("1950-1-1, 00:00:00", "UTC+00:00", "19 December 1949 AD\nSunday");
+    testJulianCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday");
+    testJulianCalendar_test("1917-11-7, 00:00:00", "UTC+00:00", "25 October 1917 AD\nWednesday");
 
     // Cumulative Test Check
     if (testCount === passedTestCount) {
@@ -145,7 +153,7 @@ function testJulianCalendar() {
     }
 }
 
-/*
+
 // Run all tests.
 testParseDate();
 testTimezoneFormatter();
@@ -154,4 +162,4 @@ testGregorianCalendar();
 testJulianCalendar();
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
-}*/
+}

@@ -95,7 +95,6 @@ export function getGregorianDateTime(currentDateTime, timezoneOffset) {
 
     // Adjust the date with the offset
     const adjustedDate = new Date(currentDateTime.getTime() + offsetMilliseconds);
-
     let day = adjustedDate.getUTCDate().toString();
     let month = adjustedDate.getUTCMonth();
     let year = adjustedDate.getUTCFullYear();
@@ -115,7 +114,6 @@ export function getGregorianDateTime(currentDateTime, timezoneOffset) {
     let timeDisplayString = hour + ':' + minute + ':' + second;
     return {date: dateDisplayString, time: timeDisplayString};
 }
-
 
 // Returns a formatted Julian calendar local date
 export function getJulianCalendar(currentDateTime) {
@@ -290,7 +288,6 @@ export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
 export function getEraFascista(currentDateTime) {
     // Only update the year if past October 29th, otherwise it is the previous year.
     let october29 = new Date(Date.UTC(currentDateTime.getUTCFullYear(), 9, 28, 23));
-    console.log('Fix Era Facista');
     october29.setUTCFullYear(currentDateTime.getUTCFullYear());
     if (currentDateTime < october29) {
         october29.setUTCFullYear(october29.getUTCFullYear() - 1);

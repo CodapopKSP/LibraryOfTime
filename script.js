@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Get user's local timezone offset
     const localTimezone = userInterface.getFormattedTimezoneOffset();
-
+    
     // Get URL Timezone parameter
     const urlTimezoneFormatted = getFormattedTimezone(urlTimezone);
 

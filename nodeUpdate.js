@@ -21,7 +21,6 @@ import * as utilities from './utilities.js';
 
 export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffset) {
     const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
-    console.log(currentDateTime);
     userInterface.setTimeValue('gregorian-node', solarCalendars.getGregorianDateTime(currentDateTime, timezoneOffset).date);
     userInterface.setTimeValue('julian-node', solarCalendars.getJulianCalendar(currentDateTime));
     userInterface.setTimeValue('astronomical-node', solarCalendars.getAstronomicalDate(currentDateTime));
