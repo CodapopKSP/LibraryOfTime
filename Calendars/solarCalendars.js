@@ -243,9 +243,9 @@ export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     // Get starting and ending equinoxes, Paris Time (CET)
     let startingEquinox = new Date(vernalEquinox);
     startingEquinox.setUTCHours(1);
-    startingEquinox.setMinutes(0);
-    startingEquinox.setSeconds(0);
-    startingEquinox.setMilliseconds(0);
+    startingEquinox.setUTCMinutes(0);
+    startingEquinox.setUTCSeconds(0);
+    startingEquinox.setUTCMilliseconds(0);
     if (currentDateTime < startingEquinox) {
         let lastYear = new Date(currentDateTime);
         lastYear.setFullYear(currentDateTime.getFullYear()-1);

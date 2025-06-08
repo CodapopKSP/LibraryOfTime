@@ -1,6 +1,7 @@
 
 import {convertUTCOffsetToMinutes, parseInputDate, adjustCalendarType, setCalendarType} from '../userInterface.js';
 import * as solarCalendars from '../Calendars/solarCalendars.js';
+import * as astronomicalData from '../Other/astronomicalData.js';
 
 
 function testTimezoneFormatter() {
@@ -124,117 +125,106 @@ function testGregorianCalendar() {
     }
 }
 
-function testJulianCalendar() {
+function testFrenchRepublicanCalendar() {
     let testCount = 0;
     let passedTestCount = 0;
 
-    function testJulianCalendar_test(testedDate_, testedTimezone, parsedDateTest) {
+    function testFrenchRepublicanCalendar_test(testedDate_, testedTimezone, testCase) {
         testCount += 1;
 
         let testedDate = parseInputDate(testedDate_, testedTimezone);
-        let parsedDate = solarCalendars.getJulianCalendar(testedDate);
-        if (parsedDate === parsedDateTest) {
-            passedTestCount += 1;
+        const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, 'autumn');
+        let parsedDate = solarCalendars.getRepublicanCalendar(testedDate, springEquinox);
+        if (parsedDate === testCase) {
+            passedTestCount += 0.5;
         } else {
-            console.error('Julian Calendar: Test ' + testCount + ' failed.');
+            console.error('French Republican Calendar: Test ' + testCount + ' failed.');
             console.error(parsedDate);
         }
     }
 
-    // Tests - Input Date, Output Date
-    testJulianCalendar_test("1950-1-1, 00:00:00", "UTC+00:00", "19 December 1949 AD\nSunday");
-    testJulianCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday");
-    testJulianCalendar_test("1917-11-7, 00:00:00", "UTC+00:00", "25 October 1917 AD\nWednesday");
-    testJulianCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "11 January 1001 BC\nWednesday");
+    // Tests - Input Date, Output Date, Output Time
+    testFrenchRepublicanCalendar_test("1792-9-22, 01:00:00", "UTC+00:00", "1 Vendémiaire I RE\nPrimidi Décade 1");
+    testFrenchRepublicanCalendar_test("1793-9-22, 01:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1");
+    testFrenchRepublicanCalendar_test("1793-9-22, 10:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1");
+    testFrenchRepublicanCalendar_test("1795-9-22, 01:00:00", "UTC+00:00", "6 Sansculottides III RE\nLa Fête de la Révolution");
 
     // Cumulative Test Check
     if (testCount === passedTestCount) {
-        console.log('Julian Calendar: All Tests Passed');
+        console.log('French Republican: All Tests Passed');
     }
+}
+
+function runCalendarTests(calendarName, getCalendarFunction, testCases) {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    for (const [inputDate, timezone, expectedOutput] of testCases) {
+        testCount += 1;
+        const testedDate = parseInputDate(inputDate, timezone);
+        const result = getCalendarFunction(testedDate);
+        if (result === expectedOutput) {
+            passedTestCount += 1;
+        } else {
+            console.error(`${calendarName}: Test ${testCount} failed.`);
+            console.error('Expected:', expectedOutput);
+            console.error('Received:', result);
+        }
+    }
+
+    if (testCount === passedTestCount) {
+        console.log(`${calendarName}: All Tests Passed`);
+    }
+}
+
+function testJulianCalendar() {
+    runCalendarTests("Julian Calendar", solarCalendars.getJulianCalendar, [
+        ["1950-1-1, 00:00:00", "UTC+00:00", "19 December 1949 AD\nSunday"],
+        ["2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday"],
+        ["1917-11-7, 00:00:00", "UTC+00:00", "25 October 1917 AD\nWednesday"],
+        ["-1000-1-1, 16:00:00", "UTC+12:00", "11 January 1001 BC\nWednesday"],
+    ]);
 }
 
 function testAstronomicalCalendar() {
-    let testCount = 0;
-    let passedTestCount = 0;
-
-    function testAstronomicalCalendar_test(testedDate_, testedTimezone, parsedDateTest) {
-        testCount += 1;
-
-        let testedDate = parseInputDate(testedDate_, testedTimezone);
-        let parsedDate = solarCalendars.getAstronomicalDate(testedDate);
-        if (parsedDate === parsedDateTest) {
-            passedTestCount += 1;
-        } else {
-            console.error('Astronomical Calendar: Test ' + testCount + ' failed.');
-            console.error(parsedDate);
-        }
-    }
-
-    // Tests - Input Date, Output Date
-    testAstronomicalCalendar_test("1950-1-1, 00:00:00", "UTC+00:00", "1 January 1950 CE\nSunday");
-    testAstronomicalCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday");
-    testAstronomicalCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "11 January 1001 BC\nWednesday");
-
-    // Cumulative Test Check
-    if (testCount === passedTestCount) {
-        console.log('Astronomical Calendar: All Tests Passed');
-    }
+    runCalendarTests("Astronomical Calendar", solarCalendars.getAstronomicalDate, [
+        ["1950-1-1, 00:00:00", "UTC+00:00", "1 January 1950 CE\nSunday"],
+        ["2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday"],
+        ["-1000-1-1, 16:00:00", "UTC+12:00", "11 January 1001 BC\nWednesday"],
+    ]);
 }
 
 function testMinguoCalendar() {
-    let testCount = 0;
-    let passedTestCount = 0;
-
-    function testMinguoCalendar_test(testedDate_, testedTimezone, parsedDateTest) {
-        testCount += 1;
-
-        let testedDate = parseInputDate(testedDate_, testedTimezone);
-        let parsedDate = solarCalendars.getMinguo(testedDate);
-        if (parsedDate === parsedDateTest) {
-            passedTestCount += 1;
-        } else {
-            console.error('Minguo Calendar: Test ' + testCount + ' failed.');
-            console.error(parsedDate);
-        }
-    }
-
-    // Tests - Input Date, Output Date
-    testMinguoCalendar_test("1950-1-1, 00:00:00", "UTC+08:00", "民國 39年 1月 1日\n星期天");
-    testMinguoCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "民國 -1909年 1月 1日\n星期二");
-    testMinguoCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "民國 -2911年 1月 1日\n星期三");
-
-    // Cumulative Test Check
-    if (testCount === passedTestCount) {
-        console.log('Minguo Calendar: All Tests Passed');
-    }
+    runCalendarTests("Minguo Calendar", solarCalendars.getMinguo, [
+        ["1950-1-1, 00:00:00", "UTC+08:00", "民國 39年 1月 1日\n星期天"],
+        ["2-1-1, 00:00:00", "UTC+00:00", "民國 -1909年 1月 1日\n星期二"],
+        ["-1000-1-1, 16:00:00", "UTC+12:00", "民國 -2911年 1月 1日\n星期三"],
+    ]);
 }
 
 function testJucheCalendar() {
-    let testCount = 0;
-    let passedTestCount = 0;
+    runCalendarTests("Juche Calendar", solarCalendars.getJuche, [
+        ["1950-1-1, 00:00:00", "UTC+08:00", "Juche 39.01.1\n일요일"],
+        ["2-1-1, 00:00:00", "UTC+00:00", "Juche -1909.01.1\n화요일"],
+        ["-1000-1-1, 16:00:00", "UTC+12:00", "Juche -2911.01.1\n수요일"],
+    ]);
+}
 
-    function testJucheCalendar_test(testedDate_, testedTimezone, parsedDateTest) {
-        testCount += 1;
+function testThaiSolarCalendar() {
+    runCalendarTests("Thai Solar Calendar", solarCalendars.getThaiSolar, [
+        ["1950-1-1, 01:00:00", "UTC+08:00", "1 มกราคม B.E. 2493\nอาทิตย์"],
+        ["2-1-1, 00:00:00", "UTC+00:00", "1 มกราคม B.E. 545\nอังคาร"],
+        ["-1000-1-1, 16:00:00", "UTC+12:00", "1 มกราคม B.E. -457\nพุธ"],
+    ]);
+}
 
-        let testedDate = parseInputDate(testedDate_, testedTimezone);
-        let parsedDate = solarCalendars.getJuche(testedDate);
-        if (parsedDate === parsedDateTest) {
-            passedTestCount += 1;
-        } else {
-            console.error('Juche Calendar: Test ' + testCount + ' failed.');
-            console.error(parsedDate);
-        }
-    }
-
-    // Tests - Input Date, Output Date
-    testJucheCalendar_test("1950-1-1, 00:00:00", "UTC+08:00", "Juche 39.01.1\n일요일");
-    testJucheCalendar_test("2-1-1, 00:00:00", "UTC+00:00", "Juche -1909.01.1\n화요일");
-    testJucheCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "Juche -2911.01.1\n수요일");
-
-    // Cumulative Test Check
-    if (testCount === passedTestCount) {
-        console.log('Juche Calendar: All Tests Passed');
-    }
+function testEraFascistaCalendar() {
+    runCalendarTests("Era Fascista Calendar", solarCalendars.getEraFascista, [
+        ["1922-10-29, 00:00:00", "UTC+01:00", "Anno I"],
+        ["1922-10-29, 00:00:00", "UTC+02:00", "Anno O"],
+        ["1931-10-29, 00:00:00", "UTC+01:00", "Anno X"],
+        ["1932-10-29, 00:00:00", "UTC+01:00", "Anno XI"],
+    ]);
 }
 
 // Run all tests.
@@ -246,6 +236,9 @@ testJulianCalendar();
 testAstronomicalCalendar();
 testMinguoCalendar();
 testJucheCalendar();
+testThaiSolarCalendar();
+testFrenchRepublicanCalendar();
+testEraFascistaCalendar();
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
 }
