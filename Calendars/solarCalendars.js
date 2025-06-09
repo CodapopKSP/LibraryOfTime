@@ -318,23 +318,23 @@ export function getCopticDate(currentDateTime) {
 
     // Fix months if Julian leap year
     let currentJulianYear = getApproxJulianDate(currentDateTime).getFullYear();
-    if (currentJulianYear % 4 === 2) {
+    if (currentJulianYear % 4 === 3) {
         Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
     }
 
     // Calculate days and years from epoch
-    const ThoutYear1 = new Date(Date.UTC(283, 7, 28, 21, 0, 0));
+    const ThoutYear1 = new Date(Date.UTC(283, 7, 28, 22, 0, 0));
     const daysSinceEpoch = Math.floor(utilities.differenceInDays(currentDateTime, ThoutYear1));
     const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
     let CopticYear = yearsSinceEpoch;
     
     // Get the weekday based on midnight in Egypt
     let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours()-3); // 3 hours ahead + midnight of 00:00 = 21 hours yesterday
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()-2); // 2 hours ahead + midnight of 00:00 = 22 hours yesterday
     const dayOfWeek = startOfToday.getDay();
 
     let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
-    if (remainingDays < 0) {
+    if (remainingDays <= 0) {
         CopticYear -= 1;
         remainingDays += 365 + (CopticYear % 4 === 3 ? 1 : 0); // Adjust for leap year
     }
@@ -344,7 +344,7 @@ export function getCopticDate(currentDateTime) {
         CopticMonth++;
     }
 
-    if ((remainingDays===0)) {
+    if ((remainingDays<=0)) {
         CopticMonth--;
         if (CopticMonth<0) {
             CopticMonth += 13;
@@ -388,7 +388,7 @@ export function getEthiopianDate(currentDateTime) {
 
     // Fix months if Julian leap year
     let currentJulianYear = getApproxJulianDate(currentDateTime).getFullYear();
-    if (currentJulianYear % 4 === 2) {
+    if (currentJulianYear % 4 === 3) {
         Coptic_monthDays = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
     }
 
@@ -405,7 +405,7 @@ export function getEthiopianDate(currentDateTime) {
     const dayOfWeek = startOfToday.getDay();
 
     let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
-    if (remainingDays < 0) {
+    if (remainingDays <= 0) {
         EthiopianYear -= 1;
         remainingDays += 365 + (EthiopianYear % 4 === 3 ? 1 : 0); // Adjust for leap year
     }
@@ -415,7 +415,7 @@ export function getEthiopianDate(currentDateTime) {
         EthiopianMonth++;
     }
 
-    if ((remainingDays===0)) {
+    if ((remainingDays<=0)) {
         EthiopianMonth--;
         if (EthiopianMonth<0) {
             EthiopianMonth += 13;

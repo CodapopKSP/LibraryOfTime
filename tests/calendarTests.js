@@ -227,6 +227,24 @@ function testEraFascistaCalendar() {
     ]);
 }
 
+function testCopticCalendar() {
+    runCalendarTests("Coptic Calendar", solarCalendars.getCopticDate, [
+        ["284-8-29, 00:00:00", "UTC+02:00", "1 Thout 1 AM\nⲃⲉⲕⲃⲁⲧ"],
+        ["2025-6-9, 00:00:00", "UTC+02:00", "2 Paoni 1741 AM\nⲥⲟⲙ"],
+        ["1875-9-11, 00:00:00", "UTC+02:00", "1 Thout 1592 AM\nⲁⲧⲟⲃⲁⲣ"],
+        ["2019-9-11, 00:00:00", "UTC+02:00", "6 Pi Kogi Enavot 1735 AM\nⲅⲟⲡ"],
+    ]);
+}
+
+function testGeezCalendar() {
+    runCalendarTests("Coptic Calendar", solarCalendars.getEthiopianDate, [
+        ["284-8-29, 00:00:00", "UTC+03:00", "1 Mäskäräm ዓ.ም.277\nዓርብ"],
+        ["2025-6-9, 00:00:00", "UTC+03:00", "2 Säne ዓ.ም.2017\nሰኑይ"],
+        ["1875-9-11, 00:00:00", "UTC+03:00", "1 Mäskäräm ዓ.ም.1868\nቀዳሚት"],
+        ["2019-9-11, 00:00:00", "UTC+03:00", "6 Ṗagume ዓ.ም.2011\nረቡዕ"],
+    ]);
+}
+
 // Run all tests.
 testParseDate();
 testTimezoneFormatter();
@@ -239,6 +257,9 @@ testJucheCalendar();
 testThaiSolarCalendar();
 testFrenchRepublicanCalendar();
 testEraFascistaCalendar();
+testCopticCalendar();
+testGeezCalendar();
+
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
 }
