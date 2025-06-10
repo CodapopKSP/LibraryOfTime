@@ -428,17 +428,25 @@ export function getEthiopianDate(currentDateTime) {
 
 // Returns a formatted Byzantine local date
 export function getByzantineCalendar(currentDateTime) {
+    const adjustedDateTime = new Date(currentDateTime);
+
+    // Check if time is before 21:00:00 (9 PM)
+    if (adjustedDateTime.getUTCHours() < 21) {
+        // Subtract one day
+        adjustedDateTime.setUTCDate(adjustedDateTime.getUTCDate() - 1);
+    }
+
     // Get Julian date from Gregorian via JDN
-    const JDN = gregorianToJDN(currentDateTime);
-    const julianDate = JDNToJulianDate(JDN);
+    const JDN = gregorianToJDN(adjustedDateTime);
+    const julianDate = JDNToJulianDate(JDN+1);
     let byzantineYear = julianDate.year + 5508; // Start with 5508
 
     // Determine if date is on or after September 1 in Julian calendar
-    if (julianDate.month > 7) {
+    if (julianDate.month > 8) {
         byzantineYear += 1;
     }
 
-    const dayOfWeek = currentDateTime.getDay();
+    const dayOfWeek = adjustedDateTime.getDay();
     const monthString = utilities.monthNames[julianDate.month - 1]; // Adjust for 0-based index
     const dayString = julianDate.day;
 
@@ -446,41 +454,39 @@ export function getByzantineCalendar(currentDateTime) {
     return dateString;
 }
 
-
 // Returns a formatted Florentine (CET) date
 export function getFlorentineCalendar(currentDateTime) {
+    const adjustedDate = new Date(currentDateTime.getTime());
 
     // Check for approximate sunset and increment the day
     const utcHour = currentDateTime.getUTCHours();
-    let dayModifier = 0;
-    if (utcHour >= 17) {
-        dayModifier = 1;
+    if (currentDateTime.getUTCHours() >= 17) {
+        adjustedDate.setUTCDate(adjustedDate.getUTCDate() + 1);
     }
 
     // Recompute JDN for the adjusted date
-    const adjustedJDN = gregorianToJDN(currentDateTime);
-    const adjustedJulianDate = JDNToJulianDate(adjustedJDN);
+    const adjustedJDN = gregorianToJDN(adjustedDate);
+    const adjustedJulian = JDNToJulianDate(adjustedJDN);
 
     // Determine Florentine year (starts on March 25 in Julian calendar)
-    let florentineYear = adjustedJulianDate.year;
+    let florentineYear = adjustedJulian.year;
     if (
-        adjustedJulianDate.month < 3 ||
-        (adjustedJulianDate.month === 3 && adjustedJulianDate.day < 25)
+        adjustedJulian.month < 3 ||
+        (adjustedJulian.month === 3 && adjustedJulian.day < 25)
     ) {
         // Before March 25, subtract one year
         florentineYear -= 1;
     }
 
     // Prepare date components for display
-    const dayOfWeek = currentDateTime.getUTCDay();
-    const monthString = utilities.monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
-    const dayString = adjustedJulianDate.day + dayModifier;
-
-    let yearSuffix = 'AD';
-    let displayYear = florentineYear;
+    const dayOfWeek    = adjustedDate.getUTCDay();   // 0 = Sunday … 6 = Saturday
+    const monthString  = utilities.monthNames[adjustedJulian.month - 1];
+    const dayString    = adjustedJulian.day;
+    let   displayYear  = florentineYear;
+    let   yearSuffix   = 'AD';
     if (florentineYear <= 0) {
-        yearSuffix = 'BC';
-        displayYear = -florentineYear + 1; // Adjust for BC notation
+        displayYear = -florentineYear + 1;
+        yearSuffix  = 'BC';
     }
 
     let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${utilities.weekNames[dayOfWeek]}`;
@@ -489,36 +495,38 @@ export function getFlorentineCalendar(currentDateTime) {
 
 // Returns a formatted Pisan (CET) date
 export function getPisanCalendar(currentDateTime) {
+    const adjustedDate = new Date(currentDateTime.getTime());
 
-    // Adjust for timezone
-    let pisanDay = new Date(currentDateTime);
-    pisanDay.setTime(pisanDay.getTime() + 3600000);
-
+    // Check for approximate sunset and increment the day
+    const utcHour = currentDateTime.getUTCHours();
+    if (currentDateTime.getUTCHours() >= 23) {
+        adjustedDate.setUTCDate(adjustedDate.getUTCDate() + 1);
+    }
 
     // Recompute JDN for the adjusted date
-    const adjustedJDN = gregorianToJDN(pisanDay);
-    const adjustedJulianDate = JDNToJulianDate(adjustedJDN);
+    const adjustedJDN = gregorianToJDN(adjustedDate);
+    const adjustedJulian = JDNToJulianDate(adjustedJDN);
 
     // Determine Pisan year (starts on March 25 in Julian calendar)
-    let pisanYear = adjustedJulianDate.year +1;
+    let pisanYear = adjustedJulian.year +1;
     if (
-        adjustedJulianDate.month < 3 ||
-        (adjustedJulianDate.month === 3 && adjustedJulianDate.day < 25)
+        adjustedJulian.month < 3 ||
+        (adjustedJulian.month === 3 && adjustedJulian.day < 25)
     ) {
         // Before March 25, subtract one year
         pisanYear -= 1;
     }
 
     // Prepare date components for display
-    const dayOfWeek = pisanDay.getUTCDay();
-    const monthString = utilities.monthNames[adjustedJulianDate.month - 1]; // Adjust for 0-based index
-    const dayString = adjustedJulianDate.day;
-
-    let yearSuffix = 'AD';
-    let displayYear = pisanYear;
+    // Prepare date components for display
+    const dayOfWeek    = adjustedDate.getUTCDay();   // 0 = Sunday … 6 = Saturday
+    const monthString  = utilities.monthNames[adjustedJulian.month - 1];
+    const dayString    = adjustedJulian.day;
+    let   displayYear  = pisanYear;
+    let   yearSuffix   = 'AD';
     if (pisanYear <= 0) {
-        yearSuffix = 'BC';
-        displayYear = -pisanYear + 1; // Adjust for BC notation
+        displayYear = -pisanYear + 1;
+        yearSuffix  = 'BC';
     }
 
     let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${utilities.weekNames[dayOfWeek]}`;

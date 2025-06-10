@@ -237,11 +237,39 @@ function testCopticCalendar() {
 }
 
 function testGeezCalendar() {
-    runCalendarTests("Coptic Calendar", solarCalendars.getEthiopianDate, [
+    runCalendarTests("Ge'ez Calendar", solarCalendars.getEthiopianDate, [
         ["284-8-29, 00:00:00", "UTC+03:00", "1 Mäskäräm ዓ.ም.277\nዓርብ"],
         ["2025-6-9, 00:00:00", "UTC+03:00", "2 Säne ዓ.ም.2017\nሰኑይ"],
         ["1875-9-11, 00:00:00", "UTC+03:00", "1 Mäskäräm ዓ.ም.1868\nቀዳሚት"],
         ["2019-9-11, 00:00:00", "UTC+03:00", "6 Ṗagume ዓ.ም.2011\nረቡዕ"],
+    ]);
+}
+
+function testByzantineCalendar() {
+    runCalendarTests("Byzantine Calendar", solarCalendars.getByzantineCalendar, [
+        ["-5508-7-19, 00:00:00", "UTC+03:00", "1 September 1 AM\nSaturday"],
+        ["-5508-7-19, 23:00:00", "UTC+03:00", "1 September 1 AM\nSaturday"],
+        ["-5508-7-18, 00:00:00", "UTC+03:00", "31 August 0 AM\nFriday"],
+        ["2025-6-10, 00:00:00", "UTC+03:00", "28 May 7533 AM\nTuesday"],
+        ["1492-8-10, 00:00:00", "UTC+03:00", "1 August 7000 AM\nWednesday"],
+    ]);
+}
+
+function testFlorentineCalendar() {
+    runCalendarTests("Florentine Calendar", solarCalendars.getFlorentineCalendar, [
+        ["1-3-22, 17:00:00", "UTC+00:00", "25 March 1 AD\nFriday"],
+        ["1-3-22, 16:00:00", "UTC+00:00", "24 March 1 BC\nThursday"],
+        ["2000-8-10, 18:00:00", "UTC+01:00", "29 July 2000 AD\nFriday"],
+        ["2000-1-13, 18:00:00", "UTC+01:00", "1 January 1999 AD\nFriday"],
+    ]);
+}
+
+function testPisanCalendar() {
+    runCalendarTests("Pisan Calendar", solarCalendars.getPisanCalendar, [
+        ["0-3-22, 23:00:00", "UTC+00:00", "25 March 1 AD\nThursday"],
+        ["1-3-22, 16:00:00", "UTC+00:00", "24 March 1 AD\nThursday"],
+        ["2000-8-10, 00:00:00", "UTC+01:00", "28 July 2001 AD\nThursday"],
+        ["2000-1-14, 00:00:00", "UTC+01:00", "1 January 2000 AD\nFriday"],
     ]);
 }
 
@@ -259,6 +287,9 @@ testFrenchRepublicanCalendar();
 testEraFascistaCalendar();
 testCopticCalendar();
 testGeezCalendar();
+testByzantineCalendar();
+testFlorentineCalendar();
+testPisanCalendar();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);

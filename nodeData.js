@@ -659,10 +659,10 @@ export const solarCalendarsData = [
     },
 
     {
-        name: 'Byzantine',
+        name: 'Byzantine (TRT)',
         id: 'byzantine',
         type: 'Solar Calendar',
-        epoch: '19 July 5508 BCE',
+        epoch: '18 July 5508 BCE +21:00:00',
         confidence: 'Exact',
         overview: 'The Byzantine calendar was the official calendar of the Byzantine Empire from 988 to 1453 and was used in Ukraine and Russia until 1700.\n\nIt followed the Julian calendar but differed by the new year starting on September 1st and the epoch being September 1st, 5509 BC (July 19th, 5508 BCE in the proleptic Gregorian calendar). Years are counted in AM, or \'Anno Mundi\' meaning \'Year After Creation\'.',
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr></table>`,
@@ -676,7 +676,7 @@ export const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: '22 March 1 CE, +17:00:00',
         confidence: 'High',
-        overview: 'The Florentine calendar was the calendar used in the Republic of Florence during the Middle Ages. It followed the Julian calendar for its years, months, and days with a few key differences: the new year started on March 25th.\n\nThis meant that January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year.\n\nDays also started at sunset, which is approximated here as 6:00pm in Florence.',
+        overview: 'The Florentine calendar was the calendar used in the Republic of Florence during the Middle Ages. It followed the Julian calendar for its years, months, and days with a few key differences: the new year started on March 25th.\n\nThis meant that January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year.\n\nDays also started at sunset (of the previous calendar day on the Julian calendar), which is approximated here as 6:00pm in Florence.',
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>March (25th - 31st)</td><td>7</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March (1st - 24th)</td><td>24</td></tr></table>`,
         accuracy: 'The Florentine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate. The only inaccuracies are the differences in the approximation of sunset to the actual time of sunset, which is expected to only differ by a few hours or minutes per day.',
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Florentine_calendar">Wikipedia article</a>.'
@@ -698,7 +698,7 @@ export const solarCalendarsData = [
         name: 'Venetian (CET)',
         id: 'venetian',
         type: 'Solar Calendar',
-        epoch: '26 February 0 BCE, +23:00:00',
+        epoch: '26 February 1 CE, +23:00:00',
         confidence: 'Exact',
         overview: 'The Venetian calendar was a variation of the Julian calendar used in the Republic of Venice from the Middle Ages until the adoption of the Gregorian calendar in the 18th century.\n\nIt matches the Julian calendar for days and months, but with years beginning on March 1st. The Venetian year runs behind the Julian calendar during the months of January and February before syncronizing for the remaining months.',
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr></table>`,
