@@ -136,7 +136,7 @@ function testFrenchRepublicanCalendar() {
         const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, 'autumn');
         let parsedDate = solarCalendars.getRepublicanCalendar(testedDate, springEquinox);
         if (parsedDate === testCase) {
-            passedTestCount += 0.5;
+            passedTestCount += 1;
         } else {
             console.error('French Republican Calendar: Test ' + testCount + ' failed.');
             console.error(parsedDate);
@@ -273,6 +273,17 @@ function testPisanCalendar() {
     ]);
 }
 
+function testVenetianCalendar() {
+    runCalendarTests("Venetian Calendar", solarCalendars.getVenetianCalendar, [
+        ["1-2-25, 23:00:00", "UTC+00:00", "28 February 1 BC\nMonday"],
+        ["1-2-26, 23:00:00", "UTC+00:00", "1 March 1 AD\nTuesday"],
+        ["1-3-22, 16:00:00", "UTC+00:00", "24 March 1 AD\nThursday"],
+        ["2000-8-10, 00:00:00", "UTC+01:00", "28 July 2000 AD\nThursday"],
+        ["2000-1-13, 00:00:00", "UTC+01:00", "31 December 1999 AD\nThursday"],
+        ["2000-1-14, 00:00:00", "UTC+01:00", "1 January 1999 AD\nFriday"],
+    ]);
+}
+
 // Run all tests.
 testParseDate();
 testTimezoneFormatter();
@@ -290,6 +301,7 @@ testGeezCalendar();
 testByzantineCalendar();
 testFlorentineCalendar();
 testPisanCalendar();
+testVenetianCalendar();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);

@@ -573,15 +573,15 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
     // Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
     function figureOutEquinoxBeforeAfterSunset(equinox) {
         let equinoxDaySunset = new Date(equinox);
-        equinoxDaySunset.setUTCHours(12);
-        equinoxDaySunset.setMinutes(30);
+        equinoxDaySunset.setUTCHours(14);
+        equinoxDaySunset.setUTCMinutes(30);
         equinoxDaySunset.setSeconds(0);
         equinoxDaySunset.setMilliseconds(0);
         if (equinox < equinoxDaySunset) {
             equinox.setDate(equinox.getDate()-1);
         }
-        equinox.setUTCHours(12);
-        equinox.setMinutes(30);
+        equinox.setUTCHours(14);
+        equinox.setUTCMinutes(30);
         equinox.setSeconds(0);
         equinox.setMilliseconds(0);
         return equinox;
