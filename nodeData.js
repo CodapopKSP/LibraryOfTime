@@ -568,7 +568,7 @@ export const solarCalendarsData = [
         type: 'Solar Calendar',
         epoch: '30 December 0 BCE',
         confidence: 'Exact',
-        overview: 'The Astronomical calendar is a combination of the Gregorian calendar for dates after midnight on 15 October 1582 and the Julian calendar for dates before.\n\nIt is a standard for calculating dates of astronomical events as well as historical events.',
+        overview: 'The Astronomical calendar is a standard for calculating dates of astronomical or historical events. It is a combination of the Gregorian calendar for dates after midnight on 15 October 1582 and the Julian calendar for dates before.\n\nUnlike the Julian calendar, it utilizes Year 0 to enable the easier calculation of years, which causes it to appear 1 year ahead of the Julian calendar before 1 AD.\n\nYears are not denoted with anything and are simply listed as a positive or negative number.',
         info: `<table class="table-long"><tr><th>Month</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
         accuracy: 'This calendar is a simple calculation and is considered to be exactly accurate.',
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Astronomical_year_numbering">Wikipedia article</a>.'
@@ -587,10 +587,10 @@ export const solarCalendarsData = [
     },
 
     {
-        name: 'Era Fascista',
+        name: 'Era Fascista (CET)',
         id: 'era-fascista',
         type: 'Solar Calendar',
-        epoch: '29 October 1922 CE',
+        epoch: '28 October 1922 CE +23:00:00',
         confidence: 'Exact',
         overview: 'Era Fascista is a simple count of number of years since the start of the Fascist Era in Italy on October 29th, 1922, starting with Anno I.\n\nTaking inspiration from the French Republican calendar, years were written in Roman numerals and it was intended to replace the Gregorian calendar.',
         info: `Era Fascista didn't really implement months, as it was used alongside the Gregorian calendar. Enscriptions marked in Era Fascista dates could use a number of different abbreviations, such as 'Anno', 'E.F.', 'Anno Fascista', 'A.F.', or simply 'A.'.`,
@@ -710,16 +710,16 @@ export const solarCalendarsData = [
         name: 'Baháʼí (IRST)',
         id: 'bahai',
         type: 'Solar Calendar',
-        epoch: '19? March 1844 CE +12:30:00',
+        epoch: '19 March 1844 CE +14:30:00',
         confidence: 'High',
         overview: 'The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift from the Gregorian calendar.\n\nIt features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and ‘Alá’, typically at the end of February.\n\nDays start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with \'BE\', meaning Baháʼí Era.',
         info: `<table class="table-long"><tr><th>Months</th><th>Days</th><th>Approx. Gregorian Time</th></tr><tr><td>Bahá</td><td>19</td><td>Mar 21 - Apr 8</td></tr><tr><td>Jalál</td><td>19</td><td>Apr 9 - Apr 27</td></tr><tr><td>Jamál</td><td>19</td><td>Apr 28 - May 16</td></tr><tr><td>‘Aẓamat</td><td>19</td><td>May 17 - Jun 4</td></tr><tr><td>Núr</td><td>19</td><td>Jun 5 - Jun 23</td></tr><tr><td>Raḥmat</td><td>19</td><td>Jun 24 - Jul 12</td></tr><tr><td>Kalimát</td><td>19</td><td>Jul 13 - Jul 31</td></tr><tr><td>Kamál</td><td>19</td><td>Aug 1 - Aug 19</td></tr><tr><td>Asmá’</td><td>19</td><td>Aug 20 - Sep 7</td></tr><tr><td>‘Izzat</td><td>19</td><td>Sep 8 - Sep 26</td></tr><tr><td>Mashíyyat</td><td>19</td><td>Sep 27 - Oct 15</td></tr><tr><td>‘Ilm</td><td>19</td><td>Oct 16 - Nov 3</td></tr><tr><td>Qudrat</td><td>19</td><td>Nov 4 - Nov 22</td></tr><tr><td>Qawl</td><td>19</td><td>Nov 23 - Dec 11</td></tr><tr><td>Masá’il</td><td>19</td><td>Dec 12 - Dec 30</td></tr><tr><td>Sharaf</td><td>19</td><td>Dec 31 - Jan 18</td></tr><tr><td>Sulṭán</td><td>19</td><td>Jan 19 - Feb 6</td></tr><tr><td>Mulk</td><td>19</td><td>Feb 7 - Feb 25</td></tr><tr><td>Ayyám-i-Há</td><td>4 or 5</td><td>Feb 26 - Mar 1</td></tr><tr><td>‘Alá’</td><td>19</td><td>Mar 2 - Mar 20</td></tr></table>`,
         accuracy: 'The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year especially if it happens very close to sunset, but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Terrestrial Time invokes inaccuracies.\n\nDates may change slightly too early or late depending on the real time of sunset.\n\nThere seems to be an issue with the stated epoch on Wikipedia being 1 day later than the calculated epoch here.',
-        source: 'A lot of the information about this calendar came from its <a href="https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar">Wikipedia article</a>.\n\nDates can be referenced at the <a href="https://www.bahai.org/action/devotional-life/calendar">official Baháʼí website</a>.'
+        source: 'A lot of the information about this calendar came from its <a href="https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar">Wikipedia article</a>.\n\nDates can be referenced at the <a href="https://www.bahai.org/action/devotional-life/calendar">official Baháʼí website</a>.\n\nOne of the people running the live chat at <a href="https://www.bahai.us/events-calendar/holy-days/">Baha\'is of the United States</a> was kind enough to provide me with their <a href="https://bahai-library.com/pdf/uhj/uhj_bahai_dates_172-221.pdf">50-year calendar</a>, which has been used to calibrate this calendar.'
     },
 
     {
-        name: 'Pataphysical',
+        name: 'Pataphysical (Local)',
         id: 'pataphysical',
         type: 'Solar Calendar',
         epoch: '8 September 1873 CE',
@@ -731,7 +731,7 @@ export const solarCalendarsData = [
     },
 
     {
-        name: 'Discordian',
+        name: 'Discordian (Local)',
         id: 'discordian',
         type: 'Solar Calendar',
         epoch: '1 January 1165 BCE',

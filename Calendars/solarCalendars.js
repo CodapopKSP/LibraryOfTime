@@ -69,23 +69,21 @@ export function getApproxJulianDate(currentDateTime) {
 }
 
 export function getAstronomicalDate(currentDateTime) {
-    const startOfGregorian = new Date(1582, 9, 15);
+    const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
     let astronomical = new Date(currentDateTime);
     let year = astronomical.getUTCFullYear();
-
-    let yearSuffix = 'CE';
-    if (year < 1) {
-        yearSuffix = 'BCE';
-    }
-
-    if (currentDateTime<startOfGregorian) {
-        return getJulianCalendar(currentDateTime);
-    }
     let day = astronomical.getUTCDate().toString();
     let month = astronomical.getUTCMonth();
     const dayOfWeek = currentDateTime.getUTCDay();
 
-    return day + ' ' + utilities.monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + utilities.weekNames[dayOfWeek];
+    if (currentDateTime<startOfGregorian) {
+        const julianDate = getRealJulianDate(currentDateTime);
+        year = julianDate.year;
+        month = julianDate.month-1;
+        day = julianDate.day;
+    }
+
+    return day + ' ' + utilities.monthNames[month] + ' ' + year + '\n' + utilities.weekNames[dayOfWeek];
 }
 
 // Returns a formatted Gregorian calendar local date and time
@@ -575,15 +573,15 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
         let equinoxDaySunset = new Date(equinox);
         equinoxDaySunset.setUTCHours(14);
         equinoxDaySunset.setUTCMinutes(30);
-        equinoxDaySunset.setSeconds(0);
-        equinoxDaySunset.setMilliseconds(0);
+        equinoxDaySunset.setUTCSeconds(0);
+        equinoxDaySunset.setUTCMilliseconds(0);
         if (equinox < equinoxDaySunset) {
-            equinox.setDate(equinox.getDate()-1);
+            equinox.setUTCDate(equinox.getUTCDate()-1);
         }
         equinox.setUTCHours(14);
         equinox.setUTCMinutes(30);
-        equinox.setSeconds(0);
-        equinox.setMilliseconds(0);
+        equinox.setUTCSeconds(0);
+        equinox.setUTCMilliseconds(0);
         return equinox;
     }
 
@@ -803,21 +801,23 @@ export function getDiscordianDate(currentDateTime) {
 }
 
 // Returns a formatted Solar Hijri IRST date
-export function getSolarHijriDate(currentDateTime, vernalEquinox) {
+export function getSolarHijriDate(currentDateTime, vernalEquinox_) {
+    let vernalEquinox = figureOutEquinoxBeforeAfterNoon(vernalEquinox_);
+
     // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
     function figureOutEquinoxBeforeAfterNoon(equinox) {
         let equinoxDayNoon = new Date(equinox);
         equinoxDayNoon.setUTCHours(8);
-        equinoxDayNoon.setMinutes(30);
-        equinoxDayNoon.setSeconds(0);
-        equinoxDayNoon.setMilliseconds(0);
-        if (equinox > equinoxDayNoon) {
-            equinox.setDate(equinox.getDate() + 1);
+        equinoxDayNoon.setUTCMinutes(30);
+        equinoxDayNoon.setUTCSeconds(0);
+        equinoxDayNoon.setUTCMilliseconds(0);
+        if (equinox < equinoxDayNoon) {
+            equinox.setUTCDate(equinox.getUTCDate() - 1);
         }
         equinox.setUTCHours(20);
-        equinox.setMinutes(30);
-        equinox.setSeconds(0);
-        equinox.setMilliseconds(0);
+        equinox.setUTCMinutes(30);
+        equinox.setUTCSeconds(0);
+        equinox.setUTCMilliseconds(0);
         return equinox;
     }
 
@@ -825,22 +825,22 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox) {
     let startingEquinox, endingEquinox;
     if (currentDateTime < vernalEquinox) {
         let lastYear = new Date(currentDateTime);
-        lastYear.setFullYear(currentDateTime.getFullYear() - 1);
-        lastYear.setMonth(10);
+        lastYear.setUTCFullYear(currentDateTime.getUTCFullYear() - 1);
+        lastYear.setUTCMonth(10);
         startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'spring');
-        endingEquinox = new Date(vernalEquinox);
+        startingEquinox = figureOutEquinoxBeforeAfterNoon(startingEquinox);
+        endingEquinox = vernalEquinox;
     } else {
         let nextYear = new Date(currentDateTime);
-        nextYear.setFullYear(currentDateTime.getFullYear() + 1);
-        nextYear.setMonth(10);
-        startingEquinox = new Date(vernalEquinox);
+        nextYear.setUTCFullYear(currentDateTime.getUTCFullYear() + 1);
+        nextYear.setUTCMonth(10);
+        startingEquinox = vernalEquinox;
         endingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(nextYear, 'spring');
+        endingEquinox = figureOutEquinoxBeforeAfterNoon(endingEquinox);
     }
-
-    startingEquinox = figureOutEquinoxBeforeAfterNoon(startingEquinox);
-    endingEquinox = figureOutEquinoxBeforeAfterNoon(endingEquinox);
+    
     const leapYear = utilities.differenceInDays(endingEquinox, startingEquinox) === 366;
-    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, startingEquinox)) + 1;
+    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, startingEquinox));
 
     // Solar Hijri month and week names
     const SolarHijriMonths = [
@@ -849,8 +849,8 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox) {
     ];
 
     const SolarHijriWeek = [
-        "Yekshanbeh", "Doshanbeh", "Seshanbeh", "Chaharshanbeh",
-        "Panjshanbeh", "Jomeh", "Shanbeh"
+        "Shanbeh", "Yekshanbeh", "Doshanbeh", "Seshanbeh", "Chaharshanbeh",
+        "Panjshanbeh", "Jomeh"
     ];
 
     // Days per month in Solar Hijri calendar
@@ -881,27 +881,34 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox) {
     }
     
     const month = SolarHijriMonths[monthIndex];
-    let year = startingEquinox.getFullYear() - 621;
+    let year = startingEquinox.getUTCFullYear() - 621;
 
     // Adjust for dates before epoch
     if (year <= 0) {
         year -= 1; // Correct 0 year to -1
     }
 
-    // Determine weekday based on sunset in Tehran (21:30 UTC the previous day)
-    let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours() - 2); // 3.5 hours ahead + sunset of 18:00 = 21.5 hours yesterday
-    startOfToday.setUTCMinutes(currentDateTime.getUTCMinutes() - 30);
-    const dayOfWeek = startOfToday.getDay();
+    // Determine weekday based on midnight in Tehran (20:30 UTC)
+    let sunsetBasedDate = new Date(currentDateTime);
+    sunsetBasedDate.setUTCHours(20);
+    sunsetBasedDate.setUTCMinutes(30);
+    sunsetBasedDate.setUTCSeconds(0);
+    sunsetBasedDate.setUTCMilliseconds(0);
+    let dayOfWeek = sunsetBasedDate.getUTCDay();
+    if (currentDateTime >= sunsetBasedDate) {
+        dayOfWeek += 1;
+        if (dayOfWeek > 6) {
+            dayOfWeek -= 7;
+        }
+    }
 
     return day + ' ' + month + ' ' + year + ' SH\n' + SolarHijriWeek[dayOfWeek];
 }
 
-
 // Returns a formatted Qadimi IRST date
 export function getQadimiDate(currentDateTime) {
     // Noon in Iran in 19 June 632, a base Nowruz day
-    const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 2, 30, 0));
+    const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 3, 30, 0));
     const daysSince632 = Math.floor(utilities.differenceInDays(currentDateTime, Nowruz632Noon));
     const yearsSince632 = Math.floor(daysSince632/365);
     let remainingDays = daysSince632 - (yearsSince632*365)+1;

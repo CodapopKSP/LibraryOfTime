@@ -151,7 +151,69 @@ function testFrenchRepublicanCalendar() {
 
     // Cumulative Test Check
     if (testCount === passedTestCount) {
-        console.log('French Republican: All Tests Passed');
+        console.log('French Republican Calendar: All Tests Passed');
+    }
+}
+
+function testBahaiCalendar() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testBahaiCalendar_test(testedDate_, testedTimezone, testCase) {
+        testCount += 1;
+
+        let testedDate = parseInputDate(testedDate_, testedTimezone);
+        const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, 'spring');
+        let parsedDate = solarCalendars.getBahaiCalendar(testedDate, springEquinox);
+        if (parsedDate === testCase) {
+            passedTestCount += 1;
+        } else {
+            console.error('Bahai Calendar: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+    }
+
+    // Tests - Input Date, Output Date, Output Time
+    testBahaiCalendar_test("2025-3-19, 14:30:00", "UTC+00:00", "1 Bahá 182 BE\n‘Idál");
+    testBahaiCalendar_test("1844-3-19, 18:00:00", "UTC+03:30", "1 Bahá 1 BE\nFiḍál");
+    testBahaiCalendar_test("2064-3-19, 14:30:00", "UTC+00:00", "1 Bahá 221 BE\n‘Idál");
+    testBahaiCalendar_test("2035-11-1, 13:30:00", "UTC+00:00", "17 ‘Ilm 192 BE\nIstijlál");
+    testBahaiCalendar_test("2018-2-28, 14:30:00", "UTC+00:00", "5 Ayyám-i-Há 174 BE\n‘Idál");
+
+    // Cumulative Test Check
+    if (testCount === passedTestCount) {
+        console.log('Bahai Calendar: All Tests Passed');
+    }
+}
+
+function testSolarHijriCalendar() {
+    let testCount = 0;
+    let passedTestCount = 0;
+
+    function testSolarHijriCalendar_test(testedDate_, testedTimezone, testCase) {
+        testCount += 1;
+
+        let testedDate = parseInputDate(testedDate_, testedTimezone);
+        const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, 'spring');
+        let parsedDate = solarCalendars.getSolarHijriDate(testedDate, springEquinox);
+        if (parsedDate === testCase) {
+            passedTestCount += 1;
+        } else {
+            console.error('Solar Hijri Calendar: Test ' + testCount + ' failed.');
+            console.error(parsedDate);
+        }
+    }
+
+    // Tests - Input Date, Output Date, Output Time
+    testSolarHijriCalendar_test("2025-6-11, 17:30:00", "UTC+00:00", "21 Khordad 1404 SH\nSeshanbeh");
+    testSolarHijriCalendar_test("2025-6-11, 20:30:00", "UTC+00:00", "22 Khordad 1404 SH\nChaharshanbeh");
+    testSolarHijriCalendar_test("622-3-19, 23:00:00", "UTC+03:30", "1 Farvardin 1 SH\nDoshanbeh");
+    testSolarHijriCalendar_test("622-3-18, 20:00:00", "UTC+03:30", "30 Esfand -1 SH\nYekshanbeh");
+    testSolarHijriCalendar_test("622-3-17, 00:00:00", "UTC+03:30", "29 Esfand -1 SH\nShanbeh");
+
+    // Cumulative Test Check
+    if (testCount === passedTestCount) {
+        console.log('Solar Hijri Calendar: All Tests Passed');
     }
 }
 
@@ -188,9 +250,9 @@ function testJulianCalendar() {
 
 function testAstronomicalCalendar() {
     runCalendarTests("Astronomical Calendar", solarCalendars.getAstronomicalDate, [
-        ["1950-1-1, 00:00:00", "UTC+00:00", "1 January 1950 CE\nSunday"],
-        ["2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday"],
-        ["-1000-1-1, 16:00:00", "UTC+12:00", "11 January 1001 BC\nWednesday"],
+        ["1950-1-1, 00:00:00", "UTC+00:00", "1 January 1950\nSunday"],
+        ["2-1-1, 00:00:00", "UTC+00:00", "3 January 2\nTuesday"],
+        ["-1000-1-1, 16:00:00", "UTC+12:00", "11 January -1000\nWednesday"],
     ]);
 }
 
@@ -284,6 +346,22 @@ function testVenetianCalendar() {
     ]);
 }
 
+function testPataphysicalCalendar() {
+    runCalendarTests("Pataphysical Calendar", solarCalendars.getPataphysicalDate, [
+        ["1873-9-8, 00:00:00", "UTC+00:00", "1 Absolu 1 A.P.\nLundi"],
+        ["2000-1-1, 00:00:00", "UTC+00:00", "4 Décervelage 127 A.P.\nSamedi"],
+        ["2012-11-10, 00:00:00", "UTC+00:00", "8 As 140 A.P.\nSamedi"],
+    ]);
+}
+
+function testDiscordianCalendar() {
+    runCalendarTests("Discordian Calendar", solarCalendars.getDiscordianDate, [
+        ["-1165-1-5, 00:00:00", "UTC+00:00", "5 Chaos 1 YOLD\nSweetmorn"],
+        ["2000-3-19, 00:00:00", "UTC+00:00", "5 Discord 3166 YOLD\nPrickle-Prickle"],
+        ["2025-12-8, 00:00:00", "UTC+00:00", "50 The Aftermath 3191 YOLD\nPungenday"],
+    ]);
+}
+
 // Run all tests.
 testParseDate();
 testTimezoneFormatter();
@@ -302,6 +380,11 @@ testByzantineCalendar();
 testFlorentineCalendar();
 testPisanCalendar();
 testVenetianCalendar();
+testBahaiCalendar();
+testPataphysicalCalendar();
+testDiscordianCalendar();
+testSolarHijriCalendar();
+testQadimiCalendar();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
