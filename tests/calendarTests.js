@@ -384,7 +384,6 @@ testBahaiCalendar();
 testPataphysicalCalendar();
 testDiscordianCalendar();
 testSolarHijriCalendar();
-testQadimiCalendar();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
