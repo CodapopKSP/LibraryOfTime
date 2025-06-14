@@ -246,20 +246,20 @@ export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     startingEquinox.setUTCMilliseconds(0);
     if (currentDateTime < startingEquinox) {
         let lastYear = new Date(currentDateTime);
-        lastYear.setFullYear(currentDateTime.getFullYear()-1);
-        lastYear.setMonth(10);
+        lastYear.setUTCFullYear(currentDateTime.getUTCFullYear()-1);
+        lastYear.setUTCMonth(10);
         startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'autumn');
         startingEquinox.setUTCHours(1);
-        startingEquinox.setMinutes(0);
-        startingEquinox.setSeconds(0);
-        startingEquinox.setMilliseconds(0);
+        startingEquinox.setUTCMinutes(0);
+        startingEquinox.setUTCSeconds(0);
+        startingEquinox.setUTCMilliseconds(0);
     }
 
     // Get start of year, Paris Time (CET)
     let startOfRepublicanYear = new Date(startingEquinox);
 
     // Calculate the number of years since 1792
-    let yearsSince1792 = startOfRepublicanYear.getFullYear() - 1791;
+    let yearsSince1792 = startOfRepublicanYear.getUTCFullYear() - 1791;
 
     // Find days in current year
     let daysSinceSeptember22 = Math.floor(utilities.differenceInDays(currentDateTime, startOfRepublicanYear));
@@ -328,8 +328,17 @@ export function getCopticDate(currentDateTime) {
     
     // Get the weekday based on midnight in Egypt
     let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours()-2); // 2 hours ahead + midnight of 00:00 = 22 hours yesterday
-    const dayOfWeek = startOfToday.getDay();
+    startOfToday.setUTCHours(22);
+    startOfToday.setUTCMinutes(0);
+    startOfToday.setUTCSeconds(0);
+    startOfToday.setUTCMilliseconds(0);
+    let dayOfWeek = startOfToday.getUTCDay();
+    if (currentDateTime >= startOfToday) {
+        dayOfWeek += 1;
+        if (dayOfWeek > 6) {
+            dayOfWeek -= 7;
+        }
+    }
 
     let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
     if (remainingDays <= 0) {
@@ -399,8 +408,17 @@ export function getEthiopianDate(currentDateTime) {
     
     // Get the weekday based on midnight in Ethiopia
     let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours()-3); // 3 hours ahead + midnight of 00:00 = 21 hours yesterday
-    const dayOfWeek = startOfToday.getDay();
+    startOfToday.setUTCHours(21);
+    startOfToday.setUTCMinutes(0);
+    startOfToday.setUTCSeconds(0);
+    startOfToday.setUTCMilliseconds(0);
+    let dayOfWeek = startOfToday.getUTCDay();
+    if (currentDateTime >= startOfToday) {
+        dayOfWeek += 1;
+        if (dayOfWeek > 6) {
+            dayOfWeek -= 7;
+        }
+    }
 
     let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
     if (remainingDays <= 0) {
@@ -444,7 +462,20 @@ export function getByzantineCalendar(currentDateTime) {
         byzantineYear += 1;
     }
 
-    const dayOfWeek = adjustedDateTime.getDay();
+    // Get weekday based on midnight in Istanbul
+    let startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(21);
+    startOfToday.setUTCMinutes(0);
+    startOfToday.setUTCSeconds(0);
+    startOfToday.setUTCMilliseconds(0);
+    let dayOfWeek = startOfToday.getUTCDay();
+    if (currentDateTime >= startOfToday) {
+        dayOfWeek += 1;
+        if (dayOfWeek > 6) {
+            dayOfWeek -= 7;
+        }
+    }
+    
     const monthString = utilities.monthNames[julianDate.month - 1]; // Adjust for 0-based index
     const dayString = julianDate.day;
 
@@ -590,14 +621,14 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
     let endingEquinox = '';
     if (currentDateTime < vernalEquinox) {
         let lastYear = new Date(currentDateTime);
-        lastYear.setFullYear(currentDateTime.getFullYear()-1);
-        lastYear.setMonth(10);
+        lastYear.setUTCFullYear(currentDateTime.getUTCFullYear()-1);
+        lastYear.setUTCMonth(10);
         startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'spring');
         endingEquinox = new Date(vernalEquinox);
     } else {
         let nextYear = new Date(currentDateTime);
-        nextYear.setFullYear(currentDateTime.getFullYear()+1);
-        nextYear.setMonth(10);
+        nextYear.setUTCFullYear(currentDateTime.getUTCFullYear()+1);
+        nextYear.setUTCMonth(10);
         startingEquinox = new Date(vernalEquinox);
         endingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(nextYear, 'spring');
     }
@@ -610,8 +641,8 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
     let currentDayOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, startingEquinox))+1;
     let todaySunsetInTehran = new Date(currentDateTime);
     todaySunsetInTehran.setUTCHours(12);
-    todaySunsetInTehran.setMinutes(30);
-    todaySunsetInTehran.setMilliseconds(0);
+    todaySunsetInTehran.setUTCMinutes(30);
+    todaySunsetInTehran.setUTCMilliseconds(0);
 
     const BahaMonths = [
         "Bahá",
@@ -659,7 +690,7 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
         } else {
             // Get first day of final month, which is 19 days before the ending equinox
             let firstDayOfFinalMonth = new Date(endingEquinox);
-            firstDayOfFinalMonth.setDate(endingEquinox.getDate() - 19);
+            firstDayOfFinalMonth.setUTCDate(endingEquinox.getUTCDate() - 19);
 
             // If before that time, then it's the intercalary 4 or 5 days
             if (currentDateTime < firstDayOfFinalMonth) {
@@ -684,15 +715,23 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
 
     // If after February but less than Month 17 in Bahai, it's past the Bahai New Year
     let year = currentDateTime.getUTCFullYear() - 1844;
-    if ((currentDateTime.getMonth()>1)&&(monthIndex<16)) {
+    if ((currentDateTime.getUTCMonth()>1)&&(monthIndex<16)) {
         year++
     }
 
     // Get the weekday based on sunset in Tehran
     let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours()-2); // 3.5 hours ahead + sunset of 18:00 = 21.5 hours yesterday
-    startOfToday.setUTCMinutes(currentDateTime.getUTCMinutes()-30);
-    const dayOfWeek = startOfToday.getDay();
+    startOfToday.setUTCHours(14);
+    startOfToday.setUTCMinutes(30);
+    startOfToday.setUTCSeconds(0);
+    startOfToday.setUTCMilliseconds(0);
+    let dayOfWeek = startOfToday.getUTCDay();
+    if (currentDateTime >= startOfToday) {
+        dayOfWeek += 1;
+        if (dayOfWeek > 6) {
+            dayOfWeek -= 7;
+        }
+    }
 
     return currentDayOfYear + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE\n' + bahaiWeek[dayOfWeek];
 }

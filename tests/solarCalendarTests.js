@@ -89,11 +89,11 @@ function testBahaiCalendar() {
     }
 
     // Tests - Input Date, Output Date, Output Time
-    testBahaiCalendar_test("2025-3-19, 14:30:00", "UTC+00:00", "1 Bahá 182 BE\n‘Idál");
-    testBahaiCalendar_test("1844-3-19, 18:00:00", "UTC+03:30", "1 Bahá 1 BE\nFiḍál");
-    testBahaiCalendar_test("2064-3-19, 14:30:00", "UTC+00:00", "1 Bahá 221 BE\n‘Idál");
+    testBahaiCalendar_test("2025-3-19, 14:30:00", "UTC+00:00", "1 Bahá 182 BE\nIstijlál");
+    testBahaiCalendar_test("1844-3-19, 18:00:00", "UTC+03:30", "1 Bahá 1 BE\n‘Idál");
+    testBahaiCalendar_test("2064-3-19, 14:30:00", "UTC+00:00", "1 Bahá 221 BE\nIstijlál");
     testBahaiCalendar_test("2035-11-1, 13:30:00", "UTC+00:00", "17 ‘Ilm 192 BE\nIstijlál");
-    testBahaiCalendar_test("2018-2-28, 14:30:00", "UTC+00:00", "5 Ayyám-i-Há 174 BE\n‘Idál");
+    testBahaiCalendar_test("2018-2-28, 14:30:00", "UTC+00:00", "5 Ayyám-i-Há 174 BE\nIstijlál");
 
     // Cumulative Test Check
     if (testCount === passedTestCount) {
