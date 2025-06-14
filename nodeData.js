@@ -554,7 +554,7 @@ export const solarCalendarsData = [
         name: 'Julian (UTC)',
         id: 'julian',
         type: 'Solar Calendar',
-        epoch: '30 December 0 BCE',
+        epoch: '30 December 0 BCE +00:00:00',
         confidence: 'Exact',
         overview: 'The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date.\n\nIt features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. Years are denoted \'AD\' or \'Anno Domini\', meaning \'in the year of the Lord\', as well as \'BC\' meaning \'Before Christ\'.\n\nThe Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar.',
         info: `The Julian calendar drifts from the solar year by about 1 day every 129 years, as it has too many leap years. The Gregorian calendar is meant to correct this drift. As of the 21st century, the two calendars are 13 days apart.\n\n<table class="table-long"><tr><th>Month</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
@@ -566,7 +566,7 @@ export const solarCalendarsData = [
         name: 'Astronomical (UTC)',
         id: 'astronomical',
         type: 'Solar Calendar',
-        epoch: '30 December 0 BCE',
+        epoch: '30 December 0 BCE +00:00:00',
         confidence: 'Exact',
         overview: 'The Astronomical calendar is a standard for calculating dates of astronomical or historical events. It is a combination of the Gregorian calendar for dates after midnight on 15 October 1582 and the Julian calendar for dates before.\n\nUnlike the Julian calendar, it utilizes Year 0 to enable the easier calculation of years, which causes it to appear 1 year ahead of the Julian calendar before 1 AD.\n\nYears are not denoted with anything and are simply listed as a positive or negative number.',
         info: `<table class="table-long"><tr><th>Month</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
@@ -767,19 +767,19 @@ export const solarCalendarsData = [
     },
 
     {
-        name: 'Egyptian Civil',
+        name: 'Egyptian Civil (EET)',
         id: 'egyptian-civil',
         type: 'Solar Calendar',
-        epoch: '27 June 2781 BCE',
+        epoch: '26 June 2781 BCE +22:00:00',
         confidence: 'High',
         overview: `The Egyptian Civil calendar was the calendar used by Ancient Egypt, alongside its lunar calendar.\n\nIt featured 12 months of 30 days, divided into 3 seasons of 4 months each. The months have names but are usually labeled by their sequence in each season, leading to a pattern of [month] [season] [day]. Each year has 5 intercalary days with individual names at the end, for a total of 365 days.\n\nThe new year historically was intended to mark the heliacal rising of the star Sirius, but due to its inaccuracy it drifted by one day every 3 years. The new year eventually lines back up with the heliacal rising of Sirius every 1461 years, called the Sothic Cycle.\n\nThe epoch changed with each dynasty, and I could not find evidence of a standardized epoch. Here I have chosen to show the years since the believed beginning of the calendar, which is the day of the heliacal rising of Sirius in 2781 BCE.`,
         info: `<table class="table-long"><tr><th>Season</th><th>Month</th><th>Month Number</th><th>Days</th></tr><tr><td>Akhet</td><td>Tekh</td><td>I</td><td>30</td></tr><tr><td>Akhet</td><td>Menhet</td><td>II</td><td>30</td></tr><tr><td>Akhet</td><td>Hwt-Hrw</td><td>III</td><td>30</td></tr><tr><td>Akhet</td><td>Ka-Hr-Ka</td><td>IV</td><td>30</td></tr><tr><td>Peret</td><td>Sf-Bdt</td><td>I</td><td>30</td></tr><tr><td>Peret</td><td>Rekh Wer</td><td>II</td><td>30</td></tr><tr><td>Peret</td><td>Rekh Neds</td><td>III</td><td>30</td></tr><tr><td>Peret</td><td>Renwet</td><td>IV</td><td>30</td></tr><tr><td>Shemu</td><td>Hnsw</td><td>I</td><td>30</td></tr><tr><td>Shemu</td><td>Hnt-Htj</td><td>II</td><td>30</td></tr><tr><td>Shemu</td><td>Ipt-Hmt</td><td>III</td><td>30</td></tr><tr><td>Shemu</td><td>Wep-Renpet</td><td>IV</td><td>30</td></tr></table>\nThe intercalary days, called Heriu Renpet, celebrated the birthdays of the children of the god Nut.\n\n<table><tr><th>Heriu Renpet</th></tr><tr><td>1: Osiris</td></tr><tr><td>2: Horus the Elder</td></tr><tr><td>3: Set</td></tr><tr><td>4: Isis</td></tr><tr><td>5: Nephthys</td></tr></table>`,
-        accuracy: `This calendar is based on the Sothic Cycle, which is well-established to the Gregorian calendar via the Julian calendar. Some liberties were taken with the epoch, which is why it is in parentheses.\n\nSimilar to the Sothic Cycle, some of my dates did not perfectly match those provided by sources such as the Wiki, so there's a chance that these calculations are off by one, either in year or in day.`,
+        accuracy: `This calendar is based on the Sothic Cycle, which is well-established to the Gregorian calendar via the Julian calendar. Some liberties were taken with the epoch, which is why it is in parentheses.`,
         source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Egyptian_calendar">Wikipedia article</a>.\n\nMonth names and other general data came from <a href="https://ancientegyptonline.co.uk/calendar/">this site</a>.'
     },
 
     {
-        name: 'ISO Week Date',
+        name: 'ISO Week Date (Local)',
         id: 'iso-week-date',
         type: 'Solar Calendar',
         epoch: '1 January 1 CE',
@@ -791,7 +791,7 @@ export const solarCalendarsData = [
     },
 
     {
-        name: 'Haab',
+        name: 'Haab (CST)',
         id: 'haab',
         type: 'Solar Calendar',
         epoch: '~550 BCE',

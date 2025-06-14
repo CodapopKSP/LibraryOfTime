@@ -908,7 +908,7 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox_) {
 // Returns a formatted Qadimi IRST date
 export function getQadimiDate(currentDateTime) {
     // Noon in Iran in 19 June 632, a base Nowruz day
-    const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 3, 30, 0));
+    const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 2, 30, 0));
     const daysSince632 = Math.floor(utilities.differenceInDays(currentDateTime, Nowruz632Noon));
     const yearsSince632 = Math.floor(daysSince632/365);
     let remainingDays = daysSince632 - (yearsSince632*365)+1;
@@ -974,13 +974,13 @@ export function getQadimiDate(currentDateTime) {
     ];
 
     const qadimiWeek = [
-        "Yekshanbeh",   // Sunday
-        "Doshanbeh",    // Monday
-        "Seshanbeh",    // Tuesday
-        "Chaharshanbeh",// Wednesday
-        "Panjshanbeh",  // Thursday
-        "Jomeh",        // Friday
-        "Shanbeh"       // Saturday
+        "Shanbeh",      // Sunday
+        "Yekshanbeh",   // Monday
+        "Doshanbeh",    // Tuesday
+        "Seshanbeh",    // Wednesday
+        "Chaharshanbeh",// Thursday
+        "Panjshanbeh",  // Friday
+        "Jomeh",        // Saturday
     ];
     
 
@@ -995,11 +995,19 @@ export function getQadimiDate(currentDateTime) {
     let month = months[monthIndex];
     const year = yearsSince632 +1;
 
-    // Get the weekday based on noon in Tehran
-    let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours()+15);
-    startOfToday.setUTCMinutes(currentDateTime.getUTCMinutes()+30);
-    const dayOfWeek = startOfToday.getDay();
+    // Determine weekday based on sunrise in Tehran (2:30 UTC)
+    let sunriseBasedDate = new Date(currentDateTime);
+    sunriseBasedDate.setUTCHours(2);
+    sunriseBasedDate.setUTCMinutes(30);
+    sunriseBasedDate.setUTCSeconds(0);
+    sunriseBasedDate.setUTCMilliseconds(0);
+    let dayOfWeek = sunriseBasedDate.getUTCDay() - 1;
+    if (currentDateTime >= sunriseBasedDate) {
+        dayOfWeek += 1;
+    }
+    if (dayOfWeek > 6) {
+        dayOfWeek -= 7;
+    }
 
     // If Gatha days, use Gatha day names
     if ((monthIndex>11)&&(remainingDays<6)) {
@@ -1030,7 +1038,7 @@ export function getEgyptianDate(currentDateTime) {
     const EgyptianIntercalaryDays = ["Osiris", "Horus the Elder", "Set", "Isis", "Nephthys"];
     const EgyptianMonthNumbers = ["I", "II", "III", "IV"];
 
-    const startOfAkhet2781 = new Date(-2781, 5, 27);
+    const startOfAkhet2781 = new Date(Date.UTC(-2781, 5, 26, 22, 0, 0));
     const daysSincestartOfAkhet2781 = Math.floor(utilities.differenceInDays(currentDateTime, startOfAkhet2781));
     const yearsSinceStartOfAkhet2781 = Math.floor(daysSincestartOfAkhet2781/365);
     const currentDayOfYear = ((daysSincestartOfAkhet2781 % 365) + 365) % 365 + 1;
@@ -1062,18 +1070,18 @@ export function getEgyptianDate(currentDateTime) {
 
 export function getISOWeekDate(currentDateTime) {
     const target = new Date(currentDateTime.valueOf());
-    target.setUTCFullYear(currentDateTime.getUTCFullYear());
+    target.setFullYear(currentDateTime.getFullYear());
 
-    const dayNumber = (currentDateTime.getUTCDay() + 6) % 7 + 1; // ISO week day (1 = Monday, ..., 7 = Sunday)
+    const dayNumber = (currentDateTime.getDay() + 6) % 7 + 1; // ISO week day (1 = Monday, ..., 7 = Sunday)
     
     // Set to nearest Thursday (current date + 4 - current day number) to determine the ISO week year
-    target.setUTCDate(target.getUTCDate() + 4 - dayNumber);
-    target.setUTCFullYear(target.getUTCFullYear());
+    target.setDate(target.getDate() + 4 - dayNumber);
+    target.setFullYear(target.getFullYear());
 
-    const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
-    yearStart.setUTCFullYear(target.getUTCFullYear()); // Ensure proper year handling
+    const yearStart = new Date(target.getFullYear(), 0, 1);
+    yearStart.setFullYear(target.getFullYear()); // Ensure proper year handling
     const weekNumber = Math.ceil((((target - yearStart) / 86400000) + 1) / 7);
-    let weekYear = target.getUTCFullYear();
+    let weekYear = target.getFullYear();
 
     return `${weekYear}-W${weekNumber}-${dayNumber}`;
 }
@@ -1086,7 +1094,7 @@ export function getHaabDate(currentDateTime) {
         "K'ayab'", "Kumk'u", "Wayeb'"
     ];
 
-    const mayaLongCount0 = new Date(-3113, 7, 11);
+    const mayaLongCount0 = new Date(Date.UTC(-3113, 7, 11, 6, 0, 0));
     const totalDays = Math.floor(utilities.differenceInDays(currentDateTime, mayaLongCount0));
     
     const startingHaabDay = 8;

@@ -362,6 +362,41 @@ function testDiscordianCalendar() {
     ]);
 }
 
+function testQadimiCalendar() {
+    runCalendarTests("Qadimi Calendar", solarCalendars.getQadimiDate, [
+        ["632-6-19, 02:30:00", "UTC+00:00", "Hormazd Farvardin 1 Y.Z.\nDoshanbeh"],
+        ["632-6-19, 01:30:00", "UTC+00:00", "Vahishtoishti 0 Y.Z.\nYekshanbeh"],
+        ["2000-7-22, 02:30:00", "UTC+00:00", "Hormazd Farvardin 1370 Y.Z.\nJomeh"],
+        ["1300-1-8, 06:00:00", "UTC+03:30", "Hormazd Farvardin 669 Y.Z.\nPanjshanbeh"],
+        ["1301-1-8, 06:00:00", "UTC+03:30", "Hormazd Farvardin 670 Y.Z.\nJomeh"],
+    ]);
+}
+
+function testEgyptianCivilCalendar() {
+    runCalendarTests("Egyptian Civil Calendar", solarCalendars.getEgyptianDate, [
+        ["-2781-6-26, 22:00:00", "UTC+00:00", "I Akhet 1 (0)"],
+        ["-2781-6-26, 21:00:00", "UTC+00:00", "Nephthys (-1)"],
+        ["-3500-6-18, 00:00:00", "UTC+02:00", "III Peret 3 (-720)"],
+        ["500-7-22, 00:00:00", "UTC+02:00", "IV Akhet 2 (3283)"],
+    ]);
+}
+
+function testISOWeekDateCalendar() {
+    runCalendarTests("ISO Week Date Calendar", solarCalendars.getISOWeekDate, [
+        ["1-1-1, 00:00:00", "UTC+00:00", "1-W1-1"],
+        ["2000-1-1, 00:00:00", "UTC+00:00", "1999-W53-6"],
+        ["2025-6-14, 00:00:00", "UTC+00:00", "2025-W24-6"],
+    ]);
+}
+
+function testHaabCalendar() {
+    runCalendarTests("Haab Calendar", solarCalendars.getHaabDate, [
+        ["2025-6-14, 06:00:00", "UTC+00:00", "16 Sotz'"],
+        ["1000-1-6, 00:00:00", "UTC-06:00", "13 Wo'"],
+        ["1500-6-25, 00:00:00", "UTC-06:00", "4 K'ayab'"],
+    ]);
+}
+
 // Run all tests.
 testParseDate();
 testTimezoneFormatter();
@@ -384,6 +419,10 @@ testBahaiCalendar();
 testPataphysicalCalendar();
 testDiscordianCalendar();
 testSolarHijriCalendar();
+testQadimiCalendar();
+testEgyptianCivilCalendar();
+testISOWeekDateCalendar();
+testHaabCalendar();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
