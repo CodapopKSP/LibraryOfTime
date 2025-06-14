@@ -3,159 +3,85 @@ import {convertUTCOffsetToMinutes, parseInputDate} from '../userInterface.js';
 import * as solarCalendars from '../Calendars/solarCalendars.js';
 import * as astronomicalData from '../Other/astronomicalData.js';
 
-function testGregorianCalendar() {
+function runGregorianCalendarTests(testCases) {
+    let failedTestCount = 0;
     let testCount = 0;
-    let passedTestCount = 0;
 
-    function testGregorianCalendar_test(testedDate_, testedTimezone, parsedDateTest, parsedTimeTest) {
-        testCount += 1;
+    for (const [inputDate, timezone, expectedDate, expectedTime] of testCases) {
+        testCount++;
 
-        let testedDate = parseInputDate(testedDate_, testedTimezone);
-        let testedTimezoneOffset = convertUTCOffsetToMinutes(testedTimezone)
-        let gregDateTime = solarCalendars.getGregorianDateTime(testedDate, testedTimezoneOffset);
-        let parsedDate = gregDateTime.date;
-        let parsedTime = gregDateTime.time;
-        if (parsedDate === parsedDateTest) {
-            passedTestCount += 0.5;
-        } else {
-            console.error('Gregorian Calendar: Test ' + testCount + ' failed.');
-            console.error(parsedDate);
+        const testedDate = parseInputDate(inputDate, timezone);
+        const testedTimezoneOffset = convertUTCOffsetToMinutes(timezone);
+        const { date: actualDate, time: actualTime } = solarCalendars.getGregorianDateTime(testedDate, testedTimezoneOffset);
+
+        if (actualDate !== expectedDate) {
+            console.error(`Gregorian Calendar: Test ${testCount} failed (Date).`);
+            console.error('Expected:', expectedDate);
+            console.error('Received:', actualDate);
+            failedTestCount++;
         }
-        if (parsedTime === parsedTimeTest) {
-            passedTestCount += 0.5;
-        } else {
-            console.error('Gregorian Calendar: Test ' + testCount + ' failed.');
-            console.error(parsedTime);
+
+        if (actualTime !== expectedTime) {
+            console.error(`Gregorian Calendar: Test ${testCount} failed (Time).`);
+            console.error('Expected:', expectedTime);
+            console.error('Received:', actualTime);
+            failedTestCount++;
         }
     }
 
-    // Tests - Input Date, Output Date, Output Time
-    testGregorianCalendar_test("100-1-1, 00:00:00", "UTC+00:00", "1 January 100 CE\nFriday", "00:00:00");
-    testGregorianCalendar_test("-1000-1-1, 16:00:00", "UTC+12:00", "1 January 1000 BCE\nWednesday", "16:00:00");
-    testGregorianCalendar_test("2012-2-29, 08:00:00", "UTC+00:00", "29 February 2012 CE\nWednesday", "08:00:00");
-
-    // Cumulative Test Check
-    if (testCount === passedTestCount) {
-        console.log('Gregorian Calendar: All Tests Passed');
-    }
+    return failedTestCount;
 }
 
-function testFrenchRepublicanCalendar() {
+function runCalendarEquinoxTests(calendarName, season, getCalendarFunction, testCases) {
+    let failedTestCount = 0;
     let testCount = 0;
-    let passedTestCount = 0;
-
-    function testFrenchRepublicanCalendar_test(testedDate_, testedTimezone, testCase) {
-        testCount += 1;
-
-        let testedDate = parseInputDate(testedDate_, testedTimezone);
-        const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, 'autumn');
-        let parsedDate = solarCalendars.getRepublicanCalendar(testedDate, springEquinox);
-        if (parsedDate === testCase) {
-            passedTestCount += 1;
-        } else {
-            console.error('French Republican Calendar: Test ' + testCount + ' failed.');
-            console.error(parsedDate);
-        }
-    }
-
-    // Tests - Input Date, Output Date, Output Time
-    testFrenchRepublicanCalendar_test("1792-9-22, 01:00:00", "UTC+00:00", "1 Vendémiaire I RE\nPrimidi Décade 1");
-    testFrenchRepublicanCalendar_test("1793-9-22, 01:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1");
-    testFrenchRepublicanCalendar_test("1793-9-22, 10:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1");
-    testFrenchRepublicanCalendar_test("1795-9-22, 01:00:00", "UTC+00:00", "6 Sansculottides III RE\nLa Fête de la Révolution");
-
-    // Cumulative Test Check
-    if (testCount === passedTestCount) {
-        console.log('French Republican Calendar: All Tests Passed');
-    }
-}
-
-function testBahaiCalendar() {
-    let testCount = 0;
-    let passedTestCount = 0;
-
-    function testBahaiCalendar_test(testedDate_, testedTimezone, testCase) {
-        testCount += 1;
-
-        let testedDate = parseInputDate(testedDate_, testedTimezone);
-        const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, 'spring');
-        let parsedDate = solarCalendars.getBahaiCalendar(testedDate, springEquinox);
-        if (parsedDate === testCase) {
-            passedTestCount += 1;
-        } else {
-            console.error('Bahai Calendar: Test ' + testCount + ' failed.');
-            console.error(parsedDate);
-        }
-    }
-
-    // Tests - Input Date, Output Date, Output Time
-    testBahaiCalendar_test("2025-3-19, 14:30:00", "UTC+00:00", "1 Bahá 182 BE\nIstijlál");
-    testBahaiCalendar_test("1844-3-19, 18:00:00", "UTC+03:30", "1 Bahá 1 BE\n‘Idál");
-    testBahaiCalendar_test("2064-3-19, 14:30:00", "UTC+00:00", "1 Bahá 221 BE\nIstijlál");
-    testBahaiCalendar_test("2035-11-1, 13:30:00", "UTC+00:00", "17 ‘Ilm 192 BE\nIstijlál");
-    testBahaiCalendar_test("2018-2-28, 14:30:00", "UTC+00:00", "5 Ayyám-i-Há 174 BE\nIstijlál");
-
-    // Cumulative Test Check
-    if (testCount === passedTestCount) {
-        console.log('Bahai Calendar: All Tests Passed');
-    }
-}
-
-function testSolarHijriCalendar() {
-    let testCount = 0;
-    let passedTestCount = 0;
-
-    function testSolarHijriCalendar_test(testedDate_, testedTimezone, testCase) {
-        testCount += 1;
-
-        let testedDate = parseInputDate(testedDate_, testedTimezone);
-        const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, 'spring');
-        let parsedDate = solarCalendars.getSolarHijriDate(testedDate, springEquinox);
-        if (parsedDate === testCase) {
-            passedTestCount += 1;
-        } else {
-            console.error('Solar Hijri Calendar: Test ' + testCount + ' failed.');
-            console.error(parsedDate);
-        }
-    }
-
-    // Tests - Input Date, Output Date, Output Time
-    testSolarHijriCalendar_test("2025-6-11, 17:30:00", "UTC+00:00", "21 Khordad 1404 SH\nSeshanbeh");
-    testSolarHijriCalendar_test("2025-6-11, 20:30:00", "UTC+00:00", "22 Khordad 1404 SH\nChaharshanbeh");
-    testSolarHijriCalendar_test("622-3-19, 23:00:00", "UTC+03:30", "1 Farvardin 1 SH\nDoshanbeh");
-    testSolarHijriCalendar_test("622-3-18, 20:00:00", "UTC+03:30", "30 Esfand -1 SH\nYekshanbeh");
-    testSolarHijriCalendar_test("622-3-17, 00:00:00", "UTC+03:30", "29 Esfand -1 SH\nShanbeh");
-
-    // Cumulative Test Check
-    if (testCount === passedTestCount) {
-        console.log('Solar Hijri Calendar: All Tests Passed');
-    }
-}
-
-function runCalendarTests(calendarName, getCalendarFunction, testCases) {
-    let testCount = 0;
-    let passedTestCount = 0;
 
     for (const [inputDate, timezone, expectedOutput] of testCases) {
-        testCount += 1;
+        testCount++;
         const testedDate = parseInputDate(inputDate, timezone);
-        const result = getCalendarFunction(testedDate);
-        if (result === expectedOutput) {
-            passedTestCount += 1;
-        } else {
+        const equinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, season);
+        const result = getCalendarFunction(testedDate, equinox);
+
+        if (result !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
             console.error('Received:', result);
+            failedTestCount++;
         }
     }
 
-    if (testCount === passedTestCount) {
-        console.log(`${calendarName}: All Tests Passed`);
+    return failedTestCount;
+}
+
+function runCalendarTests(calendarName, getCalendarFunction, testCases) {
+    let failedTestCount = 0;
+    let testCount = 0;
+
+    for (const [inputDate, timezone, expectedOutput] of testCases) {
+        testCount++;
+        const testedDate = parseInputDate(inputDate, timezone);
+        const result = getCalendarFunction(testedDate);
+        if (result !== expectedOutput) {
+            console.error(`${calendarName}: Test ${testCount} failed.`);
+            console.error('Expected:', expectedOutput);
+            console.error('Received:', result);
+            failedTestCount++;
+        }
     }
+
+    return failedTestCount;
+}
+
+function testGregorianCalendar() {
+    return runGregorianCalendarTests([
+        ["100-1-1, 00:00:00", "UTC+00:00", "1 January 100 CE\nFriday", "00:00:00"],
+        ["-1000-1-1, 16:00:00", "UTC+12:00", "1 January 1000 BCE\nWednesday", "16:00:00"],
+        ["2012-2-29, 08:00:00", "UTC+00:00", "29 February 2012 CE\nWednesday", "08:00:00"]
+    ]);
 }
 
 function testJulianCalendar() {
-    runCalendarTests("Julian Calendar", solarCalendars.getJulianCalendar, [
+    return runCalendarTests("Julian Calendar", solarCalendars.getJulianCalendar, [
         ["1950-1-1, 00:00:00", "UTC+00:00", "19 December 1949 AD\nSunday"],
         ["2-1-1, 00:00:00", "UTC+00:00", "3 January 2 AD\nTuesday"],
         ["1917-11-7, 00:00:00", "UTC+00:00", "25 October 1917 AD\nWednesday"],
@@ -164,7 +90,7 @@ function testJulianCalendar() {
 }
 
 function testAstronomicalCalendar() {
-    runCalendarTests("Astronomical Calendar", solarCalendars.getAstronomicalDate, [
+    return runCalendarTests("Astronomical Calendar", solarCalendars.getAstronomicalDate, [
         ["1950-1-1, 00:00:00", "UTC+00:00", "1 January 1950\nSunday"],
         ["2-1-1, 00:00:00", "UTC+00:00", "3 January 2\nTuesday"],
         ["-1000-1-1, 16:00:00", "UTC+12:00", "11 January -1000\nWednesday"],
@@ -172,7 +98,7 @@ function testAstronomicalCalendar() {
 }
 
 function testMinguoCalendar() {
-    runCalendarTests("Minguo Calendar", solarCalendars.getMinguo, [
+    return runCalendarTests("Minguo Calendar", solarCalendars.getMinguo, [
         ["1950-1-1, 00:00:00", "UTC+08:00", "民國 39年 1月 1日\n星期天"],
         ["2-1-1, 00:00:00", "UTC+00:00", "民國 -1909年 1月 1日\n星期二"],
         ["-1000-1-1, 16:00:00", "UTC+12:00", "民國 -2911年 1月 1日\n星期三"],
@@ -180,7 +106,7 @@ function testMinguoCalendar() {
 }
 
 function testJucheCalendar() {
-    runCalendarTests("Juche Calendar", solarCalendars.getJuche, [
+    return runCalendarTests("Juche Calendar", solarCalendars.getJuche, [
         ["1950-1-1, 00:00:00", "UTC+08:00", "Juche 39.01.1\n일요일"],
         ["2-1-1, 00:00:00", "UTC+00:00", "Juche -1909.01.1\n화요일"],
         ["-1000-1-1, 16:00:00", "UTC+12:00", "Juche -2911.01.1\n수요일"],
@@ -188,7 +114,7 @@ function testJucheCalendar() {
 }
 
 function testThaiSolarCalendar() {
-    runCalendarTests("Thai Solar Calendar", solarCalendars.getThaiSolar, [
+    return runCalendarTests("Thai Solar Calendar", solarCalendars.getThaiSolar, [
         ["1950-1-1, 01:00:00", "UTC+08:00", "1 มกราคม B.E. 2493\nอาทิตย์"],
         ["2-1-1, 00:00:00", "UTC+00:00", "1 มกราคม B.E. 545\nอังคาร"],
         ["-1000-1-1, 16:00:00", "UTC+12:00", "1 มกราคม B.E. -457\nพุธ"],
@@ -196,7 +122,7 @@ function testThaiSolarCalendar() {
 }
 
 function testEraFascistaCalendar() {
-    runCalendarTests("Era Fascista Calendar", solarCalendars.getEraFascista, [
+    return runCalendarTests("Era Fascista Calendar", solarCalendars.getEraFascista, [
         ["1922-10-29, 00:00:00", "UTC+01:00", "Anno I"],
         ["1922-10-29, 00:00:00", "UTC+02:00", "Anno O"],
         ["1931-10-29, 00:00:00", "UTC+01:00", "Anno X"],
@@ -205,7 +131,7 @@ function testEraFascistaCalendar() {
 }
 
 function testCopticCalendar() {
-    runCalendarTests("Coptic Calendar", solarCalendars.getCopticDate, [
+    return runCalendarTests("Coptic Calendar", solarCalendars.getCopticDate, [
         ["284-8-29, 00:00:00", "UTC+02:00", "1 Thout 1 AM\nⲃⲉⲕⲃⲁⲧ"],
         ["2025-6-9, 00:00:00", "UTC+02:00", "2 Paoni 1741 AM\nⲥⲟⲙ"],
         ["1875-9-11, 00:00:00", "UTC+02:00", "1 Thout 1592 AM\nⲁⲧⲟⲃⲁⲣ"],
@@ -214,7 +140,7 @@ function testCopticCalendar() {
 }
 
 function testGeezCalendar() {
-    runCalendarTests("Ge'ez Calendar", solarCalendars.getEthiopianDate, [
+    return runCalendarTests("Ge'ez Calendar", solarCalendars.getEthiopianDate, [
         ["284-8-29, 00:00:00", "UTC+03:00", "1 Mäskäräm ዓ.ም.277\nዓርብ"],
         ["2025-6-9, 00:00:00", "UTC+03:00", "2 Säne ዓ.ም.2017\nሰኑይ"],
         ["1875-9-11, 00:00:00", "UTC+03:00", "1 Mäskäräm ዓ.ም.1868\nቀዳሚት"],
@@ -223,7 +149,7 @@ function testGeezCalendar() {
 }
 
 function testByzantineCalendar() {
-    runCalendarTests("Byzantine Calendar", solarCalendars.getByzantineCalendar, [
+    return runCalendarTests("Byzantine Calendar", solarCalendars.getByzantineCalendar, [
         ["-5508-7-19, 00:00:00", "UTC+03:00", "1 September 1 AM\nSaturday"],
         ["-5508-7-19, 23:00:00", "UTC+03:00", "1 September 1 AM\nSaturday"],
         ["-5508-7-18, 00:00:00", "UTC+03:00", "31 August 0 AM\nFriday"],
@@ -233,7 +159,7 @@ function testByzantineCalendar() {
 }
 
 function testFlorentineCalendar() {
-    runCalendarTests("Florentine Calendar", solarCalendars.getFlorentineCalendar, [
+    return runCalendarTests("Florentine Calendar", solarCalendars.getFlorentineCalendar, [
         ["1-3-22, 17:00:00", "UTC+00:00", "25 March 1 AD\nFriday"],
         ["1-3-22, 16:00:00", "UTC+00:00", "24 March 1 BC\nThursday"],
         ["2000-8-10, 18:00:00", "UTC+01:00", "29 July 2000 AD\nFriday"],
@@ -242,7 +168,7 @@ function testFlorentineCalendar() {
 }
 
 function testPisanCalendar() {
-    runCalendarTests("Pisan Calendar", solarCalendars.getPisanCalendar, [
+    return runCalendarTests("Pisan Calendar", solarCalendars.getPisanCalendar, [
         ["0-3-22, 23:00:00", "UTC+00:00", "25 March 1 AD\nThursday"],
         ["1-3-22, 16:00:00", "UTC+00:00", "24 March 1 AD\nThursday"],
         ["2000-8-10, 00:00:00", "UTC+01:00", "28 July 2001 AD\nThursday"],
@@ -251,7 +177,7 @@ function testPisanCalendar() {
 }
 
 function testVenetianCalendar() {
-    runCalendarTests("Venetian Calendar", solarCalendars.getVenetianCalendar, [
+    return runCalendarTests("Venetian Calendar", solarCalendars.getVenetianCalendar, [
         ["1-2-25, 23:00:00", "UTC+00:00", "28 February 1 BC\nMonday"],
         ["1-2-26, 23:00:00", "UTC+00:00", "1 March 1 AD\nTuesday"],
         ["1-3-22, 16:00:00", "UTC+00:00", "24 March 1 AD\nThursday"],
@@ -262,7 +188,7 @@ function testVenetianCalendar() {
 }
 
 function testPataphysicalCalendar() {
-    runCalendarTests("Pataphysical Calendar", solarCalendars.getPataphysicalDate, [
+    return runCalendarTests("Pataphysical Calendar", solarCalendars.getPataphysicalDate, [
         ["1873-9-8, 00:00:00", "UTC+00:00", "1 Absolu 1 A.P.\nLundi"],
         ["2000-1-1, 00:00:00", "UTC+00:00", "4 Décervelage 127 A.P.\nSamedi"],
         ["2012-11-10, 00:00:00", "UTC+00:00", "8 As 140 A.P.\nSamedi"],
@@ -270,7 +196,7 @@ function testPataphysicalCalendar() {
 }
 
 function testDiscordianCalendar() {
-    runCalendarTests("Discordian Calendar", solarCalendars.getDiscordianDate, [
+    return runCalendarTests("Discordian Calendar", solarCalendars.getDiscordianDate, [
         ["-1165-1-5, 00:00:00", "UTC+00:00", "5 Chaos 1 YOLD\nSweetmorn"],
         ["2000-3-19, 00:00:00", "UTC+00:00", "5 Discord 3166 YOLD\nPrickle-Prickle"],
         ["2025-12-8, 00:00:00", "UTC+00:00", "50 The Aftermath 3191 YOLD\nPungenday"],
@@ -278,7 +204,7 @@ function testDiscordianCalendar() {
 }
 
 function testQadimiCalendar() {
-    runCalendarTests("Qadimi Calendar", solarCalendars.getQadimiDate, [
+    return runCalendarTests("Qadimi Calendar", solarCalendars.getQadimiDate, [
         ["632-6-19, 02:30:00", "UTC+00:00", "Hormazd Farvardin 1 Y.Z.\nDoshanbeh"],
         ["632-6-19, 01:30:00", "UTC+00:00", "Vahishtoishti 0 Y.Z.\nYekshanbeh"],
         ["2000-7-22, 02:30:00", "UTC+00:00", "Hormazd Farvardin 1370 Y.Z.\nJomeh"],
@@ -288,7 +214,7 @@ function testQadimiCalendar() {
 }
 
 function testEgyptianCivilCalendar() {
-    runCalendarTests("Egyptian Civil Calendar", solarCalendars.getEgyptianDate, [
+    return runCalendarTests("Egyptian Civil Calendar", solarCalendars.getEgyptianDate, [
         ["-2781-6-26, 22:00:00", "UTC+00:00", "I Akhet 1 (0)"],
         ["-2781-6-26, 21:00:00", "UTC+00:00", "Nephthys (-1)"],
         ["-3500-6-18, 00:00:00", "UTC+02:00", "III Peret 3 (-720)"],
@@ -297,7 +223,7 @@ function testEgyptianCivilCalendar() {
 }
 
 function testISOWeekDateCalendar() {
-    runCalendarTests("ISO Week Date Calendar", solarCalendars.getISOWeekDate, [
+    return runCalendarTests("ISO Week Date Calendar", solarCalendars.getISOWeekDate, [
         ["1-1-1, 00:00:00", "UTC+00:00", "1-W1-1"],
         ["2000-1-1, 00:00:00", "UTC+00:00", "1999-W53-6"],
         ["2025-6-14, 00:00:00", "UTC+00:00", "2025-W24-6"],
@@ -305,36 +231,80 @@ function testISOWeekDateCalendar() {
 }
 
 function testHaabCalendar() {
-    runCalendarTests("Haab Calendar", solarCalendars.getHaabDate, [
+    return runCalendarTests("Haab Calendar", solarCalendars.getHaabDate, [
         ["2025-6-14, 06:00:00", "UTC+00:00", "16 Sotz'"],
         ["1000-1-6, 00:00:00", "UTC-06:00", "13 Wo'"],
         ["1500-6-25, 00:00:00", "UTC-06:00", "4 K'ayab'"],
     ]);
 }
 
+function testBahaiCalendar() {
+    const equinox = 'spring';
+    return runCalendarEquinoxTests("Bahai Calendar", equinox, solarCalendars.getBahaiCalendar, [
+        ["2025-3-19, 14:30:00", "UTC+00:00", "1 Bahá 182 BE\nIstijlál"],
+        ["1844-3-19, 18:00:00", "UTC+03:30", "1 Bahá 1 BE\n‘Idál"],
+        ["2064-3-19, 14:30:00", "UTC+00:00", "1 Bahá 221 BE\nIstijlál"],
+        ["2035-11-1, 13:30:00", "UTC+00:00", "17 ‘Ilm 192 BE\nIstijlál"],
+        ["2018-2-28, 14:30:00", "UTC+00:00", "5 Ayyám-i-Há 174 BE\nIstijlál"]
+    ]);
+}
+
+function testSolarHijriCalendar() {
+    const equinox = 'spring';
+    return runCalendarEquinoxTests("Solar Hijri Calendar", equinox, solarCalendars.getSolarHijriDate, [
+        ["2025-6-11, 17:30:00", "UTC+00:00", "21 Khordad 1404 SH\nSeshanbeh"],
+        ["2025-6-11, 20:30:00", "UTC+00:00", "22 Khordad 1404 SH\nChaharshanbeh"],
+        ["622-3-19, 23:00:00", "UTC+03:30", "1 Farvardin 1 SH\nDoshanbeh"],
+        ["622-3-18, 20:00:00", "UTC+03:30", "30 Esfand -1 SH\nYekshanbeh"],
+        ["622-3-17, 00:00:00", "UTC+03:30", "29 Esfand -1 SH\nShanbeh"]
+    ]);
+}
+
+function testFrenchRepublicanCalendar() {
+    const equinox = 'autumn';
+    return runCalendarEquinoxTests("French Republican Calendar", equinox, solarCalendars.getRepublicanCalendar, [
+        ["1792-9-22, 01:00:00", "UTC+00:00", "1 Vendémiaire I RE\nPrimidi Décade 1"],
+        ["1793-9-22, 01:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1"],
+        ["1793-9-22, 10:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1"],
+        ["1795-9-22, 01:00:00", "UTC+00:00", "6 Sansculottides III RE\nLa Fête de la Révolution"]
+    ]);
+}
+
 // Run all tests.
-testGregorianCalendar();
-testJulianCalendar();
-testAstronomicalCalendar();
-testMinguoCalendar();
-testJucheCalendar();
-testThaiSolarCalendar();
-testFrenchRepublicanCalendar();
-testEraFascistaCalendar();
-testCopticCalendar();
-testGeezCalendar();
-testByzantineCalendar();
-testFlorentineCalendar();
-testPisanCalendar();
-testVenetianCalendar();
-testBahaiCalendar();
-testPataphysicalCalendar();
-testDiscordianCalendar();
-testSolarHijriCalendar();
-testQadimiCalendar();
-testEgyptianCivilCalendar();
-testISOWeekDateCalendar();
-testHaabCalendar();
+function runTests() {
+    const testFunctions = [
+        testGregorianCalendar,
+        testJulianCalendar,
+        testAstronomicalCalendar,
+        testMinguoCalendar,
+        testJucheCalendar,
+        testThaiSolarCalendar,
+        testFrenchRepublicanCalendar,
+        testEraFascistaCalendar,
+        testCopticCalendar,
+        testGeezCalendar,
+        testByzantineCalendar,
+        testFlorentineCalendar,
+        testPisanCalendar,
+        testVenetianCalendar,
+        testBahaiCalendar,
+        testPataphysicalCalendar,
+        testDiscordianCalendar,
+        testSolarHijriCalendar,
+        testQadimiCalendar,
+        testEgyptianCivilCalendar,
+        testISOWeekDateCalendar,
+        testHaabCalendar
+    ];
+
+    const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);
+
+    if (allTests === 0) {
+        console.log('Solar Calendars: All Tests Passed.');
+    }
+}
+
+runTests();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
