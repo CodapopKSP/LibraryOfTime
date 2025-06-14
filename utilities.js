@@ -26,6 +26,77 @@ export function differenceInDays(date1, date2) {
     return (date1 - date2) / day;
 }
 
+// Takes a date and returns a weekday assuming the day changes after a specified time rather than UTC 00:00
+// Useful for calculating calendars that change day after sunrise or sunset
+export function getWeekdayAtTime(currentDateTime, afterTime) {
+    let afterDate = new Date(currentDateTime);
+    afterDate.setUTCHours(afterTime.hour);
+    afterDate.setUTCMinutes(afterTime.minute);
+    afterDate.setUTCSeconds(0);
+    afterDate.setUTCMilliseconds(0);
+    let dayOfWeek = afterDate.getUTCDay();
+    if (currentDateTime >= afterDate) {
+        dayOfWeek += 1;
+    }
+    if (dayOfWeek > 6) {
+        dayOfWeek -= 7;
+    }
+    return dayOfWeek;
+}
+
+// Unused
+export function findStartOfLastCycle(currentDateTime, cycleTime) {
+    let checkedTime = new Date(currentDateTime);
+    let startOfLastCycle = new Date(currentDateTime);
+    checkedTime.setUTCHours(cycleTime.hour);
+    checkedTime.setUTCMinutes(cycleTime.minute);
+    checkedTime.setUTCSeconds(0);
+    checkedTime.setUTCMilliseconds(0);
+    if (startOfLastCycle < checkedTime) {
+        startOfLastCycle.setUTCDate(startOfLastCycle.getUTCDate()-1);
+    }
+    startOfLastCycle.setUTCHours(cycleTime.hour);
+    startOfLastCycle.setUTCMinutes(cycleTime.minute);
+    startOfLastCycle.setUTCSeconds(0);
+    startOfLastCycle.setUTCMilliseconds(0);
+    return startOfLastCycle;
+}
+
+// Converts a number to Roman numerals
+export function toRomanNumerals(num) {
+    if (num === 0) {
+        return 'O';
+    }
+    if (num < 0) {
+        return '-' + toRomanNumerals(-num);
+    }
+
+    const romanNumerals = [
+        { value: 1000, symbol: 'M' },
+        { value: 900, symbol: 'CM' },
+        { value: 500, symbol: 'D' },
+        { value: 400, symbol: 'CD' },
+        { value: 100, symbol: 'C' },
+        { value: 90, symbol: 'XC' },
+        { value: 50, symbol: 'L' },
+        { value: 40, symbol: 'XL' },
+        { value: 10, symbol: 'X' },
+        { value: 9, symbol: 'IX' },
+        { value: 5, symbol: 'V' },
+        { value: 4, symbol: 'IV' },
+        { value: 1, symbol: 'I' }
+    ];
+
+    let result = '';
+    for (let i = 0; i < romanNumerals.length; i++) {
+        while (num >= romanNumerals[i].value) {
+            result += romanNumerals[i].symbol;
+            num -= romanNumerals[i].value;
+        }
+    }
+    return result;
+}
+
 export const TAIleapSeconds = [
     "1972-06-30T23:59:59Z",
     "1972-12-31T23:59:59Z",

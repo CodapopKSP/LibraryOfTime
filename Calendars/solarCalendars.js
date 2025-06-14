@@ -7,7 +7,6 @@
 import * as utilities from '../utilities.js';
 import * as astronomicalData from '../Other/astronomicalData.js';
 
-
 // Function to compute the Julian Day Number from a Gregorian date
 export function gregorianToJDN(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
@@ -127,41 +126,6 @@ export function getJulianCalendar(currentDateTime) {
     return `${day} ${utilities.monthNames[month-1]} ${displayYear} ${yearSuffix}\n${utilities.weekNames[dayOfWeek]}`;
 }
 
-// Converts a number to Roman numerals
-export function toRomanNumerals(num) {
-    if (num === 0) {
-        return 'O';
-    }
-    if (num < 0) {
-        return '-' + toRomanNumerals(-num);
-    }
-
-    const romanNumerals = [
-        { value: 1000, symbol: 'M' },
-        { value: 900, symbol: 'CM' },
-        { value: 500, symbol: 'D' },
-        { value: 400, symbol: 'CD' },
-        { value: 100, symbol: 'C' },
-        { value: 90, symbol: 'XC' },
-        { value: 50, symbol: 'L' },
-        { value: 40, symbol: 'XL' },
-        { value: 10, symbol: 'X' },
-        { value: 9, symbol: 'IX' },
-        { value: 5, symbol: 'V' },
-        { value: 4, symbol: 'IV' },
-        { value: 1, symbol: 'I' }
-    ];
-
-    let result = '';
-    for (let i = 0; i < romanNumerals.length; i++) {
-        while (num >= romanNumerals[i].value) {
-            result += romanNumerals[i].symbol;
-            num -= romanNumerals[i].value;
-        }
-    }
-    return result;
-}
-
 // Returns a formatted Minguo local date
 export function getMinguo(currentDateTime) {
     let taiwanTime = new Date(currentDateTime);
@@ -192,20 +156,13 @@ export function getJuche(currentDateTime) {
 
 // Returns a formatted Thai solar local date
 export function getThaiSolar(currentDateTime) {
+
     const thaiSolarMonths = [
-        "มกราคม",
-        "กุมภาพันธ์",
-        "มีนาคม",
-        "เมษายน",
-        "พฤษภาคม",
-        "มิถุนายน",
-        "กรกฎาคม",
-        "สิงหาคม",
-        "กันยายน",
-        "ตุลาคม",
-        "พฤศจิกายน",
-        "ธันวาคม"
+        "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน",
+        "พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม",
+        "กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"
     ];
+
     const thaiSolarWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 
     let thaiTime = new Date(currentDateTime);
@@ -219,24 +176,18 @@ export function getThaiSolar(currentDateTime) {
 
 // Returns a formatted French Republican local date
 export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
+
     const FrenchRevolutionaryMonths = {
-        1: 'Vendémiaire',
-        2: 'Brumaire',
-        3: 'Frimaire',
-        4: 'Nivôse',
-        5: 'Pluviôse',
-        6: 'Ventôse',
-        7: 'Germinal',
-        8: 'Floréal',
-        9: 'Prairial',
-        10: 'Messidor',
-        11: 'Thermidor',
-        12: 'Fructidor',
-        13: 'Sansculottides'
+        1:'Vendémiaire', 2:'Brumaire', 3:'Frimaire', 4:'Nivôse',
+        5:'Pluviôse', 6:'Ventôse', 7:'Germinal', 8:'Floréal',
+        9:'Prairial', 10:'Messidor', 11:'Thermidor',
+        12:'Fructidor', 13:'Sansculottides'
     };
 
     const frenchWeek = ['Primidi', 'Duodi', 'Tridi', 'Quartidi', 'Quintidi', 'Sextidi', 'Septidi', 'Octidi', 'Nonidi', 'Décadi'];
-    const SansculottidesWeek = ['La Fête de la Vertu', 'La Fête du Génie', 'La Fête du Travail', 'La Fête de l\'Opinion', 'La Fête des Récompenses', 'La Fête de la Révolution'];
+    const SansculottidesWeek = ['La Fête de la Vertu','La Fête du Génie','La Fête du Travail',
+        'La Fête de l\'Opinion','La Fête des Récompenses','La Fête de la Révolution'
+    ];
 
     // Get starting and ending equinoxes, Paris Time (CET)
     let startingEquinox = new Date(vernalEquinox);
@@ -279,7 +230,7 @@ export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
         weekString = SansculottidesWeek[day-1];
     }
 
-    return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE\n' + weekString;
+    return day + " " + FrenchRevolutionaryMonths[month] + " " + utilities.toRomanNumerals(yearsSince1792) + ' RE\n' + weekString;
 }
 
 // Returns a formatted EF local date
@@ -291,11 +242,12 @@ export function getEraFascista(currentDateTime) {
         october29.setUTCFullYear(october29.getUTCFullYear() - 1);
     }
     let yearsSince1922 = october29.getUTCFullYear() - 1921;
-    return `Anno ${toRomanNumerals(yearsSince1922)}`;
+    return `Anno ${utilities.toRomanNumerals(yearsSince1922)}`;
 }
 
 // Returns a formatted Coptic UTC date based on the Julian Day (not Julian date)
 export function getCopticDate(currentDateTime) {
+
     const copticMonths = [
         "Thout", "Paopi", "Hathor", "Koiak", "Tobi", "Meshir",
         "Paremhat", "Parmouti", "Pashons", "Paoni", "Epip", "Mesori", "Pi Kogi Enavot"
@@ -327,18 +279,7 @@ export function getCopticDate(currentDateTime) {
     let CopticYear = yearsSinceEpoch;
     
     // Get the weekday based on midnight in Egypt
-    let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(22);
-    startOfToday.setUTCMinutes(0);
-    startOfToday.setUTCSeconds(0);
-    startOfToday.setUTCMilliseconds(0);
-    let dayOfWeek = startOfToday.getUTCDay();
-    if (currentDateTime >= startOfToday) {
-        dayOfWeek += 1;
-        if (dayOfWeek > 6) {
-            dayOfWeek -= 7;
-        }
-    }
+    const dayOfWeek = utilities.getWeekdayAtTime(currentDateTime, { hour: 22, minute: 0 });
 
     let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
     if (remainingDays <= 0) {
@@ -364,20 +305,10 @@ export function getCopticDate(currentDateTime) {
 
 // Returns a formatted Ethiopian UTC date based on the Julian Day (not Julian date)
 export function getEthiopianDate(currentDateTime) {
+
     const ethiopianMonths = [
-        "Mäskäräm",
-        "Ṭəqəmt",
-        "Ḫədar",
-        "Taḫśaś",
-        "Ṭərr",
-        "Yäkatit",
-        "Mägabit",
-        "Miyazya",
-        "Gənbo",
-        "Säne",
-        "Ḥamle",
-        "Nähase",
-        "Ṗagume"
+        "Mäskäräm","Ṭəqəmt","Ḫədar","Taḫśaś","Ṭərr","Yäkatit","Mägabit",
+        "Miyazya","Gənbo","Säne","Ḥamle","Nähase","Ṗagume"
     ];
 
     const ethiopianWeek = [
@@ -407,18 +338,7 @@ export function getEthiopianDate(currentDateTime) {
     let EthiopianYear = yearsSinceEpoch;
     
     // Get the weekday based on midnight in Ethiopia
-    let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(21);
-    startOfToday.setUTCMinutes(0);
-    startOfToday.setUTCSeconds(0);
-    startOfToday.setUTCMilliseconds(0);
-    let dayOfWeek = startOfToday.getUTCDay();
-    if (currentDateTime >= startOfToday) {
-        dayOfWeek += 1;
-        if (dayOfWeek > 6) {
-            dayOfWeek -= 7;
-        }
-    }
+    const dayOfWeek = utilities.getWeekdayAtTime(currentDateTime, { hour: 21, minute: 0 });
 
     let remainingDays = daysSinceEpoch - Math.floor((365 * yearsSinceEpoch + Math.floor(yearsSinceEpoch / 4)));
     if (remainingDays <= 0) {
@@ -463,18 +383,7 @@ export function getByzantineCalendar(currentDateTime) {
     }
 
     // Get weekday based on midnight in Istanbul
-    let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(21);
-    startOfToday.setUTCMinutes(0);
-    startOfToday.setUTCSeconds(0);
-    startOfToday.setUTCMilliseconds(0);
-    let dayOfWeek = startOfToday.getUTCDay();
-    if (currentDateTime >= startOfToday) {
-        dayOfWeek += 1;
-        if (dayOfWeek > 6) {
-            dayOfWeek -= 7;
-        }
-    }
+    const dayOfWeek = utilities.getWeekdayAtTime(currentDateTime, { hour: 21, minute: 0 });
     
     const monthString = utilities.monthNames[julianDate.month - 1]; // Adjust for 0-based index
     const dayString = julianDate.day;
@@ -599,6 +508,21 @@ export function getVenetianCalendar(currentDateTime) {
 // Returns a formatted Baha'i IRST date
 export function getBahaiCalendar(currentDateTime, vernalEquinox) {
 
+    const bahaiMonths = [
+        "Bahá","Jalál","Jamál","‘Aẓamat","Núr","Raḥmat","Kalimát","Kamál","Asmá’","‘Izzat",
+        "Mashíyyat","‘Ilm","Qudrat","Qawl","Masá’il","Sharaf","Sulṭán","Mulk","Ayyám-i-Há","‘Alá’"
+    ];
+
+    const bahaiWeek = [
+        "Jamál",    // Beauty
+        "Kamál",    // Perfection
+        "Fiḍál",    // Grace
+        "‘Idál",    // Justice
+        "Istijlál", // Majesty
+        "Istiqlál", // Independence
+        "Jalál"     // Glory
+    ];
+
     // Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
     function figureOutEquinoxBeforeAfterSunset(equinox) {
         let equinoxDaySunset = new Date(equinox);
@@ -642,40 +566,8 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
     let todaySunsetInTehran = new Date(currentDateTime);
     todaySunsetInTehran.setUTCHours(12);
     todaySunsetInTehran.setUTCMinutes(30);
+    todaySunsetInTehran.setUTCSeconds(0);
     todaySunsetInTehran.setUTCMilliseconds(0);
-
-    const BahaMonths = [
-        "Bahá",
-        "Jalál",
-        "Jamál",
-        "‘Aẓamat",
-        "Núr",
-        "Raḥmat",
-        "Kalimát",
-        "Kamál",
-        "Asmá’",
-        "‘Izzat",
-        "Mashíyyat",
-        "‘Ilm",
-        "Qudrat",
-        "Qawl",
-        "Masá’il",
-        "Sharaf",
-        "Sulṭán",
-        "Mulk",
-        "Ayyám-i-Há",
-        "‘Alá’"
-    ];
-
-    const bahaiWeek = [
-        "Jamál",    // Beauty
-        "Kamál",    // Perfection
-        "Fiḍál",    // Grace
-        "‘Idál",    // Justice
-        "Istijlál", // Majesty
-        "Istiqlál", // Independence
-        "Jalál"     // Glory
-    ];
     
     // Iterate through months from start until Mulk, find intercalary days, then iterate backwards for Ala
     let monthIndex = 0;
@@ -720,46 +612,17 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
     }
 
     // Get the weekday based on sunset in Tehran
-    let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(14);
-    startOfToday.setUTCMinutes(30);
-    startOfToday.setUTCSeconds(0);
-    startOfToday.setUTCMilliseconds(0);
-    let dayOfWeek = startOfToday.getUTCDay();
-    if (currentDateTime >= startOfToday) {
-        dayOfWeek += 1;
-        if (dayOfWeek > 6) {
-            dayOfWeek -= 7;
-        }
-    }
+    const dayOfWeek = utilities.getWeekdayAtTime(currentDateTime, { hour: 14, minute: 30 });
 
-    return currentDayOfYear + ' ' + BahaMonths[monthIndex] + ' ' + year + ' BE\n' + bahaiWeek[dayOfWeek];
+    return currentDayOfYear + ' ' + bahaiMonths[monthIndex] + ' ' + year + ' BE\n' + bahaiWeek[dayOfWeek];
 }
 
 // Returns a formatted Pataphysical local date
 export function getPataphysicalDate(currentDateTime) {
-    let mostRecentSept8 = new Date(currentDateTime.getFullYear(), 8, 8);
-    if (currentDateTime < mostRecentSept8) {
-        mostRecentSept8.setFullYear(currentDateTime.getFullYear()-1);
-    }
 
-    // Get days since last September, add 1 because days are 0 based
-    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, mostRecentSept8));
-
-    const months = [
-        "Absolu",
-        "Haha",
-        "As",
-        "Sable",
-        "Décervelage",
-        "Gueules",
-        "Pédale",
-        "Clinamen",
-        "Palotin",
-        "Merdre",
-        "Gidouille",
-        "Tatane",
-        "Phalle",
+    const pataphysicalMonths = [
+        "Absolu","Haha","As","Sable","Décervelage","Gueules","Pédale",
+        "Clinamen","Palotin","Merdre","Gidouille","Tatane","Phalle"
     ];
 
     const pataphysicalWeek = [
@@ -770,9 +633,16 @@ export function getPataphysicalDate(currentDateTime) {
         "Jeudi",    // Thursday
         "Vendredi", // Friday
         "Samedi"    // Saturday
-    ];
-    
+    ];  
 
+    let mostRecentSept8 = new Date(currentDateTime.getFullYear(), 8, 8);
+    if (currentDateTime < mostRecentSept8) {
+        mostRecentSept8.setFullYear(currentDateTime.getFullYear()-1);
+    }
+
+    // Get days since last September, add 1 because days are 0 based
+    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, mostRecentSept8));
+    
     // Last mont doesn't really have 30 days, but it's necessary
     let daysOfMonths = [28,28,28,28,28,28,28,28,28,28,29,28,29];
     let nextSept8 = new Date(mostRecentSept8);
@@ -793,7 +663,7 @@ export function getPataphysicalDate(currentDateTime) {
     }
 
     const day = remainingDays+1;
-    const month = months[monthIndex];
+    const month = pataphysicalMonths[monthIndex];
     let year = mostRecentSept8.getFullYear()-1872; // Get epoch
     const dayOfWeek = currentDateTime.getDay();
 
@@ -802,12 +672,8 @@ export function getPataphysicalDate(currentDateTime) {
 
 // Returns a formatted Discordian local date
 export function getDiscordianDate(currentDateTime) {
-    const startOfYear = new Date(currentDateTime.getFullYear(), 0, 1);
-    const endOfYear = new Date(currentDateTime.getFullYear()+1, 0, 1);
-    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, startOfYear)+1);
-    const leapYear = utilities.differenceInDays(endOfYear, startOfYear) === 366;
 
-    const months = [
+    const discordianMonths = [
         "Chaos",
         "Discord",
         "Confusion",
@@ -823,6 +689,11 @@ export function getDiscordianDate(currentDateTime) {
         "Setting Orange"
     ];
 
+    const startOfYear = new Date(currentDateTime.getFullYear(), 0, 1);
+    const endOfYear = new Date(currentDateTime.getFullYear()+1, 0, 1);
+    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, startOfYear)+1);
+    const leapYear = utilities.differenceInDays(endOfYear, startOfYear) === 366;
+
     if ((leapYear)&&(remainingDays>=60)) {
         if (remainingDays===60) {
             return `St. Tib's Day`;
@@ -836,11 +707,23 @@ export function getDiscordianDate(currentDateTime) {
     let year = currentDateTime.getFullYear() + 1166;
     const dayOfWeek = remainingDays % 5;
 
-    return day + ' ' + months[month] + ' ' + year + ' YOLD\n' + discordianWeek[dayOfWeek];
+    return day + ' ' + discordianMonths[month] + ' ' + year + ' YOLD\n' + discordianWeek[dayOfWeek];
 }
 
 // Returns a formatted Solar Hijri IRST date
 export function getSolarHijriDate(currentDateTime, vernalEquinox_) {
+
+    // Solar Hijri month and week names
+    const solarHijriMonths = [
+        "Farvardin", "Ordibehesht", "Khordad", "Tir", "Mordad", "Shahrivar",
+        "Mehr", "Aban", "Azar", "Dey", "Bahman", "Esfand"
+    ];
+
+    const solarHijriWeek = [
+        "Shanbeh", "Yekshanbeh", "Doshanbeh", "Seshanbeh", "Chaharshanbeh",
+        "Panjshanbeh", "Jomeh"
+    ];
+
     let vernalEquinox = figureOutEquinoxBeforeAfterNoon(vernalEquinox_);
 
     // Calculate if the New Year should start later or earlier based on noon in Tehran (UTC+3:30)
@@ -881,17 +764,6 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox_) {
     const leapYear = utilities.differenceInDays(endingEquinox, startingEquinox) === 366;
     let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, startingEquinox));
 
-    // Solar Hijri month and week names
-    const SolarHijriMonths = [
-        "Farvardin", "Ordibehesht", "Khordad", "Tir", "Mordad", "Shahrivar",
-        "Mehr", "Aban", "Azar", "Dey", "Bahman", "Esfand"
-    ];
-
-    const SolarHijriWeek = [
-        "Shanbeh", "Yekshanbeh", "Doshanbeh", "Seshanbeh", "Chaharshanbeh",
-        "Panjshanbeh", "Jomeh"
-    ];
-
     // Days per month in Solar Hijri calendar
     let daysOfMonths = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
     if (leapYear) {
@@ -919,7 +791,7 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox_) {
         monthIndex = 0;
     }
     
-    const month = SolarHijriMonths[monthIndex];
+    const month = solarHijriMonths[monthIndex];
     let year = startingEquinox.getUTCFullYear() - 621;
 
     // Adjust for dates before epoch
@@ -928,100 +800,50 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox_) {
     }
 
     // Determine weekday based on midnight in Tehran (20:30 UTC)
-    let sunsetBasedDate = new Date(currentDateTime);
-    sunsetBasedDate.setUTCHours(20);
-    sunsetBasedDate.setUTCMinutes(30);
-    sunsetBasedDate.setUTCSeconds(0);
-    sunsetBasedDate.setUTCMilliseconds(0);
-    let dayOfWeek = sunsetBasedDate.getUTCDay();
-    if (currentDateTime >= sunsetBasedDate) {
-        dayOfWeek += 1;
-        if (dayOfWeek > 6) {
-            dayOfWeek -= 7;
-        }
-    }
+    const dayOfWeek = utilities.getWeekdayAtTime(currentDateTime, { hour: 20, minute: 30 });
 
-    return day + ' ' + month + ' ' + year + ' SH\n' + SolarHijriWeek[dayOfWeek];
+    return day + ' ' + month + ' ' + year + ' SH\n' + solarHijriWeek[dayOfWeek];
 }
 
 // Returns a formatted Qadimi IRST date
 export function getQadimiDate(currentDateTime) {
-    // Noon in Iran in 19 June 632, a base Nowruz day
-    const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 2, 30, 0));
-    const daysSince632 = Math.floor(utilities.differenceInDays(currentDateTime, Nowruz632Noon));
-    const yearsSince632 = Math.floor(daysSince632/365);
-    let remainingDays = daysSince632 - (yearsSince632*365)+1;
 
-    // Zoroastrian calendar months 
-    let months = [
-        'Farvardin',
-        'Ardibehesht',
-        'Khordad',
-        'Tir',
-        'Amardad',
-        'Shehrevar',
-        'Mehr',
-        'Aban',
-        'Azar',
-        'Dae',
-        'Bahman',
-        'Asfand',
-        'Gatha'
+    // Qadimi calendar months 
+    let qadimiMonths = [
+        'Farvardin','Ardibehesht','Khordad','Tir','Amardad','Shehrevar',
+        'Mehr','Aban','Azar','Dae','Bahman','Asfand','Gatha'
     ];
 
-    // Names of Zoroastrian days
-    const zoroastrianDays = [
-        "Hormazd",      // Day 1
-        "Bahman",       // Day 2
-        "Ardibehesht",  // Day 3
-        "Shehrevar",    // Day 4
-        "Aspandard",    // Day 5
-        "Khordad",      // Day 6
-        "Amardad",      // Day 7
-        "Dae-Pa-Adar",  // Day 8
-        "Adar",         // Day 9
-        "Avan",         // Day 10
-        "Khorshed",     // Day 11
-        "Mohor",        // Day 12
-        "Tir",          // Day 13
-        "Gosh",         // Day 14
-        "Dae-Pa-Meher", // Day 15
-        "Meher",        // Day 16
-        "Srosh",        // Day 17
-        "Rashne",       // Day 18
-        "Fravardin",    // Day 19
-        "Behram",       // Day 20
-        "Ram",          // Day 21
-        "Govad",        // Day 22
-        "Dae-Pa-Din",   // Day 23
-        "Din",          // Day 24
-        "Ashishvangh",  // Day 25
-        "Ashtad",       // Day 26
-        "Asman",        // Day 27
-        "Zamyad",       // Day 28
-        "Mareshpand",   // Day 29
-        "Aneran",       // Day 30
+
+    // Names of Qadimi days
+    const qadimiDays = [
+        "Hormazd","Bahman","Ardibehesht","Shehrevar","Aspandard","Khordad","Amardad","Dae-Pa-Adar","Adar","Avan",
+        "Khorshed","Mohor","Tir","Gosh","Dae-Pa-Meher","Meher","Srosh","Rashne","Fravardin","Behram",
+        "Ram","Govad","Dae-Pa-Din","Din","Ashishvangh","Ashtad","Asman","Zamyad","Mareshpand","Aneran"
     ];
+
 
     // The names of the days that happen at the end of the year
     const gathaDays = [
-        "Ahunavaiti",
-        "Ushtavaiti",
-        "Spentamainyu",
-        "Vohuxshathra",
-        "Vahishtoishti"
+        "Ahunavaiti","Ushtavaiti","Spentamainyu","Vohuxshathra","Vahishtoishti"
     ];
 
+    // Names of Qadimi days of the week (calibrated to -1)
     const qadimiWeek = [
+        "Jomeh",        // Saturday
         "Shanbeh",      // Sunday
         "Yekshanbeh",   // Monday
         "Doshanbeh",    // Tuesday
         "Seshanbeh",    // Wednesday
         "Chaharshanbeh",// Thursday
         "Panjshanbeh",  // Friday
-        "Jomeh",        // Saturday
     ];
-    
+
+    // Noon in Iran in 19 June 632, a base Nowruz day
+    const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 2, 30, 0));
+    const daysSince632 = Math.floor(utilities.differenceInDays(currentDateTime, Nowruz632Noon));
+    const yearsSince632 = Math.floor(daysSince632/365);
+    let remainingDays = daysSince632 - (yearsSince632*365)+1;
 
     // Step through months
     let monthIndex = 0;
@@ -1030,23 +852,12 @@ export function getQadimiDate(currentDateTime) {
         remainingDays -= 30;
     }
 
-    let day = zoroastrianDays[remainingDays-1];
-    let month = months[monthIndex];
+    let day = qadimiDays[remainingDays-1];
+    let month = qadimiMonths[monthIndex];
     const year = yearsSince632 +1;
 
     // Determine weekday based on sunrise in Tehran (2:30 UTC)
-    let sunriseBasedDate = new Date(currentDateTime);
-    sunriseBasedDate.setUTCHours(2);
-    sunriseBasedDate.setUTCMinutes(30);
-    sunriseBasedDate.setUTCSeconds(0);
-    sunriseBasedDate.setUTCMilliseconds(0);
-    let dayOfWeek = sunriseBasedDate.getUTCDay() - 1;
-    if (currentDateTime >= sunriseBasedDate) {
-        dayOfWeek += 1;
-    }
-    if (dayOfWeek > 6) {
-        dayOfWeek -= 7;
-    }
+    const dayOfWeek = utilities.getWeekdayAtTime(currentDateTime, { hour: 2, minute: 30 });
 
     // If Gatha days, use Gatha day names
     if ((monthIndex>11)&&(remainingDays<6)) {
@@ -1059,23 +870,16 @@ export function getQadimiDate(currentDateTime) {
 
 // Returns a formatted Egyptian Civil local date
 export function getEgyptianDate(currentDateTime) {
+
     const EgyptianSeasons = ["Akhet", "Peret", "Shemu", "Heriu Renpet"];
-    const EgyptianMonths = [
-        "Tekh",
-        "Menhet",
-        "Hwt-Hrw",
-        "Ka-Hr-Ka",
-        "Sf-Bdt",
-        "Rekh Wer",
-        "Rekh Neds",
-        "Renwet",
-        "Hnsw",
-        "Hnt-Htj",
-        "Ipt-Hmt",
-        "Wep-Renpet"
-    ];
     const EgyptianIntercalaryDays = ["Osiris", "Horus the Elder", "Set", "Isis", "Nephthys"];
     const EgyptianMonthNumbers = ["I", "II", "III", "IV"];
+
+    // Unused
+    const EgyptianMonths = [
+        "Tekh","Menhet","Hwt-Hrw","Ka-Hr-Ka","Sf-Bdt","Rekh Wer",
+        "Rekh Neds","Renwet","Hnsw","Hnt-Htj","Ipt-Hmt","Wep-Renpet"
+    ];
 
     const startOfAkhet2781 = new Date(Date.UTC(-2781, 5, 26, 22, 0, 0));
     const daysSincestartOfAkhet2781 = Math.floor(utilities.differenceInDays(currentDateTime, startOfAkhet2781));
@@ -1126,6 +930,7 @@ export function getISOWeekDate(currentDateTime) {
 }
 
 export function getHaabDate(currentDateTime) {
+
     const haabMonths = [
         "Pop", "Wo'", "Sip", "Sotz'", "Sek", "Xul",
         "Yaxk'in'", "Mol", "Ch'en", "Yax", "Sak'",
