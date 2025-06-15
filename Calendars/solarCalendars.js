@@ -67,6 +67,7 @@ export function getApproxJulianDate(currentDateTime) {
     return julianDate;
 }
 
+// Returns a formatted Astronomical calendar UTC date
 export function getAstronomicalDate(currentDateTime) {
     const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
     let astronomical = new Date(currentDateTime);
@@ -112,7 +113,7 @@ export function getGregorianDateTime(currentDateTime, timezoneOffset) {
     return {date: dateDisplayString, time: timeDisplayString};
 }
 
-// Returns a formatted Julian calendar local date
+// Returns a formatted Julian calendar UTC date
 export function getJulianCalendar(currentDateTime) {
     const julianDate = getRealJulianDate(currentDateTime);
     const dayOfWeek = currentDateTime.getUTCDay();
@@ -126,7 +127,7 @@ export function getJulianCalendar(currentDateTime) {
     return `${day} ${utilities.monthNames[month-1]} ${displayYear} ${yearSuffix}\n${utilities.weekNames[dayOfWeek]}`;
 }
 
-// Returns a formatted Minguo local date
+// Returns a formatted Minguo CST (Chinese Standard Time) date
 export function getMinguo(currentDateTime) {
     let taiwanTime = new Date(currentDateTime);
     taiwanTime.setTime(taiwanTime.getTime()+(8*3600000));
@@ -139,7 +140,7 @@ export function getMinguo(currentDateTime) {
     return '民國 ' + year + '年 ' + month + '月 ' + day + '日\n星期' + minguoWeek[dayOfWeek];
 }
 
-// Returns a formatted Juche local date
+// Returns a formatted Juche KST date
 export function getJuche(currentDateTime) {
     let jucheTime = new Date(currentDateTime);
     jucheTime.setTime(jucheTime.getTime()+(9*3600000));
@@ -154,7 +155,7 @@ export function getJuche(currentDateTime) {
     return 'Juche ' + year + '.' + monthString + '.' + day + '\n' + jucheWeek[dayOfWeek] + '요일';
 }
 
-// Returns a formatted Thai solar local date
+// Returns a formatted Thai Solar THB date
 export function getThaiSolar(currentDateTime) {
 
     const thaiSolarMonths = [
@@ -174,7 +175,7 @@ export function getThaiSolar(currentDateTime) {
     return day + ' ' + thaiSolarMonths[month] + ' B.E. ' + year + '\n' + thaiSolarWeek[dayOfWeek];
 }
 
-// Returns a formatted French Republican local date
+// Returns a formatted French Republican CET date
 export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
 
     const FrenchRevolutionaryMonths = {
@@ -233,7 +234,7 @@ export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     return day + " " + FrenchRevolutionaryMonths[month] + " " + utilities.toRomanNumerals(yearsSince1792) + ' RE\n' + weekString;
 }
 
-// Returns a formatted EF local date
+// Returns a formatted EF CET date
 export function getEraFascista(currentDateTime) {
     // Only update the year if past October 29th, otherwise it is the previous year.
     let october29 = utilities.createDateWithFixedYear(currentDateTime.getUTCFullYear(), 9, 28, 23);
@@ -302,7 +303,7 @@ export function getCopticDate(currentDateTime) {
     return remainingDays + ' ' + copticMonths[CopticMonth] + ' ' + CopticYear + ' AM\n' + copticWeek[dayOfWeek];
 }
 
-// Returns a formatted Ethiopian UTC date based on the Julian Day (not Julian date)
+// Returns a formatted Ethiopian EET date
 export function getEthiopianDate(currentDateTime) {
 
     const ethiopianMonths = [
@@ -360,7 +361,7 @@ export function getEthiopianDate(currentDateTime) {
     return remainingDays + ' ' + ethiopianMonths[EthiopianMonth] + ' ዓ.ም.' + EthiopianYear + '\n' + ethiopianWeek[dayOfWeek];
 }
 
-// Returns a formatted Byzantine local date
+// Returns a formatted Byzantine TRT date
 export function getByzantineCalendar(currentDateTime) {
     const adjustedDateTime = new Date(currentDateTime);
 

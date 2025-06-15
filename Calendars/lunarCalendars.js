@@ -8,7 +8,7 @@ import * as utilities from '../utilities.js';
 import * as astronomicalData from '../Other/astronomicalData.js';
 
 // Returns a formatted Hijri calendar AST date
-export function getHijriDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
+export function getUmmalQuraDate(currentDateTime, newMoonThisMonth, newMoonLastMonth) {
 
     const HijriMonths = {
         0: 'al-Muḥarram',

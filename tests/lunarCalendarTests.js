@@ -3,6 +3,29 @@ import {parseInputDate} from '../userInterface.js';
 import * as lunarCalendars from '../Calendars/lunarCalendars.js';
 import * as astronomicalData from '../Other/astronomicalData.js';
 
+function runGetUmmalQuraDateTests(testCases) {
+    let failedTestCount = 0;
+    let testCount = 0;
+
+    for (const [inputDate, timezone, expectedDate] of testCases) {
+        testCount++;
+
+        const testedDate = parseInputDate(inputDate, timezone);
+        const newMoonThisMonth = astronomicalData.getMoonPhase(testedDate, 0);
+        const newMoonLastMonth = astronomicalData.getMoonPhase(testedDate, -1);
+        const actualDate = lunarCalendars.getUmmalQuraDate(testedDate, newMoonThisMonth, newMoonLastMonth);
+
+        if (actualDate !== expectedDate) {
+            console.error(`Umm al-Qura: Test ${testCount} failed.`);
+            console.error('Expected:', expectedDate);
+            console.error('Received:', actualDate);
+            failedTestCount++;
+        }
+    }
+
+    return failedTestCount;
+}
+
 function runTimeOfSunsetAfterLastNewMoonTests(testCases) {
     let failedTestCount = 0;
     let testCount = 0;
@@ -16,7 +39,28 @@ function runTimeOfSunsetAfterLastNewMoonTests(testCases) {
         const actualDate = lunarCalendars.timeOfSunsetAfterLastNewMoon(testedDate, newMoonThisMonth, newMoonLastMonth).toUTCString();
 
         if (actualDate !== expectedDate) {
-            console.error(`DateOfLastDayAfterNewMoonBeforeSunset: Test ${testCount} failed (Date).`);
+            console.error(`DateOfLastDayAfterNewMoonBeforeSunset: Test ${testCount} failed.`);
+            console.error('Expected:', expectedDate);
+            console.error('Received:', actualDate);
+            failedTestCount++;
+        }
+    }
+
+    return failedTestCount;
+}
+
+function runCalculateIslamicMonthAndYearTests(testCases) {
+    let failedTestCount = 0;
+    let testCount = 0;
+
+    for (const [lunation, expectedDate] of testCases) {
+        testCount++;
+
+        const actualDate_ = lunarCalendars.calculateIslamicMonthAndYear(lunation);
+        const actualDate = actualDate_.year + ' ' + actualDate_.month;
+
+        if (actualDate !== expectedDate) {
+            console.error(`CalculateIslamicMonthAndYear: Test ${testCount} failed.`);
             console.error('Expected:', expectedDate);
             console.error('Received:', actualDate);
             failedTestCount++;
@@ -34,10 +78,19 @@ function testTimeOfSunsetAfterLastNewMoon() {
     ]);
 }
 
+function testCalculateIslamicMonthAndYear() {
+    return runCalculateIslamicMonthAndYearTests([
+        [0, "1420 9"],
+        [10, "1421 7"],
+        [144, "1432 9"],
+    ]);
+}
+
 // Run all tests.
 function runTests() {
     const testFunctions = [
-        testTimeOfSunsetAfterLastNewMoon
+        testTimeOfSunsetAfterLastNewMoon,
+        testCalculateIslamicMonthAndYear,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

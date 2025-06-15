@@ -9,12 +9,6 @@ export const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'
 export const decimals = 10;  // Decimals to show in some nodes
 export const updateMilliseconds = 20;  // Update tick length  
 
-export function createDateWithFixedYear(year, month, day, hour=0, minute=0, second=0, millisecond=0) {
-    let fixedDate = new Date(Date.UTC(year, month, day, hour, minute, second));
-    fixedDate.setUTCFullYear(year);
-    return fixedDate;
-}
-
 export function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);
     midnightInChina.setUTCDate(dateToFind.getDate()-1);
@@ -23,6 +17,13 @@ export function getMidnightInUTC(dateToFind, utcMidnight) {
     midnightInChina.setSeconds(0);
     midnightInChina.setMilliseconds(0);
     return midnightInChina;
+}
+
+// Fix JS Datetime objects: Years 1-99 return years 1901-1999. This returns the proper date.
+export function createDateWithFixedYear(year, month, day, hour=0, minute=0, second=0, millisecond=0) {
+    let fixedDate = new Date(Date.UTC(year, month, day, hour, minute, second));
+    fixedDate.setUTCFullYear(year);
+    return fixedDate;
 }
 
 // Takes two dates and returns the difference between them in days
