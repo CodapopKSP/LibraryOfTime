@@ -36,7 +36,7 @@ export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffs
     userInterface.setTimeValue('coptic-node', solarCalendars.getCopticDate(currentDateTime));
     userInterface.setTimeValue('ethiopian-node', solarCalendars.getEthiopianDate(currentDateTime));
     userInterface.setTimeValue('bahai-node', solarCalendars.getBahaiCalendar(currentDateTime, springEquinox));
-    userInterface.setTimeValue('pataphysical-node', solarCalendars.getPataphysicalDate(currentDateTime));
+    userInterface.setTimeValue('pataphysical-node', solarCalendars.getPataphysicalDate(currentDateTime, timezoneOffset));
     userInterface.setTimeValue('discordian-node', solarCalendars.getDiscordianDate(currentDateTime));
     userInterface.setTimeValue('solar-hijri-node', solarCalendars.getSolarHijriDate(currentDateTime, springEquinox));
     userInterface.setTimeValue('qadimi-node', solarCalendars.getQadimiDate(currentDateTime));

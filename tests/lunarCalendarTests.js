@@ -1,4 +1,4 @@
-import {convertUTCOffsetToMinutes, parseInputDate} from '../userInterface.js';
+import {parseInputDate} from '../userInterface.js';
 
 import * as lunarCalendars from '../Calendars/lunarCalendars.js';
 import * as astronomicalData from '../Other/astronomicalData.js';

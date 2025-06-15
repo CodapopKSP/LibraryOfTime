@@ -618,7 +618,7 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
 }
 
 // Returns a formatted Pataphysical local date
-export function getPataphysicalDate(currentDateTime) {
+export function getPataphysicalDate(currentDateTime, timezoneOffset) {
 
     const pataphysicalMonths = [
         "Absolu","Haha","As","Sable","Décervelage","Gueules","Pédale",
@@ -633,20 +633,26 @@ export function getPataphysicalDate(currentDateTime) {
         "Jeudi",    // Thursday
         "Vendredi", // Friday
         "Samedi"    // Saturday
-    ];  
+    ];
 
-    let mostRecentSept8 = new Date(currentDateTime.getFullYear(), 8, 8);
-    if (currentDateTime < mostRecentSept8) {
-        mostRecentSept8.setFullYear(currentDateTime.getFullYear()-1);
+    // Clear timezone offset from original datetime
+    let localTime = new Date(currentDateTime.getTime() + (timezoneOffset * 60000));
+
+    // September 8 at midnight
+    let localYear = currentDateTime.getUTCFullYear();
+    let mostRecentSept8 = new Date(Date.UTC(localYear, 8, 8));
+
+    if (localTime < mostRecentSept8) {
+        mostRecentSept8.setUTCFullYear(localTime.getUTCFullYear()-1);
     }
 
     // Get days since last September, add 1 because days are 0 based
-    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, mostRecentSept8));
+    let remainingDays = Math.floor(utilities.differenceInDays(localTime, mostRecentSept8));
     
     // Last mont doesn't really have 30 days, but it's necessary
     let daysOfMonths = [28,28,28,28,28,28,28,28,28,28,29,28,29];
     let nextSept8 = new Date(mostRecentSept8);
-    nextSept8.setFullYear(mostRecentSept8.getFullYear()+1);
+    nextSept8.setUTCFullYear(mostRecentSept8.getUTCFullYear()+1);
     const daysInYear = utilities.differenceInDays(nextSept8, mostRecentSept8);
 
     if (daysInYear===366) {
@@ -664,14 +670,14 @@ export function getPataphysicalDate(currentDateTime) {
 
     const day = remainingDays+1;
     const month = pataphysicalMonths[monthIndex];
-    let year = mostRecentSept8.getFullYear()-1872; // Get epoch
-    const dayOfWeek = currentDateTime.getDay();
+    let year = mostRecentSept8.getUTCFullYear()-1872; // Get epoch
+    const dayOfWeek = localTime.getUTCDay();
 
     return day + ' ' + month + ' ' + year + ' A.P.\n' + pataphysicalWeek[dayOfWeek];
 }
 
 // Returns a formatted Discordian local date
-export function getDiscordianDate(currentDateTime) {
+export function getDiscordianDate(currentDateTime, timezoneOffset) {
 
     const discordianMonths = [
         "Chaos",
@@ -689,14 +695,19 @@ export function getDiscordianDate(currentDateTime) {
         "Setting Orange"
     ];
 
-    const startOfYear = new Date(currentDateTime.getFullYear(), 0, 1);
-    const endOfYear = new Date(currentDateTime.getFullYear()+1, 0, 1);
-    let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, startOfYear)+1);
+    // Clear timezone offset from original datetime
+    let localTime = new Date(currentDateTime.getTime() + (timezoneOffset * 60000));
+
+    const startOfYear = new Date(Date.UTC(localTime.getUTCFullYear(), 0, 1));
+    const endOfYear = new Date(Date.UTC(localTime.getUTCFullYear()+1, 0, 1));
+    let remainingDays = Math.floor(utilities.differenceInDays(localTime, startOfYear)+1);
     const leapYear = utilities.differenceInDays(endOfYear, startOfYear) === 366;
+
+    let dayMonthString = '';
 
     if ((leapYear)&&(remainingDays>=60)) {
         if (remainingDays===60) {
-            return `St. Tib's Day`;
+            dayMonthString = `St. Tib's Day`;
         }
         remainingDays--;
     }
@@ -704,10 +715,15 @@ export function getDiscordianDate(currentDateTime) {
     const daysPerMonth = 73;
     let month = Math.floor(remainingDays / daysPerMonth);
     let day = Math.floor(remainingDays % daysPerMonth);
-    let year = currentDateTime.getFullYear() + 1166;
+    let year = localTime.getUTCFullYear() + 1166;
     const dayOfWeek = remainingDays % 5;
 
-    return day + ' ' + discordianMonths[month] + ' ' + year + ' YOLD\n' + discordianWeek[dayOfWeek];
+    if (dayMonthString==='') {
+        dayMonthString = day + ' ' + discordianMonths[month];
+    }
+
+
+    return dayMonthString + ' ' + year + ' YOLD\n' + discordianWeek[dayOfWeek];
 }
 
 // Returns a formatted Solar Hijri IRST date
@@ -911,25 +927,29 @@ export function getEgyptianDate(currentDateTime) {
     return monthAndDayText + ' (' + yearsSinceStartOfAkhet2781 + ')';
 }
 
-export function getISOWeekDate(currentDateTime) {
-    const target = new Date(currentDateTime.valueOf());
-    target.setFullYear(currentDateTime.getFullYear());
+export function getISOWeekDate(currentDateTime, timezoneOffset) {
 
-    const dayNumber = (currentDateTime.getDay() + 6) % 7 + 1; // ISO week day (1 = Monday, ..., 7 = Sunday)
+    // Clear timezone offset from original datetime
+    let localTime = new Date(currentDateTime.getTime() + (timezoneOffset * 60000));
+
+    const target = new Date(Date.UTC(localTime.valueOf()));
+    target.setUTCFullYear(localTime.getUTCFullYear());
+
+    const dayNumber = (localTime.getUTCDay() + 6) % 7 + 1; // ISO week day (1 = Monday, ..., 7 = Sunday)
     
     // Set to nearest Thursday (current date + 4 - current day number) to determine the ISO week year
-    target.setDate(target.getDate() + 4 - dayNumber);
-    target.setFullYear(target.getFullYear());
+    target.setUTCDate(target.getUTCDate() + 4 - dayNumber);
+    target.setUTCFullYear(target.getUTCFullYear());
 
-    const yearStart = new Date(target.getFullYear(), 0, 1);
-    yearStart.setFullYear(target.getFullYear()); // Ensure proper year handling
+    const yearStart = new Date(target.getUTCFullYear(), 0, 1);
+    yearStart.setUTCFullYear(target.getUTCFullYear()); // Ensure proper year handling
     const weekNumber = Math.ceil((((target - yearStart) / 86400000) + 1) / 7);
-    let weekYear = target.getFullYear();
+    let weekYear = target.getUTCFullYear();
 
     return `${weekYear}-W${weekNumber}-${dayNumber}`;
 }
 
-export function getHaabDate(currentDateTime) {
+export function getHaabDate(localTime) {
 
     const haabMonths = [
         "Pop", "Wo'", "Sip", "Sotz'", "Sek", "Xul",
@@ -939,7 +959,7 @@ export function getHaabDate(currentDateTime) {
     ];
 
     const mayaLongCount0 = new Date(Date.UTC(-3113, 7, 11, 6, 0, 0));
-    const totalDays = Math.floor(utilities.differenceInDays(currentDateTime, mayaLongCount0));
+    const totalDays = Math.floor(utilities.differenceInDays(localTime, mayaLongCount0));
     
     const startingHaabDay = 8;
     const startingHaabMonthIndex = haabMonths.indexOf("Kumk'u");

@@ -1,7 +1,8 @@
 
-import {convertUTCOffsetToMinutes, parseInputDate} from '../userInterface.js';
+import { parseInputDate } from '../userInterface.js';
 import * as solarCalendars from '../Calendars/solarCalendars.js';
 import * as astronomicalData from '../Other/astronomicalData.js';
+import { convertUTCOffsetToMinutes } from '../utilities.js';
 
 function runGregorianCalendarTests(testCases) {
     let failedTestCount = 0;
@@ -59,8 +60,10 @@ function runCalendarTests(calendarName, getCalendarFunction, testCases) {
 
     for (const [inputDate, timezone, expectedOutput] of testCases) {
         testCount++;
+        // Get Timezone Offset for Local Calendars
+        const timezoneOffset = convertUTCOffsetToMinutes(timezone);
         const testedDate = parseInputDate(inputDate, timezone);
-        const result = getCalendarFunction(testedDate);
+        const result = getCalendarFunction(testedDate, timezoneOffset);
         if (result !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
@@ -190,16 +193,23 @@ function testVenetianCalendar() {
 function testPataphysicalCalendar() {
     return runCalendarTests("Pataphysical Calendar", solarCalendars.getPataphysicalDate, [
         ["1873-9-8, 00:00:00", "UTC+00:00", "1 Absolu 1 A.P.\nLundi"],
-        ["2000-1-1, 00:00:00", "UTC+00:00", "4 Décervelage 127 A.P.\nSamedi"],
+        ["1873-9-8, 00:00:00", "UTC+14:00", "1 Absolu 1 A.P.\nLundi"],
+        ["2000-1-1, 00:00:00", "UTC-00:00", "4 Décervelage 127 A.P.\nSamedi"],
+        ["2000-1-1, 00:00:00", "UTC-12:00", "4 Décervelage 127 A.P.\nSamedi"],
         ["2012-11-10, 00:00:00", "UTC+00:00", "8 As 140 A.P.\nSamedi"],
+        ["2012-11-10, 23:00:00", "UTC+14:00", "8 As 140 A.P.\nSamedi"],
     ]);
 }
 
 function testDiscordianCalendar() {
     return runCalendarTests("Discordian Calendar", solarCalendars.getDiscordianDate, [
         ["-1165-1-5, 00:00:00", "UTC+00:00", "5 Chaos 1 YOLD\nSweetmorn"],
+        ["-1165-1-5, 00:00:00", "UTC+14:00", "5 Chaos 1 YOLD\nSweetmorn"],
         ["2000-3-19, 00:00:00", "UTC+00:00", "5 Discord 3166 YOLD\nPrickle-Prickle"],
+        ["2000-3-19, 00:00:00", "UTC-12:00", "5 Discord 3166 YOLD\nPrickle-Prickle"],
         ["2025-12-8, 00:00:00", "UTC+00:00", "50 The Aftermath 3191 YOLD\nPungenday"],
+        ["2025-12-8, 23:00:00", "UTC+14:00", "50 The Aftermath 3191 YOLD\nPungenday"],
+        ["2024-2-29, 23:00:00", "UTC+14:00", "St. Tib's Day 3190 YOLD\nSetting Orange"],
     ]);
 }
 
@@ -225,8 +235,13 @@ function testEgyptianCivilCalendar() {
 function testISOWeekDateCalendar() {
     return runCalendarTests("ISO Week Date Calendar", solarCalendars.getISOWeekDate, [
         ["1-1-1, 00:00:00", "UTC+00:00", "1-W1-1"],
+        ["1-1-1, 00:00:00", "UTC+14:00", "1-W1-1"],
         ["2000-1-1, 00:00:00", "UTC+00:00", "1999-W53-6"],
+        ["2000-1-1, 00:00:00", "UTC-12:00", "1999-W53-6"],
+        ["2025-6-14, 23:00:00", "UTC+14:00", "2025-W24-6"],
         ["2025-6-14, 00:00:00", "UTC+00:00", "2025-W24-6"],
+        ["2006-12-31, 00:00:00", "UTC+00:00", "2006-W52-7"],
+        ["2006-12-31, 23:00:00", "UTC+00:00", "2006-W52-7"],
     ]);
 }
 

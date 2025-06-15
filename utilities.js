@@ -4,7 +4,6 @@
 
 // A set of functions for calculating times in the Computing Time category.
 
-
 export const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const decimals = 10;  // Decimals to show in some nodes
@@ -60,6 +59,21 @@ export function findStartOfLastCycle(currentDateTime, cycleTime) {
     startOfLastCycle.setUTCSeconds(0);
     startOfLastCycle.setUTCMilliseconds(0);
     return startOfLastCycle;
+}
+
+// Convert chosen timezone into minutes to add
+export function convertUTCOffsetToMinutes(offsetString) {
+    // Validate the input format
+    const regex = /^UTC([+-])(\d{2}):(\d{2})$/;
+    const match = offsetString.trim().match(regex);
+
+    // Extract the sign, hours, and minutes from the matched parts
+    const sign = match[1] === "+" ? 1 : -1;
+    const hours = parseInt(match[2], 10);
+    const minutes = parseInt(match[3], 10);
+
+    // Convert the total offset to minutes
+    return sign * (hours * 60 + minutes);
 }
 
 // Converts a number to Roman numerals

@@ -1,4 +1,5 @@
-import {convertUTCOffsetToMinutes, parseInputDate, adjustCalendarType, setCalendarType} from '../userInterface.js';
+import {parseInputDate, adjustCalendarType, setCalendarType} from '../userInterface.js';
+import * as utilities from '../utilities.js';
 
 function runTimezoneFormatterTests(testCases) {
     let failedTestCount = 0;
@@ -6,7 +7,7 @@ function runTimezoneFormatterTests(testCases) {
 
     for (const [timezoneInput, expectedMinutes] of testCases) {
         testCount++;
-        const result = convertUTCOffsetToMinutes(timezoneInput);
+        const result = utilities.convertUTCOffsetToMinutes(timezoneInput);
         if (result !== expectedMinutes) {
             console.error(`Timezone Offset: Test ${testCount} failed.`);
             console.error('Expected:', expectedMinutes);

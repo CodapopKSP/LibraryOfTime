@@ -45,22 +45,6 @@ export function setCurrentUpdateInterval(newInterval) {
     _currentUpdateInterval = newInterval;
 }
 
-
-// Convert chosen timezone into minutes to add
-export function convertUTCOffsetToMinutes(offsetString) {
-    // Validate the input format
-    const regex = /^UTC([+-])(\d{2}):(\d{2})$/;
-    const match = offsetString.trim().match(regex);
-
-    // Extract the sign, hours, and minutes from the matched parts
-    const sign = match[1] === "+" ? 1 : -1;
-    const hours = parseInt(match[2], 10);
-    const minutes = parseInt(match[3], 10);
-
-    // Convert the total offset to minutes
-    return sign * (hours * 60 + minutes);
-}
-
 // Return a formatted dateTime based on the user's date from the input field
 // THIS BREAKS JS DATE TIME BECAUSE TAIWAN TIME IS UTC+08:06 BEFORE CERTAIN DATES
 export function parseInputDate(dateInput, timezoneOffset) {
@@ -78,7 +62,7 @@ export function parseInputDate(dateInput, timezoneOffset) {
     let [inputHour, inputMinute, inputSecond] = inputTime ? inputTime.split(':').map(Number) : [0, 0, 0];
 
     // Convert timezone offset string (e.g., "+08:00") to minutes
-    const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
+    const offsetInMinutes = utilities.convertUTCOffsetToMinutes(timezoneOffset);
 
     // Construct UTC time in milliseconds
     let utcMillis = Date.UTC(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond);
@@ -96,7 +80,6 @@ export function parseInputDate(dateInput, timezoneOffset) {
 
     return dateTime;
 }
-
 
 // Calculate display date for user's calendar choice
 export function adjustCalendarType(currentDateTime) {
@@ -196,7 +179,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
                 setTimeValue('this-full-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.5).toUTCString());
                 setTimeValue('this-last-quarter-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.75).toUTCString());
             case 8:
-                nodeUpdate.updateSolarCalendars(currentDateTime, calendarType, convertUTCOffsetToMinutes(timezoneOffset));
+                nodeUpdate.updateSolarCalendars(currentDateTime, calendarType, utilities.convertUTCOffsetToMinutes(timezoneOffset));
             case 9:
                 nodeUpdate.updateOtherCalendars(currentDateTime, marsSolDay);
         }
@@ -205,7 +188,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     // Update if at the beginning of a second
     if ((currentDateTime.getMilliseconds() < utilities.updateMilliseconds)||(currentPass===100)) {
         nodeUpdate.updateComputingTimes(currentDateTime, julianDay, marsSolDay);
-        setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime, convertUTCOffsetToMinutes(timezoneOffset)).time);
+        setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset)).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }
     
@@ -242,7 +225,6 @@ export function setTimeValue(type, value) {
     });
 }
 
-
 function formatDateTimeForURL(dateTimeString) {
     if (!dateTimeString) return null; // Return null if no string is provided
     // Split the string into the date and time parts (assuming they are separated by ", ")
@@ -259,7 +241,6 @@ function getURLFormattedTimezone(timezone) {
     // Convert '+' to '~' and ':' to '_'
     return timezone.replace('+', '~').replace(':', '_');
 }
-
 
 // Read the input box and set the date or restart the current time ticker
 export function changeDateTime(newDateString = '', timezonePassthrough = '') {
