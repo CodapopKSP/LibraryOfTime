@@ -7,7 +7,13 @@
 export const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const decimals = 10;  // Decimals to show in some nodes
-export const updateMilliseconds = 20;  // Update tick length   
+export const updateMilliseconds = 20;  // Update tick length  
+
+export function createDateWithFixedYear(year, month, day, hour=0, minute=0, second=0, millisecond=0) {
+    let fixedDate = new Date(Date.UTC(year, month, day, hour, minute, second));
+    fixedDate.setUTCFullYear(year);
+    return fixedDate;
+}
 
 export function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);

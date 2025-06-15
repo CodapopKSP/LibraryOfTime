@@ -236,8 +236,7 @@ export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
 // Returns a formatted EF local date
 export function getEraFascista(currentDateTime) {
     // Only update the year if past October 29th, otherwise it is the previous year.
-    let october29 = new Date(Date.UTC(currentDateTime.getUTCFullYear(), 9, 28, 23));
-    october29.setUTCFullYear(currentDateTime.getUTCFullYear());
+    let october29 = utilities.createDateWithFixedYear(currentDateTime.getUTCFullYear(), 9, 28, 23);
     if (currentDateTime < october29) {
         october29.setUTCFullYear(october29.getUTCFullYear() - 1);
     }
@@ -331,8 +330,7 @@ export function getEthiopianDate(currentDateTime) {
     }
 
     // Calculate days and years from epoch
-    let ThoutYear1 = new Date(Date.UTC(7, 7, 26, 21, 0, 0));
-    ThoutYear1.setUTCFullYear(7);
+    let ThoutYear1 = utilities.createDateWithFixedYear(7, 7, 26, 21, 0, 0);
     const daysSinceEpoch = Math.floor(utilities.differenceInDays(currentDateTime, ThoutYear1));
     const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
     let EthiopianYear = yearsSinceEpoch;
@@ -394,7 +392,7 @@ export function getByzantineCalendar(currentDateTime) {
 
 // Returns a formatted Florentine (CET) date
 export function getFlorentineCalendar(currentDateTime) {
-    const adjustedDate = new Date(currentDateTime.getTime());
+    const adjustedDate = new Date(currentDateTime);
 
     // Check for approximate sunset and increment the day
     const utcHour = currentDateTime.getUTCHours();
@@ -433,7 +431,7 @@ export function getFlorentineCalendar(currentDateTime) {
 
 // Returns a formatted Pisan (CET) date
 export function getPisanCalendar(currentDateTime) {
-    const adjustedDate = new Date(currentDateTime.getTime());
+    const adjustedDate = new Date(currentDateTime);
 
     // Check for approximate sunset and increment the day
     const utcHour = currentDateTime.getUTCHours();
@@ -640,7 +638,7 @@ export function getPataphysicalDate(currentDateTime, timezoneOffset) {
 
     // September 8 at midnight
     let localYear = currentDateTime.getUTCFullYear();
-    let mostRecentSept8 = new Date(Date.UTC(localYear, 8, 8));
+    let mostRecentSept8 = utilities.createDateWithFixedYear(localYear, 8, 8);
 
     if (localTime < mostRecentSept8) {
         mostRecentSept8.setUTCFullYear(localTime.getUTCFullYear()-1);
@@ -698,8 +696,8 @@ export function getDiscordianDate(currentDateTime, timezoneOffset) {
     // Clear timezone offset from original datetime
     let localTime = new Date(currentDateTime.getTime() + (timezoneOffset * 60000));
 
-    const startOfYear = new Date(Date.UTC(localTime.getUTCFullYear(), 0, 1));
-    const endOfYear = new Date(Date.UTC(localTime.getUTCFullYear()+1, 0, 1));
+    const startOfYear = utilities.createDateWithFixedYear(localTime.getUTCFullYear(), 0, 1);
+    const endOfYear = utilities.createDateWithFixedYear(localTime.getUTCFullYear()+1, 0, 1);
     let remainingDays = Math.floor(utilities.differenceInDays(localTime, startOfYear)+1);
     const leapYear = utilities.differenceInDays(endOfYear, startOfYear) === 366;
 
@@ -856,7 +854,8 @@ export function getQadimiDate(currentDateTime) {
     ];
 
     // Noon in Iran in 19 June 632, a base Nowruz day
-    const Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 2, 30, 0));
+    let Nowruz632Noon = new Date(Date.UTC(632, 5, 19, 2, 30, 0));
+    Nowruz632Noon.setUTCFullYear(632);
     const daysSince632 = Math.floor(utilities.differenceInDays(currentDateTime, Nowruz632Noon));
     const yearsSince632 = Math.floor(daysSince632/365);
     let remainingDays = daysSince632 - (yearsSince632*365)+1;
@@ -928,26 +927,30 @@ export function getEgyptianDate(currentDateTime) {
 }
 
 export function getISOWeekDate(currentDateTime, timezoneOffset) {
+    // Adjust for timezone
+    let localTime = new Date(currentDateTime.getTime() + timezoneOffset * 60000);
 
-    // Clear timezone offset from original datetime
-    let localTime = new Date(currentDateTime.getTime() + (timezoneOffset * 60000));
-
-    const target = new Date(Date.UTC(localTime.valueOf()));
-    target.setUTCFullYear(localTime.getUTCFullYear());
-
-    const dayNumber = (localTime.getUTCDay() + 6) % 7 + 1; // ISO week day (1 = Monday, ..., 7 = Sunday)
+    // ISO weekday: 1 (Mon) to 7 (Sun)
+    const isoDay = localTime.getUTCDay() === 0 ? 7 : localTime.getUTCDay(); // 0 => 7 (Sunday)
     
-    // Set to nearest Thursday (current date + 4 - current day number) to determine the ISO week year
-    target.setUTCDate(target.getUTCDate() + 4 - dayNumber);
-    target.setUTCFullYear(target.getUTCFullYear());
+    // Move date to the Thursday in the current ISO week
+    const thursday = new Date(localTime);
+    thursday.setUTCDate(localTime.getUTCDate() + (4 - isoDay));
 
-    const yearStart = new Date(target.getUTCFullYear(), 0, 1);
-    yearStart.setUTCFullYear(target.getUTCFullYear()); // Ensure proper year handling
-    const weekNumber = Math.ceil((((target - yearStart) / 86400000) + 1) / 7);
-    let weekYear = target.getUTCFullYear();
+    const weekYear = thursday.getUTCFullYear();
 
-    return `${weekYear}-W${weekNumber}-${dayNumber}`;
+    // Find the first Thursday of the year
+    let firstThursday = utilities.createDateWithFixedYear(weekYear, 0, 4);
+    const firstIsoDay = firstThursday.getUTCDay() === 0 ? 7 : firstThursday.getUTCDay();
+    firstThursday.setUTCDate(firstThursday.getUTCDate() + (4 - firstIsoDay));
+
+    // Calculate week number
+    const diff = thursday - firstThursday;
+    const weekNumber = Math.round(diff / (7 * 86400000)) + 1;
+
+    return `${weekYear}-W${weekNumber}-${isoDay}`;
 }
+
 
 export function getHaabDate(localTime) {
 
