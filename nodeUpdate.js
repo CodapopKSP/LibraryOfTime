@@ -37,11 +37,11 @@ export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffs
     userInterface.setTimeValue('ethiopian-node', solarCalendars.getEthiopianDate(currentDateTime));
     userInterface.setTimeValue('bahai-node', solarCalendars.getBahaiCalendar(currentDateTime, springEquinox));
     userInterface.setTimeValue('pataphysical-node', solarCalendars.getPataphysicalDate(currentDateTime, timezoneOffset));
-    userInterface.setTimeValue('discordian-node', solarCalendars.getDiscordianDate(currentDateTime));
+    userInterface.setTimeValue('discordian-node', solarCalendars.getDiscordianDate(currentDateTime, timezoneOffset));
     userInterface.setTimeValue('solar-hijri-node', solarCalendars.getSolarHijriDate(currentDateTime, springEquinox));
     userInterface.setTimeValue('qadimi-node', solarCalendars.getQadimiDate(currentDateTime));
     userInterface.setTimeValue('egyptian-civil-node', solarCalendars.getEgyptianDate(currentDateTime));
-    userInterface.setTimeValue('iso-week-date-node', solarCalendars.getISOWeekDate(currentDateTime));
+    userInterface.setTimeValue('iso-week-date-node', solarCalendars.getISOWeekDate(currentDateTime, timezoneOffset));
     userInterface.setTimeValue('haab-node', solarCalendars.getHaabDate(currentDateTime));
 }
 
@@ -52,6 +52,7 @@ export function updateLunisolarCalendars(currentDateTime) {
     const winterSolsticeLastYear = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'winter');
     const newMoonThisMonth = astronomicalData.getMoonPhase(currentDateTime, 0);
     const newMoonLastMonth = astronomicalData.getMoonPhase(currentDateTime, -1);
+    const newMoonTwoMonthsAgo = astronomicalData.getMoonPhase(currentDateTime, -2);
     let lunisolarCalendarChina = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 16); // China midnight happens at UTC 16:00
     let chineseCalendar = lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina, 'china');
     userInterface.setTimeValue('chinese-node', chineseCalendar);
@@ -60,7 +61,7 @@ export function updateLunisolarCalendars(currentDateTime) {
     userInterface.setTimeValue('vietnamese-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam, 'vietnam'));
     let lunisolarCalendarKorea = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, 17); // Korea midnight happens at UTC 17:00
     userInterface.setTimeValue('dangun-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea, 'korea'));
-    userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime, newMoonThisMonth, newMoonLastMonth)); // Returns a wrong day for May 8 2024
+    userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo)); // Returns a wrong day for May 8 2024
 }
 
 export function updateOtherCalendars(currentDateTime, marsSolDay) {

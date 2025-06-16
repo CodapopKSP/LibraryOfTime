@@ -1,5 +1,5 @@
 
-import { parseInputDate } from '../userInterface.js';
+import { parseInputDate, setGregJulianDifference } from '../userInterface.js';
 import * as solarCalendars from '../Calendars/solarCalendars.js';
 import * as astronomicalData from '../Other/astronomicalData.js';
 import { convertUTCOffsetToMinutes } from '../utilities.js';
@@ -40,6 +40,7 @@ function runCalendarEquinoxTests(calendarName, season, getCalendarFunction, test
     for (const [inputDate, timezone, expectedOutput] of testCases) {
         testCount++;
         const testedDate = parseInputDate(inputDate, timezone);
+        setGregJulianDifference(solarCalendars.calculateGregorianJulianDifference(testedDate));
         const equinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, season);
         const result = getCalendarFunction(testedDate, equinox);
 
@@ -269,9 +270,9 @@ function testSolarHijriCalendar() {
     return runCalendarEquinoxTests("Solar Hijri Calendar", equinox, solarCalendars.getSolarHijriDate, [
         ["2025-6-11, 17:30:00", "UTC+00:00", "21 Khordad 1404 SH\nSeshanbeh"],
         ["2025-6-11, 20:30:00", "UTC+00:00", "22 Khordad 1404 SH\nChaharshanbeh"],
-        ["622-3-19, 23:00:00", "UTC+03:30", "1 Farvardin 1 SH\nDoshanbeh"],
-        ["622-3-18, 20:00:00", "UTC+03:30", "30 Esfand -1 SH\nYekshanbeh"],
-        ["622-3-17, 00:00:00", "UTC+03:30", "29 Esfand -1 SH\nShanbeh"]
+        ["622-3-22, 23:00:00", "UTC+03:30", "1 Farvardin 1 SH\nPanjshanbeh"],
+        ["622-3-21, 20:00:00", "UTC+03:30", "30 Esfand -1 SH\nChaharshanbeh"],
+        ["622-3-20, 00:00:00", "UTC+03:30", "29 Esfand -1 SH\nSeshanbeh"]
     ]);
 }
 

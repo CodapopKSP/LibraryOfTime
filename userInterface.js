@@ -92,6 +92,7 @@ export function adjustCalendarType(currentDateTime) {
     let julianDate = new Date(Date.UTC(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds));
     julianDate.setTime(julianDate.getTime() - 0.5 * 24 * 60 * 60 * 1000);
     gregJulDifference = utilities.differenceInDays(currentDateTime, julianDate);
+    setGregJulianDifference(solarCalendars.calculateGregorianJulianDifference(currentDateTime));
     let calendarType = getCalendarType();
     switch (calendarType) {
         case 'julian-liturgical':

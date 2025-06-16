@@ -179,16 +179,17 @@ export function getLongitudeOfSun(currentDateTime) {
 
 // Returns the number of lunations (lunar cycles) since January 6 2000
 // This equation was sourced from Astronomical Algorithms
-export function calculateLunationNumber(currentDateTime) {
+export function calculateLunationNumber(newMoon) {
     // Using Jean Meeus's date for lunation epoch
     const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
-    const secondsSince2000 = (currentDateTime - firstNewMoon2000)/1000;
+    const secondsSince2000 = (newMoon - firstNewMoon2000)/1000;
 
     // Calculate the number of days since the first new moon of 2000
     const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
 
     // Calculate the number of lunations since Lunation 0
-    const lunationNumber = Math.floor(daysSince2000 / 29.53058861);
+    let lunationNumber = Math.round(daysSince2000 / 29.53058861);
+
     return lunationNumber;
 }
 

@@ -67,6 +67,19 @@ export function getApproxJulianDate(currentDateTime) {
     return julianDate;
 }
 
+export function calculateGregorianJulianDifference(currentDateTime) {
+    let gregJulDifference = 0;
+    let julianDateParts = getRealJulianDate(currentDateTime);
+    const totalSeconds = (julianDateParts.fractionalDay) * 24 * 60 * 60; // Total seconds in the fraction
+    const hours = Math.floor(totalSeconds / 3600); // Get the whole hours
+    const minutes = Math.floor((totalSeconds % 3600) / 60); // Remaining minutes
+    const seconds = Math.floor(totalSeconds % 60); // Remaining seconds
+    let julianDate = new Date(Date.UTC(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds));
+    julianDate.setTime(julianDate.getTime() - 0.5 * 24 * 60 * 60 * 1000);
+    gregJulDifference = utilities.differenceInDays(currentDateTime, julianDate);
+    return gregJulDifference;
+}
+
 // Returns a formatted Astronomical calendar UTC date
 export function getAstronomicalDate(currentDateTime) {
     const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
