@@ -74,16 +74,8 @@ export function parseInputDate(dateInput, timezoneOffset) {
 
 // Calculate display date for user's calendar choice
 export function adjustCalendarType(currentDateTime) {
-    let gregJulDifference = 0;
-    let julianDateParts = solarCalendars.getRealJulianDate(currentDateTime);
-    const totalSeconds = (julianDateParts.fractionalDay) * 24 * 60 * 60; // Total seconds in the fraction
-    const hours = Math.floor(totalSeconds / 3600); // Get the whole hours
-    const minutes = Math.floor((totalSeconds % 3600) / 60); // Remaining minutes
-    const seconds = Math.floor(totalSeconds % 60); // Remaining seconds
-    let julianDate = new Date(Date.UTC(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds));
-    julianDate.setTime(julianDate.getTime() - 0.5 * 24 * 60 * 60 * 1000);
-    gregJulDifference = utilities.differenceInDays(currentDateTime, julianDate);
     utilities.setGregJulianDifference(solarCalendars.calculateGregorianJulianDifference(currentDateTime));
+    const gregJulDifference = utilities.getGregJulianDifference();
     let calendarType = getCalendarType();
     switch (calendarType) {
         case 'julian-liturgical':
@@ -155,16 +147,16 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
             case 3:
                 setTimeValue('hebrew-node', lunisolarCalendars.calculateHebrewCalendar(currentDateTime));
             case 4:
-                setTimeValue('next-solar-eclipse-node', astronomicalData.getNextSolarEclipse(currentDateTime, 0));
-                setTimeValue('next-lunar-eclipse-node', astronomicalData.getNextSolarEclipse(currentDateTime, 0.5));
+                setTimeValue('next-solar-eclipse-node', astronomicalData.getNextSolarLunarEclipse(currentDateTime, 0));
+                setTimeValue('next-lunar-eclipse-node', astronomicalData.getNextSolarLunarEclipse(currentDateTime, 0.5));
             case 5:
                 nodeUpdate.updateProposedCalendars(currentDateTime);
             case 6:
-                setTimeValue('spring-equinox-node', astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
-                setTimeValue('summer-solstice-node', astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
-                setTimeValue('autumn-equinox-node', astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
+                setTimeValue('spring-equinox-node', astronomicalData.getSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
+                setTimeValue('summer-solstice-node', astronomicalData.getSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
+                setTimeValue('autumn-equinox-node', astronomicalData.getSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
             case 7:
-                setTimeValue('winter-solstice-node', astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
+                setTimeValue('winter-solstice-node', astronomicalData.getSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
                 setTimeValue('sun-longitude-node', astronomicalData.getLongitudeOfSun(currentDateTime) + '°');
                 setTimeValue('this-new-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0).toUTCString());
                 setTimeValue('this-first-quarter-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.25).toUTCString());
@@ -241,7 +233,7 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     if (newDateString === '') {
         newDateString = document.getElementById('date-input').value;
     }
-    utilities.setCalendarType(document.getElementById('calendar-type').value);
+    setCalendarType(document.getElementById('calendar-type').value);
     let timezoneChoice = document.getElementById('timezone').value;
     if (timezonePassthrough) {
         timezoneChoice = timezonePassthrough;

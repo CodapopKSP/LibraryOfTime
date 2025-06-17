@@ -5,12 +5,12 @@
 // A set of functions for calculating data in the Astronomical Data category.
 
 import { getDynamicalTimeBackward, getJulianDayNumber } from '../Timekeeping/computingTime.js';
-import { getGregJulianDifference } from '../utilities.js'
+import { getGregJulianDifference, createDateWithFixedYear } from '../utilities.js'
 import { getCalendarType } from '../userInterface.js';
 
 // Return an unformatted date from an unsigned JDE
 // This equation was sourced from Astronomical Algorithms
-export function calculateDateFromJDE(JDE) {
+export function calculateDateFromJDE(JDE, test) {
     const newJDE = JDE + 0.5;
     const Z = Math.trunc(newJDE);
     const F = newJDE - Z;
@@ -45,8 +45,7 @@ export function calculateDateFromJDE(JDE) {
     const hours = Math.trunc(totalSecondsOfRemainingDay / 3600);
     const minutes = Math.trunc((totalSecondsOfRemainingDay % 3600) / 60);
     const seconds = totalSecondsOfRemainingDay % 60;
-    let unfixedDateTime = new Date(Date.UTC(year, month-1, day, hours, minutes, seconds));
-    unfixedDateTime.setUTCFullYear(year);
+    let unfixedDateTime = createDateWithFixedYear(year, month-1, day, hours, minutes, seconds);
     // I think this is how to add Dynamical Time but I'm not sure
     let fixedDateTime = new Date(getDynamicalTimeBackward(unfixedDateTime));
     
@@ -54,15 +53,15 @@ export function calculateDateFromJDE(JDE) {
     if ((fixedDateTime < startOfGregorian) && (getCalendarType()==='gregorian-proleptic')) {
         fixedDateTime.setUTCDate(fixedDateTime.getUTCDate() + getGregJulianDifference());
     }
+
+    
     return fixedDateTime;
 }
 
 export function calculateUTCYearFraction(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
-    let yearStart = new Date(Date.UTC(year, 0, 1));
-    yearStart.setUTCFullYear(year);
-    let nextYearStart = new Date(Date.UTC(year + 1, 0, 1));
-    nextYearStart.setUTCFullYear(year + 1);
+    let yearStart = createDateWithFixedYear(year, 0, 1);
+    let nextYearStart = createDateWithFixedYear(year + 1, 0, 1);
     let yearFraction = (currentDateTime - yearStart) / (nextYearStart - yearStart);
     return yearFraction;
 }
@@ -76,7 +75,7 @@ export function calculateUTCYearFraction(currentDateTime) {
 
 // Returns the unformatted date of a solstice or equinox
 // The equations and hardcoded values come from Astronomical Algorithms
-export function getCurrentSolsticeOrEquinox(currentDateTime, season) {
+export function getSolsticeOrEquinox(currentDateTime, season) {
 
     // Sum up all the values in a table from Astronomical Algorithms
     function sumSolsticeEquinoxTable(T) {
@@ -195,7 +194,7 @@ export function calculateLunationNumber(newMoon) {
 }
 
 // Calculates a moon phase
-export function getMoonPhase(currentDateTime, monthModifier) {
+export function getMoonPhase(currentDateTime, monthModifier, test) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateUTCYearFraction(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
@@ -206,7 +205,7 @@ export function getMoonPhase(currentDateTime, monthModifier) {
     const MoonM = 201.5643 + 385.81693528*k + 0.0107438*T**2 + 0.00001239*T**3 - 0.000000058*T**4;
     const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
     const lunarNode = 124.7746 - 1.56375580*k + 0.0020691*T**2 + 0.00000215*T**3;
-    const sumOfAllPhaseTable = allPhaseTable(k, T);
+    const sumOfAllPhaseTable = allLunarPhaseTable(k, T);
     let tableSum = 0;
     if (monthModifier % 1 === 0) {
         tableSum = sumNewMoonTable(SunM, MoonM, F, E, lunarNode);
@@ -219,7 +218,7 @@ export function getMoonPhase(currentDateTime, monthModifier) {
     }    
 
     const calculatedMoonPhaseJDE = JDE + sumOfAllPhaseTable + tableSum;
-    return new Date(calculateDateFromJDE(calculatedMoonPhaseJDE));
+    return new Date(calculateDateFromJDE(calculatedMoonPhaseJDE, test));
 }
 
 // Sum the New Moon table from Astronomical Algorithms
@@ -342,7 +341,7 @@ export function sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier)
 }
 
 // Sum the All Phases table from Astronomical Algorithms
-export function allPhaseTable(k, T) {
+export function allLunarPhaseTable(k, T) {
     function allPhaseTableHelper(num, A) {
         return num*Math.sin(A* Math.PI / 180);
     }
@@ -379,7 +378,7 @@ export function allPhaseTable(k, T) {
 }
 
 // Get formatted information about the next solar eclipse
-export function getNextSolarEclipse(currentDateTime, monthModifier) {
+export function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateUTCYearFraction(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
@@ -388,7 +387,7 @@ export function getNextSolarEclipse(currentDateTime, monthModifier) {
 
     // Eclipse is impossible
     if (Math.abs(Math.sin(F*(Math.PI / 180)))>0.36) {
-        return getNextSolarEclipse(currentDateTime, monthModifier+1);
+        return getNextSolarLunarEclipse(currentDateTime, monthModifier+1);
     }
 
     // Calculate a bunch of values from Astronomical Algorithms
@@ -483,7 +482,7 @@ export function getNextSolarEclipse(currentDateTime, monthModifier) {
     } else {
         // Umbra cannot be seen from Earth, not a solar eclipse
         if (Math.abs(Y) > 1.5433+u) {
-            return getNextSolarEclipse(currentDateTime, monthModifier+1);
+            return getNextSolarLunarEclipse(currentDateTime, monthModifier+1);
         }
 
         // Central eclipse

@@ -64,7 +64,7 @@ function runCalculateIslamicMonthAndYearTests(testCases) {
         const actualDate = actualDate_.year + ' ' + actualDate_.month;
 
         if (actualDate !== expectedDate) {
-            console.error(`CalculateIslamicMonthAndYear: Test ${testCount} failed.`);
+            console.error(`IslamicMonthAndYear: Test ${testCount} failed.`);
             console.error('Expected:', expectedDate);
             console.error('Received:', actualDate);
             failedTestCount++;

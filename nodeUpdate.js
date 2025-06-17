@@ -20,7 +20,7 @@ import * as userInterface from './userInterface.js';
 import * as utilities from './utilities.js';
 
 export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffset) {
-    const springEquinox = astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'spring');
+    const springEquinox = astronomicalData.getSolsticeOrEquinox(currentDateTime, 'spring');
     userInterface.setTimeValue('gregorian-node', solarCalendars.getGregorianDateTime(currentDateTime, timezoneOffset).date);
     userInterface.setTimeValue('julian-node', solarCalendars.getJulianCalendar(currentDateTime));
     userInterface.setTimeValue('astronomical-node', solarCalendars.getAstronomicalDate(currentDateTime));
@@ -28,7 +28,7 @@ export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffs
     userInterface.setTimeValue('florentine-node', solarCalendars.getFlorentineCalendar(currentDateTime));
     userInterface.setTimeValue('pisan-node', solarCalendars.getPisanCalendar(currentDateTime));
     userInterface.setTimeValue('venetian-node', solarCalendars.getVenetianCalendar(currentDateTime));
-    userInterface.setTimeValue('french-republican-node', solarCalendars.getRepublicanCalendar(currentDateTime, astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'autumn')));
+    userInterface.setTimeValue('french-republican-node', solarCalendars.getRepublicanCalendar(currentDateTime, astronomicalData.getSolsticeOrEquinox(currentDateTime, 'autumn')));
     userInterface.setTimeValue('era-fascista-node', solarCalendars.getEraFascista(currentDateTime));
     userInterface.setTimeValue('minguo-node', solarCalendars.getMinguo(currentDateTime));
     userInterface.setTimeValue('thai-node', solarCalendars.getThaiSolar(currentDateTime));
@@ -46,10 +46,10 @@ export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffs
 }
 
 export function updateLunisolarCalendars(currentDateTime) {
-    const winterSolstice = astronomicalData.getCurrentSolsticeOrEquinox(currentDateTime, 'winter');
+    const winterSolstice = astronomicalData.getSolsticeOrEquinox(currentDateTime, 'winter');
     let lastYear = new Date(currentDateTime);
     lastYear.setFullYear(currentDateTime.getFullYear()-1);
-    const winterSolsticeLastYear = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'winter');
+    const winterSolsticeLastYear = astronomicalData.getSolsticeOrEquinox(lastYear, 'winter');
     const newMoonThisMonth = astronomicalData.getMoonPhase(currentDateTime, 0);
     const newMoonLastMonth = astronomicalData.getMoonPhase(currentDateTime, -1);
     const newMoonTwoMonthsAgo = astronomicalData.getMoonPhase(currentDateTime, -2);

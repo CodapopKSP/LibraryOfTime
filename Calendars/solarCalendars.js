@@ -74,7 +74,7 @@ export function calculateGregorianJulianDifference(currentDateTime) {
     const hours = Math.floor(totalSeconds / 3600); // Get the whole hours
     const minutes = Math.floor((totalSeconds % 3600) / 60); // Remaining minutes
     const seconds = Math.floor(totalSeconds % 60); // Remaining seconds
-    let julianDate = new Date(Date.UTC(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds));
+    let julianDate = utilities.createDateWithFixedYear(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds);
     julianDate.setTime(julianDate.getTime() - 0.5 * 24 * 60 * 60 * 1000);
     gregJulDifference = utilities.differenceInDays(currentDateTime, julianDate);
     return gregJulDifference;
@@ -213,7 +213,7 @@ export function getRepublicanCalendar(currentDateTime, vernalEquinox) {
         let lastYear = new Date(currentDateTime);
         lastYear.setUTCFullYear(currentDateTime.getUTCFullYear()-1);
         lastYear.setUTCMonth(10);
-        startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'autumn');
+        startingEquinox = astronomicalData.getSolsticeOrEquinox(lastYear, 'autumn');
         startingEquinox.setUTCHours(1);
         startingEquinox.setUTCMinutes(0);
         startingEquinox.setUTCSeconds(0);
@@ -559,14 +559,14 @@ export function getBahaiCalendar(currentDateTime, vernalEquinox) {
         let lastYear = new Date(currentDateTime);
         lastYear.setUTCFullYear(currentDateTime.getUTCFullYear()-1);
         lastYear.setUTCMonth(10);
-        startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'spring');
+        startingEquinox = astronomicalData.getSolsticeOrEquinox(lastYear, 'spring');
         endingEquinox = new Date(vernalEquinox);
     } else {
         let nextYear = new Date(currentDateTime);
         nextYear.setUTCFullYear(currentDateTime.getUTCFullYear()+1);
         nextYear.setUTCMonth(10);
         startingEquinox = new Date(vernalEquinox);
-        endingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(nextYear, 'spring');
+        endingEquinox = astronomicalData.getSolsticeOrEquinox(nextYear, 'spring');
     }
 
     // Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)
@@ -777,7 +777,7 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox_) {
         let lastYear = new Date(currentDateTime);
         lastYear.setUTCFullYear(currentDateTime.getUTCFullYear() - 1);
         lastYear.setUTCMonth(10);
-        startingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(lastYear, 'spring');
+        startingEquinox = astronomicalData.getSolsticeOrEquinox(lastYear, 'spring');
         startingEquinox = figureOutEquinoxBeforeAfterNoon(startingEquinox);
         endingEquinox = vernalEquinox;
     } else {
@@ -785,7 +785,7 @@ export function getSolarHijriDate(currentDateTime, vernalEquinox_) {
         nextYear.setUTCFullYear(currentDateTime.getUTCFullYear() + 1);
         nextYear.setUTCMonth(10);
         startingEquinox = vernalEquinox;
-        endingEquinox = astronomicalData.getCurrentSolsticeOrEquinox(nextYear, 'spring');
+        endingEquinox = astronomicalData.getSolsticeOrEquinox(nextYear, 'spring');
         endingEquinox = figureOutEquinoxBeforeAfterNoon(endingEquinox);
     }
     
