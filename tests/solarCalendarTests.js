@@ -1,8 +1,8 @@
 
-import { parseInputDate, setGregJulianDifference } from '../userInterface.js';
+import { parseInputDate } from '../userInterface.js';
 import * as solarCalendars from '../Calendars/solarCalendars.js';
-import * as astronomicalData from '../Other/astronomicalData.js';
-import { convertUTCOffsetToMinutes } from '../utilities.js';
+import { getCurrentSolsticeOrEquinox } from '../Other/astronomicalData.js';
+import { convertUTCOffsetToMinutes, setGregJulianDifference } from '../utilities.js';
 
 function runGregorianCalendarTests(testCases) {
     let failedTestCount = 0;
@@ -41,7 +41,7 @@ function runCalendarEquinoxTests(calendarName, season, getCalendarFunction, test
         testCount++;
         const testedDate = parseInputDate(inputDate, timezone);
         setGregJulianDifference(solarCalendars.calculateGregorianJulianDifference(testedDate));
-        const equinox = astronomicalData.getCurrentSolsticeOrEquinox(testedDate, season);
+        const equinox = getCurrentSolsticeOrEquinox(testedDate, season);
         const result = getCalendarFunction(testedDate, equinox);
 
         if (result !== expectedOutput) {

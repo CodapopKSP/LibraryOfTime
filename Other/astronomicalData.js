@@ -4,8 +4,9 @@
 
 // A set of functions for calculating data in the Astronomical Data category.
 
-import * as computingTime from '../Timekeeping/computingTime.js';
-import { getCalendarType, getGregJulianDifference } from '../userInterface.js';
+import { getDynamicalTimeBackward, getJulianDayNumber } from '../Timekeeping/computingTime.js';
+import { getGregJulianDifference } from '../utilities.js'
+import { getCalendarType } from '../userInterface.js';
 
 // Return an unformatted date from an unsigned JDE
 // This equation was sourced from Astronomical Algorithms
@@ -47,7 +48,7 @@ export function calculateDateFromJDE(JDE) {
     let unfixedDateTime = new Date(Date.UTC(year, month-1, day, hours, minutes, seconds));
     unfixedDateTime.setUTCFullYear(year);
     // I think this is how to add Dynamical Time but I'm not sure
-    let fixedDateTime = new Date(computingTime.getDynamicalTimeBackward(unfixedDateTime));
+    let fixedDateTime = new Date(getDynamicalTimeBackward(unfixedDateTime));
     
     const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
     if ((fixedDateTime < startOfGregorian) && (getCalendarType()==='gregorian-proleptic')) {
@@ -161,7 +162,7 @@ export function getLongitudeOfSun(currentDateTime) {
         return normalizeAngle;
     }
 
-    const JD = computingTime.getJulianDayNumber(currentDateTime);
+    const JD = getJulianDayNumber(currentDateTime);
     const T = (JD - 2451545.0)/36525;
     const L =  normalizeAngleTo360(280.46645 + 36000.76983*T + 0.0003032*T**2);
     const M =  normalizeAngleTo360(357.52910 + 35999.05030*T - 0.0001559*T**2 - 0.00000048*T**3);

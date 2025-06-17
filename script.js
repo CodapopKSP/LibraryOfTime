@@ -6,11 +6,10 @@
 */
 
 import { nodeDataArrays } from './nodeData.js';
-import * as nodeDisplay from './nodeDisplay.js';
+import { createNode } from './nodeDisplay.js';
 import * as descriptionPanel from './descriptionPanel.js';
-import * as userPanel from './userPanel.js';
+import { instantiateFloatingPanel } from './userPanel.js';
 import * as userInterface from './userInterface.js';
-import * as utilities from './utilities.js';
 
 const timezones = [
     'UTC-12:00', 'UTC-11:00', 'UTC-10:00', 'UTC-09:30', 'UTC-09:00',
@@ -27,7 +26,7 @@ const urlParameters = new URLSearchParams(window.location.search);
 const urlDateString = urlParameters.get('datetime');
 const urlTimezone = urlParameters.get('timezone');
 const urlCalendarType = urlParameters.get('type');
-userInterface.setCalendarType(getFormattedCalendarType(urlCalendarType));
+userInterface.setCalendarType(getCalendarTypeFromURL(urlCalendarType));
 
 function getDateTimeFromURL(urlDateString) {
     if (!urlDateString) return null; // Return null if no parameter is provided
@@ -36,7 +35,7 @@ function getDateTimeFromURL(urlDateString) {
     return `${date}, ${formattedTime}`; // Return as a string
 }
 
-function getFormattedTimezone(urlTimezone) {
+function getTimezoneFromURL(urlTimezone) {
     if (!urlTimezone) return "UTC+00:00"; // Default to UTC
     // Convert '~' to '+', and '_' to ':'
     const formattedTimezone = urlTimezone.replace('_', ':').replace('~', '+');
@@ -44,7 +43,7 @@ function getFormattedTimezone(urlTimezone) {
     return timezones.includes(formattedTimezone) ? formattedTimezone : "UTC+00:00";
 }
 
-function getFormattedCalendarType(urlCalendarType) {
+function getCalendarTypeFromURL(urlCalendarType) {
     if (!urlCalendarType) return "gregorian-proleptic"; // Default to Gregorian
     return urlCalendarType;
 }
@@ -68,7 +67,7 @@ const parentElements = {
 // Create the node arrays
 nodeDataArrays.forEach(dataArray => {
     dataArray.forEach(item => {
-        nodeDisplay.createNode(item, parentElements);
+        createNode(item, parentElements);
     });
 });
 
@@ -82,10 +81,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Get user's local timezone offset
-    const localTimezone = userInterface.getFormattedTimezoneOffset();
+    const localTimezone = userInterface.getLocalTimezoneOffset();
     
     // Get URL Timezone parameter
-    const urlTimezoneFormatted = getFormattedTimezone(urlTimezone);
+    const urlTimezoneFormatted = getTimezoneFromURL(urlTimezone);
 
     // Determine which timezone to use (URL timezone if valid, else local timezone)
     const selectedTimezone = timezones.includes(urlTimezoneFormatted) ? urlTimezoneFormatted : localTimezone;
@@ -109,14 +108,14 @@ descriptionPanel.changeActiveHeaderTab('header-button-1', 0);
 
 descriptionPanel.addHeaderTabHoverEffect();
 descriptionPanel.addHomeButtonHoverEffect();
-userPanel.instantiateFloatingPanel();
+instantiateFloatingPanel();
 
 // Initial update
 if (urlDateString && urlTimezone) {
-    userInterface.updateAllNodes(getDateTimeFromURL(urlDateString), getFormattedTimezone(urlTimezone), true);
+    userInterface.updateAllNodes(getDateTimeFromURL(urlDateString), getTimezoneFromURL(urlTimezone), true);
     // Prevent from updating on repeat
     clearInterval(userInterface.getCurrentUpdateInterval());
   } else {
     // Use current date
-    userInterface.updateAllNodes(0, userInterface.getFormattedTimezoneOffset(), true);
+    userInterface.updateAllNodes(0, userInterface.getLocalTimezoneOffset(), true);
   }

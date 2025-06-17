@@ -1,8 +1,8 @@
-import {parseInputDate} from '../userInterface.js';
-import * as solarCalendars from '../Calendars/solarCalendars.js';
-import * as lunarCalendars from '../Calendars/lunarCalendars.js';
-import * as astronomicalData from '../Other/astronomicalData.js';
-import * as userInterface from '../userInterface.js';
+import { parseInputDate } from '../userInterface.js';
+import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.js';
+import { getUmmalQuraDate, timeOfSunsetAfterLastNewMoon, calculateIslamicMonthAndYear } from '../Calendars/lunarCalendars.js';
+import { getMoonPhase } from '../Other/astronomicalData.js';
+import { setGregJulianDifference } from '../utilities.js'
 
 function runGetUmmalQuraDateTests(testCases) {
     let failedTestCount = 0;
@@ -12,10 +12,10 @@ function runGetUmmalQuraDateTests(testCases) {
         testCount++;
 
         const testedDate = parseInputDate(inputDate, timezone);
-        const newMoonThisMonth = astronomicalData.getMoonPhase(testedDate, 0);
-        const newMoonLastMonth = astronomicalData.getMoonPhase(testedDate, -1);
-        const newMoonTwoMonthsAgo = astronomicalData.getMoonPhase(testedDate, -2);
-        const actualDate = lunarCalendars.getUmmalQuraDate(testedDate, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo, 1);
+        const newMoonThisMonth = getMoonPhase(testedDate, 0);
+        const newMoonLastMonth = getMoonPhase(testedDate, -1);
+        const newMoonTwoMonthsAgo = getMoonPhase(testedDate, -2);
+        const actualDate = getUmmalQuraDate(testedDate, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo, 1);
 
         if (actualDate !== expectedDate) {
             console.error(`Umm al-Qura: Test ${testCount} failed.`);
@@ -36,11 +36,11 @@ function runTimeOfSunsetAfterLastNewMoonTests(testCases) {
         testCount++;
 
         const testedDate = parseInputDate(inputDate, timezone);
-        userInterface.setGregJulianDifference(solarCalendars.calculateGregorianJulianDifference(testedDate));
-        const newMoonThisMonth = astronomicalData.getMoonPhase(testedDate, 0);
-        const newMoonLastMonth = astronomicalData.getMoonPhase(testedDate, -1);
-        const newMoonTwoMonthsAgo = astronomicalData.getMoonPhase(testedDate, -2);
-        const actualDate = lunarCalendars.timeOfSunsetAfterLastNewMoon(testedDate, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo).toUTCString();
+        setGregJulianDifference(calculateGregorianJulianDifference(testedDate));
+        const newMoonThisMonth = getMoonPhase(testedDate, 0);
+        const newMoonLastMonth = getMoonPhase(testedDate, -1);
+        const newMoonTwoMonthsAgo = getMoonPhase(testedDate, -2);
+        const actualDate = timeOfSunsetAfterLastNewMoon(testedDate, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo).toUTCString();
 
         if (actualDate !== expectedDate) {
             console.error(`TimeOfSunsetAfterLastNewMoon: Test ${testCount} failed.`);
@@ -60,7 +60,7 @@ function runCalculateIslamicMonthAndYearTests(testCases) {
     for (const [lunation, expectedDate] of testCases) {
         testCount++;
 
-        const actualDate_ = lunarCalendars.calculateIslamicMonthAndYear(lunation);
+        const actualDate_ = calculateIslamicMonthAndYear(lunation);
         const actualDate = actualDate_.year + ' ' + actualDate_.month;
 
         if (actualDate !== expectedDate) {
@@ -109,14 +109,12 @@ function testCalculateIslamicMonthAndYear() {
 // Run all tests.
 function runTests() {
     const testFunctions = [
-        
         testTimeOfSunsetAfterLastNewMoon,
         testCalculateIslamicMonthAndYear,
         testGetUmmalQuraDate,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);
-
     if (allTests === 0) {
         console.log('Lunar Calendars: All Tests Passed.');
     }

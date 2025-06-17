@@ -15,11 +15,11 @@ import * as popCulture from './Other/popCulture.js';
 import * as politics from './Other/politics.js';
 import * as utilities from './utilities.js';
 
-
 if (typeof document !== 'undefined') {
     document.getElementById('change-date-button')?.addEventListener('click', () => changeDateTime());
 }
 
+// Manages the calendar that the user can choose to frame the calculator
 let _calendarType = 'gregorian-proleptic';
 export function getCalendarType() {
     return _calendarType;
@@ -28,15 +28,7 @@ export function setCalendarType(newCalendarType) {
     _calendarType = newCalendarType;
 }
 
-let _gregJulianDifference = 0;
-export function getGregJulianDifference() {
-    return _gregJulianDifference;
-}
-export function setGregJulianDifference(newDifference) {
-    _gregJulianDifference = newDifference;
-}
-
-
+// Manages the update interval of the calculator
 let _currentUpdateInterval = setInterval(updateAllNodes, utilities.updateMilliseconds);
 export function getCurrentUpdateInterval() {
     return _currentUpdateInterval;
@@ -46,7 +38,6 @@ export function setCurrentUpdateInterval(newInterval) {
 }
 
 // Return a formatted dateTime based on the user's date from the input field
-// THIS BREAKS JS DATE TIME BECAUSE TAIWAN TIME IS UTC+08:06 BEFORE CERTAIN DATES
 export function parseInputDate(dateInput, timezoneOffset) {
     let [inputDate, inputTime] = dateInput.split(', ');
     let BCE = false;
@@ -92,7 +83,7 @@ export function adjustCalendarType(currentDateTime) {
     let julianDate = new Date(Date.UTC(julianDateParts.year, julianDateParts.month - 1, julianDateParts.day, hours, minutes, seconds));
     julianDate.setTime(julianDate.getTime() - 0.5 * 24 * 60 * 60 * 1000);
     gregJulDifference = utilities.differenceInDays(currentDateTime, julianDate);
-    setGregJulianDifference(solarCalendars.calculateGregorianJulianDifference(currentDateTime));
+    utilities.setGregJulianDifference(solarCalendars.calculateGregorianJulianDifference(currentDateTime));
     let calendarType = getCalendarType();
     switch (calendarType) {
         case 'julian-liturgical':
@@ -133,7 +124,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     // Set Timezone to local time if there is none specified
     let timezoneOffset = timezoneOffset_;
     if (timezoneOffset === undefined) {
-        timezoneOffset = getFormattedTimezoneOffset()
+        timezoneOffset = getLocalTimezoneOffset()
     }
 
     let calendarType = getCalendarType();
@@ -236,9 +227,8 @@ function formatDateTimeForURL(dateTimeString) {
     return `${date}_${formattedTime}`;
 }
 
-function getURLFormattedTimezone(timezone) {
-    if (!timezone) return "UTC~00_00"; // Default URL-safe format
-
+function formatTimezoneForURL(timezone) {
+    if (!timezone) return "UTC~00_00";
     // Convert '+' to '~' and ':' to '_'
     return timezone.replace('+', '~').replace(':', '_');
 }
@@ -251,7 +241,7 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     if (newDateString === '') {
         newDateString = document.getElementById('date-input').value;
     }
-    setCalendarType(document.getElementById('calendar-type').value);
+    utilities.setCalendarType(document.getElementById('calendar-type').value);
     let timezoneChoice = document.getElementById('timezone').value;
     if (timezonePassthrough) {
         timezoneChoice = timezonePassthrough;
@@ -261,7 +251,7 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     // Date was input, add it as an argument
     if (newDateString!=='') {
         currentUrl.searchParams.set("datetime", formatDateTimeForURL(newDateString));
-        currentUrl.searchParams.set("timezone", getURLFormattedTimezone(timezoneChoice));
+        currentUrl.searchParams.set("timezone", formatTimezoneForURL(timezoneChoice));
         currentUrl.searchParams.set("type", getCalendarType());
         window.history.replaceState(null, '', currentUrl);
         updateAllNodes(newDateString, timezoneChoice);
@@ -272,7 +262,7 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
 
         // Update the browser's URL without reloading the page
         window.history.replaceState(null, "", currentUrl);
-        updateAllNodes(0, getFormattedTimezoneOffset(), true);
+        updateAllNodes(0, getLocalTimezoneOffset(), true);
         // Start repeating update
         setTimeout(() => {
             setCurrentUpdateInterval(setInterval(updateAllNodes, utilities.updateMilliseconds));
@@ -281,7 +271,7 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
 }
 
 // Get local timezone for dropdown menu default option
-export function getFormattedTimezoneOffset() {
+export function getLocalTimezoneOffset() {
     const now = new Date();
     const timezoneOffset = now.getTimezoneOffset();
     const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);

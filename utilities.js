@@ -9,6 +9,15 @@ export const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'
 export const decimals = 10;  // Decimals to show in some nodes
 export const updateMilliseconds = 20;  // Update tick length 
 
+// Keeps track of how far ahead the Julian calendar is from the Gregorian
+let _gregJulianDifference = 0;
+export function getGregJulianDifference() {
+    return _gregJulianDifference;
+}
+export function setGregJulianDifference(newDifference) {
+    _gregJulianDifference = newDifference;
+}
+
 export function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);
     midnightInChina.setUTCDate(dateToFind.getDate()-1);
@@ -48,24 +57,6 @@ export function getWeekdayAtTime(currentDateTime, afterTime) {
         dayOfWeek -= 7;
     }
     return dayOfWeek;
-}
-
-// Unused
-export function findStartOfLastCycle(currentDateTime, cycleTime) {
-    let checkedTime = new Date(currentDateTime);
-    let startOfLastCycle = new Date(currentDateTime);
-    checkedTime.setUTCHours(cycleTime.hour);
-    checkedTime.setUTCMinutes(cycleTime.minute);
-    checkedTime.setUTCSeconds(0);
-    checkedTime.setUTCMilliseconds(0);
-    if (startOfLastCycle < checkedTime) {
-        startOfLastCycle.setUTCDate(startOfLastCycle.getUTCDate()-1);
-    }
-    startOfLastCycle.setUTCHours(cycleTime.hour);
-    startOfLastCycle.setUTCMinutes(cycleTime.minute);
-    startOfLastCycle.setUTCSeconds(0);
-    startOfLastCycle.setUTCMilliseconds(0);
-    return startOfLastCycle;
 }
 
 // Convert chosen timezone into minutes to add
