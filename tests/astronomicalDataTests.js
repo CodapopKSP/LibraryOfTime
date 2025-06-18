@@ -48,7 +48,10 @@ function runCalendarTests(calendarName, getCalendarFunction, testCases) {
         testCount++;
         const testedDate = parseInputDate(inputDate, timezone);
         setGregJulianDifference(calculateGregorianJulianDifference(testedDate));
-        const result = getCalendarFunction(testedDate, modifier, 1).toUTCString();
+        let result = getCalendarFunction(testedDate, modifier);
+        if (result instanceof Date) {
+            result = result.toUTCString();
+        }
         if (result !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
@@ -107,6 +110,15 @@ function testGetMoonPhase() {
     ]);
 }
 
+function testGetNextSolarLunarEclipse() {
+    return runCalendarTests("Eclipse", astronomicalData.getNextSolarLunarEclipse, [
+        ["2024-04-08, 18:20:46", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Coda's eclipse
+        ["-3339-11-2, 00:00:00", "UTC+00:00", "Sun, 03 Nov -3339 21:06:22 GMT\nAnnular | Descending\nNorthern Hemisphere", 0],  // Earliest recorded solar eclipse
+        ["-584-5-21, 00:00:00", "UTC+00:00", "Wed, 22 May -0584 14:03:03 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Herodotus's eclipse
+        ["1916-6-14, 00:00:00", "UTC+00:00", "Sat, 15 Jul 1916 04:39:39 GMT\nPartial | Ascending\nSouthern Hemisphere", 0.5],   // Ernest Shackleton's Antarctic Eclipse
+    ]);
+}
+
 // Run all tests.
 function runTests() {
     const testFunctions = [
@@ -116,6 +128,7 @@ function runTests() {
         testCalculateLunationNumber,
         testGetSolsticeOrEquinox,
         testGetMoonPhase,
+        testGetNextSolarLunarEclipse,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

@@ -10,7 +10,7 @@ import { getCalendarType } from '../userInterface.js';
 
 // Return an unformatted date from an unsigned JDE
 // This equation was sourced from Astronomical Algorithms
-export function calculateDateFromJDE(JDE, test) {
+export function calculateDateFromJDE(JDE) {
     const newJDE = JDE + 0.5;
     const Z = Math.trunc(newJDE);
     const F = newJDE - Z;
@@ -194,7 +194,7 @@ export function calculateLunationNumber(newMoon) {
 }
 
 // Calculates a moon phase
-export function getMoonPhase(currentDateTime, monthModifier, test) {
+export function getMoonPhase(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateUTCYearFraction(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
@@ -218,7 +218,7 @@ export function getMoonPhase(currentDateTime, monthModifier, test) {
     }    
 
     const calculatedMoonPhaseJDE = JDE + sumOfAllPhaseTable + tableSum;
-    return new Date(calculateDateFromJDE(calculatedMoonPhaseJDE, test));
+    return new Date(calculateDateFromJDE(calculatedMoonPhaseJDE));
 }
 
 // Sum the New Moon table from Astronomical Algorithms
