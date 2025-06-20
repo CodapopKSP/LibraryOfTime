@@ -167,7 +167,7 @@ export function getLongitudeOfSun(currentDateTime) {
     const M =  normalizeAngleTo360(357.52910 + 35999.05030*T - 0.0001559*T**2 - 0.00000048*T**3);
     const C = + (1.914600 - 0.004817*T - 0.000014*T**2)*Math.sin(M* Math.PI / 180) + (0.019993 - 0.000101*T)*Math.sin((2*M)* Math.PI / 180) + 0.000290*Math.sin((3*M)* Math.PI / 180);
     const sunLongitude = L + C;
-    return normalizeAngleTo360(sunLongitude).toFixed(2);
+    return Number(normalizeAngleTo360(sunLongitude).toFixed(2));
 }
 
 

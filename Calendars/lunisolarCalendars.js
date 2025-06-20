@@ -12,6 +12,19 @@ function isMetonicCycleLeapYear(year) {
     return metonicCycle.includes(year);
 }
 
+export function getLocalMidnightInUTC(dateToFind, localMidnight) {
+    let midnightInUTC = dateToFind;
+    if (midnightInUTC.getUTCHours() > localMidnight) {
+        midnightInUTC.setUTCHours(midnightInUTC.getUTCDay() + 1);
+    }
+
+    midnightInUTC.setUTCHours(localMidnight);
+    midnightInUTC.setUTCMinutes(0);
+    midnightInUTC.setUTCSeconds(0);
+    midnightInUTC.setUTCMilliseconds(0);
+    return midnightInUTC;
+}
+
 
 
 //|--------------------------------------|
@@ -94,47 +107,30 @@ export function getSexagenaryYear(chineseDate) {
 //|--------------------------|
 
 
-export function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, winterSolstice, winterSolsticeLastYear, utcMidnight) {
-    // Get Winter Solstice for this year. That is Month 11.
+export function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo, winterSolstice, winterSolsticeLastYear, localMidnight) {
     
-    const startOfMonthEleven = getMonthEleven(winterSolstice);
-    const midnightStartOfMonthEleven = utilities.getMidnightInUTC(startOfMonthEleven, utcMidnight);
+    let startofThisMonth = getLocalMidnightInUTC(newMoonThisMonth, localMidnight);
+    let startofLastMonth = getLocalMidnightInUTC(newMoonLastMonth, localMidnight);
+    const startOfTwoMonthsAgo = getLocalMidnightInUTC(newMoonTwoMonthsAgo, localMidnight);
 
-    // Get Winter solsice of last year, that's Month 11 of last year
-    
-    const startOfMonthElevenLastYear = getMonthEleven(winterSolsticeLastYear);
-    const midnightStartOfMonthElevenLastYear = utilities.getMidnightInUTC(startOfMonthElevenLastYear, utcMidnight);
+    if (currentDateTime < startofThisMonth) {
+        startofThisMonth = startofLastMonth;
+        startofLastMonth = startOfTwoMonthsAgo;
+    }
+
+    const startOfMonthEleven = getMonthEleven(winterSolstice, localMidnight);
+    const startOfMonthElevenLastYear = getMonthEleven(winterSolsticeLastYear, localMidnight);
 
     // Find out roughly how many months between solstices
-    const daysBetweenEleventhMonths = Math.floor(utilities.differenceInDays(midnightStartOfMonthEleven, midnightStartOfMonthElevenLastYear));
+    const daysBetweenEleventhMonths = utilities.differenceInDays(startOfMonthEleven, startOfMonthElevenLastYear);
     const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
     let currentMonth = 0;
-
-    // Calculate the start of this and last months
-    const startofThisMonth = newMoonThisMonth;
-    const midnightChinaStartOfMonth = utilities.getMidnightInUTC(startofThisMonth, utcMidnight);
-    const startofLastMonth = newMoonLastMonth;
-    const midnightChinaStartOfLastMonth = utilities.getMidnightInUTC(startofLastMonth, utcMidnight);
-    const daysSinceMonthEleven = utilities.differenceInDays(currentDateTime, midnightStartOfMonthEleven);
+    const daysSinceMonthEleven = utilities.differenceInDays(currentDateTime, startOfMonthEleven);
 
     // Get rough estimates of the current day/month,
     // likely to be wrong if close to the beginning or ending of a month
-    currentMonth = Math.floor(daysSinceMonthEleven / 29.53);
-    let currentDay = Math.floor(utilities.differenceInDays(currentDateTime, midnightChinaStartOfMonth))+1;
-
-    // If the current day is less than 1, then it's the previous month
-    if (currentDay<1) {
-        currentDay = Math.floor(utilities.differenceInDays(currentDateTime, midnightChinaStartOfLastMonth))+1;
-    }
-    // If near the start of the month, use round
-    if (currentDay<5) {
-        currentMonth = Math.round(daysSinceMonthEleven / 29.53);
-    }
-    // Add extra 'time' to the month to account for errors in the /29.53 math.
-    // This makes sure it is below the next month when close to the 1st of the next month.
-    if (currentDay>28) {
-        currentMonth = Math.round((daysSinceMonthEleven / 29.53)-0.8);
-    }
+    currentMonth = Math.round(daysSinceMonthEleven / 29.53);
+    let currentDay = Math.floor(utilities.differenceInDays(currentDateTime, startofThisMonth))+1;
 
     // The calculation needs to be corrected by adding 11
     currentMonth += 11;
@@ -142,7 +138,7 @@ export function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newM
     // Leap Year
     if (lunationsBetweenEleventhMonths===13) {
         // The leap month repeats the number of the last month, so subsequent months will be back by 1
-        const leapMonth = calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear);
+        const leapMonth = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthElevenLastYear, localMidnight);
         if (leapMonth>currentMonth) {
             currentMonth+=1;
         }
@@ -159,13 +155,14 @@ export function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newM
 }
 
 // Returns 'major' or 'minor' depending on the latitude of the sun calculation
-export function getSolarTermTypeThisMonth(startOfMonth) {
-    const newMoonThisMonth_Lunation = startOfMonth;
-    const millisecondsIn29_53Days = 29.53 * 24 * 60 * 60 * 1000; // THIS VALUE IS TECHNICALLY WRONG AND CAUSES PROBLEMS
-    const newMoonNextMonth_Lunation = new Date(newMoonThisMonth_Lunation.getTime()+millisecondsIn29_53Days);
+export function getSolarTermTypeThisMonth(startOfMonth_, localMidnight) {
+    const startOfMonth = startOfMonth_;
+    let startOfNextMonth = startOfMonth_;
+    startOfNextMonth = getLocalMidnightInUTC(astronomicalData.getMoonPhase(startOfMonth, 1), localMidnight);
+    startOfNextMonth.setUTCDate(startOfNextMonth.getUTCDate() - 1);
     
-    const newMoonThisMonthLongitudeOfSun = astronomicalData.getLongitudeOfSun(newMoonThisMonth_Lunation);
-    const newMoonNextMonthLongitudeOfSun = astronomicalData.getLongitudeOfSun(newMoonNextMonth_Lunation);
+    const newMoonThisMonthLongitudeOfSun = astronomicalData.getLongitudeOfSun(startOfMonth);
+    const newMoonNextMonthLongitudeOfSun = astronomicalData.getLongitudeOfSun(startOfNextMonth);
 
     const MajorSolarTerms = [
         0, 30, 60, 90,
@@ -173,6 +170,11 @@ export function getSolarTermTypeThisMonth(startOfMonth) {
         210, 240, 270,
         300, 330, 360
     ]
+
+    // Sun passes 360/0 in this month and screws with the comparison logic below
+    if (newMoonThisMonthLongitudeOfSun > newMoonNextMonthLongitudeOfSun) {
+        return 'major';
+    }
 
     for (const term of MajorSolarTerms) {
         // Check if the current term falls between the longitudes
@@ -185,27 +187,29 @@ export function getSolarTermTypeThisMonth(startOfMonth) {
 
 // Possible errors here if the conjunction happens a few hours after the solstice but before midnight
 // Returns an unformatted date object of the last New Moon before the Winter Solstice
-export function getMonthEleven(winterSolstice) {
-    // Iterate through the lunar conjunctions to find the range containing the winter solstice
-    let currentMonth = 0; // Start from the current month
+export function getMonthEleven(winterSolstice, localMidnight) {
+
+    let currentMonth = 0;
 
     // Get the lunar conjunction closest to the winter solstice
     let closestConjunction = astronomicalData.getMoonPhase(winterSolstice, currentMonth);
+    closestConjunction = getLocalMidnightInUTC(closestConjunction, localMidnight);
 
     // Check if the closest conjunction is after the winter solstice
     if (closestConjunction > winterSolstice) {
         // Move to the previous month to find the start of the eleventh month
         closestConjunction = astronomicalData.getMoonPhase(winterSolstice, currentMonth - 1);
+        closestConjunction = getLocalMidnightInUTC(closestConjunction, localMidnight);
     }
     return closestConjunction;
 }
 
 // Returns the first month in the Chinese calendar that doesn't contain a major solar term
-export function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear) {
+export function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear, localMidnight) {
     let dateToCheck = new Date(midnightStartOfMonthElevenLastYear);
     let lunations = 0;
     while (true) {
-        const solarTermType = getSolarTermTypeThisMonth(dateToCheck);
+        const solarTermType = getSolarTermTypeThisMonth(dateToCheck, localMidnight);
         
         if (solarTermType !== 'major') {
             // Found the first month without a major solar term
