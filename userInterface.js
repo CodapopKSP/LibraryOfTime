@@ -128,9 +128,13 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     // 100 is used to update all nodes
     let currentPass = (firstPass || dateInput) ? 100 : currentDateTime.getSeconds();
 
-
     // Make adjustments based on calendar choice
     currentDateTime = adjustCalendarType(currentDateTime);
+
+    // Generate a list of all New Moons that will be used in every calendar
+    if (currentPass===100) {
+        astronomicalData.generateAllNewMoons(currentDateTime);
+    }
 
     // Calculations that are used by multiple nodes
     const julianDay = computingTime.getJulianDayNumber(currentDateTime)

@@ -1,16 +1,19 @@
 import { parseInputDate } from '../userInterface.js';
 import * as lunisolarCalendars from '../Calendars/lunisolarCalendars.js';
-import { getSolsticeOrEquinox } from '../Other/astronomicalData.js';
+import { generateAllNewMoons } from '../Other/astronomicalData.js';
 import { convertUTCOffsetToMinutes } from '../utilities.js';
 
-function runSolarTermTypeThisMonthTests(calendarName, getCalendarFunction, testCases) {
+function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;
     let testCount = 0;
 
     for (const [inputDate, timezone, expectedOutput] of testCases) {
         testCount++;
         const testedDate = parseInputDate(inputDate, timezone);
-        const result = getCalendarFunction(testedDate, 16);
+        let result = getCalendarFunction(testedDate, 16);
+        if (result instanceof Date) {
+            result = result.toUTCString();
+        }
         if (result !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
@@ -22,25 +25,43 @@ function runSolarTermTypeThisMonthTests(calendarName, getCalendarFunction, testC
     return failedTestCount;
 }
 
-function testGetSolarTermTypeThisMonthCalendar() {
-    return runSolarTermTypeThisMonthTests("Solar Term Type This Month Calendar", lunisolarCalendars.getSolarTermTypeThisMonth, [
+function testGetSolarTermTypeThisMonth() {
+    return runSingleParameterTests("Solar Term Type This Month", lunisolarCalendars.getSolarTermTypeThisMonth, [
         ["2025-5-27, 00:00:00", "UTC+08:00", "major"],
         ["2025-2-28, 00:00:00", "UTC+08:00", "major"],
         ["2025-7-25, 00:00:00", "UTC+08:00", "minor"],
     ]);
 }
 
+function testGetMonthEleven() {
+    return runSingleParameterTests("Get Month Eleven", lunisolarCalendars.getMonthEleven, [
+        ["2025-12-21, 00:00:00", "UTC+08:00", "Fri, 19 Dec 2025 16:00:00 GMT"],
+        ["2000-12-21, 00:00:00", "UTC+08:00", "Sat, 25 Nov 2000 16:00:00 GMT"],
+    ]);
+}
+
+function testCalculateFirstMonthWithoutMajorSolarTerm() {
+    return runSingleParameterTests("First Month Without A major Solar Term", lunisolarCalendars.calculateFirstMonthWithoutMajorSolarTerm, [
+        ["2000-11-26, 00:00:00", "UTC+08:00", 5],
+        ["2024-12-1, 00:00:00", "UTC+08:00", 7],
+        ["1997-11-30, 00:00:00", "UTC+08:00", 6],
+    ]);
+}
+
 // Run all tests.
 function runTests() {
+    const currentDateTime = new Date(Date.UTC(2024, 12, 8, 18, 20, 46));
+    generateAllNewMoons(currentDateTime);
     const testFunctions = [
-        testGetSolarTermTypeThisMonthCalendar,
-
+        testGetSolarTermTypeThisMonth,
+        //testGetMonthEleven,
+        //testCalculateFirstMonthWithoutMajorSolarTerm,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);
 
     if (allTests === 0) {
-        console.log('Solar Calendars: All Tests Passed.');
+        console.log('Lunisolar Calendars: All Tests Passed.');
     }
 }
 

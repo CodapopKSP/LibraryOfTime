@@ -6,7 +6,48 @@
 
 import { getDynamicalTimeBackward, getJulianDayNumber } from '../Timekeeping/computingTime.js';
 import { getGregJulianDifference, createDateWithFixedYear } from '../utilities.js'
-import { getCalendarType } from '../userInterface.js';
+
+// Manages the global list of new moons
+let allNewMoons = [];
+export function generateAllNewMoons(currentDateTime) {
+    let newMoons = [];
+    let lunation = -14;
+    while (lunation < 13) {
+        const newMoon = getMoonPhase(currentDateTime, lunation);
+        newMoons.push(newMoon);
+        lunation++;
+    }
+    allNewMoons = newMoons;
+}
+
+export function getNewMoon(referenceDate, lunations) {
+    const len = allNewMoons.length;
+    if (len === 0) return null;
+
+    let bestIndex = -1;
+
+    // Binary search to find the last date < referenceDate
+    let low = 0;
+    let high = len - 1;
+
+    while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        if (allNewMoons[mid] < referenceDate) {
+            bestIndex = mid;
+            low = mid + 1; // keep searching to the right
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    // Apply the lunations to the index after we've found the best match
+    const adjustedIndex = bestIndex + lunations;
+    if (adjustedIndex >= 0 && adjustedIndex < len) {
+        return allNewMoons[adjustedIndex];
+    }
+
+    return null;
+}
 
 // Return an unformatted date from an unsigned JDE
 // This equation was sourced from Astronomical Algorithms
@@ -50,7 +91,7 @@ export function calculateDateFromJDE(JDE) {
     let fixedDateTime = new Date(getDynamicalTimeBackward(unfixedDateTime));
     
     const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
-    if ((fixedDateTime < startOfGregorian) && (getCalendarType()==='gregorian-proleptic')) {
+    if (fixedDateTime < startOfGregorian) { //&& (getCalendarType()==='gregorian-proleptic')) {
         fixedDateTime.setUTCDate(fixedDateTime.getUTCDate() + getGregJulianDifference());
     }
 

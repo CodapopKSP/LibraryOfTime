@@ -18,6 +18,7 @@ export function setGregJulianDifference(newDifference) {
     _gregJulianDifference = newDifference;
 }
 
+// Delete this maybe
 export function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);
     midnightInChina.setUTCDate(dateToFind.getDate()-1);

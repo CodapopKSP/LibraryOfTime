@@ -119,6 +119,17 @@ function testGetNextSolarLunarEclipse() {
     ]);
 }
 
+function testGetNewMoon() {
+    const currentDateTime = new Date(Date.UTC(2024, 3, 8, 18, 20, 46));
+    astronomicalData.generateAllNewMoons(currentDateTime);
+    return runCalendarTests("New Moon", astronomicalData.getNewMoon, [
+        ["2024-04-08, 10:20:46", "UTC+00:00", "Sun, 10 Mar 2024 09:00:17 GMT", 0],
+        ["2024-04-08, 18:20:47", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT", 0],
+        ["2024-04-08, 18:20:47", "UTC+00:00", "Sun, 10 Mar 2024 09:00:17 GMT", -1],
+        ["2024-04-08, 18:20:47", "UTC+00:00", "Wed, 08 May 2024 03:21:49 GMT", 1],
+    ]);
+}
+
 // Run all tests.
 function runTests() {
     const testFunctions = [
@@ -129,6 +140,7 @@ function runTests() {
         testGetSolsticeOrEquinox,
         testGetMoonPhase,
         testGetNextSolarLunarEclipse,
+        testGetNewMoon,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

@@ -9,7 +9,7 @@ import * as astronomicalData from '../Other/astronomicalData.js';
 import { parseInputDate } from '../userInterface.js';
 
 // Returns a formatted Hijri calendar AST date
-export function getUmmalQuraDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo, test=0) {
+export function getUmmalQuraDate(currentDateTime) {
 
     const HijriMonths = {
         0: 'al-Muḥarram',
@@ -37,7 +37,7 @@ export function getUmmalQuraDate(currentDateTime, newMoonThisMonth, newMoonLastM
     ];
 
     // Get the date of last day of New Moon and calculate it's sunset at Mecca (5:30pm UTC+3)
-    let firstDayOfIslamicMonth = new Date(timeOfSunsetAfterLastNewMoon(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo));
+    let firstDayOfIslamicMonth = new Date(timeOfSunsetAfterLastNewMoon(currentDateTime));
 
     // Calculate the number of days since the first day of the Islamic month
     const daysSinceStartOfMonth = Math.floor(utilities.differenceInDays(currentDateTime, firstDayOfIslamicMonth));
@@ -75,39 +75,31 @@ export function calculateIslamicMonthAndYear(ln) {
 }
 
 // Find the sunset that occurred after the last New Moon happened in Mecca
-export function timeOfSunsetAfterLastNewMoon(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo) {
-    let previousNewMoon = newMoonThisMonth;
-
-    if (previousNewMoon.getUTCHours() > 15) {
-        previousNewMoon.setUTCDate(previousNewMoon.getUTCDate()+1);
-    }
-    previousNewMoon.setUTCHours(15);
-    previousNewMoon.setUTCMinutes(0);
-    previousNewMoon.setUTCSeconds(0);
-    previousNewMoon.setUTCMilliseconds(0);
-    
-    if (currentDateTime < newMoonThisMonth) {
-        previousNewMoon = newMoonLastMonth;
-        // Check if the New Moon happened before 18:00 Mecca time (UTC+3), rough approximation of sunset
-        if (previousNewMoon.getUTCHours() > 15) {
-            previousNewMoon.setUTCDate(previousNewMoon.getUTCDate()+1);
+export function timeOfSunsetAfterLastNewMoon(currentDateTime) {
+    function adjustToSunsetDate(newMoon) {
+        // If the new moon happened after 15:00 UTC, move to the next day’s sunset
+        if (newMoon.getUTCHours() > 15) {
+            newMoon.setUTCDate(newMoon.getUTCDate() + 1);
         }
-        previousNewMoon.setUTCHours(15);
-        previousNewMoon.setUTCMinutes(0);
-        previousNewMoon.setUTCSeconds(0);
-        previousNewMoon.setUTCMilliseconds(0);
+        newMoon.setUTCHours(15, 0, 0, 0); // Set to 15:00 UTC (approximate Mecca sunset)
+        return newMoon;
     }
 
-    if (currentDateTime < previousNewMoon) {
-        previousNewMoon = newMoonTwoMonthsAgo;
-        if (previousNewMoon.getUTCHours() > 15) {
-            previousNewMoon.setUTCDate(previousNewMoon.getUTCDate()+1);
+    let offset = 0;
+    let sunsetTime;
+
+    // Try up to 3 previous new moons
+    for (let attempts = 0; attempts < 3; attempts++) {
+        let newMoon = astronomicalData.getNewMoon(currentDateTime, offset);
+        sunsetTime = adjustToSunsetDate(new Date(newMoon));
+
+        if (currentDateTime >= sunsetTime) {
+            return sunsetTime;
         }
-        previousNewMoon.setUTCHours(15);
-        previousNewMoon.setUTCMinutes(0);
-        previousNewMoon.setUTCSeconds(0);
-        previousNewMoon.setUTCMilliseconds(0);
+
+        offset--;
     }
-    
-    return previousNewMoon;
+
+    // If none found, fallback to the last adjusted one
+    return sunsetTime;
 }
