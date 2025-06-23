@@ -5,10 +5,17 @@
 // A set of functions for calculating data in the Astronomical Data category.
 
 import { getDynamicalTimeBackward, getJulianDayNumber } from '../Timekeeping/computingTime.js';
-import { getGregJulianDifference, createDateWithFixedYear } from '../utilities.js'
+import { getGregJulianDifference, setGregJulianDifference, createDateWithFixedYear } from '../utilities.js'
+import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.js';
 
 // Manages the global list of new moons
 let allNewMoons = [];
+
+export function getAllNewMoons() {
+    return allNewMoons;
+}
+
+
 export function generateAllNewMoons(currentDateTime) {
     let newMoons = [];
     let lunation = -14;
@@ -32,7 +39,7 @@ export function getNewMoon(referenceDate, lunations) {
 
     while (low <= high) {
         const mid = Math.floor((low + high) / 2);
-        if (allNewMoons[mid] < referenceDate) {
+        if (allNewMoons[mid] <= referenceDate) {
             bestIndex = mid;
             low = mid + 1; // keep searching to the right
         } else {
@@ -43,7 +50,7 @@ export function getNewMoon(referenceDate, lunations) {
     // Apply the lunations to the index after we've found the best match
     const adjustedIndex = bestIndex + lunations;
     if (adjustedIndex >= 0 && adjustedIndex < len) {
-        return allNewMoons[adjustedIndex];
+        return new Date(allNewMoons[adjustedIndex]);
     }
 
     return null;
@@ -92,6 +99,7 @@ export function calculateDateFromJDE(JDE) {
     
     const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
     if (fixedDateTime < startOfGregorian) { //&& (getCalendarType()==='gregorian-proleptic')) {
+        setGregJulianDifference(calculateGregorianJulianDifference(fixedDateTime));
         fixedDateTime.setUTCDate(fixedDateTime.getUTCDate() + getGregJulianDifference());
     }
 

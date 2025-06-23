@@ -1,7 +1,5 @@
 import { parseInputDate } from '../userInterface.js';
 import * as astronomicalData from '../Other/astronomicalData.js';
-import { setGregJulianDifference } from '../utilities.js';
-import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.js';
 
 function runCalculateDateFromJDETests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;
@@ -47,7 +45,6 @@ function runCalendarTests(calendarName, getCalendarFunction, testCases) {
     for (const [inputDate, timezone, expectedOutput, modifier] of testCases) {
         testCount++;
         const testedDate = parseInputDate(inputDate, timezone);
-        setGregJulianDifference(calculateGregorianJulianDifference(testedDate));
         let result = getCalendarFunction(testedDate, modifier);
         if (result instanceof Date) {
             result = result.toUTCString();

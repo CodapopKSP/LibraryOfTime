@@ -1,7 +1,8 @@
 import { parseInputDate } from '../userInterface.js';
 import * as lunisolarCalendars from '../Calendars/lunisolarCalendars.js';
-import { generateAllNewMoons } from '../Other/astronomicalData.js';
-import { convertUTCOffsetToMinutes } from '../utilities.js';
+import { generateAllNewMoons, getAllNewMoons } from '../Other/astronomicalData.js';
+import { setGregJulianDifference } from '../utilities.js'
+import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.js';
 
 function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;
@@ -36,26 +37,26 @@ function testGetSolarTermTypeThisMonth() {
 function testGetMonthEleven() {
     return runSingleParameterTests("Get Month Eleven", lunisolarCalendars.getMonthEleven, [
         ["2025-12-21, 00:00:00", "UTC+08:00", "Fri, 19 Dec 2025 16:00:00 GMT"],
-        ["2000-12-21, 00:00:00", "UTC+08:00", "Sat, 25 Nov 2000 16:00:00 GMT"],
+        ["2024-12-21, 00:00:00", "UTC+08:00", "Sat, 30 Nov 2024 16:00:00 GMT"],
     ]);
 }
 
 function testCalculateFirstMonthWithoutMajorSolarTerm() {
     return runSingleParameterTests("First Month Without A major Solar Term", lunisolarCalendars.calculateFirstMonthWithoutMajorSolarTerm, [
-        ["2000-11-26, 00:00:00", "UTC+08:00", 5],
         ["2024-12-1, 00:00:00", "UTC+08:00", 7],
-        ["1997-11-30, 00:00:00", "UTC+08:00", 6],
+        ["2024-4-9, 00:00:00", "UTC+08:00", 0],
     ]);
 }
 
 // Run all tests.
 function runTests() {
-    const currentDateTime = new Date(Date.UTC(2024, 12, 8, 18, 20, 46));
+    const currentDateTime = new Date(Date.UTC(2025, 4, 8, 18, 20, 46));
+    setGregJulianDifference(calculateGregorianJulianDifference(currentDateTime));
     generateAllNewMoons(currentDateTime);
     const testFunctions = [
         testGetSolarTermTypeThisMonth,
-        //testGetMonthEleven,
-        //testCalculateFirstMonthWithoutMajorSolarTerm,
+        testGetMonthEleven,
+        testCalculateFirstMonthWithoutMajorSolarTerm,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

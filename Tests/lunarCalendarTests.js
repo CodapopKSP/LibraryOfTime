@@ -1,8 +1,6 @@
 import { parseInputDate } from '../userInterface.js';
-import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.js';
 import { getUmmalQuraDate, timeOfSunsetAfterLastNewMoon, calculateIslamicMonthAndYear } from '../Calendars/lunarCalendars.js';
 import { generateAllNewMoons } from '../Other/astronomicalData.js';
-import { setGregJulianDifference } from '../utilities.js'
 
 function runGetUmmalQuraDateTests(testCases) {
     let failedTestCount = 0;
@@ -32,7 +30,6 @@ function runTimeOfSunsetAfterLastNewMoonTests(testCases) {
         testCount++;
 
         const testedDate = parseInputDate(inputDate, timezone);
-        setGregJulianDifference(calculateGregorianJulianDifference(testedDate));
         const actualDate = timeOfSunsetAfterLastNewMoon(testedDate).toUTCString();
         if (actualDate !== expectedDate) {
             console.error(`TimeOfSunsetAfterLastNewMoon: Test ${testCount} failed.`);

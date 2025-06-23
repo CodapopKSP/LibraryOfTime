@@ -157,14 +157,9 @@ export function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newM
 // Returns 'major' or 'minor' depending on the latitude of the sun calculation
 export function getSolarTermTypeThisMonth(startOfMonth_, localMidnight) {
     let startOfMonth = startOfMonth_;
-    let startOfNextMonth = astronomicalData.getNewMoon(startOfMonth_, 2);
+    let startOfNextMonth = astronomicalData.getNewMoon(startOfMonth_, 2);  // Get 2 lunations later, Lunation 1 is later in the same day
     startOfNextMonth = getLocalMidnightInUTC(startOfNextMonth, localMidnight);
-
-    // Sometimes the calculated new moon is too far in the future, so go back one if > 40 days away
-    if (startOfNextMonth.getTime() > startOfMonth.getTime() + (60*60*24*40*1000)) {
-        startOfNextMonth = getLocalMidnightInUTC(astronomicalData.getNewMoon(startOfMonth, 0), localMidnight);
-    }
-    startOfNextMonth.setUTCDate(startOfNextMonth.getUTCDate() - 1);
+    startOfNextMonth.setUTCDate(startOfNextMonth.getUTCDate() - 1);  // Go back 1 day to not count the first day of the next month
     
     const newMoonThisMonthLongitudeOfSun = astronomicalData.getLongitudeOfSun(startOfMonth);
     const newMoonNextMonthLongitudeOfSun = astronomicalData.getLongitudeOfSun(startOfNextMonth);
@@ -216,11 +211,7 @@ export function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthEle
     let lunations = 0;
     while (true) {
         let solarTermType = getSolarTermTypeThisMonth(dateToCheck, localMidnight);
-        /*
-        console.log(dateToCheck);
-        console.log(lunations);
-        console.log('-------------------------');*/
-        
+
         if (solarTermType !== 'major') {
             // Found the first month without a major solar term
             lunations--;
@@ -231,8 +222,8 @@ export function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthEle
         }
         
         // Move to the start of the next month
-        dateToCheck = astronomicalData.getNewMoon(costantStartingPoint, lunations);
         lunations += 1;
+        dateToCheck = astronomicalData.getNewMoon(costantStartingPoint, lunations+1);
         dateToCheck = getLocalMidnightInUTC(dateToCheck, localMidnight);
         if (lunations > 11) {
             return 0;
