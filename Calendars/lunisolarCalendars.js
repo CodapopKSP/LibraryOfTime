@@ -13,7 +13,7 @@ function isMetonicCycleLeapYear(year) {
 }
 
 export function getLocalMidnightInUTC(dateToFind, localMidnight) {
-    let midnightInUTC = dateToFind;
+    let midnightInUTC = new Date(dateToFind);
     if (midnightInUTC.getUTCHours() < localMidnight) {
         midnightInUTC.setUTCDate(midnightInUTC.getUTCDate() - 1);
     }
@@ -48,7 +48,12 @@ export function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, 
         if (year < 0) {
             earthlyBranchIndex++;
         }
-        return `${year}年 ${lunisolarDate.month}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+
+        let monthString = lunisolarDate.month;
+        if (lunisolarDate.leapMonth) {
+            monthString = monthString + "閏";
+        }
+        return `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
     }
 
     if (country==='vietnam') {
@@ -107,50 +112,55 @@ export function getSexagenaryYear(chineseDate) {
 //|--------------------------|
 
 
-export function getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo, winterSolstice, winterSolsticeLastYear, localMidnight) {
+export function getLunisolarCalendarDate(currentDateTime, localMidnight) {
 
-    let startofThisMonth = getLocalMidnightInUTC(newMoonThisMonth, localMidnight);
-    let startofLastMonth = getLocalMidnightInUTC(newMoonLastMonth, localMidnight);
-    const startOfTwoMonthsAgo = getLocalMidnightInUTC(newMoonTwoMonthsAgo, localMidnight);
-
-    if (currentDateTime < startofThisMonth) {
-        startofThisMonth = startofLastMonth;
-        startofLastMonth = startOfTwoMonthsAgo;
-    }
-
-    const startOfMonthEleven = getMonthEleven(winterSolstice, localMidnight);
-    const startOfMonthElevenLastYear = getMonthEleven(winterSolsticeLastYear, localMidnight);
+    const LastWinterSolstice = astronomicalData.getSolsticeEquinox(currentDateTime, 'winter', 0);
+    const nextWinterSolstice = astronomicalData.getSolsticeEquinox(currentDateTime, 'winter', 1);
+    let startofThisMonth = astronomicalData.getNewMoon(currentDateTime, 0);
+    startofThisMonth = getLocalMidnightInUTC(startofThisMonth, localMidnight);
+    const startOfMonthElevenNextYear = getMonthEleven(nextWinterSolstice, localMidnight);
+    const startOfMonthEleven = getMonthEleven(LastWinterSolstice, localMidnight);
 
     // Find out roughly how many months between solstices
-    const daysBetweenEleventhMonths = utilities.differenceInDays(startOfMonthEleven, startOfMonthElevenLastYear);
+    const daysBetweenEleventhMonths = utilities.differenceInDays(startOfMonthElevenNextYear, startOfMonthEleven);
     const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
     let currentMonth = 0;
     const daysSinceMonthEleven = utilities.differenceInDays(currentDateTime, startOfMonthEleven);
+    const daysBetweenStartOfMonthAndMonthEleven = utilities.differenceInDays(startofThisMonth, startOfMonthEleven);
 
     // Get rough estimates of the current day/month,
     // likely to be wrong if close to the beginning or ending of a month
-    currentMonth = Math.round(daysSinceMonthEleven / 29.53);
+    currentMonth = Math.round(daysBetweenStartOfMonthAndMonthEleven / 29.53)-1;
     let currentDay = Math.floor(utilities.differenceInDays(currentDateTime, startofThisMonth))+1;
 
-    // The calculation needs to be corrected by adding 11
-    currentMonth += 11;
+    
 
     // Leap Year
+    let isLeapMonth = false;
+    let leapMonth = 0;
     if (lunationsBetweenEleventhMonths===13) {
+        // Ensure the currentMonth is within the range 1 to 13
+        currentMonth = ((currentMonth - 1) % 13 + 13) % 13 + 1;
+
         // The leap month repeats the number of the last month, so subsequent months will be back by 1
-        const leapMonth = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthElevenLastYear, localMidnight);
-        if (leapMonth>currentMonth) {
-            currentMonth+=1;
+        leapMonth = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthEleven, localMidnight);
+
+        if (leapMonth===currentMonth) {
+            isLeapMonth = true;
         }
+
+        if (leapMonth<=currentMonth) {
+            currentMonth-=1;
+        }
+    } else {
+        // Ensure the currentMonth is within the range 1 to 12
+        currentMonth = ((currentMonth - 1) % 12 + 12) % 12 + 1;
     }
-
-    // Ensure the currentMonth is within the range 1 to 12
-    currentMonth = ((currentMonth - 1) % 12 + 12) % 12 + 1;
-
 
     return {
         month: currentMonth,
         day: currentDay,
+        leapMonth: isLeapMonth,
     };
 }
 

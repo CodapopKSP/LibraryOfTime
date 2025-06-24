@@ -11,11 +11,6 @@ import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.
 // Manages the global list of new moons
 let allNewMoons = [];
 
-export function getAllNewMoons() {
-    return allNewMoons;
-}
-
-
 export function generateAllNewMoons(currentDateTime) {
     let newMoons = [];
     let lunation = -14;
@@ -51,6 +46,54 @@ export function getNewMoon(referenceDate, lunations) {
     const adjustedIndex = bestIndex + lunations;
     if (adjustedIndex >= 0 && adjustedIndex < len) {
         return new Date(allNewMoons[adjustedIndex]);
+    }
+
+    return null;
+}
+
+// Manages the global list of solstices and equinoxes
+let allSolsticesEquinoxes = [];
+
+export function generateAllSolsticesEquinoxes(currentDateTime) {
+    const seasons = ['spring', 'summer', 'autumn', 'winter'];
+    const centerYear = currentDateTime.getUTCFullYear();
+    const solsticesEquinoxes = [];
+
+    for (let yearOffset = -1; yearOffset <= 1; yearOffset++) {
+        const year = centerYear + yearOffset;
+
+        for (const season of seasons) {
+            const date = getSolsticeOrEquinox(new Date(Date.UTC(year, 0, 1)), season);
+            solsticesEquinoxes.push({ date, season });
+        }
+    }
+
+    allSolsticesEquinoxes = solsticesEquinoxes;
+}
+
+export function getSolsticeEquinox(referenceDate, season, offset = 0) {
+
+    // Filter to only the desired season
+    const filtered = allSolsticesEquinoxes.filter(e => e.season === season);
+    let bestIndex = -1;
+
+    // Binary search to find the last matching season <= referenceDate
+    let low = 0;
+    let high = filtered.length - 1;
+
+    while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        if (filtered[mid].date <= referenceDate) {
+            bestIndex = mid;
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    const adjustedIndex = bestIndex + offset;
+    if (adjustedIndex >= 0 && adjustedIndex < filtered.length) {
+        return new Date(filtered[adjustedIndex].date); // Return copy
     }
 
     return null;

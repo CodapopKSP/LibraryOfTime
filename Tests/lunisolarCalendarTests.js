@@ -1,6 +1,6 @@
 import { parseInputDate } from '../userInterface.js';
 import * as lunisolarCalendars from '../Calendars/lunisolarCalendars.js';
-import { generateAllNewMoons, getAllNewMoons } from '../Other/astronomicalData.js';
+import { generateAllNewMoons } from '../Other/astronomicalData.js';
 import { setGregJulianDifference } from '../utilities.js'
 import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.js';
 
@@ -45,6 +45,7 @@ function testCalculateFirstMonthWithoutMajorSolarTerm() {
     return runSingleParameterTests("First Month Without A major Solar Term", lunisolarCalendars.calculateFirstMonthWithoutMajorSolarTerm, [
         ["2024-12-1, 00:00:00", "UTC+08:00", 7],
         ["2024-4-9, 00:00:00", "UTC+08:00", 0],
+        ["2025-3-1, 00:00:00", "UTC+08:00", 3],
     ]);
 }
 

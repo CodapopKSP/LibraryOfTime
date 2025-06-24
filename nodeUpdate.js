@@ -46,14 +46,9 @@ export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffs
 }
 
 export function updateLunisolarCalendars(currentDateTime) {
-    const winterSolstice = astronomicalData.getSolsticeOrEquinox(currentDateTime, 'winter');
     let lastYear = new Date(currentDateTime);
     lastYear.setFullYear(currentDateTime.getFullYear()-1);
-    const winterSolsticeLastYear = astronomicalData.getSolsticeOrEquinox(lastYear, 'winter');
-    const newMoonThisMonth = astronomicalData.getNewMoon(currentDateTime, 0);
-    const newMoonLastMonth = astronomicalData.getNewMoon(currentDateTime, -1);
-    const newMoonTwoMonthsAgo = astronomicalData.getNewMoon(currentDateTime, -2);
-    let lunisolarCalendarChina = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo, winterSolstice, winterSolsticeLastYear, 16); // China midnight happens at UTC 16:00
+    let lunisolarCalendarChina = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
     let chineseCalendar = lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina, 'china');
     userInterface.setTimeValue('chinese-node', chineseCalendar);
     userInterface.setTimeValue('sexagenary-year-node', lunisolarCalendars.getSexagenaryYear(chineseCalendar));
@@ -62,7 +57,7 @@ export function updateLunisolarCalendars(currentDateTime) {
     userInterface.setTimeValue('vietnamese-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam, 'vietnam'));
     let lunisolarCalendarKorea = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo, winterSolstice, winterSolsticeLastYear, 17); // Korea midnight happens at UTC 17:00
     userInterface.setTimeValue('dangun-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea, 'korea'));*/
-    userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime, newMoonThisMonth, newMoonLastMonth, newMoonTwoMonthsAgo)); // Returns a wrong day for May 8 2024
+    userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime)); // Returns a wrong day for May 8 2024
 }
 
 export function updateOtherCalendars(currentDateTime, marsSolDay) {

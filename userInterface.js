@@ -134,6 +134,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     // Generate a list of all New Moons that will be used in every calendar
     if (currentPass===100) {
         astronomicalData.generateAllNewMoons(currentDateTime);
+        astronomicalData.generateAllSolsticesEquinoxes(currentDateTime);
     }
 
     // Calculations that are used by multiple nodes
