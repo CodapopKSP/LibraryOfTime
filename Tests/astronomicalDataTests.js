@@ -128,7 +128,7 @@ function testGetNewMoon() {
 }
 
 // Run all tests.
-function runTests() {
+export function runAstronomicalDataTests() {
     const testFunctions = [
         testCalculateDateFromJDE,
         testCalculateUTCYearFraction,
@@ -145,10 +145,4 @@ function runTests() {
     if (allTests === 0) {
         console.log('Astronomical Data: All Tests Passed.');
     }
-}
-
-runTests();
-
-if (typeof process !== "undefined" && process.exit) {
-    process.exit(0);
 }

@@ -119,8 +119,6 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
         timezoneOffset = getLocalTimezoneOffset()
     }
 
-    let calendarType = getCalendarType();
-
     // Get the current datetime, keeping in mind the timezone, calendar type, and Date() bullshit
     let currentDateTime = dateInput ? parseInputDate(dateInput, timezoneOffset) : new Date();
 
@@ -168,7 +166,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
                 setTimeValue('this-full-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.5).toUTCString());
                 setTimeValue('this-last-quarter-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.75).toUTCString());
             case 8:
-                nodeUpdate.updateSolarCalendars(currentDateTime, calendarType, utilities.convertUTCOffsetToMinutes(timezoneOffset));
+                nodeUpdate.updateSolarCalendars(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset));
             case 9:
                 nodeUpdate.updateOtherCalendars(currentDateTime, marsSolDay);
         }

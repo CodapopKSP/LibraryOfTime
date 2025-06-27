@@ -59,7 +59,7 @@ export function generateAllSolsticesEquinoxes(currentDateTime) {
     const centerYear = currentDateTime.getUTCFullYear();
     const solsticesEquinoxes = [];
 
-    for (let yearOffset = -1; yearOffset <= 1; yearOffset++) {
+    for (let yearOffset = -2; yearOffset <= 2; yearOffset++) {
         const year = centerYear + yearOffset;
 
         for (const season of seasons) {

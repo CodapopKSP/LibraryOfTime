@@ -287,7 +287,7 @@ function testFrenchRepublicanCalendar() {
 }
 
 // Run all tests.
-function runTests() {
+export function runSolarCalendarTests() {
     const testFunctions = [
         testGregorianCalendar,
         testJulianCalendar,
@@ -318,10 +318,4 @@ function runTests() {
     if (allTests === 0) {
         console.log('Solar Calendars: All Tests Passed.');
     }
-}
-
-runTests();
-
-if (typeof process !== "undefined" && process.exit) {
-    process.exit(0);
 }

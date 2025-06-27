@@ -89,7 +89,7 @@ function testCalculateIslamicMonthAndYear() {
 }
 
 // Run all tests.
-function runTests() {
+export function runLunarCalendarTests() {
     const currentDateTime = new Date(Date.UTC(2024, 3, 8, 18, 20, 46));
     generateAllNewMoons(currentDateTime);
     const testFunctions = [
@@ -102,10 +102,4 @@ function runTests() {
     if (allTests === 0) {
         console.log('Lunar Calendars: All Tests Passed.');
     }
-}
-
-runTests();
-
-if (typeof process !== "undefined" && process.exit) {
-    process.exit(0);
 }

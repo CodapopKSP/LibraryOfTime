@@ -19,7 +19,7 @@ import * as lunarCalendars from './Calendars/lunarCalendars.js';
 import * as userInterface from './userInterface.js';
 import * as utilities from './utilities.js';
 
-export function updateSolarCalendars(currentDateTime, calendarType, timezoneOffset) {
+export function updateSolarCalendars(currentDateTime, timezoneOffset) {
     const springEquinox = astronomicalData.getSolsticeEquinox(currentDateTime, 'spring');
     userInterface.setTimeValue('gregorian-node', solarCalendars.getGregorianDateTime(currentDateTime, timezoneOffset).date);
     userInterface.setTimeValue('julian-node', solarCalendars.getJulianCalendar(currentDateTime));
@@ -50,11 +50,12 @@ export function updateLunisolarCalendars(currentDateTime) {
     let chineseCalendar = lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina, 'china');
     userInterface.setTimeValue('chinese-node', chineseCalendar);
     userInterface.setTimeValue('sexagenary-year-node', lunisolarCalendars.getSexagenaryYear(chineseCalendar));
+    /*
     let lunisolarCalendarVietnam = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, 15); // Vietnam midnight happens at UTC 15:00
     userInterface.setTimeValue('vietnamese-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam, 'vietnam'));
     let lunisolarCalendarKorea = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, 17); // Korea midnight happens at UTC 17:00
     userInterface.setTimeValue('dangun-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea, 'korea'));
-    userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime));
+    */userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime));
 }
 
 export function updateOtherCalendars(currentDateTime, marsSolDay) {

@@ -112,10 +112,10 @@ export function getSexagenaryYear(chineseDate) {
 //|--------------------------|
 
 
-export function getLunisolarCalendarDate(currentDateTime, localMidnight) {
+export function getLunisolarCalendarDate(currentDateTime, localMidnight, rerun = false) {
+    let LastWinterSolstice = astronomicalData.getSolsticeEquinox(currentDateTime, 'winter', 0);
+    let nextWinterSolstice = astronomicalData.getSolsticeEquinox(currentDateTime, 'winter', 1);
 
-    const LastWinterSolstice = astronomicalData.getSolsticeEquinox(currentDateTime, 'winter', 0);
-    const nextWinterSolstice = astronomicalData.getSolsticeEquinox(currentDateTime, 'winter', 1);
     let startofThisMonth = astronomicalData.getNewMoon(currentDateTime, 0);
     startofThisMonth = getLocalMidnightInUTC(startofThisMonth, localMidnight);
     const startOfMonthElevenNextYear = getMonthEleven(nextWinterSolstice, localMidnight);
@@ -125,26 +125,23 @@ export function getLunisolarCalendarDate(currentDateTime, localMidnight) {
     const daysBetweenEleventhMonths = utilities.differenceInDays(startOfMonthElevenNextYear, startOfMonthEleven);
     const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
     let currentMonth = 0;
-    const daysSinceMonthEleven = utilities.differenceInDays(currentDateTime, startOfMonthEleven);
     const daysBetweenStartOfMonthAndMonthEleven = utilities.differenceInDays(startofThisMonth, startOfMonthEleven);
-
+    
     // Get rough estimates of the current day/month,
     // likely to be wrong if close to the beginning or ending of a month
     currentMonth = Math.round(daysBetweenStartOfMonthAndMonthEleven / 29.53)-1;
     let currentDay = Math.floor(utilities.differenceInDays(currentDateTime, startofThisMonth))+1;
 
-    
-
     // Leap Year
     let isLeapMonth = false;
     let leapMonth = 0;
     if (lunationsBetweenEleventhMonths===13) {
-        // Ensure the currentMonth is within the range 1 to 13
+
+        // Ensure the currentMonth is within the range 1 to 12
         currentMonth = ((currentMonth - 1) % 13 + 13) % 13 + 1;
 
         // The leap month repeats the number of the last month, so subsequent months will be back by 1
         leapMonth = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthEleven, localMidnight);
-
         if (leapMonth===currentMonth) {
             isLeapMonth = true;
         }
@@ -152,10 +149,10 @@ export function getLunisolarCalendarDate(currentDateTime, localMidnight) {
         if (leapMonth<=currentMonth) {
             currentMonth-=1;
         }
-    } else {
-        // Ensure the currentMonth is within the range 1 to 12
-        currentMonth = ((currentMonth - 1) % 12 + 12) % 12 + 1;
+
     }
+    // Ensure the currentMonth is within the range 1 to 12
+    currentMonth = ((currentMonth - 1) % 12 + 12) % 12 + 1;
 
     return {
         month: currentMonth,
@@ -166,7 +163,7 @@ export function getLunisolarCalendarDate(currentDateTime, localMidnight) {
 
 // Returns 'major' or 'minor' depending on the latitude of the sun calculation
 export function getSolarTermTypeThisMonth(startOfMonth_, localMidnight) {
-    let startOfMonth = startOfMonth_;
+    let startOfMonth = astronomicalData.getNewMoon(startOfMonth_, 1);
     let startOfNextMonth = astronomicalData.getNewMoon(startOfMonth_, 2);  // Get 2 lunations later, Lunation 1 is later in the same day
     startOfNextMonth = getLocalMidnightInUTC(startOfNextMonth, localMidnight);
     startOfNextMonth.setUTCDate(startOfNextMonth.getUTCDate() - 1);  // Go back 1 day to not count the first day of the next month
@@ -197,9 +194,12 @@ export function getSolarTermTypeThisMonth(startOfMonth_, localMidnight) {
 
 // Possible errors here if the conjunction happens a few hours after the solstice but before midnight
 // Returns an unformatted date object of the last New Moon before the Winter Solstice
-export function getMonthEleven(winterSolstice, localMidnight) {
+export function getMonthEleven(winterSolstice, localMidnight, weirdShitAroundSolstice) {
 
     let currentMonth = 0;
+    if (weirdShitAroundSolstice) {
+        currentMonth = -1;
+    }
 
     // Get the lunar conjunction closest to the winter solstice
     let closestConjunction = astronomicalData.getNewMoon(winterSolstice, currentMonth);

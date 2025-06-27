@@ -91,7 +91,7 @@ function testCalendarType() {
 
 
 // Run all tests.
-function runTests() {
+export function runDateManagementTests() {
     const testFunctions = [
         testTimezoneFormatter,
         testParseDate,
@@ -103,10 +103,4 @@ function runTests() {
     if (allTests === 0) {
         console.log('Date Management: All Tests Passed.');
     }
-}
-
-runTests();
-
-if (typeof process !== "undefined" && process.exit) {
-    process.exit(0);
 }
