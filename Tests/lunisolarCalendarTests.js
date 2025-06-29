@@ -28,17 +28,14 @@ function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
     return failedTestCount;
 }
 
-function runChineseCalendarTests(calendarName, getCalendarFunction, testCases) {
+function runGetChineseLunisolarCalendarDate(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;
     let testCount = 0;
 
-    for (const [inputDate, timezone, country, localMidnight, expectedOutput] of testCases) {
+    for (const [inputDate, timezone, country, expectedOutput] of testCases) {
         testCount++;
         const testedDate = parseInputDate(inputDate, timezone);
-        let result = getCalendarFunction(testedDate, lunisolarDate, country);
-        if (result instanceof Date) {
-            result = result.toUTCString();
-        }
+        let result = getCalendarFunction(testedDate, country);
         if (result !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
@@ -82,10 +79,10 @@ function testGetLunisolarCalendarDate() {
 }
 
 function testGetChineseLunisolarCalendarDate() {
-    return runSingleParameterTests("Chinese Calendar Date", lunisolarCalendars.getChineseLunisolarCalendarDate, [
-        ["2025-12-1, 00:00:00", "UTC+08:00", "month: 10, day: 12, leapMonth: false"],
-        ["2025-4-15, 00:00:00", "UTC+08:00", "month: 3, day: 18, leapMonth: false"],
-        ["2025-7-29, 00:00:00", "UTC+08:00", "month: 6, day: 5, leapMonth: true"],
+    return runGetChineseLunisolarCalendarDate("Chinese Calendar Date", lunisolarCalendars.getChineseLunisolarCalendarDate, [
+        ["2025-12-1, 00:00:00", "UTC+08:00", "china", "4723年 10月 12日\nYear of the Snake (蛇)"],
+        ["2025-12-1, 00:00:00", "UTC+08:00", "vietnam", "2025 10 11\nYear of the Snake (𧋻)"],
+        ["2025-12-1, 00:00:00", "UTC+08:00", "korea", "4358년 10월 12일"],
     ]);
 }
 
@@ -100,6 +97,7 @@ export function runLunisolarCalendarTests() {
         testGetMonthEleven,
         testCalculateFirstMonthWithoutMajorSolarTerm,
         testGetLunisolarCalendarDate,
+        testGetChineseLunisolarCalendarDate,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);
