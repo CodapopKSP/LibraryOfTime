@@ -31,15 +31,16 @@ export function getLocalMidnightInUTC(dateToFind, localMidnight) {
 //|--------------------------------------|
 
 // Returns a formatted Chinese calendar CST date based on the lunisolar calculation
-export function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, country) {
+export function getChineseLunisolarCalendarDate(currentDateTime, country) {
     const gregorianYear = currentDateTime.getUTCFullYear();
     const gregorianMonth = currentDateTime.getUTCMonth();
     let year = gregorianYear;
-    if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
-        year -= 1;
-    }
 
     if (country==='china') {
+        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 16);
+        if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+            year -= 1;
+        }
         year += 2698;
         let zodiacAnimals = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
         let positiveYear = year < 0 ? 60 + (year % 60) : year;
@@ -56,6 +57,10 @@ export function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, 
     }
 
     if (country==='vietnam') {
+        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 17);
+        if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+            year -= 1;
+        }
         let zodiacAnimals = ['Rat (𤝞)', 'Water Buffalo (𤛠)', 'Tiger (𧲫)', 'Cat (猫)', 'Dragon (龍)', 'Snake (𧋻)', 'Horse (馭)', 'Goat (羝)', 'Monkey (𤠳)', 'Rooster (𪂮)', 'Dog (㹥)', 'Pig (㺧)'];
         let positiveYear = year < 0 ? 60 + (year % 60) : year;
         let earthlyBranchIndex = (positiveYear-4) % 12;
@@ -66,6 +71,10 @@ export function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, 
     }
 
     if (country==='korea') {
+        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 15);
+        if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+            year -= 1;
+        }
         year += 2333;
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
@@ -75,7 +84,8 @@ export function getChineseLunisolarCalendarDate(currentDateTime, lunisolarDate, 
 }
 
 // Returns a formatted Sexagenary year CST date based on the lunisolar calculation
-export function getSexagenaryYear(chineseDate) {
+export function getSexagenaryYear(currentDateTime) {
+    let chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'china');
     let heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
     let earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 

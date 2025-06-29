@@ -73,8 +73,16 @@ function testCalculateFirstMonthWithoutMajorSolarTerm() {
     ]);
 }
 
-function testGetLunisolarCalendarDateTerm() {
+function testGetLunisolarCalendarDate() {
     return runSingleParameterTests("Lunisolar Calendar Date", lunisolarCalendars.getLunisolarCalendarDate, [
+        ["2025-12-1, 00:00:00", "UTC+08:00", "month: 10, day: 12, leapMonth: false"],
+        ["2025-4-15, 00:00:00", "UTC+08:00", "month: 3, day: 18, leapMonth: false"],
+        ["2025-7-29, 00:00:00", "UTC+08:00", "month: 6, day: 5, leapMonth: true"],
+    ]);
+}
+
+function testGetChineseLunisolarCalendarDate() {
+    return runSingleParameterTests("Chinese Calendar Date", lunisolarCalendars.getChineseLunisolarCalendarDate, [
         ["2025-12-1, 00:00:00", "UTC+08:00", "month: 10, day: 12, leapMonth: false"],
         ["2025-4-15, 00:00:00", "UTC+08:00", "month: 3, day: 18, leapMonth: false"],
         ["2025-7-29, 00:00:00", "UTC+08:00", "month: 6, day: 5, leapMonth: true"],
@@ -91,7 +99,7 @@ export function runLunisolarCalendarTests() {
         testGetSolarTermTypeThisMonth,
         testGetMonthEleven,
         testCalculateFirstMonthWithoutMajorSolarTerm,
-        testGetLunisolarCalendarDateTerm,
+        testGetLunisolarCalendarDate,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

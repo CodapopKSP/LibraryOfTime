@@ -46,16 +46,11 @@ export function updateSolarCalendars(currentDateTime, timezoneOffset) {
 }
 
 export function updateLunisolarCalendars(currentDateTime) {
-    let lunisolarCalendarChina = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, 16); // China midnight happens at UTC 16:00
-    let chineseCalendar = lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarChina, 'china');
-    userInterface.setTimeValue('chinese-node', chineseCalendar);
-    userInterface.setTimeValue('sexagenary-year-node', lunisolarCalendars.getSexagenaryYear(chineseCalendar));
-    /*
-    let lunisolarCalendarVietnam = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, 15); // Vietnam midnight happens at UTC 15:00
-    userInterface.setTimeValue('vietnamese-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarVietnam, 'vietnam'));
-    let lunisolarCalendarKorea = lunisolarCalendars.getLunisolarCalendarDate(currentDateTime, 17); // Korea midnight happens at UTC 17:00
-    userInterface.setTimeValue('dangun-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, lunisolarCalendarKorea, 'korea'));
-    */userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime));
+    userInterface.setTimeValue('chinese-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, 'china'));
+    userInterface.setTimeValue('sexagenary-year-node', lunisolarCalendars.getSexagenaryYear(currentDateTime));
+    userInterface.setTimeValue('vietnamese-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, 'vietnam'));
+    userInterface.setTimeValue('dangun-node', lunisolarCalendars.getChineseLunisolarCalendarDate(currentDateTime, 'korea'));
+    userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime));
 }
 
 export function updateOtherCalendars(currentDateTime, marsSolDay) {
