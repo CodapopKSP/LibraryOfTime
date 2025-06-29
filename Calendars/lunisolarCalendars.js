@@ -17,7 +17,6 @@ export function getLocalMidnightInUTC(dateToFind, localMidnight) {
     if (midnightInUTC.getUTCHours() < localMidnight) {
         midnightInUTC.setUTCDate(midnightInUTC.getUTCDate() - 1);
     }
-
     midnightInUTC.setUTCHours(localMidnight);
     midnightInUTC.setUTCMinutes(0);
     midnightInUTC.setUTCSeconds(0);
@@ -112,12 +111,19 @@ export function getSexagenaryYear(chineseDate) {
 //|--------------------------|
 
 
-export function getLunisolarCalendarDate(currentDateTime, localMidnight, rerun = false) {
+export function getLunisolarCalendarDate(currentDateTime, localMidnight) {
     let LastWinterSolstice = astronomicalData.getSolsticeEquinox(currentDateTime, 'winter', 0);
     let nextWinterSolstice = astronomicalData.getSolsticeEquinox(currentDateTime, 'winter', 1);
 
     let startofThisMonth = astronomicalData.getNewMoon(currentDateTime, 0);
     startofThisMonth = getLocalMidnightInUTC(startofThisMonth, localMidnight);
+
+    // If on the day of the new moon but the new moon hasn't happened yet, then we need to take the next new moon
+    let startOfNextMonth = astronomicalData.getNewMoon(currentDateTime, 1);
+    startOfNextMonth = getLocalMidnightInUTC(startOfNextMonth, localMidnight);
+    if (currentDateTime>=startOfNextMonth) {
+        startofThisMonth = startOfNextMonth;
+    }
     const startOfMonthElevenNextYear = getMonthEleven(nextWinterSolstice, localMidnight);
     const startOfMonthEleven = getMonthEleven(LastWinterSolstice, localMidnight);
 
