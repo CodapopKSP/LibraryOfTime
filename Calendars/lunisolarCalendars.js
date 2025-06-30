@@ -43,8 +43,7 @@ export function getChineseLunisolarCalendarDate(currentDateTime, country) {
         }
         year += 2698;
         let zodiacAnimals = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
-        let positiveYear = year < 0 ? 60 + (year % 60) : year;
-        let earthlyBranchIndex = (positiveYear-2) % 12;
+        let earthlyBranchIndex = ((year - 2) % 12 + 12) % 12;
         if (year < 0) {
             earthlyBranchIndex++;
         }
@@ -62,12 +61,15 @@ export function getChineseLunisolarCalendarDate(currentDateTime, country) {
             year -= 1;
         }
         let zodiacAnimals = ['Rat (𤝞)', 'Water Buffalo (𤛠)', 'Tiger (𧲫)', 'Cat (猫)', 'Dragon (龍)', 'Snake (𧋻)', 'Horse (馭)', 'Goat (羝)', 'Monkey (𤠳)', 'Rooster (𪂮)', 'Dog (㹥)', 'Pig (㺧)'];
-        let positiveYear = year < 0 ? 60 + (year % 60) : year;
-        let earthlyBranchIndex = (positiveYear-4) % 12;
+        let earthlyBranchIndex = ((year - 4) % 12 + 12) % 12;
         if (year < 0) {
             earthlyBranchIndex++;
         }
-        return `${year} ${lunisolarDate.month} ${lunisolarDate.day}\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+        let monthString = lunisolarDate.month;
+        if (lunisolarDate.leapMonth) {
+            monthString = monthString + "Nhuận";
+        }
+        return `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
     }
 
     if (country==='korea') {
@@ -79,7 +81,11 @@ export function getChineseLunisolarCalendarDate(currentDateTime, country) {
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
         }
-        return `${year}년 ${lunisolarDate.month}월 ${lunisolarDate.day}일`;
+        let monthString = lunisolarDate.month;
+        if (lunisolarDate.leapMonth) {
+            monthString = monthString + "윤";
+        }
+        return `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
     }
 }
 
