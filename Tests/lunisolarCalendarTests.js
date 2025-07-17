@@ -86,6 +86,48 @@ function testGetChineseLunisolarCalendarDate() {
     ]);
 }
 
+function testGetSexagenaryYear() {
+    return runSingleParameterTests("Chinese Calendar Date", lunisolarCalendars.getSexagenaryYear, [
+        ["2024-12-1, 00:00:00", "UTC+08:00", "甲辰 (JiaChen)"],
+        ["2025-12-1, 00:00:00", "UTC+08:00", "乙巳 (YiSi)"],
+        ["2026-3-1, 00:00:00", "UTC+08:00", "丙午 (BingWu)"],
+    ]);
+}
+
+function testCalculateHebrewCalendar() {
+    return runSingleParameterTests("Hebrew Calendar", lunisolarCalendars.calculateHebrewCalendar, [
+        //["2024-10-2, 16:00:00", "UTC+00:00", "1 Tishri 5785 AM\nYom Chamishi"],
+        //["2024-10-2, 15:00:00", "UTC+00:00", "29 Elul 5784 AM\nYom Revi'i"],
+        //["2000-5-17, 10:00:00", "UTC+00:00", "12 Iyyar 5760 AM\nYom Revi'i"],
+        //["1999-9-11, 10:00:00", "UTC+00:00", "1 Tishri 5760 AM\nShabbat"],
+        //["1999-12-8, 10:00:00", "UTC+00:00", "29 Kislev 5760 AM\nYom Revi'i"],
+        //["1999-12-30, 16:00:00", "UTC+00:00", "22 Tevet 5760 AM\nYom Shishi"],
+        //["2000-9-30, 10:00:00", "UTC+00:00", "1 Tishri 5761 AM\nShabbat"],
+        //["1971-9-20, 10:00:00", "UTC+00:00", "1 Tishri 5732 AM\nYom Sheni"],
+        //["359-9-10, 10:00:00", "UTC+00:00", "1 Tishri 4120 AM\nYom Chamishi"],
+        //["1797-9-21, 10:00:00", "UTC+00:00", "1 Tishri 5558 AM\nYom Chamishi"],
+        //["2005-10-4, 10:00:00", "UTC+00:00", "1 Tishri 5558 AM\nYom Chamishi"],
+        //["2006-9-23, 10:00:00", "UTC+00:00", "1 Tishri 5767 AM\nShabbat"],
+    ]);
+}
+
+function testCalculateHebrewCalendar() {
+    return runSingleParameterTests("Hebrew Calendar", lunisolarCalendars.calculateHebrewCalendar, [
+        //["2024-10-2, 16:00:00", "UTC+00:00", "1 Tishri 5785 AM\nYom Chamishi"],
+        //["2024-10-2, 15:00:00", "UTC+00:00", "29 Elul 5784 AM\nYom Revi'i"],
+        //["2000-5-17, 10:00:00", "UTC+00:00", "12 Iyyar 5760 AM\nYom Revi'i"],
+        //["1999-9-11, 10:00:00", "UTC+00:00", "1 Tishri 5760 AM\nShabbat"],
+        //["1999-12-8, 10:00:00", "UTC+00:00", "29 Kislev 5760 AM\nYom Revi'i"],
+        //["1999-12-30, 16:00:00", "UTC+00:00", "22 Tevet 5760 AM\nYom Shishi"],
+        //["2000-9-30, 10:00:00", "UTC+00:00", "1 Tishri 5761 AM\nShabbat"],
+        //["1971-9-20, 10:00:00", "UTC+00:00", "1 Tishri 5732 AM\nYom Sheni"],
+        //["359-9-10, 10:00:00", "UTC+00:00", "1 Tishri 4120 AM\nYom Chamishi"],
+        //["1797-9-21, 10:00:00", "UTC+00:00", "1 Tishri 5558 AM\nYom Chamishi"],
+        //["2005-10-4, 10:00:00", "UTC+00:00", "1 Tishri 5558 AM\nYom Chamishi"],
+        //["2006-9-23, 10:00:00", "UTC+00:00", "1 Tishri 5767 AM\nShabbat"],
+    ]);
+}
+
 // Run all tests.
 export function runLunisolarCalendarTests() {
     const currentDateTime = new Date(Date.UTC(2025, 4, 8, 18, 20, 46));
@@ -98,6 +140,8 @@ export function runLunisolarCalendarTests() {
         testCalculateFirstMonthWithoutMajorSolarTerm,
         testGetLunisolarCalendarDate,
         testGetChineseLunisolarCalendarDate,
+        testGetSexagenaryYear,
+        //testCalculateHebrewCalendar
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

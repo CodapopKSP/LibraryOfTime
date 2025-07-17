@@ -271,6 +271,7 @@ export function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthEle
 
 // Returns a formatted Hebrew calendar IST date
 export function calculateHebrewCalendar(currentDateTime) {
+    console.log("=================================");
 
     // Number of days in each Hebrew month
     const Hebrew_monthDaysDeficient = [30, 29, 29, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 353 or 383 days
@@ -294,12 +295,8 @@ export function calculateHebrewCalendar(currentDateTime) {
         "Shabbat"        // Saturday
     ];    
 
-    const lastTishri = getStartOfTishri(currentDateTime);
-    // Next year, but add a few months to make sure we are past that year's Tishri 1
-    let nextYearPlusABit = new Date(lastTishri);
-    nextYearPlusABit.setFullYear(lastTishri.getFullYear() + 1);
-    nextYearPlusABit.setMonth(lastTishri.getMonth() + 3);
-    const nextTishri = getStartOfTishri(nextYearPlusABit);
+    // Get date of last Tishri 1
+    const { lastTishri, nextTishri } = getSurroundingTishriDates(currentDateTime);
     const daysThisYear = utilities.differenceInDays(nextTishri, lastTishri);
 
     let remainingDays = Math.floor(utilities.differenceInDays(currentDateTime, lastTishri));
@@ -307,7 +304,7 @@ export function calculateHebrewCalendar(currentDateTime) {
     // Check if it's a deficient, regular, or complete year
     const isDeficientYear = [353, 383].includes(daysThisYear);
     const isRegularYear = [354, 384].includes(daysThisYear);
-    const isCompleteYear = [355, 385].includes(daysThisYear);
+    const isCompleteYear = [355, 385].includes(daysThisYear);  // Unused
 
     // Determine which array of month days to use based on the year length
     const Hebrew_monthDays = isDeficientYear ? Hebrew_monthDaysDeficient :
@@ -327,10 +324,12 @@ export function calculateHebrewCalendar(currentDateTime) {
         HebrewMonth++;
     }
 
-    // Calculate year, if late in Gregorian but early in Hebrew, it's past Hebrew New Year
+    // Calculate year, if after Tishri this Gregorian year then increment up
     let year = currentDateTime.getUTCFullYear() + 3760;
-    if ((currentDateTime.getMonth()>8) && (HebrewMonth<5)) {
-        year += 1;
+    let lateThisYear = utilities.createDateWithFixedYear(currentDateTime.getUTCFullYear(), 11, 1);
+    let tishriThisYear = getStartOfTishri(lateThisYear);
+    if (currentDateTime >= tishriThisYear) {
+        year++;
     }
 
     // Return the Hebrew date
@@ -342,19 +341,89 @@ export function calculateHebrewCalendar(currentDateTime) {
 
     // Get the weekday based on sunset in Israel
     let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCHours(currentDateTime.getUTCHours()-3); // 3 hours ahead + sunset of 18:00 = 21 hours yesterday
-    const dayOfWeek = startOfToday.getDay();
+    startOfToday.setUTCHours(currentDateTime.getUTCHours()+8); // 2 hours ahead - sunset of 18:00 = 16 hours yesterday
+    const dayOfWeek = startOfToday.getUTCDay();
 
     return hebrewDate.day + ' ' + HebrewMonths[hebrewDate.month] + ' ' + hebrewDate.year + ' AM\n' + hebrewDaysOfWeek[dayOfWeek];
+}
+
+function getSurroundingTishriDates(currentDateTime) {
+    const year = currentDateTime.getUTCFullYear();
+
+    // Get candidate Tishri dates by probing around the current year
+    const tishriPrev = getStartOfTishri(new Date(Date.UTC(year - 1, 10, 1))); // Oct 1, prev year
+    const tishriThis = getStartOfTishri(new Date(Date.UTC(year, 10, 1)));     // Oct 1, this year
+    const tishriNext = getStartOfTishri(new Date(Date.UTC(year + 1, 10, 1))); // Oct 1, next year
+
+    let lastTishri, nextTishri;
+
+    if (currentDateTime >= tishriNext) {
+        lastTishri = tishriNext;
+        nextTishri = getStartOfTishri(new Date(Date.UTC(year + 2, 10, 1)));
+    } else if (currentDateTime >= tishriThis) {
+        lastTishri = tishriThis;
+        nextTishri = tishriNext;
+    } else if (currentDateTime >= tishriPrev) {
+        lastTishri = tishriPrev;
+        nextTishri = tishriThis;
+    } else {
+        lastTishri = getStartOfTishri(new Date(Date.UTC(year - 2, 10, 1)));
+        nextTishri = tishriPrev;
+    }
+
+    return { lastTishri, nextTishri };
 }
 
 // Returns the unformatted IST date of Tishri 1 of the current Hebrew year
 export function getStartOfTishri(currentDateTime) {
 
-    // Begin with a bae molad of 5732, with 0.32 fraction of a day past midnight
+    // Begin with a base molad of 5732
     let yearsInHebrew = 5732;
-    const moladTishri5732 = new Date(Date.UTC(1971, 8, 20, 0, 0, 0)); // Sunset in Jerusalem (UTC+2)
-    const startOfBaseMoladDays = 0.32;
+    const moladTishri5732 = new Date(Date.UTC(1971, 8, 20)); // Sunset in Jerusalem (UTC+2) + 7:41:17?
+
+
+    
+
+
+
+
+
+    const hebrewMonthDays_ = 29.53059;
+    let daysSince5732_ = (currentDateTime - moladTishri5732)/1000/60/60/24;
+    let monthsSince5732_ = Math.floor(daysSince5732_/hebrewMonthDays_);
+    let metonicCyclesSince5732_ = Math.floor(monthsSince5732_/235);
+    let partialCycle_ = (monthsSince5732_/235) - metonicCyclesSince5732_;
+    let partialCycleMonths_ = Math.floor(partialCycle_*235);
+    let hebrewYears = (metonicCyclesSince5732_ * 19)+5732;
+
+    let buildUpMonths = 0;
+    
+
+    while (true) {
+        const isLeap = isMetonicCycleLeapYear(hebrewYears%19);
+        const monthsThisYear = isLeap ? 13 : 12;
+        if (partialCycleMonths_>=monthsThisYear) {
+            partialCycleMonths_ -= monthsThisYear;
+            hebrewYears++;
+            buildUpMonths+=monthsThisYear;
+        } else {
+            break;
+        }
+    }
+
+    let monthsOfStartYear = (buildUpMonths) + (metonicCyclesSince5732_*235);
+    let daysStartOfYear = monthsOfStartYear*hebrewMonthDays_;
+    let dateOfNewMoladTishri = new Date(moladTishri5732.getTime() + (daysStartOfYear*1000*60*60*24) + (2*60*60*1000)); // Subtract 2 hours for UTC+2
+
+
+    
+
+    
+    
+
+
+
+
 
     // Figure out how long since base molad, including Metonic cycles
     const millisecondsSince5732 = currentDateTime - moladTishri5732;
@@ -376,41 +445,80 @@ export function getStartOfTishri(currentDateTime) {
     }
 
     // Figure out days since molad, then figure out day of week for Dechiyah calculations
-    let daysFromMoladTishri5732 = ((monthsSince5732 * 29.53059) + startOfBaseMoladDays);
-    let dayOfWeekOfTishri1 = (daysFromMoladTishri5732 + 2)%7;
+    let daysFromMoladTishri5732 = (monthsSince5732 * 29.53059);
+    let dayOfWeekOfTishri1 = (daysFromMoladTishri5732)%7;
+
+
+
+    
+    // Get the start of Tishri by going back one day (subtract 1)
+    const millisecondsSinceMoladTishri57322 = (daysFromMoladTishri5732-1) * 24*60*60*1000;
+    // Get sunset of Tishri 1
+    let startOfTishri2 = new Date(moladTishri5732.getTime() + millisecondsSinceMoladTishri57322);
+    console.log("-----");
+    console.log(dateOfNewMoladTishri.toUTCString());
+    console.log(startOfTishri2.toUTCString());
+
+    console.log(dayOfWeekOfTishri1%1);
+
+    // Need to calc day of week first, then do dechiya
+
 
     // Apply Dechiyah: Molad Zakein
     if ((dayOfWeekOfTishri1%1) > 0.5) {
+        // Day is after noon
         dayOfWeekOfTishri1 += 1;
         daysFromMoladTishri5732 += 1;
-
+        console.log("Zakein 1");
+    /*
     // Apply Dechiyah: Gatarad
-    } else if ((Math.trunc(dayOfWeekOfTishri1) === 3) && ((dayOfWeekOfTishri1%1) > 0.383) && !(isMetonicCycleLeapYear(Math.trunc(yearsThisMetonicCycle)))) {
+    } else if ((Math.floor(dayOfWeekOfTishri1) === 3) && ((dayOfWeekOfTishri1%1) > 0.383) && !(isMetonicCycleLeapYear(Math.floor(yearsThisMetonicCycle)))) {
         // Day of week == Tuesday, Time of day > 9h 204p past Sunset of the preceeding day, Current Year is not a leap year
         dayOfWeekOfTishri1 += 1;
         daysFromMoladTishri5732 += 1;
+        console.log("Gatarad");
 
     // Apply Dechiyah: Betukafot
-    } else if ((Math.trunc(dayOfWeekOfTishri1) === 2) && ((dayOfWeekOfTishri1%1) > 0.6478) && (isMetonicCycleLeapYear(Math.trunc(yearsThisMetonicCycle-1)))) {
+    } else if ((Math.floor(dayOfWeekOfTishri1) === 2)){ // && ((dayOfWeekOfTishri1%1) > 0.6478) && (isMetonicCycleLeapYear(Math.floor(yearsThisMetonicCycle-1)))) {
         // Day of week == Monday, Time of day > 15h 589p past Sunset of the preceeding day, Previous Year was a leap year
         dayOfWeekOfTishri1 += 1;
         daysFromMoladTishri5732 += 1;
+        console.log("Betukafot");*/
     }
 
     // Apply Dechiyah: Lo A"DU Rosh
-    if (Math.trunc(dayOfWeekOfTishri1) === 1 || Math.trunc(dayOfWeekOfTishri1) === 4 || Math.trunc(dayOfWeekOfTishri1) === 6) {
-        // Day of week is not Sunday, Wednesday, or Friday
+    if (Math.floor(dayOfWeekOfTishri1) === 1 || Math.floor(dayOfWeekOfTishri1) === 4 || Math.floor(dayOfWeekOfTishri1) === 6) {
+        // Day of week is Sunday, Wednesday, or Friday
         dayOfWeekOfTishri1 += 1;
         daysFromMoladTishri5732 += 1;
+        console.log("Lo ADU Rosh 1");
     }
 
     // Get the start of Tishri by going back one day (subtract 1)
     const millisecondsSinceMoladTishri5732 = (daysFromMoladTishri5732-1) * 24*60*60*1000;
     // Get sunset of Tishri 1
     let startOfTishri = new Date(moladTishri5732.getTime() + millisecondsSinceMoladTishri5732);
-    startOfTishri.setUTCHours(21);
-    startOfTishri.setMinutes(0);
-    startOfTishri.setSeconds(0);
-    startOfTishri.setMilliseconds(0);
-    return startOfTishri;
+
+    console.log(dateOfNewMoladTishri.getUTCDay());
+    if (dateOfNewMoladTishri.getUTCHours() > 11) {
+        dateOfNewMoladTishri.setUTCDate(dateOfNewMoladTishri.getUTCDate() + 1)
+        console.log("Zakein");
+    }
+    if (dateOfNewMoladTishri.getUTCDay() == 0 || dateOfNewMoladTishri.getUTCDay() == 3 || dateOfNewMoladTishri.getUTCDay() == 5) {
+        dateOfNewMoladTishri.setUTCDate(dateOfNewMoladTishri.getUTCDate() + 1)
+        console.log("Lo ADU Rosh");
+    }
+
+
+
+    console.log(dateOfNewMoladTishri.toUTCString());
+    console.log(startOfTishri.toUTCString());
+    console.log("-----");
+
+    //startOfTishri.setUTCDate(startOfTishri.getUTCDate()-1);
+    dateOfNewMoladTishri.setUTCHours(16);
+    dateOfNewMoladTishri.setUTCMinutes(0);
+    dateOfNewMoladTishri.setUTCSeconds(0);
+    dateOfNewMoladTishri.setUTCMilliseconds(0);
+    return dateOfNewMoladTishri;
 }
