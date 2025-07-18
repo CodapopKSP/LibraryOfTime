@@ -277,7 +277,7 @@ export function calculateHebrewCalendar(currentDateTime) {
     const Hebrew_monthDaysRegular = [30, 29, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 354 or 384 days
     const Hebrew_monthDaysComplete = [30, 30, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 355 or 385 days
 
-    const HebrewMonths = [
+    let HebrewMonths = [
         "Tishri","Heshvan","Kislev","Tevet",
         "Shevat","Adar","Adar II", // In leap years only
         "Nisan","Iyyar","Sivan","Tammuz",
@@ -292,15 +292,63 @@ export function calculateHebrewCalendar(currentDateTime) {
         "Yom Chamishi",  // Thursday
         "Yom Shishi",    // Friday
         "Shabbat"        // Saturday
-    ];    
+    ];
 
-    
-    calculateMoladTishri(currentDateTime);
+    // Get the start of today. If before sunset in Jerusalem (UTC+2, 6pm) then go back one day.
+    let startOfToday = new Date(currentDateTime);
+    if (startOfToday.getUTCHours() < 16) {
+        startOfToday.setUTCDate(startOfToday.getUTCDate()-1);
+    }
+    startOfToday.setUTCHours(16);
+    startOfToday.setUTCMinutes(0);
+    startOfToday.setUTCSeconds(0);
+    startOfToday.setUTCMilliseconds(0);
+
+    // Figure out the starting and ending Tishri
+    let earlyTishri = calculateMoladTishri(currentDateTime.getUTCFullYear()-1);
+    let latterTishri = calculateMoladTishri(currentDateTime.getUTCFullYear());
+    if (startOfToday >= latterTishri[0]) {
+        earlyTishri = latterTishri;
+        latterTishri = calculateMoladTishri(currentDateTime.getUTCFullYear()+1);
+    }
+
+    // Calculate number of days this year and use that to determine the year type
+    const daysThisYear = (latterTishri[0] - earlyTishri[0])/24/60/60/1000;
+    let yearMonths = Hebrew_monthDaysComplete;
+    if (daysThisYear === 353 || daysThisYear === 383) {
+        yearMonths = Hebrew_monthDaysDeficient;
+    }
+    if (daysThisYear === 354 || daysThisYear === 384) {
+        yearMonths = Hebrew_monthDaysRegular;
+    }
+
+    // If not a leap year, remove Adar II
+    if (daysThisYear < 380) {
+        yearMonths.splice(6, 1);
+        HebrewMonths.splice(6, 1);
+    }
+
+    // Get current day of the year
+    let daysThisYearSoFar = utilities.differenceInDays(startOfToday, earlyTishri[0]);
+
+    // Figure out weekday
+    let weekday = (earlyTishri[2] + daysThisYearSoFar) % 7;
+
+    // Iterate through months until we run out of days
+    let monthIndex = 0;
+    for (monthIndex; monthIndex < yearMonths.length; monthIndex++) {
+        if (daysThisYearSoFar < yearMonths[monthIndex]) {
+            break;
+        }
+        daysThisYearSoFar -= yearMonths[monthIndex];
+    }
+
+    return (daysThisYearSoFar+1) + " " + HebrewMonths[monthIndex] + " " + earlyTishri[1] + " AM\n" + hebrewDaysOfWeek[weekday];
 }
 
-export function calculateMoladTishri(currentDateTime) {
+export function calculateMoladTishri(currentYear) {
     // I originally did this calculation by using a modified currentDateTime to account for sunset, and also adding time to the base molad because it doesn't actually happen at midnight UTC
-    // However, none of that was necessary. The calculation just finds how many days since the start of the base molad day
+    // However, none of that was necessary. The calculation just finds how many days since the start of the base molad day for a given year.
     // This may be incorrect in rare cases, but I can't find any. If that happens it might be necessary to re-calculate based on timezone/sunset and molad time
 
     // Start with a known Molad
@@ -309,8 +357,7 @@ export function calculateMoladTishri(currentDateTime) {
 
     // Determine how many months are between your starting year and the year you want
     // The starting year number can come from starting in December and counting solar years from 5732
-    let decemberOfThisYear = new Date(currentDateTime);
-    decemberOfThisYear.setUTCMonth(11);
+    let decemberOfThisYear = new Date(currentYear, 11, 0);
     const yearsSince5732 = decemberOfThisYear.getUTCFullYear() - moladTishri5732.getUTCFullYear();
 
     // Full Metonic cycles have 235 months
@@ -341,7 +388,7 @@ export function calculateMoladTishri(currentDateTime) {
 
     // Get the number of days since Molad Tishri 5732, add 1 (starting Molad is on Monday), and modulo by 7 to get the week day
     let weekdayOfMolad = (daysSinceMolad5732 + 1) % 7;
-    weekdayOfMolad = ((Math.floor(weekdayOfMolad) % 7) + 7) % 7;
+    weekdayOfMolad = ((Math.floor(weekdayOfMolad) % 7) + 7) % 7; // Fix negative dates
 
     // Apply the Dechiyot
     // Molad Zakein: (if past noon, add one day)
@@ -376,6 +423,8 @@ export function calculateMoladTishri(currentDateTime) {
     // Lo A"DU Rosh: (if Sunday, Wednesday, Friday, add one day)
     if (Math.floor(weekdayOfMolad)===0 || Math.floor(weekdayOfMolad)===3 || Math.floor(weekdayOfMolad)===5) {
         daysSinceMolad5732++;
+        weekdayOfMolad++;
+        weekdayOfMolad = weekdayOfMolad%7;
     }
 
     // Subtract 1 because the start of the day is at sunset the day before
@@ -385,5 +434,5 @@ export function calculateMoladTishri(currentDateTime) {
     dayOfMoladTishri.setUTCSeconds(0);
     dayOfMoladTishri.setUTCMilliseconds(0);
     
-    return dayOfMoladTishri;
+    return [dayOfMoladTishri, yearsSince5732 + 5732, weekdayOfMolad];
 }

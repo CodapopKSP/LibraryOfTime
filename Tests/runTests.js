@@ -12,8 +12,7 @@ function runAllTests() {
     runLunarCalendarTests();
 }
 
-//runAllTests();
-runLunisolarCalendarTests();
+runAllTests();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);
