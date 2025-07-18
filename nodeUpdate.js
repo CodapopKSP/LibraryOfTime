@@ -112,11 +112,11 @@ export function updateComputingTimes(currentDateTime, julianDay, marsSolDay) {
     userInterface.setTimeValue('thai-lunation-number-node', computingTime.getThaiLunationNumber(lunationNumber));
 }
 
-export function updateProposedCalendars(currentDateTime) {
-    userInterface.setTimeValue('human-era-node', proposedCalendars.getHumanEra(currentDateTime));
-    userInterface.setTimeValue('invariable-node', proposedCalendars.getInvariableCalendarDate(currentDateTime));
-    userInterface.setTimeValue('world-calendar-node', proposedCalendars.getWorldCalendarDate(currentDateTime));
-    userInterface.setTimeValue('symmetry454-node', proposedCalendars.getSymmetry454Date(currentDateTime));
+export function updateProposedCalendars(currentDateTime, timezoneOffset) {
+    userInterface.setTimeValue('human-era-node', proposedCalendars.getHumanEra(currentDateTime, timezoneOffset));
+    userInterface.setTimeValue('invariable-node', proposedCalendars.getInvariableCalendarDate(currentDateTime, timezoneOffset));
+    userInterface.setTimeValue('world-calendar-node', proposedCalendars.getWorldCalendarDate(currentDateTime, timezoneOffset));
+    userInterface.setTimeValue('symmetry454-node', proposedCalendars.getSymmetry454Date(currentDateTime, timezoneOffset));
 }
 
 export function updateOtherAndDecimalTimes(currentDateTime, dayFraction, marsSolDay) {

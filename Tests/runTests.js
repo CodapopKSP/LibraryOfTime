@@ -3,6 +3,7 @@ import { runSolarCalendarTests } from "../Tests/solarCalendarTests.js";
 import { runLunisolarCalendarTests } from "../Tests/lunisolarCalendarTests.js";
 import { runLunarCalendarTests } from "../Tests/lunarCalendarTests.js";
 import { runAstronomicalDataTests } from "../Tests/astronomicalDataTests.js";
+import { runProposedCalendarTests } from "../Tests/proposedCalendarTests.js";
 
 function runAllTests() {
     runDateManagementTests();
@@ -10,6 +11,7 @@ function runAllTests() {
     runSolarCalendarTests();
     runLunisolarCalendarTests();
     runLunarCalendarTests();
+    runProposedCalendarTests();
 }
 
 runAllTests();

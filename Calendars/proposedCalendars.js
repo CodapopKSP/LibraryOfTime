@@ -6,18 +6,20 @@
 
 import * as utilities from '../utilities.js';
 
-export function getHumanEra(currentDateTime) {
-    let day = currentDateTime.getDate();
-    let month = currentDateTime.getMonth();
-    let year = currentDateTime.getFullYear() + 10000;
-    const dayOfWeek = currentDateTime.getDay();
+export function getHumanEra(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let day = currentDateTime.getUTCDate();
+    let month = currentDateTime.getUTCMonth();
+    let year = currentDateTime.getUTCFullYear() + 10000;
+    const dayOfWeek = currentDateTime.getUTCDay();
     return day + ' ' + utilities.monthNames[month] + ' ' + year + ' ' + 'HE\n' + utilities.weekNames[dayOfWeek];
 }
 
-export function getInvariableCalendarDate(currentDateTime) {
-    const year = currentDateTime.getFullYear();
-    const startOfYear = new Date(year, 0, 1, 0, 0, 0);
-    const endOfYear = new Date(year, 11, 31, 23, 59, 59);
+export function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    const year = currentDateTime.getUTCFullYear();
+    const startOfYear = utilities.createDateWithFixedYear(year, 0, 1, 0, 0, 0);
+    const endOfYear = utilities.createDateWithFixedYear(year, 11, 31, 23, 59, 59);
     const daysSinceStartOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
@@ -83,10 +85,11 @@ export function getInvariableCalendarDate(currentDateTime) {
     return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
 }
 
-export function getWorldCalendarDate(currentDateTime) {
-    const year = currentDateTime.getFullYear();
-    const startOfYear = new Date(year, 0, 1, 0, 0, 0);
-    const endOfYear = new Date(year, 11, 31, 23, 59, 59);
+export function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    const year = currentDateTime.getUTCFullYear();
+    const startOfYear = utilities.createDateWithFixedYear(year, 0, 1, 0, 0, 0);
+    const endOfYear = utilities.createDateWithFixedYear(year, 11, 31, 23, 59, 59);
     const daysSinceStartOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
@@ -152,11 +155,14 @@ export function getWorldCalendarDate(currentDateTime) {
     return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
 }
 
-export function getSymmetry454Date(currentDateTime) {
+export function getSymmetry454Date(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+
     let monthDays = [28, 35, 28, 28, 35, 28, 28, 35, 28, 28, 35, 28];
     
     // Choose a date that has the same January 1st in both calendars
-    const knownJan1st = new Date(2001, 0, 1);
+    let knownJan1st_ = new Date(2001, 0, 1);
+    const knownJan1st = new Date(knownJan1st_.getTime() + (timezoneOffset*60*1000));
     let daysSinceKnownJan1st = Math.floor(utilities.differenceInDays(currentDateTime, knownJan1st))+1;
 
     // Iterate through years and subtract days based on if leap year or normal year

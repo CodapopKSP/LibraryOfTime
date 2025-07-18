@@ -153,7 +153,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
                 setTimeValue('next-solar-eclipse-node', astronomicalData.getNextSolarLunarEclipse(currentDateTime, 0));
                 setTimeValue('next-lunar-eclipse-node', astronomicalData.getNextSolarLunarEclipse(currentDateTime, 0.5));
             case 5:
-                nodeUpdate.updateProposedCalendars(currentDateTime);
+                nodeUpdate.updateProposedCalendars(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset));
             case 6:
                 setTimeValue('spring-equinox-node', astronomicalData.getSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
                 setTimeValue('summer-solstice-node', astronomicalData.getSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
