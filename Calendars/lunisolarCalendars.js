@@ -433,7 +433,6 @@ export function calculateMoladTishri(currentYear) {
     dayOfMoladTishri.setUTCMinutes(0);
     dayOfMoladTishri.setUTCSeconds(0);
     dayOfMoladTishri.setUTCMilliseconds(0);
-    console.log(yearsSince5732);
     
     return [dayOfMoladTishri, yearsSince5732 + 5732, weekdayOfMolad];
 }
