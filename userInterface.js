@@ -148,7 +148,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
             case 1:
                 nodeUpdate.updateLunisolarCalendars(currentDateTime);
             case 3:
-                //setTimeValue('hebrew-node', lunisolarCalendars.calculateHebrewCalendar(currentDateTime));
+                setTimeValue('hebrew-node', lunisolarCalendars.calculateHebrewCalendar(currentDateTime));
             case 4:
                 setTimeValue('next-solar-eclipse-node', astronomicalData.getNextSolarLunarEclipse(currentDateTime, 0));
                 setTimeValue('next-lunar-eclipse-node', astronomicalData.getNextSolarLunarEclipse(currentDateTime, 0.5));

@@ -357,7 +357,7 @@ export function calculateMoladTishri(currentYear) {
 
     // Determine how many months are between your starting year and the year you want
     // The starting year number can come from starting in December and counting solar years from 5732
-    let decemberOfThisYear = new Date(currentYear, 11, 0);
+    let decemberOfThisYear = utilities.createDateWithFixedYear(currentYear, 11, 0);
     const yearsSince5732 = decemberOfThisYear.getUTCFullYear() - moladTishri5732.getUTCFullYear();
 
     // Full Metonic cycles have 235 months
@@ -433,6 +433,7 @@ export function calculateMoladTishri(currentYear) {
     dayOfMoladTishri.setUTCMinutes(0);
     dayOfMoladTishri.setUTCSeconds(0);
     dayOfMoladTishri.setUTCMilliseconds(0);
+    console.log(yearsSince5732);
     
     return [dayOfMoladTishri, yearsSince5732 + 5732, weekdayOfMolad];
 }
