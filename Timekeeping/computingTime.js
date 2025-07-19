@@ -5,14 +5,15 @@
 // A set of functions for calculating times in the Computing Time category.
 
 import * as utilities from '../utilities.js';
+import { getRealJulianDate } from "../Calendars/solarCalendars.js";
 
 export function getUnixTime(currentDateTime) {
-    return Math.trunc(currentDateTime.getTime()/1000);
+    return Math.floor(currentDateTime.getTime()/1000);
 }
 
 export function getCurrentFiletime(currentDateTime) {
     const jan1601 = new Date(Date.UTC(1601, 0, 1));
-    const filetime = Math.trunc((currentDateTime.getTime() - jan1601.getTime())/1000) * 10000000;
+    const filetime = Math.floor((currentDateTime.getTime() - jan1601.getTime())/1000) * 10000000;
     return filetime;
 }
 
@@ -20,7 +21,7 @@ export function getGPSTime(currentDateTime) {
     const gpsEpoch = new Date("1980-01-06T00:00:00Z").getTime();
     
     // Calculate total time difference in seconds
-    let gpsTime = Math.trunc((currentDateTime - gpsEpoch) / 1000);
+    let gpsTime = Math.floor((currentDateTime - gpsEpoch) / 1000);
     
     // Calculate how many leap seconds have occurred before the currentDateTime
     let leapSecondsCount = 0;
@@ -71,11 +72,11 @@ export function getJulianDayNumber(currentDateTime) {
         month += 12;
     }
     
-    const A = Math.trunc(year / 100);
-    const B = Math.trunc(A / 4);
+    const A = Math.floor(year / 100);
+    const B = Math.floor(A / 4);
     const C = 2 - A + B;
-    const E = Math.trunc(365.25 * (year + 4716));
-    const F = Math.trunc(30.6001 * (month + 1));
+    const E = Math.floor(365.25 * (year + 4716));
+    const F = Math.floor(30.6001 * (month + 1));
     var JD = C + day + E + F - 1524.5;
 
     JD += (hour + (minute / 60) + (second / 3600) + (millisecond / 3600000)) / 24;
@@ -85,14 +86,28 @@ export function getJulianDayNumber(currentDateTime) {
 
 export function getRataDie(currentDateTime) {
     const JD = getJulianDayNumber(currentDateTime);
-    const RD = Math.trunc(JD - 1721424.5);
+    const RD = Math.floor(JD - 1721424.5);
     return RD;
 }
 
-export function getJulianPeriod(currentDateTime) {
-    const JP = currentDateTime.getUTCFullYear() + 4713;
-    return JP;
+export function getJulianPeriod(currentDateTime_) {
+    // Shift time back 12 hours to align with Julian days starting at noon
+    const currentDateTime = new Date(currentDateTime_.getTime() - 12 * 60 * 60 * 1000);
+
+    // Get Julian date (year) from the adjusted date
+    const julianDate = getRealJulianDate(currentDateTime);
+    const JP = julianDate.year + 4713;
+
+    // Year within cycle (1-based)
+    let yearInCycle = ((JP % 7980) + 7980) % 7980;
+    yearInCycle = yearInCycle === 0 ? 7980 : yearInCycle;
+
+    // Cycle number (0-based for pre-epoch, 1-based for epoch and after)
+    const cycle = Math.floor((JP - 1) / 7980) + 1;
+
+    return yearInCycle + " (Cycle: " + cycle + ")";
 }
+
 
 export function getDynamicalTimeForward(currentDateTime) {
     let secondsAhead = getTerrestrialTimeOffset(currentDateTime);
@@ -179,8 +194,9 @@ export function getTerrestrialTimeOffset(currentDateTime) {
     return -20 + 32 * year_factor**2;
 }
 
-export function getLilianDate(julianDay) {
-    const lilianDate = Math.trunc(julianDay - 2299159.5);
+export function getLilianDate(currentDateTime) {
+    const JDN = getJulianDayNumber(currentDateTime);
+    const lilianDate = Math.floor(JDN - 2299159.5);
     return lilianDate;
 }
 

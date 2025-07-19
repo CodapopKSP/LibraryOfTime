@@ -85,6 +85,22 @@ function testRataDie() {
     ]);
 }
 
+function testJulianPeriod() {
+    return runComputingTests("Julian Period", computingTime.getJulianPeriod, [
+        ["-4713-11-24, 12:00:00", "UTC+00:00", "1 (Cycle: 1)"],
+        ["-4713-11-24, 11:00:00", "UTC+00:00", "7980 (Cycle: 0)"],
+        ["3268-1-23, 12:00:00", "UTC+00:00", "1 (Cycle: 2)"],
+    ]);
+}
+
+function testLilianDate() {
+    return runComputingTests("Lilian Date", computingTime.getLilianDate, [
+        ["1582-10-15, 00:00:00", "UTC+00:00", 1],
+        ["1583-10-15, 00:00:00", "UTC+00:00", 366],
+        ["2000-7-5, 00:00:00", "UTC+00:00", 152571],
+    ]);
+}
+
 // Run all tests.
 export function runComputingTimeTests() {
     const testFunctions = [
@@ -95,6 +111,8 @@ export function runComputingTimeTests() {
         testFILETIME,
         testJDN,
         testRataDie,
+        testJulianPeriod,
+        testLilianDate,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

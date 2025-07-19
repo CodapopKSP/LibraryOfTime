@@ -96,7 +96,7 @@ export function updateComputingTimes(currentDateTime, julianDay, marsSolDay) {
     userInterface.setTimeValue('rata-die-node', computingTime.getRataDie(currentDateTime));
     userInterface.setTimeValue('tai-node', computingTime.getTAI(currentDateTime).toISOString().slice(0, -5));
     userInterface.setTimeValue('loran-c-node', computingTime.getLORANC(currentDateTime).toISOString().slice(0, -5));
-    userInterface.setTimeValue('lilian-date-node', computingTime.getLilianDate(julianDay));
+    userInterface.setTimeValue('lilian-date-node', computingTime.getLilianDate(currentDateTime));
     userInterface.setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
     userInterface.setTimeValue('julian-sol-number-node', computingTime.getJulianSolDate(marsSolDay).toFixed(0));
     userInterface.setTimeValue('julian-circad-number-node', computingTime.getJulianCircadNumber(currentDateTime).toFixed(0));

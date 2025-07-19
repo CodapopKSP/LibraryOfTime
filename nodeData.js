@@ -214,7 +214,7 @@ export const computingTimeData = [
         type: 'Computing Time',
         epoch: '24 November 4713 BCE, +12:00:00',
         confidence: 'Exact',
-        overview: 'The Julian Day Number is a simple count of number of days since 12:00 (noon) on November 24, 4713 BCE (or 4714 BCE when not using astronomical dates). The JDN is used by astronomers and programmers to simplify calculations for the passage of time, and many of the calculations in this website are based off of the JDN.',
+        overview: 'The Julian Day Number is a simple count of number of days since noon on 24 November 4713 BCE (1 January 4713 BC in the Julian Calerndar). The JDN is used by astronomers and programmers to simplify calculations for the passage of time, and many of the calculations in this website are based off of the JDN.',
         info: 'There are many versions of the JDN, most of which involve truncating the large number for easier calculations.',
         accuracy: 'This counter is rigorously-studied and exactly accurate, with the only question being the addition of Terrestrial Time.',
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.'
@@ -238,9 +238,9 @@ export const computingTimeData = [
         type: 'Computing Time',
         epoch: '24 November 4713 BCE, +12:00:00',
         confidence: 'High',
-        overview: 'The Julian Period is a cycle of 7980 years beginning on 1 January 4712 BCE of the Julian calendar (or 4713 BCE when not using astronomical dates). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect.',
-        info: 'The Julian Period is the count of days since the last time Indiction, Solar and Lunar cycles all started on the same day.',
-        accuracy: 'The Julian Period is a simple count of days, meaning it should be exactly accurate. However, I have had some difficulty ensuring this counter is perfectly calibrated.',
+        overview: 'The Julian Period is a simple count of years in the Julian Calendar beginning at noon on 24 November 4713 BCE (1 January 4713 BC in the Julian Calerndar). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect.',
+        info: 'The Julian Period is the count of days since the last time Indiction, Solar and Lunar cycles all started on the same day, and repeats in a cycle of 7980 years.',
+        accuracy: `The Julian Period is a simple count of days, meaning it should be exactly accurate. However, sources for this cycle aren't exactly clear if the year updates on the Julian or Astronomical calendar, so I have chosen to use the Julian Calendar. I've also taken some liberties by adding the cycle number, which is not explicitly defined in any source but is heavily implied.`,
         source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.'
     },
 
