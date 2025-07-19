@@ -54,12 +54,30 @@ function testTAI() {
     ]);
 }
 
+function testLORANC() {
+    return runComputingTests("TAI", computingTime.getLORANC, [
+        ["1971-12-31, 23:59:50", "UTC+00:00", "Fri, 31 Dec 1971 23:59:50 GMT"],
+        ["1998-12-31, 23:59:58", "UTC+00:00", "Fri, 01 Jan 1999 00:00:19 GMT"],
+        ["1999-1-1, 00:00:00", "UTC+00:00", "Fri, 01 Jan 1999 00:00:22 GMT"],
+    ]);
+}
+
+function testFILETIME() {
+    return runComputingTests("FILETIME", computingTime.getCurrentFiletime, [
+        ["1601-1-1, 00:00:00", "UTC+00:00", 0],
+        ["1998-12-31, 23:59:58", "UTC+00:00", 125596223980000000],
+        ["1999-1-1, 00:00:00", "UTC+00:00", 125596224000000000],
+    ]);
+}
+
 // Run all tests.
 export function runComputingTimeTests() {
     const testFunctions = [
         testUnixTime,
         testGPSTime,
         testTAI,
+        testLORANC,
+        testFILETIME,
 
     ];
 

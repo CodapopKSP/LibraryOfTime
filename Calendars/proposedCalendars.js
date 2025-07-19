@@ -157,12 +157,10 @@ export function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
 
 export function getSymmetry454Date(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
-
     let monthDays = [28, 35, 28, 28, 35, 28, 28, 35, 28, 28, 35, 28];
     
     // Choose a date that has the same January 1st in both calendars
-    let knownJan1st_ = new Date(2001, 0, 1);
-    const knownJan1st = new Date(knownJan1st_.getTime() + (timezoneOffset*60*1000));
+    const knownJan1st = new Date(Date.UTC(2001, 0, 1));
     let daysSinceKnownJan1st = Math.floor(utilities.differenceInDays(currentDateTime, knownJan1st))+1;
 
     // Iterate through years and subtract days based on if leap year or normal year
