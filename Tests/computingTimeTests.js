@@ -70,6 +70,21 @@ function testFILETIME() {
     ]);
 }
 
+function testJDN() {
+    return runComputingTests("JDN", computingTime.getJulianDayNumber, [
+        ["-4713-11-24, 12:00:00", "UTC+00:00", 0],
+        ["2000-1-1, 12:00:00", "UTC+00:00", 2451545],
+        ["2013-1-1, 00:30:00", "UTC+00:00", 2456293.5208333],
+    ]);
+}
+
+function testRataDie() {
+    return runComputingTests("Rata Die", computingTime.getRataDie, [
+        ["1-1-1, 00:00:00", "UTC+00:00", 1],
+        ["2000-7-5, 00:00:00", "UTC+00:00", 730306],
+    ]);
+}
+
 // Run all tests.
 export function runComputingTimeTests() {
     const testFunctions = [
@@ -78,7 +93,8 @@ export function runComputingTimeTests() {
         testTAI,
         testLORANC,
         testFILETIME,
-
+        testJDN,
+        testRataDie,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);
