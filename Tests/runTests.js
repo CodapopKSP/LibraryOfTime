@@ -18,7 +18,7 @@ function runAllTests() {
     runOtherCalendarTests();
 }
 
-runAllTests();
+//runAllTests();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);

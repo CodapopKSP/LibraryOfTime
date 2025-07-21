@@ -135,12 +135,6 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
         astronomicalData.generateAllSolsticesEquinoxes(currentDateTime);
     }
 
-    // Calculations that are used by multiple nodes
-    const julianDay = computingTime.getJulianDayNumber(currentDateTime)
-    const dayFraction = timeFractions.calculateDay(currentDateTime)
-    const marsSolDay = computingTime.getMarsSolDate(currentDateTime);
-
-
     // Check if in the middle of a second, and update in a staggered fashion
     if (((currentDateTime.getMilliseconds() > 500) && (currentDateTime.getMilliseconds() < 500 + utilities.updateMilliseconds))||(currentPass===100)) {
         switch (currentPass) {
@@ -168,13 +162,13 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
             case 8:
                 nodeUpdate.updateSolarCalendars(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset));
             case 9:
-                nodeUpdate.updateOtherCalendars(currentDateTime, marsSolDay, utilities.convertUTCOffsetToMinutes(timezoneOffset));
+                nodeUpdate.updateOtherCalendars(currentDateTime, computingTime.getMarsSolDate(currentDateTime), utilities.convertUTCOffsetToMinutes(timezoneOffset));
         }
     }
 
     // Update if at the beginning of a second
     if ((currentDateTime.getMilliseconds() < utilities.updateMilliseconds)||(currentPass===100)) {
-        nodeUpdate.updateComputingTimes(currentDateTime, julianDay, marsSolDay, utilities.convertUTCOffsetToMinutes(timezoneOffset));
+        nodeUpdate.updateComputingTimes(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset));
         setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset)).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }
@@ -185,11 +179,11 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     }
 
     // Update everything that needs to change constantly
-    setTimeValue('julian-day-number-node', julianDay);
+    setTimeValue('julian-day-number-node', computingTime.getJulianDayNumber(currentDateTime));
     setTimeValue('delta-time-node', computingTime.getDeltaT(currentDateTime));
     setTimeValue('iso8601-node', currentDateTime.toISOString());
-    nodeUpdate.updateOtherAndDecimalTimes(currentDateTime, dayFraction, marsSolDay);
-    nodeUpdate.updateFractionalTimes(currentDateTime, dayFraction, dateInput);
+    nodeUpdate.updateOtherAndDecimalTimes(currentDateTime, timeFractions.calculateDay(currentDateTime), computingTime.getMarsSolDate(currentDateTime));
+    nodeUpdate.updateFractionalTimes(currentDateTime, timeFractions.calculateDay(currentDateTime), dateInput);
     setTimeValue('minecraft-time-node', popCulture.getMinecraftTime(currentDateTime));
     setTimeValue('dream-time-node', popCulture.getInceptionDreamTime(currentDateTime));
     setTimeValue('termina-time-node', popCulture.getTerminaTime(currentDateTime));
