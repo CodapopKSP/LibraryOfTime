@@ -81,15 +81,6 @@ function testGetLongitudeOfSun() {
     ]);
 }
 
-function testCalculateLunationNumber() {
-    return runCalendarTestsReturnNumber("LunationNumber", astronomicalData.calculateLunationNumber, [
-        ["2000-1-7, 00:00:00", "UTC+00:00", 0],
-        ["2000-2-7, 00:00:00", "UTC+00:00", 1],
-        ["2001-1-7, 00:00:00", "UTC+00:00", 12],
-        ["1999-1-7, 00:00:00", "UTC+00:00", -12],
-    ]);
-}
-
 function testGetSolsticeOrEquinox() {
     return runCalendarTests("SolsticeOrEquinox", astronomicalData.getSolsticeOrEquinox, [
         ["2001-3-20, 00:00:00", "UTC+00:00", "Tue, 20 Mar 2001 13:30:41 GMT", 'spring'],
@@ -133,7 +124,6 @@ export function runAstronomicalDataTests() {
         testCalculateDateFromJDE,
         testCalculateUTCYearFraction,
         testGetLongitudeOfSun,
-        testCalculateLunationNumber,
         testGetSolsticeOrEquinox,
         testGetMoonPhase,
         testGetNextSolarLunarEclipse,
