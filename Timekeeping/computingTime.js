@@ -52,6 +52,12 @@ export function getTAI(currentDateTime) {
     return taiDateTime;
 }
 
+export function getTT(currentDateTime) {
+    let TT = new Date(currentDateTime);
+    TT.setSeconds(currentDateTime.getSeconds() + getDeltaT(currentDateTime));
+    return TT;
+}
+
 export function getLORANC(currentDateTime) {
     let taiDateTime = getTAI(currentDateTime);
     // LORAN-C is always 10s behind TAI
