@@ -110,20 +110,20 @@ export function getJulianPeriod(currentDateTime_) {
 
 
 export function getDynamicalTimeForward(currentDateTime) {
-    let secondsAhead = getTerrestrialTimeOffset(currentDateTime);
+    let secondsAhead = getDeltaT(currentDateTime);
     const dynamicalTimestamp = currentDateTime.getTime() + (secondsAhead*1000);
     const dynamicalDateTime = new Date(dynamicalTimestamp);
     return dynamicalDateTime.toISOString();
 }
 
 export function getDynamicalTimeBackward(currentDateTime) {
-    let secondsAhead = getTerrestrialTimeOffset(currentDateTime);
+    let secondsAhead = getDeltaT(currentDateTime);
     const dynamicalTimestamp = currentDateTime.getTime() - (secondsAhead*1000);
     const dynamicalDateTime = new Date(dynamicalTimestamp);
     return dynamicalDateTime.toISOString();
 }
 
-export function getTerrestrialTimeOffset(currentDateTime) {
+export function getDeltaT(currentDateTime) {
     const year = currentDateTime.getUTCFullYear();
     if (year < -500) {
         const year_factor = (year - 1820) / 100;
@@ -200,11 +200,15 @@ export function getLilianDate(currentDateTime) {
     return lilianDate;
 }
 
-export function getMarsSolDate(julianDay) {
-    return (julianDay - 2451549.5 + (1/4000))/1.02749125 + 44796.0
+export function getMarsSolDate(currentDateTime) {
+    let JDN = getJulianDayNumber(currentDateTime);
+    const DeltaT = (getDeltaT(currentDateTime)/60/60/24);
+    JDN += DeltaT;
+    return (JDN - 2451549.5)/1.0274912517 + 44796.0 - 0.0009626;
 }
 
-export function getJulianSolDate(marsSolDate) {
+export function getJulianSolDate(currentDateTime) {
+    const marsSolDate = getMarsSolDate(currentDateTime);
     return marsSolDate + 94129;
 }
 
@@ -213,6 +217,22 @@ export function getKaliAhargana(currentDateTime) {
     const kAOf10July2001 = 1863635;
     const July10of2001 = new Date(Date.UTC(2001, 6, 9, 18, 30));
     return utilities.differenceInDays(currentDateTime, July10of2001) + kAOf10July2001;
+}
+
+// Returns the number of lunations (lunar cycles) since January 6 2000
+// This equation was sourced from Astronomical Algorithms
+export function calculateLunationNumber(newMoon) {
+    // Using Jean Meeus's date for lunation epoch
+    const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
+    const secondsSince2000 = (newMoon - firstNewMoon2000)/1000;
+
+    // Calculate the number of days since the first new moon of 2000
+    const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
+
+    // Calculate the number of lunations since Lunation 0
+    let lunationNumber = Math.round(daysSince2000 / 29.53058861);
+
+    return lunationNumber;
 }
 
 export function getBrownLunationNumber(lunationNumber) {

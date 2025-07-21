@@ -101,6 +101,52 @@ function testLilianDate() {
     ]);
 }
 
+function testTerrestrialTime() {
+    return runComputingTests("ΔT", computingTime.getDeltaT, [
+        ["-1000-1-1, 00:00:00", "UTC+00:00", 25427.68],
+        ["0-1-1, 00:00:00", "UTC+00:00", 10583.6],
+        ["1000-1-1, 00:00:00", "UTC+00:00", 1574.2],
+        ["2025-1-1, 00:00:00", "UTC+00:00", 74.467375],
+    ]);
+}
+
+function testMarsSolDate() {
+    return runComputingTests("Mars Sol Date", computingTime.getMarsSolDate, [
+        ["1873-12-29, 12:04:10", "UTC+00:00", -0.000004301070382259765],
+        ["2000-1-1, 00:00:00", "UTC+00:00", 44791.13353526427],
+    ]);
+}
+
+function testJulianSolNumber() {
+    return runComputingTests("Julian Sol Number", computingTime.getJulianSolDate, [
+        ["1873-12-29, 12:04:10", "UTC+00:00", 94128.99999569893],
+        ["2025-7-21, 00:00:00", "UTC+00:00", 148003.42267016353],
+    ]);
+}
+
+function testKaliAharhana() {
+    return runComputingTests("Kali Ahargana", computingTime.getKaliAhargana, [
+        ["-3101-1-22, 18:30:00", "UTC+00:00", 0],
+        ["2025-7-20, 18:30:00", "UTC+00:00", 1872412],
+    ]);
+}
+
+function testLunationNumber() {
+    return runComputingTests("Lunation Number", computingTime.calculateLunationNumber, [
+        ["2000-1-6, 18:30:00", "UTC+00:00", 0],
+        ["2000-2-6, 18:30:00", "UTC+00:00", 1],
+        ["1999-12-6, 18:30:00", "UTC+00:00", -1],
+    ]);
+}
+
+function testSpreadsheetNowTime() {
+    return runComputingTests("Lunation Number", computingTime.getSpreadsheetNowTime, [
+        ["1899-12-30, 00:00:00", "UTC+00:00", 0],
+        ["1899-12-31, 00:00:00", "UTC+00:00", 1],
+        ["2025-7-21, 00:00:00", "UTC+00:00", 45859],
+    ]);
+}
+
 // Run all tests.
 export function runComputingTimeTests() {
     const testFunctions = [
@@ -113,6 +159,12 @@ export function runComputingTimeTests() {
         testRataDie,
         testJulianPeriod,
         testLilianDate,
+        testTerrestrialTime,
+        testMarsSolDate,
+        testJulianSolNumber,
+        testKaliAharhana,
+        testLunationNumber,
+        testSpreadsheetNowTime
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

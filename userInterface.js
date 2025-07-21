@@ -138,7 +138,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     // Calculations that are used by multiple nodes
     const julianDay = computingTime.getJulianDayNumber(currentDateTime)
     const dayFraction = timeFractions.calculateDay(currentDateTime)
-    const marsSolDay = computingTime.getMarsSolDate(julianDay);
+    const marsSolDay = computingTime.getMarsSolDate(currentDateTime);
 
 
     // Check if in the middle of a second, and update in a staggered fashion
@@ -186,7 +186,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
 
     // Update everything that needs to change constantly
     setTimeValue('julian-day-number-node', julianDay);
-    setTimeValue('terrestrial-time-node', computingTime.getTerrestrialTimeOffset(currentDateTime));
+    setTimeValue('delta-time-node', computingTime.getDeltaT(currentDateTime));
     setTimeValue('iso8601-node', currentDateTime.toISOString());
     nodeUpdate.updateOtherAndDecimalTimes(currentDateTime, dayFraction, marsSolDay);
     nodeUpdate.updateFractionalTimes(currentDateTime, dayFraction, dateInput);

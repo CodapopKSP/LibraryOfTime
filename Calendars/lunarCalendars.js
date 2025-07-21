@@ -7,6 +7,7 @@
 import * as utilities from '../utilities.js';
 import * as astronomicalData from '../Other/astronomicalData.js';
 import { parseInputDate } from '../userInterface.js';
+import { calculateLunationNumber } from '../Timekeeping/computingTime.js';
 
 // Returns a formatted Hijri calendar AST date
 export function getUmmalQuraDate(currentDateTime) {
@@ -41,7 +42,7 @@ export function getUmmalQuraDate(currentDateTime) {
 
     // Calculate the number of days since the first day of the Islamic month
     const daysSinceStartOfMonth = Math.floor(utilities.differenceInDays(currentDateTime, firstDayOfIslamicMonth));
-    const currentLunationSince2000 = astronomicalData.calculateLunationNumber(firstDayOfIslamicMonth);
+    const currentLunationSince2000 = calculateLunationNumber(firstDayOfIslamicMonth);
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
     
     let hijriMonthIndex = hijriMonthYear.month;

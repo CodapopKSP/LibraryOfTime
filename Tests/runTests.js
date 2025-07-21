@@ -16,8 +16,7 @@ function runAllTests() {
     runComputingTimeTests();
 }
 
-//runAllTests();
-runComputingTimeTests();
+runAllTests();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);

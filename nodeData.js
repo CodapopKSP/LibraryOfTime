@@ -262,21 +262,21 @@ export const computingTimeData = [
         type: 'Computing Time',
         epoch: '1 January 1 CE',
         confidence: 'Exact',
-        overview: 'ISO 8601 is the standard of displaying date and time provided by the International Organization for Standardization. It is based off the Gregorian calendar.',
+        overview: 'ISO 8601 is the standard of displaying date and time provided by the International Organization for Standardization. It is based off the Gregorian calendar and utilizes year 0.',
         info: 'ISO 8601 is intended to provide a clear, unambiguous date time format for international use.',
         accuracy: 'ISO 8601 is derived directly from Unix time and thus is exactly accurate.',
         source: `ISO 8601 is actually a supported string of JavaScript's native Date library, so there is nothing for this website to calculate. General information came from its <a href="https://en.wikipedia.org/wiki/ISO_8601">Wikipedia article</a>.`
     },
 
     {
-        name: 'Terrestrial Time',
-        id: 'terrestrial-time',
+        name: 'ΔT',
+        id: 'delta-time',
         type: 'Computing Time',
         epoch: 'Undefined',
-        confidence: 'Medium',
-        overview: 'Terrestrial Time is an approximation of the difference in time due to various factors that affect Earth\'s orbit, such as gravitational effects from other planets. It matches UTC at around the year 1880 and deviates the further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.',
-        info: 'The exact time of the year is slowly changing on the order of a few seconds per year. This rate is not export constant, though it can be estimated.',
-        accuracy: `Terrestrial Time is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculation or due to a misunderstanding in some of the steps.`,
+        confidence: 'High',
+        overview: 'ΔT is an approximation of the difference in time between Terrestrial Time and UTC due to various factors that affect Earth\'s rotation, such as gravitational effects from other planets, earthquakes, and tidal forces. The two systems match around the year 1880 and deviate further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.',
+        info: 'The exact length of the day is slowly changing on the order of a few seconds per year. This rate is not constant, though it can be estimated.',
+        accuracy: `ΔT is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculations or due to a misunderstanding in some of the steps. However, they are very close, within a few seconds for any given output.`,
         source: `This calculation was originally sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><i>Astronomical Algorithms</i> (1991)</a> by Jean Meeus.\n\nI also borrowed much of the base code for this calculation from <a href="https://github.com/Fabiz/MeeusJs/blob/master/lib/Astro.DeltaT.js">this GitHub repository</a> as it seems to be based on a later version of Meeus's calculation.`
     },
 
@@ -284,11 +284,11 @@ export const computingTimeData = [
         name: 'Mars Sol Date',
         id: 'mars-sol-date',
         type: 'Computing Time',
-        epoch: '29 December 1873 CE +12:02:29',
+        epoch: '29 December 1873 CE +12:04:10',
         confidence: 'High',
         overview: `The Mars Sol Date, similar to the Julian Day Number, is the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. Currently I haven't been able to figure out exactly why the epoch was chosen. The day increments when the Airy-0 crater reaches midnight.`,
         info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
-        accuracy: 'This clock should be very accurate, though I am unsure how Terrestrial Time factors into it, which could cause it to be off by a few minutes.',
+        accuracy: 'This clock should be very accurate, though it relies on ΔT which ultimately is only an approximation.',
         source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.`
     },
 
@@ -300,7 +300,7 @@ export const computingTimeData = [
         confidence: 'High',
         overview: `The Julian Sol Number, created by Thomas Gangale, is similar to the Julian Day Number but it counts the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. This epoch marks an important Martian Vernal Equinox. The day increments when the Airy-0 crater reaches midnight.\n\nIn a chat I had with with Mr. Gangale, he expressed his desire for this standard to be deprecated, as the Mars Sol Date created by Michael Allison had received wider use. However, since it was used at one point, I have opted to include it in this website.\n\n"The sooner that things become standardized, the better, so consider the JS to be obsolete." -Thomas Gangale, 2024`,
         info: 'One Mars sol is 39 minutes and 35 seconds longer than an Earth day.',
-        accuracy: 'This clock should be very accurate, though I am unsure how Terrestrial Time factors into it, which could cause it to be off by a few minutes.',
+        accuracy: `This clock should be very accurate, though there are some very minor inaccuracies likely stemming from the redefiniton of the epoch of the Mars Sol Day, or perhaps slight differences in calculations of ΔT.`,
         source: `Much of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.\n\nDates can also be verified with <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">this website</a>, though some inaccuracies have been noted.`
     },
 
@@ -320,10 +320,10 @@ export const computingTimeData = [
         name: 'Kali Ahargaṅa (IST)',
         id: 'kali-ahargaṅa',
         type: 'Computing Time',
-        epoch: '23 January 3101 BCE +6:30:00',
+        epoch: '22 January 3101 BCE +18:30:00',
         confidence: 'High',
         overview: `Kali Ahargaṅa is a simple count of days since the kali epoch. According to Hindu timekeeping, the current yuga, Kali Yuga, began in 3101 BCE and will last for 432,000 years, ending in 428,899 CE.\n\nKali Yuga is the fourth, shortest, and worst of the four yugas.`,
-        info: `Each yuga has a shorter dawn and dusk period before and after the longer main period.\n\n<table><tr><th>Part</th><th>Start</th><th>Length</th></tr><tr><td>Kali-yuga-sandhya (dawn)</td><td>3102 BCE</td><td>36,000 (100)</td></tr><tr><td>Kali-yuga (proper)</td><td>32,899 CE</td><td>360,000 (1,000)</td></tr><tr><td>Kali-yuga-sandhyamsa (dusk)</td><td>392,899–428,899 CE</td><td>36,000 (100)</td></tr></table>`,
+        info: `Each yuga has a shorter dawn and dusk period before and after the longer main period.\n\n<table><tr><th>Part</th><th>Start</th><th>Length</th></tr><tr><td>Kali-yuga-sandhya (dawn)</td><td>3101 BCE</td><td>36,000 (100)</td></tr><tr><td>Kali-yuga (proper)</td><td>32,899 CE</td><td>360,000 (1,000)</td></tr><tr><td>Kali-yuga-sandhyamsa (dusk)</td><td>392,899–428,899 CE</td><td>36,000 (100)</td></tr></table>`,
         accuracy: 'The Kali Ahargaṅa is based off the Gregorian calendar and is considered to be very accurate compared with historical records.',
         source: `Much of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Kali_ahargana">Wikipedia article</a>.\n\nYou can find another converter for this system <a href="https://planetcalc.com/9166/">here</a>.`
     },
@@ -409,7 +409,7 @@ export const computingTimeData = [
         overview: `When using spreadsheets such as Excel or Google Sheets, =NOW() can be used to return the current date. This is saved in the background as a single floating point number, which can be revealed if the user incorrectly formats the date to a number.\n\nDays are counted from the epoch of 30 December 1899 CE, which can also be seen if the user formats a zero to a date.`,
         info: `One might notice that the epoch of 30 December 1899 CE is an odd choice. It is very close to 1 January 1900. Assuming that is day 1, then day 0 should be 31 December 1899.\n\nThe reason for this discrepancy is due to Microsoft Excel originally needing to be compatible with Lotus 1-2-3. The date system in Lotus 1-2-3 incorrectly determined the year 1900 to be a leap year (which was true in the Julian calendar but not the Gregorian). This error added an extra date of 29 February, which did not exist. Thus, in order for days after 28 February 1900 to be correct, the epoch must be shifted backwards by one day.`,
         accuracy: `This calculation is a simple count based on a Gregorian date and is thus exactly accurate.`,
-        source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.`
+        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Year_1900_problem">Wikipedia article</a>.'
     },
 ]
 
@@ -423,7 +423,7 @@ export const decimalTimeData = [
         overview: 'Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day into 10 hours, each hour into 100 minutes, and each minute into 100 seconds.\n\nThe French would have used Paris Mean Time (GMT + 00:09:21) but this website uses local time.',
         info: '<table class="table-short"><tr><td>Revolutionary Time</td><td>Standard Time</td></tr><tr><td>Decimal Second</td><td>0.864 Seconds</td></tr><tr><td>Decimal Minute</td><td>1.44 Minutes (86.4 Seconds)</td></tr><tr><td>Decimal Hour</td><td>2.4 Hours (144 Minutes)</td></tr></table>',
         accuracy: 'As this is a simple mathematical calculation, this clock is exactly accuerate.',
-        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Year_1900_problem">Wikipedia article</a>.'
+        source: 'All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.'
     },
 
     {

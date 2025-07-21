@@ -57,7 +57,7 @@ export function updateOtherCalendars(currentDateTime, marsSolDay) {
     userInterface.setTimeValue('maya-long-count-node', otherCalendars.getCurrentMayaLongCount(currentDateTime));
     userInterface.setTimeValue('tzolkin-node', otherCalendars.getTzolkinDate(currentDateTime));
     userInterface.setTimeValue('lord-of-the-night-node', otherCalendars.getLordOfTheNight(currentDateTime));
-    userInterface.setTimeValue('darian-mars-node', otherCalendars.getDarianMarsDate(computingTime.getJulianSolDate(marsSolDay)));
+    userInterface.setTimeValue('darian-mars-node', otherCalendars.getDarianMarsDate(computingTime.getJulianSolDate(currentDateTime)));
     userInterface.setTimeValue('galilean-io-node', otherCalendars.getGalileanDate(currentDateTime, 'Io'));
     userInterface.setTimeValue('galilean-europa-node', otherCalendars.getGalileanDate(currentDateTime, 'Eu'));
     userInterface.setTimeValue('galilean-ganymede-node', otherCalendars.getGalileanDate(currentDateTime, 'Gan'));
@@ -98,12 +98,12 @@ export function updateComputingTimes(currentDateTime, julianDay, marsSolDay) {
     userInterface.setTimeValue('loran-c-node', computingTime.getLORANC(currentDateTime).toISOString().slice(0, -5));
     userInterface.setTimeValue('lilian-date-node', computingTime.getLilianDate(currentDateTime));
     userInterface.setTimeValue('mars-sol-date-node', marsSolDay.toFixed(5));
-    userInterface.setTimeValue('julian-sol-number-node', computingTime.getJulianSolDate(marsSolDay).toFixed(0));
+    userInterface.setTimeValue('julian-sol-number-node', computingTime.getJulianSolDate(currentDateTime).toFixed(0));
     userInterface.setTimeValue('julian-circad-number-node', computingTime.getJulianCircadNumber(currentDateTime).toFixed(0));
     userInterface.setTimeValue('kali-ahargaṅa-node', computingTime.getKaliAhargana(currentDateTime).toFixed(0));
     userInterface.setTimeValue('spreadsheet-now-node', computingTime.getSpreadsheetNowTime(currentDateTime));
 
-    const lunationNumber = astronomicalData.calculateLunationNumber(currentDateTime);
+    const lunationNumber = computingTime.calculateLunationNumber(currentDateTime);
     userInterface.setTimeValue('lunation-number-node', lunationNumber);
     userInterface.setTimeValue('brown-lunation-number-node', computingTime.getBrownLunationNumber(lunationNumber));
     userInterface.setTimeValue('goldstine-lunation-number-node', computingTime.getGoldstineLunationNumber(lunationNumber));
