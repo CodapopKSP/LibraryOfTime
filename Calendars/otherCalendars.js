@@ -328,7 +328,9 @@ export function getGalileanDate(currentDateTime, body) {
     }
 
     const day = remainingDays + 1;
-    const dayOfWeek = GalileanWeek[(isNegative ? -daysSince : daysSince) % 8];
+    const adjustedDays = isNegative ? -daysSince : daysSince;
+    const dayOfWeek = GalileanWeek[(adjustedDays % 8 + 8) % 8];
+
     return day + ' ' + body + ' ' + GalileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
 }
 
