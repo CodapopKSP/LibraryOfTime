@@ -88,7 +88,7 @@ export function updateFractionalTimes(currentDateTime, dayFraction, dateInput) {
     userInterface.setTimeValue('century-node', timeFractions.calculateCentury(currentDateTime).toFixed(utilities.decimals));
 }
 
-export function updateComputingTimes(currentDateTime, julianDay, marsSolDay) {
+export function updateComputingTimes(currentDateTime, julianDay, marsSolDay, timezoneOffset) {
     userInterface.setTimeValue('unix-node', computingTime.getUnixTime(currentDateTime));
     userInterface.setTimeValue('filetime-node', computingTime.getCurrentFiletime(currentDateTime));
     userInterface.setTimeValue('gps-node', computingTime.getGPSTime(currentDateTime));
@@ -101,7 +101,7 @@ export function updateComputingTimes(currentDateTime, julianDay, marsSolDay) {
     userInterface.setTimeValue('julian-sol-number-node', computingTime.getJulianSolDate(currentDateTime).toFixed(0));
     userInterface.setTimeValue('julian-circad-number-node', computingTime.getJulianCircadNumber(currentDateTime).toFixed(0));
     userInterface.setTimeValue('kali-ahargaṅa-node', computingTime.getKaliAhargana(currentDateTime).toFixed(0));
-    userInterface.setTimeValue('spreadsheet-now-node', computingTime.getSpreadsheetNowTime(currentDateTime));
+    userInterface.setTimeValue('spreadsheet-now-node', computingTime.getSpreadsheetNowTime(currentDateTime, timezoneOffset));
 
     const lunationNumber = computingTime.calculateLunationNumber(currentDateTime);
     userInterface.setTimeValue('lunation-number-node', lunationNumber);

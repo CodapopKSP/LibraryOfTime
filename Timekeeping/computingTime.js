@@ -262,7 +262,8 @@ export function getJulianCircadNumber(currentDateTime) {
     return ((currentDateTime-epoch)/titanDayMilliseconds);
 }
 
-export function getSpreadsheetNowTime(currentDateTime = new Date()) {
+export function getSpreadsheetNowTime(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     // Base date: December 30, 1899
     let baseDate = new Date(1899, 11, 30);
     

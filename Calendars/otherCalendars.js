@@ -9,23 +9,34 @@ import * as computingTime from '../Timekeeping/computingTime.js';
 import * as solarCalendars from '../Calendars/solarCalendars.js';
 
 export function getCurrentMayaLongCount(currentDateTime) {
-    const mayaStartDate = new Date(-3113, 7, 11); // September 6, 3113 BC
-    const daysSinceStart = Math.floor((currentDateTime - mayaStartDate) / (1000 * 60 * 60 * 24));
-    
-    const baktuns = Math.floor(daysSinceStart / (20 * 20 * 18 * 20));
-    const remainingDays1 = daysSinceStart % (20 * 20 * 18 * 20);
-    
-    const katuns = Math.floor(remainingDays1 / (20 * 18 * 20));
-    const remainingDays2 = remainingDays1 % (20 * 18 * 20);
-    
-    const tuns = Math.floor(remainingDays2 / (18 * 20));
-    const remainingDays3 = remainingDays2 % (18 * 20);
-    
-    const uinals = Math.floor(remainingDays3 / 20);
-    const kins = remainingDays3 % 20;
-    
+    const MS_PER_DAY = 86400000;
+    const mayaEpoch = utilities.createDateWithFixedYear(-3113, 7, 11, 6, 0, 0);
+    const totalDays = Math.floor((currentDateTime - mayaEpoch) / MS_PER_DAY);
+    let days = totalDays;
+
+    // Constants
+    const daysPerBaktun = 144000;
+    const daysPerKatun = 7200;
+    const daysPerTun = 360;
+    const daysPerUinal = 20;
+
+    // Handle negative days properly with floor division
+    function divmod(n, d) {
+        const q = Math.floor(n / d);
+        const r = n % d;
+        return [q, r < 0 ? r + d : r];  // Make sure remainder is always positive
+    }
+
+    let baktuns, katuns, tuns, uinals, kins;
+
+    [baktuns, days] = divmod(days, daysPerBaktun);
+    [katuns, days] = divmod(days, daysPerKatun);
+    [tuns, days] = divmod(days, daysPerTun);
+    [uinals, kins] = divmod(days, daysPerUinal);
+
     return `${baktuns}.${katuns}.${tuns}.${uinals}.${kins}`;
 }
+
 
 export function getDarianMarsDate(julianSolNumber) {
     const DarianMonths = [
@@ -628,62 +639,53 @@ export function getYugaCycle(currentDateTime) {
     ];
 
     const kaliAhargana = computingTime.getKaliAhargana(currentDateTime);
-    const yearsOfKaliYuga = Math.floor(kaliAhargana / 365.25);
-
-    // Get total years of cycle up until the start of Kali Yuga
-    const totalYugaCycleYearsUpToKaliYuga = 720000+72000;
-
-    // Get current year of Yuga Cycle
-    let yearsOfYugaCycle = totalYugaCycleYearsUpToKaliYuga + yearsOfKaliYuga;
-
-    // Find the current Yuga segment based on the yearsOfYugaCycle
-    let cycleIndex = 0;
-    for (let i = 0; i < yearsOfYugas.length; i++) {
-        
-        if (yearsOfYugaCycle <= 0) {
-            cycleIndex = i;
-            break;
-        }
-        yearsOfYugaCycle -= yearsOfYugas[i];
+    if (kaliAhargana < 1) {
+        return "Dvapara Yuga: Sandhyamsa";
     }
 
-    // Ensure cycleIndex is always between 0 and 11
-    cycleIndex = (cycleIndex-1) % 5;
-
-    return YugaCycle[cycleIndex];
+    return "Kali Yuga: Sandhya";
 }
 
 export function getSothicCycle(currentDateTime) {
-    const startOf139Cycle = new Date(139, 6, 19); // Start of a Sothic Cycle as per the wiki
-    const daysSinceStartOf139Cycle = utilities.differenceInDays(currentDateTime, startOf139Cycle);
-    const yearsSince139Cycle = Math.floor(daysSinceStartOf139Cycle/365.25);
-    const currentCycle = Math.floor(yearsSince139Cycle/1460)+3;
-    const yearsInCurrentCycle = yearsSince139Cycle%1460;
+    const startOf139Cycle = utilities.createDateWithFixedYear(139, 6, 19); // Sothic cycle anchor point
+    const daysSinceStart = utilities.differenceInDays(currentDateTime, startOf139Cycle);
+    const totalYears = Math.floor(daysSinceStart / 365.25);
 
-    return 'Cycle: ' + currentCycle + ' | Year: ' + yearsInCurrentCycle;
+    const currentCycle = Math.floor(totalYears / 1460) + 3;
+    let yearsInCurrentCycle = totalYears % 1460;
+
+    // Fix negative modulus (e.g., -1 % 1460 = -1 instead of 1459)
+    if (yearsInCurrentCycle < 0) {
+        yearsInCurrentCycle += 1460;
+    }
+
+    return 'Cycle: ' + currentCycle + ' | Year: ' + (yearsInCurrentCycle + 1);
 }
 
 export function getOlympiad(currentDateTime) {
     const julianDate = solarCalendars.getApproxJulianDate(currentDateTime);
-    const olympiad1_ = new Date(-775, 6, 24); // Starting Olympiad (776 BC), astronomical
+    const olympiad1_ = utilities.createDateWithFixedYear(-775, 6, 24); // Start of 1st Olympiad
     const olympiad1 = solarCalendars.getApproxJulianDate(olympiad1_);
     
     const daysSinceOlympiad1 = utilities.differenceInDays(julianDate, olympiad1);
-    
-    // Convert days to years, accounting for the Julian calendar's average year length
     const yearsSinceOlympiad1 = daysSinceOlympiad1 / 365.2425;
-    
-    let olympiad = Math.floor(yearsSinceOlympiad1 / 4) + 1;
-    let currentYearOfOlympiad = Math.floor(yearsSinceOlympiad1 % 4) + 1;
 
-    // Handling BC dates and adjusting calculation
-    if (yearsSinceOlympiad1 < 0) {
-        olympiad = Math.ceil(yearsSinceOlympiad1 / 4) + 1;
-        currentYearOfOlympiad = (Math.ceil(yearsSinceOlympiad1 % 4) + 4) % 4 || 4;  // Fix modulo handling for BC
+    let olympiad, yearInOlympiad;
+
+    if (yearsSinceOlympiad1 >= 0) {
+        olympiad = Math.floor(yearsSinceOlympiad1 / 4) + 1;
+        yearInOlympiad = Math.floor(yearsSinceOlympiad1 % 4) + 1;
+    } else {
+        const olympiadOffset = Math.ceil(Math.abs(yearsSinceOlympiad1) / 4);
+        olympiad = 1 - olympiadOffset;
+        
+        const yearOffset = (4 - Math.floor(Math.abs(yearsSinceOlympiad1) % 4)) % 4;
+        yearInOlympiad = yearOffset === 0 ? 4 : yearOffset;
     }
 
-    return olympiad + ' | Year: ' + currentYearOfOlympiad;
+    return olympiad + ' | Year: ' + yearInOlympiad;
 }
+
 
 export function getTzolkinDate(currentDateTime) {
     const tzolkinMonths = [
@@ -693,7 +695,7 @@ export function getTzolkinDate(currentDateTime) {
         "K'ib'", "Kab'an", "Etz'nab'", "Kawak", "Ajaw"
     ];
 
-    const mayaLongCount0 = new Date(-3113, 7, 11);
+    const mayaLongCount0 = utilities.createDateWithFixedYear(-3113, 7, 11, 6, 0, 0);
     const totalDays = Math.floor(utilities.differenceInDays(currentDateTime, mayaLongCount0));
     
     const startingTzolkinDay = 4; // 4 Ahau is the starting Tzolk'in day for 0.0.0.0.0
@@ -707,7 +709,7 @@ export function getTzolkinDate(currentDateTime) {
 };
 
 export function getLordOfTheNight(currentDateTime) {
-    const startingBaktun13 = new Date(2012, 11, 21);
+    const startingBaktun13 = utilities.createDateWithFixedYear(2012, 11, 21, 6, 0, 0);
     const daysSince = utilities.differenceInDays(currentDateTime, startingBaktun13);
     let lord = Math.floor(((daysSince % 9) + 9) % 9);
     if (lord === 0) {

@@ -168,13 +168,13 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
             case 8:
                 nodeUpdate.updateSolarCalendars(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset));
             case 9:
-                nodeUpdate.updateOtherCalendars(currentDateTime, marsSolDay);
+                nodeUpdate.updateOtherCalendars(currentDateTime, marsSolDay, utilities.convertUTCOffsetToMinutes(timezoneOffset));
         }
     }
 
     // Update if at the beginning of a second
     if ((currentDateTime.getMilliseconds() < utilities.updateMilliseconds)||(currentPass===100)) {
-        nodeUpdate.updateComputingTimes(currentDateTime, julianDay, marsSolDay);
+        nodeUpdate.updateComputingTimes(currentDateTime, julianDay, marsSolDay, utilities.convertUTCOffsetToMinutes(timezoneOffset));
         setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset)).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }

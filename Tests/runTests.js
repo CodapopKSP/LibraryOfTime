@@ -5,6 +5,7 @@ import { runLunarCalendarTests } from "../Tests/lunarCalendarTests.js";
 import { runAstronomicalDataTests } from "../Tests/astronomicalDataTests.js";
 import { runProposedCalendarTests } from "../Tests/proposedCalendarTests.js";
 import { runComputingTimeTests } from "../Tests/computingTimeTests.js";
+import { runOtherCalendarTests } from "../Tests/otherCalendarsTests.js";
 
 function runAllTests() {
     runDateManagementTests();
@@ -14,6 +15,7 @@ function runAllTests() {
     runLunarCalendarTests();
     runProposedCalendarTests();
     runComputingTimeTests();
+    runOtherCalendarTests();
 }
 
 runAllTests();

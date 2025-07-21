@@ -320,7 +320,7 @@ export const computingTimeData = [
         name: 'Kali Ahargaṅa (IST)',
         id: 'kali-ahargaṅa',
         type: 'Computing Time',
-        epoch: '22 January 3101 BCE +18:30:00',
+        epoch: '23 January 3101 BCE +18:30:00',
         confidence: 'High',
         overview: `Kali Ahargaṅa is a simple count of days since the kali epoch. According to Hindu timekeeping, the current yuga, Kali Yuga, began in 3101 BCE and will last for 432,000 years, ending in 428,899 CE.\n\nKali Yuga is the fourth, shortest, and worst of the four yugas.`,
         info: `Each yuga has a shorter dawn and dusk period before and after the longer main period.\n\n<table><tr><th>Part</th><th>Start</th><th>Length</th></tr><tr><td>Kali-yuga-sandhya (dawn)</td><td>3101 BCE</td><td>36,000 (100)</td></tr><tr><td>Kali-yuga (proper)</td><td>32,899 CE</td><td>360,000 (1,000)</td></tr><tr><td>Kali-yuga-sandhyamsa (dusk)</td><td>392,899–428,899 CE</td><td>36,000 (100)</td></tr></table>`,
@@ -539,7 +539,7 @@ export const otherTimeData = [
 
 export const solarCalendarsData = [
     {
-        name: 'Gregorian (Local)',
+        name: 'Gregorian',
         id: 'gregorian',
         type: 'Solar Calendar',
         epoch: '1 January 1 CE',
@@ -719,7 +719,7 @@ export const solarCalendarsData = [
     },
 
     {
-        name: 'Pataphysical (Local)',
+        name: 'Pataphysical',
         id: 'pataphysical',
         type: 'Solar Calendar',
         epoch: '8 September 1873 CE',
@@ -731,7 +731,7 @@ export const solarCalendarsData = [
     },
 
     {
-        name: 'Discordian (Local)',
+        name: 'Discordian',
         id: 'discordian',
         type: 'Solar Calendar',
         epoch: '1 January 1165 BCE',
@@ -779,7 +779,7 @@ export const solarCalendarsData = [
     },
 
     {
-        name: 'ISO Week Date (Local)',
+        name: 'ISO Week Date',
         id: 'iso-week-date',
         type: 'Solar Calendar',
         epoch: '1 January 1 CE',
@@ -932,10 +932,10 @@ export const proposedCalendars = [
 
 export const otherCalendars = [
     {
-        name: 'Maya Long Count',
+        name: 'Maya Long Count (CST)',
         id: 'maya-long-count',
         type: 'Other Calendar',
-        epoch: '11 August 3113 BCE',
+        epoch: '11 August 3113 BCE +06:00:00',
         confidence: 'Exact',
         overview: 'The Maya Long Count calendar is essentially a simple count of the number of days since the Maya date of creation. It is a five digit number, typically expressed with periods between the digits, made up of base-20 counters with the exception of the middle-right digit which is base-18.\n\nStarting with the right, the smallest unit is the <b>kʼin</b>, which is equivalent to a day. Twenty kʼins make up one <b>winal</b>, 18 winals make up one <b>tun</b>, 20 tuns make up one <b>kʼatun</b>, and finally 20 kʼatuns make up one <b>bʼakʼtun</b>. A bʼakʼtun is roughly 394 solar years.\n\nThe Maya Long Count Calendar was of international interest in 2012 as it was the time when the bʼakʼtun incremented from 12 to 13, leading to superstitious theories and hysteria.',
         info: `Notably, winals are counted in base-18 rather than base-20 like the rest of the units. This is to reasonably match the tun to the length of the solar year. However, it is still over 5 days short, meaning it will drift about half as much as a true lunar calendar. 20 winals would be 400 days, which wouldn't have been as useful.\n\n<table class=table-short><tr><th>Maya Unit</th><th>Length</th></tr><tr><td>kʼin</td><td>1 day</td></tr><tr><td>winal</td><td>20 kʼins, 20 days</td></tr><tr><td>tun</td><td>18 winals, 360 days</td></tr><tr><td>kʼatun</td><td>20 tuns, 7200 days</td></tr><tr><td>bʼakʼtun</td><td>20 kʼatuns, 144000 days</td></tr></table>`,
@@ -944,7 +944,7 @@ export const otherCalendars = [
     },
 
     {
-        name: 'Tzolkin',
+        name: 'Tzolkin (CST)',
         id: 'tzolkin',
         type: 'Other Calendar',
         epoch: '~1100 BCE',
@@ -956,7 +956,7 @@ export const otherCalendars = [
     },
 
     {
-        name: 'Lord of the Night | Y',
+        name: 'Lord of the Night | Y (CST)',
         id: 'lord-of-the-night',
         type: 'Other Calendar',
         epoch: 'Unknown',
@@ -1106,7 +1106,7 @@ export const otherCalendars = [
         epoch: '27 June 2781 BCE',
         confidence: 'High',
         overview: `The Sothic Cycle is the relationship between the start of the new year of the Egyptian calendar and the heliacal rising of the star of Sirius, which was originally what the calendar was based on.\n\nThe Egyptian calendar had years of exactly 365 days while the heliacal rising of Siruis is on a cycle of 365.25 days, causing the two to drift apart and eventually come together again over the course of 1460 years. This rate of error was one of the references for the creation of the Julian calendar, meaning the two calendars share the same relationship through the cycle. For every 1460 Julian years there are 1461 Egyptian years.\n\nThe first cycle is believed to begin on 27 June 2781 BCE, which is implied to be the date of the creation of the Egyptian calendar.\n\nThe Sothic Cycle was instrumental in calibrating the Egyptian date by historians.`,
-        info: `The Sothic Cycle shows a relationship between the Julian and Egyptian calendars of 1460/1461. The Gregorian calendar does not line up in the same way due to the revised leap year rules.\n\n<table class="table-short"><tr><th>Cycle</th><th>Julian Date</th><th>Gregorian Date</th></tr><tr><td>1</td><td>20 July 2781 BC</td><td>27 June 2781 BCE</td></tr><tr><td>2</td><td>20 July 1321 BC</td><td>8 July 1321 BCE</td></tr><tr><td>3</td><td>20 July 139 AD</td><td>19 July 139 CE</td></tr><tr><td>4</td><td>20 July 1599 AD</td><td>30 July 1599 CE</td></tr><tr><td>5</td><td>20 July 3059 AD</td><td>10 August 3059 CE</td></tr><tr><td>6</td><td>20 July 4519 AD</td><td>21 August 4519 CE</td></tr></table>`,
+        info: `The Sothic Cycle shows a relationship between the Julian and Egyptian calendars of 1460/1461. The Gregorian calendar does not line up in the same way due to the revised leap year rules.\n\n<table class="table-short"><tr><th>Cycle</th><th>Julian Date</th><th>Gregorian Date</th></tr><tr><td>1</td><td>20 July 2782 BC</td><td>27 June 2781 BCE</td></tr><tr><td>2</td><td>20 July 1322 BC</td><td>8 July 1321 BCE</td></tr><tr><td>3</td><td>20 July 139 AD</td><td>19 July 139 CE</td></tr><tr><td>4</td><td>20 July 1599 AD</td><td>30 July 1599 CE</td></tr><tr><td>5</td><td>20 July 3059 AD</td><td>10 August 3059 CE</td></tr><tr><td>6</td><td>20 July 4519 AD</td><td>21 August 4519 CE</td></tr></table>`,
         accuracy: `This calendar is mathematically exact, though my calculations are sometimes a day off from official sources. This could be due to leap day rules or due to astronomical dates.\n\nHistorians are also somewhat unsure about how many cycles have passed, and it's possible that there has been one more cycle before the accepted first cycle.`,
         source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Sothic_cycle">Wikipedia article</a>.`
     },
