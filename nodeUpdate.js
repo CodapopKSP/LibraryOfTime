@@ -98,6 +98,7 @@ export function updateComputingTimes(currentDateTime, timezoneOffset) {
     userInterface.setTimeValue('tt-node', computingTime.getTT(currentDateTime).toISOString().slice(0, -5));
     userInterface.setTimeValue('loran-c-node', computingTime.getLORANC(currentDateTime).toISOString().slice(0, -5));
     userInterface.setTimeValue('lilian-date-node', computingTime.getLilianDate(currentDateTime));
+    userInterface.setTimeValue('ordinal-date-node', computingTime.getOrdinalDate(currentDateTime));
     userInterface.setTimeValue('mars-sol-date-node', computingTime.getMarsSolDate(currentDateTime).toFixed(5));
     userInterface.setTimeValue('julian-sol-number-node', computingTime.getJulianSolDate(currentDateTime).toFixed(0));
     userInterface.setTimeValue('julian-circad-number-node', computingTime.getJulianCircadNumber(currentDateTime).toFixed(0));

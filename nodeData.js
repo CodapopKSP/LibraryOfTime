@@ -269,6 +269,18 @@ export const computingTimeData = [
     },
 
     {
+        name: 'Ordinal Date',
+        id: 'ordinal-date',
+        type: 'Computing Time',
+        epoch: '1 January 2000 CE',
+        confidence: 'Exact',
+        overview: `The Ordinal Date is a technique of describing the current date with just 5 digits. The first two digits are the year starting from 2000 CE, while the latter three digits is the simple day count for that year, with January 1 being 1.\n\nThe year doesn't necessarily have to be two digits and can become 3 or more if more than +- 99 years from 2000 CE.`,
+        info: 'This counter used to be called the Julian Day, but that caused lots of confusion since the term had already been used to name the Julian Day Number, among other time formats.',
+        accuracy: 'The Ordinal Date is a simple calculation on the Gregorian calendar, making it exactly accurate.',
+        source: 'All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Ordinal_date">Wikipedia article</a>.'
+    },
+
+    {
         name: 'ISO 8601',
         id: 'iso8601',
         type: 'Computing Time',

@@ -149,6 +149,13 @@ function testSpreadsheetNowTime() {
     ]);
 }
 
+function testOrdinalDate() {
+    return runComputingTests("Ordinal Date", computingTime.getOrdinalDate, [
+        ["2000-1-1, 00:00:00", "UTC+00:00", "00000"],
+        ["2025-12-31, 00:00:00", "UTC+00:00", "25364"],
+    ]);
+}
+
 // Run all tests.
 export function runComputingTimeTests() {
     const testFunctions = [
@@ -166,7 +173,8 @@ export function runComputingTimeTests() {
         testJulianSolNumber,
         testKaliAharhana,
         testLunationNumber,
-        testSpreadsheetNowTime
+        testSpreadsheetNowTime,
+        testOrdinalDate
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

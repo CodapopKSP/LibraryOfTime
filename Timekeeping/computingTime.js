@@ -206,6 +206,15 @@ export function getLilianDate(currentDateTime) {
     return lilianDate;
 }
 
+export function getOrdinalDate(currentDateTime) {
+    const year = currentDateTime.getUTCFullYear()-2000;
+    const yearStr = String(year).padStart(2, '0'); // Will be 3 digits from year 2100+
+    const Jan1st2000 = new Date(Date.UTC(currentDateTime.getUTCFullYear(), 0, 1));
+    const days = Math.floor(utilities.differenceInDays(currentDateTime, Jan1st2000));
+    const paddedDays = String(days).padStart(3, '0');
+    return yearStr + paddedDays;
+}
+
 export function getMarsSolDate(currentDateTime) {
     let JDN = getJulianDayNumber(currentDateTime);
     const DeltaT = (getDeltaT(currentDateTime)/60/60/24);
