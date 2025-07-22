@@ -8,7 +8,7 @@
 
 
 
-import { welcomeDescription } from './welcomeDescription.js';
+import { welcomeDescription, confidenceDescription } from './descriptionText.js';
 import * as nodeDisplay from './nodeDisplay.js';
 import * as utilities from './utilities.js';
 import * as userInterface from './userInterface.js';
@@ -127,16 +127,16 @@ function createEpochElement(item) {
     epochElement.classList.add('nodeinfo-epoch');
 
     // Enable Epoch to be clicked
-    const tdElement = epochElement.querySelector('.clickable-epoch');
-    tdElement.addEventListener('click', function() {
+    const epochDateElement = epochElement.querySelector('.clickable-epoch');
+    epochDateElement.addEventListener('click', function() {
         handleEpochClick(item.epoch); // Function to be called on click
     });
 
-    tdElement.addEventListener('mouseenter', function() {
-        tdElement.classList.add('hovering');
+    epochDateElement.addEventListener('mouseenter', function() {
+        epochDateElement.classList.add('hovering');
     });
-    tdElement.addEventListener('mouseleave', function() {
-        tdElement.classList.remove('hovering');
+    epochDateElement.addEventListener('mouseleave', function() {
+        epochDateElement.classList.remove('hovering');
     });
 
     return epochElement;
@@ -191,14 +191,36 @@ function formatDateTime(dateString) {
 }
 
 function createConfidenceElement(item) {
+    const confidenceMap = {
+        "Exact": confidenceDescription[0].confidenceExact,
+        "High": confidenceDescription[0].confidenceHigh,
+        "Medium": confidenceDescription[0].confidenceMedium,
+        "Low": confidenceDescription[0].confidenceLow
+    };
+
+    const specificInfo = confidenceMap[item.confidence] || "";
+    const generalNote = confidenceDescription[0].confidenceNote;
+
     const confidenceElement = document.createElement('div');
+    confidenceElement.classList.add('nodeinfo-confidence');
+
     confidenceElement.innerHTML = `
         <table class="table-confidence">
             <tr><th><b>Confidence: ${item.confidence}</b></th></tr>
-        </table>`;
-    confidenceElement.classList.add('nodeinfo-confidence');
+        </table>
+        <div class="tooltiptext">
+            <div style="font-family: sans-serif; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
+                Confidence Criteria
+            </div>
+            ${specificInfo}
+            <hr style="margin: 12px 0; border: none; border-top: 1px solid #aaa;">
+            ${generalNote}
+        </div>
+    `;
+
     return confidenceElement;
 }
+
 
 export function changeActiveHeaderTab(activeTab, index) {
     // Toggle active tab header

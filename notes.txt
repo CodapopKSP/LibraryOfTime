@@ -13,3 +13,32 @@ https://libgen.li/edition.php?id=138174808
 https://www.epistemeacademy.org/calendars/page_convert.html
 https://www.ebl.lmu.de/tools/date-converter
 https://heritageinstitute.com/zoroastrianism/calendar/index.htm
+
+
+
+Confidence Levels
+Note: Confidence levels are only applicable in the rated time of each calendar.
+    This could be only positive years since the epoch or a range of years where the calculation directly applies.
+    This is especially the case if a calendar has gone through revisions throughout history.
+Note: These confidence levels refer to how these algorithms are applied on this site.
+    It is unrelated to how confident historians are in the facts presented here.
+    Disagreements among historians are often noted in the Accuracy tab, but that is not the aim of this site.
+
+Exact:
+- Explicitly tied to the Gregorian Calendar or Unix time
+- Defined by a well-understood algorithm with an exact epoch
+
+High:
+- Relies on another calculation with a High confidence level
+- Relies on an approximation in such a way that errors can build over a long period of time
+- Relies on an approximation of sunrise or sunset to mark the beginning of a day
+
+Medium:
+- Relies on another calculation with a Medium confidence level
+- Has known errors with an unknown cause but is otherwise correct
+- Relies on an algorithm that could have been misinterpreted
+
+Low:
+- Relies on another calculation with a Low confidence level
+- Relies on a poorly-understood algorithm
+- Has an undefined epoch or anchor date

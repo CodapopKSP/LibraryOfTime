@@ -428,6 +428,26 @@ a {
     padding-left: 10vh;
     padding-right: 10vh;
     padding-bottom: 1vh;
+    cursor: pointer;
+}
+
+.nodeinfo-confidence .tooltiptext {
+    visibility: hidden;
+    background-color: #242424;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    border: 2px solid #4f4f4f;
+    padding: 20px;
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nodeinfo-confidence:hover .tooltiptext {
+    visibility: visible;
+    opacity: 0.95;
 }
 
 .description-button-wrapper {

@@ -9,3 +9,54 @@ export const welcomeDescription = [
         sources: 'There are two kinds of sources for many of the entries on this site: sources of initial calculations and, in the case of calendars still in use, sources of confirmation, such as a website displaying the current date of a particular calendar. When applicable, both will be listed in the Source tab of each entry.\n\nWhen necessary, I have made guesses and approximations, either because I wasn\'t able to locate the information, the information doesn\'t exist even at an academic level, or for the sake of reasonable simplicity. These will be noted in the Accuracy tabs.\n\nA lot of the information on this site comes from Wikipedia, but when necessary I have had to seek better, more informative, or more complete sources.\n\nThe underlying astronomical calculations have come from <i>Astronomical Algorithms</i> (1991) by Jean Meeus. You can find a full text archive of it <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">here</a>.\n\nSome of the Computing Time calculations came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this ancient website</a> with several broken links.\n\nI\'ve gotten a lot of info and inspiration from <a href="https://www.fourmilab.ch/documents/calendar/">this website</a> that is something of a precursor to the Library of Time, though I disagree with some of their calculations.\n\nThe basis of my lunar calendar calculations used in many Asiatic calendars comes from <a href="https://ytliu0.github.io/ChineseCalendar/rules.html">this github page.</a>'
     },
 ]
+
+export const confidenceDescription = [
+  {
+    confidenceNote: `
+      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+        <b>Note:</b> Confidence levels apply within the rated range of each calendar (e.g., positive years since the epoch, or times when the algorithm is valid).<br><br>
+        They refer to how these <i>algorithms</i> are used on this site, not to the certainty of historical facts. Disagreements among historians are noted in the <i>Accuracy</i> tab.
+      </div>
+    `,
+    confidenceExact: `
+      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+        <b style="color:#FFD700;">Exact</b><span> - Any of the following:</span>
+        <ul>
+          <li>Explicitly tied to the Gregorian Calendar or Unix time</li>
+          <li>Defined by a well-understood algorithm with an exact epoch</li>
+        </ul>
+      </div>
+    `,
+    confidenceHigh: `
+      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+        <b style="color:#4CAF50;">High</b><span> - Any of the following will reduce from Exact:</span>
+        <ul>
+          <li>Relies on another calculation with a High confidence level</li>
+          <li>Relies on an approximation where errors can accumulate over long periods</li>
+          <li>Relies on approximate sunrise/sunset for day boundaries</li>
+        </ul>
+      </div>
+    `,
+    confidenceMedium: `
+      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+        <b style="color:#FF9800;">Medium</b><span> - Any of the following will reduce from Exact:</span>
+        <ul>
+          <li>Relies on another calculation with a Medium confidence level</li>
+          <li>Has known errors with an unknown cause</li>
+          <li>May be based on an algorithm that was misinterpreted</li>
+        </ul>
+      </div>
+    `,
+    confidenceLow: `
+      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+        <b style="color:#F44336;">Low</b><span> - Any of the following will reduce from Exact:</span>
+        <ul>
+          <li>Relies on another calculation with a Low confidence level</li>
+          <li>Based on a poorly-understood algorithm</li>
+          <li>May have an undefined epoch or anchor date</li>
+        </ul>
+      </div>
+    `
+  }
+];
+
