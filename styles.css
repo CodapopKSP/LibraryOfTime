@@ -362,7 +362,7 @@ a {
 
 #floating-panel-toggle-button {
     position: fixed;
-    top: 4vh;
+    top: 5vh;
     right: 4vh;
     padding: 1vh 2vh;
     background: rgb(55, 55, 55);
@@ -372,12 +372,12 @@ a {
     cursor: pointer;
     font-size: 16px;
     border: 0.2vh solid #000000;
+    height: 3vh;
 }
 
 #floating-panel-toggle-button:hover {
     background-color: #4f4f4f; /* Darker green on hover */
 }
-  
 
 
 /*
@@ -396,6 +396,8 @@ a {
     font-size: 1.8vh;
     width: 33vw;
     top: 9vh;
+    overflow-y: auto;
+    max-height: 74vh;
 }
 
 .nodeinfo-title {
@@ -488,22 +490,14 @@ a {
 
 .home-info,
 .home-mission,
-.home-sources {
-    text-align: left;
-    padding: 1vh;
-    padding-top: 3vh;
-    white-space: pre-wrap;
-    text-align: justify;
-    margin: auto 1rem auto 1rem;
-}
-
+.home-sources,
 .home-accuracy {
     text-align: left;
     padding: 1vh;
     padding-top: 3vh;
     white-space: pre-wrap;
     text-align: justify;
-    margin: auto 0.5rem auto 0.5rem;
+    margin: auto 1rem auto 1rem;
 }
 
 .nodeinfo-overview {
