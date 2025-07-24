@@ -392,11 +392,10 @@ a {
     color: rgb(214, 214, 214);
     text-align: center;
     position: absolute;
-    z-index: 1;
+    z-index: 1000;
     font-size: 1.8vh;
     width: 33vw;
     top: 9vh;
-    overflow-y: auto;
     max-height: 74vh;
     min-height: 74vh;
 }
@@ -498,7 +497,11 @@ a {
     padding-top: 3vh;
     white-space: pre-wrap;
     text-align: justify;
-    margin: auto 1rem auto 1rem;
+    margin: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 74vh;
+    min-height: 74vh;
 }
 
 .nodeinfo-overview {
@@ -506,7 +509,11 @@ a {
     padding: 1vh;
     white-space: pre-wrap;
     text-align: justify;
-    margin: auto 1rem auto 1rem;
+    margin: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 53vh;
+    min-height: 53vh;
 }
 
 .clickable-epoch.hovering {
@@ -523,7 +530,11 @@ a {
     padding-top: 3vh;
     white-space: pre-wrap;
     text-align: justify;
-    margin: auto 1rem auto 1rem;
+    margin: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 64vh;
+    min-height: 64vh;
 }
 
 .home-button {
