@@ -143,11 +143,23 @@ function createEpochElement(item) {
 }
 
 function handleEpochClick(epoch) {
-    userInterface.changeDateTime(formatDateTime(epoch), "UTC+00:00");
+    let datePicked = formatDateTime(epoch);
+    console.log(datePicked);
+    let timePicked = "UTC+00:00";
+    userInterface.changeDateTime(datePicked, timePicked);
 }
 
 
 function formatDateTime(dateString) {
+
+    if (dateString==="Midnight") {
+        let today = new Date();
+        return today;
+    }
+
+
+
+
     // Handle BCE/CE
     let era = '';
     if (dateString.includes('BCE')) {

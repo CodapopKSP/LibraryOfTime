@@ -398,6 +398,7 @@ a {
     top: 9vh;
     overflow-y: auto;
     max-height: 74vh;
+    min-height: 74vh;
 }
 
 .nodeinfo-title {
