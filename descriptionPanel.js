@@ -65,16 +65,6 @@ export function addHomeButtonHoverEffect() {
     });
 }
 
-function createHomePageDescription(contentKey, contentClass) {
-    const description = document.createElement('div');
-    description.classList.add('nodeinfo');
-    const contentElement = document.createElement('div');
-    contentElement.innerHTML = welcomeDescription[0][contentKey];
-    contentElement.classList.add(contentClass);
-    description.appendChild(contentElement);
-    return description;
-}
-
 // Create descriptions for Home Page tabs
 const homePageDescriptions = {
     about: createHomePageDescription('about', 'home-info'),
@@ -83,11 +73,46 @@ const homePageDescriptions = {
     sources: createHomePageDescription('sources', 'home-sources'),
 };
 
-function createTitleElement(name) {
-    const titleElement = document.createElement('div');
-    titleElement.textContent = name;
-    titleElement.classList.add('nodeinfo-title');
-    return titleElement;
+function setupScrollFade(scrollableElement, containerElement) {
+    const updateFadeOpacity = () => {
+        const scrollTop = scrollableElement.scrollTop;
+        const scrollHeight = scrollableElement.scrollHeight;
+        const clientHeight = scrollableElement.clientHeight;
+        const scrollable = scrollHeight - clientHeight;
+
+        if (scrollable <= 0) {
+            // No scroll, hide fade completely
+            containerElement.style.setProperty('--fade-opacity', '0');
+            containerElement.classList.remove('fade-visible');
+            return;
+        }
+
+        const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+        const ratio = Math.min(1, distanceFromBottom / 40);
+        containerElement.style.setProperty('--fade-opacity', ratio.toFixed(2));
+        containerElement.classList.add('fade-visible');
+    };
+
+    // Run once layout is ready
+    requestAnimationFrame(updateFadeOpacity);
+    scrollableElement.addEventListener('scroll', updateFadeOpacity);
+}
+
+function createHomePageDescription(contentKey, contentClass) {
+    const description = document.createElement('div');
+    description.classList.add('nodeinfo', 'homepage');
+
+    const contentElement = document.createElement('div');
+    contentElement.innerHTML = welcomeDescription[0][contentKey];
+    contentElement.classList.add(contentClass);
+    contentElement.style.overflowY = 'auto';  // Ensure scrollable
+    contentElement.style.maxHeight = '100%';  // Or whatever height you want
+
+    // Apply scroll-fade logic
+    setupScrollFade(contentElement, description);
+
+    description.appendChild(contentElement);
+    return description;
 }
 
 export function createNodeDescription(item, type) {
@@ -98,23 +123,43 @@ export function createNodeDescription(item, type) {
     // Create and append the title
     description.appendChild(createTitleElement(item.name));
 
-    // Create content based on type
-    let contentElement = document.createElement('div');
-    contentElement.classList.add(`nodeinfo-${type}`);
+    let contentElement;
 
     if (type === 'overview') {
+        // For 'overview', create the sub-elements
+        description.appendChild(createEpochElement(item));
+        description.appendChild(createConfidenceElement(item));
+
         const overviewElement = document.createElement('div');
         overviewElement.innerHTML = item.overview;
         overviewElement.classList.add('nodeinfo-overview');
-        description.appendChild(createEpochElement(item));
-        description.appendChild(createConfidenceElement(item));
+        overviewElement.style.overflowY = 'auto';
+        overviewElement.style.maxHeight = '100%';
+
         description.appendChild(overviewElement);
+        contentElement = overviewElement;
     } else {
         // For 'info', 'accuracy', 'source'
+        contentElement = document.createElement('div');
         contentElement.innerHTML = item[type];
+        contentElement.classList.add(`nodeinfo-${type}`);
+        contentElement.style.overflowY = 'auto';
+        contentElement.style.maxHeight = '100%';
         description.appendChild(contentElement);
     }
+
+    // Set up scroll fade
+    setupScrollFade(contentElement, description);
+
     return description;
+}
+
+
+function createTitleElement(name) {
+    const titleElement = document.createElement('div');
+    titleElement.textContent = name;
+    titleElement.classList.add('nodeinfo-title');
+    return titleElement;
 }
 
 function createEpochElement(item) {
