@@ -250,7 +250,7 @@ a {
 .node-menu {
     position: absolute; /* Position it absolutely to the viewport */
     font-size: 1.2vh;
-    width: 7vh;
+    width: 15vh;
     color: #afafaf;
     background-color: #2b2b2b;
     border: 0.3vh solid #1f1f1f;
@@ -532,6 +532,7 @@ a {
     height: 70%;
     padding: 1rem;
     margin: 1rem;
+    white-space: pre-wrap;
     text-align: justify;
 }
 

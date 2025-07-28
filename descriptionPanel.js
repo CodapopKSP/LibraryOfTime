@@ -12,6 +12,7 @@ import { welcomeDescription, confidenceDescription } from './descriptionText.js'
 import * as nodeDisplay from './nodeDisplay.js';
 import * as utilities from './utilities.js';
 import * as userInterface from './userInterface.js';
+import * as astronomicalData from './Other/astronomicalData.js';
 
 document.getElementById('home-button').addEventListener('click', homeButton);
 
@@ -188,22 +189,125 @@ function createEpochElement(item) {
 }
 
 function handleEpochClick(epoch) {
-    let datePicked = formatDateTime(epoch);
-    console.log(datePicked);
+    let epoch_ = epoch;
     let timePicked = "UTC+00:00";
+
+    // Most clocks
+    if (epoch==='Midnight') {
+        const now = new Date();
+        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+        timePicked = document.getElementById('date-input').value;
+    }
+
+    // .beat (BMT)
+    if (epoch==='Midnight (BMT)') {
+        const now = new Date();
+        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+        timePicked = 'UTC+01:00';
+    }
+
+    // UTC (Standard Time)
+    if (epoch==='Midnight (UTC)') {
+        const now = new Date();
+        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+        timePicked = 'UTC+00:00';
+    }
+
+    // Termina Time (Slowed)
+    if (epoch==='6:00:00') {
+        const now = new Date();
+        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +6:00:00`;
+        timePicked = document.getElementById('date-input').value;
+    }
+
+    // Maya Calendars and any others
+    if (epoch==='Unknown') {
+        return;
+    }
+
+    // Yuga Cycle
+    if (epoch==='3,891,102 BCE') {
+        return;
+    }
+
+    // Every Second/Minute/Hour/Day - All Midnight
+    if ((epoch==='Every Second') || (epoch==='Every Minute') || (epoch==='Every Hour') || (epoch==='Every Day')) {
+        const now = new Date();
+        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+        timePicked = document.getElementById('date-input').value;
+    }
+
+    // Every Month
+    if (epoch==='Every Month') {
+        const now = new Date();
+        epoch_ = `${1} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+        timePicked = document.getElementById('date-input').value;
+    }
+
+    // Every Year
+    if (epoch==='Every Year') {
+        const now = new Date();
+        epoch_ = `${1} ${'January'} ${now.getUTCFullYear()}`;
+        timePicked = document.getElementById('date-input').value;
+    }
+
+    // Every Decade
+    if (epoch === 'Every Decade') {
+        const now = new Date();
+        const year = now.getUTCFullYear();
+        const centuryYear = Math.floor(year / 10) * 10;
+        epoch_ = `${1} January ${centuryYear}`;
+        timePicked = document.getElementById('date-input').value;
+    }
+
+    // Every Century
+    if (epoch === 'Every Century') {
+        const now = new Date();
+        const year = now.getUTCFullYear();
+        const centuryYear = Math.floor(year / 100) * 100;
+        epoch_ = `${1} January ${centuryYear}`;
+        timePicked = document.getElementById('date-input').value;
+    }
+
+    // Every Millennium
+    if (epoch === 'Every Millennium') {
+        const now = new Date();
+        const year = now.getUTCFullYear();
+        const millenniumYear = Math.floor(year / 1000) * 1000;
+        epoch_ = `${1} January ${millenniumYear}`;
+        timePicked = document.getElementById('date-input').value;
+    }
+
+    // Equinoxes
+    if (epoch === 'Northward Equinox') {
+        const now = new Date();
+        const target = astronomicalData.getSolsticeOrEquinox(now, 'spring');
+
+        const hours = String(target.getUTCHours()).padStart(2, '0');
+        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
+        timePicked = document.getElementById('date-input').value;
+        console.log(timePicked);
+        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        console.log(timezoneOffset);
+
+        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+    }
+
+    // Most calendars
+    const datePicked = formatDateTime(epoch_);
     userInterface.changeDateTime(datePicked, timePicked);
 }
 
 
 function formatDateTime(dateString) {
 
-    if (dateString==="Midnight") {
-        let today = new Date();
-        return today;
-    }
-
-
-
+    let date = new Date();
+    let year;
+    let month;
+    let dayFormatted;
+    let formattedDate;
+    let formattedTime = '00:00:00';
 
     // Handle BCE/CE
     let era = '';
@@ -224,24 +328,25 @@ function formatDateTime(dateString) {
     const monthIndex = utilities.monthNames.indexOf(monthStr);
 
     // Create a new Date object with the proper day, month, and year
-    const date = new Date(Date.UTC(inputYear, monthIndex, parseInt(day, 10)));
+    date = new Date(Date.UTC(inputYear, monthIndex, parseInt(day, 10)));
 
     // Set the actual year correctly using setUTCFullYear for BCE/CE
     date.setUTCFullYear(era === 'BCE' ? -inputYear : inputYear);
 
-    // Format the date into yyyy-mm-dd
-    const year = String(date.getUTCFullYear()).padStart(4, '0'); // Ensure year is always four digits
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    const dayFormatted = String(date.getUTCDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${dayFormatted}`;
-
     // Handle time part (optional)
-    let formattedTime = '00:00:00';
     if (timePart) {
         // Format time into hh:mm:ss
         const [hours, minutes, seconds] = timePart.split(':');
         formattedTime = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
     }
+
+    // Format the date into yyyy-mm-dd
+    year = String(date.getUTCFullYear());
+    month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    dayFormatted = String(date.getUTCDate()).padStart(2, '0');
+
+    
+    formattedDate = `${year}-${month}-${dayFormatted}`;
 
     // Return formatted date and time
     return `${formattedDate}, ${formattedTime}`;

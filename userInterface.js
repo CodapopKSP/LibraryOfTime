@@ -232,6 +232,7 @@ export function changeDateTime(newDateString = '', timezonePassthrough = '') {
     }
     setCalendarType(document.getElementById('calendar-type').value);
     let timezoneChoice = document.getElementById('timezone').value;
+    console.log(timezoneChoice);
     if (timezonePassthrough) {
         timezoneChoice = timezonePassthrough;
     }
