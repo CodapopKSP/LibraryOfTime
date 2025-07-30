@@ -207,11 +207,14 @@ export function getLilianDate(currentDateTime) {
 }
 
 export function getOrdinalDate(currentDateTime) {
-    const year = currentDateTime.getUTCFullYear()-2000;
-    const yearStr = String(year).padStart(2, '0'); // Will be 3 digits from year 2100+
-    const Jan1st2000 = new Date(Date.UTC(currentDateTime.getUTCFullYear(), 0, 1));
-    const days = Math.floor(utilities.differenceInDays(currentDateTime, Jan1st2000));
-    const paddedDays = String(days).padStart(3, '0');
+    const year = currentDateTime.getUTCFullYear() - 2000;
+    const yearStr = String(year).padStart(2, '0'); // will show -01 for 1999, etc.
+
+    // Always compare to Jan 1st of the current date's year
+    const jan1st = utilities.createDateWithFixedYear(currentDateTime.getUTCFullYear(), 0, 1);
+    const days = Math.floor(utilities.differenceInDays(currentDateTime, jan1st)) + 1; 
+    const paddedDays = String(days).padStart(3, '0'); // Always positive 001-365
+
     return yearStr + paddedDays;
 }
 
