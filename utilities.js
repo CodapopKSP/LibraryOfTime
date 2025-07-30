@@ -18,6 +18,15 @@ export function setGregJulianDifference(newDifference) {
     _gregJulianDifference = newDifference;
 }
 
+// Keeps track of date picker timezone selection
+let _datePickerTimezone = 'UTC+00:00';
+export function getDatePickerTimezone() {
+    return _datePickerTimezone;
+}
+export function setDatePickerTimezone(newTimezone) {
+    _datePickerTimezone = newTimezone;
+}
+
 // Delete this maybe
 export function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);

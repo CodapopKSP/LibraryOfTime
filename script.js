@@ -10,6 +10,7 @@ import { createNode } from './nodeDisplay.js';
 import * as descriptionPanel from './descriptionPanel.js';
 import { instantiateFloatingPanel } from './userPanel.js';
 import * as userInterface from './userInterface.js';
+import * as utilities from "./utilities.js";
 
 const timezones = [
     'UTC-12:00', 'UTC-11:00', 'UTC-10:00', 'UTC-09:30', 'UTC-09:00',
@@ -100,6 +101,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         timezoneSelect.appendChild(option);
     });
+
+    timezoneSelect.addEventListener('change', function () {
+        const datePickerTimezone = document.getElementById('timezone').value;
+        utilities.setDatePickerTimezone(datePickerTimezone);
+    });
 });
 
 // Display the initial Description Panel
@@ -115,7 +121,7 @@ if (urlDateString && urlTimezone) {
     userInterface.updateAllNodes(getDateTimeFromURL(urlDateString), getTimezoneFromURL(urlTimezone), true);
     // Prevent from updating on repeat
     clearInterval(userInterface.getCurrentUpdateInterval());
-  } else {
+} else {
     // Use current date
     userInterface.updateAllNodes(0, userInterface.getLocalTimezoneOffset(), true);
-  }
+}
