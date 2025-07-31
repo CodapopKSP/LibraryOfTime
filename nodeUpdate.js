@@ -53,7 +53,7 @@ export function updateLunisolarCalendars(currentDateTime) {
     userInterface.setTimeValue('umm-al-qura-node', lunarCalendars.getUmmalQuraDate(currentDateTime));
 }
 
-export function updateOtherCalendars(currentDateTime, marsSolDay) {
+export function updateOtherCalendars(currentDateTime) {
     userInterface.setTimeValue('maya-long-count-node', otherCalendars.getCurrentMayaLongCount(currentDateTime));
     userInterface.setTimeValue('tzolkin-node', otherCalendars.getTzolkinDate(currentDateTime));
     userInterface.setTimeValue('lord-of-the-night-node', otherCalendars.getLordOfTheNight(currentDateTime));
@@ -72,11 +72,11 @@ export function updateOtherCalendars(currentDateTime, marsSolDay) {
     userInterface.setTimeValue('olympiad-node', otherCalendars.getOlympiad(currentDateTime));
 }
 
-export function updateFractionalTimes(currentDateTime, dayFraction, dateInput) {
-    userInterface.setTimeValue('day-node', dayFraction.toFixed(utilities.decimals));
-    userInterface.setTimeValue('month-node', timeFractions.calculateMonth(currentDateTime).toFixed(utilities.decimals));
-    userInterface.setTimeValue('year-node', timeFractions.calculateYear(currentDateTime).toFixed(utilities.decimals));
-    userInterface.setTimeValue('hour-node', timeFractions.calculateHour(currentDateTime).toFixed(utilities.decimals));
+export function updateFractionalTimes(currentDateTime, dateInput, timezoneOffset) {
+    userInterface.setTimeValue('day-node', timeFractions.calculateDay(currentDateTime, timezoneOffset).toFixed(utilities.decimals));
+    userInterface.setTimeValue('month-node', timeFractions.calculateMonth(currentDateTime, timezoneOffset).toFixed(utilities.decimals));
+    userInterface.setTimeValue('year-node', timeFractions.calculateYear(currentDateTime, timezoneOffset).toFixed(utilities.decimals));
+    userInterface.setTimeValue('hour-node', timeFractions.calculateHour(currentDateTime, timezoneOffset).toFixed(utilities.decimals));
     userInterface.setTimeValue('minute-node', timeFractions.calculateMinute(currentDateTime).toFixed(utilities.decimals));
     // Create the illusion of actual microsecond calculation
     if ((dateInput === 0)||(dateInput === undefined)) {
@@ -84,8 +84,8 @@ export function updateFractionalTimes(currentDateTime, dayFraction, dateInput) {
     } else {
         userInterface.setTimeValue('second-node', '0.0000000000');
     }
-    userInterface.setTimeValue('decade-node', timeFractions.calculateDecade(currentDateTime).toFixed(utilities.decimals));
-    userInterface.setTimeValue('century-node', timeFractions.calculateCentury(currentDateTime).toFixed(utilities.decimals));
+    userInterface.setTimeValue('decade-node', timeFractions.calculateDecade(currentDateTime, timezoneOffset).toFixed(utilities.decimals));
+    userInterface.setTimeValue('century-node', timeFractions.calculateCentury(currentDateTime, timezoneOffset).toFixed(utilities.decimals));
 }
 
 export function updateComputingTimes(currentDateTime, timezoneOffset) {
@@ -121,15 +121,15 @@ export function updateProposedCalendars(currentDateTime, timezoneOffset) {
     userInterface.setTimeValue('symmetry454-node', proposedCalendars.getSymmetry454Date(currentDateTime, timezoneOffset));
 }
 
-export function updateOtherAndDecimalTimes(currentDateTime, dayFraction, marsSolDay) {
+export function updateOtherAndDecimalTimes(currentDateTime, timezoneOffset) {
     // Decimal Time
-    userInterface.setTimeValue('revolutionary-time-node', decimalTime.getRevolutionaryTime(dayFraction));
+    userInterface.setTimeValue('revolutionary-time-node', decimalTime.getRevolutionaryTime(currentDateTime, timezoneOffset));
     userInterface.setTimeValue('beat-time-node', decimalTime.convertToSwatchBeats(currentDateTime));
-    userInterface.setTimeValue('hexadecimal-node', decimalTime.getHexadecimalTime(dayFraction));
-    userInterface.setTimeValue('binary-node', decimalTime.getBinaryTime(dayFraction));
+    userInterface.setTimeValue('hexadecimal-node', decimalTime.getHexadecimalTime(currentDateTime, timezoneOffset));
+    userInterface.setTimeValue('binary-node', decimalTime.getBinaryTime(currentDateTime, timezoneOffset));
 
     // Other Time
-    userInterface.setTimeValue('coordinated-mars-time-node', otherTime.getMTC(marsSolDay));
+    userInterface.setTimeValue('coordinated-mars-time-node', otherTime.getMTC(currentDateTime));
     userInterface.setTimeValue('io-meridian-time-node', otherTime.getIoPrimeMeridianTime(currentDateTime));
     userInterface.setTimeValue('europa-meridian-time-node', otherTime.getEuropaPrimeMeridianTime(currentDateTime));
     userInterface.setTimeValue('ganymede-meridian-time-node', otherTime.getGanymedePrimeMeridianTime(currentDateTime));

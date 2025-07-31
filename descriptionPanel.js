@@ -194,16 +194,22 @@ function handleEpochClick(epoch) {
 
     // Most clocks
     if (epoch==='Midnight') {
-        const now = new Date();
-        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
         timePicked = utilities.getDatePickerTimezone();
+        const now = new Date();
+        const hours = '00';
+        const minutes = '00';
+        const seconds = '00';
+        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // .beat (BMT)
     if (epoch==='Midnight (BMT)') {
+        timePicked = 'UTC+00:00';
         const now = new Date();
-        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
-        timePicked = 'UTC+01:00';
+        const hours = '23';
+        const minutes = '00';
+        const seconds = '00';
+        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // UTC (Standard Time)
@@ -215,9 +221,12 @@ function handleEpochClick(epoch) {
 
     // Termina Time (Slowed)
     if (epoch==='6:00:00') {
-        const now = new Date();
-        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +6:00:00`;
         timePicked = utilities.getDatePickerTimezone();
+        const now = new Date();
+        const hours = '6';
+        const minutes = '00';
+        const seconds = '00';
+        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // Maya Calendars and any others
@@ -234,7 +243,7 @@ function handleEpochClick(epoch) {
     if ((epoch==='Every Second') || (epoch==='Every Minute') || (epoch==='Every Hour') || (epoch==='Every Day')) {
         const now = new Date();
         epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
-        timePicked = utilities.getDatePickerTimezone();
+        timePicked = '';
     }
 
     // Every Month

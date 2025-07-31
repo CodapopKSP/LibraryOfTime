@@ -4,7 +4,11 @@
 
 // A set of functions for calculating times in the Decimal Time category.
 
-export function getRevolutionaryTime(dayFraction) {
+import { calculateDay } from "../Timekeeping/timeFractions.js";
+
+export function getRevolutionaryTime(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime());
+    const dayFraction = calculateDay(currentDateTime, timezoneOffset);
     let decimalHour = Math.trunc(dayFraction * 10);
     let decimalMinute = Math.trunc(dayFraction * 1000) - (decimalHour * 100);
     let decimalSecond = Math.trunc(dayFraction * 100000) - (decimalHour * 10000) - (decimalMinute * 100);
@@ -30,7 +34,9 @@ export function convertToSwatchBeats(currentDateTime) {
     return swatchBeats.toFixed(2);
 }
 
-export function getHexadecimalTime(dayFraction) {
+export function getHexadecimalTime(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime());
+    const dayFraction = calculateDay(currentDateTime, timezoneOffset);
     // Convert the day fraction to hexadecimal format
     let hexadecimalFraction = Math.trunc((dayFraction * 65536)).toString(16).toUpperCase();
     // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
@@ -40,7 +46,9 @@ export function getHexadecimalTime(dayFraction) {
     return "." + hexadecimalFraction;
 }
 
-export function getBinaryTime(dayFraction) {
+export function getBinaryTime(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime());
+    const dayFraction = calculateDay(currentDateTime, timezoneOffset);
     // Convert the day fraction to the equivalent binary count
     let binaryCount = Math.trunc(dayFraction * 65536).toString(2);
     

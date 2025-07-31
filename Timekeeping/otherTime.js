@@ -4,8 +4,11 @@
 
 // A set of functions for calculating times in the Other Time category.
 
+import { getMarsSolDate } from "../Timekeeping/computingTime.js";
+
 // Get the current Coordinated Mars Time
-export function getMTC(marsSolDay) {
+export function getMTC(currentDateTime) {
+    const marsSolDay = getMarsSolDate(currentDateTime)
     const MTCdecimal = ((marsSolDay % 1) + 1) % 1 * 24;
     const hours = Math.floor(MTCdecimal);
     const fractionMinutes = MTCdecimal - hours;

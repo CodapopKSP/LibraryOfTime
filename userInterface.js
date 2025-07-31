@@ -115,9 +115,11 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
 
     // Set Timezone to local time if there is none specified
     let timezoneOffset = timezoneOffset_;
+    let timezoneOffsetConverted = 0;
     if (timezoneOffset === undefined) {
-        timezoneOffset = getLocalTimezoneOffset()
+        timezoneOffset = getLocalTimezoneOffset();
     }
+    timezoneOffsetConverted = utilities.convertUTCOffsetToMinutes(timezoneOffset);
 
     // Get the current datetime, keeping in mind the timezone, calendar type, and Date() bullshit
     let currentDateTime = dateInput ? parseInputDate(dateInput, timezoneOffset) : new Date();
@@ -147,7 +149,7 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
                 setTimeValue('next-solar-eclipse-node', astronomicalData.getNextSolarLunarEclipse(currentDateTime, 0));
                 setTimeValue('next-lunar-eclipse-node', astronomicalData.getNextSolarLunarEclipse(currentDateTime, 0.5));
             case 5:
-                nodeUpdate.updateProposedCalendars(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset));
+                nodeUpdate.updateProposedCalendars(currentDateTime, timezoneOffsetConverted);
             case 6:
                 setTimeValue('spring-equinox-node', astronomicalData.getSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
                 setTimeValue('summer-solstice-node', astronomicalData.getSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
@@ -160,33 +162,33 @@ export function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
                 setTimeValue('this-full-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.5).toUTCString());
                 setTimeValue('this-last-quarter-moon-node', astronomicalData.getMoonPhase(currentDateTime, 0.75).toUTCString());
             case 8:
-                nodeUpdate.updateSolarCalendars(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset));
+                nodeUpdate.updateSolarCalendars(currentDateTime, timezoneOffsetConverted);
             case 9:
-                nodeUpdate.updateOtherCalendars(currentDateTime, computingTime.getMarsSolDate(currentDateTime), utilities.convertUTCOffsetToMinutes(timezoneOffset));
+                nodeUpdate.updateOtherCalendars(currentDateTime);
         }
     }
 
     // Update if at the beginning of a second
     if ((currentDateTime.getMilliseconds() < utilities.updateMilliseconds)||(currentPass===100)) {
-        nodeUpdate.updateComputingTimes(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset));
-        setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime, utilities.convertUTCOffsetToMinutes(timezoneOffset)).time);
+        nodeUpdate.updateComputingTimes(currentDateTime, timezoneOffsetConverted);
+        setTimeValue('local-time-node', solarCalendars.getGregorianDateTime(currentDateTime, timezoneOffsetConverted).time);
         setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     }
     
     // Update if at the end of a second
     if ((currentDateTime.getMilliseconds() > 1000-utilities.updateMilliseconds)||(currentPass===100)) {
-        setTimeValue('millennium-node', timeFractions.calculateMillennium(currentDateTime).toFixed(utilities.decimals));
+        setTimeValue('millennium-node', timeFractions.calculateMillennium(currentDateTime, timezoneOffsetConverted).toFixed(utilities.decimals));
     }
 
     // Update everything that needs to change constantly
     setTimeValue('julian-day-number-node', computingTime.getJulianDayNumber(currentDateTime));
     setTimeValue('delta-time-node', computingTime.getDeltaT(currentDateTime));
     setTimeValue('iso8601-node', currentDateTime.toISOString());
-    nodeUpdate.updateOtherAndDecimalTimes(currentDateTime, timeFractions.calculateDay(currentDateTime), computingTime.getMarsSolDate(currentDateTime));
-    nodeUpdate.updateFractionalTimes(currentDateTime, timeFractions.calculateDay(currentDateTime), dateInput);
-    setTimeValue('minecraft-time-node', popCulture.getMinecraftTime(currentDateTime));
-    setTimeValue('dream-time-node', popCulture.getInceptionDreamTime(currentDateTime));
-    setTimeValue('termina-time-node', popCulture.getTerminaTime(currentDateTime));
+    nodeUpdate.updateOtherAndDecimalTimes(currentDateTime, timezoneOffsetConverted);
+    nodeUpdate.updateFractionalTimes(currentDateTime, dateInput, timezoneOffsetConverted);
+    setTimeValue('minecraft-time-node', popCulture.getMinecraftTime(currentDateTime, timezoneOffsetConverted));
+    setTimeValue('dream-time-node', popCulture.getInceptionDreamTime(currentDateTime, timezoneOffsetConverted));
+    setTimeValue('termina-time-node', popCulture.getTerminaTime(currentDateTime, timezoneOffsetConverted));
     setTimeValue('us-presidential-terms-node', politics.getCurrentPresidentialTerm(currentDateTime).toFixed(10));
 }
 

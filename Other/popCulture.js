@@ -8,14 +8,17 @@ function pad(num, size) {
     return ('000' + num).slice(-size);
 }
 
-export function getMinecraftTime(currentDateTime) {
+export function getMinecraftTime(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let midnight = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 0, 0, 0));
+
     // Convert date to milliseconds since midnight
-    const millisecondsSinceMidnight = currentDateTime - new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate());
+    const millisecondsSinceMidnight = currentDateTime - midnight;
 
     // Convert milliseconds to Minecraft time
     const minecraftTime = Math.floor(millisecondsSinceMidnight / 50); // 1 Minecraft hour = 50 milliseconds
     const hoursSinceMidnight = Math.floor(minecraftTime / 1000);
-    let day = Math.trunc(hoursSinceMidnight / 24)+1;
+    let day = Math.floor(hoursSinceMidnight / 24)+1;
     let hours = hoursSinceMidnight % day;
     const minutes = Math.floor((minecraftTime % 1000) * 0.06);
     const seconds = Math.floor(((minecraftTime % 1000) * 0.06 - minutes) * 60);
@@ -23,9 +26,11 @@ export function getMinecraftTime(currentDateTime) {
     return  'Day: ' + day + ' | ' + pad(hours,2) + ':' + pad(minutes,2) + ':' + pad(seconds,2);
 }
 
-export function getInceptionDreamTime(currentDateTime) {
+export function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let midnight = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 0, 0, 0));
     // Convert date to milliseconds since midnight
-    const millisecondsSinceMidnight = currentDateTime - new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate());
+    const millisecondsSinceMidnight = currentDateTime - midnight;
 
     // Convert milliseconds to Inception dream time
     const dreamTime = millisecondsSinceMidnight / (1000 * 60 * 60 * 24) * 20; // 1:20 conversion for the whole day
@@ -36,9 +41,10 @@ export function getInceptionDreamTime(currentDateTime) {
     return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
 }
 
-export function getTerminaTime(currentDateTime) {
+export function getTerminaTime(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     // Days start at 6am
-    let SixAMToday = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth(), currentDateTime.getDate(), 6);
+    let SixAMToday = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 6, 0, 0));
     if (currentDateTime<SixAMToday) {
         SixAMToday.setDate(currentDateTime.getDate()-1);
     }
