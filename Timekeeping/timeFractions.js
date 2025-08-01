@@ -4,7 +4,7 @@
 
 // A set of functions for calculating fractions of units of time.
 
-import * as utilities from './utilities.js';
+import * as utilities from '../utilities.js'
 
 export function calculateSecond(currentDateTime) {
     // Ensure currentDateTime is a Date object
