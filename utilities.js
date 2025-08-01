@@ -4,31 +4,31 @@
 
 // A set of functions for calculating times in the Computing Time category.
 
-export const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-export const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-export const decimals = 10;  // Decimals to show in some nodes
-export const updateMilliseconds = 20;  // Update tick length 
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const decimals = 10;  // Decimals to show in some nodes
+const updateMilliseconds = 20;  // Update tick length 
 
 // Keeps track of how far ahead the Julian calendar is from the Gregorian
 let _gregJulianDifference = 0;
-export function getGregJulianDifference() {
+function getGregJulianDifference() {
     return _gregJulianDifference;
 }
-export function setGregJulianDifference(newDifference) {
+function setGregJulianDifference(newDifference) {
     _gregJulianDifference = newDifference;
 }
 
 // Keeps track of date picker timezone selection
 let _datePickerTimezone = 'UTC+00:00';
-export function getDatePickerTimezone() {
+function getDatePickerTimezone() {
     return _datePickerTimezone;
 }
-export function setDatePickerTimezone(newTimezone) {
+function setDatePickerTimezone(newTimezone) {
     _datePickerTimezone = newTimezone;
 }
 
 // Delete this maybe
-export function getMidnightInUTC(dateToFind, utcMidnight) {
+function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);
     midnightInChina.setUTCDate(dateToFind.getDate()-1);
     midnightInChina.setUTCHours(utcMidnight);
@@ -39,21 +39,21 @@ export function getMidnightInUTC(dateToFind, utcMidnight) {
 }
 
 // Fix JS Datetime objects: Years 1-99 return years 1901-1999. This returns the proper date.
-export function createDateWithFixedYear(year, month, day, hour=0, minute=0, second=0, millisecond=0) {
+function createDateWithFixedYear(year, month, day, hour=0, minute=0, second=0, millisecond=0) {
     let fixedDate = new Date(Date.UTC(year, month, day, hour, minute, second));
     fixedDate.setUTCFullYear(year);
     return fixedDate;
 }
 
 // Takes two dates and returns the difference between them in days
-export function differenceInDays(date1, date2) {
+function differenceInDays(date1, date2) {
     const day = 86400000;       // Equals 1000*60*60*24, converts ms to days
     return (date1 - date2) / day;
 }
 
 // Takes a date and returns a weekday assuming the day changes after a specified time rather than UTC 00:00
 // Useful for calculating calendars that change day after sunrise or sunset
-export function getWeekdayAtTime(currentDateTime, afterTime) {
+function getWeekdayAtTime(currentDateTime, afterTime) {
     let afterDate = new Date(currentDateTime);
     afterDate.setUTCHours(afterTime.hour);
     afterDate.setUTCMinutes(afterTime.minute);
@@ -70,7 +70,7 @@ export function getWeekdayAtTime(currentDateTime, afterTime) {
 }
 
 // Convert chosen timezone into minutes to add
-export function convertUTCOffsetToMinutes(offsetString) {
+function convertUTCOffsetToMinutes(offsetString) {
     // Validate the input format
     const regex = /^UTC([+-])(\d{2}):(\d{2})$/;
     const match = offsetString.trim().match(regex);
@@ -85,7 +85,7 @@ export function convertUTCOffsetToMinutes(offsetString) {
 }
 
 // Converts a number to Roman numerals
-export function toRomanNumerals(num) {
+function toRomanNumerals(num) {
     if (num === 0) {
         return 'O';
     }
@@ -119,7 +119,7 @@ export function toRomanNumerals(num) {
     return result;
 }
 
-export const TAIleapSeconds = [
+const TAIleapSeconds = [
     "1972-06-30T23:59:59Z",
     "1972-12-31T23:59:59Z",
     "1973-12-31T23:59:59Z",
@@ -149,7 +149,7 @@ export const TAIleapSeconds = [
     "2016-12-31T23:59:59Z"
 ];
 
-export const GPSleapSeconds = [
+const GPSleapSeconds = [
     "1981-06-30T23:59:59Z",
     "1982-06-30T23:59:59Z",
     "1983-06-30T23:59:59Z",

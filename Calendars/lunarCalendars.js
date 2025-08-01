@@ -4,13 +4,8 @@
 
 // A set of functions for calculating data in the Lunar Calendars category.
 
-import * as utilities from '../utilities.js';
-import * as astronomicalData from '../Other/astronomicalData.js';
-import { parseInputDate } from '../userInterface.js';
-import { calculateLunationNumber } from '../Timekeeping/computingTime.js';
-
 // Returns a formatted Hijri calendar AST date
-export function getUmmalQuraDate(currentDateTime) {
+function getUmmalQuraDate(currentDateTime) {
 
     const HijriMonths = {
         0: 'al-Muḥarram',
@@ -41,7 +36,7 @@ export function getUmmalQuraDate(currentDateTime) {
     let firstDayOfIslamicMonth = new Date(timeOfSunsetAfterLastNewMoon(currentDateTime));
 
     // Calculate the number of days since the first day of the Islamic month
-    const daysSinceStartOfMonth = Math.floor(utilities.differenceInDays(currentDateTime, firstDayOfIslamicMonth));
+    const daysSinceStartOfMonth = Math.floor(differenceInDays(currentDateTime, firstDayOfIslamicMonth));
     const currentLunationSince2000 = calculateLunationNumber(firstDayOfIslamicMonth);
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
     
@@ -58,12 +53,12 @@ export function getUmmalQuraDate(currentDateTime) {
     }
 
     // Get the weekday based on sunset in Mecca
-    const dayOfWeek = utilities.getWeekdayAtTime(currentDateTime, {hour: 15, minute: 0});
+    const dayOfWeek = getWeekdayAtTime(currentDateTime, {hour: 15, minute: 0});
 
     return hijriDay + ' ' + hijriMonth + ' ' + hijriYear + ' ' + suffix + '\n' + islamicWeek[dayOfWeek];
 }
 
-export function calculateIslamicMonthAndYear(ln) {
+function calculateIslamicMonthAndYear(ln) {
     // Add 9 lunations to get in sync with the calendar
     const lunation = ln + 9;
     const islamicYears = Math.floor(lunation / 12);
@@ -76,7 +71,7 @@ export function calculateIslamicMonthAndYear(ln) {
 }
 
 // Find the sunset that occurred after the last New Moon happened in Mecca
-export function timeOfSunsetAfterLastNewMoon(currentDateTime) {
+function timeOfSunsetAfterLastNewMoon(currentDateTime) {
     function adjustToSunsetDate(newMoon) {
         // If the new moon happened after 15:00 UTC, move to the next day’s sunset
         if (newMoon.getUTCHours() > 15) {
@@ -91,7 +86,7 @@ export function timeOfSunsetAfterLastNewMoon(currentDateTime) {
 
     // Try up to 3 previous new moons
     for (let attempts = 0; attempts < 3; attempts++) {
-        let newMoon = astronomicalData.getNewMoon(currentDateTime, offset);
+        let newMoon = getNewMoon(currentDateTime, offset);
         sunsetTime = adjustToSunsetDate(new Date(newMoon));
 
         if (currentDateTime >= sunsetTime) {

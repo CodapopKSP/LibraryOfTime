@@ -6,22 +6,19 @@
     This is a collection of functions for drawing and handling Nodes.
 */
 
-import * as descriptionPanel from '../descriptionPanel.js';
-import * as userPanel from '../userPanel.js';
-
 // The current selected Node, blank if none
 let selectedNode = '';
 
-export function handleNodeClick(content, item) {
+function handleNodeClick(content, item) {
     // Build the description format
     const descriptionTypes = ['overview', 'info', 'accuracy', 'source'];
-    const descriptions = descriptionTypes.map(type => descriptionPanel.createNodeDescription(item, type));
+    const descriptions = descriptionTypes.map(type => createNodeDescription(item, type));
     const descriptionWrapper = document.querySelector('.description-wrapper');
     descriptions.forEach(description => {
         descriptionWrapper.appendChild(description);
     });
-    descriptionPanel.setCurrentDescriptionTab(descriptions);
-    descriptionPanel.updateHeaderTabTitles(['Overview', 'Info', 'Accuracy', 'Source']);
+    setCurrentDescriptionTab(descriptions);
+    updateHeaderTabTitles(['Overview', 'Info', 'Accuracy', 'Source']);
 
     // Update the selected node
     if (selectedNode && selectedNode !== content) {
@@ -33,17 +30,17 @@ export function handleNodeClick(content, item) {
     document.getElementById('home-button').style.visibility = 'visible';
 
     // Show the first description by default
-    descriptionPanel.changeActiveHeaderTab('header-button-1', 0);
+    changeActiveHeaderTab('header-button-1', 0);
 }
 
-export function createNode(item, parentElements) {
+function createNode(item, parentElements) {
     let node = createNode_(item)
 
     const parentElement = parentElements[item.type];
     parentElement.appendChild(node);
 }
 
-export function createNode_(item) {
+function createNode_(item) {
     // Create the node element
     const node = document.createElement('div');
     node.classList.add('node');
@@ -62,7 +59,7 @@ export function createNode_(item) {
     // Handle left-click (selection)
     node.addEventListener('click', (event) => {
         if (event.button === 0) { // Check if it's a left-click
-            descriptionPanel.clearDescriptionPanel();
+            clearDescriptionPanel();
             handleNodeClick(content, item);
         }
     });
@@ -98,7 +95,7 @@ export function createNode_(item) {
 }
 
 
-export function showNodeMenu(event, item) {
+function showNodeMenu(event, item) {
     const dropdownMenu = document.getElementById('node-menu');
     dropdownMenu.style.display = 'block';
     dropdownMenu.style.left = `${event.pageX}px`; // Position the menu
@@ -109,19 +106,19 @@ export function showNodeMenu(event, item) {
 
     // Add event listeners for dropdown actions
     document.getElementById('node-place1').onclick = () => {
-        userPanel.nodePlace(item, 1); // Define this function to handle edit
+        nodePlace(item, 1); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
     document.getElementById('node-place2').onclick = () => {
-        userPanel.nodePlace(item, 2); // Define this function to handle edit
+        nodePlace(item, 2); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
     document.getElementById('node-place3').onclick = () => {
-        userPanel.nodePlace(item, 3); // Define this function to handle edit
+        nodePlace(item, 3); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
     document.getElementById('node-place4').onclick = () => {
-        userPanel.nodePlace(item, 4); // Define this function to handle edit
+        nodePlace(item, 4); // Define this function to handle edit
         dropdownMenu.style.display = 'none'; // Hide the menu after action
     };
 
@@ -130,13 +127,13 @@ export function showNodeMenu(event, item) {
 }
 
 // Hide the dropdown menu
-export function hideNodeMenu() {
+function hideNodeMenu() {
     const dropdownMenu = document.getElementById('node-menu');
     dropdownMenu.style.display = 'none'; // Hide the menu
     window.removeEventListener('click', hideNodeMenu); // Remove listener
 }
 
-export function clearSelectedNode() {
+function clearSelectedNode() {
     if (selectedNode !== '') {
         selectedNode.classList.remove('active');
         selectedNode = '';

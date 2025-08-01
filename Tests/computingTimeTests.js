@@ -1,8 +1,4 @@
 
-import { parseInputDate } from '../userInterface.js';
-import * as computingTime from '../Timekeeping/computingTime.js';
-import { convertUTCOffsetToMinutes } from '../utilities.js';
-
 
 function runComputingTests(timeName, getCalendarFunction, testCases) {
     let failedTestCount = 0;
@@ -29,7 +25,7 @@ function runComputingTests(timeName, getCalendarFunction, testCases) {
 }
 
 function testUnixTime() {
-    return runComputingTests("Unix", computingTime.getUnixTime, [
+    return runComputingTests("Unix", getUnixTime, [
         ["1970-1-1, 00:00:00", "UTC+00:00", 0],
         ["1999-1-1, 00:00:00", "UTC+00:00", 915148800],
         ["1998-12-31, 23:59:58", "UTC+00:00", 915148798],
@@ -38,7 +34,7 @@ function testUnixTime() {
 }
 
 function testGPSTime() {
-    return runComputingTests("GPS", computingTime.getGPSTime, [
+    return runComputingTests("GPS", getGPSTime, [
         ["1980-1-6, 00:00:00", "UTC+00:00", 0],
         ["1999-1-1, 00:00:00", "UTC+00:00", 599184013],
         ["1998-12-31, 23:59:58", "UTC+00:00", 599184010],
@@ -47,7 +43,7 @@ function testGPSTime() {
 }
 
 function testTAI() {
-    return runComputingTests("TAI", computingTime.getTAI, [
+    return runComputingTests("TAI", getTAI, [
         ["1971-12-31, 23:59:50", "UTC+00:00", "Sat, 01 Jan 1972 00:00:00 GMT"],
         ["1998-12-31, 23:59:58", "UTC+00:00", "Fri, 01 Jan 1999 00:00:29 GMT"],
         ["1999-1-1, 00:00:00", "UTC+00:00", "Fri, 01 Jan 1999 00:00:32 GMT"],
@@ -55,7 +51,7 @@ function testTAI() {
 }
 
 function testLORANC() {
-    return runComputingTests("TAI", computingTime.getLORANC, [
+    return runComputingTests("TAI", getLORANC, [
         ["1971-12-31, 23:59:50", "UTC+00:00", "Fri, 31 Dec 1971 23:59:50 GMT"],
         ["1998-12-31, 23:59:58", "UTC+00:00", "Fri, 01 Jan 1999 00:00:19 GMT"],
         ["1999-1-1, 00:00:00", "UTC+00:00", "Fri, 01 Jan 1999 00:00:22 GMT"],
@@ -63,7 +59,7 @@ function testLORANC() {
 }
 
 function testFILETIME() {
-    return runComputingTests("FILETIME", computingTime.getCurrentFiletime, [
+    return runComputingTests("FILETIME", getCurrentFiletime, [
         ["1601-1-1, 00:00:00", "UTC+00:00", 0],
         ["1998-12-31, 23:59:58", "UTC+00:00", 125596223980000000],
         ["1999-1-1, 00:00:00", "UTC+00:00", 125596224000000000],
@@ -71,7 +67,7 @@ function testFILETIME() {
 }
 
 function testJDN() {
-    return runComputingTests("JDN", computingTime.getJulianDayNumber, [
+    return runComputingTests("JDN", getJulianDayNumber, [
         ["-4713-11-24, 12:00:00", "UTC+00:00", 0],
         ["2000-1-1, 12:00:00", "UTC+00:00", 2451545],
         ["2013-1-1, 00:30:00", "UTC+00:00", 2456293.5208333],
@@ -79,14 +75,14 @@ function testJDN() {
 }
 
 function testRataDie() {
-    return runComputingTests("Rata Die", computingTime.getRataDie, [
+    return runComputingTests("Rata Die", getRataDie, [
         ["1-1-1, 00:00:00", "UTC+00:00", 1],
         ["2000-7-5, 00:00:00", "UTC+00:00", 730306],
     ]);
 }
 
 function testJulianPeriod() {
-    return runComputingTests("Julian Period", computingTime.getJulianPeriod, [
+    return runComputingTests("Julian Period", getJulianPeriod, [
         ["-4713-11-24, 12:00:00", "UTC+00:00", "1 (Cycle: 1)"],
         ["-4713-11-24, 11:00:00", "UTC+00:00", "7980 (Cycle: 0)"],
         ["3268-1-23, 12:00:00", "UTC+00:00", "1 (Cycle: 2)"],
@@ -94,7 +90,7 @@ function testJulianPeriod() {
 }
 
 function testLilianDate() {
-    return runComputingTests("Lilian Date", computingTime.getLilianDate, [
+    return runComputingTests("Lilian Date", getLilianDate, [
         ["1582-10-15, 00:00:00", "UTC+00:00", 1],
         ["1583-10-15, 00:00:00", "UTC+00:00", 366],
         ["2000-7-5, 00:00:00", "UTC+00:00", 152571],
@@ -102,7 +98,7 @@ function testLilianDate() {
 }
 
 function testTerrestrialTime() {
-    return runComputingTests("ΔT", computingTime.getDeltaT, [
+    return runComputingTests("ΔT", getDeltaT, [
         ["-1000-1-1, 00:00:00", "UTC+00:00", 25427.68],
         ["0-1-1, 00:00:00", "UTC+00:00", 10583.6],
         ["1000-1-1, 00:00:00", "UTC+00:00", 1574.2],
@@ -111,28 +107,28 @@ function testTerrestrialTime() {
 }
 
 function testMarsSolDate() {
-    return runComputingTests("Mars Sol Date", computingTime.getMarsSolDate, [
+    return runComputingTests("Mars Sol Date", getMarsSolDate, [
         ["1873-12-29, 12:04:10", "UTC+00:00", -0.000004301070382259765],
         ["2000-1-1, 00:00:00", "UTC+00:00", 44791.13353526427],
     ]);
 }
 
 function testJulianSolNumber() {
-    return runComputingTests("Julian Sol Number", computingTime.getJulianSolDate, [
+    return runComputingTests("Julian Sol Number", getJulianSolDate, [
         ["1873-12-29, 12:04:10", "UTC+00:00", 94128.99999569893],
         ["2025-7-21, 00:00:00", "UTC+00:00", 148003.42267016353],
     ]);
 }
 
 function testKaliAharhana() {
-    return runComputingTests("Kali Ahargana", computingTime.getKaliAhargana, [
+    return runComputingTests("Kali Ahargana", getKaliAhargana, [
         ["-3101-1-22, 18:30:00", "UTC+00:00", 0],
         ["2025-7-20, 18:30:00", "UTC+00:00", 1872412],
     ]);
 }
 
 function testLunationNumber() {
-    return runComputingTests("Lunation Number", computingTime.calculateLunationNumber, [
+    return runComputingTests("Lunation Number", calculateLunationNumber, [
         ["2000-1-6, 18:30:00", "UTC+00:00", 0],
         ["2000-2-6, 18:30:00", "UTC+00:00", 1],
         ["1999-12-6, 18:30:00", "UTC+00:00", -1],
@@ -142,7 +138,7 @@ function testLunationNumber() {
 }
 
 function testSpreadsheetNowTime() {
-    return runComputingTests("Lunation Number", computingTime.getSpreadsheetNowTime, [
+    return runComputingTests("Lunation Number", getSpreadsheetNowTime, [
         ["1899-12-30, 00:00:00", "UTC+00:00", 0],
         ["1899-12-31, 00:00:00", "UTC+00:00", 1],
         ["2025-7-21, 00:00:00", "UTC+00:00", 45859],
@@ -150,14 +146,14 @@ function testSpreadsheetNowTime() {
 }
 
 function testOrdinalDate() {
-    return runComputingTests("Ordinal Date", computingTime.getOrdinalDate, [
+    return runComputingTests("Ordinal Date", getOrdinalDate, [
         ["2000-1-1, 00:00:00", "UTC+00:00", "00000"],
         ["2025-12-31, 00:00:00", "UTC+00:00", "25364"],
     ]);
 }
 
 // Run all tests.
-export function runComputingTimeTests() {
+function runComputingTimeTests() {
     const testFunctions = [
         testUnixTime,
         testGPSTime,

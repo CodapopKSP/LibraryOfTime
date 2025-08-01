@@ -1,8 +1,4 @@
-import { parseInputDate } from '../userInterface.js';
-import * as lunisolarCalendars from '../Calendars/lunisolarCalendars.js';
-import { generateAllNewMoons, generateAllSolsticesEquinoxes } from '../Other/astronomicalData.js';
-import { setGregJulianDifference } from '../utilities.js'
-import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.js';
+
 
 function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;
@@ -67,7 +63,7 @@ function runGetMoladTishriTest(calendarName, getCalendarFunction, testCases) {
 }
 
 function testGetSolarTermTypeThisMonth() {
-    return runSingleParameterTests("Solar Term Type This Month", lunisolarCalendars.getSolarTermTypeThisMonth, [
+    return runSingleParameterTests("Solar Term Type This Month", getSolarTermTypeThisMonth, [
         ["2025-5-27, 00:00:00", "UTC+08:00", "major"],
         ["2025-2-28, 00:00:00", "UTC+08:00", "major"],
         ["2025-7-25, 00:00:00", "UTC+08:00", "minor"],
@@ -75,14 +71,14 @@ function testGetSolarTermTypeThisMonth() {
 }
 
 function testGetMonthEleven() {
-    return runSingleParameterTests("Get Month Eleven", lunisolarCalendars.getMonthEleven, [
+    return runSingleParameterTests("Get Month Eleven", getMonthEleven, [
         ["2025-12-21, 00:00:00", "UTC+08:00", "Fri, 19 Dec 2025 16:00:00 GMT"],
         ["2024-12-21, 00:00:00", "UTC+08:00", "Sat, 30 Nov 2024 16:00:00 GMT"],
     ]);
 }
 
 function testCalculateFirstMonthWithoutMajorSolarTerm() {
-    return runSingleParameterTests("First Month Without A major Solar Term", lunisolarCalendars.calculateFirstMonthWithoutMajorSolarTerm, [
+    return runSingleParameterTests("First Month Without A major Solar Term", calculateFirstMonthWithoutMajorSolarTerm, [
         ["2024-12-1, 00:00:00", "UTC+08:00", 7],
         ["2024-4-9, 00:00:00", "UTC+08:00", 0],
         ["2025-3-1, 00:00:00", "UTC+08:00", 3],
@@ -90,7 +86,7 @@ function testCalculateFirstMonthWithoutMajorSolarTerm() {
 }
 
 function testGetLunisolarCalendarDate() {
-    return runSingleParameterTests("Lunisolar Calendar Date", lunisolarCalendars.getLunisolarCalendarDate, [
+    return runSingleParameterTests("Lunisolar Calendar Date", getLunisolarCalendarDate, [
         ["2025-12-1, 00:00:00", "UTC+08:00", "month: 10, day: 12, leapMonth: false"],
         ["2025-4-15, 00:00:00", "UTC+08:00", "month: 3, day: 18, leapMonth: false"],
         ["2025-7-29, 00:00:00", "UTC+08:00", "month: 6, day: 5, leapMonth: true"],
@@ -98,7 +94,7 @@ function testGetLunisolarCalendarDate() {
 }
 
 function testGetChineseLunisolarCalendarDate() {
-    return runGetChineseLunisolarCalendarDate("Chinese Calendar Date", lunisolarCalendars.getChineseLunisolarCalendarDate, [
+    return runGetChineseLunisolarCalendarDate("Chinese Calendar Date", getChineseLunisolarCalendarDate, [
         ["2025-12-1, 00:00:00", "UTC+08:00", "china", "4723年 10月 12日\nYear of the Snake (蛇)"],
         ["2025-12-1, 00:00:00", "UTC+08:00", "vietnam", "2025 10 11\nYear of the Snake (𧋻)"],
         ["2025-12-1, 00:00:00", "UTC+08:00", "korea", "4358년 10월 12일"],
@@ -106,7 +102,7 @@ function testGetChineseLunisolarCalendarDate() {
 }
 
 function testGetSexagenaryYear() {
-    return runSingleParameterTests("Chinese Calendar Date", lunisolarCalendars.getSexagenaryYear, [
+    return runSingleParameterTests("Chinese Calendar Date", getSexagenaryYear, [
         ["2024-12-1, 00:00:00", "UTC+08:00", "甲辰 (JiaChen)"],
         ["2025-12-1, 00:00:00", "UTC+08:00", "乙巳 (YiSi)"],
         ["2026-3-1, 00:00:00", "UTC+08:00", "丙午 (BingWu)"],
@@ -114,7 +110,7 @@ function testGetSexagenaryYear() {
 }
 
 function testCalculateHebrewCalendar() {
-    return runSingleParameterTests("Hebrew Calendar", lunisolarCalendars.calculateHebrewCalendar, [
+    return runSingleParameterTests("Hebrew Calendar", calculateHebrewCalendar, [
         ["2024-10-2, 16:00:00", "UTC+00:00", "1 Tishri 5785 AM\nYom Chamishi"],
         ["2024-10-2, 15:00:00", "UTC+00:00", "29 Elul 5784 AM\nYom Revi'i"],
         ["2000-5-17, 10:00:00", "UTC+00:00", "12 Iyyar 5760 AM\nYom Revi'i"],
@@ -133,7 +129,7 @@ function testCalculateHebrewCalendar() {
 }
 
 function testCalculateMoladTishri() {
-    return runGetMoladTishriTest("Molad Tishri", lunisolarCalendars.calculateMoladTishri, [
+    return runGetMoladTishriTest("Molad Tishri", calculateMoladTishri, [
         [2024, "Wed, 02 Oct 2024 16:00:00 GMT"],
         [1999, "Fri, 10 Sep 1999 16:00:00 GMT"],
         [2000, "Fri, 29 Sep 2000 16:00:00 GMT"],
@@ -159,7 +155,7 @@ function testCalculateMoladTishri() {
 }
 
 // Run all tests.
-export function runLunisolarCalendarTests() {
+function runLunisolarCalendarTests() {
     const currentDateTime = new Date(Date.UTC(2025, 4, 8, 18, 20, 46));
     setGregJulianDifference(calculateGregorianJulianDifference(currentDateTime));
     generateAllNewMoons(currentDateTime);

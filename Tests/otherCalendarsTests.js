@@ -1,7 +1,4 @@
 
-import { parseInputDate } from '../userInterface.js';
-import * as otherCalendars from '../Calendars/otherCalendars.js';
-import { convertUTCOffsetToMinutes } from '../utilities.js';
 
 
 function runSingleParamaterTests(timeName, getCalendarFunction, testCases) {
@@ -29,14 +26,14 @@ function runSingleParamaterTests(timeName, getCalendarFunction, testCases) {
 }
 
 function testMayaLongCount() {
-    return runSingleParamaterTests("Maya Long Count", otherCalendars.getCurrentMayaLongCount, [
+    return runSingleParamaterTests("Maya Long Count", getCurrentMayaLongCount, [
         ["-3113-8-11, 06:00:00", "UTC+00:00", "0.0.0.0.0"],
         ["2012-12-21, 06:00:00", "UTC+00:00", "13.0.0.0.0"],
     ]);
 }
 
 function testTzolkin() {
-    return runSingleParamaterTests("Tzolkin", otherCalendars.getTzolkinDate, [
+    return runSingleParamaterTests("Tzolkin", getTzolkinDate, [
         ["-3113-8-11, 06:00:00", "UTC+00:00", "4 Ajaw"],
         ["2025-7-21, 06:00:00", "UTC+00:00", "10 Men"],
         ["2025-7-21, 05:00:00", "UTC+00:00", "9 Ix"],
@@ -44,7 +41,7 @@ function testTzolkin() {
 }
 
 function testLordOfTheNightY() {
-    return runSingleParamaterTests("Lord of the Night | Y", otherCalendars.getLordOfTheNight, [
+    return runSingleParamaterTests("Lord of the Night | Y", getLordOfTheNight, [
         ["-3113-8-11, 06:00:00", "UTC+00:00", "G9 | Y3"],
         ["2025-7-21, 06:00:00", "UTC+00:00", "G5 | Y3"],
         ["2025-7-21, 05:00:00", "UTC+00:00", "G4 | Y2"],
@@ -52,21 +49,21 @@ function testLordOfTheNightY() {
 }
 
 function testYugaCycle() {
-    return runSingleParamaterTests("Yuga Cycle", otherCalendars.getYugaCycle, [
+    return runSingleParamaterTests("Yuga Cycle", getYugaCycle, [
         ["-3101-1-22, 00:00:00", "UTC+00:00", "Dvapara Yuga: Sandhyamsa"],
         ["2025-7-21, 05:00:00", "UTC+00:00", "Kali Yuga: Sandhya"],
     ]);
 }
 
 function testSothicCycle() {
-    return runSingleParamaterTests("Sothic Cycle", otherCalendars.getSothicCycle, [
+    return runSingleParamaterTests("Sothic Cycle", getSothicCycle, [
         ["-2781-6-27, 00:00:00", "UTC+00:00", "Cycle: 1 | Year: 1"],
         ["139-7-19, 00:00:00", "UTC+00:00", "Cycle: 3 | Year: 1"],
     ]);
 }
 
 function testOlympiad() {
-    return runSingleParamaterTests("Olympiad", otherCalendars.getOlympiad, [
+    return runSingleParamaterTests("Olympiad", getOlympiad, [
         ["-775-7-24, 00:00:00", "UTC+00:00", "1 | Year: 1"],
         ["-775-7-23, 00:00:00", "UTC+00:00", "0 | Year: 4"],
         ["-771-7-24, 00:00:00", "UTC+00:00", "2 | Year: 1"],
@@ -74,7 +71,7 @@ function testOlympiad() {
 }
 
 // Run all tests.
-export function runOtherCalendarTests() {
+function runOtherCalendarTests() {
     const testFunctions = [
         testMayaLongCount,
         testTzolkin,

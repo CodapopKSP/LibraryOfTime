@@ -4,23 +4,21 @@
 
 // A set of functions for calculating dates in the Proposed Calendars category.
 
-import * as utilities from '../utilities.js';
-
-export function getHumanEra(currentDateTime_, timezoneOffset) {
+function getHumanEra(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     let day = currentDateTime.getUTCDate();
     let month = currentDateTime.getUTCMonth();
     let year = currentDateTime.getUTCFullYear() + 10000;
     const dayOfWeek = currentDateTime.getUTCDay();
-    return day + ' ' + utilities.monthNames[month] + ' ' + year + ' ' + 'HE\n' + utilities.weekNames[dayOfWeek];
+    return day + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE\n' + weekNames[dayOfWeek];
 }
 
-export function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
+function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
-    const startOfYear = utilities.createDateWithFixedYear(year, 0, 1, 0, 0, 0);
-    const endOfYear = utilities.createDateWithFixedYear(year, 11, 31, 23, 59, 59);
-    const daysSinceStartOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, startOfYear))+1;
+    const startOfYear = createDateWithFixedYear(year, 0, 1, 0, 0, 0);
+    const endOfYear = createDateWithFixedYear(year, 11, 31, 23, 59, 59);
+    const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
     // Need two lists for each for Leap Years and non Leap Years
@@ -53,9 +51,9 @@ export function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
 
         // Skip day of week if Leap Day or New Years Day, start on Monday
         if (daysSinceStartOfYear >= 184) {
-            invariableWeek += utilities.weekNames[(daysSinceStartOfYear-2) % 7];
+            invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
         } else {
-            invariableWeek += utilities.weekNames[(daysSinceStartOfYear-1) % 7];
+            invariableWeek += weekNames[(daysSinceStartOfYear-1) % 7];
         }
     }
 
@@ -73,7 +71,7 @@ export function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
         }
 
         // Skip day of week if New Years Day, start on Monday
-        invariableWeek += utilities.weekNames[(daysSinceStartOfYear-1) % 7];
+        invariableWeek += weekNames[(daysSinceStartOfYear-1) % 7];
     }
 
     // Remove the date and week strings if using a named day
@@ -85,12 +83,12 @@ export function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
     return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
 }
 
-export function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
+function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
-    const startOfYear = utilities.createDateWithFixedYear(year, 0, 1, 0, 0, 0);
-    const endOfYear = utilities.createDateWithFixedYear(year, 11, 31, 23, 59, 59);
-    const daysSinceStartOfYear = Math.trunc(utilities.differenceInDays(currentDateTime, startOfYear))+1;
+    const startOfYear = createDateWithFixedYear(year, 0, 1, 0, 0, 0);
+    const endOfYear = createDateWithFixedYear(year, 11, 31, 23, 59, 59);
+    const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
     // Need two lists for each for Leap Years and non Leap Years
@@ -123,9 +121,9 @@ export function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
 
         // Skip day of week if Leap Day or New Years Day, start on Sunday
         if (daysSinceStartOfYear >= 184) {
-            invariableWeek += utilities.weekNames[(daysSinceStartOfYear-3) % 7];
+            invariableWeek += weekNames[(daysSinceStartOfYear-3) % 7];
         } else {
-            invariableWeek += utilities.weekNames[(daysSinceStartOfYear-2) % 7];
+            invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
         }
     }
 
@@ -143,7 +141,7 @@ export function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
         }
 
         // Skip day of week if New Years Day, start on Sunday
-        invariableWeek += utilities.weekNames[(daysSinceStartOfYear-2) % 7];
+        invariableWeek += weekNames[(daysSinceStartOfYear-2) % 7];
     }
 
     // Remove the date string if using a named day
@@ -155,13 +153,13 @@ export function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
     return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
 }
 
-export function getSymmetry454Date(currentDateTime_, timezoneOffset) {
+function getSymmetry454Date(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     let monthDays = [28, 35, 28, 28, 35, 28, 28, 35, 28, 28, 35, 28];
     
     // Choose a date that has the same January 1st in both calendars
     const knownJan1st = new Date(Date.UTC(2001, 0, 1));
-    let daysSinceKnownJan1st = Math.floor(utilities.differenceInDays(currentDateTime, knownJan1st))+1;
+    let daysSinceKnownJan1st = Math.floor(differenceInDays(currentDateTime, knownJan1st))+1;
 
     // Iterate through years and subtract days based on if leap year or normal year
     let symmetryYear = 2001;
@@ -198,5 +196,5 @@ export function getSymmetry454Date(currentDateTime_, timezoneOffset) {
 
     const dayOfWeek = daysSinceKnownJan1st % 7;
 
-    return daysSinceKnownJan1st + ' ' + utilities.monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + utilities.weekNames[dayOfWeek];
+    return daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + weekNames[dayOfWeek];
 }

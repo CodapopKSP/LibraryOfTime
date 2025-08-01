@@ -1,6 +1,4 @@
-import { parseInputDate } from '../userInterface.js';
-import { getUmmalQuraDate, timeOfSunsetAfterLastNewMoon, calculateIslamicMonthAndYear } from '../Calendars/lunarCalendars.js';
-import { generateAllNewMoons } from '../Other/astronomicalData.js';
+
 
 function runGetUmmalQuraDateTests(testCases) {
     let failedTestCount = 0;
@@ -89,7 +87,7 @@ function testCalculateIslamicMonthAndYear() {
 }
 
 // Run all tests.
-export function runLunarCalendarTests() {
+function runLunarCalendarTests() {
     const currentDateTime = new Date(Date.UTC(2024, 3, 8, 18, 20, 46));
     generateAllNewMoons(currentDateTime);
     const testFunctions = [

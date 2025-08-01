@@ -1,5 +1,4 @@
-import { parseInputDate, adjustCalendarType, setCalendarType } from '../userInterface.js';
-import { convertUTCOffsetToMinutes } from '../utilities.js';
+
 
 function runTimezoneFormatterTests(testCases) {
     let failedTestCount = 0;
@@ -91,7 +90,7 @@ function testCalendarType() {
 
 
 // Run all tests.
-export function runDateManagementTests() {
+function runDateManagementTests() {
     const testFunctions = [
         testTimezoneFormatter,
         testParseDate,

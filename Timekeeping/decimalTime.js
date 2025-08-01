@@ -4,9 +4,7 @@
 
 // A set of functions for calculating times in the Decimal Time category.
 
-import { calculateDay } from "../Timekeeping/timeFractions.js";
-
-export function getRevolutionaryTime(currentDateTime_, timezoneOffset) {
+function getRevolutionaryTime(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime());
     const dayFraction = calculateDay(currentDateTime, timezoneOffset);
     let decimalHour = Math.trunc(dayFraction * 10);
@@ -22,7 +20,7 @@ export function getRevolutionaryTime(currentDateTime_, timezoneOffset) {
 }
 
 
-export function convertToSwatchBeats(currentDateTime) {
+function convertToSwatchBeats(currentDateTime) {
     // Get UTC time
     let utcDateTime = new Date(currentDateTime.getTime() + currentDateTime.getTimezoneOffset() * 60000);
     // Get the day fraction and convert to BMT
@@ -34,7 +32,7 @@ export function convertToSwatchBeats(currentDateTime) {
     return swatchBeats.toFixed(2);
 }
 
-export function getHexadecimalTime(currentDateTime_, timezoneOffset) {
+function getHexadecimalTime(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime());
     const dayFraction = calculateDay(currentDateTime, timezoneOffset);
     // Convert the day fraction to hexadecimal format
@@ -46,7 +44,7 @@ export function getHexadecimalTime(currentDateTime_, timezoneOffset) {
     return "." + hexadecimalFraction;
 }
 
-export function getBinaryTime(currentDateTime_, timezoneOffset) {
+function getBinaryTime(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime());
     const dayFraction = calculateDay(currentDateTime, timezoneOffset);
     // Convert the day fraction to the equivalent binary count
@@ -61,7 +59,7 @@ export function getBinaryTime(currentDateTime_, timezoneOffset) {
     return binaryCount;
 }
 
-export function get6DigitHexadecimalTime(dayFraction) {
+function get6DigitHexadecimalTime(dayFraction) {
     // Convert the day fraction to hexadecimal format
     let hexadecimalFraction = Math.trunc((dayFraction * 16777215)).toString(16).toUpperCase();
     // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
@@ -71,7 +69,7 @@ export function get6DigitHexadecimalTime(dayFraction) {
     return hexadecimalFraction;
 }
 
-export function hexToRGBA(hex, alpha) {
+function hexToRGBA(hex, alpha) {
     // Convert hex color to RGB
     const bigint = parseInt(hex, 16);
     const r = (bigint >> 16) & 255;

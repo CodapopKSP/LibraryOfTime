@@ -4,20 +4,17 @@
 
 // A set of functions for calculating times in the Computing Time category.
 
-import * as utilities from '../utilities.js';
-import { getRealJulianDate } from "../Calendars/solarCalendars.js";
-
-export function getUnixTime(currentDateTime) {
+function getUnixTime(currentDateTime) {
     return Math.floor(currentDateTime.getTime()/1000);
 }
 
-export function getCurrentFiletime(currentDateTime) {
+function getCurrentFiletime(currentDateTime) {
     const jan1601 = new Date(Date.UTC(1601, 0, 1));
     const filetime = Math.floor((currentDateTime.getTime() - jan1601.getTime())/1000) * 10000000;
     return filetime;
 }
 
-export function getGPSTime(currentDateTime) {
+function getGPSTime(currentDateTime) {
     const gpsEpoch = new Date("1980-01-06T00:00:00Z").getTime();
     
     // Calculate total time difference in seconds
@@ -25,7 +22,7 @@ export function getGPSTime(currentDateTime) {
     
     // Calculate how many leap seconds have occurred before the currentDateTime
     let leapSecondsCount = 0;
-    utilities.GPSleapSeconds.forEach(leapSecond => {
+    GPSleapSeconds.forEach(leapSecond => {
         if (new Date(leapSecond).getTime() <= currentDateTime) {
             leapSecondsCount++;
         }
@@ -37,12 +34,12 @@ export function getGPSTime(currentDateTime) {
     return gpsTime;
 }
 
-export function getTAI(currentDateTime) {
+function getTAI(currentDateTime) {
     let taiDateTime = new Date(currentDateTime);
 
     // Calculate how many leap seconds have occurred before the currentDateTime
     let leapSecondsCount = 0;
-    utilities.TAIleapSeconds.forEach(leapSecond => {
+    TAIleapSeconds.forEach(leapSecond => {
         if (new Date(leapSecond).getTime() <= currentDateTime) {
             leapSecondsCount++;
         }
@@ -52,20 +49,20 @@ export function getTAI(currentDateTime) {
     return taiDateTime;
 }
 
-export function getTT(currentDateTime) {
+function getTT(currentDateTime) {
     let TT = new Date(currentDateTime);
     TT.setSeconds(currentDateTime.getSeconds() + getDeltaT(currentDateTime));
     return TT;
 }
 
-export function getLORANC(currentDateTime) {
+function getLORANC(currentDateTime) {
     let taiDateTime = getTAI(currentDateTime);
     // LORAN-C is always 10s behind TAI
     taiDateTime.setSeconds(taiDateTime.getSeconds() - 10);
     return taiDateTime;
 }
 
-export function getJulianDayNumber(currentDateTime) {
+function getJulianDayNumber(currentDateTime) {
     const day = currentDateTime.getUTCDate();
     let month = currentDateTime.getUTCMonth() + 1;
     let year = currentDateTime.getUTCFullYear();
@@ -90,13 +87,13 @@ export function getJulianDayNumber(currentDateTime) {
     return JD;
 }
 
-export function getRataDie(currentDateTime) {
+function getRataDie(currentDateTime) {
     const JD = getJulianDayNumber(currentDateTime);
     const RD = Math.floor(JD - 1721424.5);
     return RD;
 }
 
-export function getJulianPeriod(currentDateTime_) {
+function getJulianPeriod(currentDateTime_) {
     // Shift time back 12 hours to align with Julian days starting at noon
     const currentDateTime = new Date(currentDateTime_.getTime() - 12 * 60 * 60 * 1000);
 
@@ -115,21 +112,21 @@ export function getJulianPeriod(currentDateTime_) {
 }
 
 
-export function getDynamicalTimeForward(currentDateTime) {
+function getDynamicalTimeForward(currentDateTime) {
     let secondsAhead = getDeltaT(currentDateTime);
     const dynamicalTimestamp = currentDateTime.getTime() + (secondsAhead*1000);
     const dynamicalDateTime = new Date(dynamicalTimestamp);
     return dynamicalDateTime.toISOString();
 }
 
-export function getDynamicalTimeBackward(currentDateTime) {
+function getDynamicalTimeBackward(currentDateTime) {
     let secondsAhead = getDeltaT(currentDateTime);
     const dynamicalTimestamp = currentDateTime.getTime() - (secondsAhead*1000);
     const dynamicalDateTime = new Date(dynamicalTimestamp);
     return dynamicalDateTime.toISOString();
 }
 
-export function getDeltaT(currentDateTime) {
+function getDeltaT(currentDateTime) {
     const year = currentDateTime.getUTCFullYear();
     if (year < -500) {
         const year_factor = (year - 1820) / 100;
@@ -200,46 +197,46 @@ export function getDeltaT(currentDateTime) {
     return -20 + 32 * year_factor**2;
 }
 
-export function getLilianDate(currentDateTime) {
+function getLilianDate(currentDateTime) {
     const JDN = getJulianDayNumber(currentDateTime);
     const lilianDate = Math.floor(JDN - 2299159.5);
     return lilianDate;
 }
 
-export function getOrdinalDate(currentDateTime) {
+function getOrdinalDate(currentDateTime) {
     const year = currentDateTime.getUTCFullYear() - 2000;
     const yearStr = String(year).padStart(2, '0'); // will show -01 for 1999, etc.
 
     // Always compare to Jan 1st of the current date's year
-    const jan1st = utilities.createDateWithFixedYear(currentDateTime.getUTCFullYear(), 0, 1);
-    const days = Math.floor(utilities.differenceInDays(currentDateTime, jan1st)) + 1; 
+    const jan1st = createDateWithFixedYear(currentDateTime.getUTCFullYear(), 0, 1);
+    const days = Math.floor(differenceInDays(currentDateTime, jan1st)) + 1; 
     const paddedDays = String(days).padStart(3, '0'); // Always positive 001-365
 
     return yearStr + paddedDays;
 }
 
-export function getMarsSolDate(currentDateTime) {
+function getMarsSolDate(currentDateTime) {
     let JDN = getJulianDayNumber(currentDateTime);
     const DeltaT = (getDeltaT(currentDateTime)/60/60/24);
     JDN += DeltaT;
     return (JDN - 2451549.5)/1.0274912517 + 44796.0 - 0.0009626;
 }
 
-export function getJulianSolDate(currentDateTime) {
+function getJulianSolDate(currentDateTime) {
     const marsSolDate = getMarsSolDate(currentDateTime);
     return marsSolDate + 94129;
 }
 
 // Return the Kali Ahargana from midnight (IST)
-export function getKaliAhargana(currentDateTime) {
+function getKaliAhargana(currentDateTime) {
     const kAOf10July2001 = 1863635;
     const July10of2001 = new Date(Date.UTC(2001, 6, 9, 18, 30));
-    return utilities.differenceInDays(currentDateTime, July10of2001) + kAOf10July2001;
+    return differenceInDays(currentDateTime, July10of2001) + kAOf10July2001;
 }
 
 // Returns the number of lunations (lunar cycles) since January 6 2000
 // This equation was sourced from Astronomical Algorithms
-export function calculateLunationNumber(newMoon) {
+function calculateLunationNumber(newMoon) {
     // Using Jean Meeus's date for lunation epoch
     const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
     const secondsSince2000 = (newMoon - firstNewMoon2000)/1000;
@@ -253,34 +250,34 @@ export function calculateLunationNumber(newMoon) {
     return lunationNumber;
 }
 
-export function getBrownLunationNumber(lunationNumber) {
+function getBrownLunationNumber(lunationNumber) {
     return lunationNumber + 953;
 }
 
-export function getGoldstineLunationNumber(lunationNumber) {
+function getGoldstineLunationNumber(lunationNumber) {
     return lunationNumber + 37105;
 }
 
-export function getHebrewLunationNumber(lunationNumber) {
+function getHebrewLunationNumber(lunationNumber) {
     return lunationNumber + 71234;
 }
 
-export function getIslamicLunationNumber(lunationNumber) {
+function getIslamicLunationNumber(lunationNumber) {
     return lunationNumber + 17038;
 }
 
-export function getThaiLunationNumber(lunationNumber) {
+function getThaiLunationNumber(lunationNumber) {
     return lunationNumber + 16843;
 }
 
-export function getJulianCircadNumber(currentDateTime) {
+function getJulianCircadNumber(currentDateTime) {
     const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32));
     const titanCircad = 0.998068439;
     const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
     return ((currentDateTime-epoch)/titanDayMilliseconds);
 }
 
-export function getSpreadsheetNowTime(currentDateTime_, timezoneOffset) {
+function getSpreadsheetNowTime(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     // Base date: December 30, 1899
     let baseDate = new Date(1899, 11, 30);

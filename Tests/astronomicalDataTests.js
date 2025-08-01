@@ -1,5 +1,3 @@
-import { parseInputDate } from '../userInterface.js';
-import * as astronomicalData from '../Other/astronomicalData.js';
 
 function runCalculateDateFromJDETests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;
@@ -61,28 +59,28 @@ function runCalendarTests(calendarName, getCalendarFunction, testCases) {
 }
 
 function testCalculateDateFromJDE() {
-    return runCalculateDateFromJDETests("DateFromJDE", astronomicalData.calculateDateFromJDE, [
+    return runCalculateDateFromJDETests("DateFromJDE", acalculateDateFromJDE, [
         [2086302.5, "Tue, 31 Dec 0999 23:33:40 GMT"],
         [2451544.5, "Fri, 31 Dec 1999 23:58:56 GMT"],
     ]);
 }
 
 function testCalculateUTCYearFraction() {
-    return runCalendarTestsReturnNumber("UTCYearFraction", astronomicalData.calculateUTCYearFraction, [
+    return runCalendarTestsReturnNumber("UTCYearFraction", acalculateUTCYearFraction, [
         ["1500-1-1, 00:00:00", "UTC+00:00", 0],
         ["2000-12-31, 23:59:59", "UTC+00:00", 0.9999999683768468],
     ]);
 }
 
 function testGetLongitudeOfSun() {
-    return runCalendarTestsReturnNumber("LongitudeOfSun", astronomicalData.getLongitudeOfSun, [
+    return runCalendarTestsReturnNumber("LongitudeOfSun", agetLongitudeOfSun, [
         ["2001-3-20, 13:00:00", "UTC+00:00", 360],
         ["2050-9-22, 19:28:00", "UTC+00:00", 180],
     ]);
 }
 
 function testGetSolsticeOrEquinox() {
-    return runCalendarTests("SolsticeOrEquinox", astronomicalData.getSolsticeOrEquinox, [
+    return runCalendarTests("SolsticeOrEquinox", agetSolsticeOrEquinox, [
         ["2001-3-20, 00:00:00", "UTC+00:00", "Tue, 20 Mar 2001 13:30:41 GMT", 'spring'],
         ["2100-3-20, 00:00:00", "UTC+00:00", "Sat, 20 Mar 2100 13:03:11 GMT", 'spring'],
         ["2050-9-22, 00:00:00", "UTC+00:00", "Thu, 22 Sep 2050 19:28:30 GMT", 'autumn'],
@@ -90,7 +88,7 @@ function testGetSolsticeOrEquinox() {
 }
 
 function testGetMoonPhase() {
-    return runCalendarTests("Moon Phase", astronomicalData.getMoonPhase, [
+    return runCalendarTests("Moon Phase", agetMoonPhase, [
         ["2025-3-20, 00:00:00", "UTC+00:00", "Fri, 28 Feb 2025 00:44:37 GMT", 0],
         ["1-1-12, 00:00:00", "UTC+00:00", "Thu, 11 Jan 0001 10:49:07 GMT", 0],          // Off by 9 mins in Ephemeris
         ["4000-12-20, 00:00:00", "UTC+00:00", "Sun, 31 Dec 4000 01:13:56 GMT", 0.75],   // Off by 5 mins in Ephemeris
@@ -99,7 +97,7 @@ function testGetMoonPhase() {
 }
 
 function testGetNextSolarLunarEclipse() {
-    return runCalendarTests("Eclipse", astronomicalData.getNextSolarLunarEclipse, [
+    return runCalendarTests("Eclipse", agetNextSolarLunarEclipse, [
         ["2024-04-08, 18:20:46", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Coda's eclipse
         ["-3339-11-2, 00:00:00", "UTC+00:00", "Sun, 03 Nov -3339 21:06:22 GMT\nAnnular | Descending\nNorthern Hemisphere", 0],  // Earliest recorded solar eclipse
         ["-584-5-21, 00:00:00", "UTC+00:00", "Wed, 22 May -0584 14:03:03 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Herodotus's eclipse
@@ -109,8 +107,8 @@ function testGetNextSolarLunarEclipse() {
 
 function testGetNewMoon() {
     const currentDateTime = new Date(Date.UTC(2024, 3, 8, 18, 20, 46));
-    astronomicalData.generateAllNewMoons(currentDateTime);
-    return runCalendarTests("New Moon", astronomicalData.getNewMoon, [
+    agenerateAllNewMoons(currentDateTime);
+    return runCalendarTests("New Moon", agetNewMoon, [
         ["2024-04-08, 10:20:46", "UTC+00:00", "Sun, 10 Mar 2024 09:00:17 GMT", 0],
         ["2024-04-08, 18:20:47", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT", 0],
         ["2024-04-08, 18:20:47", "UTC+00:00", "Sun, 10 Mar 2024 09:00:17 GMT", -1],
@@ -119,7 +117,7 @@ function testGetNewMoon() {
 }
 
 // Run all tests.
-export function runAstronomicalDataTests() {
+function runAstronomicalDataTests() {
     const testFunctions = [
         testCalculateDateFromJDE,
         testCalculateUTCYearFraction,

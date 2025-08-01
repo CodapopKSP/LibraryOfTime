@@ -4,14 +4,10 @@
 
 // A set of functions for calculating data in the Astronomical Data category.
 
-import { getDynamicalTimeBackward, getJulianDayNumber } from '../Timekeeping/computingTime.js';
-import { getGregJulianDifference, setGregJulianDifference, createDateWithFixedYear } from '../utilities.js'
-import { calculateGregorianJulianDifference } from '../Calendars/solarCalendars.js';
-
 // Manages the global list of new moons
 let allNewMoons = [];
 
-export function generateAllNewMoons(currentDateTime) {
+function generateAllNewMoons(currentDateTime) {
     let newMoons = [];
     let lunation = -14;
     while (lunation < 13) {
@@ -22,7 +18,7 @@ export function generateAllNewMoons(currentDateTime) {
     allNewMoons = newMoons;
 }
 
-export function getNewMoon(referenceDate, lunations) {
+function getNewMoon(referenceDate, lunations) {
     const len = allNewMoons.length;
     if (len === 0) return null;
 
@@ -54,7 +50,7 @@ export function getNewMoon(referenceDate, lunations) {
 // Manages the global list of solstices and equinoxes
 let allSolsticesEquinoxes = [];
 
-export function generateAllSolsticesEquinoxes(currentDateTime) {
+function generateAllSolsticesEquinoxes(currentDateTime) {
     const seasons = ['spring', 'summer', 'autumn', 'winter'];
     const centerYear = currentDateTime.getUTCFullYear();
     const solsticesEquinoxes = [];
@@ -71,7 +67,7 @@ export function generateAllSolsticesEquinoxes(currentDateTime) {
     allSolsticesEquinoxes = solsticesEquinoxes;
 }
 
-export function getSolsticeEquinox(referenceDate, season, offset = 0) {
+function getSolsticeEquinox(referenceDate, season, offset = 0) {
 
     // Filter to only the desired season
     const filtered = allSolsticesEquinoxes.filter(e => e.season === season);
@@ -101,7 +97,7 @@ export function getSolsticeEquinox(referenceDate, season, offset = 0) {
 
 // Return an unformatted date from an unsigned JDE
 // This equation was sourced from Astronomical Algorithms
-export function calculateDateFromJDE(JDE) {
+function calculateDateFromJDE(JDE) {
     const newJDE = JDE + 0.5;
     const Z = Math.trunc(newJDE);
     const F = newJDE - Z;
@@ -150,7 +146,7 @@ export function calculateDateFromJDE(JDE) {
     return fixedDateTime;
 }
 
-export function calculateUTCYearFraction(currentDateTime) {
+function calculateUTCYearFraction(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
     let yearStart = createDateWithFixedYear(year, 0, 1);
     let nextYearStart = createDateWithFixedYear(year + 1, 0, 1);
@@ -167,7 +163,7 @@ export function calculateUTCYearFraction(currentDateTime) {
 
 // Returns the unformatted date of a solstice or equinox
 // The equations and hardcoded values come from Astronomical Algorithms
-export function getSolsticeOrEquinox(currentDateTime, season) {
+function getSolsticeOrEquinox(currentDateTime, season) {
 
     // Sum up all the values in a table from Astronomical Algorithms
     function sumSolsticeEquinoxTable(T) {
@@ -243,7 +239,7 @@ export function getSolsticeOrEquinox(currentDateTime, season) {
 
 // Returns the calculated longitude of the sun
 // This equation was sourced from Astronomical Algorithms
-export function getLongitudeOfSun(currentDateTime) {
+function getLongitudeOfSun(currentDateTime) {
 
     function normalizeAngleTo360(angle) {
         let normalizeAngle = (angle+360)%360;
@@ -269,7 +265,7 @@ export function getLongitudeOfSun(currentDateTime) {
 //|-----------------------------|
 
 // Calculates a moon phase
-export function getMoonPhase(currentDateTime, monthModifier) {
+function getMoonPhase(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateUTCYearFraction(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
@@ -297,7 +293,7 @@ export function getMoonPhase(currentDateTime, monthModifier) {
 }
 
 // Sum the New Moon table from Astronomical Algorithms
-export function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
+function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
     function sumNewMoonTableHelper(num1, num2) {
         return num1 * Math.sin((num2)* Math.PI / 180)
     }
@@ -331,7 +327,7 @@ export function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
 }
 
 // Sum the New Moon table from Astronomical Algorithms
-export function sumFullMoonTable(SunM, MoonM, F, E, lunarNode) {
+function sumFullMoonTable(SunM, MoonM, F, E, lunarNode) {
     function sumFullMoonTableHelper(num1, num2) {
         return num1 * Math.sin((num2)* Math.PI / 180)
     }
@@ -365,7 +361,7 @@ export function sumFullMoonTable(SunM, MoonM, F, E, lunarNode) {
 }
 
 // Sum the New Moon table from Astronomical Algorithms
-export function sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier) {
+function sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier) {
     function sumQuarterMoonTableHelper(num1, num2) {
         return num1 * Math.sin((num2)* Math.PI / 180)
     }
@@ -416,7 +412,7 @@ export function sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier)
 }
 
 // Sum the All Phases table from Astronomical Algorithms
-export function allLunarPhaseTable(k, T) {
+function allLunarPhaseTable(k, T) {
     function allPhaseTableHelper(num, A) {
         return num*Math.sin(A* Math.PI / 180);
     }
@@ -453,7 +449,7 @@ export function allLunarPhaseTable(k, T) {
 }
 
 // Get formatted information about the next solar eclipse
-export function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
+function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateUTCYearFraction(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;

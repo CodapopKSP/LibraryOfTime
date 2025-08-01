@@ -24,7 +24,7 @@ function stopDrag() {
     document.removeEventListener("mouseup", stopDrag);
 }
 
-export function instantiateFloatingPanel() {
+function instantiateFloatingPanel() {
     // Show/Hide the panel when the button is clicked
     toggleButton.addEventListener("click", () => {
         if (panel.style.display === "none" || panel.style.display === "") {
@@ -50,7 +50,7 @@ export function instantiateFloatingPanel() {
 }
 
 // Function to redraw everything inside grid-item 1
-export function nodePlace(item, grid) {
+function nodePlace(item, grid) {
     const gridItem = document.querySelector(`.grid-item${grid}`);
     gridItem.innerHTML = '';
     // Remove any class that doesn't start with "grid"

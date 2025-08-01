@@ -5,13 +5,6 @@
 
 */
 
-import { nodeDataArrays } from './nodeData.js';
-import { createNode } from './nodeDisplay.js';
-import * as descriptionPanel from './descriptionPanel.js';
-import { instantiateFloatingPanel } from './userPanel.js';
-import * as userInterface from './userInterface.js';
-import * as utilities from "./utilities.js";
-
 const timezones = [
     'UTC-12:00', 'UTC-11:00', 'UTC-10:00', 'UTC-09:30', 'UTC-09:00',
     'UTC-08:00', 'UTC-07:00', 'UTC-06:00', 'UTC-05:00', 'UTC-04:00',
@@ -27,7 +20,7 @@ const urlParameters = new URLSearchParams(window.location.search);
 const urlDateString = urlParameters.get('datetime');
 const urlTimezone = urlParameters.get('timezone');
 const urlCalendarType = urlParameters.get('type');
-userInterface.setCalendarType(getCalendarTypeFromURL(urlCalendarType));
+setCalendarType(getCalendarTypeFromURL(urlCalendarType));
 
 function getDateTimeFromURL(urlDateString) {
     if (!urlDateString) return null; // Return null if no parameter is provided
@@ -82,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Get user's local timezone offset
-    const localTimezone = userInterface.getLocalTimezoneOffset();
+    const localTimezone = getLocalTimezoneOffset();
     
     // Get URL Timezone parameter
     const urlTimezoneFormatted = getTimezoneFromURL(urlTimezone);
@@ -104,24 +97,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     timezoneSelect.addEventListener('change', function () {
         const datePickerTimezone = document.getElementById('timezone').value;
-        utilities.setDatePickerTimezone(datePickerTimezone);
+        setDatePickerTimezone(datePickerTimezone);
     });
 });
 
 // Display the initial Description Panel
-descriptionPanel.homeButton();
-descriptionPanel.changeActiveHeaderTab('header-button-1', 0);
+homeButton();
+changeActiveHeaderTab('header-button-1', 0);
 
-descriptionPanel.addHeaderTabHoverEffect();
-descriptionPanel.addHomeButtonHoverEffect();
+addHeaderTabHoverEffect();
+addHomeButtonHoverEffect();
 instantiateFloatingPanel();
 
 // Initial update
 if (urlDateString && urlTimezone) {
-    userInterface.updateAllNodes(getDateTimeFromURL(urlDateString), getTimezoneFromURL(urlTimezone), true);
+    updateAllNodes(getDateTimeFromURL(urlDateString), getTimezoneFromURL(urlTimezone), true);
     // Prevent from updating on repeat
-    clearInterval(userInterface.getCurrentUpdateInterval());
+    clearInterval(getCurrentUpdateInterval());
 } else {
     // Use current date
-    userInterface.updateAllNodes(0, userInterface.getLocalTimezoneOffset(), true);
+    updateAllNodes(0, getLocalTimezoneOffset(), true);
 }

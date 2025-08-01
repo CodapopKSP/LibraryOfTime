@@ -6,14 +6,6 @@
     This is a collection of functions for drawing and handling the Description Panel.
 */
 
-
-
-import { welcomeDescription, confidenceDescription } from './descriptionText.js';
-import * as nodeDisplay from './nodeDisplay.js';
-import * as utilities from './utilities.js';
-import * as userInterface from './userInterface.js';
-import * as astronomicalData from './Other/astronomicalData.js';
-
 document.getElementById('home-button').addEventListener('click', homeButton);
 
 // Attach event listeners to all header buttons
@@ -27,11 +19,11 @@ const headerTabs = ['header-button-1', 'header-button-2', 'header-button-3', 'he
 // The current arrangement of information to be displayed in the Description Panel
 let _currentDescriptionTab = [];
 
-export function getCurrentDescriptionTab() {
+function getCurrentDescriptionTab() {
     return _currentDescriptionTab;
 }
 
-export function setCurrentDescriptionTab(newTab) {
+function setCurrentDescriptionTab(newTab) {
     if (Array.isArray(newTab)) {
         _currentDescriptionTab = newTab;
     } else {
@@ -40,7 +32,7 @@ export function setCurrentDescriptionTab(newTab) {
 }
 
 
-export function addHeaderTabHoverEffect() {
+function addHeaderTabHoverEffect() {
     headerTabs.forEach((tabID) => {
         const tab = document.getElementById(tabID);
 
@@ -54,7 +46,7 @@ export function addHeaderTabHoverEffect() {
     });
 }
 
-export function addHomeButtonHoverEffect() {
+function addHomeButtonHoverEffect() {
     const homeButton = document.getElementById('home-button');
 
     // Add hover event listeners
@@ -116,7 +108,7 @@ function createHomePageDescription(contentKey, contentClass) {
     return description;
 }
 
-export function createNodeDescription(item, type) {
+function createNodeDescription(item, type) {
     const description = document.createElement('div');
     description.id = `${item.id}-nodeinfo-${type}`;
     description.classList.add('nodeinfo');
@@ -194,12 +186,12 @@ function handleEpochClick(epoch) {
 
     // Most clocks
     if (epoch==='Midnight') {
-        timePicked = utilities.getDatePickerTimezone();
+        timePicked = getDatePickerTimezone();
         const now = new Date();
         const hours = '00';
         const minutes = '00';
         const seconds = '00';
-        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // .beat (BMT)
@@ -209,24 +201,24 @@ function handleEpochClick(epoch) {
         const hours = '23';
         const minutes = '00';
         const seconds = '00';
-        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // UTC (Standard Time)
     if (epoch==='Midnight (UTC)') {
         const now = new Date();
-        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
         timePicked = 'UTC+00:00';
     }
 
     // Termina Time (Slowed)
     if (epoch==='6:00:00') {
-        timePicked = utilities.getDatePickerTimezone();
+        timePicked = getDatePickerTimezone();
         const now = new Date();
         const hours = '6';
         const minutes = '00';
         const seconds = '00';
-        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // Maya Calendars and any others
@@ -242,22 +234,22 @@ function handleEpochClick(epoch) {
     // Every Second/Minute/Hour/Day - All Midnight
     if ((epoch==='Every Second') || (epoch==='Every Minute') || (epoch==='Every Hour') || (epoch==='Every Day')) {
         const now = new Date();
-        epoch_ = `${now.getUTCDate()} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
         timePicked = '';
     }
 
     // Every Month
     if (epoch==='Every Month') {
         const now = new Date();
-        epoch_ = `${1} ${utilities.monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
-        timePicked = utilities.getDatePickerTimezone();
+        epoch_ = `${1} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+        timePicked = getDatePickerTimezone();
     }
 
     // Every Year
     if (epoch==='Every Year') {
         const now = new Date();
         epoch_ = `${1} ${'January'} ${now.getUTCFullYear()}`;
-        timePicked = utilities.getDatePickerTimezone();
+        timePicked = getDatePickerTimezone();
     }
 
     // Every Decade
@@ -266,7 +258,7 @@ function handleEpochClick(epoch) {
         const year = now.getUTCFullYear();
         const centuryYear = Math.floor(year / 10) * 10;
         epoch_ = `${1} January ${centuryYear}`;
-        timePicked = utilities.getDatePickerTimezone();
+        timePicked = getDatePickerTimezone();
     }
 
     // Every Century
@@ -275,7 +267,7 @@ function handleEpochClick(epoch) {
         const year = now.getUTCFullYear();
         const centuryYear = Math.floor(year / 100) * 100;
         epoch_ = `${1} January ${centuryYear}`;
-        timePicked = utilities.getDatePickerTimezone();
+        timePicked = getDatePickerTimezone();
     }
 
     // Every Millennium
@@ -284,115 +276,115 @@ function handleEpochClick(epoch) {
         const year = now.getUTCFullYear();
         const millenniumYear = Math.floor(year / 1000) * 1000;
         epoch_ = `${1} January ${millenniumYear}`;
-        timePicked = utilities.getDatePickerTimezone();
+        timePicked = getDatePickerTimezone();
     }
 
     // Equinoxes and Solstices
     if (epoch === 'Northward Equinox') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let target = astronomicalData.getSolsticeOrEquinox(now, 'spring');
+        let target = agetSolsticeOrEquinox(now, 'spring');
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
     if (epoch === 'Northern Solstice') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let target = astronomicalData.getSolsticeOrEquinox(now, 'summer');
+        let target = agetSolsticeOrEquinox(now, 'summer');
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
     if (epoch === 'Southward Equinox') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let target = astronomicalData.getSolsticeOrEquinox(now, 'autumn');
+        let target = agetSolsticeOrEquinox(now, 'autumn');
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
     if (epoch === 'Southern Solstice') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let target = astronomicalData.getSolsticeOrEquinox(now, 'winter');
+        let target = agetSolsticeOrEquinox(now, 'winter');
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // Moon Phases
     if (epoch === 'New Moon') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let target = astronomicalData.getNewMoon(now, 0);
+        let target = agetNewMoon(now, 0);
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
     if (epoch === 'First Quarter Moon') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let target = astronomicalData.getMoonPhase(now, 0.25);
+        let target = agetMoonPhase(now, 0.25);
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
     if (epoch === 'Full Moon') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let target = astronomicalData.getMoonPhase(now, 0.5);
+        let target = agetMoonPhase(now, 0.5);
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
     if (epoch === 'Last Quarter Moon') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let target = astronomicalData.getMoonPhase(now, 0.75);
+        let target = agetMoonPhase(now, 0.75);
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // Eclipses
     if (epoch === 'Next Solar Eclipse') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let targetRaw = astronomicalData.getNextSolarLunarEclipse(now, 0);
+        let targetRaw = agetNextSolarLunarEclipse(now, 0);
 
         // Extract the first line (the date)
         let dateString = targetRaw.split('\n')[0].trim();
@@ -407,13 +399,13 @@ function handleEpochClick(epoch) {
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
     if (epoch === 'Next Lunar Eclipse') {
-        timePicked = utilities.getDatePickerTimezone();
-        let timezoneOffset = utilities.convertUTCOffsetToMinutes(timePicked);
+        timePicked = getDatePickerTimezone();
+        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
         const now = new Date();
-        let targetRaw = astronomicalData.getNextSolarLunarEclipse(now, 0.5);
+        let targetRaw = agetNextSolarLunarEclipse(now, 0.5);
 
         // Extract the first line (the date)
         let dateString = targetRaw.split('\n')[0].trim();
@@ -428,12 +420,12 @@ function handleEpochClick(epoch) {
         const hours = String(target.getUTCHours()).padStart(2, '0');
         const minutes = String(target.getUTCMinutes()).padStart(2, '0');
         const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${utilities.monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
     // Most calendars
     const datePicked = formatDateTime(epoch_);
-    userInterface.changeDateTime(datePicked, timePicked);
+    changeDateTime(datePicked, timePicked);
 }
 
 
@@ -462,7 +454,7 @@ function formatDateTime(dateString) {
     // Extract the day, month, and year from the date part
     let [day, monthStr, yearStr] = datePart.split(' ');
     const inputYear = parseInt(yearStr, 10);
-    const monthIndex = utilities.monthNames.indexOf(monthStr);
+    const monthIndex = monthNames.indexOf(monthStr);
 
     // Create a new Date object with the proper day, month, and year
     date = new Date(Date.UTC(inputYear, monthIndex, parseInt(day, 10)));
@@ -521,7 +513,7 @@ function createConfidenceElement(item) {
 }
 
 
-export function changeActiveHeaderTab(activeTab, index) {
+function changeActiveHeaderTab(activeTab, index) {
     // Toggle active tab header
     headerTabs.forEach((tabID) => {
         const tab = document.getElementById(tabID);
@@ -535,10 +527,10 @@ export function changeActiveHeaderTab(activeTab, index) {
     });
 }
 
-export function homeButton() {
+function homeButton() {
     // Clear the Description Panel
     clearDescriptionPanel();
-    nodeDisplay.clearSelectedNode();
+    clearSelectedNode();
     const homeButton = document.getElementById('home-button');
     homeButton.style.visibility = 'hidden';
 
@@ -551,14 +543,14 @@ export function homeButton() {
     changeActiveHeaderTab('header-button-1', 0);
 }
 
-export function updateHeaderTabTitles(labels) {
+function updateHeaderTabTitles(labels) {
     headerTabs.forEach((btnId, index) => {
         const btn = document.getElementById(btnId);
         btn.innerHTML = `<b>${labels[index]}</b>`;
     });
 }
 
-export function clearDescriptionPanel() {
+function clearDescriptionPanel() {
     const nodeinfos = document.querySelectorAll('.nodeinfo');
     nodeinfos.forEach(nodeinfo => {
         nodeinfo.parentNode.removeChild(nodeinfo);

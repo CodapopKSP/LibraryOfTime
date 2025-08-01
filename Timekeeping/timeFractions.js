@@ -4,9 +4,7 @@
 
 // A set of functions for calculating fractions of units of time.
 
-import * as utilities from '../utilities.js'
-
-export function calculateSecond(currentDateTime) {
+function calculateSecond(currentDateTime) {
     // Ensure currentDateTime is a Date object
     let dateTime = new Date(currentDateTime);
 
@@ -34,18 +32,18 @@ export function calculateSecond(currentDateTime) {
     return result;
 }
 
-export function calculateMinute(currentDateTime) {
+function calculateMinute(currentDateTime) {
     return (currentDateTime.getUTCSeconds() + currentDateTime.getUTCMilliseconds() / 1000) / 60;
 }
 
-export function calculateHour(currentDateTime_, timezoneOffset) {
+function calculateHour(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     return (currentDateTime.getUTCMinutes() + 
             currentDateTime.getUTCSeconds() / 60 + 
             currentDateTime.getUTCMilliseconds() / 60000) / 60;
 }
 
-export function calculateDay(currentDateTime_, timezoneOffset) {
+function calculateDay(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     return (currentDateTime.getUTCHours() + 
             currentDateTime.getUTCMinutes() / 60 + 
@@ -53,11 +51,11 @@ export function calculateDay(currentDateTime_, timezoneOffset) {
             currentDateTime.getUTCMilliseconds() / 3600000) / 24;
 }
 
-export function calculateMonth(currentDateTime_, timezoneOffset) {
+function calculateMonth(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
     const month = currentDateTime.getUTCMonth();
-    const daysInMonth = utilities.createDateWithFixedYear(year, month + 1, 0); // Get last day of the month
+    const daysInMonth = createDateWithFixedYear(year, month + 1, 0); // Get last day of the month
     return (currentDateTime.getUTCDate() - 1 + 
             currentDateTime.getUTCHours() / 24 + 
             currentDateTime.getUTCMinutes() / 1440 + 
@@ -65,7 +63,7 @@ export function calculateMonth(currentDateTime_, timezoneOffset) {
             currentDateTime.getUTCMilliseconds() / 86400000) / daysInMonth;
 }
 
-export function calculateYear(currentDateTime_, timezoneOffset) {
+function calculateYear(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
     const startOfYear = new Date(year, 0, 1);
@@ -73,7 +71,7 @@ export function calculateYear(currentDateTime_, timezoneOffset) {
     return (currentDateTime - startOfYear) / (daysInYear * 86400000);
 }
 
-export function calculateDecade(currentDateTime_, timezoneOffset) {
+function calculateDecade(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
     const decadeStartYear = Math.floor(year / 10) * 10;
@@ -83,7 +81,7 @@ export function calculateDecade(currentDateTime_, timezoneOffset) {
     return (currentDateTime - startOfDecade) / (nextDecadeStart - startOfDecade);
 }
 
-export function calculateCentury(currentDateTime_, timezoneOffset) {
+function calculateCentury(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
     const centuryStartYear = Math.floor(year / 100) * 100;
@@ -92,7 +90,7 @@ export function calculateCentury(currentDateTime_, timezoneOffset) {
     return (currentDateTime - startOfCentury) / (nextCenturyStart - startOfCentury);
 }
 
-export function calculateMillennium(currentDateTime_, timezoneOffset) {
+function calculateMillennium(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
     const millenniumStartYear = Math.floor(year / 1000) * 1000;

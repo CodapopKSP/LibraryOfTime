@@ -13,7 +13,7 @@ Node Data is a collection of data for each node.
     accuracy:       The text that appears in the accuracy tab.
     source:         The text that appears in the source tab.
 */
-export const standardTimeData = [
+const standardTimeData = [
     {
         name: 'Local Time',
         id: 'local-time',
@@ -147,7 +147,7 @@ export const standardTimeData = [
     },
 ]
 
-export const computingTimeData = [
+const computingTimeData = [
     {
         name: 'Unix',
         id: 'unix',
@@ -204,7 +204,7 @@ export const computingTimeData = [
         confidence: 'Exact',
         overview: 'Long Range Navigational time was the standard used by the US and other jurisdictions prior to the creation of GPS. It deviates from UTC by the number of leap seconds since 1972 and doesn\'t include the 10 extra leap seconds in TAI.',
         info: 'LORAN-C uses a network of radio transmitters to determine distance using the synchronized time, similar to GPS that uses satellites.',
-        accuracy: 'It is difficult to find a current representation of LORAN-C despite it apparently still being in use. I have reexport constructed this clock based off of the provided source as well as explanations of the specifics.',
+        accuracy: 'It is difficult to find a current representation of LORAN-C despite it apparently still being in use. I have reconstructed this clock based off of the provided source as well as explanations of the specifics.',
         source: 'Much of the information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.'
     },
 
@@ -437,7 +437,7 @@ export const computingTimeData = [
     },
 ]
 
-export const decimalTimeData = [
+const decimalTimeData = [
     {
         name: 'Revolutionary Time',
         id: 'revolutionary-time',
@@ -487,7 +487,7 @@ export const decimalTimeData = [
     },
 ]
 
-export const otherTimeData = [
+const otherTimeData = [
     {
         name: 'Coordinated Mars Time',
         id: 'coordinated-mars-time',
@@ -561,7 +561,7 @@ export const otherTimeData = [
     },
 ]
 
-export const solarCalendarsData = [
+const solarCalendarsData = [
     {
         name: 'Gregorian',
         id: 'gregorian',
@@ -827,7 +827,7 @@ export const solarCalendarsData = [
     },
 ]
 
-export const lunisolarCalendarsData = [
+const lunisolarCalendarsData = [
     {
         name: 'Chinese (CST)',
         id: 'chinese',
@@ -889,7 +889,7 @@ export const lunisolarCalendarsData = [
     },
 ]
 
-export const lunarCalendarsData = [
+const lunarCalendarsData = [
     {
         name: 'Umm al-Qura (AST)',
         id: 'umm-al-qura',
@@ -904,7 +904,7 @@ export const lunarCalendarsData = [
     },
 ]
 
-export const proposedCalendars = [
+const proposedCalendars = [
     {
         name: 'Human Era',
         id: 'human-era',
@@ -954,7 +954,7 @@ export const proposedCalendars = [
     },
 ]
 
-export const otherCalendars = [
+const otherCalendars = [
     {
         name: 'Maya Long Count (CST)',
         id: 'maya-long-count',
@@ -1148,7 +1148,7 @@ export const otherCalendars = [
     },
 ]
 
-export const astronomicalData = [
+const astronomicalData = [
     {
         name: 'Northward Equinox',
         id: 'spring-equinox',
@@ -1282,7 +1282,7 @@ export const astronomicalData = [
     },
 ]
 
-export const popCultureData = [
+const popCultureData = [
     {
         name: 'Minecraft Time',
         id: 'minecraft-time',
@@ -1320,7 +1320,7 @@ export const popCultureData = [
     },
 ]
 
-export const politicalCycles = [
+const politicalCycles = [
     {
         name: 'US Presidential Terms',
         id: 'us-presidential-terms',
@@ -1334,7 +1334,7 @@ export const politicalCycles = [
     },
 ]
 
-export const nodeDataArrays = [
+const nodeDataArrays = [
     standardTimeData,
     computingTimeData,
     decimalTimeData,

@@ -8,7 +8,7 @@ function pad(num, size) {
     return ('000' + num).slice(-size);
 }
 
-export function getMinecraftTime(currentDateTime_, timezoneOffset) {
+function getMinecraftTime(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     let midnight = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 0, 0, 0));
 
@@ -26,7 +26,7 @@ export function getMinecraftTime(currentDateTime_, timezoneOffset) {
     return  'Day: ' + day + ' | ' + pad(hours,2) + ':' + pad(minutes,2) + ':' + pad(seconds,2);
 }
 
-export function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
+function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     let midnight = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 0, 0, 0));
     // Convert date to milliseconds since midnight
@@ -41,7 +41,7 @@ export function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
     return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
 }
 
-export function getTerminaTime(currentDateTime_, timezoneOffset) {
+function getTerminaTime(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     // Days start at 6am
     let SixAMToday = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 6, 0, 0));

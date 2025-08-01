@@ -1,7 +1,4 @@
 
-import { parseInputDate } from '../userInterface.js';
-import * as proposedCalendars from '../Calendars/proposedCalendars.js';
-import { convertUTCOffsetToMinutes } from '../utilities.js';
 
 
 function runCalendarTests(calendarName, getCalendarFunction, testCases) {
@@ -26,7 +23,7 @@ function runCalendarTests(calendarName, getCalendarFunction, testCases) {
 }
 
 function testHumanEraCalendar() {
-    return runCalendarTests("Human Era Calendar", proposedCalendars.getHumanEra, [
+    return runCalendarTests("Human Era Calendar", getHumanEra, [
         ["-5508-7-19, 00:00:00", "UTC+00:00", "19 July 4492 HE\nSaturday"],
         ["2025-6-10, 23:00:00", "UTC+00:00", "10 June 12025 HE\nTuesday"],
         ["-9999-1-1, 00:00:00", "UTC+00:00", "1 January 1 HE\nMonday"],
@@ -34,7 +31,7 @@ function testHumanEraCalendar() {
 }
 
 function testInvariableCalendar() {
-    return runCalendarTests("Invariable Calendar", proposedCalendars.getInvariableCalendarDate, [
+    return runCalendarTests("Invariable Calendar", getInvariableCalendarDate, [
         ["1990-1-1, 00:00:00", "UTC+08:00", "New Years Day 1990 CE"],
         ["1990-1-1, 23:59:59", "UTC+00:00", "New Years Day 1990 CE"],
         ["2024-7-1, 23:59:59", "UTC+00:00", "31 June 2024 CE\nSunday"],
@@ -43,7 +40,7 @@ function testInvariableCalendar() {
 }
 
 function testWorldCalendar() {
-    return runCalendarTests("World Calendar", proposedCalendars.getWorldCalendarDate, [
+    return runCalendarTests("World Calendar", getWorldCalendarDate, [
         ["1990-1-1, 00:00:00", "UTC+08:00", "World's Day 1990 CE"],
         ["2024-7-2, 23:00:00", "UTC+10:00", "Leapyear Day 2024 CE"],
         ["2024-7-1, 15:59:59", "UTC+14:00", "30 June 2024 CE\nSaturday"],
@@ -51,7 +48,7 @@ function testWorldCalendar() {
 }
 
 function testSymmetry454Calendar() {
-    return runCalendarTests("Symmetry454 Calendar", proposedCalendars.getSymmetry454Date, [
+    return runCalendarTests("Symmetry454 Calendar", getSymmetry454Date, [
         ["1-1-1, 00:00:00", "UTC+00:00", "1 January 1 CE\nMonday"],
         ["2022-3-7, 00:00:00", "UTC+00:00", "1 March 2022 CE\nMonday"],
         ["2022-1-2, 00:00:00", "UTC+00:00", "35 December 2021 CE\nSunday"],
@@ -59,7 +56,7 @@ function testSymmetry454Calendar() {
 }
 
 // Run all tests.
-export function runProposedCalendarTests() {
+function runProposedCalendarTests() {
     const testFunctions = [
         testHumanEraCalendar,
         testInvariableCalendar,
