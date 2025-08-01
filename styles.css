@@ -448,6 +448,7 @@ a {
     text-align: left;
     padding-left: 10vh;
     padding-right: 10vh;
+    padding-top: 3vh;
 }
 
 .nodeinfo-confidence {
@@ -529,7 +530,7 @@ a {
 .nodeinfo-overview {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 70%;
+    height: 75%;
     padding: 1rem;
     margin: 1rem;
     white-space: pre-wrap;
