@@ -11,7 +11,8 @@ function runAllTests() {
     runOtherCalendarTests();
 }
 
-//runAllTests();
+generateAllSolsticesEquinoxes(new Date());
+runAllTests();
 
 if (typeof process !== "undefined" && process.exit) {
     process.exit(0);

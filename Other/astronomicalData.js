@@ -68,6 +68,14 @@ function generateAllSolsticesEquinoxes(currentDateTime) {
 }
 
 function getSolsticeEquinox(referenceDate, season, offset = 0) {
+    // Check if list is out of date
+    if (
+        !allSolsticesEquinoxes.length || 
+        referenceDate < allSolsticesEquinoxes[0].date || 
+        referenceDate > allSolsticesEquinoxes[allSolsticesEquinoxes.length - 1].date
+    ) {
+        generateAllSolsticesEquinoxes(referenceDate);
+    }
 
     // Filter to only the desired season
     const filtered = allSolsticesEquinoxes.filter(e => e.season === season);
@@ -94,6 +102,7 @@ function getSolsticeEquinox(referenceDate, season, offset = 0) {
     console.error("List out of range. Consider increasing the size.");
     return null;
 }
+
 
 // Return an unformatted date from an unsigned JDE
 // This equation was sourced from Astronomical Algorithms
@@ -142,7 +151,6 @@ function calculateDateFromJDE(JDE) {
         fixedDateTime.setUTCDate(fixedDateTime.getUTCDate() + getGregJulianDifference());
     }
 
-    
     return fixedDateTime;
 }
 

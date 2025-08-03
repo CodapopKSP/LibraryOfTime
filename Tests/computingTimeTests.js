@@ -147,8 +147,8 @@ function testSpreadsheetNowTime() {
 
 function testOrdinalDate() {
     return runComputingTests("Ordinal Date", getOrdinalDate, [
-        ["2000-1-1, 00:00:00", "UTC+00:00", "00000"],
-        ["2025-12-31, 00:00:00", "UTC+00:00", "25364"],
+        ["2000-1-1, 00:00:00", "UTC+00:00", "00001"],
+        ["2025-12-31, 00:00:00", "UTC+00:00", "25365"],
     ]);
 }
 

@@ -199,7 +199,6 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
     const SansculottidesWeek = ['La Fête de la Vertu','La Fête du Génie','La Fête du Travail',
         'La Fête de l\'Opinion','La Fête des Récompenses','La Fête de la Révolution'
     ];
-
     // Get starting and ending equinoxes, Paris Time (CET)
     let startingEquinox = new Date(vernalEquinox);
     startingEquinox.setUTCHours(1);
@@ -215,6 +214,7 @@ function getRepublicanCalendar(currentDateTime, vernalEquinox) {
         startingEquinox.setUTCMinutes(0);
         startingEquinox.setUTCSeconds(0);
         startingEquinox.setUTCMilliseconds(0);
+
     }
 
     // Get start of year, Paris Time (CET)
