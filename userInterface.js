@@ -46,7 +46,7 @@ function parseInputDate(dateInput, timezoneOffset) {
     const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
 
     // Construct UTC time in milliseconds
-    let utcMillis = Date.UTC(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond);
+    let utcMillis = createDateWithFixedYear(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond);
 
     // Apply BCE year handling
     let dateTime = new Date(utcMillis);
@@ -184,7 +184,6 @@ function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
 
 // Main function for populating a node
 function setTimeValue(type, value) {
-    if (typeof document === 'undefined') return;  // Prevents execution in Node.js
     // Update the original node
     const originalNode = document.getElementById(type);
     if (originalNode) {

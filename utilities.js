@@ -27,6 +27,15 @@ function setDatePickerTimezone(newTimezone) {
     _datePickerTimezone = newTimezone;
 }
 
+// Keeps track of date picker time selection
+let _datePickerTime = '2000-1-1, 00:00:00';
+function getDatePickerTime() {
+    return _datePickerTime;
+}
+function setDatePickerTime(newTime) {
+    _datePickerTime = newTime;
+}
+
 // Delete this maybe
 function getMidnightInUTC(dateToFind, utcMidnight) {
     let midnightInChina = new Date(dateToFind);

@@ -242,21 +242,21 @@ function handleEpochClick(epoch) {
     if (epoch==='Every Month') {
         const now = new Date();
         epoch_ = `${1} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
-        timePicked = getDatePickerTimezone();
+        timePicked = '';
     }
 
     // Every Year
     if (epoch==='Every Year') {
         const now = new Date();
         epoch_ = `${1} ${'January'} ${now.getUTCFullYear()}`;
-        timePicked = getDatePickerTimezone();
+        timePicked = '';
     }
 
     // Every Decade
     if (epoch === 'Every Decade') {
         const now = new Date();
         const year = now.getUTCFullYear();
-        const centuryYear = Math.floor(year / 10) * 10;
+        const centuryYear = Math.floor(year / 10) * 10 + 1;
         epoch_ = `${1} January ${centuryYear}`;
         timePicked = getDatePickerTimezone();
     }
@@ -265,7 +265,7 @@ function handleEpochClick(epoch) {
     if (epoch === 'Every Century') {
         const now = new Date();
         const year = now.getUTCFullYear();
-        const centuryYear = Math.floor(year / 100) * 100;
+        const centuryYear = Math.floor(year / 100) * 100 + 1;
         epoch_ = `${1} January ${centuryYear}`;
         timePicked = getDatePickerTimezone();
     }
@@ -274,7 +274,7 @@ function handleEpochClick(epoch) {
     if (epoch === 'Every Millennium') {
         const now = new Date();
         const year = now.getUTCFullYear();
-        const millenniumYear = Math.floor(year / 1000) * 1000;
+        const millenniumYear = Math.floor(year / 1000) * 1000 + 1;
         epoch_ = `${1} January ${millenniumYear}`;
         timePicked = getDatePickerTimezone();
     }

@@ -530,7 +530,7 @@ a {
 .nodeinfo-overview {
     overflow-y: auto;
     overflow-x: hidden;
-    height: 75%;
+    height: 70%;
     padding: 1rem;
     margin: 1rem;
     white-space: pre-wrap;

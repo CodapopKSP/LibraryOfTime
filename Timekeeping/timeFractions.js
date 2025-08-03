@@ -55,7 +55,9 @@ function calculateMonth(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
     const month = currentDateTime.getUTCMonth();
-    const daysInMonth = createDateWithFixedYear(year, month + 1, 0); // Get last day of the month
+    const nextMonth = createDateWithFixedYear(year, month + 1, 0);
+    const thisMonth = createDateWithFixedYear(year, month, 0);
+    const daysInMonth = (nextMonth - thisMonth)/1000/60/60/24;
     return (currentDateTime.getUTCDate() - 1 + 
             currentDateTime.getUTCHours() / 24 + 
             currentDateTime.getUTCMinutes() / 1440 + 
@@ -66,36 +68,57 @@ function calculateMonth(currentDateTime_, timezoneOffset) {
 function calculateYear(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
-    const startOfYear = new Date(year, 0, 1);
-    const daysInYear = (new Date(year + 1, 0, 1) - startOfYear) / 86400000; // Total days in year
+    const startOfYear = createDateWithFixedYear(year, 0, 1);
+    const daysInYear = (createDateWithFixedYear(year + 1, 0, 1) - startOfYear) / 86400000; // Total days in year
     return (currentDateTime - startOfYear) / (daysInYear * 86400000);
 }
 
 function calculateDecade(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset * 60 * 1000));
+    
+    // Calculate ordinal decade start (ending in 1)
     const year = currentDateTime.getUTCFullYear();
-    const decadeStartYear = Math.floor(year / 10) * 10;
-    const startOfDecade = new Date(decadeStartYear, 0, 1);
-    const nextDecadeStart = new Date(decadeStartYear + 10, 0, 1);
+    let decadeStartYear = Math.floor(year / 10) * 10 + 1;
 
+    // If the calculated start is in the future, move to the previous decade
+    if (currentDateTime < createDateWithFixedYear(decadeStartYear, 0, 1)) {
+        decadeStartYear -= 10;
+    }
+
+    const startOfDecade = createDateWithFixedYear(decadeStartYear, 0, 1);
+    const nextDecadeStart = createDateWithFixedYear(decadeStartYear + 10, 0, 1);
     return (currentDateTime - startOfDecade) / (nextDecadeStart - startOfDecade);
 }
 
+
 function calculateCentury(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+
+    // Calculate ordinal decade start (ending in 1)
     const year = currentDateTime.getUTCFullYear();
-    const centuryStartYear = Math.floor(year / 100) * 100;
-    const startOfCentury = new Date(centuryStartYear, 0, 1);
-    const nextCenturyStart = new Date(centuryStartYear + 100, 0, 1);
+    let centuryStartYear = Math.floor(year / 100) * 100 + 1;
+
+    // If the calculated start is in the future, move to the previous century
+    if (currentDateTime < createDateWithFixedYear(centuryStartYear, 0, 1)) {
+        centuryStartYear -= 100;
+    }
+    const startOfCentury = createDateWithFixedYear(centuryStartYear, 0, 1);
+    const nextCenturyStart = createDateWithFixedYear(centuryStartYear + 100, 0, 1);
     return (currentDateTime - startOfCentury) / (nextCenturyStart - startOfCentury);
 }
 
 function calculateMillennium(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    // Calculate ordinal decade start (ending in 1)
     const year = currentDateTime.getUTCFullYear();
-    const millenniumStartYear = Math.floor(year / 1000) * 1000;
-    const startOfMillennium = new Date(millenniumStartYear, 0, 1);
-    const nextMillenniumStart = new Date(millenniumStartYear + 1000, 0, 1);
+    let millenniumStartYear = Math.floor(year / 1000) * 1000 + 1;
+
+    // If the calculated start is in the future, move to the previous millennium
+    if (currentDateTime < createDateWithFixedYear(millenniumStartYear, 0, 1)) {
+        millenniumStartYear -= 1000;
+    }
+    const startOfMillennium = createDateWithFixedYear(millenniumStartYear, 0, 1);
+    const nextMillenniumStart = createDateWithFixedYear(millenniumStartYear + 1000, 0, 1);
     return (currentDateTime - startOfMillennium) / (nextMillenniumStart - startOfMillennium);
 }
 
