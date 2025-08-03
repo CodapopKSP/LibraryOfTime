@@ -26,7 +26,9 @@ function getDateTimeFromURL(urlDateString) {
     if (!urlDateString) return null; // Return null if no parameter is provided
     const [date, time] = urlDateString.split('_');
     const formattedTime = time.replace(/-/g, ':');
-    return `${date}, ${formattedTime}`; // Return as a string
+    const newDate = `${date}, ${formattedTime}`;
+    setDatePickerTime(newDate);
+    return newDate;
 }
 
 function getTimezoneFromURL(urlTimezone) {

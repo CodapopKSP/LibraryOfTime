@@ -220,6 +220,7 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
     // If newDateString isn't provided, use the input box value
     if (newDateString === '') {
         newDateString = document.getElementById('date-input').value;
+        setDatePickerTime(newDateString);
     }
     setCalendarType(document.getElementById('calendar-type').value);
     let timezoneChoice = getDatePickerTimezone();
@@ -234,6 +235,7 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
         currentUrl.searchParams.set("timezone", formatTimezoneForURL(timezoneChoice));
         currentUrl.searchParams.set("type", getCalendarType());
         window.history.replaceState(null, '', currentUrl);
+        setDatePickerTime(newDateString);
         updateAllNodes(newDateString, timezoneChoice);
     
     // Date was cleared, restart without argument
