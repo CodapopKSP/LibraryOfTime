@@ -19,20 +19,33 @@ function setGregJulianDifference(newDifference) {
 }
 
 // Keeps track of date picker timezone selection
-let _datePickerTimezone = 'UTC+00:00';
+let _datePickerTimezone = '';
 function getDatePickerTimezone() {
+    // If null, return current datetime
+    if (_datePickerTimezone == "") {
+        return `UTC+00:00`;
+    }
     return _datePickerTimezone;
 }
 function setDatePickerTimezone(newTimezone) {
+    document.getElementById('timezone').value = newTimezone;
     _datePickerTimezone = newTimezone;
 }
 
 // Keeps track of date picker time selection
-let _datePickerTime = '2000-1-1, 00:00:00';
+let _datePickerTime = '';
 function getDatePickerTime() {
+    // If null, return current datetime
+    if (_datePickerTime == "") {
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}, ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    }
     return _datePickerTime;
 }
+
 function setDatePickerTime(newTime) {
+    document.getElementById('date-input').value = newTime;
     _datePickerTime = newTime;
 }
 

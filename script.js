@@ -32,7 +32,7 @@ function getDateTimeFromURL(urlDateString) {
 }
 
 function getTimezoneFromURL(urlTimezone) {
-    if (!urlTimezone) return "UTC+00:00"; // Default to UTC
+    if (!urlTimezone) return ""; // Default to UTC
     // Convert '~' to '+', and '_' to ':'
     const formattedTimezone = urlTimezone.replace('_', ':').replace('~', '+');
     // Check if formatted timezone exists in the valid timezones array

@@ -383,7 +383,7 @@ function handleEpochClick(epoch) {
     if (epoch === 'Next Solar Eclipse') {
         timePicked = getDatePickerTimezone();
         let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
-        const now = new Date();
+        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
         let targetRaw = getNextSolarLunarEclipse(now, 0);
 
         // Extract the first line (the date)
@@ -425,6 +425,7 @@ function handleEpochClick(epoch) {
 
     // Most calendars
     const datePicked = formatDateTime(epoch_);
+    setDatePickerTimezone(timePicked);
     changeDateTime(datePicked, timePicked);
 }
 

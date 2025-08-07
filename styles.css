@@ -300,13 +300,14 @@ a {
     border-color: #000000;
     font-size: 1.2vh;
     margin-left: 1vh;
+    margin-right: 0.4vh;
 }
 
-#change-date-button {
+.date-picker-button {
     height: 2.5vh;
-    width: 5vw;
+    width: 2vw;
     font-size: 1.2vh;
-    margin: 1vh;
+    margin: 0.2vh;
     color: #afafaf;
     background-color: #2b2b2b;
     border-color: #443c3c;

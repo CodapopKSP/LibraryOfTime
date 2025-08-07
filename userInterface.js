@@ -9,6 +9,17 @@ if (typeof document !== 'undefined') {
     document.getElementById('change-date-button')?.addEventListener('click', () => changeDateTime());
 }
 
+if (typeof document !== 'undefined') {
+    document.getElementById('reset-date-button')?.addEventListener('click', () => {
+        document.getElementById('date-input').value = '';
+        document.getElementById('timezone').value = "UTC+08:00";
+        setDatePickerTimezone(getLocalTimezoneOffset());
+        setDatePickerTime("");
+        changeDateTime();
+    });
+}
+
+
 // Manages the calendar that the user can choose to frame the calculator
 let _calendarType = 'gregorian-proleptic';
 function getCalendarType() {
@@ -28,7 +39,12 @@ function setCurrentUpdateInterval(newInterval) {
 }
 
 // Return a formatted dateTime based on the user's date from the input field
-function parseInputDate(dateInput, timezoneOffset) {
+function parseInputDate(dateInput_, timezoneOffset) {
+    let dateInput = dateInput_;
+
+    if (dateInput==="") {
+        dateInput = getDatePickerTime(); // If null, return current datetime
+    }
     let [inputDate, inputTime] = dateInput.split(', ');
     let BCE = false;
 
@@ -220,7 +236,6 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
     // If newDateString isn't provided, use the input box value
     if (newDateString === '') {
         newDateString = document.getElementById('date-input').value;
-        setDatePickerTime(newDateString);
     }
     setCalendarType(document.getElementById('calendar-type').value);
     let timezoneChoice = getDatePickerTimezone();
