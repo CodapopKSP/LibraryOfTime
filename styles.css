@@ -360,11 +360,16 @@ a {
     padding: 0;
 }
 
-
-#floating-panel-toggle-button {
+.top-buttons-wrapper {
     position: fixed;
     top: 5vh;
-    right: 4vh;
+    right: 3vh;
+    display: flex;
+    gap: 0.2vh;
+    z-index: 100;
+}
+
+#floating-panel-toggle-button {
     padding: 1vh 2vh;
     background: rgb(55, 55, 55);
     color: rgb(214, 214, 214);
@@ -378,6 +383,26 @@ a {
 
 #floating-panel-toggle-button:hover {
     background-color: #4f4f4f; /* Darker green on hover */
+}
+
+#on-making-LoT-button {
+    padding: 1vh 2vh;
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 0.2vh solid #000000;
+    height: 3vh;
+}
+
+#on-making-LoT-button:hover {
+    background-color: #4f4f4f;
+}
+
+#on-making-LoT-button:active {
+    background-color: #3f3f3f;
 }
 
 
@@ -811,4 +836,104 @@ th, td {
         top: 2.5vh;
         height: 0.2vh;
     }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: rgb(55, 55, 55);
+    margin: 5vh auto;
+    padding: 3vh;
+    border: 0.2vh solid #000000;
+    border-radius: 8px;
+    width: 80vh;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 1vh;
+    right: 2vh;
+}
+
+.close:hover,
+.close:focus {
+    color: rgb(214, 214, 214);
+    text-decoration: none;
+}
+
+.modal-content h2 {
+    color: rgb(214, 214, 214);
+    margin-bottom: 2vh;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 3.5vh;
+}
+
+.modal-text {
+    color: rgb(214, 214, 214);
+    font-size: 1.6vh;
+    line-height: 1.6;
+}
+
+.modal-text p {
+    margin-bottom: 2vh;
+}
+
+.modal-images {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    margin: 2vh 0;
+}
+
+.modal-image {
+    max-width: 80%;
+    height: auto;
+    border: 1px solid #666;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal-images-container {
+    margin: 2vh 0;
+}
+
+.images-toggle-btn {
+    background: rgb(45, 45, 45);
+    color: rgb(214, 214, 214);
+    border: 1px solid #666;
+    border-radius: 4px;
+    padding: 1vh 2vh;
+    cursor: pointer;
+    font-size: 1.4vh;
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    transition: background-color 0.2s ease;
+}
+
+.images-toggle-btn:hover {
+    background: rgb(55, 55, 55);
+}
+
+.toggle-icon {
+    font-size: 1.2vh;
+    transition: transform 0.2s ease;
 }
