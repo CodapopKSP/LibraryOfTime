@@ -656,10 +656,116 @@ th, td {
 
 
 /*
+|==================|
+|   Large Modals   |
+|==================|
+*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: rgb(55, 55, 55);
+    margin: 5vh auto;
+    padding: 3vh;
+    border: 0.2vh solid #000000;
+    border-radius: 8px;
+    width: 80vh;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 1vh;
+    right: 2vh;
+}
+
+.close:hover,
+.close:focus {
+    color: rgb(214, 214, 214);
+    text-decoration: none;
+}
+
+.modal-content h2 {
+    color: rgb(214, 214, 214);
+    margin-bottom: 2vh;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 3.5vh;
+}
+
+.modal-text {
+    color: rgb(214, 214, 214);
+    font-size: 1.6vh;
+    line-height: 1.6;
+}
+
+.modal-text p {
+    margin-bottom: 2vh;
+}
+
+.modal-images {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    margin: 2vh 0;
+}
+
+.modal-image {
+    max-width: 80%;
+    height: auto;
+    border: 1px solid #666;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal-images-container {
+    margin: 2vh 0;
+}
+
+.images-toggle-btn {
+    background: rgb(45, 45, 45);
+    color: rgb(214, 214, 214);
+    border: 1px solid #666;
+    border-radius: 4px;
+    padding: 1vh 2vh;
+    cursor: pointer;
+    font-size: 1.4vh;
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    transition: background-color 0.2s ease;
+}
+
+.images-toggle-btn:hover {
+    background: rgb(55, 55, 55);
+}
+
+.toggle-icon {
+    font-size: 1.2vh;
+    transition: transform 0.2s ease;
+}
+
+
+/*
 |====================|
 |  Scaling Elements  |
 |====================|
-*/
+
 
 @media (max-aspect-ratio: 2/1.51) {
     .node-wrapper {
@@ -836,104 +942,187 @@ th, td {
         top: 2.5vh;
         height: 0.2vh;
     }
+}*/
+
+/*
+|====================|
+|  Mobile Layout     |
+|====================|
+*/
+
+/* Mobile portrait layout - split screen */
+@media (max-width: 768px) and (orientation: portrait) {
+    .page-wrapper {
+        min-height: 100vh;
+        overflow: auto;
+    }
+    
+    .title-wrapper {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 6vh;
+        font-size: 3vh;
+        z-index: 20;
+        background-color: rgb(47, 47, 47);
+    }
+    
+    .description-wrapper {
+        position: fixed;
+        top: 6vh; /* Below title */
+        left: 0;
+        width: 100vw;
+        height: 44vh; /* Top half minus title */
+        margin: 0;
+        border: none;
+        border-bottom: 2px solid #000000;
+        overflow: hidden;
+        z-index: 15;
+        background-color: rgb(55, 55, 55);
+    }
+    
+    .node-wrapper {
+        position: relative;
+        top: 50vh; /* Start below the fixed description panel */
+        left: 0;
+        width: 100vw;
+        min-height: 50vh;
+        margin: 0;
+        padding: 1vh;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1vh;
+        overflow: visible;
+        z-index: 10;
+        justify-content: start;
+        align-items: start;
+        max-width: none;
+    }
+    
+    /* Adjust input panel for mobile */
+    .input-box-wrapper {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 6vh;
+        padding: 1vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1vh;
+        z-index: 5;
+    }
+    
+    #date-input {
+        width: 50%;
+        height: 3vh;
+        font-size: 2vh;
+        margin: 0;
+    }
+    
+    #calendar-type,
+    #timezone {
+        width: 15%;
+        height: 3vh;
+        font-size: 1.8vh;
+        margin: 0;
+    }
+    
+    .date-picker-button {
+        height: 3vh;
+        width: 6vw;
+        font-size: 1.8vh;
+        margin: 0;
+    }
+    
+    /* Adjust description buttons for mobile */
+    .description-button-wrapper {
+        position: absolute;
+        top: 6vh;
+        width: 100%;
+        height: 5vh;
+        padding: 0 1vh;
+        z-index: 5;
+    }
+    
+    .header-button {
+        height: 4vh;
+        font-size: 1.8vh;
+        padding: 0 1vh;
+    }
+    
+    /* Adjust node info for mobile */
+    .nodeinfo {
+        position: absolute;
+        width: 100%;
+        height: 33vh; /* 75% of remaining space (44vh - 11vh = 33vh) */
+        top: 11vh; /* Below input (6vh) and buttons (5vh) */
+        left: 0;
+        font-size: 2vh;
+        overflow-y: auto;
+        padding: 1vh;
+    }
+    
+    .nodeinfo.homepage {
+        height: 35vh;
+    }
+    
+    /* Adjust top buttons for mobile */
+    .top-buttons-wrapper {
+        position: fixed;
+        top: 6vh;
+        right: 1vh;
+        z-index: 25;
+        gap: 0.5vh;
+    }
+    
+    #floating-panel-toggle-button,
+    #on-making-LoT-button {
+        padding: 0.8vh 1.5vh;
+        font-size: 1.4vh;
+        height: 2.5vh;
+    }
+    
+    /* Adjust floating panel for mobile */
+    #floating-panel {
+        position: fixed;
+        top: 10vh;
+        left: 2vh;
+        width: 90vw;
+        height: 30vh;
+        z-index: 30;
+    }
+    
+    /* Adjust modal for mobile */
+    .modal-content {
+        width: 95vw;
+        max-height: 90vh;
+        margin: 2vh auto;
+        padding: 2vh;
+    }
+    
+    .modal-content h2 {
+        font-size: 2.5vh;
+    }
+    
+    .modal-text {
+        font-size: 2vh;
+    }
+    
+    .images-toggle-btn {
+        font-size: 1.8vh;
+        padding: 1.5vh 2vh;
+    }
+    
+    .modal-image {
+        max-width: 95%;
+    }
+    
+    /* Hide dropdown menu on mobile or adjust as needed */
+    .node-menu {
+        width: 80vw;
+        font-size: 1.8vh;
+    }
 }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: rgb(55, 55, 55);
-    margin: 5vh auto;
-    padding: 3vh;
-    border: 0.2vh solid #000000;
-    border-radius: 8px;
-    width: 80vh;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute;
-    top: 1vh;
-    right: 2vh;
-}
-
-.close:hover,
-.close:focus {
-    color: rgb(214, 214, 214);
-    text-decoration: none;
-}
-
-.modal-content h2 {
-    color: rgb(214, 214, 214);
-    margin-bottom: 2vh;
-    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-    font-size: 3.5vh;
-}
-
-.modal-text {
-    color: rgb(214, 214, 214);
-    font-size: 1.6vh;
-    line-height: 1.6;
-}
-
-.modal-text p {
-    margin-bottom: 2vh;
-}
-
-.modal-images {
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-    margin: 2vh 0;
-}
-
-.modal-image {
-    max-width: 80%;
-    height: auto;
-    border: 1px solid #666;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.modal-images-container {
-    margin: 2vh 0;
-}
-
-.images-toggle-btn {
-    background: rgb(45, 45, 45);
-    color: rgb(214, 214, 214);
-    border: 1px solid #666;
-    border-radius: 4px;
-    padding: 1vh 2vh;
-    cursor: pointer;
-    font-size: 1.4vh;
-    display: flex;
-    align-items: center;
-    gap: 1vh;
-    transition: background-color 0.2s ease;
-}
-
-.images-toggle-btn:hover {
-    background: rgb(55, 55, 55);
-}
-
-.toggle-icon {
-    font-size: 1.2vh;
-    transition: transform 0.2s ease;
-}
