@@ -362,11 +362,11 @@ a {
 
 .top-buttons-wrapper {
     position: fixed;
-    top: 5vh;
-    right: 3vh;
+    top: 0;
+    right: 0;
     display: flex;
     gap: 0.2vh;
-    z-index: 100;
+    z-index: 1000;
 }
 
 #floating-panel-toggle-button {
@@ -386,15 +386,24 @@ a {
 }
 
 #on-making-LoT-button {
-    padding: 1vh 2vh;
+    padding: 0.5vh 1vh;
     background: rgb(55, 55, 55);
     color: rgb(214, 214, 214);
     border: none;
-    border-radius: 5px;
+    border-radius: 0;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1.2vh;
     border: 0.2vh solid #000000;
-    height: 3vh;
+    height: 5vh;
+    width: 8vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+    white-space: pre-line;
+    z-index: 1000;
 }
 
 #on-making-LoT-button:hover {
@@ -1004,7 +1013,7 @@ th, td {
         position: absolute;
         top: 0;
         width: 100%;
-        height: 6vh;
+        height: 4vh;
         padding: 1vh;
         display: flex;
         flex-direction: row;
@@ -1071,17 +1080,33 @@ th, td {
     /* Adjust top buttons for mobile */
     .top-buttons-wrapper {
         position: fixed;
-        top: 6vh;
-        right: 1vh;
-        z-index: 25;
+        top: 0;
+        right: 0;
+        z-index: 1000;
         gap: 0.5vh;
     }
     
-    #floating-panel-toggle-button,
     #on-making-LoT-button {
-        padding: 0.8vh 1.5vh;
-        font-size: 1.4vh;
-        height: 2.5vh;
+        padding: 0.5vh 1vh;
+        background: rgb(55, 55, 55);
+        color: rgb(214, 214, 214);
+        border: none;
+        border-radius: 0;
+        cursor: pointer;
+        font-size: 1.2vh;
+        border: 0.2vh solid #000000;
+        height: 6vh;
+        width: 8vh;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+        text-align: center;
+        white-space: pre-line;
+        z-index: 1001;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     
     /* Adjust floating panel for mobile */
@@ -1121,8 +1146,12 @@ th, td {
     
     /* Hide dropdown menu on mobile or adjust as needed */
     .node-menu {
-        width: 80vw;
-        font-size: 1.8vh;
+        display: none;
+    }
+    
+    /* Hide show/hide panel button on mobile */
+    #floating-panel-toggle-button {
+        display: none !important;
     }
 }
 

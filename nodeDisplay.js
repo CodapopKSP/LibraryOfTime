@@ -86,6 +86,12 @@ function createNode_(item) {
 
     // Add right-click event for custom dropdown menu (prevent selection)
     node.addEventListener('contextmenu', (event) => {
+        // Check if we're on mobile (portrait orientation and small screen)
+        if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
+            event.preventDefault(); // Prevent default context menu on mobile
+            return; // Don't show custom menu on mobile
+        }
+        
         event.preventDefault(); // Prevent default context menu
         event.stopPropagation(); // Stop event propagation
         showNodeMenu(event, item); // Show custom context menu
