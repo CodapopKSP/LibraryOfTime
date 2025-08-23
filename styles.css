@@ -311,6 +311,11 @@ a {
     color: #afafaf;
     background-color: #2b2b2b;
     border-color: #443c3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.5vh;
 }
 
 #calendar-type {
@@ -390,7 +395,7 @@ a {
     background: rgb(55, 55, 55);
     color: rgb(214, 214, 214);
     border: none;
-    border-radius: 0;
+    border-radius: 0.5vh;
     cursor: pointer;
     font-size: 1.2vh;
     border: 0.2vh solid #000000;
@@ -590,23 +595,24 @@ a {
     text-align: justify;
 }
 
- .home-button {
-     position: absolute;
-     height: 4vh;
-     width: 28vw;
-     bottom: 2vh;
-     font-size: 2vh;
-     color: #afafaf;
-     background-color: #2b2b2b;
-     border-color: #443c3c;
-     border-width: 0.2vh;
-     visibility: hidden;
- }
- 
- /* Hide expand button on desktop by default */
- .expand-description-button {
-     display: none;
- }
+.home-button {
+    position: absolute;
+    height: 4vh;
+    width: 28vw;
+    bottom: 2vh;
+    font-size: 2vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border-color: #443c3c;
+    border-width: 0.2vh;
+    visibility: hidden;
+    border-radius: 0.5vh;
+}
+
+/* Hide expand button on desktop by default */
+.expand-description-button {
+    display: none;
+}
 
 #home-button.hoveringHome {
     background-color: rgb(45, 45, 45);
@@ -977,7 +983,7 @@ th, td {
         left: 0;
         width: 100vw;
         height: 6vh;
-        font-size: 3vh;
+        font-size: 3.2vh;
         z-index: 20;
         background-color: rgb(47, 47, 47);
     }
@@ -1050,6 +1056,9 @@ th, td {
         width: 6vw;
         font-size: 1.8vh;
         margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     /* Adjust description buttons for mobile */
@@ -1072,11 +1081,14 @@ th, td {
     .nodeinfo {
         position: absolute;
         width: 100%;
-        height: 67vh; /* 75% of remaining space (44vh - 11vh = 33vh) */
+        height: 69vh; /* 75% of remaining space (44vh - 11vh = 33vh) */
         top: 11vh; /* Below input (6vh) and buttons (5vh) */
         left: 0;
         font-size: 2vh;
-        padding: 1vh;
+    }
+
+    .nodeinfo.homepage {
+        height: 69vh;
     }
 
     .home-info,
@@ -1086,9 +1098,24 @@ th, td {
         height: 94%;
     }
 
+    .home-info::after,
+    .home-mission::after,
+    .home-sources::after,
+    .home-accuracy::after {
+        content: "";
+        display: block;
+        height: 4vh;
+    }
+
     .nodeinfo-overview {
         height: 70%;
         z-index: 20;
+    }
+
+    .nodeinfo-overview::after {
+        content: "";
+        display: block;
+        height: 4vh;
     }
 
     .nodeinfo-info,
@@ -1096,11 +1123,15 @@ th, td {
     .nodeinfo-source {
         height: 85%;
     }
-    
-    .nodeinfo.homepage {
-        height: 67vh;
-    }
 
+    .nodeinfo-info::after,
+    .nodeinfo-accuracy::after,
+    .nodeinfo-source::after {
+        content: "";
+        display: block;
+        height: 4vh;
+    }
+    
     .home-button {
         position: fixed !important;
         top: 1vh !important;
@@ -1108,8 +1139,6 @@ th, td {
         padding: 0.5vh 1vh;
         background: rgb(55, 55, 55);
         color: rgb(214, 214, 214);
-        border: none;
-        border-radius: 0;
         cursor: pointer;
         font-size: 1.2vh;
         border: 0.2vh solid #000000;
@@ -1136,8 +1165,17 @@ th, td {
         gap: 0.5vh;
     }
 
+    .input-box-wrapper {
+        gap: 0.5vh;
+    }
+
+    .header-button {
+        height: 3.4vh;
+    }
+
     .container {
         width: 22vh;
+        font-size: 1.5vh;
     }
 
     .container-name {
@@ -1157,7 +1195,6 @@ th, td {
         background: rgb(55, 55, 55);
         color: rgb(214, 214, 214);
         border: none;
-        border-radius: 0;
         cursor: pointer;
         font-size: 1.2vh;
         border: 0.2vh solid #000000;
@@ -1216,9 +1253,9 @@ th, td {
     }
     
          /* Hide show/hide panel button on mobile */
-     #floating-panel-toggle-button {
-         display: none !important;
-     }
+    #floating-panel-toggle-button {
+        display: none !important;
+    }
      
     #expand-description-button {
         position: fixed;
@@ -1226,22 +1263,23 @@ th, td {
         left: 35vw;
         width: 30vw;
         height: 4vh;
-        background: rgb(55, 55, 55);
-        color: rgb(214, 214, 214);
         border: 0.2vh solid #000000;
-        border-radius: 0;
+        border-radius: 0.5vh;
         cursor: pointer;
-        font-size: 1.5vh;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 25;
         transition: top 0.3s ease;
-     }
-     
-           #expand-description-button:hover {
-          background: rgb(65, 65, 65);
-      }
+        font-size: 1.8vh;
+        color: #afafaf;
+        background-color: #2b2b2b;
+        font-weight: bold;
+    }
+    
+    #expand-description-button:hover {
+        background: rgb(65, 65, 65);
+    }
   }
  
  /*
