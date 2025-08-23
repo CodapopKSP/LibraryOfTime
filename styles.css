@@ -590,18 +590,23 @@ a {
     text-align: justify;
 }
 
-.home-button {
-    position: absolute;
-    height: 4vh;
-    width: 28vw;
-    bottom: 2vh;
-    font-size: 2vh;
-    color: #afafaf;
-    background-color: #2b2b2b;
-    border-color: #443c3c;
-    border-width: 0.2vh;
-    visibility: hidden;
-}
+ .home-button {
+     position: absolute;
+     height: 4vh;
+     width: 28vw;
+     bottom: 2vh;
+     font-size: 2vh;
+     color: #afafaf;
+     background-color: #2b2b2b;
+     border-color: #443c3c;
+     border-width: 0.2vh;
+     visibility: hidden;
+ }
+ 
+ /* Hide expand button on desktop by default */
+ .expand-description-button {
+     display: none;
+ }
 
 #home-button.hoveringHome {
     background-color: rgb(45, 45, 45);
@@ -977,36 +982,38 @@ th, td {
         background-color: rgb(47, 47, 47);
     }
     
-    .description-wrapper {
-        position: fixed;
-        top: 6vh; /* Below title */
-        left: 0;
-        width: 100vw;
-        height: 44vh; /* Top half minus title */
-        margin: 0;
-        border: none;
-        border-bottom: 2px solid #000000;
-        overflow: hidden;
-        z-index: 21 !important;
-        background-color: rgb(55, 55, 55);
-    }
+         .description-wrapper {
+         position: fixed;
+         top: 6vh; /* Below title */
+         left: 0;
+         width: 100vw;
+         height: 30vh; /* Top half minus title */
+         margin: 0;
+         border: none;
+         border-bottom: 2px solid #000000;
+         overflow: hidden;
+         z-index: 21 !important;
+         background-color: rgb(55, 55, 55);
+         transition: height 0.3s ease;
+     }
     
-    .node-wrapper {
-        position: relative;
-        top: 50vh; /* Start below the fixed description panel */
-        left: 0;
-        width: 100vw;
-        min-height: 50vh;
-        margin: 0;
-        padding: 1vh;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 1vh;
-        overflow: visible;
-        z-index: 10;
-        justify-content: start;
-        align-items: start;
-        max-width: none;
-    }
+         .node-wrapper {
+         position: relative;
+         top: 33vh; /* Start below the fixed description panel */
+         left: 0;
+         width: 100vw;
+         min-height: 50vh;
+         margin: 0;
+         padding: 1vh;
+         grid-template-columns: repeat(2, 1fr);
+         grid-gap: 1vh;
+         overflow: visible;
+         z-index: 10;
+         justify-content: start;
+         align-items: start;
+         max-width: none;
+         transition: top 0.3s ease;
+     }
     
     /* Adjust input panel for mobile */
     .input-box-wrapper {
@@ -1065,7 +1072,7 @@ th, td {
     .nodeinfo {
         position: absolute;
         width: 100%;
-        height: 33vh; /* 75% of remaining space (44vh - 11vh = 33vh) */
+        height: 67vh; /* 75% of remaining space (44vh - 11vh = 33vh) */
         top: 11vh; /* Below input (6vh) and buttons (5vh) */
         left: 0;
         font-size: 2vh;
@@ -1076,22 +1083,22 @@ th, td {
     .home-mission,
     .home-sources,
     .home-accuracy {
-        height: 70%;
+        height: 94%;
     }
 
     .nodeinfo-overview {
-        height: 50%;
+        height: 70%;
         z-index: 20;
     }
 
     .nodeinfo-info,
     .nodeinfo-accuracy,
     .nodeinfo-source {
-        height: 70%;
+        height: 85%;
     }
     
     .nodeinfo.homepage {
-        height: 35vh;
+        height: 67vh;
     }
 
     .home-button {
@@ -1208,9 +1215,32 @@ th, td {
         display: none;
     }
     
-    /* Hide show/hide panel button on mobile */
-    #floating-panel-toggle-button {
-        display: none !important;
-    }
-}
+         /* Hide show/hide panel button on mobile */
+     #floating-panel-toggle-button {
+         display: none !important;
+     }
+     
+          #expand-description-button {
+         position: fixed;
+         top: 35vh;
+         left: 35vw;
+         width: 30vw;
+         height: 4vh;
+         background: rgb(55, 55, 55);
+         color: rgb(214, 214, 214);
+         border: 0.2vh solid #000000;
+         border-radius: 0;
+         cursor: pointer;
+         font-size: 1.5vh;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         z-index: 2500;
+         transition: top 0.3s ease;
+     }
+     
+     #expand-description-button:hover {
+         background: rgb(65, 65, 65);
+     }
+ }
 

@@ -88,6 +88,13 @@ function setupScrollFade(scrollableElement, containerElement) {
 
     // Run once layout is ready
     requestAnimationFrame(updateFadeOpacity);
+    
+    // Also run after a short delay to ensure content is fully rendered
+    setTimeout(updateFadeOpacity, 100);
+    
+    // Run again after images and other content load
+    window.addEventListener('load', updateFadeOpacity);
+    
     scrollableElement.addEventListener('scroll', updateFadeOpacity);
 }
 
@@ -555,5 +562,55 @@ function clearDescriptionPanel() {
     const nodeinfos = document.querySelectorAll('.nodeinfo');
     nodeinfos.forEach(nodeinfo => {
         nodeinfo.parentNode.removeChild(nodeinfo);
+    });
+}
+
+// Expand button functionality for mobile
+let isDescriptionExpanded = false;
+const expandButton = document.getElementById('expand-description-button');
+const descriptionWrapper = document.querySelector('.description-wrapper');
+const nodeWrapper = document.querySelector('.node-wrapper');
+
+if (expandButton) {
+    expandButton.addEventListener('click', function() {
+        isDescriptionExpanded = !isDescriptionExpanded;
+        
+        if (isDescriptionExpanded) {
+            descriptionWrapper.style.height = '80vh';
+            expandButton.textContent = 'Collapse';
+            expandButton.style.top = '85vh';
+            nodeWrapper.style.top = '83vh';
+        } else {
+            descriptionWrapper.style.height = '30vh';
+            expandButton.textContent = 'Expand';
+            expandButton.style.top = '35vh';
+            nodeWrapper.style.top = '33vh';
+        }
+        
+        // Update fade effects after height change
+        setTimeout(() => {
+            const nodeinfos = document.querySelectorAll('.nodeinfo');
+            nodeinfos.forEach(nodeinfo => {
+                const scrollableElements = nodeinfo.querySelectorAll('.home-info, .home-mission, .home-sources, .home-accuracy, .nodeinfo-overview, .nodeinfo-info, .nodeinfo-accuracy, .nodeinfo-source');
+                scrollableElements.forEach(element => {
+                    // Re-run the fade calculation
+                    const scrollTop = element.scrollTop;
+                    const scrollHeight = element.scrollHeight;
+                    const clientHeight = element.clientHeight;
+                    const scrollable = scrollHeight - clientHeight;
+
+                    if (scrollable <= 0) {
+                        // No scroll, hide fade completely
+                        nodeinfo.style.setProperty('--fade-opacity', '0');
+                        nodeinfo.classList.remove('fade-visible');
+                    } else {
+                        const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+                        const ratio = Math.min(1, distanceFromBottom / 40);
+                        nodeinfo.style.setProperty('--fade-opacity', ratio.toFixed(2));
+                        nodeinfo.classList.add('fade-visible');
+                    }
+                });
+            });
+        }, 350); // Increased to account for 0.3s transition
     });
 }
