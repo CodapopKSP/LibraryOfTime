@@ -20,7 +20,17 @@ a {
     background-color: rgb(47, 47, 47);
     height: 100vh;
     width: 100vw;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.page-wrapper::after {
+    content: "";
+    display: block;
+    height: 0h;
+    width: 99%;
+    clear: both;
+    overflow-x: hidden;
 }
 
 .title-wrapper {
@@ -79,6 +89,7 @@ a {
     margin: 2vh 0 0 2vh;
     grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
     grid-gap: 1vw;
+    overflow-x: hidden;
 }
 
 
@@ -609,13 +620,12 @@ a {
     border-radius: 0.5vh;
 }
 
-/* Hide expand button on desktop by default */
-.expand-description-button {
-    display: none;
-}
-
 #home-button.hoveringHome {
     background-color: rgb(45, 45, 45);
+}
+
+#expand-description-button {
+    visibility: hidden;
 }
 
 
@@ -974,9 +984,10 @@ th, td {
 @media (max-width: 768px) and (orientation: portrait) {
     .page-wrapper {
         min-height: 100vh;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
-    
+
     .title-wrapper {
         position: sticky;
         top: 0;
@@ -1011,9 +1022,11 @@ th, td {
         min-height: 50vh;
         margin: 0;
         padding: 1vh;
+        padding-bottom: 10vh; /* Add extra space at the bottom */
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 1vh;
-        overflow: visible;
+        overflow-y: visible;
+        overflow-x: hidden;
         z-index: 10;
         justify-content: start;
         align-items: start;
@@ -1258,6 +1271,7 @@ th, td {
     }
      
     #expand-description-button {
+        visibility: visible;
         position: fixed;
         top: 35vh;
         left: 35vw;
@@ -1275,10 +1289,6 @@ th, td {
         color: #afafaf;
         background-color: #2b2b2b;
         font-weight: bold;
-    }
-    
-    #expand-description-button:hover {
-        background: rgb(65, 65, 65);
     }
   }
  

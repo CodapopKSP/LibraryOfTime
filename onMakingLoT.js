@@ -83,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'none';
     }
 
+    // When the user clicks the close button at the bottom, close the modal
+    const closeButton = document.getElementById('modal-close-button');
+    closeButton.onclick = function() {
+        modal.style.display = 'none';
+    }
+
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
