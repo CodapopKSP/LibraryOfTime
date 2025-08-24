@@ -6,7 +6,9 @@
     This is a collection of functions for drawing and handling the Description Panel.
 */
 
-document.getElementById('home-button').addEventListener('click', homeButton);
+// Add event listeners for both home buttons
+document.getElementById('desktop-home-button').addEventListener('click', homeButton);
+document.getElementById('mobile-home-button').addEventListener('click', homeButton);
 
 // Attach event listeners to all header buttons
 document.getElementById('header-button-1').addEventListener('click', () => changeActiveHeaderTab('header-button-1', 0));
@@ -47,14 +49,23 @@ function addHeaderTabHoverEffect() {
 }
 
 function addHomeButtonHoverEffect() {
-    const homeButton = document.getElementById('home-button');
+    const desktopHomeButton = document.getElementById('desktop-home-button');
+    const mobileHomeButton = document.getElementById('mobile-home-button');
 
-    // Add hover event listeners
-    homeButton.addEventListener('mouseenter', () => {
-        homeButton.classList.add('hoveringHome');
+    // Add hover event listeners for desktop home button
+    desktopHomeButton.addEventListener('mouseenter', () => {
+        desktopHomeButton.classList.add('hoveringHome');
     });
-    homeButton.addEventListener('mouseleave', () => {
-        homeButton.classList.remove('hoveringHome');
+    desktopHomeButton.addEventListener('mouseleave', () => {
+        desktopHomeButton.classList.remove('hoveringHome');
+    });
+    
+    // Add hover event listeners for mobile home button
+    mobileHomeButton.addEventListener('mouseenter', () => {
+        mobileHomeButton.classList.add('hoveringHome');
+    });
+    mobileHomeButton.addEventListener('mouseleave', () => {
+        mobileHomeButton.classList.remove('hoveringHome');
     });
 }
 
@@ -539,8 +550,10 @@ function homeButton() {
     // Clear the Description Panel
     clearDescriptionPanel();
     clearSelectedNode();
-    const homeButton = document.getElementById('home-button');
-    homeButton.style.visibility = 'hidden';
+    const desktopHomeButton = document.getElementById('desktop-home-button');
+    const mobileHomeButton = document.getElementById('mobile-home-button');
+    desktopHomeButton.style.visibility = 'hidden';
+    mobileHomeButton.style.visibility = 'hidden';
 
     // Build the Home Description Panel
     Object.values(homePageDescriptions).forEach(description => {
@@ -571,17 +584,24 @@ const expandButton = document.getElementById('expand-description-button');
 const descriptionWrapper = document.querySelector('.description-wrapper');
 const nodeWrapper = document.querySelector('.node-wrapper');
 
+// Initialize the collapsed state for iOS Safari compatibility
+if (descriptionWrapper) {
+    descriptionWrapper.classList.add('collapsed');
+}
+
 if (expandButton) {
     expandButton.addEventListener('click', function() {
         isDescriptionExpanded = !isDescriptionExpanded;
         
         if (isDescriptionExpanded) {
             descriptionWrapper.style.height = '80vh';
+            descriptionWrapper.classList.remove('collapsed');
             expandButton.textContent = 'Collapse';
             expandButton.style.top = '85vh';
             nodeWrapper.style.top = '83vh';
         } else {
             descriptionWrapper.style.height = '30vh';
+            descriptionWrapper.classList.add('collapsed');
             expandButton.textContent = 'Expand';
             expandButton.style.top = '35vh';
             nodeWrapper.style.top = '33vh';

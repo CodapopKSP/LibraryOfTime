@@ -602,21 +602,28 @@ a {
     text-align: justify;
 }
 
-.home-button {
-    position: absolute;
-    height: 4vh;
-    width: 28vw;
-    bottom: 2vh;
-    font-size: 2vh;
-    color: #afafaf;
-    background-color: #2b2b2b;
-    border-color: #443c3c;
-    border-width: 0.2vh;
-    visibility: hidden;
-    border-radius: 0.5vh;
-}
+ /* Desktop home button (inside description panel) */
+ .desktop-home-button {
+     position: absolute;
+     height: 4vh;
+     width: 28vw;
+     bottom: 2vh;
+     font-size: 2vh;
+     color: #afafaf;
+     background-color: #2b2b2b;
+     border-color: #443c3c;
+     border-width: 0.2vh;
+     visibility: hidden;
+     border-radius: 0.5vh;
+ }
+ 
+ /* Mobile home button (outside description panel) */
+ .mobile-home-button {
+     display: none;
+ }
 
-#home-button.hoveringHome {
+#desktop-home-button.hoveringHome,
+#mobile-home-button.hoveringHome {
     background-color: rgb(45, 45, 45);
 }
 
@@ -1158,29 +1165,36 @@ th, td {
         height: 4vh;
     }
     
-    .home-button {
-        position: fixed !important;
-        top: 1vh !important;
-        left: 0vh !important;
-        padding: 0.5vh 1vh;
-        background: rgb(55, 55, 55);
-        color: rgb(214, 214, 214);
-        cursor: pointer;
-        font-size: 1.2vh;
-        border: 0.2vh solid #000000;
-        height: 4vh;
-        width: 8vh;
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        line-height: 1.2;
-        text-align: center;
-        white-space: pre-line;
-        z-index: 1001 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
+         /* Hide desktop home button on mobile */
+     .desktop-home-button {
+         display: none !important;
+     }
+     
+     /* Show and style mobile home button */
+     .mobile-home-button {
+         position: fixed !important;
+         top: 1vh !important;
+         left: 0vh !important;
+         padding: 0.5vh 1vh;
+         background: rgb(55, 55, 55);
+         color: rgb(214, 214, 214);
+         cursor: pointer;
+         font-size: 1.2vh;
+         border: 0.2vh solid #000000;
+         height: 4vh;
+         width: 8vh;
+         display: flex !important;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         line-height: 1.2;
+         text-align: center;
+         white-space: pre-line;
+         z-index: 1001 !important;
+         visibility: visible !important;
+         opacity: 1 !important;
+         transition: none !important;
+     }
     
     /* Adjust top buttons for mobile */
     .top-buttons-wrapper {
@@ -1310,6 +1324,25 @@ th, td {
         max-width: 60vw;
         left: 50%;
         transform: translateX(-50%);
+    }
+    
+    /* iOS Safari fix: Ensure content is properly clipped when description panel is collapsed */
+    /* Only apply on Apple devices using webkit-specific properties */
+    @supports (-webkit-touch-callout: none) {
+        .description-wrapper.collapsed {
+            overflow: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+        
+        .description-wrapper.collapsed .nodeinfo {
+            position: absolute;
+            top: 11vh;
+            height: 19vh; /* 30vh - 11vh = 19vh remaining space */
+            overflow: hidden;
+            clip-path: inset(0 0 0 0);
+            -webkit-clip-path: inset(0 0 0 0);
+        }
     }
 }
  

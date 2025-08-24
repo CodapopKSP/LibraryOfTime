@@ -27,7 +27,8 @@ function handleNodeClick(content, item) {
     selectedNode = content;
 
     // Show home button
-    document.getElementById('home-button').style.visibility = 'visible';
+    document.getElementById('desktop-home-button').style.visibility = 'visible';
+document.getElementById('mobile-home-button').style.visibility = 'visible';
 
     // Show the first description by default
     changeActiveHeaderTab('header-button-1', 0);
