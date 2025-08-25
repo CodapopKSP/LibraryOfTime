@@ -101,6 +101,22 @@ document.addEventListener('DOMContentLoaded', function () {
         const datePickerTimezone = document.getElementById('timezone').value;
         setDatePickerTimezone(datePickerTimezone);
     });
+
+    // Add event listeners for all buttons in grid-item1
+    const gridItem1Buttons = document.querySelectorAll('.grid-item1 button');
+    gridItem1Buttons.forEach((button, index) => {
+        button.addEventListener('click', function() {
+            if (selectedNodeData) {
+                if (button.classList.contains('add-node-button')) {
+                    nodePlace(selectedNodeData, 1);
+                } else if (button.classList.contains('remove-node-button')) {
+                    console.log('Remove button clicked');
+                } else if (button.classList.contains('edit-node-button')) {
+                    console.log('Edit button clicked');
+                }
+            }
+        });
+    });
 });
 
 // Display the initial Description Panel

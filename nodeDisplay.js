@@ -8,6 +8,7 @@
 
 // The current selected Node, blank if none
 let selectedNode = '';
+let selectedNodeData = null; // Store the JavaScript object for the selected node
 
 function handleNodeClick(content, item) {
     // Build the description format
@@ -25,10 +26,11 @@ function handleNodeClick(content, item) {
         clearSelectedNode();
     }
     selectedNode = content;
+    selectedNodeData = item; // Store the JavaScript object
 
     // Show home button
     document.getElementById('desktop-home-button').style.visibility = 'visible';
-document.getElementById('mobile-home-button').style.visibility = 'visible';
+    document.getElementById('mobile-home-button').style.visibility = 'visible';
 
     // Show the first description by default
     changeActiveHeaderTab('header-button-1', 0);
@@ -144,6 +146,7 @@ function clearSelectedNode() {
     if (selectedNode !== '') {
         selectedNode.classList.remove('active');
         selectedNode = '';
+        selectedNodeData = null;
     }
 }
 
