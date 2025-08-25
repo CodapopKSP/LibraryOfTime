@@ -498,24 +498,26 @@ a {
 }
 
 .top-buttons-wrapper {
-    position: fixed;
-    top: 0;
-    right: 0;
+    position: absolute;
+    top: 1vh;
+    right: 1vh;
     display: flex;
-    gap: 0.2vh;
+    gap: 0.5vh;
     z-index: 1000;
 }
 
 #floating-panel-toggle-button {
-    padding: 1vh 2vh;
+    padding: 0.8vh 1.5vh;
     background: rgb(55, 55, 55);
     color: rgb(214, 214, 214);
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3vh;
     cursor: pointer;
-    font-size: 16px;
-    border: 0.2vh solid #000000;
-    height: 3vh;
+    font-size: 1.2vh;
+    border: 0.1vh solid #444;
+    height: auto;
+    min-height: 3vh;
+    transition: background-color 0.2s ease;
 }
 
 #floating-panel-toggle-button:hover {
@@ -523,24 +525,24 @@ a {
 }
 
 #on-making-LoT-button {
-    padding: 0.5vh 1vh;
+    padding: 0.8vh 1.5vh;
     background: rgb(55, 55, 55);
     color: rgb(214, 214, 214);
     border: none;
-    border-radius: 0.5vh;
+    border-radius: 0.3vh;
     cursor: pointer;
     font-size: 1.2vh;
-    border: 0.2vh solid #000000;
-    height: 5vh;
-    width: 8vh;
+    border: 0.1vh solid #444;
+    height: auto;
+    min-height: 3vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     line-height: 1.2;
     text-align: center;
-    white-space: pre-line;
+    white-space: nowrap;
     z-index: 1000;
+    transition: background-color 0.2s ease;
 }
 
 #on-making-LoT-button:hover {
@@ -1291,39 +1293,42 @@ th, td {
          display: none !important;
      }
      
-     /* Show and style mobile home button */
-     .mobile-home-button {
-         position: fixed !important;
-         top: 1vh !important;
-         left: 0vh !important;
-         padding: 0.5vh 1vh;
-         background: rgb(55, 55, 55);
-         color: rgb(214, 214, 214);
-         cursor: pointer;
-         font-size: 1.2vh;
-         border: 0.2vh solid #000000;
-         height: 4vh;
-         width: 8vh;
-         display: flex !important;
-         flex-direction: column;
-         align-items: center;
-         justify-content: center;
-         line-height: 1.2;
-         text-align: center;
-         white-space: pre-line;
-         z-index: 1001 !important;
-         visibility: visible !important;
-         opacity: 1 !important;
-         transition: none !important;
-     }
+           /* Show and style mobile home button */
+      .mobile-home-button {
+          position: fixed !important;
+          top: 1vh !important;
+          left: 1vh !important;
+          padding: 0.6vh 1vh;
+          background: rgb(55, 55, 55);
+          color: rgb(214, 214, 214);
+          border: none;
+          cursor: pointer;
+          font-size: 1.2vh;
+          border: 0.1vh solid #444;
+          height: 4vh;
+          max-width: 8vh;
+          display: flex !important;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          line-height: 1.2;
+          text-align: center;
+          white-space: pre-line;
+          z-index: 1001 !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          border-radius: 0.3vh;
+          box-shadow: 0 0.1vh 0.2vh rgba(0, 0, 0, 0.3);
+          transition: background-color 0.2s ease;
+      }
     
     /* Adjust top buttons for mobile */
     .top-buttons-wrapper {
-        position: fixed;
-        top: 0;
-        right: 0;
+        position: absolute;
+        top: 1vh;
+        right: 1vh;
         z-index: 1000;
-        gap: 0.5vh;
+        gap: 0.3vh;
     }
 
     .input-box-wrapper {
@@ -1352,15 +1357,15 @@ th, td {
     }
     
     #on-making-LoT-button {
-        padding: 0.5vh 1vh;
+        padding: 0.6vh 1vh;
         background: rgb(55, 55, 55);
         color: rgb(214, 214, 214);
         border: none;
         cursor: pointer;
         font-size: 1.2vh;
-        border: 0.2vh solid #000000;
-        height: 6vh;
-        width: 8vh;
+        border: 0.1vh solid #444;
+        height: 4vh;
+        max-width: 8vh;
         display: flex !important;
         flex-direction: column;
         align-items: center;
@@ -1371,9 +1376,9 @@ th, td {
         z-index: 1001;
         visibility: visible !important;
         opacity: 1 !important;
+        border-radius: 0.3vh;
+        box-shadow: 0 0.1vh 0.2vh rgba(0, 0, 0, 0.3);
     }
-    
-
     
     #floating-box-node-container {
         gap: 0.3vh;

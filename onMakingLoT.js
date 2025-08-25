@@ -11,7 +11,7 @@ const modalContent = {
         </p>`,
 
         `<p>
-        Thus, I have dubbed these phenomena <strong>Temporal Rosetta Stones</strong>, as well as referring to the discovery and study of them to be <strong>Digital Archaeology</strong>.
+        Thus, I have dubbed these phenomena <strong>Temporal Rosetta Stones</strong>, as well as referring to the discovery and study of them as <strong>Digital Archaeology</strong>.
         </p>`,
 
         `<p>
