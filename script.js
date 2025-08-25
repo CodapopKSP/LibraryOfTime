@@ -125,14 +125,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const gridItem = panelSection.querySelector('.grid-item');
             const gridNumber = gridItem.className.match(/grid-item(\d+)/)[1];
             console.log(`Remove button clicked for grid item ${gridNumber}`);
+            
             // Clear the grid item
             gridItem.innerHTML = '';
+            
             // Remove any non-grid classes
             gridItem.classList.forEach(className => {
                 if (!className.startsWith('grid')) {
                     gridItem.classList.remove(className);
                 }
             });
+            
+            // Set grid item border to 0vh
+            gridItem.style.border = '0vh';
         });
     });
 });
