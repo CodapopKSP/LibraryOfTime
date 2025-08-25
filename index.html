@@ -67,8 +67,13 @@
             
         </div>
         <div class="top-buttons-wrapper">
-            <button id="floating-panel-toggle-button">Show/Hide Panel</button>
-            <button id="on-making-LoT-button">On Making the LoT</button>
+            <div class="left-buttons">
+                <button id="on-making-LoT-button">On Making the LoT</button>
+                <button id="glossary-button">Glossary</button>
+            </div>
+            <div class="right-buttons">
+                <button id="floating-panel-toggle-button">Show/Hide Panel</button>
+            </div>
         </div>
         <div class="description-wrapper">
             <div class="input-box-wrapper">
@@ -141,6 +146,17 @@
                 <button id="modal-close-button" class="modal-close-button">Close</button>
             </div>
         </div>
+
+        <!-- Modal for Glossary -->
+        <div id="glossary-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Glossary of Terms</h2>
+                <div id="glossary-text" class="modal-text">
+                </div>
+                <button id="glossary-close-button" class="modal-close-button">Close</button>
+            </div>
+        </div>
     </div>
     <script src="nodeData.js"></script>
     <script src="descriptionText.js"></script>
@@ -163,6 +179,7 @@
     <script src="userPanel.js"></script>
     <script src="userInterface.js"></script>
     <script src="onMakingLoT.js"></script>
+    <script src="glossary.js"></script>
     <script src="Tests/astronomicalDataTests.js"></script>
     <script src="Tests/computingTimeTests.js"></script>
     <script src="Tests/dateManagementTests.js"></script>

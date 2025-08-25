@@ -102,6 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
         }
     });
+
+
 });
 
 // Function to toggle images visibility

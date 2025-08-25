@@ -500,10 +500,21 @@ a {
 .top-buttons-wrapper {
     position: absolute;
     top: 1vh;
+    left: 1vh;
     right: 1vh;
     display: flex;
-    gap: 0.5vh;
+    justify-content: space-between;
     z-index: 1000;
+}
+
+.left-buttons {
+    display: flex;
+    gap: 0.5vh;
+}
+
+.right-buttons {
+    display: flex;
+    gap: 0.5vh;
 }
 
 #floating-panel-toggle-button {
@@ -546,6 +557,31 @@ a {
 }
 
 #on-making-LoT-button:hover {
+    background-color: #4f4f4f;
+}
+
+#glossary-button {
+    padding: 0.8vh 1.5vh;
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
+    border: none;
+    border-radius: 0.3vh;
+    cursor: pointer;
+    font-size: 1.2vh;
+    border: 0.1vh solid #444;
+    height: auto;
+    min-height: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 1000;
+    transition: background-color 0.2s ease;
+}
+
+#glossary-button:hover {
     background-color: #4f4f4f;
 }
 
