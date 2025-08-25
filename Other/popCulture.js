@@ -103,3 +103,10 @@ function getTerminaTime(currentDateTime_, timezoneOffset) {
 
     return pad(currentHour, 2) + ':' + pad(currentMinute, 2) + ':' + pad(currentSecond, 2) + '\n' + dayName + '\n' + remainingHoursMessage;
 }
+
+function getStardate(currentDateTime, timezoneOffset) {
+    const stardate0 = new Date(Date.UTC(2265, 3, 25, 0, 0, 0));
+    const stardatesPerDay = 7.21;
+    const stardate = (currentDateTime - stardate0) / (1000 * 60 * 60 * 24) * stardatesPerDay;
+    return stardate.toFixed(2);;
+}

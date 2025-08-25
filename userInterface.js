@@ -195,6 +195,7 @@ function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime, timezoneOffsetConverted));
     setTimeValue('inception-dream-time-node', getInceptionDreamTime(currentDateTime, timezoneOffsetConverted));
     setTimeValue('termina-time-node', getTerminaTime(currentDateTime, timezoneOffsetConverted));
+    setTimeValue('stardate-node', getStardate(currentDateTime, timezoneOffsetConverted));
     setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
 }
 

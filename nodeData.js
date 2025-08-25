@@ -1318,6 +1318,18 @@ const popCultureData = [
         accuracy: 'This timekeeping system should be perfectly accurate based on local time.',
         source: 'This calculation was sourced from the <a href="https://zelda.fandom.com/wiki/Time#Majora\'s_Mask">Zelda Fandom Website</a>.'
     },
+
+    {
+        name: 'Stardate (TOS)',
+        id: 'stardate',
+        type: 'Pop Culture',
+        epoch: '25 April 2265',
+        confidence: 'Low',
+        overview: `Stardate is the timekeeping system found in Star Trek. Being a fictional system without an exact algorithm, it isn't even clear what Stardates are measuring. They also vary from series to series.\n\nThis calculation is based on the Stardate 0 epoch of 2265-04-25 from the Original Series, with a peculiar 7.21 stardates per day.`,
+        info: `Stardates were originally intended to be a system similar to the revised Julian Day Number, but the writers of the show weren't required to follow an exact algorithm.`,
+        accuracy: 'Since this calendar is both fictional and without an exact algorithm, it is impossible to know how accurate this calculation is.',
+        source: 'This calculation was sourced from <a href="https://trekguide.com/Stardates.htm">this website</a>, which also has a great explanation of the different types of stardates and methodology.'
+    }
 ]
 
 const politicalCycles = [
