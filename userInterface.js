@@ -193,7 +193,7 @@ function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     updateOtherAndDecimalTimes(currentDateTime, timezoneOffsetConverted);
     updateFractionalTimes(currentDateTime, dateInput, timezoneOffsetConverted);
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime, timezoneOffsetConverted));
-    setTimeValue('dream-time-node', getInceptionDreamTime(currentDateTime, timezoneOffsetConverted));
+    setTimeValue('inception-dream-time-node', getInceptionDreamTime(currentDateTime, timezoneOffsetConverted));
     setTimeValue('termina-time-node', getTerminaTime(currentDateTime, timezoneOffsetConverted));
     setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
 }

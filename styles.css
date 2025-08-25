@@ -73,10 +73,6 @@ a {
     transition: color 0.2s ease;
 }
 
-#page-title:hover {
-    color: rgb(180, 180, 180);
-}
-
 .title-wrapper:after {
     content: '';
     position: absolute;

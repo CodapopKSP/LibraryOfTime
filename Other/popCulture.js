@@ -19,7 +19,7 @@ function getMinecraftTime(currentDateTime_, timezoneOffset) {
     const minecraftTime = Math.floor(millisecondsSinceMidnight / 50); // 1 Minecraft hour = 50 milliseconds
     const hoursSinceMidnight = Math.floor(minecraftTime / 1000);
     let day = Math.floor(hoursSinceMidnight / 24)+1;
-    let hours = hoursSinceMidnight % day;
+    let hours = hoursSinceMidnight % 24;
     const minutes = Math.floor((minecraftTime % 1000) * 0.06);
     const seconds = Math.floor(((minecraftTime % 1000) * 0.06 - minutes) * 60);
 
@@ -27,19 +27,27 @@ function getMinecraftTime(currentDateTime_, timezoneOffset) {
 }
 
 function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
-    let midnight = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 0, 0, 0));
-    // Convert date to milliseconds since midnight
-    const millisecondsSinceMidnight = currentDateTime - midnight;
-
-    // Convert milliseconds to Inception dream time
-    const dreamTime = millisecondsSinceMidnight / (1000 * 60 * 60 * 24) * 20; // 1:20 conversion for the whole day
-    const hours = Math.floor(dreamTime * 24);
-    const minutes = Math.floor((dreamTime * 24 % 1) * 60);
-    const seconds = Math.floor(((dreamTime * 24 % 1) * 60 % 1) * 60);
-
-    return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
-}
+    const currentDateTime = new Date(currentDateTime_.getTime() + timezoneOffset * 60 * 1000);
+    const midnight = new Date(Date.UTC(
+      currentDateTime.getUTCFullYear(),
+      currentDateTime.getUTCMonth(),
+      currentDateTime.getUTCDate(), 0, 0, 0
+    ));
+  
+    const ms = currentDateTime - midnight;               // real ms since midnight
+    const dreamDays = (ms / 86_400_000) * 20;            // 1 real day → 20 dream days
+    const totalDreamHours = dreamDays * 24;              // 0..<480
+    const totalDreamMinutes = totalDreamHours * 60;
+    const totalDreamSeconds = totalDreamMinutes * 60;
+  
+    const day = Math.floor(totalDreamHours / 24) + 1;    // 1..20 (for that real day)
+    const hours = Math.floor(totalDreamHours) % 24;      // 0..23
+    const minutes = Math.floor(totalDreamMinutes) % 60;  // 0..59
+    const seconds = Math.floor(totalDreamSeconds) % 60;  // 0..59
+  
+    return `Day: ${day} | ${pad(hours,2)}:${pad(minutes,2)}:${pad(seconds,2)}`;
+  }
+  
 
 function getTerminaTime(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
