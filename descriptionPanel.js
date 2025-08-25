@@ -6,9 +6,9 @@
     This is a collection of functions for drawing and handling the Description Panel.
 */
 
-// Add event listeners for both home buttons
+// Add event listeners for home button and title button
 document.getElementById('desktop-home-button').addEventListener('click', homeButton);
-document.getElementById('mobile-home-button').addEventListener('click', homeButton);
+document.getElementById('title-button').addEventListener('click', homeButton);
 
 // Attach event listeners to all header buttons
 document.getElementById('header-button-1').addEventListener('click', () => changeActiveHeaderTab('header-button-1', 0));
@@ -50,7 +50,6 @@ function addHeaderTabHoverEffect() {
 
 function addHomeButtonHoverEffect() {
     const desktopHomeButton = document.getElementById('desktop-home-button');
-    const mobileHomeButton = document.getElementById('mobile-home-button');
 
     // Add hover event listeners for desktop home button
     desktopHomeButton.addEventListener('mouseenter', () => {
@@ -58,14 +57,6 @@ function addHomeButtonHoverEffect() {
     });
     desktopHomeButton.addEventListener('mouseleave', () => {
         desktopHomeButton.classList.remove('hoveringHome');
-    });
-    
-    // Add hover event listeners for mobile home button
-    mobileHomeButton.addEventListener('mouseenter', () => {
-        mobileHomeButton.classList.add('hoveringHome');
-    });
-    mobileHomeButton.addEventListener('mouseleave', () => {
-        mobileHomeButton.classList.remove('hoveringHome');
     });
 }
 
@@ -551,9 +542,7 @@ function homeButton() {
     clearDescriptionPanel();
     clearSelectedNode();
     const desktopHomeButton = document.getElementById('desktop-home-button');
-    const mobileHomeButton = document.getElementById('mobile-home-button');
     desktopHomeButton.style.visibility = 'hidden';
-    mobileHomeButton.style.visibility = 'hidden';
 
     // Build the Home Description Panel
     Object.values(homePageDescriptions).forEach(description => {
