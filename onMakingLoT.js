@@ -19,7 +19,7 @@ const modalContent = {
         </p>`,
 
         `<p>
-        And when the time comes that their maintainers cancel the project, forget it even existed and forget to renew the domain, or pass away, then my fear is that much of their work will be lost. Some of these Temporal Rosetta Stones are primary sources, displaying information that cannot be found anywhere else, whether it's because their creator had studied something legitimately niche or because they are documenting calendars that they themselves had created.
+        And when the time comes that their maintainers cancel the project, forget to renew the domain, or pass away, then my fear is that much of their work will be lost. Some of these Temporal Rosetta Stones are primary sources, displaying information that cannot be found anywhere else, whether it's because their creator had studied something legitimately niche or because they are documenting calendars that they themselves had created.
         </p>`,
 
         `<div class="modal-images-container">
