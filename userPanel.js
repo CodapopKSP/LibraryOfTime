@@ -49,10 +49,17 @@ function instantiateFloatingPanel() {
     });
 }
 
-// Function to redraw everything inside grid-item 1
+// Function to redraw everything inside grid-item
 function nodePlace(item, grid) {
     const gridItem = document.querySelector(`.grid-item${grid}`);
+    if (!gridItem) {
+        console.error(`Grid item ${grid} not found.`);
+        return;
+    }
+    
+    // Clear the grid item content
     gridItem.innerHTML = '';
+    
     // Remove any class that doesn't start with "grid"
     gridItem.classList.forEach(className => {
         if (!className.startsWith('grid')) {
@@ -70,7 +77,11 @@ function nodePlace(item, grid) {
 
         // Add the node ID as a class to the cloned content so it can be updated
         const clonedContent = clonedParent.querySelector('.content');
-        clonedContent.classList.add(`${item.id}-node`);
+        if (clonedContent) {
+            clonedContent.classList.add(`${item.id}-node`);
+            // Remove any selected/hover/active styling classes
+            clonedContent.classList.remove('hover', 'active', 'clicking');
+        }
 
         if (grandparentElement) {
             const grandparentClasses = Array.from(grandparentElement.classList);

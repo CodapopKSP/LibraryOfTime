@@ -349,8 +349,8 @@ a {
 }
 
 #floating-panel {
-    height: 20vh;
-    width: 36vh;
+    min-height: 20vh;
+    width: 37vh;
     background-color: rgb(75, 75, 75);
     border: 0.2vh solid #000000;
     border-radius: 0.7vh;
@@ -361,19 +361,140 @@ a {
     z-index: 10;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: none;
-    overflow: hidden;
+    overflow: visible;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 #floating-box-node-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.5vh;
+    padding: 0.5vh;
+    min-height: 100%;
+    align-items: start;
+}
+
+.panel-section {
+    background-color: rgb(65, 65, 65);
+    border: 0.1vh solid #444;
+    border-radius: 0.3vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 8vh;
+    overflow: visible;
+    box-shadow: inset 0 0 0.2vh rgba(0, 0, 0, 0.3);
+}
+
+.section-header {
+    background-color: rgb(45, 45, 45);
+    color: rgb(214, 214, 214);
+    padding: 0.3vh 0.5vh;
+    font-size: 1.2vh;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 0.1vh solid #444;
+    flex-shrink: 0;
+}
+
+.section-controls {
+    display: flex;
+    gap: 0.2vh;
+    padding: 0.2vh;
+    background-color: rgb(55, 55, 55);
+    border-bottom: 0.1vh solid #444;
+    flex-shrink: 0;
+}
+
+.add-node-button, .remove-node-button {
+    padding: 0.2vh 0.4vh;
+    background: rgb(75, 75, 75);
+    color: rgb(214, 214, 214);
+    border: 0.1vh solid #555;
+    border-radius: 0.2vh;
+    cursor: pointer;
+    font-size: 1vh;
+    flex: 1;
+    transition: background-color 0.2s ease;
+}
+
+.add-node-button:hover, .remove-node-button:hover {
+    background-color: rgb(95, 95, 95);
 }
 
 .grid-item {
     margin: 0;
-    padding: 0;
+    padding: 0.2vh;
+    flex: 1;
+    overflow: visible;
+    border-radius: 0.2vh;
+    min-height: 6vh;
+}
+
+/* Ensure grid items inherit the background color from their container class */
+.grid-item.standard-time {
+    background-color: rgb(52, 52, 52);
+}
+
+.grid-item.computing-time {
+    background-color: rgb(50, 50, 54);
+}
+
+.grid-item.solar-calendars {
+    background-color: rgb(54, 50, 50);
+}
+
+.grid-item.lunisolar-calendars {
+    background-color: rgb(50, 54, 50);
+}
+
+.grid-item.lunar-calendars {
+    background-color: rgb(50, 50, 54);
+}
+
+.grid-item.proposed-calendars {
+    background-color: rgb(53, 50, 53);
+}
+
+.grid-item.other-calendars {
+    background-color: rgb(50, 50, 54);
+}
+
+.grid-item.decimal-time {
+    background-color: rgb(54, 50, 50);
+}
+
+.grid-item.other-time {
+    background-color: rgb(54, 50, 50);
+}
+
+.grid-item.astronomical-data {
+    background-color: rgb(53, 53, 50);
+}
+
+.grid-item.pop-culture {
+    background-color: rgb(53, 53, 50);
+}
+
+.grid-item.politics {
+    background-color: rgb(52, 52, 52);
+}
+
+.grid-item .container {
+    margin: 0.1vh;
+    border-radius: 0.2vh;
+    overflow: visible;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid-item .content {
+    padding: 0.3vh;
+    font-size: 1.2vh;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .top-buttons-wrapper {
@@ -1252,14 +1373,25 @@ th, td {
         opacity: 1 !important;
     }
     
-    /* Adjust floating panel for mobile */
-    #floating-panel {
-        position: fixed;
-        top: 10vh;
-        left: 2vh;
-        width: 90vw;
-        height: 30vh;
-        z-index: 30;
+
+    
+    #floating-box-node-container {
+        gap: 0.3vh;
+        padding: 0.3vh;
+    }
+    
+    .section-header {
+        font-size: 1.5vh;
+        padding: 0.4vh 0.6vh;
+    }
+    
+    .section-controls {
+        padding: 0.3vh;
+    }
+    
+    .add-node-button, .remove-node-button {
+        font-size: 1.3vh;
+        padding: 0.3vh 0.5vh;
     }
     
     /* Adjust modal for mobile */

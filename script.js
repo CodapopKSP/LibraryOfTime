@@ -102,19 +102,37 @@ document.addEventListener('DOMContentLoaded', function () {
         setDatePickerTimezone(datePickerTimezone);
     });
 
-    // Add event listeners for all buttons in grid-item1
-    const gridItem1Buttons = document.querySelectorAll('.grid-item1 button');
-    gridItem1Buttons.forEach((button, index) => {
+    // Add event listeners for all add/remove buttons in the floating panel
+    const addButtons = document.querySelectorAll('.add-node-button');
+    const removeButtons = document.querySelectorAll('.remove-node-button');
+    
+    addButtons.forEach((button, index) => {
         button.addEventListener('click', function() {
             if (selectedNodeData) {
-                if (button.classList.contains('add-node-button')) {
-                    nodePlace(selectedNodeData, 1);
-                } else if (button.classList.contains('remove-node-button')) {
-                    console.log('Remove button clicked');
-                } else if (button.classList.contains('edit-node-button')) {
-                    console.log('Edit button clicked');
-                }
+                // Find which panel section this button belongs to
+                const panelSection = button.closest('.panel-section');
+                const gridItem = panelSection.querySelector('.grid-item');
+                const gridNumber = gridItem.className.match(/grid-item(\d+)/)[1];
+                nodePlace(selectedNodeData, parseInt(gridNumber));
             }
+        });
+    });
+    
+    removeButtons.forEach((button, index) => {
+        button.addEventListener('click', function() {
+            // Find which panel section this button belongs to
+            const panelSection = button.closest('.panel-section');
+            const gridItem = panelSection.querySelector('.grid-item');
+            const gridNumber = gridItem.className.match(/grid-item(\d+)/)[1];
+            console.log(`Remove button clicked for grid item ${gridNumber}`);
+            // Clear the grid item
+            gridItem.innerHTML = '';
+            // Remove any non-grid classes
+            gridItem.classList.forEach(className => {
+                if (!className.startsWith('grid')) {
+                    gridItem.classList.remove(className);
+                }
+            });
         });
     });
 });
