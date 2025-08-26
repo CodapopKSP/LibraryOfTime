@@ -719,3 +719,99 @@ function getLordOfTheNight(currentDateTime) {
     }
     return 'G' + lord + ' | Y' + Y;
 }
+
+function getPawukonCalendarDate(currentDateTime) {
+
+    // Week day names
+    const Dasawara10 = ['Sri', 'Pati', 'Raja', 'Manuh', 'Duka', 'Manusa', 'Raksasa', 'Suka', 'Dewa', 'Pandita'];
+    const Sangawara9 = ['Dangu', 'Jangur', 'Gigis', 'Nohan', 'Ogan', 'Erangan', 'Urungan', 'Tulus', 'Dadi'];
+    const Astawara8 = ['Sri', 'Indra', 'Guru', 'Yama', 'Ludra', 'Brahma', 'Kala', 'Uma'];
+    const Saptawara7 = ['Redite', 'Soma', 'Anggara', 'Buda', 'Wraspati', 'Sukra', 'Saniscara'];
+    const Sadwara6 = ['Tungleh', 'Aryang', 'Urukung', 'Paniron', 'Was', 'Maulu'];
+    const Pancawara5 = ['Paing', 'Pon', 'Wage', 'Keliwon', 'Umanis'];
+    const Caturwara4 = ['Sri', 'Laba', 'Jaya', 'Menala'];
+    const Triwara3 = ['Pasah', 'Beteng', 'Kajeng'];
+    const Dwiwara2 = ['Menga', 'Pepet'];
+    const Ekawara1 = ['Luang '];
+    const weekNames = ['Sinta', 'Landep', 'Ukir', 'Kulantir', 'Taulu', 'Gumbreg', 'Wariga', 'Warigadian', 'Julungwangi', 'Sungsang',
+        'Dunggulan', 'Kuningan', 'Langkir', 'Medangsia', 'Pujut', 'Pahang', 'Krulut', 'Merakih', 'Tambir', 'Medangkungan',
+        'Matal', 'Uye', 'Menail', 'Parangbakat', 'Bala', 'Ugu', 'Wayang', 'Kelawu', 'Dukut', 'Watugunung'
+    ];
+
+    // Urip Values
+    const urip5 = [9, 7, 4, 8, 5];
+    const urip7 = [5, 4, 3, 7, 8, 6, 9];
+    const urip10 = [5, 2, 8, 6, 4, 7, 10, 3, 9, 1];
+
+    const recentEpoch = new Date(Date.UTC(2020, 6, 4, 16, 0, 0)); // Midnight in Bali 
+    const stepMs = 210 * 24 * 60 * 60 * 1000;
+    let newEpoch = new Date(recentEpoch.getTime());
+    while (newEpoch.getTime() > currentDateTime.getTime()) {
+        newEpoch = new Date(newEpoch.getTime() - stepMs);
+    }
+
+    let dayOfWeek1 = '';
+    let dayOfWeek2 = '';
+    let dayOfWeek3 = '';
+    let dayOfWeek4 = '';
+    let dayOfWeek5 = '';
+    let dayOfWeek6 = '';
+    let dayOfWeek7 = '';
+    let dayOfWeek8 = '';
+    let dayOfWeek9 = '';
+    let dayOfWeek10 = '';
+
+    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, newEpoch));
+    let daysSinceEpoch4_8 = daysSinceEpoch;
+    let daysSinceEpoch9 = daysSinceEpoch-3;
+
+    // Get 3rd, 5th, 6th, and 7th weeks
+    dayOfWeek3 = Triwara3[daysSinceEpoch % 3];
+    dayOfWeek5 = Pancawara5[daysSinceEpoch % 5];
+    dayOfWeek6 = Sadwara6[daysSinceEpoch % 6];
+    dayOfWeek7 = Saptawara7[daysSinceEpoch % 7];
+
+    // Get 4th and 8th weeks
+    if ((daysSinceEpoch===71) || (daysSinceEpoch===72)) {
+        daysSinceEpoch4_8 = 70;
+    }
+    if (daysSinceEpoch4_8>72) {
+        daysSinceEpoch4_8 -= 2;
+    }
+    dayOfWeek4 = Caturwara4[daysSinceEpoch4_8 % 4];
+    dayOfWeek8 = Astawara8[daysSinceEpoch4_8 % 8];
+
+    // Get 9th week
+    if (daysSinceEpoch9<0) {
+        daysSinceEpoch9 = 0;
+    }
+    dayOfWeek9 = Sangawara9[daysSinceEpoch9 % 9];
+    
+    // Get current urip
+    let urip = urip5[daysSinceEpoch % 5] + urip7[daysSinceEpoch % 7] + 1;
+    if (urip>10) {
+        urip -= 10;
+    }
+    
+    // Get 10th week
+    for (let i = 0; i < urip10.length; i++) {
+        if (urip10[i] === urip) {
+            dayOfWeek10 = Dasawara10[i];
+            break;
+        }
+    }
+
+    // Get 1st and 2nd weeks
+    if (urip%2===0) {
+        dayOfWeek1 = Ekawara1[0];
+        dayOfWeek2 = Dwiwara2[1];
+    } else {
+        dayOfWeek1 = '';
+        dayOfWeek2 = Dwiwara2[0];
+    }
+
+    // Get Week Name
+    const weekName = weekNames[(Math.floor(daysSinceEpoch/7)%30)];
+
+    return `${dayOfWeek1}${dayOfWeek2} ${dayOfWeek3} ${dayOfWeek4} ${dayOfWeek5} ${dayOfWeek6} ${dayOfWeek7} ${dayOfWeek8} ${dayOfWeek9} ${dayOfWeek10}\nWeek Name: ${weekName}`;
+}

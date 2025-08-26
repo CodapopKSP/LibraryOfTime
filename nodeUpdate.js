@@ -57,6 +57,7 @@ function updateOtherCalendars(currentDateTime) {
     setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
     setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
     setTimeValue('olympiad-node', getOlympiad(currentDateTime));
+    setTimeValue('pawukon-node', getPawukonCalendarDate(currentDateTime));
 }
 
 function updateFractionalTimes(currentDateTime, dateInput, timezoneOffset) {

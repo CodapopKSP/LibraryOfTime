@@ -1146,6 +1146,18 @@ const otherCalendars = [
         accuracy: `The exact start of the Olympic games is unclear, and most sources will just say it was held in the summer of 776 BCE. This website uses astronomical dates, so it is displayed here as 775 BCE. I have chosen to use 1 August of the Julian calendar for the middle of summer.`,
         source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Olympiad">Wikipedia article</a>.`
     },
+
+    {
+        name: 'Pawukon (WITA)',
+        id: 'pawukon',
+        type: 'Other Calendar',
+        epoch: 'Unknown',
+        confidence: 'Exact',
+        overview: `The Pawukon calendar of Bali, Indonesia is a 210-day cycle of ten repeating and undulating "weeks" that happen concurrently. The first week has only 1 day, the second week has 2 days, the third week has 3 days, and so on.\n\nWeeks 3, 5, 6, and 7 all simply cycle through their days. Weeks 4 and 8 also cycle but repeat the 71st day for days 72 and 73, a form of intercalation, in order to match the 210-day cycle. Week 9 also intercalates by repeating the 1st day for days 2, 3, and 4.\n\nWeeks 1, 2, and 10 operate on more complex rules, involving adding the 'urip', a special number assigned to each day, of the days of Week 5 and Week 7 and adding 1. If the resulting number is even, then Week 1 and 2 are the first and second days respectively. If it's odd, then Week 2 is the first day and Week 1 is missing entirely. If this number matches the urip of any day in Week 10, then it is that day in Week 10.\n\nEach of the 30 cycles of Week 7 also has a name. This calendar does not count the number of cycles and has no epoch.`,
+        info: `<table class="table-very-very-long"><thead><tr><th>Week Number</th><th>Week Name</th><th>Day Names</th></tr></thead><tbody><tr><td>1</td><td>Ekawara</td><td>Luang</td></tr><tr><td>2</td><td>Dwiwara</td><td>Menga, Pepet</td></tr><tr><td>3</td><td>Triwara</td><td>Pasah, Beteng, Kajeng</td></tr><tr><td>4</td><td>Caturwara</td><td>Sri, Laba, Jaya, Menala</td></tr><tr><td>5</td><td>Pancawara</td><td>Paing, Pon, Wage, Keliwon, Umanis</td></tr><tr><td>6</td><td>Sadwara</td><td>Tungleh, Aryang, Urukung, Paniron, Was, Maulu</td></tr><tr><td>7</td><td>Saptawara</td><td>Redite, Soma, Anggara, Buda, Wraspati, Sukra, Saniscara</td></tr><tr><td>8</td><td>Astawara</td><td>Sri, Indra, Guru, Yama, Ludra, Brahma, Kala, Uma</td></tr><tr><td>9</td><td>Sangawara</td><td>Dangu, Jangur, Gigis, Nohan, Ogan, Erangan, Urungan, Tulus, Dadi</td></tr><tr><td>10</td><td>Dasawara</td><td>Sri, Pati, Raja, Manuh, Duka, Manusa, Raksasa, Suka, Dewa, Pandita</td></tr></tbody></table>\n<table class="table-very-very-long"><thead><tr><th colspan="2">Urip Info</th></tr><tr><th>Week</th><th>Values</th></tr></thead><tbody><tr><td>5</td><td>9, 7, 4, 8, 5</td></tr><tr><td>7</td><td>5, 4, 3, 7, 8, 6, 9</td></tr><tr><td>10</td><td>5, 2, 8, 6, 4, 7, 10, 3, 9, 1</td></tr></tbody></table>\n<table class="table-very-very-long"><thead><tr><th colspan="3">Week Names</th></tr></thead><tbody><tr><td>Sinta</td><td>Landep</td><td>Ukir</td></tr><tr><td>Kulantir</td><td>Taulu</td><td>Gumbreg</td></tr><tr><td>Wariga</td><td>Warigadian</td><td>Julungwangi</td></tr><tr><td>Sungsang</td><td>Dunggulan</td><td>Kuningan</td></tr><tr><td>Langkir</td><td>Medangsia</td><td>Pujut</td></tr><tr><td>Pahang</td><td>Krulut</td><td>Merakih</td></tr><tr><td>Tambir</td><td>Medangkungan</td><td>Matal</td></tr><tr><td>Uye</td><td>Menail</td><td>Parangbakat</td></tr><tr><td>Bala</td><td>Ugu</td><td>Wayang</td></tr><tr><td>Kelawu</td><td>Dukut</td><td>Watugunung</td></tr></tbody></table>`,
+        accuracy: `This calendar is a simple cycle of days with a known epoch and is expected to be exactly accurate.`,
+        source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Pawukon_calendar">Wikipedia article</a>.`
+    },
 ]
 
 const astronomicalData = [
@@ -1325,7 +1337,7 @@ const popCultureData = [
         type: 'Pop Culture',
         epoch: '25 April 2265',
         confidence: 'Low',
-        overview: `Stardate is the timekeeping system found in Star Trek. Being a fictional system without an exact algorithm, it isn't even clear what Stardates are measuring. They also vary from series to series.\n\nThis calculation is based on the Stardate 0 epoch of 2265-04-25 from the Original Series, with a peculiar 7.21 stardates per day.`,
+        overview: `Stardate is the timekeeping system found in Star Trek. Being a fictional system without an exact algorithm, it isn't even clear what Stardates are measuring. They also vary from series to series.\n\nThis calculation is based on the Stardate 0 epoch of 25 April 2265 from the Original Series, with a peculiar 7.21 stardates per day.`,
         info: `Stardates were originally intended to be a system similar to the revised Julian Day Number, but the writers of the show weren't required to follow an exact algorithm.`,
         accuracy: 'Since this calendar is both fictional and without an exact algorithm, it is impossible to know how accurate this calculation is.',
         source: 'This calculation was sourced from <a href="https://trekguide.com/Stardates.htm">this website</a>, which also has a great explanation of the different types of stardates and methodology.'

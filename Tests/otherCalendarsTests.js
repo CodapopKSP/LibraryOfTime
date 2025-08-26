@@ -70,6 +70,24 @@ function testOlympiad() {
     ]);
 }
 
+function testPawukon() {
+    return runSingleParamaterTests("Pawukon", getPawukonCalendarDate, [
+        ["2020-7-4, 16:00:00", "UTC+00:00", "Menga Pasah Sri Paing Tungleh Redite Sri Dangu Sri\nWeek Name: Sinta"],
+        ["2020-7-5, 16:00:00", "UTC+00:00", "Luang Pepet Beteng Laba Pon Aryang Soma Indra Dangu Pati\nWeek Name: Sinta"],
+        ["2020-7-3, 16:00:00", "UTC+00:00", "Menga Kajeng Menala Umanis Maulu Saniscara Uma Dadi Sri\nWeek Name: Watugunung"],
+        ["2020-9-13, 16:00:00", "UTC+00:00", "Luang Pepet Kajeng Jaya Pon Maulu Soma Kala Erangan Pati\nWeek Name: Dunggulan"],
+        ["2020-9-14, 16:00:00", "UTC+00:00", "Luang Pepet Pasah Jaya Wage Tungleh Anggara Kala Urungan Raja\nWeek Name: Dunggulan"],
+        ["2020-9-15, 16:00:00", "UTC+00:00", "Luang Pepet Beteng Menala Keliwon Aryang Buda Uma Tulus Manuh\nWeek Name: Dunggulan"],
+        ["2021-1-30, 16:00:00", "UTC+00:00", "Menga Pasah Sri Paing Tungleh Redite Sri Dangu Sri\nWeek Name: Sinta"],
+        ["2021-1-29, 16:00:00", "UTC+00:00", "Menga Kajeng Menala Umanis Maulu Saniscara Uma Dadi Sri\nWeek Name: Watugunung"],
+        ["2019-12-7, 16:00:00", "UTC+00:00", "Menga Pasah Sri Paing Tungleh Redite Sri Dangu Sri\nWeek Name: Sinta"],
+        ["2019-12-6, 16:00:00", "UTC+00:00", "Menga Kajeng Menala Umanis Maulu Saniscara Uma Dadi Sri\nWeek Name: Watugunung"],
+        ["2020-2-16, 16:00:00", "UTC+00:00", "Luang Pepet Kajeng Jaya Pon Maulu Soma Kala Erangan Pati\nWeek Name: Dunggulan"],
+        ["2020-2-17, 16:00:00", "UTC+00:00", "Luang Pepet Pasah Jaya Wage Tungleh Anggara Kala Urungan Raja\nWeek Name: Dunggulan"],
+        ["2020-2-18, 16:00:00", "UTC+00:00", "Luang Pepet Beteng Menala Keliwon Aryang Buda Uma Tulus Manuh\nWeek Name: Dunggulan"],
+    ]);
+}
+
 // Run all tests.
 function runOtherCalendarTests() {
     const testFunctions = [
@@ -79,11 +97,12 @@ function runOtherCalendarTests() {
         testYugaCycle,
         testSothicCycle,
         testOlympiad,
+        testPawukon,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);
 
     if (allTests === 0) {
-        console.log('Computing Time: All Tests Passed.');
+        console.log('Other Calendars: All Tests Passed.');
     }
 }
