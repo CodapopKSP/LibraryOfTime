@@ -1158,6 +1158,18 @@ const otherCalendars = [
         accuracy: `This calendar is a simple cycle of days with a known epoch and is expected to be exactly accurate.`,
         source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Pawukon_calendar">Wikipedia article</a>.`
     },
+
+    {
+        name: 'Togys',
+        id: 'togys',
+        type: 'Other Calendar',
+        epoch: 'Unknown',
+        confidence: '',
+        overview: ``,
+        info: ``,
+        accuracy: ``,
+        source: ``
+    },
 ]
 
 const astronomicalData = [

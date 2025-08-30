@@ -87,6 +87,13 @@ function getJulianDayNumber(currentDateTime) {
     return JD;
 }
 
+function getJulianEphemerisDay(currentDateTime) {
+    const deltaTime = getDeltaT(currentDateTime);
+    let currentDateTime_TT = new Date(currentDateTime);
+    currentDateTime_TT.setTime(currentDateTime_TT.getTime() - (deltaTime));
+    return getJulianDayNumber(currentDateTime_TT);
+}
+
 function getRataDie(currentDateTime) {
     const JD = getJulianDayNumber(currentDateTime);
     const RD = Math.floor(JD - 1721424.5);

@@ -581,3 +581,323 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
 
     return eclipseDate.toUTCString() + '\n' + eclipseType + ' | ' + eclipseNode + '\n' + hemisphere;
 }
+
+function getApparentStellarCoordinates(currentDateTime, rightAscension, declination) {
+    const variable_alpha = rightAscension;
+    const variable_delta = declination;
+    const JDE = getJulianEphemerisDay(currentDateTime);
+
+    // Find Nutation
+    const variable_T = (JDE-2451545)/36525; // 0.2886705
+
+    const [dPsi, dEpsilon] = getNutationAndObliquity(variable_T);
+
+
+    const epsilon = (23 + 26/60 + 21.448/3600) + (-46.8150*variable_T - 0.00059*variable_T*variable_T + 0.001813*variable_T*variable_T*variable_T)/3600;
+
+    // Get Sun True Longitude
+    const variable_L0 = 280.4665 + (36000.7698 * variable_T) + (0.0003032 * variable_T*variable_T);
+    const variable_M = 357.52911 + (35999.05029 * variable_T) + (0.0001537 * variable_T*variable_T);
+    const variable_e = 0.016708634 - (0.000042037 * variable_T) - (0.0000001267 * variable_T*variable_T); // 0.016696488600211598 compared to 0.01669649
+    const variable_C = (1.914602 - (0.004817 * variable_T) - (0.000014 * variable_T*variable_T)) * Math.sin(variable_M * Math.PI / 180) + (0.019993 - (0.000101 * variable_T)) * Math.sin(2 * variable_M * Math.PI / 180) + 0.000289 * Math.sin(3 * variable_M * Math.PI / 180);
+    const sunTrueLongitude = (variable_L0 + variable_C)%360; // 231.32846124391835 compared to 231.328
+
+    const variable_pi = 102.93735 + (1.71946 * variable_T) + (0.00046 * variable_T*variable_T);
+
+    const delta_alpha1 = ((Math.cos(epsilon * Math.PI / 180) + 
+        (Math.sin(epsilon * Math.PI / 180) * Math.sin(variable_alpha * Math.PI / 180) * Math.tan(variable_delta * Math.PI / 180))) * dPsi)
+         - ((Math.cos(variable_alpha * Math.PI / 180) * Math.tan(variable_delta * Math.PI / 180)) * dEpsilon);
+
+    const delta_delta1 = ((Math.sin(epsilon * Math.PI / 180) * Math.cos(variable_alpha * Math.PI / 180)) * dPsi)
+        + (Math.sin(variable_alpha * Math.PI / 180) * dEpsilon);
+
+    const variable_k = 20.49552;
+
+
+    // New aberration corrections (Delta Alpha 2 and Delta Delta 2)
+    const delta_alpha2 = (
+        -variable_k * (Math.cos(variable_alpha * Math.PI / 180) * Math.cos(sunTrueLongitude * Math.PI / 180) * Math.cos(epsilon * Math.PI / 180) + Math.sin(variable_alpha * Math.PI / 180) * Math.sin(sunTrueLongitude * Math.PI / 180))
+        + variable_e * variable_k * (Math.cos(variable_alpha * Math.PI / 180) * Math.cos(variable_pi * Math.PI / 180) * Math.cos(epsilon * Math.PI / 180) + Math.sin(variable_alpha * Math.PI / 180) * Math.sin(variable_pi * Math.PI / 180))
+    ) / Math.cos(variable_delta * Math.PI / 180);
+
+    const temp_sub_expression_delta2 = Math.tan(epsilon * Math.PI / 180) * Math.cos(variable_delta * Math.PI / 180) - Math.sin(variable_alpha * Math.PI / 180) * Math.sin(variable_delta * Math.PI / 180);
+
+    const delta_delta2 = -variable_k * (
+        Math.cos(sunTrueLongitude * Math.PI / 180) * Math.cos(epsilon * Math.PI / 180) * temp_sub_expression_delta2
+        + Math.cos(variable_alpha * Math.PI / 180) * Math.sin(variable_delta * Math.PI / 180) * Math.sin(sunTrueLongitude * Math.PI / 180)
+    ) + variable_e * variable_k * (
+        Math.cos(variable_pi * Math.PI / 180) * Math.cos(epsilon * Math.PI / 180) * temp_sub_expression_delta2
+        + Math.cos(variable_alpha * Math.PI / 180) * Math.sin(variable_delta * Math.PI / 180) * Math.sin(variable_pi * Math.PI / 180)
+    );
+
+    const delta_alpha = rightAscension + (delta_alpha1 + delta_alpha2)/3600;
+    const delta_delta = declination + (delta_delta1 + delta_delta2)/3600;
+
+    return [delta_alpha, delta_delta];
+}
+
+function getNutationAndObliquity(variable_T) {
+
+    const variable_L  = 280.4665 + 36000.7698 * variable_T;
+    const Lprime = 218.3165 + 481267.8813 * variable_T;
+    const Omega = 125.04452 - (1934.136261 * variable_T) + (0.0020708 *variable_T*variable_T) + ((variable_T*variable_T*variable_T)/450000);
+
+    const dPsi = -17.20 * Math.sin(Omega * Math.PI / 180)
+            -  1.32 * Math.sin(2 * variable_L * Math.PI / 180)
+            -  0.23 * Math.sin(2 * Lprime * Math.PI / 180)
+            +  0.21 * Math.sin(2 * Omega * Math.PI / 180);
+
+    const dEpsilon = + 9.20 * Math.cos(Omega * Math.PI / 180)
+            + 0.57 * Math.cos(2 * variable_L * Math.PI / 180)
+            + 0.10 * Math.cos(2 * Lprime * Math.PI / 180)
+            - 0.09 * Math.cos(2 * Omega * Math.PI / 180);
+
+    return [dPsi, dEpsilon];
+}
+
+function getObliquity(variable_T) {
+    const var_U = variable_T/100;
+    return (23 + 26/60 + 21.448/3600)
+        - (4680.93*var_U - 1.55*var_U*var_U + 1999.25*var_U*var_U*var_U - 51.38*var_U*var_U*var_U*var_U - 249.67*var_U*var_U*var_U*var_U*var_U
+            - 39.05*var_U*var_U*var_U*var_U*var_U*var_U + 7.12*var_U*var_U*var_U*var_U*var_U*var_U*var_U + 27.87*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U
+            - 5.79*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U - 2.45*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U
+        ) / 3600;
+}
+
+function getAlphaAndDelta(apparent_lambda, var_epsilon, var_beta) {
+    const λ = apparent_lambda * Math.PI / 180;
+    const ε = var_epsilon * Math.PI / 180;
+    const β = var_beta * Math.PI / 180;
+  
+    const y = Math.sin(λ) * Math.cos(ε) - Math.tan(β) * Math.sin(ε);
+    const x = Math.cos(λ);
+  
+    // α in radians, correct quadrant
+    let α = Math.atan2(y, x);
+    if (α < 0) α += 2 * Math.PI;          // normalize to 0..2π
+  
+    const δ = Math.asin(Math.sin(β) * Math.cos(ε) + Math.cos(β) * Math.sin(ε) * Math.sin(λ));
+  
+    return [α * 180 / Math.PI, δ * 180 / Math.PI]; // degrees
+}
+
+function getPositionOfTheMoon(currentDateTime) {
+    const variable_T = ((getJulianDayNumber(currentDateTime) - 2451545.0) / 36525.0);
+
+    const var_L_prime = 218.3164477 + (481267.88123421 * variable_T) - (0.0015786 * variable_T * variable_T) + ((variable_T * variable_T * variable_T) / 538841) - ((variable_T * variable_T * variable_T * variable_T) / 65194000);
+    const var_D = 297.8501921 + (445267.1114034 * variable_T) - (0.0018819 * variable_T * variable_T) + ((variable_T * variable_T * variable_T) / 545868) - ((variable_T * variable_T * variable_T * variable_T) / 113065000);
+    const var_M = 357.5291092 + (35999.0502909 * variable_T) - (0.0001536 * variable_T * variable_T) - ((variable_T * variable_T * variable_T) / 24490000);
+
+    const var_M_prime = 134.9633964 + (477198.8675055 * variable_T) + (0.0087414 * variable_T * variable_T) + ((variable_T * variable_T * variable_T) / 69699) - ((variable_T * variable_T * variable_T * variable_T) / 14712000);
+
+    const var_F = 93.2720950 + (483202.0175233 * variable_T) - (0.0036539 * variable_T * variable_T) + ((variable_T * variable_T * variable_T) / 3526000) - ((variable_T * variable_T * variable_T * variable_T) / 863310000);
+    const var_A1 = 119.75 + (131.849 * variable_T);
+    const var_A2 = 53.09 + (479264.290 * variable_T);
+    const var_A3 = 313.45 + (481266.484 * variable_T);
+
+    // Define E based on the provided formula (Equation 47.6)
+    const var_E = 1 - (0.002516 * variable_T) - (0.0000074 * variable_T * variable_T);
+
+    // Lunar perturbation coefficients table
+    const lunarPerturbations = [
+        { D: 0, M: 0, M_prime: 1, F: 0, SigmaL: 6288774, SigmaR: -20905355 },
+        { D: 2, M: 0, M_prime: -1, F: 0, SigmaL: 1274027, SigmaR: -3699111 },
+        { D: 2, M: 0, M_prime: 0, F: 0, SigmaL: 658314, SigmaR: -2955968 },
+        { D: 0, M: 0, M_prime: 2, F: 0, SigmaL: 213618, SigmaR: -569925 },
+        { D: 0, M: 1, M_prime: 0, F: 0, SigmaL: -185116, SigmaR: 48888 },
+        { D: 0, M: 0, M_prime: 0, F: 2, SigmaL: -114332, SigmaR: -3149 },
+        { D: 2, M: 0, M_prime: -2, F: 0, SigmaL: 58793, SigmaR: 246158 },
+        { D: 2, M: -1, M_prime: -1, F: 0, SigmaL: 57066, SigmaR: -152138 },
+        { D: 2, M: 0, M_prime: 1, F: 0, SigmaL: 53322, SigmaR: -170733 },
+        { D: 2, M: -1, M_prime: 0, F: 0, SigmaL: 45758, SigmaR: -204586 },
+        { D: 0, M: 1, M_prime: -1, F: 0, SigmaL: -40923, SigmaR: -129620 },
+        { D: 1, M: 0, M_prime: 0, F: 0, SigmaL: -34720, SigmaR: 108743 },
+        { D: 0, M: 1, M_prime: 1, F: 0, SigmaL: -30383, SigmaR: 104755 },
+        { D: 2, M: 0, M_prime: 0, F: -2, SigmaL: 15327, SigmaR: 10321 },
+        { D: 0, M: 0, M_prime: 1, F: 2, SigmaL: -12528, SigmaR: null },
+        { D: 0, M: 0, M_prime: 1, F: -2, SigmaL: 10980, SigmaR: 79661 },
+        { D: 4, M: 0, M_prime: -1, F: 0, SigmaL: 10675, SigmaR: -34782 },
+        { D: 0, M: 0, M_prime: 3, F: 0, SigmaL: 10034, SigmaR: -23210 },
+        { D: 4, M: 0, M_prime: -2, F: 0, SigmaL: 8548, SigmaR: -21636 },
+        { D: 2, M: 1, M_prime: -1, F: 0, SigmaL: -7888, SigmaR: 24208 },
+        { D: 2, M: 1, M_prime: 0, F: 0, SigmaL: -6766, SigmaR: 30824 },
+        { D: 1, M: 0, M_prime: -1, F: 0, SigmaL: -5163, SigmaR: -8379 },
+        { D: 1, M: 1, M_prime: 0, F: 0, SigmaL: 4987, SigmaR: -16675 },
+        { D: 2, M: -1, M_prime: 1, F: 0, SigmaL: 4036, SigmaR: -12831 },
+        { D: 2, M: 0, M_prime: 2, F: 0, SigmaL: 3994, SigmaR: -10445 },
+        { D: 4, M: 0, M_prime: 0, F: 0, SigmaL: 3861, SigmaR: -11650 },
+        { D: 2, M: 0, M_prime: -3, F: 0, SigmaL: 3665, SigmaR: 14403 },
+        { D: 0, M: 1, M_prime: -2, F: 0, SigmaL: -2689, SigmaR: -7003 },
+        { D: 2, M: 0, M_prime: -1, F: 2, SigmaL: -2602, SigmaR: null },
+        { D: 2, M: -1, M_prime: -2, F: 0, SigmaL: 2390, SigmaR: 10056 },
+        { D: 1, M: 0, M_prime: 1, F: 0, SigmaL: -2348, SigmaR: 6322 },
+        { D: 2, M: -2, M_prime: 0, F: 0, SigmaL: 2236, SigmaR: -9884 },
+        
+        { D: 0, M: 1, M_prime: 2, F: 0, SigmaL: -2120, SigmaR: 5751 },
+        { D: 0, M: 2, M_prime: 0, F: 0, SigmaL: -2069, SigmaR: null },
+        { D: 2, M: -2, M_prime: -1, F: 0, SigmaL: 2048, SigmaR: -4950 },
+        { D: 2, M: 0, M_prime: 1, F: -2, SigmaL: -1773, SigmaR: 4130 },
+        { D: 2, M: 0, M_prime: 0, F: 2, SigmaL: -1595, SigmaR: null },
+        { D: 4, M: -1, M_prime: -1, F: 0, SigmaL: 1215, SigmaR: -3958 },
+        { D: 0, M: 0, M_prime: 2, F: 2, SigmaL: -1110, SigmaR: null },
+        { D: 3, M: 0, M_prime: -1, F: 0, SigmaL: -892, SigmaR: 3258 },
+        { D: 2, M: 1, M_prime: 1, F: 0, SigmaL: -810, SigmaR: 2616 },
+        { D: 4, M: -1, M_prime: -2, F: 0, SigmaL: 759, SigmaR: -1897 },
+        { D: 0, M: 2, M_prime: -1, F: 0, SigmaL: -713, SigmaR: -2117 },
+        { D: 2, M: 2, M_prime: -1, F: 0, SigmaL: -700, SigmaR: 2354 },
+        { D: 2, M: 1, M_prime: -2, F: 0, SigmaL: 691, SigmaR: null },
+        { D: 2, M: -1, M_prime: 0, F: -2, SigmaL: 596, SigmaR: null },
+        { D: 4, M: 0, M_prime: 1, F: 0, SigmaL: 549, SigmaR: -1423 },
+        { D: 0, M: 0, M_prime: 4, F: 0, SigmaL: 537, SigmaR: -1117 },
+        { D: 4, M: -1, M_prime: 0, F: 0, SigmaL: 520, SigmaR: -1571 },
+        { D: 1, M: 0, M_prime: -2, F: 0, SigmaL: -487, SigmaR: -1739 },
+        { D: 2, M: 1, M_prime: 0, F: -2, SigmaL: -399, SigmaR: null },
+        { D: 0, M: 0, M_prime: 2, F: -2, SigmaL: -381, SigmaR: -4421 },
+        { D: 1, M: 1, M_prime: 1, F: 0, SigmaL: 351, SigmaR: null },
+        { D: 3, M: 0, M_prime: -2, F: 0, SigmaL: -340, SigmaR: null },
+        { D: 4, M: 0, M_prime: -3, F: 0, SigmaL: 330, SigmaR: null },
+        { D: 2, M: -1, M_prime: 2, F: 0, SigmaL: 327, SigmaR: null },
+        { D: 0, M: 2, M_prime: 1, F: 0, SigmaL: -323, SigmaR: 1165 },
+        { D: 1, M: 1, M_prime: -1, F: 0, SigmaL: 299, SigmaR: null },
+        { D: 2, M: 0, M_prime: 3, F: 0, SigmaL: 294, SigmaR: null },
+        { D: 2, M: 0, M_prime: -1, F: -2, SigmaL: null, SigmaR: 8752 }
+    ];
+
+    // Additional lunar perturbation coefficients (sine terms only)
+    const additionalLunarPerturbations = [
+        { D: 0, M: 0, M_prime: 0, F: 1, SigmaB: 5128122 },
+        { D: 0, M: 0, M_prime: 1, F: 1, SigmaB: 280602 },
+        { D: 0, M: 0, M_prime: 1, F: -1, SigmaB: 277693 },
+        { D: 2, M: 0, M_prime: 0, F: -1, SigmaB: 173237 },
+        { D: 2, M: 0, M_prime: -1, F: 1, SigmaB: 55413 },
+        { D: 2, M: 0, M_prime: -1, F: -1, SigmaB: 46271 },
+        { D: 2, M: 0, M_prime: 0, F: 1, SigmaB: 32573 },
+        { D: 0, M: 0, M_prime: 2, F: 1, SigmaB: 17198 },
+        { D: 2, M: 0, M_prime: 1, F: -1, SigmaB: 9266 },
+        { D: 0, M: 0, M_prime: 2, F: -1, SigmaB: 8822 },
+        { D: 2, M: -1, M_prime: 0, F: -1, SigmaB: 8216 },
+        { D: 2, M: 0, M_prime: -2, F: -1, SigmaB: 4324 },
+        { D: 2, M: 0, M_prime: 1, F: 1, SigmaB: 4200 },
+        { D: 2, M: 1, M_prime: 0, F: -1, SigmaB: -3359 },
+        { D: 2, M: -1, M_prime: -1, F: 1, SigmaB: 2463 },
+        { D: 2, M: -1, M_prime: 0, F: 1, SigmaB: 2211 },
+        { D: 2, M: -1, M_prime: -1, F: -1, SigmaB: 2065 },
+        { D: 0, M: 1, M_prime: -1, F: -1, SigmaB: -1870 },
+        { D: 4, M: 0, M_prime: -1, F: -1, SigmaB: 1828 },
+        { D: 0, M: 1, M_prime: 0, F: 1, SigmaB: -1794 },
+        { D: 0, M: 0, M_prime: 0, F: 3, SigmaB: -1749 },
+        { D: 0, M: 1, M_prime: -1, F: 1, SigmaB: -1565 },
+        { D: 1, M: 0, M_prime: 0, F: 1, SigmaB: -1491 },
+        { D: 0, M: 1, M_prime: 1, F: 1, SigmaB: -1475 },
+        { D: 0, M: 1, M_prime: 1, F: -1, SigmaB: -1410 },
+        { D: 0, M: 1, M_prime: 0, F: -1, SigmaB: -1344 },
+        { D: 1, M: 0, M_prime: 0, F: -1, SigmaB: -1335 },
+        { D: 0, M: 0, M_prime: 3, F: 1, SigmaB: 1107 },
+        { D: 4, M: 0, M_prime: 0, F: -1, SigmaB: 1021 },
+        { D: 4, M: 0, M_prime: -1, F: 1, SigmaB: 833 },
+        
+        { D: 0, M: 0, M_prime: 1, F: -3, SigmaB: 777 },
+        { D: 4, M: 0, M_prime: -2, F: 1, SigmaB: 671 },
+        { D: 2, M: 0, M_prime: 0, F: -3, SigmaB: 607 },
+        { D: 2, M: 0, M_prime: 2, F: -1, SigmaB: 596 },
+        { D: 2, M: -1, M_prime: 1, F: -1, SigmaB: 491 },
+        { D: 2, M: 0, M_prime: -2, F: 1, SigmaB: -451 },
+        { D: 0, M: 0, M_prime: 3, F: -1, SigmaB: 439 },
+        { D: 2, M: 0, M_prime: 2, F: 1, SigmaB: 422 },
+        { D: 2, M: 0, M_prime: -3, F: -1, SigmaB: 421 },
+        { D: 2, M: 1, M_prime: -1, F: 1, SigmaB: -366 },
+        { D: 2, M: 1, M_prime: 0, F: 1, SigmaB: -351 },
+        { D: 4, M: 0, M_prime: 0, F: 1, SigmaB: 331 },
+        { D: 2, M: -1, M_prime: 1, F: 1, SigmaB: 315 },
+        { D: 2, M: -2, M_prime: 0, F: -1, SigmaB: 302 },
+        { D: 0, M: 0, M_prime: 1, F: 3, SigmaB: -283 },
+        { D: 2, M: 1, M_prime: 1, F: -1, SigmaB: -229 },
+        { D: 1, M: 1, M_prime: 0, F: -1, SigmaB: 223 },
+        { D: 1, M: 1, M_prime: 0, F: 1, SigmaB: 223 },
+        { D: 0, M: 1, M_prime: -2, F: -1, SigmaB: -220 },
+        { D: 2, M: 1, M_prime: -1, F: -1, SigmaB: -220 },
+        { D: 1, M: 0, M_prime: 1, F: 1, SigmaB: -185 },
+        { D: 2, M: -1, M_prime: -2, F: -1, SigmaB: 181 },
+        { D: 0, M: 1, M_prime: 2, F: 1, SigmaB: -177 },
+        { D: 4, M: 0, M_prime: -2, F: -1, SigmaB: 176 },
+        { D: 4, M: -1, M_prime: -1, F: -1, SigmaB: 166 },
+        { D: 1, M: 0, M_prime: 1, F: -1, SigmaB: -164 },
+        { D: 4, M: 0, M_prime: 1, F: -1, SigmaB: 132 },
+        { D: 1, M: 0, M_prime: -1, F: -1, SigmaB: -119 },
+        { D: 4, M: -1, M_prime: 0, F: -1, SigmaB: 115 },
+        { D: 2, M: -2, M_prime: 0, F: 1, SigmaB: 107 }
+    ];
+
+    // Calculate lunar perturbations
+    let sumSigmaL = 0;
+    let sumSigmaR = 0;
+    let sumSigmaB = 0;
+
+    // Process lunar perturbation terms with eccentricity correction
+    for (const term of lunarPerturbations) {
+        const arg = (term.D * var_D) + (term.M * var_M) + (term.M_prime * var_M_prime) + (term.F * var_F);
+        const argRad = arg * Math.PI / 180;
+        
+        // Apply eccentricity correction factor E
+        let sigmaL = term.SigmaL;
+        let sigmaR = term.SigmaR;
+        
+        // Terms with M or -M in argument: multiply coefficient by E
+        if (Math.abs(term.M) === 1) {
+            sigmaL *= var_E;
+            if (sigmaR !== null) sigmaR *= var_E;
+        }
+        // Terms with 2M or -2M in argument: multiply coefficient by E^2
+        else if (Math.abs(term.M) === 2) {
+            sigmaL *= var_E * var_E;
+            if (sigmaR !== null) sigmaR *= var_E * var_E;
+        }
+        
+        sumSigmaL += sigmaL * Math.sin(argRad);
+        if (sigmaR !== null) {
+            sumSigmaR += sigmaR * Math.cos(argRad);
+        }
+    }
+
+    // Process additional lunar perturbation terms (sine terms only)
+    for (const term of additionalLunarPerturbations) {
+        const arg = (term.D * var_D) + (term.M * var_M) + (term.M_prime * var_M_prime) + (term.F * var_F);
+        const argRad = arg * Math.PI / 180;
+        
+        // Apply eccentricity correction factor E
+        let sigmaB = term.SigmaB;
+        
+        
+        sumSigmaB += sigmaB * Math.sin(argRad);
+    }
+
+    const add_to_SigmaL = 3958*Math.sin(var_A1*Math.PI/180) + 1962*Math.sin((var_L_prime - var_F)*Math.PI/180) + 318*Math.sin(var_A2*Math.PI/180);
+
+    const add_to_SigmaB = -2235*Math.sin(var_L_prime*Math.PI/180) + 
+        382*Math.sin(var_A3*Math.PI/180) + 
+        175*Math.sin((var_A1-var_F)*Math.PI/180) + 
+        175*Math.sin((var_A1+var_F)*Math.PI/180) +
+        127*Math.sin((var_L_prime-var_M_prime)*Math.PI/180) -
+        115*Math.sin((var_L_prime+var_M_prime)*Math.PI/180);
+
+    sumSigmaL += add_to_SigmaL;
+    sumSigmaB += add_to_SigmaB;
+
+
+    const var_lambda = var_L_prime + sumSigmaL/1000000;
+    const var_beta = sumSigmaB/1000000;
+    const var_delta = 385000.56 + (sumSigmaR/1000);
+
+    const var_pi = Math.asin(6378.14 / var_delta);
+    const var_pi_deg = var_pi * (180 / Math.PI);
+
+    const [dPsi, dEpsilon] = getNutationAndObliquity(variable_T);
+    const epsilon0 = getObliquity(variable_T);
+
+    const var_epsilon = epsilon0 + (dEpsilon/3600);
+
+    const apparent_lambda = var_lambda + (dPsi/3600);
+
+    return getAlphaAndDelta(apparent_lambda, var_epsilon, var_beta);
+
+}
