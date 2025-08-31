@@ -885,16 +885,20 @@ function getTogysDate(currentDateTime) {
     }
 
     // Get year name
+    const mod = (n, m) => ((n % m) + m) % m;
     const startOfTogysYearCycle = getTogysNewYear(new Date(2008, 7, 1));
-    const yearsSinceStartOfTogysYearCycle = Math.round(differenceInDays(startOfTogysYear, startOfTogysYearCycle) / 365);
-    const yearName = TogysYearNames[yearsSinceStartOfTogysYearCycle % 12];
+    const fixedYearLength = 365.2663; // Weird number chosen because epoch accumulated errors, should start with Mouse in -3669. Probably a sidereal year/precession thing.
+    const yearsSinceStartOfTogysYearCycle = Math.round(differenceInDays(startOfTogysYear, startOfTogysYearCycle) / fixedYearLength);
+    const yearName = TogysYearNames[mod(yearsSinceStartOfTogysYearCycle, 12)];
+    const cyclesSinceStart = Math.floor(yearsSinceStartOfTogysYearCycle / 12);
+    const currentCycle = 474 + cyclesSinceStart;
 
     // Get month and day
     const startOfTogysMonth = getTogysStartOfMonth(currentDateTime);
     const monthsSinceStartOfTogysYear = Math.round(differenceInDays(startOfTogysMonth, startOfTogysYear) / 27.5);
     const daysSinceStartOfTogysMonth = Math.round(differenceInDays(currentDateTime, startOfTogysMonth)) + 1;
 
-    return 'Day ' + daysSinceStartOfTogysMonth + ' of ' + months[monthsSinceStartOfTogysYear] + '\nYear of the ' + yearName;
+    return 'Day ' + daysSinceStartOfTogysMonth + ' of ' + months[monthsSinceStartOfTogysYear] + '\nYear of the ' + yearName + '\nof Cycle ' + currentCycle;
 }
 
 function getTogysStartOfMonth(currentDateTime) {
