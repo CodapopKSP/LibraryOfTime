@@ -1158,12 +1158,14 @@ const otherCalendars = [
         accuracy: `This calendar is a simple cycle of days with a known epoch and is expected to be exactly accurate.`,
         source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Pawukon_calendar">Wikipedia article</a>.`
     },
+]
 
+const solilunarCalendarsData = [
     {
-        name: 'Togys',
+        name: 'Togys (KZT)',
         id: 'togys',
-        type: 'Other Calendar',
-        epoch: '30 April 3669 BCE +18:00:00',
+        type: 'Solilunar Calendar',
+        epoch: '30 April 3669 BCE +19:00:00',
         confidence: 'Medium',
         overview: `The Togys calendar was used by Kazakh nomads. It consists of 13 or 14 months of 27 or 28 days. Months begin on the day when the moon crosses through the Pleiades star cluster (or matches its right ascension) and follows the sidereal month, making it particularly unique among calendars.\n\nEach month is named after the approximate age of the moon on the first day; since the sidereal month is around 2 days shorter than the lunar month, each time the moon passes through Pleiades, it looks visually distinct.\n\nThe year begins on the month with the youngest moon, just before Pleiades moves behind the sun in April or May. With no need for intercalation, this makes the Togys calendar a Solilunar calendar.\n\nYears follow a 12-year animal cycle similar to the Chinese lunisolar calendar and its derivatives. There is no official epoch, but some sources use 3669 BCE as the start of Kazakh nomad chronology.`,
         info: `Kazakh nomads seem to have used the actual visual appearance of the moon at the point of eclipsing Pleiades as the month name. This makes the Togys calendar one of the few calendars that doesn't need complex rules or an authoritative body, being dictated by a very simple concept that is easy for any individual to check.\n\n<table class="table-very-very-long"><thead><tr><th colspan="2">Togys Months</th></tr><tr><th>Month Name</th><th>Approximate Dates</th></tr></thead><tbody><tr><td>1 togys aiy</td><td>Apr–May</td></tr><tr><td>27 togys aiy\n(14-month years only)</td><td>May–Jun</td></tr><tr><td>25 togys aiy</td><td>Jun</td></tr><tr><td>23 togys aiy</td><td>Jun–Jul</td></tr><tr><td>21 togys aiy</td><td>Jul–Aug</td></tr><tr><td>19 togys aiy</td><td>Aug</td></tr><tr><td>17 togys aiy</td><td>Aug–Sep</td></tr><tr><td>15 togys aiy</td><td>Sep–Oct</td></tr><tr><td>13 togys aiy</td><td>Oct</td></tr><tr><td>11 togys aiy</td><td>Oct–Nov</td></tr><tr><td>9 togys aiy</td><td>Nov–Dec</td></tr><tr><td>7 togys aiy</td><td>Dec–Jan</td></tr><tr><td>5 togys aiy</td><td>Jan–Feb</td></tr><tr><td>3 togys aiy</td><td>Feb–Mar</td></tr></tbody></table>\n<table><thead><tr><th colspan="1">Togys Years</th></tr></thead><tbody><tr><td>Mouse</td></tr><tr><td>Cow</td></tr><tr><td>Leopard</td></tr><tr><td>Hare</td></tr><tr><td>Wolf</td></tr><tr><td>Snake</td></tr><tr><td>Horse</td></tr><tr><td>Sheep</td></tr><tr><td>Monkey</td></tr><tr><td>Hen</td></tr><tr><td>Dog</td></tr><tr><td>Boar</td></tr></tbody></table>`,
@@ -1378,6 +1380,7 @@ const nodeDataArrays = [
     solarCalendarsData,
     lunisolarCalendarsData,
     lunarCalendarsData,
+    solilunarCalendarsData,
     proposedCalendars,
     otherCalendars,
     astronomicalData,

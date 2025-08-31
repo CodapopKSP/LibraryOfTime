@@ -53,6 +53,7 @@ const parentElements = {
     'Other Time': document.querySelector('.other-time'),
     'Lunisolar Calendar': document.querySelector('.lunisolar-calendars'),
     'Lunar Calendar': document.querySelector('.lunar-calendars'),
+    'Solilunar Calendar': document.querySelector('.solilunar-calendars'),
     'Proposed Calendar': document.querySelector('.proposed-calendars'),
     'Other Calendar': document.querySelector('.other-calendars'),
     'Astronomical Data': document.querySelector('.astronomical-data'),

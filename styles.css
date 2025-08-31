@@ -163,6 +163,11 @@ a {
     color: rgb(196, 212, 255);
 }
 
+.solilunar-calendars{
+    background-color: rgb(50, 50, 54);
+    color: rgb(255, 255, 255);
+}
+
 .proposed-calendars {
     background-color: rgb(53, 50, 53);
     color: rgb(191, 255, 252);
@@ -238,6 +243,10 @@ a {
 
 .lunar-calendars > .node > .content {
     border: 0.2vh solid #7c6a98;
+}
+
+.solilunar-calendars > .node > .content {
+    border: 0.2vh solid #986a6a;
 }
 
 .proposed-calendars > .node > .content {
@@ -445,81 +454,6 @@ a {
 
 .add-node-button:hover, .remove-node-button:hover {
     background-color: rgb(95, 95, 95);
-}
-
-.grid-item {
-    margin: 0;
-    padding: 0.2vh;
-    flex: 1;
-    overflow: visible;
-    border-radius: 0.2vh;
-    min-height: 6vh;
-}
-
-/* Ensure grid items inherit the background color from their container class */
-.grid-item.standard-time {
-    background-color: rgb(52, 52, 52);
-}
-
-.grid-item.computing-time {
-    background-color: rgb(50, 50, 54);
-}
-
-.grid-item.solar-calendars {
-    background-color: rgb(54, 50, 50);
-}
-
-.grid-item.lunisolar-calendars {
-    background-color: rgb(50, 54, 50);
-}
-
-.grid-item.lunar-calendars {
-    background-color: rgb(50, 50, 54);
-}
-
-.grid-item.proposed-calendars {
-    background-color: rgb(53, 50, 53);
-}
-
-.grid-item.other-calendars {
-    background-color: rgb(50, 50, 54);
-}
-
-.grid-item.decimal-time {
-    background-color: rgb(54, 50, 50);
-}
-
-.grid-item.other-time {
-    background-color: rgb(54, 50, 50);
-}
-
-.grid-item.astronomical-data {
-    background-color: rgb(53, 53, 50);
-}
-
-.grid-item.pop-culture {
-    background-color: rgb(53, 53, 50);
-}
-
-.grid-item.politics {
-    background-color: rgb(52, 52, 52);
-}
-
-.grid-item .container {
-    margin: 0.1vh;
-    border-radius: 0.2vh;
-    overflow: visible;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.grid-item .content {
-    padding: 0.3vh;
-    font-size: 1.2vh;
-    width: 100%;
-    box-sizing: border-box;
 }
 
 .top-buttons-wrapper {
