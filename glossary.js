@@ -14,7 +14,11 @@ const glossaryContent = {
         },
         {
             term: "Lunisolar Calendar",
-            definition: "A calendar that uses both the lunar month and the solar year as its basic units, using the moon to determine the month and the solar year to determine the year, with a leap month added every few years to keep the lunar month in sync with the solar year."
+            definition: "A calendar that uses both the lunar month and the solar year as its basic units, using the moon to determine the month and the solar year to determine the year, with an intercalary leap month added every few years to keep the lunar month in sync with the solar year."
+        },
+        {
+            term: "Solilunar Calendar",
+            definition: "A calendar that uses both the lunar month and the solar year as its basic units, using the moon to determine the month and the solar year to determine the year. Unlike a lunisolar calendar, the solar year always occurs after the same event, eliminating the need for intercalation rules."
         },
         {
             term: "Epoch",
