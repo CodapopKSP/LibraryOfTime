@@ -22,7 +22,6 @@ function getLocalMidnightInUTC(dateToFind, localMidnight) {
 }
 
 
-
 //|--------------------------------------|
 //|     Chinese Calendar Derivatives     |
 //|--------------------------------------|
@@ -33,6 +32,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
     const gregorianMonth = currentDateTime.getUTCMonth();
     let year = gregorianYear;
 
+    // Format for Chinese calendar
     if (country==='china') {
         let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 16);
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
@@ -52,6 +52,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
         return `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
     }
 
+    // Format for Vietnamese calendar
     if (country==='vietnam') {
         let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 17);
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
@@ -69,6 +70,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
         return `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
     }
 
+    // Format for Korean calendar
     if (country==='korea') {
         let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 15);
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
@@ -88,27 +90,22 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
 
 // Returns a formatted Sexagenary year CST date based on the lunisolar calculation
 function getSexagenaryYear(currentDateTime) {
-    let chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'china');
     let heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
     let earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
-
     let heavenlyStemsEnglish = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
     let earthlyBranchesEnglish = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
 
+    // Get number of current Chinese year
+    let chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'china');
     let chineseYear_ = chineseDate.split('年');
     let chineseYear = chineseYear_[0]-2;
     
-    // Ensure year_ is positive before calculating indices
+    // Ensure year is positive before calculating indices
     let positiveYear = chineseYear < 0 ? 60 + (chineseYear % 60) : chineseYear;
-
     let heavenlyStemIndex = (positiveYear) % 10; // Adjusting for the start of the sexagenary cycle
     let earthlyBranchIndex = (positiveYear) % 12; // Adjusting for the start of the sexagenary cycle
-
-    if (chineseYear[0] < 0) {
-        heavenlyStemIndex++;
-        earthlyBranchIndex++;
-    }
     
+    // Find all stems and branches
     let heavenlyStem = heavenlyStems[heavenlyStemIndex];
     let earthlyBranch = earthlyBranches[earthlyBranchIndex];
     let heavenlyStemEnglish = heavenlyStemsEnglish[heavenlyStemIndex];
@@ -118,11 +115,9 @@ function getSexagenaryYear(currentDateTime) {
 }
 
 
-
 //|--------------------------|
 //|     Chinese Calendar     |
 //|--------------------------|
-
 
 function getLunisolarCalendarDate(currentDateTime, localMidnight) {
     let LastWinterSolstice = getSolsticeEquinox(currentDateTime, 'winter', 0);
@@ -259,7 +254,6 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
         }
     }
 }
-
 
 
 //|-------------------------|

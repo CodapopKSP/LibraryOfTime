@@ -1,4 +1,8 @@
+//|-------------------|
+//|     Run Tests     |
+//|-------------------|
 
+// Run all tests
 
 function runAllTests() {
     runDateManagementTests();
@@ -13,7 +17,3 @@ function runAllTests() {
 }
 
 //runAllTests();
-
-if (typeof process !== "undefined" && process.exit) {
-    process.exit(0);
-}

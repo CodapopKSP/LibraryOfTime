@@ -1,5 +1,8 @@
+//|---------------------------------|
+//|     Proposed Calendar Tests     |
+//|---------------------------------|
 
-
+// Tests for all proposed calendars
 
 function runCalendarTests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;

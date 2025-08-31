@@ -1,4 +1,8 @@
+//|----------------------------------|
+//|     Lunisolar Calendar Tests     |
+//|----------------------------------|
 
+// Tests for all lunisolar calendars
 
 function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;

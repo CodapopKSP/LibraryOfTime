@@ -707,6 +707,7 @@ function getDiscordianDate(currentDateTime, timezoneOffset) {
     // Clear timezone offset from original datetime
     let localTime = new Date(currentDateTime.getTime() + (timezoneOffset * 60000));
 
+    // Figure out year and leap year status
     const startOfYear = createDateWithFixedYear(localTime.getUTCFullYear(), 0, 1);
     const endOfYear = createDateWithFixedYear(localTime.getUTCFullYear()+1, 0, 1);
     let remainingDays = Math.floor(differenceInDays(localTime, startOfYear)+1);
@@ -714,6 +715,7 @@ function getDiscordianDate(currentDateTime, timezoneOffset) {
 
     let dayMonthString = '';
 
+    // Find if on or after St. Tib's Day, not part of the numbered days of the year
     if ((leapYear)&&(remainingDays>=60)) {
         if (remainingDays===60) {
             dayMonthString = `St. Tib's Day`;
@@ -721,6 +723,7 @@ function getDiscordianDate(currentDateTime, timezoneOffset) {
         remainingDays--;
     }
 
+    // Calculate basic calendar elements
     const daysPerMonth = 73;
     let month = Math.floor(remainingDays / daysPerMonth);
     let day = Math.floor(remainingDays % daysPerMonth);
@@ -730,7 +733,6 @@ function getDiscordianDate(currentDateTime, timezoneOffset) {
     if (dayMonthString==='') {
         dayMonthString = day + ' ' + discordianMonths[month];
     }
-
 
     return dayMonthString + ' ' + year + ' YOLD\n' + discordianWeek[dayOfWeek];
 }
@@ -894,7 +896,7 @@ function getQadimiDate(currentDateTime) {
   return day + ' ' + month + ' ' + year + ' Y.Z.\n' + qadimiWeek[dayOfWeek];
 }
 
-// Returns a formatted Egyptian Civil local date
+// Returns a formatted Egyptian Civil EET date
 function getEgyptianDate(currentDateTime) {
 
     const EgyptianSeasons = ["Akhet", "Peret", "Shemu", "Heriu Renpet"];
@@ -907,11 +909,13 @@ function getEgyptianDate(currentDateTime) {
         "Rekh Neds","Renwet","Hnsw","Hnt-Htj","Ipt-Hmt","Wep-Renpet"
     ];
 
+    // Find days since epoch and calculate years
     const startOfAkhet2781 = new Date(Date.UTC(-2781, 5, 26, 22, 0, 0));
     const daysSincestartOfAkhet2781 = Math.floor(differenceInDays(currentDateTime, startOfAkhet2781));
     const yearsSinceStartOfAkhet2781 = Math.floor(daysSincestartOfAkhet2781/365);
     const currentDayOfYear = ((daysSincestartOfAkhet2781 % 365) + 365) % 365 + 1;
 
+    // Calculate current Egyptian season (1/3 year)
     let currentSeason = '';
     if (currentDayOfYear<121) {
         currentSeason = EgyptianSeasons[0];
@@ -923,20 +927,22 @@ function getEgyptianDate(currentDateTime) {
         currentSeason = EgyptianSeasons[3];
     }
 
+    // Find current day and month
     const dayOfSeason = currentDayOfYear%120;
     let currentMonthNumber = Math.floor(dayOfSeason/30);
     const dayOfMonth = dayOfSeason%30;
 
     let monthAndDayText = EgyptianMonthNumbers[currentMonthNumber] + ' ' + currentSeason + ' ' + dayOfMonth;
 
+    // If past 360 days, show intercalary day name
     if (currentSeason=="Heriu Renpet") {
         monthAndDayText = EgyptianIntercalaryDays[dayOfMonth-1];
     }
-    
 
     return monthAndDayText + ' (' + yearsSinceStartOfAkhet2781 + ')';
 }
 
+// Returns an ISO Week local date
 function getISOWeekDate(currentDateTime, timezoneOffset) {
     // Adjust for timezone
     let localTime = new Date(currentDateTime.getTime() + timezoneOffset * 60000);
@@ -962,7 +968,7 @@ function getISOWeekDate(currentDateTime, timezoneOffset) {
     return `${weekYear}-W${weekNumber}-${isoDay}`;
 }
 
-
+// Returns a formatted Haab CST date
 function getHaabDate(localTime) {
 
     const haabMonths = [
@@ -972,12 +978,15 @@ function getHaabDate(localTime) {
         "K'ayab'", "Kumk'u", "Wayeb'"
     ];
 
+    // Use Maya Long Count, even though it's not really the epoch
     const mayaLongCount0 = new Date(Date.UTC(-3113, 7, 11, 6, 0, 0));
     const totalDays = Math.floor(differenceInDays(localTime, mayaLongCount0));
-    
+
+    // Maya Long Count epoch doesn't begin a cycle
     const startingHaabDay = 8;
     const startingHaabMonthIndex = haabMonths.indexOf("Kumk'u");
 
+    // Find current place in the cycle
     const daysInYear = 365;
     const adjustedDays = (totalDays % daysInYear + daysInYear) % daysInYear;
     const totalHaabDays = (startingHaabMonthIndex * 20 + startingHaabDay + adjustedDays) % daysInYear;

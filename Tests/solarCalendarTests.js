@@ -1,4 +1,8 @@
+//|------------------------------|
+//|     Solar Calendar Tests     |
+//|------------------------------|
 
+// Tests for all solar calendars
 
 function runGregorianCalendarTests(testCases) {
     let failedTestCount = 0;

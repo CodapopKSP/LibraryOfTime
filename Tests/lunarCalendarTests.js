@@ -1,4 +1,8 @@
+//|------------------------------|
+//|     Lunar Calendar Tests     |
+//|------------------------------|
 
+// Tests for all lunar calendars
 
 function runGetUmmalQuraDateTests(testCases) {
     let failedTestCount = 0;

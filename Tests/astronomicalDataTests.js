@@ -1,3 +1,8 @@
+//|---------------------------------|
+//|     Astronomical Data Tests     |
+//|---------------------------------|
+
+// Tests for all astronomical data
 
 function runCalculateDateFromJDETests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;

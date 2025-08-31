@@ -1,4 +1,8 @@
+//|-------------------------------|
+//|     Date Management Tests     |
+//|-------------------------------|
 
+// Tests for all date management functions
 
 function runTimezoneFormatterTests(testCases) {
     let failedTestCount = 0;

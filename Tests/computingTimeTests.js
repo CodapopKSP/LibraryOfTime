@@ -1,4 +1,8 @@
+//|------------------------------|
+//|     Computing Time Tests     |
+//|------------------------------|
 
+// Tests for all computing time functions
 
 function runComputingTests(timeName, getCalendarFunction, testCases) {
     let failedTestCount = 0;

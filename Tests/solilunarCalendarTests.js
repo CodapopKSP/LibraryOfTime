@@ -1,4 +1,8 @@
+//|----------------------------------|
+//|     Solilunar Calendar Tests     |
+//|----------------------------------|
 
+// Tests for all solilunar calendars
 
 function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
     let failedTestCount = 0;

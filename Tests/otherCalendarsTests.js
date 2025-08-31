@@ -1,5 +1,8 @@
+//|-------------------------------|
+//|     Other Calendars Tests     |
+//|-------------------------------|
 
-
+// Tests for all other calendars
 
 function runSingleParamaterTests(timeName, getCalendarFunction, testCases) {
     let failedTestCount = 0;
