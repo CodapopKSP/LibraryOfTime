@@ -12,7 +12,7 @@ function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
             result = result.toUTCString();
         } else if (typeof result === 'object' && result !== null) {
             result = `month: ${result.month}, day: ${result.day}, leapMonth: ${result.leapMonth}`;
-}
+        }
         if (result !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
@@ -26,13 +26,17 @@ function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
 
 function testGetTogysDate() {
     return runSingleParameterTests("Togys Calendar", getTogysDate, [
-        ["2024-5-2, 19:00:00", "UTC+00:00", " "],
+        ["2009-4-27, 00:00:00", "UTC+05:00", "Day 1 of 1 togys aiy\nYear of the Cow\nof Cycle 474"],
+        ["2009-5-24, 00:00:00", "UTC+05:00", "Day 1 of 25 togys aiy\nYear of the Cow\nof Cycle 474"],
+        ["2010-3-21, 00:00:00", "UTC+05:00", "Day 1 of 3 togys aiy\nYear of the Cow\nof Cycle 474"],
+        ["2010-5-14, 00:00:00", "UTC+05:00", "Day 1 of 27 togys aiy\nYear of the Leopard\nof Cycle 474"],
+        ["2010-5-13, 00:00:00", "UTC+05:00", "Day 27 of 1 togys aiy\nYear of the Leopard\nof Cycle 474"],
     ]);
 }
 
 // Run all tests.
 function runSolilunarCalendarTests() {
-    const currentDateTime = new Date(Date.UTC(2025, 4, 8, 18, 20, 46));
+    const currentDateTime = new Date(Date.UTC(2010, 4, 8, 18, 20, 46));
     setGregJulianDifference(calculateGregorianJulianDifference(currentDateTime));
     generateAllNewMoons(currentDateTime);
     const testFunctions = [

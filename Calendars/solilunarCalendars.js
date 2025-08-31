@@ -62,11 +62,12 @@ function getTogysDate(currentDateTime) {
     }
 
     // Get leap year status
-    let startOfTogysNextYear = new Date(startOfTogysYear);
-    startOfTogysNextYear.setUTCFullYear(startOfTogysNextYear.getUTCFullYear() + 1);
-    const monthsBetweenStartOfTogysYearAndNextYear = Math.round(differenceInDays(startOfTogysNextYear, startOfTogysYear) / 27.5);
+    let startOfTogysPlusOneYear = new Date(startOfTogysYear);
+    startOfTogysPlusOneYear.setUTCFullYear(startOfTogysPlusOneYear.getUTCFullYear() + 1);
+    const startOfTogysNextYear = getTogysNewYear(startOfTogysPlusOneYear);
+    const monthsBetweenStartOfTogysYearAndNextYear = Math.round(differenceInDays(startOfTogysNextYear, startOfTogysYear) / 27.3);
     let months = TogysMonthNames;
-    if (monthsBetweenStartOfTogysYearAndNextYear > 12) {
+    if (monthsBetweenStartOfTogysYearAndNextYear > 13) {
         months = TogysMonthNames_Leap;
     }
 
@@ -151,7 +152,7 @@ function getTogysNewYear(currentDateTime) {
     }
     
     // Find the last Togys month start that is less than 15 days after a new moon
-    let lastValidTogysMonth = null;
+    let lastValidTogysMonth = togysMonthStarts[0];
     
     for (const togysMonthStart of togysMonthStarts) {
         // Get the new moon before this Togys month start
@@ -162,10 +163,10 @@ function getTogysNewYear(currentDateTime) {
             const daysDifference = Math.floor(differenceInDays(togysMonthStart, newMoonBefore));
             
             // Check if Togys month start is less than 15 days after the new moon
-            if (daysDifference >= 0 && daysDifference < 15) {
+            if ((daysDifference >= 0 && daysDifference < 15) && (getPositionOfTheMoon(newMoonBefore)[0] < 56.8711541667)) {
                 lastValidTogysMonth = togysMonthStart;
             }
         }
     }
-    return lastValidTogysMonth || togysMonthStarts[0]; // Return the last valid one, or first if none found
+    return lastValidTogysMonth;
 }
