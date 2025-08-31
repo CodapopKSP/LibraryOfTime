@@ -6,6 +6,7 @@ function runAllTests() {
     runSolarCalendarTests();
     runLunisolarCalendarTests();
     runLunarCalendarTests();
+    runSolilunarCalendarTests();
     runProposedCalendarTests();
     runComputingTimeTests();
     runOtherCalendarTests();
