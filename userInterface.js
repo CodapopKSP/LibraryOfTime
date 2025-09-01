@@ -197,6 +197,7 @@ function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     setTimeValue('termina-time-node', getTerminaTime(currentDateTime, timezoneOffsetConverted));
     setTimeValue('stardate-node', getStardate(currentDateTime, timezoneOffsetConverted));
     setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
+    setTimeValue('tamrielic-node', getTamrielicDate(currentDateTime, timezoneOffsetConverted));
 }
 
 // Main function for populating a node

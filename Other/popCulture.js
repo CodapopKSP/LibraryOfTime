@@ -110,3 +110,56 @@ function getStardate(currentDateTime, timezoneOffset) {
     const stardate = (currentDateTime - stardate0) / (1000 * 60 * 60 * 24) * stardatesPerDay;
     return stardate.toFixed(2);;
 }
+
+function getTamrielicDate(currentDateTime, timezoneOffset) {
+
+    const tamrielicMonths = [
+        "Morning Star",
+        "Sun's Dawn",
+        "First Seed",
+        "Rain's Hand",
+        "Second Seed",
+        "Midyear",
+        "Sun's Height",
+        "Last Seed",
+        "Hearthfire",
+        "Frostfall",
+        "Sun's Dusk",
+        "Evening Star",
+    ];
+
+    const tamrielicWeek = [
+        "Morndas",
+        "Tirdas",   
+        "Middas",
+        "Turdas",
+        "Fredas",
+        "Loredas",
+        "Sundas",
+    ];
+
+    // Get Gregorian date
+    const gregorianDate = getGregorianDateTime(currentDateTime, timezoneOffset);
+    const tamrielicDate = gregorianDate.date;
+    const day = tamrielicDate.split(' ')[0];
+    let month = tamrielicDate.split(' ')[1];
+    let week = tamrielicDate.split('\n')[1];
+
+    // Get month by comparing to Gregorian
+    for (let i = 0; i < tamrielicMonths.length; i++) {
+        if (month === monthNames[i]) {
+            month = i;
+            break;
+        }
+    }
+
+    // Get week by comparing to Gregorian (adjusted to start at Monday)
+    for (let i = 0; i < tamrielicWeek.length; i++) {
+        if (week === weekNames[i]) {
+            week = (i+6)%7;
+            break;
+        }
+    }
+
+    return day + ' ' + tamrielicMonths[month] + '\n' + tamrielicWeek[week];
+}
