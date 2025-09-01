@@ -58,13 +58,27 @@ function testSymmetry454Calendar() {
     ]);
 }
 
+function testSymmetry010Calendar() {
+    return runCalendarTests("Symmetry010 Calendar", getSymmetry010Date, [
+        ["1-1-1, 00:00:00", "UTC+00:00", "1 January 1 CE\nMonday"],
+        ["2018-1-1, 00:00:00", "UTC+00:00", "1 January 2018 CE\nMonday"],
+        ["2021-12-27, 00:00:00", "UTC+00:00", "1 Irv 2021 CE\nMonday"],
+        ["2025-1-28, 00:00:00", "UTC+00:00", "30 January 2025 CE\nTuesday"],
+        ["2025-12-29, 00:00:00", "UTC+00:00", "1 January 2026 CE\nMonday"],
+        ["2026-12-28, 00:00:00", "UTC+00:00", "1 Irv 2026 CE\nMonday"],
+        ["2026-12-29, 00:00:00", "UTC+00:00", "2 Irv 2026 CE\nTuesday"],
+        ["2027-1-3, 00:00:00", "UTC+00:00", "7 Irv 2026 CE\nSunday"],
+    ]);
+}
+
 // Run all tests.
 function runProposedCalendarTests() {
     const testFunctions = [
         testHumanEraCalendar,
         testInvariableCalendar,
         testWorldCalendar,
-        testSymmetry454Calendar
+        testSymmetry454Calendar,
+        testSymmetry010Calendar
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

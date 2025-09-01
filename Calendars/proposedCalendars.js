@@ -198,3 +198,70 @@ function getSymmetry454Date(currentDateTime_, timezoneOffset) {
 
     return daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + weekNames[dayOfWeek];
 }
+
+function getSymmetry010Date(currentDateTime_, timezoneOffset) {
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    const monthDays = [30, 31, 30, 30, 31, 30, 30, 31, 30, 30, 31, 30, 7];
+    const epoch = createDateWithFixedYear(1, 0, 1);
+
+    let daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, epoch));
+    
+    // Step through monthDays and subtract from daysSinceEpoch
+    let symmetryYear = 1; // Start from year 1
+    let isLeapYear = false;
+    
+    if (daysSinceEpoch > 0) {
+        // Forward from epoch
+        while (daysSinceEpoch > (isLeapYear ? 371 : 364)) {
+            daysSinceEpoch -= (isLeapYear ? 371 : 364);
+            symmetryYear++;
+            const nextYearRemainder = ((52 * symmetryYear) + 146) % 293;
+            isLeapYear = (nextYearRemainder < 52);
+        }
+    } else if (daysSinceEpoch < 0) {
+        // Backward from epoch
+        symmetryYear = 0; // Start at year 0 for negative dates
+        let yearLength = 364; // Default year length
+        while (daysSinceEpoch < 0) {
+            const previousYearRemainder = ((52 * symmetryYear) + 146) % 293;
+            isLeapYear = (previousYearRemainder < 52);
+            yearLength = isLeapYear ? 371 : 364;
+            daysSinceEpoch += yearLength;
+            symmetryYear--;
+        }
+        // Adjust for the fact that we went one year too far back
+        if (daysSinceEpoch >= yearLength) {
+            daysSinceEpoch -= yearLength;
+            symmetryYear++;
+        }
+    }
+    
+    // Now find the month and day within the current year
+    let symmetryMonth = 0;
+    let symmetryMonthString = '';
+    while (daysSinceEpoch >= monthDays[symmetryMonth]) {
+        daysSinceEpoch -= monthDays[symmetryMonth];
+        symmetryMonth++;
+        //console.log(daysSinceEpoch, symmetryMonth);
+    }
+    if (symmetryMonth === 12) {
+        if (isLeapYear) {
+            symmetryMonthString = 'Irv';
+        } else {
+            symmetryMonthString = 'January';
+            symmetryYear++;
+        }
+    } else {
+        symmetryMonthString = monthNames[symmetryMonth];
+    }
+    
+    const symmetryDay = daysSinceEpoch + 1; // Convert to 1-based day
+    
+    
+    // Handle year display (negative years should show as BCE)
+    const yearDisplay = symmetryYear <= 0 ? Math.abs(symmetryYear) + ' BCE' : symmetryYear + ' CE';
+    
+    let dayOfWeek = currentDateTime.getUTCDay();
+    
+    return symmetryDay + ' ' + symmetryMonthString + ' ' + yearDisplay + '\n' + weekNames[dayOfWeek];
+}

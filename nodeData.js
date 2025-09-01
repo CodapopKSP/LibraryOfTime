@@ -952,6 +952,18 @@ const proposedCalendars = [
         accuracy: `As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.\n\nIt has also been calibrated using the Kalendis tool which was created by the same creator of Symmetry454.\n\nThere are sources that list this calendar as meeting up with the Gregorian calendar on 1 January 2005 CE, but I believe this to be a typo. The dates line up on 1 January 2001 CE as well as 1 January 1 CE, which is the epoch in both calendars.`,
         source: 'Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Symmetry454">Wikipedia article</a>.\n\nThis calendar has also been calibrated using a Windows app created by the creator of the Symmetry454 calendar, which can be found <a href="http://individual.utoronto.ca/kalendis/kalendis.htm">here</a>.'
     },
+
+    {
+        name: 'Symmetry010',
+        id: 'symmetry010',
+        type: 'Proposed Calendar',
+        epoch: '1 January 1 CE',
+        confidence: 'Exact',
+        overview: `The Symmetry454 calendar is a proposed calendar reform created by Irv Bromberg that is based on the Gregorian calendar.\n\nIt features the same months as the Gregorian calendar but of different lengths, following a pattern of 30/31/30 days. This allows for each quarter of every year to follow the same pattern of 13 weeks or 91 days.\n\nThe calendar features a leap week that comes after December (humorously labeled as "Irv" by its creator), occurring every 5 or 6 years. This keeps it in line with the Gregorian calendar on a 293-year cycle containing 52 leap years.\n\nThe format of the calendar allows each day of the year to always occur on the same day of the week.`,
+        info: `This calendar is calibrated using 1 January 1 CE as a reference date.\n\n<table class=table-short><tr><th>Months</th><th>Days</th></tr><tr><td>January</td><td>30</td></tr><tr><td>February</td><td>31</td></tr><tr><td>March</td><td>30</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>30</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>30</td></tr><tr><td>November</td><td>31</td></tr><tr><td>December</td><td>30</td></tr><tr><td>Leap Week ("Irv")</td><td>7</td></tr></table>`,
+        accuracy: `Being a simple calculation of days with a known epoch, this calendar is expected to be exactly accurate.`,
+        source: 'The information for this calendar came from <a href="https://kalendis.free.nf/classic.htm">this website</a>.'
+    }
 ]
 
 const otherCalendars = [
