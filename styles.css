@@ -841,11 +841,6 @@ a {
      visibility: hidden;
      border-radius: 0.5vh;
  }
- 
- /* Mobile home button (outside description panel) */
- .mobile-home-button {
-     display: none;
- }
 
 #desktop-home-button.hoveringHome {
     background-color: rgb(45, 45, 45);
@@ -1387,6 +1382,10 @@ th, td {
         max-width: 60vw;
         left: 50%;
         transform: translateX(-50%);
+    }
+
+    .mac-chrome-only .nodeinfo-confidence .tooltiptext {
+        visibility: hidden;
     }
     
     /* iOS Safari fix: Ensure content is properly clipped when description panel is collapsed */
