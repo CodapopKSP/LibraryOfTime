@@ -69,6 +69,11 @@ nodeDataArrays.forEach(dataArray => {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Detect Mac Chrome and add class to body
+    if (navigator.userAgent.includes("Chrome") && navigator.platform === "MacIntel") {
+        document.body.classList.add("mac-chrome-only");
+    }
+
     // Masonry Tiling library
     var grid = document.querySelector('.node-wrapper');
     var msnry = new Masonry(grid, {

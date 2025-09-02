@@ -33,6 +33,10 @@ a {
     overflow-x: hidden;
 }
 
+.mac-chrome-only .page-wrapper::after {
+    height: 10vh;
+}
+
 .title-wrapper {
     position: absolute;
     width: 99vw;
@@ -46,6 +50,10 @@ a {
     z-index: 10;
     background-color: rgb(47, 47, 47);
     overflow: hidden;
+}
+
+.mac-chrome-only .title-wrapper {
+    font-size: 5vh;
 }
 
 .invisible-title-button {
@@ -117,6 +125,9 @@ a {
     overflow-x: hidden;
 }
 
+.mac-chrome-only .node-wrapper {
+    overflow-y: hidden;
+}
 
 /*
 |==============|
@@ -134,9 +145,19 @@ a {
     width: 17vh;
 }
 
+.mac-chrome-only .container {
+    font-size: 2vh;
+    width: 20.5vh;
+}
+
 .container-name {
     font-size: 1.6vh;
 }
+
+.mac-chrome-only .container-name {
+    font-size: 2.2vh;
+}
+
 
 .standard-time {
     background-color: rgb(52, 52, 52);
@@ -217,6 +238,10 @@ a {
     display: inline-block;
 }
 
+.mac-chrome-only .node {
+    width: 19vh;
+}
+
 .standard-time > .node > .content {
     border: 0.2vh solid #bbbbbb;
 }
@@ -277,6 +302,10 @@ a {
     margin-top: 0.6vh;
     background-color: rgb(47, 47, 47);
     white-space: pre-wrap;
+}
+
+.mac-chrome-only .content {
+    font-size: 1.6vh;
 }
 
 .node .content.hover {
@@ -348,6 +377,10 @@ a {
     margin-right: 0.4vh;
 }
 
+.mac-chrome-only #date-input {
+    font-size: 1.8vh;
+}
+
 .date-picker-button {
     height: 2.5vh;
     width: 2vw;
@@ -382,6 +415,11 @@ a {
     border-color: #443c3c;
 }
 
+.mac-chrome-only #timezone,
+.mac-chrome-only #calendar-type {
+    font-size: 1.8vh;
+}
+
 #floating-panel {
     min-height: 20vh;
     width: 37vh;
@@ -398,6 +436,10 @@ a {
     overflow: visible;
     flex-direction: column;
     justify-content: flex-start;
+}
+
+.mac-chrome-only #floating-panel {
+    width: 43.6vh;
 }
 
 #floating-box-node-container {
@@ -420,6 +462,11 @@ a {
     box-shadow: inset 0 0 0.2vh rgba(0, 0, 0, 0.3);
 }
 
+.mac-chrome-only .panel-section {
+    min-height: 12vh;
+    width: 21vh;
+}
+
 .section-header {
     background-color: rgb(45, 45, 45);
     color: rgb(214, 214, 214);
@@ -429,6 +476,10 @@ a {
     text-align: center;
     border-bottom: 0.1vh solid #444;
     flex-shrink: 0;
+}
+
+.mac-chrome-only .section-header {
+    font-size: 1.8vh;
 }
 
 .section-controls {
@@ -450,6 +501,10 @@ a {
     font-size: 1vh;
     flex: 1;
     transition: background-color 0.2s ease;
+}
+
+.mac-chrome-only .add-node-button, .mac-chrome-only .remove-node-button {
+    font-size: 1.6vh;
 }
 
 .add-node-button:hover, .remove-node-button:hover {
@@ -542,6 +597,12 @@ a {
 
 #glossary-button:hover {
     background-color: #4f4f4f;
+}
+
+.mac-chrome-only #floating-panel-toggle-button,
+.mac-chrome-only #glossary-button,
+.mac-chrome-only #on-making-LoT-button {
+    font-size: 1.8vh;
 }
 
 
@@ -642,6 +703,21 @@ a {
     opacity: 0.95;
 }
 
+/* Mac Chrome only styles */
+.mac-chrome-only .nodeinfo-confidence .tooltiptext {
+    width: 300px;
+    max-width: 300px;
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.mac-chrome-only .nodeinfo {
+    font-size: 2.4vh;
+    margin: 0vh;
+    padding: 0vh;
+}
+
 .description-button-wrapper {
     position: absolute;
     top: 5.3vh;
@@ -659,6 +735,11 @@ a {
     border-color: #1b1b1b;
     flex: 1 0 auto;
     box-shadow: none;
+}
+
+.mac-chrome-only .header-button {
+    font-size: 1.8vh;
+    height: 3vh;
 }
 
 .header-button.hoveringTab {
@@ -702,6 +783,10 @@ a {
     text-align: justify;
 }
 
+.mac-chrome-only .nodeinfo-overview {
+    height: 69%;
+}
+
 .clickable-epoch.hovering {
     background-color: rgb(60, 60, 60);
     cursor: pointer;
@@ -718,6 +803,12 @@ a {
     margin: 1rem;
     white-space: pre-wrap;
     text-align: justify;
+}
+
+.mac-chrome-only .nodeinfo-info,
+.mac-chrome-only .nodeinfo-accuracy,
+.mac-chrome-only .nodeinfo-source {
+    height: 89%;
 }
 
  /* Desktop home button (inside description panel) */
@@ -788,6 +879,11 @@ table {
 .table-very-very-long th,
 .table-very-very-long td {
     font-size: 1.5vh;
+}
+
+.mac-chrome-only .table-very-very-long th,
+.mac-chrome-only .table-very-very-long td {
+    font-size: 1.9vh;
 }
 
 th, td {
@@ -865,6 +961,10 @@ th, td {
     line-height: 1.6;
 }
 
+.mac-chrome-only .modal-text {
+    font-size: 2.2vh;
+}
+
 .modal-text p {
     margin-bottom: 2vh;
 }
@@ -900,6 +1000,10 @@ th, td {
     align-items: center;
     gap: 1vh;
     transition: background-color 0.2s ease;
+}
+
+.mac-chrome-only .images-toggle-btn {
+    font-size: 1.8vh;
 }
 
 .images-toggle-btn:hover {
