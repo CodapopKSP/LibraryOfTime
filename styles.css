@@ -378,7 +378,8 @@ a {
 }
 
 .mac-chrome-only #date-input {
-    font-size: 1.8vh;
+    font-size: 2vh;
+    width: 22vh;
 }
 
 .date-picker-button {
@@ -394,6 +395,20 @@ a {
     justify-content: center;
     overflow: hidden;
     border-radius: 0.5vh;
+}
+
+.mac-chrome-only .date-picker-button {
+    font-size: 1.8vh;
+    width: 5vh;
+}
+
+.date-picker-icon {
+    font-size: 24px;
+    background: #2b2b2b;
+}
+
+.mac-chrome-only .date-picker-icon {
+    font-size: 20px;
 }
 
 #calendar-type {
@@ -417,7 +432,8 @@ a {
 
 .mac-chrome-only #timezone,
 .mac-chrome-only #calendar-type {
-    font-size: 1.8vh;
+    font-size: 2vh;
+    width: 11vh;
 }
 
 #floating-panel {
@@ -1031,15 +1047,6 @@ th, td {
 .modal-close-button:hover {
     background-color: rgb(55, 55, 55);
 }
-
-
-/*
-|====================|
-|  Scaling Elements  |
-|====================|
-*/
-
-
 
 
 /*
