@@ -30,6 +30,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('egyptian-civil-node', getEgyptianDate(currentDateTime));
     setTimeValue('iso-week-date-node', getISOWeekDate(currentDateTime, timezoneOffset));
     setTimeValue('haab-node', getHaabDate(currentDateTime));
+    setTimeValue('anno-lucis-node', getAnnoLucisDate(currentDateTime, timezoneOffset));
 }
 
 function updateLunisolarCalendars(currentDateTime) {

@@ -995,3 +995,31 @@ function getHaabDate(localTime) {
     
     return `${haabDay} ${haabMonths[haabMonthIndex]}`;
 };
+
+// Returns a formatted Anno Lucis local date
+function getAnnoLucisDate(currentDateTime, timezoneOffset) {
+
+    // Get Gregorian date components
+    let annoLucis = getGregorianDateTime(currentDateTime, timezoneOffset).date;
+    let annoLucisDay = annoLucis.split(' ')[0];
+    let annoLucisMonth = annoLucis.split(' ')[1];
+    let annoLucisYear = annoLucis.split(' ')[2] + annoLucis.split(' ')[3];
+    let annoLucisWeek = annoLucis.split('\n')[1];
+    
+    // Get year number
+    let annoLucisYearNumber = 0;
+    if (annoLucisYear.includes('BCE')) {
+        annoLucisYearNumber = annoLucisYear.replace(' BCE', '');
+        annoLucisYearNumber = parseInt(annoLucisYearNumber) * -1;
+    } else {
+        annoLucisYearNumber = annoLucisYear.replace(' CE', '');
+        annoLucisYearNumber = parseInt(annoLucisYearNumber);
+    }
+
+    // Add 4000 years to the year
+    annoLucisYearNumber += 4000;
+
+    // Reconstruct the date string
+    annoLucis = annoLucisDay + ' ' + annoLucisMonth + ' ' + annoLucisYearNumber + ' AL\n' + annoLucisWeek;
+    return annoLucis;
+}

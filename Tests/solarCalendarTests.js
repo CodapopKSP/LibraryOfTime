@@ -286,6 +286,14 @@ function testFrenchRepublicanCalendar() {
     ]);
 }
 
+function testAnnoLucisCalendar() {
+    return runSolarTests("Anno Lucis Calendar", getAnnoLucisDate, [
+        ["2025-1-1, 00:00:00", "UTC+00:00", "1 January 6025 AL\nWednesday"],
+        ["-3999-1-1, 00:00:00", "UTC+14:00", "1 January 1 AL\nMonday"],
+        ["-4001-1-1, 00:00:00", "UTC+14:00", "1 January -1 AL\nFriday"],
+    ]);
+}
+
 // Run all tests.
 function runSolarCalendarTests() {
     const testFunctions = [
@@ -310,7 +318,8 @@ function runSolarCalendarTests() {
         testQadimiCalendar,
         testEgyptianCivilCalendar,
         testISOWeekDateCalendar,
-        testHaabCalendar
+        testHaabCalendar,
+        testAnnoLucisCalendar
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

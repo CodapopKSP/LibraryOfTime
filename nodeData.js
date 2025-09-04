@@ -825,6 +825,18 @@ const solarCalendarsData = [
         accuracy: `This calendar is still used today in some Maya groups, and it has been calibrated using the calculator provided by the Smithsonian National Museum of the American Indian. However, it also relies on the Long Count calendar being accurate.`,
         source: `Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Maya_calendar">Wikipedia article</a>.\n\nThe <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter, though it is broken for dates before the Long Count epoch.`
     },
+    
+    {
+        name: 'Anno Lucis',
+        id: 'anno-lucis',
+        type: 'Solar Calendar',
+        epoch: '1 January 3999 BCE',
+        confidence: 'Exact',
+        overview: `Anno Lucis is a date numbering system used by the Freemasons. It is computed by adding 4000 to the current Gregorian year, and otherwise shares its other components.\n\nYears are denoted with 'AL', which stands for Anno Lucis, meaning "in the Year of Light". This refers to the proposed year of creation from the Hebrew calendar.`,
+        info: ``,
+        accuracy: `As this is a simple addition to the Gregorian calendar, this calculation is exactly accurate.`,
+        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Anno_Lucis">Wikipedia article</a>.`
+    },
 ]
 
 const lunisolarCalendarsData = [
