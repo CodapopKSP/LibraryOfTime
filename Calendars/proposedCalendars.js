@@ -265,3 +265,140 @@ function getSymmetry010Date(currentDateTime_, timezoneOffset) {
     
     return symmetryDay + ' ' + symmetryMonthString + ' ' + yearDisplay + '\n' + weekNames[dayOfWeek];
 }
+
+function getPositivistDate(currentDateTime_, timezoneOffset) {
+
+    const positivistMonths = [
+        'Moses',
+        'Homer',
+        'Aristotle',
+        'Archimedes',
+        'Caesar',
+        'Saint Paul',
+        'Charlemagne',
+        'Dante',
+        'Gutenberg',
+        'Shakespeare',
+        'Descartes',
+        'Frederick',
+        'Bichat',
+    ]
+
+    const mosesDays = [
+        'Prometheus', 'Hercules', 'Orpheus', 'Ulysses', 'Lycurgus', 'Romulus', 'Numa', 'Belus', 'Sesostris', 'Menu',
+        'Cyrus', 'Zoroaster', 'The Druids', 'Buddha', 'Fo-Hi', 'Lao-Tzu', 'Meng-Tzu', 'The Priests of Tibet', 'The Priests of Japan', 'Manco Capac',
+        'Confucius', 'Abraham', 'Joseph', 'Samuel', 'Solomon', 'Isaac', 'St. John the Baptist', 'Muhammad'
+    ];
+    const homerDays = [
+        'Hesiod', 'Tyrtaeus', 'Anacreon', 'Pindar', 'Sophocles', 'Theocritus', 'Aeschylus', 'Scopas', 'Zeuxis', 'Ictinus',
+        'Praxiteles', 'Lysippus', 'Apelles', 'Phidias', 'Aesop', 'Aristophanes', 'Terence', 'Phaedrus', 'Juvenal', 'Lucian',
+        'Plautus', 'Ennius', 'Lucretius', 'Horace', 'Tibullus', 'Ovid', 'Lucan', 'Virgil'
+    ];
+    const aristotleDays = [
+        'Anaximander', 'Anaximenes', 'Heraclitus', 'Anaxagoras', 'Democritus', 'Herodotus', 'Thales', 'Solon', 'Xenophanes', 'Empodocles',
+        'Thucydides', 'Archytas', 'Apollonius of Tyrana', 'Pythagoras', 'Aristippus', 'Antisthenes', 'Zeno', 'Cicero', 'Epictetus', 'Tacitus',
+        'Socrates', 'Xenocrates', 'Philo of Alexandria', 'St. John the Evangelist', 'St. Justin', 'St. Clement of Alexandria', 'Origen', 'Plato'
+    ];
+    const archimedesDays = [
+        'Theophrastus', 'Herophilus', 'Eristratus', 'Celsus', 'Galen', 'Avicenna', 'Hippocrates', 'Euclid', 'Aristarchus', 'Theodosius of Bithynia',
+        'Hero', 'Pappus', 'Diophantus', 'Apollonius', 'Eudoxus', 'Pytheas', 'Aristarchus', 'Eratosthenes', 'Ptolemy', 'Albategnius',
+        'Hipparchus', 'Varro', 'Columella', 'Vitruvius', 'Strabo', 'Frontinus', 'Plutarch', 'Pliny the Elder'
+    ];
+    const caesarDays = [
+        'Militiades', 'Leonides', 'Aristides', 'Cimon', 'Xenophon', 'Phocion', 'Themistocles', 'Pericles', 'Philip (of Macedon)', 'Demosthenes',
+        'Ptolemy Lagus', 'Philipoemen', 'Polybus', 'Alexander (the Great)', 'Junius Brutus', 'Camillus', 'Fabricius', 'Hannibal', 'Paulus Aemilius', 'Marius',
+        'Scipio', 'Augustus', 'Vespasian', 'Adrian', 'Antony', 'Papinian', 'Alexander Severus', 'Trajan'
+    ];
+    const saintPaulDays = [
+        'St. Luke', 'St. Cyprian', 'St. Athanasius', 'St. Jerome', 'St. Ambrose', 'St. Monica', 'St. Augustine', 'Constantine', 'Theodosius', 'St. Chrysostom',
+        'St. Pulcheria', 'St. Genevieve of Paris', 'St. Gregory the Great', 'Hildebrand', 'St. Benedict', 'St. Boniface', 'St. Isidore of Seville', 'St. Lanfranc', 'St. Heloise', 'The Architects of the Middle Ages',
+        'St. Bernard', 'St. Francis Xavier', 'St. Charles Borromeo', 'St. Theresa', 'St. Vincent de Paul', 'Bordalue', 'William Penn', 'Bossuet'
+    ];
+    const charlemagneDays = [
+        'Theodoric the Great', 'Pelayo', 'Otho the Great', 'St. Henry', 'Villiers', 'Don Juan de Austria', 'Alfred (the Great)', 'Charles Martel', 'El Cid', 'Richard I',
+        'Joan of Arc', 'Albuquerque', 'Bayard', 'Godfrey', 'St. Leo the Great', 'Gerbert', 'Peter the Hermit', 'Suger', 'Alexander III', 'St. Francis of Assisi',
+        'Innocent III', 'St. Clothilda', 'St. Bathilde', 'St. Stephen of Hungary', 'St. Elizabeth of Hungary', 'Blanche of Castille', 'St. Ferdinand III', 'St. Louis'
+    ];
+    const danteDays = [
+        'The Troubadours', 'Bocaccio', 'Cervantes', 'Rabelais', 'La Fontaine', 'de Foe', 'Ariosto', 'Leonardo da Vinci', 'Michelangelo', 'Holbein',
+        'Poussin', 'Murillo', 'Teniers', 'Raphael', 'Froissart', 'Camões', 'The Spanish Romantics', 'Chateaubriand', 'Sir Walter Scott', 'Manzoni',
+        'Tasse', 'Petrarch', 'Thomas à Kempis', 'Madame de Lafayette', 'Fénelon', 'Klopstock', 'Byron', 'Milton'
+    ];
+    const gutenbergDays = [
+        'Marco Polo', 'Jacques Coeur', 'da Gama', 'Napier', 'Lacaille', 'Cook', 'Columbus', 'Benvenuto Cellini', 'Amontons',
+        'Harrison', 'Dolland', 'Arkwright', 'Conté', 'Vaucanson', 'Stevin', 'Mariotte', 'Papin', 'Black', 'Jouffroy',
+        'Dalton', 'Watt', 'Bernard de Palissy', 'Guglielmini', 'Duhamel', 'Saussure', 'Coulomb', 'Carnot', 'Montgolfier'
+    ];
+    const shakespeareDays = [
+        'Lope de Vega', 'Moreto', 'Rojas', 'Otway', 'Lessing', 'Goëthe', 'Calderón', 'Tirso', 'Vondel', 'Racine',
+        'Voltaire', 'Alfieri', 'Schiller', 'Corneille', 'Alarcón', 'Madame de Motteville', 'Madame de Sévigné', 'Lesage', 'Madame de Staal', 'Fielding',
+        'Molière', 'Pergolesi', 'Sacchini', 'Gluck', 'Beethoven', 'Rossini', 'Bellini', 'Mozart'
+    ];
+    const descartesDays = [
+        'Albert the Great', 'Roger Bacon', 'St. Bonaventure', 'Ramus', 'Montaigne', 'Campanella', 'Thomas Aquinas', 'Thomas Hobbes', 'Pascal', 'Locke',
+        'Vauvernargues', 'Diderot', 'Cabanis', 'Bacon', 'Grotius', 'Fontenelle', 'Vico', 'Fréret', 'Montesquieu', 'Buffon',
+        'Leibnitz', 'Adam Smith', 'Kant', 'Condorcet', 'Fichte', 'Joseph de Maistre', 'Hegel', 'Hume'
+    ];
+    const frederickDays = [
+        'Marie de Molina', 'Cosimo de Medici', 'Philippe de Comines', 'Isabella of Castille', 'Charles V', 'Henry IV', 'Louis XI', 'Coligny', 'Barneveldt', 'Gustavus Adolphus',
+        'de Witt', 'Ruyter', 'William III', 'William the Silent', 'Ximénez', 'Sully', 'Colbert', 'Walpole', 'D\'Aranda', 'Turgot',
+        'Richelieu', 'Sidney', 'Franklin', 'Washington', 'Jefferson', 'Bolívar', 'Francia', 'Cromwell'
+    ];
+    const bichatDays = [
+        'Copernicus', 'Kepler', 'Huygens', 'Jacques Bernoulli', 'Bradley', 'Volta', 'Galileo', 'Viète', 'Wallis', 'Clairaut',
+        'Euler', 'D\'Alembert', 'Lagrange', 'Newton', 'Bergmann', 'Priestley', 'Cavendish', 'Guyton Morveau', 'Berthollet', 'Berzelius',
+        'Lavoisier', 'Harvey', 'Boerhaave', 'Linnaeus', 'Haller', 'Lamarck', 'Broussais', 'Gall'
+    ];
+
+    // Create an array of all the days
+    const positivistDaysArray = [
+        ...mosesDays,
+        ...homerDays,
+        ...aristotleDays,
+        ...archimedesDays,
+        ...caesarDays,
+        ...saintPaulDays,
+        ...charlemagneDays,
+        ...danteDays,
+        ...gutenbergDays,
+        ...shakespeareDays,
+        ...descartesDays,
+        ...frederickDays,
+        ...bichatDays,
+        'The Festival of All the Dead',
+        'The Festival of Holy Women',
+    ];
+
+    // Calculate the year
+    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let year = currentDateTime.getUTCFullYear()-1788;
+
+    // Calculate the days since the start of the year
+    const thisYearEpoch = createDateWithFixedYear(currentDateTime.getUTCFullYear(), 0, 1);
+    let daysSinceThisYearEpoch = Math.floor(differenceInDays(currentDateTime, thisYearEpoch));
+
+    // Calculate the positivist named day and day of week
+    let positivistDay = positivistDaysArray[daysSinceThisYearEpoch];
+    let dayOfWeek = '\n' + weekNames[(daysSinceThisYearEpoch+1) % 7];
+
+    // Calculate the month and day
+    let month = 0;
+    while (daysSinceThisYearEpoch >= 28) {
+        daysSinceThisYearEpoch -= 28;
+        month++;
+    }
+    let day = daysSinceThisYearEpoch+1;
+
+    // Calculate the month and day string. Remove the day of week, day of month, and month if the named day is a festival.
+    let dayMonthString = '';
+    if ((positivistDay === 'The Festival of All the Dead') || (positivistDay === 'The Festival of Holy Women')) {
+        dayMonthString = positivistDay;
+        positivistDay = '';
+        dayOfWeek = '';
+    } else {
+        dayMonthString = day + ' ' + positivistMonths[month];
+        positivistDay = '\n' + positivistDay;
+    }
+
+    return dayMonthString + '\n' + year + ' of the Great Crisis' + dayOfWeek + positivistDay;
+}

@@ -892,6 +892,11 @@ table {
     font-size: 1.5vh;
 }
 
+.table-very-very-very-long th,
+.table-very-very-very-long td {
+    font-size: 1.2vh;
+}
+
 .mac-chrome-only .table-very-very-long th,
 .mac-chrome-only .table-very-very-long td {
     font-size: 1.9vh;

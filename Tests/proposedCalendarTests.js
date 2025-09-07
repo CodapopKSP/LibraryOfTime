@@ -71,6 +71,15 @@ function testSymmetry010Calendar() {
     ]);
 }
 
+function testPositivistCalendar() {
+    return runCalendarTests("Positivist Calendar", getPositivistDate, [
+        ["1990-1-1, 00:00:00", "UTC-12:00", "1 Moses\n202 of the Great Crisis\nMonday\nPrometheus"],
+        ["2025-9-7, 23:00:00", "UTC+14:00", "26 Gutenberg\n237 of the Great Crisis\nFriday\nCoulomb"],
+        ["2024-12-30, 00:00:00", "UTC+00:00", "The Festival of All the Dead\n236 of the Great Crisis"],
+        ["2024-12-31, 00:00:00", "UTC+00:00", "The Festival of Holy Women\n236 of the Great Crisis"],
+    ]);
+}
+
 // Run all tests.
 function runProposedCalendarTests() {
     const testFunctions = [
@@ -78,7 +87,8 @@ function runProposedCalendarTests() {
         testInvariableCalendar,
         testWorldCalendar,
         testSymmetry454Calendar,
-        testSymmetry010Calendar
+        testSymmetry010Calendar,
+        testPositivistCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

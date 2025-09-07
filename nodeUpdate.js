@@ -110,6 +110,7 @@ function updateProposedCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime, timezoneOffset));
     setTimeValue('symmetry454-node', getSymmetry454Date(currentDateTime, timezoneOffset));
     setTimeValue('symmetry010-node', getSymmetry010Date(currentDateTime, timezoneOffset));
+    setTimeValue('positivist-node', getPositivistDate(currentDateTime, timezoneOffset));
 }
 
 function updateOtherAndDecimalTimes(currentDateTime, timezoneOffset) {

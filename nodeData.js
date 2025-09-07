@@ -975,6 +975,196 @@ const proposedCalendars = [
         info: `This calendar is calibrated using 1 January 1 CE as a reference date.\n\n<table class=table-short><tr><th>Months</th><th>Days</th></tr><tr><td>January</td><td>30</td></tr><tr><td>February</td><td>31</td></tr><tr><td>March</td><td>30</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>30</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>30</td></tr><tr><td>November</td><td>31</td></tr><tr><td>December</td><td>30</td></tr><tr><td>Leap Week ("Irv")</td><td>7</td></tr></table>`,
         accuracy: `Being a simple calculation of days with a known epoch, this calendar is expected to be exactly accurate.`,
         source: 'The information for this calendar came from <a href="https://kalendis.free.nf/classic.htm">this website</a>.'
+    },
+
+    {
+        name: 'Positivist',
+        id: 'positivist',
+        type: 'Proposed Calendar',
+        epoch: '1 January 1789 CE',
+        confidence: 'Exact',
+        overview: `The Positivist calendar was created by French philosopher and Positivist Auguste Comte in 1849. It features 13 months of 28 days named after significant figures in Western history.\n\nEach of the 364 days is also named after a historical figure, not all of whom are intended to be remembered as heroes but also as villains. Days of the week are still carried over from the Gregorian calendar, though the final day of the year, The Festival of All the Dead, is not part of a day of the week, as is the following day during leap years, The Festival of Holy Women. Leap year rules follow the Gregorian calendar.\n\nYears are counted from 1789, the year of the French Revolution, and are denoted as "Year of the Great Crisis". Each year starts on January 1 of the Gregorian calendar.`,
+        info: `<table class=table-very-very-long><tr><th colspan="3">Positivist Months</th></tr><tr><th>Month</th><th>Gregorian Dates</th><th>Days</th></tr><tr><td>Moses</td><td>Jan 1 - Jan 28</td><td>28</td></tr><tr><td>Homer</td><td>Jan 29 - Feb 25</td><td>28</td></tr><tr><td>Aristotle</td><td>Feb 26 - Mar 25</td><td>28</td></tr><tr><td>Archimedes</td><td>Mar 26 - Apr 22</td><td>28</td></tr><tr><td>Caesar</td><td>Apr 23 - May 20</td><td>28</td></tr><tr><td>Saint Paul</td><td>May 21 - Jun 17</td><td>28</td></tr><tr><td>Charlemagne</td><td>Jun 18 - Jul 15</td><td>28</td></tr><tr><td>Dante</td><td>Jul 16 - Aug 12</td><td>28</td></tr><tr><td>Gutenberg</td><td>Aug 13 - Sep 9</td><td>28</td></tr><tr><td>Shakespeare</td><td>Sep 10 - Oct 7</td><td>28</td></tr><tr><td>Descartes</td><td>Oct 8 - Nov 4</td><td>28</td></tr><tr><td>Frederick</td><td>Nov 5 - Dec 2</td><td>28</td></tr><tr><td>Bichat</td><td>Dec 3 - Dec 30</td><td>28</td></tr><tr><td>Festival of<br>All the Dead</td><td>Dec 30/31</td><td>1</td></tr><tr><td>Festival of<br>Holy Women</td><td>Dec 31 (leap years)</td><td>1</td></tr></table>
+
+        <table class="table-very-very-very-long">
+        <tr><th colspan="3">Positivist days</th></tr>
+        <!-- Block 1: Moses | Homer | Aristotle -->
+        <tr>
+        <th style="background-color:#222; color:white;">Moses</th>
+        <th style="background-color:#222; color:white;">Homer</th>
+        <th style="background-color:#222; color:white;">Aristotle</th>
+        </tr>
+        <tr><td>Prometheus</td><td>Hesiod</td><td>Anaximander</td></tr>
+        <tr><td>Hercules</td><td>Tyrtaeus</td><td>Anaximenes</td></tr>
+        <tr><td>Orpheus</td><td>Anacreon</td><td>Heraclitus</td></tr>
+        <tr><td>Ulysses</td><td>Pindar</td><td>Anaxagoras</td></tr>
+        <tr><td>Lycurgus</td><td>Sophocles</td><td>Democritus</td></tr>
+        <tr><td>Romulus</td><td>Theocritus</td><td>Herodotus</td></tr>
+        <tr><td>Numa</td><td>Aeschylus</td><td>Thales</td></tr>
+        <tr><td>Belus</td><td>Scopas</td><td>Solon</td></tr>
+        <tr><td>Sesostris</td><td>Zeuxis</td><td>Xenophanes</td></tr>
+        <tr><td>Menu</td><td>Ictinus</td><td>Empodocles</td></tr>
+        <tr><td>Cyrus</td><td>Praxiteles</td><td>Thucydides</td></tr>
+        <tr><td>Zoroaster</td><td>Lysippus</td><td>Archytas</td></tr>
+        <tr><td>The Druids</td><td>Apelles</td><td>Apollonius of Tyrana</td></tr>
+        <tr><td>Buddha</td><td>Phidias</td><td>Pythagoras</td></tr>
+        <tr><td>Fo-Hi</td><td>Aesop</td><td>Aristippus</td></tr>
+        <tr><td>Lao-Tzu</td><td>Aristophanes</td><td>Antisthenes</td></tr>
+        <tr><td>Meng-Tzu</td><td>Terence</td><td>Zeno</td></tr>
+        <tr><td>The Priests of Tibet</td><td>Phaedrus</td><td>Cicero</td></tr>
+        <tr><td>The Priests of Japan</td><td>Juvenal</td><td>Epictetus</td></tr>
+        <tr><td>Manco Capac</td><td>Lucian</td><td>Tacitus</td></tr>
+        <tr><td>Confucius</td><td>Plautus</td><td>Socrates</td></tr>
+        <tr><td>Abraham</td><td>Ennius</td><td>Xenocrates</td></tr>
+        <tr><td>Joseph</td><td>Lucretius</td><td>Philo of Alexandria</td></tr>
+        <tr><td>Samuel</td><td>Horace</td><td>St. John the Evangelist</td></tr>
+        <tr><td>Solomon</td><td>Tibullus</td><td>St. Justin</td></tr>
+        <tr><td>Isaac</td><td>Ovid</td><td>St. Clement of Alexandria</td></tr>
+        <tr><td>St. John the Baptist</td><td>Lucan</td><td>Origen</td></tr>
+        <tr><td>Muhammad</td><td>Virgil</td><td>Plato</td></tr>
+
+        <!-- Block 2: Archimedes | Caesar | Saint Paul -->
+        <tr>
+        <th style="background-color:#222; color:white;">Archimedes</th>
+        <th style="background-color:#222; color:white;">Caesar</th>
+        <th style="background-color:#222; color:white;">Saint Paul</th>
+        </tr>
+        <tr><td>Theophrastus</td><td>Militiades</td><td>St. Luke</td></tr>
+        <tr><td>Herophilus</td><td>Leonides</td><td>St. Cyprian</td></tr>
+        <tr><td>Eristratus</td><td>Aristides</td><td>St. Athanasius</td></tr>
+        <tr><td>Celsus</td><td>Cimon</td><td>St. Jerome</td></tr>
+        <tr><td>Galen</td><td>Xenophon</td><td>St. Ambrose</td></tr>
+        <tr><td>Avicenna</td><td>Phocion</td><td>St. Monica</td></tr>
+        <tr><td>Hippocrates</td><td>Themistocles</td><td>St. Augustine</td></tr>
+        <tr><td>Euclid</td><td>Pericles</td><td>Constantine</td></tr>
+        <tr><td>Aristarchus</td><td>Philip (of Macedon)</td><td>Theodosius</td></tr>
+        <tr><td>Theodosius of Bithynia</td><td>Demosthenes</td><td>St. Chrysostom</td></tr>
+        <tr><td>Hero</td><td>Ptolemy Lagus</td><td>St. Pulcheria</td></tr>
+        <tr><td>Pappus</td><td>Philipoemen</td><td>St. Genevieve of Paris</td></tr>
+        <tr><td>Diophantus</td><td>Polybus</td><td>St. Gregory the Great</td></tr>
+        <tr><td>Apollonius</td><td>Alexander (the Great)</td><td>Hildebrand</td></tr>
+        <tr><td>Eudoxus</td><td>Junius Brutus</td><td>St. Benedict</td></tr>
+        <tr><td>Pytheas</td><td>Camillus</td><td>St. Boniface</td></tr>
+        <tr><td>Aristarchus</td><td>Fabricius</td><td>St. Isidore of Seville</td></tr>
+        <tr><td>Eratosthenes</td><td>Hannibal</td><td>St. Lanfranc</td></tr>
+        <tr><td>Ptolemy</td><td>Paulus Aemilius</td><td>St. Heloise</td></tr>
+        <tr><td>Albategnius</td><td>Marius</td><td>The Architects of the Middle Ages</td></tr>
+        <tr><td>Hipparchus</td><td>Scipio</td><td>St. Bernard</td></tr>
+        <tr><td>Varro</td><td>Augustus</td><td>St. Francis Xavier</td></tr>
+        <tr><td>Columella</td><td>Vespasian</td><td>St. Charles Borromeo</td></tr>
+        <tr><td>Vitruvius</td><td>Adrian</td><td>St. Theresa</td></tr>
+        <tr><td>Strabo</td><td>Antony</td><td>St. Vincent de Paul</td></tr>
+        <tr><td>Frontinus</td><td>Papinian</td><td>Bordalue</td></tr>
+        <tr><td>Plutarch</td><td>Alexander Severus</td><td>William Penn</td></tr>
+        <tr><td>Pliny the Elder</td><td>Trajan</td><td>Bossuet</td></tr>
+
+        <!-- Block 3: Charlemagne | Dante | Gutenberg -->
+        <tr>
+        <th style="background-color:#222; color:white;">Charlemagne</th>
+        <th style="background-color:#222; color:white;">Dante</th>
+        <th style="background-color:#222; color:white;">Gutenberg</th>
+        </tr>
+        <tr><td>Theodoric the Great</td><td>The Troubadours</td><td>Marco Polo</td></tr>
+        <tr><td>Pelayo</td><td>Bocaccio</td><td>Jacques Coeur</td></tr>
+        <tr><td>Otho the Great</td><td>Cervantes</td><td>da Gama</td></tr>
+        <tr><td>St. Henry</td><td>Rabelais</td><td>Napier</td></tr>
+        <tr><td>Villiers</td><td>La Fontaine</td><td>Lacaille</td></tr>
+        <tr><td>Don Juan de Austria</td><td>de Foe</td><td>Cook</td></tr>
+        <tr><td>Alfred (the Great)</td><td>Ariosto</td><td>Columbus</td></tr>
+        <tr><td>Charles Martel</td><td>Leonardo da Vinci</td><td>Benvenuto Cellini</td></tr>
+        <tr><td>El Cid</td><td>Michelangelo</td><td>Amontons</td></tr>
+        <tr><td>Richard I</td><td>Holbein</td><td>Harrison</td></tr>
+        <tr><td>Joan of Arc</td><td>Poussin</td><td>Dolland</td></tr>
+        <tr><td>Albuquerque</td><td>Murillo</td><td>Arkwright</td></tr>
+        <tr><td>Bayard</td><td>Teniers</td><td>Conté</td></tr>
+        <tr><td>Godfrey</td><td>Raphael</td><td>Vaucanson</td></tr>
+        <tr><td>St. Leo the Great</td><td>Froissart</td><td>Stevin</td></tr>
+        <tr><td>Gerbert</td><td>Camões</td><td>Mariotte</td></tr>
+        <tr><td>Peter the Hermit</td><td>The Spanish Romantics</td><td>Papin</td></tr>
+        <tr><td>Suger</td><td>Chateaubriand</td><td>Black</td></tr>
+        <tr><td>Alexander III</td><td>Sir Walter Scott</td><td>Jouffroy</td></tr>
+        <tr><td>St. Francis of Assisi</td><td>Manzoni</td><td>Dalton</td></tr>
+        <tr><td>Innocent III</td><td>Tasse</td><td>Watt</td></tr>
+        <tr><td>St. Clothilda</td><td>Petrarch</td><td>Bernard de Palissy</td></tr>
+        <tr><td>St. Bathilde</td><td>Thomas à Kempis</td><td>Guglielmini</td></tr>
+        <tr><td>St. Stephen of Hungary</td><td>Madame de Lafayette</td><td>Duhamel</td></tr>
+        <tr><td>St. Elizabeth of Hungary</td><td>Fénelon</td><td>Saussure</td></tr>
+        <tr><td>Blanche of Castille</td><td>Klopstock</td><td>Coulomb</td></tr>
+        <tr><td>St. Ferdinand III</td><td>Byron</td><td>Carnot</td></tr>
+        <tr><td>St. Louis</td><td>Milton</td><td>Montgolfier</td></tr>
+
+        <!-- Block 4: Shakespeare | Descartes | Frederick -->
+        <tr>
+        <th style="background-color:#222; color:white;">Shakespeare</th>
+        <th style="background-color:#222; color:white;">Descartes</th>
+        <th style="background-color:#222; color:white;">Frederick</th>
+        </tr>
+        <tr><td>Lope de Vega</td><td>Albert the Great</td><td>Marie de Molina</td></tr>
+        <tr><td>Moreto</td><td>Roger Bacon</td><td>Cosimo de Medici</td></tr>
+        <tr><td>Rojas</td><td>St. Bonaventure</td><td>Philippe de Comines</td></tr>
+        <tr><td>Otway</td><td>Ramus</td><td>Isabella of Castille</td></tr>
+        <tr><td>Lessing</td><td>Montaigne</td><td>Charles V</td></tr>
+        <tr><td>Goëthe</td><td>Campanella</td><td>Henry IV</td></tr>
+        <tr><td>Calderón</td><td>Thomas Aquinas</td><td>Louis XI</td></tr>
+        <tr><td>Tirso</td><td>Thomas Hobbes</td><td>Coligny</td></tr>
+        <tr><td>Vondel</td><td>Pascal</td><td>Barneveldt</td></tr>
+        <tr><td>Racine</td><td>Locke</td><td>Gustavus Adolphus</td></tr>
+        <tr><td>Voltaire</td><td>Vauvernargues</td><td>de Witt</td></tr>
+        <tr><td>Alfieri</td><td>Diderot</td><td>Ruyter</td></tr>
+        <tr><td>Schiller</td><td>Cabanis</td><td>William III</td></tr>
+        <tr><td>Corneille</td><td>Bacon</td><td>William the Silent</td></tr>
+        <tr><td>Alarcón</td><td>Grotius</td><td>Ximénez</td></tr>
+        <tr><td>Madame de Motteville</td><td>Fontenelle</td><td>Sully</td></tr>
+        <tr><td>Madame de Sévigné</td><td>Vico</td><td>Colbert</td></tr>
+        <tr><td>Lesage</td><td>Fréret</td><td>Walpole</td></tr>
+        <tr><td>Madame de Staal</td><td>Montesquieu</td><td>D'Aranda</td></tr>
+        <tr><td>Fielding</td><td>Buffon</td><td>Turgot</td></tr>
+        <tr><td>Molière</td><td>Leibnitz</td><td>Richelieu</td></tr>
+        <tr><td>Pergolesi</td><td>Adam Smith</td><td>Sidney</td></tr>
+        <tr><td>Sacchini</td><td>Kant</td><td>Franklin</td></tr>
+        <tr><td>Gluck</td><td>Condorcet</td><td>Washington</td></tr>
+        <tr><td>Beethoven</td><td>Fichte</td><td>Jefferson</td></tr>
+        <tr><td>Rossini</td><td>Joseph de Maistre</td><td>Bolívar</td></tr>
+        <tr><td>Bellini</td><td>Hegel</td><td>Francia</td></tr>
+        <tr><td>Mozart</td><td>Hume</td><td>Cromwell</td></tr>
+
+        <!-- Block 5: Bichat (with two empty columns to preserve 3-column grid) -->
+        <tr>
+        <th style="background-color:#222; color:white;">Bichat</th>
+        <th style="background-color:#222; color:white;"></th>
+        <th style="background-color:#222; color:white;"></th>
+        </tr>
+        <tr><td>Copernicus</td><td></td><td></td></tr>
+        <tr><td>Kepler</td><td></td><td></td></tr>
+        <tr><td>Huygens</td><td></td><td></td></tr>
+        <tr><td>Jacques Bernoulli</td><td></td><td></td></tr>
+        <tr><td>Bradley</td><td></td><td></td></tr>
+        <tr><td>Volta</td><td></td><td></td></tr>
+        <tr><td>Galileo</td><td></td><td></td></tr>
+        <tr><td>Viète</td><td></td><td></td></tr>
+        <tr><td>Wallis</td><td></td><td></td></tr>
+        <tr><td>Clairaut</td><td></td><td></td></tr>
+        <tr><td>Euler</td><td></td><td></td></tr>
+        <tr><td>D'Alembert</td><td></td><td></td></tr>
+        <tr><td>Lagrange</td><td></td><td></td></tr>
+        <tr><td>Newton</td><td></td><td></td></tr>
+        <tr><td>Bergmann</td><td></td><td></td></tr>
+        <tr><td>Priestley</td><td></td><td></td></tr>
+        <tr><td>Cavendish</td><td></td><td></td></tr>
+        <tr><td>Guyton Morveau</td><td></td><td></td></tr>
+        <tr><td>Berthollet</td><td></td><td></td></tr>
+        <tr><td>Berzelius</td><td></td><td></td></tr>
+        <tr><td>Lavoisier</td><td></td><td></td></tr>
+        <tr><td>Harvey</td><td></td><td></td></tr>
+        <tr><td>Boerhaave</td><td></td><td></td></tr>
+        <tr><td>Linnaeus</td><td></td><td></td></tr>
+        <tr><td>Haller</td><td></td><td></td></tr>
+        <tr><td>Lamarck</td><td></td><td></td></tr>
+        <tr><td>Broussais</td><td></td><td></td></tr>
+        <tr><td>Gall</td><td></td><td></td></tr>
+        </table>`,
+        accuracy: `This calendar is a simple calculation based off the Gregorian calendar and is exactly accurate.`,
+        source: `Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Positivist_calendar">Wikipedia article</a>.\n\nDay names were sourced from <a href="https://en.citizendium.org/wiki/Positivist_calendar">this website</a>.\n\nIt can also be calibrated with <a href="https://www.manuelfally.com/calculators/positivist-calendar">this conversion tool</a>.`
     }
 ]
 
