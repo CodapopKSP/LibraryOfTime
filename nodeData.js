@@ -837,6 +837,18 @@ const solarCalendarsData = [
         accuracy: `As this is a simple addition to the Gregorian calendar, this calculation is exactly accurate.`,
         source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Anno_Lucis">Wikipedia article</a>.`
     },
+
+    {
+        name: 'Tabot (EST)',
+        id: 'tabot',
+        type: 'Solar Calendar',
+        epoch: '2 November 1930',
+        confidence: 'Exact',
+        overview: `The Tabot calendar, an anacronym of "The Anointed Body of Testimony", is the calendar of Rastafarianism. It features 12 months of 30 days, except for the final month of 35 days and an extra leap day added onto the 4th month.\n\nThe epoch is the coronation of H.I.M. Haile Selassie 1st as Emperor of Abyssinia on 2 November 1930 CE. Years are denoted with 'H.I.M', meaning 'His Imperial Majesty'.\n\nNew Year's Day is always on 2 November in the Gregorian calendar, and leap years occur in tandem with the Gregorian calendar.`,
+        info: `<table class=table-very-very-long><tr><th colspan="3">Tabot Months</th></tr><tr><th>Month</th><th>Days</th><th>Start Date</th></tr><tr><td>Anbassa</td><td>30</td><td>November 2</td></tr><tr><td>Hymanot</td><td>30</td><td>December 2</td></tr><tr><td>Immanuel</td><td>30</td><td>January 1</td></tr><tr><td>Ras</td><td>30/31</td><td>January 31</td></tr><tr><td>Ta'Berhan</td><td>30</td><td>March 2</td></tr><tr><td>Manassa</td><td>30</td><td>April 1</td></tr><tr><td>Danaffa</td><td>30</td><td>May 1</td></tr><tr><td>Negest</td><td>30</td><td>May 31</td></tr><tr><td>Tafari</td><td>30</td><td>June 30</td></tr><tr><td>Emru</td><td>30</td><td>July 30</td></tr><tr><td>Sawwara</td><td>30</td><td>August 29</td></tr><tr><td>Negus &amp; Dejazmatch</td><td>35</td><td>September 28</td></tr></table>`,
+        accuracy: `As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.`,
+        source: 'All of the information on this calendar came from <a href="https://www.hermetic.ch/cal_stud/tabot.htm">this website</a> which appears to be an original source from the author who codified the calendar.'
+    },
 ]
 
 const lunisolarCalendarsData = [

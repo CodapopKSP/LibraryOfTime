@@ -294,6 +294,20 @@ function testAnnoLucisCalendar() {
     ]);
 }
 
+function testTabotCalendar() {
+    return runSolarTests("Tabot Calendar", getTabotDate, [
+        ["2025-11-1, 04:00:00", "UTC+00:00", "34 Negus & Dejazmatch H.I.M. 94\nMamlak"],
+        ["2025-11-1, 05:00:00", "UTC+00:00", "35 Negus & Dejazmatch H.I.M. 94\nGerma"],
+        ["2025-11-2, 05:00:00", "UTC+00:00", "1 Anbassa H.I.M. 95\nErgat"],
+        ["2024-11-2, 05:00:00", "UTC+00:00", "1 Anbassa H.I.M. 94\nGerma"],
+        ["2024-11-1, 05:00:00", "UTC+00:00", "35 Negus & Dejazmatch H.I.M. 93\nMamlak"],
+        ["2024-2-28, 05:00:00", "UTC+00:00", "29 Ras H.I.M. 93\nRa'ee"],
+        ["2024-2-29, 05:00:00", "UTC+00:00", "30 Ras H.I.M. 93\nMakrab"],
+        ["2024-3-1, 05:00:00", "UTC+00:00", "31 Ras H.I.M. 93\nMamlak"],
+        ["2024-3-2, 05:00:00", "UTC+00:00", "1 Ta'Berhan H.I.M. 93\nGerma"],
+    ]);
+}
+
 // Run all tests.
 function runSolarCalendarTests() {
     const testFunctions = [
@@ -319,7 +333,8 @@ function runSolarCalendarTests() {
         testEgyptianCivilCalendar,
         testISOWeekDateCalendar,
         testHaabCalendar,
-        testAnnoLucisCalendar
+        testAnnoLucisCalendar,
+        testTabotCalendar
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

@@ -1023,3 +1023,84 @@ function getAnnoLucisDate(currentDateTime, timezoneOffset) {
     annoLucis = annoLucisDay + ' ' + annoLucisMonth + ' ' + annoLucisYearNumber + ' AL\n' + annoLucisWeek;
     return annoLucis;
 }
+
+// Returns a formatted Tabot EST date
+function getTabotDate(currentDateTime) {
+
+    const tabotMonths = [
+        "Anbassa",
+        "Hymanot",
+        "Immanuel",
+        "Ras",
+        "Ta'Berhan",
+        "Manassa",
+        "Danaffa",
+        "Negest",
+        "Tafari",
+        "Emru",
+        "Sawwara",
+        "Negus & Dejazmatch",
+    ];
+
+    const tabotWeek = [
+        "Ergat",
+        "Tazajenat",
+        "Kedusenant",
+        "Ra'ee",
+        "Makrab",
+        "Mamlak",
+        "Germa",
+    ];
+
+    // Get start of this year and next year
+    const startOfToday = new Date(currentDateTime);
+    startOfToday.setUTCHours(startOfToday.getUTCHours()-5);
+    startOfToday.setUTCMinutes(0);
+    startOfToday.setUTCSeconds(0);
+    startOfToday.setUTCMilliseconds(0);
+    const dayOfWeek = startOfToday.getUTCDay();
+
+    // Get start of this year and next year
+    let startOfThisYear = createDateWithFixedYear(currentDateTime.getUTCFullYear(), 10, 2, 5); // UTC+5
+    let startOfNextYear = createDateWithFixedYear(currentDateTime.getUTCFullYear() + 1, 10, 2, 5);
+    if (currentDateTime < startOfThisYear) {
+        startOfNextYear = new Date(startOfThisYear);
+        startOfThisYear.setUTCFullYear(currentDateTime.getUTCFullYear() - 1);
+    }
+
+    // Get days in year and days since start of this year
+    const daysInYear = differenceInDays(startOfNextYear, startOfThisYear);
+    const daysSinceStartOfThisYear = Math.floor(differenceInDays(currentDateTime, startOfThisYear));
+    let currentDay = daysSinceStartOfThisYear;
+
+    // Get leap day
+    let leapDay = false;
+    if ((daysInYear===366)&&(daysSinceStartOfThisYear>=120)) {
+        currentDay -= 1;
+        if (daysSinceStartOfThisYear===120) {
+            leapDay = true;
+        }
+    }
+
+    // Handle final month having 35 days, set day and month
+    let day = (currentDay % 30)+1;
+    let monthIndex = 0;
+    if (currentDay > 359) {
+        monthIndex = 11;
+        day = (currentDay % 30)+31;
+    } else {
+        monthIndex = Math.floor(currentDay / 30);
+    }
+
+    // If leap day, set day and month
+    if (leapDay) {
+        day = 31;
+        monthIndex = 3;
+    }
+    
+    // Get month and year
+    const month = tabotMonths[monthIndex];
+    const year = startOfThisYear.getUTCFullYear()-1930;
+
+    return day + ' ' + month + ' H.I.M. ' + year + '\n' + tabotWeek[dayOfWeek];
+}
