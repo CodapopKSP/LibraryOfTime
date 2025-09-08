@@ -28,10 +28,18 @@ const modalContent = {
                 <span class="toggle-icon">▼</span>
             </button>
             <div class="modal-images" id="modal-images" style="display: none;">
-                <img src="OnMakingLoTImages/darian.png" alt="Darian Calendar Screenshot" class="modal-image">
-                <img src="OnMakingLoTImages/leapsecond.png" alt="Leap Second Screenshot" class="modal-image">
-                <img src="OnMakingLoTImages/hermetic.png" alt="Hermetic Calendar Screenshot" class="modal-image">
-                <img src="OnMakingLoTImages/calendarconverter.png" alt="Calendar Converter Screenshot" class="modal-image">
+                <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm" target="_blank" rel="noopener noreferrer">
+                    <img src="OnMakingLoTImages/darian.png" alt="Darian Calendar Screenshot" class="modal-image">
+                </a>
+                <a href="http://www.leapsecond.com/java/gpsclock.htm" target="_blank" rel="noopener noreferrer">
+                    <img src="OnMakingLoTImages/leapsecond.png" alt="Leap Second Screenshot" class="modal-image">
+                </a>
+                <a href="http://the-light.com/cal/converter/" target="_blank" rel="noopener noreferrer">
+                    <img src="OnMakingLoTImages/hermetic.png" alt="Hermetic Calendar Screenshot" class="modal-image">
+                </a>
+                <a href="https://www.fourmilab.ch/documents/calendar/" target="_blank" rel="noopener noreferrer">
+                    <img src="OnMakingLoTImages/calendarconverter.png" alt="Calendar Converter Screenshot" class="modal-image">
+                </a>
             </div>
         </div>`,
 
