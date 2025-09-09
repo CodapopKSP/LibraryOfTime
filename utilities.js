@@ -7,7 +7,11 @@
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const decimals = 10;  // Decimals to show in some nodes
-const updateMilliseconds = 20;  // Update tick length 
+const updateMilliseconds = 20;  // Update tick length
+
+function radians(num) {
+    return num * Math.PI / 180;
+}
 
 // Keeps track of how far ahead the Julian calendar is from the Gregorian
 let _gregJulianDifference = 0;

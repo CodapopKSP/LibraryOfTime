@@ -584,20 +584,20 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
 
 // Taken from Astronomical Algorithms
 function getPositionOfTheMoon(currentDateTime) {
-    const variable_T = ((getJulianDayNumber(currentDateTime) - 2451545.0) / 36525.0);
+    const T = ((getJulianDayNumber(currentDateTime) - 2451545.0) / 36525.0);
 
     // Get all variables
-    const var_L_prime = 218.3164477 + (481267.88123421 * variable_T) - (0.0015786 * variable_T * variable_T) + ((variable_T * variable_T * variable_T) / 538841) - ((variable_T * variable_T * variable_T * variable_T) / 65194000);
-    const var_D = 297.8501921 + (445267.1114034 * variable_T) - (0.0018819 * variable_T * variable_T) + ((variable_T * variable_T * variable_T) / 545868) - ((variable_T * variable_T * variable_T * variable_T) / 113065000);
-    const var_M = 357.5291092 + (35999.0502909 * variable_T) - (0.0001536 * variable_T * variable_T) - ((variable_T * variable_T * variable_T) / 24490000);
-    const var_M_prime = 134.9633964 + (477198.8675055 * variable_T) + (0.0087414 * variable_T * variable_T) + ((variable_T * variable_T * variable_T) / 69699) - ((variable_T * variable_T * variable_T * variable_T) / 14712000);
-    const var_F = 93.2720950 + (483202.0175233 * variable_T) - (0.0036539 * variable_T * variable_T) + ((variable_T * variable_T * variable_T) / 3526000) - ((variable_T * variable_T * variable_T * variable_T) / 863310000);
-    const var_A1 = 119.75 + (131.849 * variable_T);
-    const var_A2 = 53.09 + (479264.290 * variable_T);
-    const var_A3 = 313.45 + (481266.484 * variable_T);
+    const L_prime = 218.3164477 + (481267.88123421 * T) - (0.0015786 * T**2) + ((T**3) / 538841) - ((T**4) / 65194000);
+    const D = 297.8501921 + (445267.1114034 * T) - (0.0018819 * T**2) + ((T**3) / 545868) - ((T**4) / 113065000);
+    const M = 357.5291092 + (35999.0502909 * T) - (0.0001536 * T**2) - ((T**3) / 24490000);
+    const M_prime = 134.9633964 + (477198.8675055 * T) + (0.0087414 * T**2) + ((T**3) / 69699) - ((T**4) / 14712000);
+    const F = 93.2720950 + (483202.0175233 * T) - (0.0036539 * T**2) + ((T**3) / 3526000) - ((T**4) / 863310000);
+    const A1 = 119.75 + (131.849 * T);
+    const A2 = 53.09 + (479264.290 * T);
+    const A3 = 313.45 + (481266.484 * T);
 
     // Define E based on the provided formula (Equation 47.6)
-    const var_E = 1 - (0.002516 * variable_T) - (0.0000074 * variable_T * variable_T);
+    const E = 1 - (0.002516 * T) - (0.0000074 * T**2);
 
     // Lunar perturbation coefficients table
     const lunarPerturbations = [
@@ -728,71 +728,71 @@ function getPositionOfTheMoon(currentDateTime) {
     ];
 
     // Calculate lunar perturbations
-    let sumSigmaL = 0;
-    let sumSigmaR = 0;
-    let sumSigmaB = 0;
+    let sumΣL = 0;
+    let sumΣR = 0;
+    let sumΣB = 0;
 
     // Process lunar perturbation terms with eccentricity correction
     for (const term of lunarPerturbations) {
-        const arg = (term.D * var_D) + (term.M * var_M) + (term.M_prime * var_M_prime) + (term.F * var_F);
-        const argRad = arg * Math.PI / 180;
+        const arg = (term.D * D) + (term.M * M) + (term.M_prime * M_prime) + (term.F * F);
+        const argRad = radians(arg);
         
         // Apply eccentricity correction
-        let sigmaL = term.SigmaL;
-        let sigmaR = term.SigmaR;
+        let ΣL = term.SigmaL;
+        let ΣR = term.SigmaR;
         
         // Terms with M or -M in argument: multiply coefficient by E
         if (Math.abs(term.M) === 1) {
-            sigmaL *= var_E;
-            if (sigmaR !== null) sigmaR *= var_E;
+            ΣL *= E;
+            if (ΣR !== null) ΣR *= E;
         }
         // Terms with 2M or -2M in argument: multiply coefficient by E^2
         else if (Math.abs(term.M) === 2) {
-            sigmaL *= var_E * var_E;
-            if (sigmaR !== null) sigmaR *= var_E * var_E;
+            ΣL *= E * E;
+            if (ΣR !== null) ΣR *= E * E;
         }
         
-        sumSigmaL += sigmaL * Math.sin(argRad);
-        if (sigmaR !== null) {
-            sumSigmaR += sigmaR * Math.cos(argRad);
+        sumΣL += ΣL * Math.sin(argRad);
+        if (ΣR !== null) {
+            sumΣR += ΣR * Math.cos(argRad);
         }
     }
 
     // Process additional lunar perturbation terms (sine terms only)
     for (const term of additionalLunarPerturbations) {
-        const arg = (term.D * var_D) + (term.M * var_M) + (term.M_prime * var_M_prime) + (term.F * var_F);
-        const argRad = arg * Math.PI / 180;
+        const arg = (term.D * D) + (term.M * M) + (term.M_prime * M_prime) + (term.F * F);
+        const argRad = radians(arg);
         
         // Apply eccentricity correction factor E
-        let sigmaB = term.SigmaB;
+        let ΣB = term.SigmaB;
         
-        sumSigmaB += sigmaB * Math.sin(argRad);
+        sumΣB += ΣB * Math.sin(argRad);
     }
 
-    const add_to_SigmaL = 3958*Math.sin(var_A1*Math.PI/180) + 1962*Math.sin((var_L_prime - var_F)*Math.PI/180) + 318*Math.sin(var_A2*Math.PI/180);
+    const add_to_ΣL = 3958*Math.sin(radians(A1)) + 1962*Math.sin(radians(L_prime - F)) + 318*Math.sin(radians(A2));
 
-    const add_to_SigmaB = -2235*Math.sin(var_L_prime*Math.PI/180) + 
-        382*Math.sin(var_A3*Math.PI/180) + 
-        175*Math.sin((var_A1-var_F)*Math.PI/180) + 
-        175*Math.sin((var_A1+var_F)*Math.PI/180) +
-        127*Math.sin((var_L_prime-var_M_prime)*Math.PI/180) -
-        115*Math.sin((var_L_prime+var_M_prime)*Math.PI/180);
+    const add_to_ΣB = -2235*Math.sin(radians(L_prime)) + 
+        382*Math.sin(radians(A3)) + 
+        175*Math.sin(radians(A1-F)) + 
+        175*Math.sin(radians(A1+F)) +
+        127*Math.sin(radians(L_prime-M_prime)) -
+        115*Math.sin(radians(L_prime+M_prime));
 
-    sumSigmaL += add_to_SigmaL;
-    sumSigmaB += add_to_SigmaB;
+    sumΣL += add_to_ΣL;
+    sumΣB += add_to_ΣB;
 
     // Get remaining variables
-    const var_lambda = var_L_prime + sumSigmaL/1000000;
-    const var_beta = sumSigmaB/1000000;
-    const var_delta = 385000.56 + (sumSigmaR/1000);
-    const var_pi = Math.asin(6378.14 / var_delta);
+    const λ = L_prime + sumΣL/1000000;
+    const β = sumΣB/1000000;
+    const δ = 385000.56 + (sumΣR/1000);
+    const var_pi = Math.asin(6378.14 / δ);
     const var_pi_deg = var_pi * (180 / Math.PI);
-    const [dPsi, dEpsilon] = getNutationAndObliquity(variable_T);
-    const epsilon0 = getObliquity(variable_T);
-    const var_epsilon = epsilon0 + (dEpsilon/3600);
-    const apparent_lambda = var_lambda + (dPsi/3600);
+    const [dPsi, dEpsilon] = getNutationAndObliquity(T);
+    const epsilon0 = getObliquity(T);
+    const ε = epsilon0 + (dEpsilon/3600);
+    const apparent_λ = λ + (dPsi/3600);
 
-    return getAlphaAndDelta(apparent_lambda, var_epsilon, var_beta);
+    return getAlphaAndDelta(apparent_λ, ε, β);
 }
 
 
@@ -802,91 +802,121 @@ function getPositionOfTheMoon(currentDateTime) {
 
 // Taken from Astronomical Algorithms
 function getApparentStellarCoordinates(currentDateTime, rightAscension, declination) {
-    const variable_alpha = rightAscension;
-    const variable_delta = declination;
+    const α = rightAscension;
+    const δ = declination;
     const JDE = getJulianEphemerisDay(currentDateTime);
 
     // Find Nutation
-    const variable_T = (JDE-2451545)/36525;
-    const [dPsi, dEpsilon] = getNutationAndObliquity(variable_T);
-    const epsilon = (23 + 26/60 + 21.448/3600) + (-46.8150*variable_T - 0.00059*variable_T*variable_T + 0.001813*variable_T*variable_T*variable_T)/3600;
+    const T = (JDE-2451545)/36525;
+    const [Δψ, Δε] = getNutationAndObliquity(T);
+    const ε = (23 + 26/60 + 21.448/3600) + (-46.8150*T - 0.00059*T**2 + 0.001813*T**3)/3600;
 
     // Get Sun True Longitude
-    const variable_L0 = 280.4665 + (36000.7698 * variable_T) + (0.0003032 * variable_T*variable_T);
-    const variable_M = 357.52911 + (35999.05029 * variable_T) + (0.0001537 * variable_T*variable_T);
-    const variable_e = 0.016708634 - (0.000042037 * variable_T) - (0.0000001267 * variable_T*variable_T); // 0.016696488600211598 compared to 0.01669649
-    const variable_C = (1.914602 - (0.004817 * variable_T) - (0.000014 * variable_T*variable_T)) * Math.sin(variable_M * Math.PI / 180) + (0.019993 - (0.000101 * variable_T)) * Math.sin(2 * variable_M * Math.PI / 180) + 0.000289 * Math.sin(3 * variable_M * Math.PI / 180);
-    const sunTrueLongitude = (variable_L0 + variable_C)%360; // 231.32846124391835 compared to 231.328
+    const L0 = 280.4665 + (36000.7698 * T) + (0.0003032 * T**2);
+    const M = 357.52911 + (35999.05029 * T) + (0.0001537 * T**2);
+    const e = 0.016708634 - (0.000042037 * T) - (0.0000001267 * T**2);
+    const C = (1.914602 - (0.004817 * T)
+        - (0.000014 * T**2))
+        * Math.sin(radians(M))
+        + (0.019993 - (0.000101 * T))
+        * Math.sin(2 * radians(M))
+        + 0.000289 * Math.sin(3 * radians(M));
+    const sunTrueLongitude = (L0 + C)%360;
 
-    const variable_pi = 102.93735 + (1.71946 * variable_T) + (0.00046 * variable_T*variable_T);
+    const Π = 102.93735 + (1.71946 * T) + (0.00046 * T**2);
 
-    const delta_alpha1 = ((Math.cos(epsilon * Math.PI / 180) + 
-        (Math.sin(epsilon * Math.PI / 180) * Math.sin(variable_alpha * Math.PI / 180) * Math.tan(variable_delta * Math.PI / 180))) * dPsi)
-         - ((Math.cos(variable_alpha * Math.PI / 180) * Math.tan(variable_delta * Math.PI / 180)) * dEpsilon);
+    const Δα1 = ((Math.cos(radians(ε)) + 
+        (Math.sin(radians(ε)) * Math.sin(radians(α)) * Math.tan(radians(δ)))) * Δψ)
+         - ((Math.cos(radians(α)) * Math.tan(radians(δ))) * Δε);
 
-    const delta_delta1 = ((Math.sin(epsilon * Math.PI / 180) * Math.cos(variable_alpha * Math.PI / 180)) * dPsi)
-        + (Math.sin(variable_alpha * Math.PI / 180) * dEpsilon);
+    const Δδ1 = ((Math.sin(radians(ε)) * Math.cos(radians(α))) * Δψ)
+        + (Math.sin(radians(α)) * Δε);
 
-    const variable_k = 20.49552;
+    const k = 20.49552;
 
 
     // New aberration corrections (Delta Alpha 2 and Delta Delta 2)
-    const delta_alpha2 = (
-        -variable_k * (Math.cos(variable_alpha * Math.PI / 180) * Math.cos(sunTrueLongitude * Math.PI / 180) * Math.cos(epsilon * Math.PI / 180) + Math.sin(variable_alpha * Math.PI / 180) * Math.sin(sunTrueLongitude * Math.PI / 180))
-        + variable_e * variable_k * (Math.cos(variable_alpha * Math.PI / 180) * Math.cos(variable_pi * Math.PI / 180) * Math.cos(epsilon * Math.PI / 180) + Math.sin(variable_alpha * Math.PI / 180) * Math.sin(variable_pi * Math.PI / 180))
-    ) / Math.cos(variable_delta * Math.PI / 180);
+    const Δα2 = (
+        -k * (Math.cos(radians(α))
+        * Math.cos(radians(sunTrueLongitude))
+        * Math.cos(radians(ε))
+        * + Math.sin(radians(α))
+        * Math.sin(radians(sunTrueLongitude)))
+        + e
+        * k
+        * (Math.cos(radians(α))
+        * Math.cos(radians(Π))
+        * Math.cos(radians(ε))
+        + Math.sin(radians(α))
+        * Math.sin(radians(Π)))
+    ) / Math.cos(radians(δ));
 
-    const temp_sub_expression_delta2 = Math.tan(epsilon * Math.PI / 180) * Math.cos(variable_delta * Math.PI / 180) - Math.sin(variable_alpha * Math.PI / 180) * Math.sin(variable_delta * Math.PI / 180);
+    const temp_sub_expression_δ2 = Math.tan(radians(ε))
+        * Math.cos(radians(δ))
+        - Math.sin(radians(α))
+        * Math.sin(radians(δ));
 
-    const delta_delta2 = -variable_k * (
-        Math.cos(sunTrueLongitude * Math.PI / 180) * Math.cos(epsilon * Math.PI / 180) * temp_sub_expression_delta2
-        + Math.cos(variable_alpha * Math.PI / 180) * Math.sin(variable_delta * Math.PI / 180) * Math.sin(sunTrueLongitude * Math.PI / 180)
-    ) + variable_e * variable_k * (
-        Math.cos(variable_pi * Math.PI / 180) * Math.cos(epsilon * Math.PI / 180) * temp_sub_expression_delta2
-        + Math.cos(variable_alpha * Math.PI / 180) * Math.sin(variable_delta * Math.PI / 180) * Math.sin(variable_pi * Math.PI / 180)
+    const Δδ2 = -k * (
+        Math.cos(radians(sunTrueLongitude))
+        * Math.cos(radians(ε))
+        * temp_sub_expression_δ2
+        + Math.cos(radians(α))
+        * Math.sin(radians(δ))
+        * Math.sin(radians(sunTrueLongitude))
+    ) + e * k * (
+        Math.cos(radians(Π))
+        * Math.cos(radians(ε))
+        * temp_sub_expression_δ2
+        + Math.cos(radians(α))
+        * Math.sin(radians(δ))
+        * Math.sin(radians(Π))
     );
 
-    const delta_alpha = rightAscension + (delta_alpha1 + delta_alpha2)/3600;
-    const delta_delta = declination + (delta_delta1 + delta_delta2)/3600;
+    const Δα = rightAscension + (Δα1 + Δα2)/3600;
+    const Δδ = declination + (Δδ1 + Δδ2)/3600;
 
-    return [delta_alpha, delta_delta];
+    return [Δα, Δδ];
 }
 
 // Taken from Astronomical Algorithms
-function getNutationAndObliquity(variable_T) {
+function getNutationAndObliquity(T) {
 
-    const variable_L  = 280.4665 + 36000.7698 * variable_T;
-    const Lprime = 218.3165 + 481267.8813 * variable_T;
-    const Omega = 125.04452 - (1934.136261 * variable_T) + (0.0020708 *variable_T*variable_T) + ((variable_T*variable_T*variable_T)/450000);
+    const L  = 280.4665 + 36000.7698 * T;
+    const Lprime = 218.3165 + 481267.8813 * T;
+    const Ω = 125.04452 - (1934.136261 * T)
+        + (0.0020708 *T**2)
+        + ((T**3)/450000);
 
-    const dPsi = -17.20 * Math.sin(Omega * Math.PI / 180)
-            -  1.32 * Math.sin(2 * variable_L * Math.PI / 180)
-            -  0.23 * Math.sin(2 * Lprime * Math.PI / 180)
-            +  0.21 * Math.sin(2 * Omega * Math.PI / 180);
+    const Δψ = -17.20 * Math.sin(radians(Ω))
+            -  1.32 * Math.sin(2 * radians(L))
+            -  0.23 * Math.sin(2 * radians(Lprime))
+            +  0.21 * Math.sin(2 * radians(Ω));
 
-    const dEpsilon = + 9.20 * Math.cos(Omega * Math.PI / 180)
-            + 0.57 * Math.cos(2 * variable_L * Math.PI / 180)
-            + 0.10 * Math.cos(2 * Lprime * Math.PI / 180)
-            - 0.09 * Math.cos(2 * Omega * Math.PI / 180);
+    const Δε = + 9.20 * Math.cos(radians(Ω))
+            + 0.57 * Math.cos(2 * radians(L))
+            + 0.10 * Math.cos(2 * radians(Lprime))
+            - 0.09 * Math.cos(2 * radians(Ω));
 
-    return [dPsi, dEpsilon];
+    return [Δψ, Δε];
 }
 
 // Taken from Astronomical Algorithms
-function getObliquity(variable_T) {
-    const var_U = variable_T/100;
+function getObliquity(T) {
+    const U = T/100;
     return (23 + 26/60 + 21.448/3600)
-        - (4680.93*var_U - 1.55*var_U*var_U + 1999.25*var_U*var_U*var_U - 51.38*var_U*var_U*var_U*var_U - 249.67*var_U*var_U*var_U*var_U*var_U
-            - 39.05*var_U*var_U*var_U*var_U*var_U*var_U + 7.12*var_U*var_U*var_U*var_U*var_U*var_U*var_U + 27.87*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U
-            - 5.79*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U - 2.45*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U*var_U
+        - (4680.93*U - 1.55*U**2
+            + 1999.25*U**3 - 51.38*U**4
+            - 249.67*U**5 - 39.05*U**6
+            + 7.12*U**7 + 27.87*U**8
+            - 5.79*U**9 - 2.45*U**10
         ) / 3600;
 }
 
 // Taken from Astronomical Algorithms
-function getAlphaAndDelta(apparent_lambda, var_epsilon, var_beta) {
-    const λ = apparent_lambda * Math.PI / 180;
-    const ε = var_epsilon * Math.PI / 180;
-    const β = var_beta * Math.PI / 180;
+function getAlphaAndDelta(apparent_lambda, epsilon, beta) {
+    const λ = radians(apparent_lambda);
+    const ε = radians(epsilon);
+    const β = radians(beta);
     const y = Math.sin(λ) * Math.cos(ε) - Math.tan(β) * Math.sin(ε);
     const x = Math.cos(λ);
   
@@ -895,6 +925,6 @@ function getAlphaAndDelta(apparent_lambda, var_epsilon, var_beta) {
   
     const δ = Math.asin(Math.sin(β) * Math.cos(ε) + Math.cos(β) * Math.sin(ε) * Math.sin(λ));
   
-    return [α * 180 / Math.PI, δ * 180 / Math.PI];
+    return [α * (180 / Math.PI), δ * (180 / Math.PI)];
 }
 
