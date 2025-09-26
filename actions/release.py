@@ -36,6 +36,9 @@ def main():
         new_favicon_tag = soup.new_tag("link", rel="icon", href='data:image/x-icon;base64,'+favicon_data)
         soup.head.append(new_favicon_tag)
 
+        # Copy images to output directory for Vercel deployment
+        copy_images_to_output()
+        
         # Save to HTML file (full)
         pretty_html = soup.prettify()
         with open('./full.html', "w", encoding="utf-8") as file:
@@ -84,10 +87,12 @@ def process_images_in_js(js_content):
         data_uri = image_to_data_uri(image_path)
         
         if data_uri:
+            print(f"Successfully converted {image_filename} to data URI")
             return f'src="{data_uri}"'
         else:
-            # If image conversion failed, return original
-            return match.group(0)
+            # If image conversion failed, use relative path to copied images
+            print(f"Failed to convert {image_filename}, using relative path to copied images")
+            return f'src="./OnMakingLoTImages/{image_filename}"'
     
     # Replace all image references with data URIs
     processed_content = re.sub(image_pattern, replace_image_src, js_content)
@@ -130,21 +135,57 @@ def image_to_data_uri(image_path):
         print(f"Warning: Image file not found: {image_path}")
         return ""
     
-    # Get file extension to determine MIME type
-    _, ext = os.path.splitext(image_path.lower())
-    mime_types = {
-        '.png': 'image/png',
-        '.jpg': 'image/jpeg',
-        '.jpeg': 'image/jpeg',
-        '.gif': 'image/gif',
-        '.webp': 'image/webp'
-    }
-    mime_type = mime_types.get(ext, 'image/png')
+    try:
+        # Get file extension to determine MIME type
+        _, ext = os.path.splitext(image_path.lower())
+        mime_types = {
+            '.png': 'image/png',
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.gif': 'image/gif',
+            '.webp': 'image/webp'
+        }
+        mime_type = mime_types.get(ext, 'image/png')
+        
+        with open(image_path, 'rb') as image_file:
+            image_data = image_file.read()
+            
+            # Check if image is too large for data URI (browsers typically limit to ~2MB)
+            if len(image_data) > 2 * 1024 * 1024:  # 2MB limit
+                print(f"Warning: Image {os.path.basename(image_path)} is too large ({len(image_data)} bytes) for data URI")
+                return ""
+            
+            base64_encoded = base64.b64encode(image_data).decode('utf-8')
+            data_uri = f"data:{mime_type};base64,{base64_encoded}"
+            
+            # Debug: Print info about the conversion
+            print(f"Converted {os.path.basename(image_path)}: {len(image_data)} bytes -> {len(data_uri)} chars")
+            
+            # Validate the data URI format
+            if not data_uri.startswith('data:') or ';base64,' not in data_uri:
+                print(f"Warning: Invalid data URI format for {os.path.basename(image_path)}")
+                return ""
+            
+            return data_uri
+    except Exception as e:
+        print(f"Error converting {image_path}: {e}")
+        return ""
+
+# Copy images to output directory for Vercel deployment
+def copy_images_to_output():
+    """Copy OnMakingLoTImages folder to the actions directory for deployment"""
+    import shutil
     
-    with open(image_path, 'rb') as image_file:
-        image_data = image_file.read()
-        base64_encoded = base64.b64encode(image_data).decode('utf-8')
-        return f"data:{mime_type};base64,{base64_encoded}"
+    source_dir = '../OnMakingLoTImages'
+    dest_dir = './OnMakingLoTImages'
+    
+    if os.path.exists(source_dir):
+        if os.path.exists(dest_dir):
+            shutil.rmtree(dest_dir)
+        shutil.copytree(source_dir, dest_dir)
+        print(f"Copied images from {source_dir} to {dest_dir}")
+    else:
+        print(f"Warning: Source directory {source_dir} not found")
 
 if __name__ == "__main__":
     main()
