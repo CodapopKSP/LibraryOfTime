@@ -42,4 +42,3 @@ Low:
 - Relies on another calculation with a Low confidence level
 - Relies on a poorly-understood algorithm
 - Has an undefined epoch or anchor date
-
