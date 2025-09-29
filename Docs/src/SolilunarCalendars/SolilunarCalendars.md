@@ -1,3 +1,3 @@
 # Solilunar Calendars
 
-Solilunar calendars are a unique type that combines solar and lunar elements in distinctive ways. They may use sidereal months (based on star positions) rather than synodic months (based on moon phases), or employ other astronomical phenomena to determine calendar periods.
+Solilunar calendars are a unique type that combines solar and lunar elements as their base units. However, unlike lunisolar calendars, solilunar calendars use the solar year as the main unit, with months being determined secondary based on the moon's sidereal month.
