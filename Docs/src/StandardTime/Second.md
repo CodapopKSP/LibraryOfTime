@@ -1,10 +1,8 @@
 # Second
 
-#### Data
-
-**Epoch:** Every Second
-
-**Confidence:** Exact
+| Epoch        | Confidence |
+| ------------ | ---------- |
+| Every Second | Exact      |
 
 #### Overview
 
@@ -26,8 +24,8 @@ This is a simple calculation with no source.
 
 ### Calculation
 
-This clock shouldn't need to be calculated, since dateTime already provides the second fraction.
+This clock cal be calculated by taking the current millisecond and dividing it by 1000.
 
 ```js
-currentDateTime.getMilliseconds() / 1000;
+const secondFraction = currentDateTime.getMilliseconds() / 1000;
 ```

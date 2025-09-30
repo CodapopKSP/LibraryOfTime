@@ -176,9 +176,10 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="day"><a class="header" href="#day">Day</a></h1>
-<h4 id="data"><a class="header" href="#data">Data</a></h4>
-<p><strong>Epoch:</strong> Every Day</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Day</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview"><a class="header" href="#overview">Overview</a></h4>
 <p>This is the fraction of time passed in the current day, based on the local timezone.</p>
 <h4 id="info"><a class="header" href="#info">Info</a></h4>
@@ -189,8 +190,14 @@
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation"><a class="header" href="#calculation">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the day fraction.</p>
-<pre><code class="language-js">(currentDateTime.getHours() * 3600 + currentDateTime.getMinutes() * 60 + currentDateTime.getSeconds()) * 1000 + currentDateTime.getMilliseconds()) / 86400000;
+<p>This clock can be calculated by adding the hour fraction to the current hour and then dividing the total by 24.</p>
+<pre><code class="language-js">const secondFraction = currentDateTime.getUTCMilliseconds() / 1000;
+const minuteFraction = (currentDateTime.getUTCSeconds() +
+                        secondFraction) / 60;
+const hourFraction = (currentDateTime.getUTCMinutes() +
+                        minuteFraction) / 60;
+const dayFraction = (currentDateTime.getUTCHours() +
+                        hourFraction) / 24;
 </code></pre>
 
                     </main>

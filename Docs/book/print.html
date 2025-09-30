@@ -179,9 +179,10 @@
                         <h1 id="standard-time"><a class="header" href="#standard-time">Standard Time</a></h1>
 <p>Standard time systems are the fundamental time measurements we use in everyday life. These include basic time units from seconds to millennia, as well as local time and coordinated universal time (UTC).</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="local-time"><a class="header" href="#local-time">Local Time</a></h1>
-<h4 id="data"><a class="header" href="#data">Data</a></h4>
-<p><strong>Epoch:</strong> Midnight</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Midnight</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview"><a class="header" href="#overview">Overview</a></h4>
 <p>This is the current local time based on the timezone provided by your device or the timezone selected in the datetime selection.</p>
 <h4 id="info"><a class="header" href="#info">Info</a></h4>
@@ -196,9 +197,10 @@
 <pre><code class="language-js">currentDateTime.toTimeString();
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="utc"><a class="header" href="#utc">UTC</a></h1>
-<h4 id="data-1"><a class="header" href="#data-1">Data</a></h4>
-<p><strong>Epoch:</strong> Midnight (UTC)</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Midnight (UTC)</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-1"><a class="header" href="#overview-1">Overview</a></h4>
 <p>Coordinated Universal Time is the global time standard. The time expressed here is the same regardless of timezone. It is based on the timezone of the Prime Meridian at 0°.</p>
 <h4 id="info-1"><a class="header" href="#info-1">Info</a></h4>
@@ -213,9 +215,10 @@
 <pre><code class="language-js">currentDateTime.toUTCString();
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="second"><a class="header" href="#second">Second</a></h1>
-<h4 id="data-2"><a class="header" href="#data-2">Data</a></h4>
-<p><strong>Epoch:</strong> Every Second</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Second</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-2"><a class="header" href="#overview-2">Overview</a></h4>
 <p>This is the fraction of time passed in the current second.</p>
 <h4 id="info-2"><a class="header" href="#info-2">Info</a></h4>
@@ -226,13 +229,14 @@
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-2"><a class="header" href="#calculation-2">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the second fraction.</p>
-<pre><code class="language-js">currentDateTime.getMilliseconds() / 1000;
+<p>This clock cal be calculated by taking the current millisecond and dividing it by 1000.</p>
+<pre><code class="language-js">const secondFraction = currentDateTime.getMilliseconds() / 1000;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="minute"><a class="header" href="#minute">Minute</a></h1>
-<h4 id="data-3"><a class="header" href="#data-3">Data</a></h4>
-<p><strong>Epoch:</strong> Every Minute</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Minute</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-3"><a class="header" href="#overview-3">Overview</a></h4>
 <p>This is the fraction of time passed in the current minute.</p>
 <h4 id="info-3"><a class="header" href="#info-3">Info</a></h4>
@@ -243,13 +247,16 @@
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-3"><a class="header" href="#calculation-3">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the minute fraction.</p>
-<pre><code class="language-js">(currentDateTime.getSeconds() * 1000 + currentDateTime.getMilliseconds()) / 60000;
+<p>This clock can be calculated by adding the current fraction of a second to the current seconds and then dividing the total by 60.</p>
+<pre><code class="language-js">const secondFraction = currentDateTime.getUTCMilliseconds() / 1000;
+const minuteFraction = (currentDateTime.getUTCSeconds() +
+                        secondFraction) / 60;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hour"><a class="header" href="#hour">Hour</a></h1>
-<h4 id="data-4"><a class="header" href="#data-4">Data</a></h4>
-<p><strong>Epoch:</strong> Every Hour</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Hour</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-4"><a class="header" href="#overview-4">Overview</a></h4>
 <p>This is the fraction of time passed in the current hour.</p>
 <h4 id="info-4"><a class="header" href="#info-4">Info</a></h4>
@@ -260,13 +267,18 @@
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-4"><a class="header" href="#calculation-4">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the hour fraction.</p>
-<pre><code class="language-js">(currentDateTime.getMinutes() * 60 + currentDateTime.getSeconds()) * 1000 + currentDateTime.getMilliseconds()) / 3600000;
+<p>This clock can be calculated by getting the minute fraction, adding that to the current minute, and dividing the total by 60.</p>
+<pre><code class="language-js">const secondFraction = currentDateTime.getUTCMilliseconds() / 1000;
+const minuteFraction = (currentDateTime.getUTCSeconds() +
+                        secondFraction) / 60;
+const hourFraction = (currentDateTime.getUTCMinutes() +
+                        minuteFraction)/60;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="day"><a class="header" href="#day">Day</a></h1>
-<h4 id="data-5"><a class="header" href="#data-5">Data</a></h4>
-<p><strong>Epoch:</strong> Every Day</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Day</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-5"><a class="header" href="#overview-5">Overview</a></h4>
 <p>This is the fraction of time passed in the current day, based on the local timezone.</p>
 <h4 id="info-5"><a class="header" href="#info-5">Info</a></h4>
@@ -277,13 +289,20 @@
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-5"><a class="header" href="#calculation-5">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the day fraction.</p>
-<pre><code class="language-js">(currentDateTime.getHours() * 3600 + currentDateTime.getMinutes() * 60 + currentDateTime.getSeconds()) * 1000 + currentDateTime.getMilliseconds()) / 86400000;
+<p>This clock can be calculated by adding the hour fraction to the current hour and then dividing the total by 24.</p>
+<pre><code class="language-js">const secondFraction = currentDateTime.getUTCMilliseconds() / 1000;
+const minuteFraction = (currentDateTime.getUTCSeconds() +
+                        secondFraction) / 60;
+const hourFraction = (currentDateTime.getUTCMinutes() +
+                        minuteFraction) / 60;
+const dayFraction = (currentDateTime.getUTCHours() +
+                        hourFraction) / 24;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="month"><a class="header" href="#month">Month</a></h1>
-<h4 id="data-6"><a class="header" href="#data-6">Data</a></h4>
-<p><strong>Epoch:</strong> Every Month</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Month</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-6"><a class="header" href="#overview-6">Overview</a></h4>
 <p>This is the fraction of time passed in the current month.</p>
 <h4 id="info-6"><a class="header" href="#info-6">Info</a></h4>
@@ -294,17 +313,30 @@
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-6"><a class="header" href="#calculation-6">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the month fraction.</p>
-<pre><code class="language-js">// Calculate days in current month
-const daysInMonth = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth() + 1, 0).getDate();
-const dayOfMonth = currentDateTime.getDate();
-const fractionOfDay = (currentDateTime.getHours() * 3600 + currentDateTime.getMinutes() * 60 + currentDateTime.getSeconds()) * 1000 + currentDateTime.getMilliseconds()) / 86400000;
-((dayOfMonth - 1 + fractionOfDay) / daysInMonth);
+<p>This clock can be calculated by subtracting the start time of the current month from the start time of the next month, and dividing the total by 1000, 60, 60, and 24 to get the number of days in the current month.</p>
+<pre><code class="language-js">const year = currentDateTime.getUTCFullYear();
+const month = currentDateTime.getUTCMonth();
+const nextMonth = createDateWithFixedYear(year, month + 1, 0);
+const thisMonth = createDateWithFixedYear(year, month, 0);
+const daysInMonth = (nextMonth - thisMonth)/1000/60/60/24;
+</code></pre>
+<p>Then add  the current day fraction to the current day, and divide the total by the number of days in the current month.</p>
+<pre><code class="language-js">const secondFraction = currentDateTime.getUTCMilliseconds() / 1000;
+const minuteFraction = (currentDateTime.getUTCSeconds() +
+                        secondFraction) / 60;
+const hourFraction = (currentDateTime.getUTCMinutes() +
+                        minuteFraction) / 60;
+const dayFraction = (currentDateTime.getUTCHours() +
+                        hourFraction) / 24;
+// Subtract one from the current date to get number of passed days
+const monthFraction = ((currentDateTime.getUTCDate() - 1) +
+                        dayFraction) / daysInMonth;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="year"><a class="header" href="#year">Year</a></h1>
-<h4 id="data-7"><a class="header" href="#data-7">Data</a></h4>
-<p><strong>Epoch:</strong> Every Year</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Year</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-7"><a class="header" href="#overview-7">Overview</a></h4>
 <p>This is the fraction of time passed in the current year.</p>
 <h4 id="info-7"><a class="header" href="#info-7">Info</a></h4>
@@ -324,9 +356,10 @@ const fractionOfDay = (currentDateTime.getHours() * 3600 + currentDateTime.getMi
 ((dayOfYear + fractionOfDay) / daysInYear);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="decade"><a class="header" href="#decade">Decade</a></h1>
-<h4 id="data-8"><a class="header" href="#data-8">Data</a></h4>
-<p><strong>Epoch:</strong> Every Decade</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Decade</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-8"><a class="header" href="#overview-8">Overview</a></h4>
 <p>This is the fraction of time passed in the current decade.</p>
 <h4 id="info-8"><a class="header" href="#info-8">Info</a></h4>
@@ -347,9 +380,10 @@ const fractionOfYear = // (year fraction calculation from above)
 ((yearInDecade + fractionOfYear) / 10);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="century"><a class="header" href="#century">Century</a></h1>
-<h4 id="data-9"><a class="header" href="#data-9">Data</a></h4>
-<p><strong>Epoch:</strong> Every Century</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Century</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-9"><a class="header" href="#overview-9">Overview</a></h4>
 <p>This is the fraction of time passed in the current century.</p>
 <h4 id="info-9"><a class="header" href="#info-9">Info</a></h4>
@@ -370,9 +404,10 @@ const fractionOfYear = // (year fraction calculation from above)
 ((yearInCentury + fractionOfYear) / 100);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="millennium"><a class="header" href="#millennium">Millennium</a></h1>
-<h4 id="data-10"><a class="header" href="#data-10">Data</a></h4>
-<p><strong>Epoch:</strong> Every Millennium</p>
-<p><strong>Confidence:</strong> Exact</p>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>Every Millennium</td><td>Exact</td></tr>
+</tbody></table>
+</div>
 <h4 id="overview-10"><a class="header" href="#overview-10">Overview</a></h4>
 <p>This is the fraction of time passed in the current millennium.</p>
 <h4 id="info-10"><a class="header" href="#info-10">Info</a></h4>
@@ -2085,6 +2120,24 @@ gpsTime += leapSecondsCount;
 <tr><td>8</td><td>Astawara</td><td>Sri, Indra, Guru, Yama, Ludra, Brahma, Kala, Uma</td></tr>
 <tr><td>9</td><td>Sangawara</td><td>Dangu, Jangur, Gigis, Nohan, Ogan, Erangan, Urungan, Tulus, Dadi</td></tr>
 <tr><td>10</td><td>Dasawara</td><td>Sri, Pati, Raja, Manuh, Duka, Manusa, Raksasa, Suka, Dewa, Pandita</td></tr>
+</tbody></table>
+</div><div class="table-wrapper"><table><thead><tr><th>Urip Info</th><th></th><th></th></tr></thead><tbody>
+<tr><td>Week</td><td>Values</td><td></td></tr>
+<tr><td>5</td><td>9, 7, 4, 8, 5</td><td></td></tr>
+<tr><td>7</td><td>5, 4, 3, 7, 8, 6, 9</td><td></td></tr>
+<tr><td>10</td><td>5, 2, 8, 6, 4, 7, 10, 3, 9, 1</td><td></td></tr>
+</tbody></table>
+</div><div class="table-wrapper"><table><thead><tr><th>Week Names</th><th></th><th></th></tr></thead><tbody>
+<tr><td>Sinta</td><td>Landep</td><td>Ukir</td></tr>
+<tr><td>Kulantir</td><td>Taulu</td><td>Gumbreg</td></tr>
+<tr><td>Wariga</td><td>Warigadian</td><td>Julungwangi</td></tr>
+<tr><td>Sungsang</td><td>Dunggulan</td><td>Kuningan</td></tr>
+<tr><td>Langkir</td><td>Medangsia</td><td>Pujut</td></tr>
+<tr><td>Pahang</td><td>Krulut</td><td>Merakih</td></tr>
+<tr><td>Tambir</td><td>Medangkungan</td><td>Matal</td></tr>
+<tr><td>Uye</td><td>Menail</td><td>Parangbakat</td></tr>
+<tr><td>Bala</td><td>Ugu</td><td>Wayang</td></tr>
+<tr><td>Kelawu</td><td>Dukut</td><td>Watugunung</td></tr>
 </tbody></table>
 </div>
 <h4 id="accuracy-75"><a class="header" href="#accuracy-75">Accuracy</a></h4>

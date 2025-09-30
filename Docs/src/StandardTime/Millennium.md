@@ -1,10 +1,8 @@
 # Millennium
 
-#### Data
-
-**Epoch:** Every Millennium
-
-**Confidence:** Exact
+| Epoch           | Confidence |
+| --------------- | ---------- |
+| Every Millennium | Exact      |
 
 #### Overview
 

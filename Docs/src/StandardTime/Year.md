@@ -1,10 +1,8 @@
 # Year
 
-#### Data
-
-**Epoch:** Every Year
-
-**Confidence:** Exact
+| Epoch      | Confidence |
+| ---------- | ---------- |
+| Every Year | Exact      |
 
 #### Overview
 

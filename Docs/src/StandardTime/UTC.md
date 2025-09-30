@@ -1,10 +1,8 @@
 # UTC
 
-#### Data
-
-**Epoch:** Midnight (UTC)
-
-**Confidence:** Exact
+| Epoch         | Confidence |
+| ------------- | ---------- |
+| Midnight (UTC) | Exact      |
 
 #### Overview
 

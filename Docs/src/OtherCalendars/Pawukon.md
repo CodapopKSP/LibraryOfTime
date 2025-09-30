@@ -29,6 +29,26 @@ Each of the 30 cycles of Week 7 also has a name. This calendar does not count th
 | 9 | Sangawara | Dangu, Jangur, Gigis, Nohan, Ogan, Erangan, Urungan, Tulus, Dadi |
 | 10 | Dasawara | Sri, Pati, Raja, Manuh, Duka, Manusa, Raksasa, Suka, Dewa, Pandita |
 
+| Urip Info | | |
+|-----------|---|---|
+| Week | Values | |
+| 5 | 9, 7, 4, 8, 5 | |
+| 7 | 5, 4, 3, 7, 8, 6, 9 | |
+| 10 | 5, 2, 8, 6, 4, 7, 10, 3, 9, 1 | |
+
+| Week Names | | |
+|------------|---|---|
+| Sinta | Landep | Ukir |
+| Kulantir | Taulu | Gumbreg |
+| Wariga | Warigadian | Julungwangi |
+| Sungsang | Dunggulan | Kuningan |
+| Langkir | Medangsia | Pujut |
+| Pahang | Krulut | Merakih |
+| Tambir | Medangkungan | Matal |
+| Uye | Menail | Parangbakat |
+| Bala | Ugu | Wayang |
+| Kelawu | Dukut | Watugunung |
+
 #### Accuracy
 
 This calendar is a simple cycle of days with a known epoch and is expected to be exactly accurate.

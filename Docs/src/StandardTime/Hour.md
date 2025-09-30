@@ -1,10 +1,8 @@
 # Hour
 
-#### Data
-
-**Epoch:** Every Hour
-
-**Confidence:** Exact
+| Epoch      | Confidence |
+| ---------- | ---------- |
+| Every Hour | Exact      |
 
 #### Overview
 
@@ -26,8 +24,12 @@ This is a simple calculation with no source.
 
 ### Calculation
 
-This clock shouldn't need to be calculated, since dateTime already provides the hour fraction.
+This clock can be calculated by getting the minute fraction, adding that to the current minute, and dividing the total by 60.
 
 ```js
-(currentDateTime.getMinutes() * 60 + currentDateTime.getSeconds()) * 1000 + currentDateTime.getMilliseconds()) / 3600000;
+const secondFraction = currentDateTime.getUTCMilliseconds() / 1000;
+const minuteFraction = (currentDateTime.getUTCSeconds() +
+                        secondFraction) / 60;
+const hourFraction = (currentDateTime.getUTCMinutes() +
+                        minuteFraction)/60;
 ```

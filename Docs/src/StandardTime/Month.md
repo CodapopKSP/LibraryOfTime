@@ -1,10 +1,8 @@
 # Month
 
-#### Data
-
-**Epoch:** Every Month
-
-**Confidence:** Exact
+| Epoch       | Confidence |
+| ----------- | ---------- |
+| Every Month | Exact      |
 
 #### Overview
 
@@ -26,12 +24,27 @@ This is a simple calculation with no source.
 
 ### Calculation
 
-This clock shouldn't need to be calculated, since dateTime already provides the month fraction.
+This clock can be calculated by subtracting the start time of the current month from the start time of the next month, and dividing the total by 1000, 60, 60, and 24 to get the number of days in the current month.
 
 ```js
-// Calculate days in current month
-const daysInMonth = new Date(currentDateTime.getFullYear(), currentDateTime.getMonth() + 1, 0).getDate();
-const dayOfMonth = currentDateTime.getDate();
-const fractionOfDay = (currentDateTime.getHours() * 3600 + currentDateTime.getMinutes() * 60 + currentDateTime.getSeconds()) * 1000 + currentDateTime.getMilliseconds()) / 86400000;
-((dayOfMonth - 1 + fractionOfDay) / daysInMonth);
+const year = currentDateTime.getUTCFullYear();
+const month = currentDateTime.getUTCMonth();
+const nextMonth = createDateWithFixedYear(year, month + 1, 0);
+const thisMonth = createDateWithFixedYear(year, month, 0);
+const daysInMonth = (nextMonth - thisMonth)/1000/60/60/24;
+```
+
+Then add  the current day fraction to the current day, and divide the total by the number of days in the current month.
+
+```js
+const secondFraction = currentDateTime.getUTCMilliseconds() / 1000;
+const minuteFraction = (currentDateTime.getUTCSeconds() +
+                        secondFraction) / 60;
+const hourFraction = (currentDateTime.getUTCMinutes() +
+                        minuteFraction) / 60;
+const dayFraction = (currentDateTime.getUTCHours() +
+                        hourFraction) / 24;
+// Subtract one from the current date to get number of passed days
+const monthFraction = ((currentDateTime.getUTCDate() - 1) +
+                        dayFraction) / daysInMonth;
 ```

@@ -1,10 +1,8 @@
 # Minute
 
-#### Data
-
-**Epoch:** Every Minute
-
-**Confidence:** Exact
+| Epoch        | Confidence |
+| ------------ | ---------- |
+| Every Minute | Exact      |
 
 #### Overview
 
@@ -26,8 +24,10 @@ This is a simple calculation with no source.
 
 ### Calculation
 
-This clock shouldn't need to be calculated, since dateTime already provides the minute fraction.
+This clock can be calculated by adding the current fraction of a second to the current seconds and then dividing the total by 60.
 
 ```js
-(currentDateTime.getSeconds() * 1000 + currentDateTime.getMilliseconds()) / 60000;
+const secondFraction = currentDateTime.getUTCMilliseconds() / 1000;
+const minuteFraction = (currentDateTime.getUTCSeconds() +
+                        secondFraction) / 60;
 ```

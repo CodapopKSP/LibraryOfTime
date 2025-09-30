@@ -1,10 +1,8 @@
 # Local Time
 
-#### Data
-
-**Epoch:** Midnight
-
-**Confidence:** Exact
+| Epoch    | Confidence |
+| -------- | ---------- |
+| Midnight | Exact      |
 
 #### Overview
 
