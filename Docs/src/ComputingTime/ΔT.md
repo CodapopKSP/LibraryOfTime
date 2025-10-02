@@ -20,6 +20,8 @@ The epoch for this value is not an epoch but rather a moment where ΔT is close 
 
 #### Source
 
-This calculation was originally sourced from [*Astronomical Algorithms* (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.
+This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.
 
-I also borrowed much of the base code for this calculation from [this GitHub repository](https://github.com/Fabiz/MeeusJs/blob/master/lib/Astro.DeltaT.js) as it seems to be based on a later version of Meeus's calculation.
+---
+
+### Calculation

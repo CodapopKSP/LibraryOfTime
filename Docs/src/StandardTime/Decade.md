@@ -1,7 +1,7 @@
 # Decade
 
-| Epoch      | Confidence |
-| ---------- | ---------- |
+| Epoch        | Confidence |
+| ------------ | ---------- |
 | Every Decade | Exact      |
 
 #### Overview
@@ -19,19 +19,3 @@ This calculation is perfectly accurate to the millisecond.
 #### Source
 
 This is a simple calculation with no source.
-
----
-
-### Calculation
-
-This clock shouldn't need to be calculated, since dateTime already provides the decade fraction.
-
-```js
-// Calculate decade start and end
-const currentYear = currentDateTime.getFullYear();
-const decadeStart = Math.floor(currentYear / 10) * 10;
-const decadeEnd = decadeStart + 9;
-const yearInDecade = currentYear - decadeStart;
-const fractionOfYear = // (year fraction calculation from above)
-((yearInDecade + fractionOfYear) / 10);
-```

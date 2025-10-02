@@ -1,7 +1,7 @@
 # Century
 
-| Epoch        | Confidence |
-| ------------ | ---------- |
+| Epoch         | Confidence |
+| ------------- | ---------- |
 | Every Century | Exact      |
 
 #### Overview
@@ -19,19 +19,3 @@ This calculation is perfectly accurate to the millisecond.
 #### Source
 
 This is a simple calculation with no source.
-
----
-
-### Calculation
-
-This clock shouldn't need to be calculated, since dateTime already provides the century fraction.
-
-```js
-// Calculate century start and end
-const currentYear = currentDateTime.getFullYear();
-const centuryStart = Math.floor(currentYear / 100) * 100;
-const centuryEnd = centuryStart + 99;
-const yearInCentury = currentYear - centuryStart;
-const fractionOfYear = // (year fraction calculation from above)
-((yearInCentury + fractionOfYear) / 100);
-```
