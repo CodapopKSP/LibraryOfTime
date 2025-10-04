@@ -190,14 +190,18 @@
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation"><a class="header" href="#calculation">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the century fraction.</p>
-<pre><code class="language-js">// Calculate century start and end
-const currentYear = currentDateTime.getFullYear();
-const centuryStart = Math.floor(currentYear / 100) * 100;
-const centuryEnd = centuryStart + 99;
-const yearInCentury = currentYear - centuryStart;
-const fractionOfYear = // (year fraction calculation from above)
-((yearInCentury + fractionOfYear) / 100);
+<p>This clock can be calculated by first getting the year number of the start of the current century.</p>
+<pre><code class="language-js">// Calculate ordinal century start (ending in 1)
+const year = currentDateTime.getUTCFullYear();
+let startYear = Math.floor(year / 100) * 100 + 1;
+</code></pre>
+<p>This will provide the start of a century beginning in the 1s place (2201, 2001, etc.). After that, the start of the current century and the start of the next century can be calculated.</p>
+<pre><code class="language-js">const startThisCentury = createDateWithFixedYear(startYear, 0, 1);
+const startNextCentury = createDateWithFixedYear(startYear + 10, 0, 1);
+</code></pre>
+<p>After that, the ratio between the difference of the current datetime and start of the century can be compared to the difference of the start of the next century and the start of the current century.</p>
+<pre><code class="language-js">return (currentDateTime - startThisCentury) /
+    (startNextCentury - startThisCentury);
 </code></pre>
 
                     </main>

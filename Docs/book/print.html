@@ -347,13 +347,12 @@ const monthFraction = ((currentDateTime.getUTCDate() - 1) +
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-7"><a class="header" href="#calculation-7">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the year fraction.</p>
-<pre><code class="language-js">// Calculate if current year is a leap year
-const isLeapYear = (currentDateTime.getFullYear() % 4 === 0 &amp;&amp; currentDateTime.getFullYear() % 100 !== 0) || (currentDateTime.getFullYear() % 400 === 0);
-const daysInYear = isLeapYear ? 366 : 365;
-const dayOfYear = Math.floor((currentDateTime - new Date(currentDateTime.getFullYear(), 0, 0)) / 86400000);
-const fractionOfDay = (currentDateTime.getHours() * 3600 + currentDateTime.getMinutes() * 60 + currentDateTime.getSeconds()) * 1000 + currentDateTime.getMilliseconds()) / 86400000;
-((dayOfYear + fractionOfDay) / daysInYear);
+<p>This clock can be calculated by getting the start of the current and next year.</p>
+<pre><code class="language-js">const startOfYear = createDateWithFixedYear(year, 0, 1);
+const startOfNextYear = createDateWithFixedYear(year + 1, 0, 1);
+</code></pre>
+<p>After that, the ratio between the difference of the current datetime and start of the year can be compared to the difference of the start of the next year and the start of the current year.</p>
+<pre><code class="language-js">return (currentDateTime - startOfYear) / (startOfNextYear - startOfYear);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="decade"><a class="header" href="#decade">Decade</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
@@ -370,14 +369,18 @@ const fractionOfDay = (currentDateTime.getHours() * 3600 + currentDateTime.getMi
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-8"><a class="header" href="#calculation-8">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the decade fraction.</p>
-<pre><code class="language-js">// Calculate decade start and end
-const currentYear = currentDateTime.getFullYear();
-const decadeStart = Math.floor(currentYear / 10) * 10;
-const decadeEnd = decadeStart + 9;
-const yearInDecade = currentYear - decadeStart;
-const fractionOfYear = // (year fraction calculation from above)
-((yearInDecade + fractionOfYear) / 10);
+<p>This clock can be calculated by first getting the year number of the start of the current decade.</p>
+<pre><code class="language-js">// Calculate ordinal decade start (ending in 1)
+const year = currentDateTime.getUTCFullYear();
+let startYear = Math.floor(year / 10) * 10 + 1;
+</code></pre>
+<p>This will provide the start of a decade beginning in the 1s place (2021, 2001, etc.). After that, the start of the current decade and the start of the next decade can be calculated.</p>
+<pre><code class="language-js">const startThisDecade = createDateWithFixedYear(startYear, 0, 1);
+const startNextDecade = createDateWithFixedYear(startYear + 10, 0, 1);
+</code></pre>
+<p>After that, the ratio between the difference of the current datetime and start of the decade can be compared to the difference of the start of the next decade and the start of the current decade.</p>
+<pre><code class="language-js">return (currentDateTime - startThisDecade) /
+    (startNextDecade - startThisDecade);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="century"><a class="header" href="#century">Century</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
@@ -394,14 +397,18 @@ const fractionOfYear = // (year fraction calculation from above)
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-9"><a class="header" href="#calculation-9">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the century fraction.</p>
-<pre><code class="language-js">// Calculate century start and end
-const currentYear = currentDateTime.getFullYear();
-const centuryStart = Math.floor(currentYear / 100) * 100;
-const centuryEnd = centuryStart + 99;
-const yearInCentury = currentYear - centuryStart;
-const fractionOfYear = // (year fraction calculation from above)
-((yearInCentury + fractionOfYear) / 100);
+<p>This clock can be calculated by first getting the year number of the start of the current century.</p>
+<pre><code class="language-js">// Calculate ordinal century start (ending in 1)
+const year = currentDateTime.getUTCFullYear();
+let startYear = Math.floor(year / 100) * 100 + 1;
+</code></pre>
+<p>This will provide the start of a century beginning in the 1s place (2201, 2001, etc.). After that, the start of the current century and the start of the next century can be calculated.</p>
+<pre><code class="language-js">const startThisCentury = createDateWithFixedYear(startYear, 0, 1);
+const startNextCentury = createDateWithFixedYear(startYear + 10, 0, 1);
+</code></pre>
+<p>After that, the ratio between the difference of the current datetime and start of the century can be compared to the difference of the start of the next century and the start of the current century.</p>
+<pre><code class="language-js">return (currentDateTime - startThisCentury) /
+    (startNextCentury - startThisCentury);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="millennium"><a class="header" href="#millennium">Millennium</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
@@ -411,21 +418,25 @@ const fractionOfYear = // (year fraction calculation from above)
 <h4 id="overview-10"><a class="header" href="#overview-10">Overview</a></h4>
 <p>This is the fraction of time passed in the current millennium.</p>
 <h4 id="info-10"><a class="header" href="#info-10">Info</a></h4>
-<p>Due to leap days, this fraction might not be a perfect /10 division of the century calculation.</p>
+<p>Due to leap days, midnight on the 1st of January of the 501st year in the millennium might not be exactly 50% of the way through the millennium.</p>
 <h4 id="accuracy-10"><a class="header" href="#accuracy-10">Accuracy</a></h4>
 <p>This calculation is perfectly accurate to the millisecond.</p>
 <h4 id="source-10"><a class="header" href="#source-10">Source</a></h4>
 <p>This is a simple calculation with no source.</p>
 <hr />
 <h3 id="calculation-10"><a class="header" href="#calculation-10">Calculation</a></h3>
-<p>This clock shouldn't need to be calculated, since dateTime already provides the millennium fraction.</p>
-<pre><code class="language-js">// Calculate millennium start and end
-const currentYear = currentDateTime.getFullYear();
-const millenniumStart = Math.floor(currentYear / 1000) * 1000;
-const millenniumEnd = millenniumStart + 999;
-const yearInMillennium = currentYear - millenniumStart;
-const fractionOfYear = // (year fraction calculation from above)
-((yearInMillennium + fractionOfYear) / 1000);
+<p>This clock can be calculated by first getting the year number of the start of the current millennium.</p>
+<pre><code class="language-js">// Calculate ordinal millennium start (ending in 1)
+const year = currentDateTime.getUTCFullYear();
+let startYear = Math.floor(year / 1000) * 1000 + 1;
+</code></pre>
+<p>This will provide the start of a millennium beginning in the 1s place (3001, 2001, etc.). After that, the start of the current millennium and the start of the next millennium can be calculated.</p>
+<pre><code class="language-js">const startThisMillennium = createDateWithFixedYear(startYear, 0, 1);
+const startNextMillennium = createDateWithFixedYear(startYear + 10, 0, 1);
+</code></pre>
+<p>After that, the ratio between the difference of the current datetime and start of the millennium can be compared to the difference of the start of the next millennium and the start of the current millennium.</p>
+<pre><code class="language-js">return (currentDateTime - startThisMillennium) /
+    (startNextMillennium - startThisMillennium);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="computing-time"><a class="header" href="#computing-time">Computing Time</a></h1>
 <p>Computing Time is a collection of clocks and calendars that aren't typically used by any culture as a primary means of telling time. Instead, they are often converted into more colloquial forms of timekeeping.</p>
@@ -695,8 +706,9 @@ gpsTime += leapSecondsCount;
 <p>ΔT is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculations or due to a misunderstanding in some of the steps. However, they are very close, within a few seconds for any given output.</p>
 <p>The epoch for this value is not an epoch but rather a moment where ΔT is close to zero.</p>
 <h4 id="source-23"><a class="header" href="#source-23">Source</a></h4>
-<p>This calculation was originally sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
-<p>I also borrowed much of the base code for this calculation from <a href="https://github.com/Fabiz/MeeusJs/blob/master/lib/Astro.DeltaT.js">this GitHub repository</a> as it seems to be based on a later version of Meeus's calculation.</p>
+<p>This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.</p>
+<hr />
+<h3 id="calculation-15"><a class="header" href="#calculation-15">Calculation</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mars-sol-date"><a class="header" href="#mars-sol-date">Mars Sol Date</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>29 December 1873 CE +12:04:11</td><td>High</td></tr>

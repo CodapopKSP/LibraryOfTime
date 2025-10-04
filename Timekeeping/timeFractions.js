@@ -69,8 +69,8 @@ function calculateYear(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
     const year = currentDateTime.getUTCFullYear();
     const startOfYear = createDateWithFixedYear(year, 0, 1);
-    const daysInYear = (createDateWithFixedYear(year + 1, 0, 1) - startOfYear) / 86400000; // Total days in year
-    return (currentDateTime - startOfYear) / (daysInYear * 86400000);
+    const startOfNextYear = createDateWithFixedYear(year + 1, 0, 1);
+    return (currentDateTime - startOfYear) / (startOfNextYear - startOfYear);
 }
 
 function calculateDecade(currentDateTime_, timezoneOffset) {
@@ -94,7 +94,7 @@ function calculateDecade(currentDateTime_, timezoneOffset) {
 function calculateCentury(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
 
-    // Calculate ordinal decade start (ending in 1)
+    // Calculate ordinal century start (ending in 1)
     const year = currentDateTime.getUTCFullYear();
     let centuryStartYear = Math.floor(year / 100) * 100 + 1;
 
@@ -109,7 +109,7 @@ function calculateCentury(currentDateTime_, timezoneOffset) {
 
 function calculateMillennium(currentDateTime_, timezoneOffset) {
     let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
-    // Calculate ordinal decade start (ending in 1)
+    // Calculate ordinal millennium start (ending in 1)
     const year = currentDateTime.getUTCFullYear();
     let millenniumStartYear = Math.floor(year / 1000) * 1000 + 1;
 
