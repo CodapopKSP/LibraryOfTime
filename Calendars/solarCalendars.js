@@ -1104,3 +1104,72 @@ function getTabotDate(currentDateTime) {
 
     return day + ' ' + month + ' H.I.M. ' + year + '\n' + tabotWeek[dayOfWeek];
 }
+
+// Returns a formatted Icelandic UTC date
+function getIcelandicDate(currentDateTime) {
+    let icelandicMonths = [ 'Harpa', 'Skerpla', 'Sólmánuðr', 'Aukanætur', 'Heyannir', 'Tvímánuðr', 'Haustmánuðr', 'Gormánuðr', 'Ýlir', 'Mörsugr', 'Þorri', 'Góa', 'Einmánuðr' ];
+    const icelandicMonths_Leap = [ 'Harpa', 'Skerpla', 'Sólmánuðr', 'Aukanætur', 'Sumarauki', 'Heyannir', 'Tvímánuðr', 'Haustmánuðr', 'Gormánuðr', 'Ýlir', 'Mörsugr', 'Þorri', 'Góa', 'Einmánuðr'];
+    const icelandicDays = [ 'sunnudagr', 'mánadagr', 'týrsdagr', 'óðinsdagr', 'þorsdagr', 'frjádagr', 'laugardagr' ];
+    let icelandicDaysPerMonth = [30, 30, 30, 4, 30, 30, 30, 30, 30, 30, 30, 30, 30];
+    const icelandicDaysPerMonth_Leap = [30, 30, 30, 4, 7, 30, 30, 30, 30, 30, 30, 30, 30, 30];
+    let icelandicMessieriWeeks = [26, 26];
+    const icelandicMessieriWeeks_Leap = [27, 26];
+
+    // Helper function to get the Thursday on or after April 19 for a given year
+    function getThursdayOnOrAfterApril19(year) {
+        let april19 = createDateWithFixedYear(year, 3, 19);
+        let dayOfWeek = april19.getUTCDay(); // 0 = Sunday, 4 = Thursday
+        let daysToAdd = (4 - dayOfWeek + 7) % 7; // Days to add to get to Thursday (on or after April 19)
+        return new Date(april19.getTime() + daysToAdd * 86400000);
+    }
+
+    let startingThursdayThisYear = getThursdayOnOrAfterApril19(currentDateTime.getUTCFullYear());
+    
+    let thursdayBefore, thursdayAfter;
+    if (currentDateTime < startingThursdayThisYear) {
+        // Current date is before this year's Thursday, so get previous year's Thursday
+        thursdayBefore = getThursdayOnOrAfterApril19(currentDateTime.getUTCFullYear() - 1);
+        thursdayAfter = startingThursdayThisYear;
+    } else {
+        // Current date is on or after this year's Thursday, so get next year's Thursday
+        thursdayBefore = startingThursdayThisYear;
+        thursdayAfter = getThursdayOnOrAfterApril19(currentDateTime.getUTCFullYear() + 1);
+    }
+
+    // Calculate the number of days in the Icelandic year (between the two Thursdays)
+    const daysInYear = Math.floor(differenceInDays(thursdayAfter, thursdayBefore));
+
+    if (daysInYear === 371) {
+        icelandicDaysPerMonth = icelandicDaysPerMonth_Leap;
+        icelandicMonths = icelandicMonths_Leap;
+        icelandicMessieriWeeks = icelandicMessieriWeeks_Leap;
+    }
+
+    // Calculate days since thursdayBefore
+    let daysSinceThursdayBefore = Math.floor(differenceInDays(currentDateTime, thursdayBefore)) + 1;
+    const icelandicDayOfWeek = (daysSinceThursdayBefore+3) % 7;
+    let messieriWeek = Math.floor((daysSinceThursdayBefore-1) / 7) + 1;
+
+    // Iterate through icelandicDaysPerMonth to find the current month
+    let icelandicMonthIndex = 0;
+    let remainingDays = daysSinceThursdayBefore;
+    while (remainingDays > icelandicDaysPerMonth[icelandicMonthIndex]) {
+        remainingDays -= icelandicDaysPerMonth[icelandicMonthIndex];
+        icelandicMonthIndex++;
+    }
+    
+    // Get the current Icelandic month name using the index
+    const icelandicMonth = icelandicMonths[icelandicMonthIndex];
+    const icelandicDay = remainingDays;
+    
+    // Find the season boundary by locating "Haustmánuðr" (Winter starts after this month)
+    // In normal year it's at index 6, in leap year it's at index 7
+    const winterStartIndex = icelandicMonths.indexOf('Gormánuðr');
+    const icelandicSeason = icelandicMonthIndex < winterStartIndex ? 'Summer' : 'Winter';
+
+    if (icelandicSeason === 'Winter') {
+        messieriWeek -= icelandicMessieriWeeks[0];
+    }
+
+    return icelandicDay + ' ' + icelandicMonth + '\nMisseri: ' + icelandicSeason + '\nWeek: ' + messieriWeek + '\n' + icelandicDays[icelandicDayOfWeek];
+}

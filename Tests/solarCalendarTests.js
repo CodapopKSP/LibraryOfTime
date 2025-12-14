@@ -308,6 +308,18 @@ function testTabotCalendar() {
     ]);
 }
 
+function testIcelandicCalendar() {
+    return runSolarTests("Icelandic Calendar", getIcelandicDate, [
+        ["2023-4-20, 00:00:00", "UTC+00:00", "1 Harpa\nMisseri: Summer\nWeek: 1\nþorsdagr"],
+        ["2023-7-19, 00:00:00", "UTC+00:00", "1 Aukanætur\nMisseri: Summer\nWeek: 13\nóðinsdagr"],
+        ["2023-10-27, 00:00:00", "UTC+00:00", "30 Haustmánuðr\nMisseri: Summer\nWeek: 28\nfrjádagr"],
+        ["2023-10-28, 00:00:00", "UTC+00:00", "1 Gormánuðr\nMisseri: Winter\nWeek: 1\nlaugardagr"],
+        ["2024-4-24, 00:00:00", "UTC+00:00", "30 Einmánuðr\nMisseri: Winter\nWeek: 26\nóðinsdagr"],
+        ["2024-4-25, 00:00:00", "UTC+00:00", "1 Harpa\nMisseri: Summer\nWeek: 1\nþorsdagr"],
+        ["2029-4-19, 00:00:00", "UTC+00:00", "1 Harpa\nMisseri: Summer\nWeek: 1\nþorsdagr"],
+    ]);
+}
+
 // Run all tests.
 function runSolarCalendarTests() {
     const testFunctions = [
@@ -334,7 +346,8 @@ function runSolarCalendarTests() {
         testISOWeekDateCalendar,
         testHaabCalendar,
         testAnnoLucisCalendar,
-        testTabotCalendar
+        testTabotCalendar,
+        testIcelandicCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

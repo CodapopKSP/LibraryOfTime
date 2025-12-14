@@ -123,6 +123,8 @@
   - [Anno Lucis](SolarCalendars/AnnoLucis.md)
   
   - [Tabot (EST)](SolarCalendars/Tabot.md)
+  
+  - [Icelandic (UTC)](SolarCalendars/Icelandic.md)
 
 - [Other Calendars](OtherCalendars/OtherCalendars.md)
   

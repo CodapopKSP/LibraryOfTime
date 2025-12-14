@@ -32,6 +32,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('haab-node', getHaabDate(currentDateTime));
     setTimeValue('anno-lucis-node', getAnnoLucisDate(currentDateTime, timezoneOffset));
     setTimeValue('tabot-node', getTabotDate(currentDateTime));
+    setTimeValue('icelandic-node', getIcelandicDate(currentDateTime));
 }
 
 function updateLunisolarCalendars(currentDateTime) {
