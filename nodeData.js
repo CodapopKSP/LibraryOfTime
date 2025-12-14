@@ -1605,6 +1605,18 @@ const popCultureData = [
         info: `<table class="table-very-long"><tr><th>Month</th><th>Days</th><th>Gregorian</th></tr><tr><td>Morning Star</td><td>31</td><td>January</td></tr><tr><td>Sun's Dawn</td><td>28 or 29</td><td>February</td></tr><tr><td>First Seed</td><td>31</td><td>March</td></tr><tr><td>Rain's Hand</td><td>30</td><td>April</td></tr><tr><td>Second Seed</td><td>31</td><td>May</td></tr><tr><td>Midyear</td><td>30</td><td>June</td></tr><tr><td>Sun's Height</td><td>31</td><td>July</td></tr><tr><td>Last Seed</td><td>31</td><td>August</td></tr><tr><td>Hearthfire</td><td>30</td><td>September</td></tr><tr><td>Frostfall</td><td>31</td><td>October</td></tr><tr><td>Sun's Dusk</td><td>30</td><td>November</td></tr><tr><td>Evening Star</td><td>31</td><td>December</td></tr></table>\n<table class="table-long"><tr><th>Weekday</th><th>Gregorian</th></tr><tr><td>Morndas</td><td>Monday</td></tr><tr><td>Tirdas</td><td>Tuesday</td></tr><tr><td>Middas</td><td>Wednesday</td></tr><tr><td>Turdas</td><td>Thursday</td></tr><tr><td>Fredas</td><td>Friday</td></tr><tr><td>Loredas</td><td>Saturday</td></tr><tr><td>Sundas</td><td>Sunday</td></tr></table>`,
         accuracy: 'Since this calendar is a simple mapping to the Gregorian calendar, it is perfectly accurate.',
         source: 'This calculation was sourced from <a href="https://en.uesp.net/wiki/Lore:Calendar">this website</a>.'
+    },
+
+    {
+        name: "Imperial Dating System",
+        id: 'imperial-dating-system',
+        type: 'Pop Culture',
+        epoch: '1 January 0 BCE',
+        confidence: 'Exact',
+        overview: `The Imperial Dating System is the date formatting system used in the Warhammer 40k universe. It is intrinsically based on the Gregorian calendar for its epoch and years.\n\nThe first digit represents the in-universe location of the event, with 0 representing events that took place on Terra (Earth). The next set of 3 digits represent the fraction of the current year that has passed, in hundredths.\n\nAfter that, the final set of 3 digits represents the current year in the Gregorian calendar, truncated to the last three digits. The current millennium, denoted with a capital M, is the current millennium in the Gregorian calendar, starting with M1 at the year 0 BCE.`,
+        info: `Since this website is located on Terra (Earth), the first digit will always be 0.\n\nThis callendar considers the beginning of a millennium to be on year 1 (e.g. 2001 rather than 2000), so the final year of any millennium is written as 000.`,
+        accuracy: `This calculation is exactly accurate, as it is based on the Gregorian calendar and its year calculations. There is a bit of uncertainty regarding the handling of years before the Gregorian epoch, but that is outside the range of this calendar anyway.`,
+        source: `This calculation was sourced from <a href="https://warhammer40k.fandom.com/wiki/Imperial_Dating_System#Original_System">the Warhammer 40k Fandom Wiki</a>.`
     }
 ]
 

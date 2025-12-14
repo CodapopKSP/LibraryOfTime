@@ -130,3 +130,8 @@ function updateOtherAndDecimalTimes(currentDateTime, timezoneOffset) {
     setTimeValue('callisto-meridian-time-node', getCallistoPrimeMeridianTime(currentDateTime));
     setTimeValue('titan-meridian-time-node', getTitanPrimeMeridianTime(currentDateTime));
 }
+
+function updatePopCultureTimes(currentDateTime, timezoneOffset) {
+    setTimeValue('tamrielic-node', getTamrielicDate(currentDateTime, timezoneOffset));
+    setTimeValue('imperial-dating-system-node', getImperialDatingSystem(currentDateTime, timezoneOffset));
+}

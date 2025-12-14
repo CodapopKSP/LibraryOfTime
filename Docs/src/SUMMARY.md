@@ -253,6 +253,8 @@
   - [Stardate](PopCulture/Stardate.md)
   
   - [Tamrielic Calendar](PopCulture/Tamrielic.md)
+  
+  - [Imperial Dating System](PopCulture/ImperialDatingSystem.md)
 
 - [Political Cycles](PoliticalCycles/PoliticalCycles.md)
   

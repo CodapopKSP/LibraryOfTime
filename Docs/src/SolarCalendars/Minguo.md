@@ -12,7 +12,7 @@ The Minguo calendar was also used in China between 1912 and the fleeing of the R
 
 #### Info
 
-Prior to the establishment of the Repiblic of China in 1912, the Chinese people and government used the traditional Chinese lunisolar calendar. The ROC adopted the Gregorian calendar for official business but used the new Era of the Republic as the epoch. After claiming victory over the Chinese mainland in 1949, the PRC opted to use the Gregorian calendar along with its epoch.
+Prior to the establishment of the Republic of China in 1912, the Chinese people and government used the traditional Chinese lunisolar calendar. The ROC adopted the Gregorian calendar for official business but used the new Era of the Republic as the epoch. After claiming victory over the Chinese mainland in 1949, the PRC opted to use the Gregorian calendar along with its epoch.
 
 #### Accuracy
 

@@ -163,3 +163,26 @@ function getTamrielicDate(currentDateTime, timezoneOffset) {
 
     return day + ' ' + tamrielicMonths[month] + '\n' + tamrielicWeek[week];
 }
+
+function getImperialDatingSystem(currentDateTime, timezoneOffset) {
+    const yearFraction = (calculateYear(currentDateTime, timezoneOffset).toFixed(3)*1000);
+    
+    // Get the actual year
+    let adjustedDateTime = new Date(currentDateTime.getTime() + (timezoneOffset*60*1000));
+    const year = adjustedDateTime.getUTCFullYear() + 1000; // Millennium is 1-based counting rather than 0-based, so year 0 is Millennium 1
+    
+    // For digit extraction, use absolute value
+    const absYear = Math.abs(year);
+    const absYearString = absYear.toString();
+    
+    // Get last 3 digits for yearHundreds (pad with zeros if needed)
+    const yearHundreds = absYearString.slice(-3).padStart(3, '0');
+    
+    // Calculate millennium - millenniums start at 001, so M3 starts at 2001, not 2000
+    // After +1000 adjustment: year 2000 → 3000 should be M2, year 2001 → 3001 should be M3
+    // Use Math.floor((year - 1) / 1000) to account for starting at 001
+    const millenniumNum = Math.floor((year - 1) / 1000);
+    const millennium = millenniumNum.toString();
+
+    return '0 ' + yearFraction + ' ' + yearHundreds + '.M' + millennium;
+}
