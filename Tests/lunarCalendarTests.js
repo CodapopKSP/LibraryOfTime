@@ -92,7 +92,7 @@ function testCalculateIslamicMonthAndYear() {
 
 // Run all tests.
 function runLunarCalendarTests() {
-    const currentDateTime = new Date(Date.UTC(2024, 3, 8, 18, 20, 46));
+    const currentDateTime = createAdjustedDateTime({year: 2024, month: 4, day: 8, hour: 18, minute: 20, second: 46});
     generateAllNewMoons(currentDateTime);
     const testFunctions = [
         testTimeOfSunsetAfterLastNewMoon,

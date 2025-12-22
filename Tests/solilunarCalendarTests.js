@@ -40,7 +40,7 @@ function testGetTogysDate() {
 
 // Run all tests.
 function runSolilunarCalendarTests() {
-    const currentDateTime = new Date(Date.UTC(2010, 4, 8, 18, 20, 46));
+    const currentDateTime = createAdjustedDateTime({year: 2010, month: 5, day: 8, hour: 18, minute: 20, second: 46});
     setGregJulianDifference(calculateGregorianJulianDifference(currentDateTime));
     generateAllNewMoons(currentDateTime);
     const testFunctions = [

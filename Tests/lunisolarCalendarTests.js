@@ -161,7 +161,7 @@ function testCalculateMoladTishri() {
 
 // Run all tests.
 function runLunisolarCalendarTests() {
-    const currentDateTime = new Date(Date.UTC(2025, 4, 8, 18, 20, 46));
+    const currentDateTime = createAdjustedDateTime({year: 2025, month: 4, day: 8, hour: 18, minute: 20, second: 46});
     setGregJulianDifference(calculateGregorianJulianDifference(currentDateTime));
     generateAllNewMoons(currentDateTime);
     generateAllSolsticesEquinoxes(currentDateTime);
