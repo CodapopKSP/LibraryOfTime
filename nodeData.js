@@ -30,10 +30,10 @@ const standardTimeData = [
         name: 'UTC',
         id: 'utc',
         type: 'Standard Time',
-        epoch: 'Midnight (UTC)',
+        epoch: 'Midnight (GMT)',
         confidence: 'Exact',
         overview: 'Coordinated Universal Time is the global time standard. The time expressed here is the same regardless of timezone. It is based on the timezone of the Prime Meridian at 0°.',
-        info: 'UTC is the successor to GMT.',
+        info: 'UTC is the successor to GMT as a global standard.',
         accuracy: 'This calculation is perfectly accurate to the millisecond.',
         source: `UTC is sourced directly from JavaScript's Date library and your device's system time.`
     },
@@ -301,7 +301,7 @@ const computingTimeData = [
         overview: 'ΔT is an approximation of the difference in time between Terrestrial Time and UTC due to various factors that affect Earth\'s rotation, such as gravitational effects from other planets, earthquakes, and tidal forces. The two systems match around the year 1880 and deviate further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.',
         info: 'The exact length of the day is slowly changing on the order of a few seconds per year. This rate is not constant, though it can be estimated.',
         accuracy: `ΔT is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculations or due to a misunderstanding in some of the steps. However, they are very close, within a few seconds for any given output.\n\nThe epoch for this value is not an epoch but rather a moment where ΔT is close to zero.`,
-        source: `This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.`
+        source: ``
     },
 
     {
@@ -575,7 +575,7 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Julian (UTC)',
+        name: 'Julian (GMT)',
         id: 'julian',
         type: 'Solar Calendar',
         epoch: '30 December 0 BCE +00:00:00',
@@ -587,7 +587,7 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Astronomical (UTC)',
+        name: 'Astronomical (GMT)',
         id: 'astronomical',
         type: 'Solar Calendar',
         epoch: '30 December 0 BCE +00:00:00',
@@ -851,7 +851,7 @@ const solarCalendarsData = [
     },
 
     {
-        name: 'Icelandic (UTC)',
+        name: 'Icelandic (GMT)',
         id: 'icelandic',
         type: 'Solar Calendar',
         epoch: 'Unknown',
@@ -862,8 +862,7 @@ const solarCalendarsData = [
         source: `All of the information for this calendar came from <a href="https://www2.math.uu.se/~svantejs/papers/calendars/iceland.pdf">this paper</a>.`
     },
 
-    /*
-    {
+    /*{
         name: 'Śaka Samvat',
         id: 'saka-samvat',
         type: 'Solar Calendar',
