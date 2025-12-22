@@ -100,9 +100,9 @@ function testGetLunisolarCalendarDate() {
 
 function testGetChineseLunisolarCalendarDate() {
     return runGetChineseLunisolarCalendarDate("Chinese Calendar Date", getChineseLunisolarCalendarDate, [
-        ["2025-12-1, 00:00:00", "UTC+08:00", "china", "4723年 10月 12日\nYear of the Snake (蛇)"],
-        ["2025-12-1, 00:00:00", "UTC+07:00", "vietnam", "2025 10 12\nYear of the Snake (𧋻)"],
-        ["2025-12-1, 00:00:00", "UTC+09:00", "korea", "4358년 10월 12일"],
+        ["2025-12-1, 00:00:00", "UTC+08:00", "CHINA", "4723年 10月 12日\nYear of the Snake (蛇)"],
+        ["2025-12-1, 00:00:00", "UTC+07:00", "VIETNAM", "2025 10 12\nYear of the Snake (𧋻)"],
+        ["2025-12-1, 00:00:00", "UTC+09:00", "KOREA", "4358년 10월 12일"],
     ]);
 }
 

@@ -21,7 +21,7 @@ if (typeof document !== 'undefined') {
 
 
 // Manages the calendar that the user can choose to frame the calculator
-let _calendarType = 'gregorian-proleptic';
+let _calendarType = 'GREGORIAN';
 function getCalendarType() {
     return _calendarType;
 }
@@ -84,10 +84,10 @@ function adjustCalendarType(currentDateTime) {
     const gregJulDifference = getGregJulianDifference();
     let calendarType = getCalendarType();
     switch (calendarType) {
-        case 'julian-liturgical':
+        case 'JULIAN':
             currentDateTime = adjustForJulianLiturgical(currentDateTime, gregJulDifference);
             break;
-        case 'astronomical':
+        case 'ASTRONOMICAL':
             currentDateTime = adjustForAstronomical(currentDateTime, gregJulDifference);
             break;
     }

@@ -33,7 +33,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
     let year = gregorianYear;
 
     // Format for Chinese calendar
-    if (country==='china') {
+    if (country==='CHINA') {
         let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+08:00');
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
@@ -53,7 +53,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
     }
 
     // Format for Vietnamese calendar
-    if (country==='vietnam') {
+    if (country==='VIETNAM') {
         let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+07:00');
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
@@ -71,7 +71,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
     }
 
     // Format for Korean calendar
-    if (country==='korea') {
+    if (country==='KOREA') {
         let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+09:00');
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
@@ -96,7 +96,7 @@ function getSexagenaryYear(currentDateTime) {
     let earthlyBranchesEnglish = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
 
     // Get number of current Chinese year
-    let chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'china');
+    let chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'CHINA');
     let chineseYear_ = chineseDate.split('年');
     let chineseYear = chineseYear_[0]-2;
     

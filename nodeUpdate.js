@@ -37,10 +37,10 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
 }
 
 function updateLunisolarCalendars(currentDateTime) {
-    setTimeValue('chinese-node', getChineseLunisolarCalendarDate(currentDateTime, 'china'));
+    setTimeValue('chinese-node', getChineseLunisolarCalendarDate(currentDateTime, 'CHINA'));
     setTimeValue('sexagenary-year-node', getSexagenaryYear(currentDateTime));
-    setTimeValue('vietnamese-node', getChineseLunisolarCalendarDate(currentDateTime, 'vietnam'));
-    setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, 'korea'));
+    setTimeValue('vietnamese-node', getChineseLunisolarCalendarDate(currentDateTime, 'VIETNAM'));
+    setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, 'KOREA'));
     setTimeValue('umm-al-qura-node', getUmmalQuraDate(currentDateTime));
 }
 

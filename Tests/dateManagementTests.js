@@ -62,7 +62,7 @@ function runCalendarTypeTests(testCases) {
     }
 
     // Always reset to default at the end
-    setCalendarType('gregorian-proleptic');
+    setCalendarType('GREGORIAN');
 
     return failedTestCount;
 }
@@ -86,9 +86,9 @@ function testParseDate() {
 
 function testCalendarType() {
     return runCalendarTypeTests([
-        ["2024-1-1, 00:00:00", "UTC+00:00", "Mon, 01 Jan 2024 00:00:00 GMT", "gregorian-proleptic"],
-        ["2000-1-1, 23:00:00", "UTC+00:00", "Fri, 14 Jan 2000 23:00:00 GMT", "julian-liturgical"],
-        ["1000-1-1, 00:00:00", "UTC+00:00", "Mon, 06 Jan 1000 00:00:00 GMT", "astronomical"]
+        ["2024-1-1, 00:00:00", "UTC+00:00", "Mon, 01 Jan 2024 00:00:00 GMT", "GREGORIAN"],
+        ["2000-1-1, 23:00:00", "UTC+00:00", "Fri, 14 Jan 2000 23:00:00 GMT", "JULIAN"],
+        ["1000-1-1, 00:00:00", "UTC+00:00", "Mon, 06 Jan 1000 00:00:00 GMT", "ASTRONOMICAL"]
     ]);
 }
 
