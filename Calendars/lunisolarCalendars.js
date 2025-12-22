@@ -34,7 +34,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
 
     // Format for Chinese calendar
     if (country==='china') {
-        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 16);
+        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+08:00');
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
         }
@@ -54,7 +54,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
 
     // Format for Vietnamese calendar
     if (country==='vietnam') {
-        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 17);
+        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+07:00');
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
         }
@@ -72,7 +72,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
 
     // Format for Korean calendar
     if (country==='korea') {
-        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 15);
+        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+09:00');
         if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
             year -= 1;
         }
@@ -119,21 +119,23 @@ function getSexagenaryYear(currentDateTime) {
 //|     Chinese Calendar     |
 //|--------------------------|
 
-function getLunisolarCalendarDate(currentDateTime, localMidnight) {
-    let LastWinterSolstice = getSolsticeEquinox(currentDateTime, 'winter', 0);
-    let nextWinterSolstice = getSolsticeEquinox(currentDateTime, 'winter', 1);
+function getLunisolarCalendarDate(currentDateTime, timezone) {
+    let LastWinterSolstice = getSolsticeEquinox(currentDateTime, 'WINTER', 0);
+    let nextWinterSolstice = getSolsticeEquinox(currentDateTime, 'WINTER', 1);
 
     let startofThisMonth = getNewMoon(currentDateTime, 0);
-    startofThisMonth = getLocalMidnightInUTC(startofThisMonth, localMidnight);
+    startofThisMonth = createFauxUTCDate(startofThisMonth, timezone);
+    startofThisMonth = createAdjustedDateTime({currentDateTime: startofThisMonth, timezone: timezone});
 
     // If on the day of the new moon but the new moon hasn't happened yet, then we need to take the next new moon
     let startOfNextMonth = getNewMoon(currentDateTime, 1);
-    startOfNextMonth = getLocalMidnightInUTC(startOfNextMonth, localMidnight);
+    startOfNextMonth = createFauxUTCDate(startOfNextMonth, timezone);
+    startOfNextMonth = createAdjustedDateTime({currentDateTime: startOfNextMonth, timezone: timezone});
     if (currentDateTime>=startOfNextMonth) {
         startofThisMonth = startOfNextMonth;
     }
-    const startOfMonthElevenNextYear = getMonthEleven(nextWinterSolstice, localMidnight);
-    const startOfMonthEleven = getMonthEleven(LastWinterSolstice, localMidnight);
+    const startOfMonthElevenNextYear = getMonthEleven(nextWinterSolstice, timezone);
+    const startOfMonthEleven = getMonthEleven(LastWinterSolstice, timezone);
 
     // Find out roughly how many months between solstices
     const daysBetweenEleventhMonths = differenceInDays(startOfMonthElevenNextYear, startOfMonthEleven);
@@ -155,7 +157,7 @@ function getLunisolarCalendarDate(currentDateTime, localMidnight) {
         currentMonth = ((currentMonth - 1) % 13 + 13) % 13 + 1;
 
         // The leap month repeats the number of the last month, so subsequent months will be back by 1
-        leapMonth = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthEleven, localMidnight);
+        leapMonth = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthEleven, timezone);
         if (leapMonth===currentMonth) {
             isLeapMonth = true;
         }
@@ -176,10 +178,10 @@ function getLunisolarCalendarDate(currentDateTime, localMidnight) {
 }
 
 // Returns 'major' or 'minor' depending on the latitude of the sun calculation
-function getSolarTermTypeThisMonth(startOfMonth_, localMidnight) {
+function getSolarTermTypeThisMonth(startOfMonth_, timezone) {
     let startOfMonth = getNewMoon(startOfMonth_, 1);
     let startOfNextMonth = getNewMoon(startOfMonth_, 2);  // Get 2 lunations later, Lunation 1 is later in the same day
-    startOfNextMonth = getLocalMidnightInUTC(startOfNextMonth, localMidnight);
+    startOfNextMonth = createAdjustedDateTime({currentDateTime: startOfNextMonth, timezone: timezone});
     startOfNextMonth.setUTCDate(startOfNextMonth.getUTCDate() - 1);  // Go back 1 day to not count the first day of the next month
     
     const newMoonThisMonthLongitudeOfSun = getLongitudeOfSun(startOfMonth);
@@ -194,21 +196,21 @@ function getSolarTermTypeThisMonth(startOfMonth_, localMidnight) {
 
     // Sun passes 360/0 in this month and screws with the comparison logic below
     if (newMoonThisMonthLongitudeOfSun > newMoonNextMonthLongitudeOfSun) {
-        return 'major';
+        return 'MAJOR';
     }
 
     for (const term of MajorSolarTerms) {
         // Check if the current term falls between the longitudes
         if (term > newMoonThisMonthLongitudeOfSun && term < newMoonNextMonthLongitudeOfSun) {
-            return 'major';
+            return 'MAJOR';
         }
     }
-    return 'minor';
+    return 'MINOR';
 }
 
 // Possible errors here if the conjunction happens a few hours after the solstice but before midnight
 // Returns an unformatted date object of the last New Moon before the Winter Solstice
-function getMonthEleven(winterSolstice, localMidnight, weirdShitAroundSolstice) {
+function getMonthEleven(winterSolstice, timezone, weirdShitAroundSolstice) {
 
     let currentMonth = 0;
     if (weirdShitAroundSolstice) {
@@ -217,26 +219,26 @@ function getMonthEleven(winterSolstice, localMidnight, weirdShitAroundSolstice) 
 
     // Get the lunar conjunction closest to the winter solstice
     let closestConjunction = getNewMoon(winterSolstice, currentMonth);
-    closestConjunction = getLocalMidnightInUTC(closestConjunction, localMidnight);
+    closestConjunction = createAdjustedDateTime({currentDateTime: closestConjunction, timezone: timezone});
 
     // Check if the closest conjunction is after the winter solstice
     if (closestConjunction > winterSolstice) {
         // Move to the previous month to find the start of the eleventh month
         closestConjunction = getNewMoon(winterSolstice, currentMonth - 1);
-        closestConjunction = getLocalMidnightInUTC(closestConjunction, localMidnight);
+        closestConjunction = createAdjustedDateTime({currentDateTime: closestConjunction, timezone: timezone});
     }
     return closestConjunction;
 }
 
 // Returns the first month in the Chinese calendar that doesn't contain a major solar term
-function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear, localMidnight) {
+function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear, timezone) {
     const costantStartingPoint = new Date(midnightStartOfMonthElevenLastYear);
     let dateToCheck = new Date(midnightStartOfMonthElevenLastYear);
     let lunations = 0;
     while (true) {
-        let solarTermType = getSolarTermTypeThisMonth(dateToCheck, localMidnight);
+        let solarTermType = getSolarTermTypeThisMonth(dateToCheck, timezone);
 
-        if (solarTermType !== 'major') {
+        if (solarTermType !== 'MAJOR') {
             // Found the first month without a major solar term
             lunations--;
             if (lunations < 1) {
@@ -248,7 +250,7 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
         // Move to the start of the next month
         lunations += 1;
         dateToCheck = getNewMoon(costantStartingPoint, lunations+1);
-        dateToCheck = getLocalMidnightInUTC(dateToCheck, localMidnight);
+        dateToCheck = createAdjustedDateTime({currentDateTime: dateToCheck, timezone: timezone});
         if (lunations > 11) {
             return 0;
         }
@@ -286,14 +288,10 @@ function calculateHebrewCalendar(currentDateTime) {
     ];
 
     // Get the start of today. If before sunset in Jerusalem (UTC+2, 6pm) then go back one day.
-    let startOfToday = new Date(currentDateTime);
-    if (startOfToday.getUTCHours() < 16) {
-        startOfToday.setUTCDate(startOfToday.getUTCDate()-1);
+    let startOfToday = createAdjustedDateTime({currentDateTime: currentDateTime, timezone: 'UTC+02:00', hour: 'SUNSET'});
+    if (currentDateTime.getUTCHours() < 16) {
+        addDay(startOfToday, -1);
     }
-    startOfToday.setUTCHours(16);
-    startOfToday.setUTCMinutes(0);
-    startOfToday.setUTCSeconds(0);
-    startOfToday.setUTCMilliseconds(0);
 
     // Figure out the starting and ending Tishri
     let earlyTishri = calculateMoladTishri(currentDateTime.getUTCFullYear()-1);
@@ -304,7 +302,7 @@ function calculateHebrewCalendar(currentDateTime) {
     }
 
     // Calculate number of days this year and use that to determine the year type
-    const daysThisYear = (latterTishri[0] - earlyTishri[0])/24/60/60/1000;
+    const daysThisYear = differenceInDays(latterTishri[0], earlyTishri[0]);
     let yearMonths = Hebrew_monthDaysComplete;
     if (daysThisYear === 353 || daysThisYear === 383) {
         yearMonths = Hebrew_monthDaysDeficient;
@@ -344,11 +342,11 @@ function calculateMoladTishri(currentYear) {
 
     // Start with a known Molad
     // 5732, First Molad Tishri after Unix epoch, no dechiyot (modifications), year 13 in a metonic cycle, Monday
-    const moladTishri5732 = new Date(Date.UTC(1971, 8, 20));
+    const moladTishri5732 = createAdjustedDateTime({timezone: 'UTC+02:00', year: 1971, month: 9, day: 20, hour: 2});
 
     // Determine how many months are between your starting year and the year you want
     // The starting year number can come from starting in December and counting solar years from 5732
-    let decemberOfThisYear = createDateWithFixedYear(currentYear, 11, 0);
+    let decemberOfThisYear = createAdjustedDateTime({timezone: 'UTC+02:00', year: currentYear, month: 12});
     const yearsSince5732 = decemberOfThisYear.getUTCFullYear() - moladTishri5732.getUTCFullYear();
 
     // Full Metonic cycles have 235 months
@@ -419,11 +417,9 @@ function calculateMoladTishri(currentYear) {
     }
 
     // Subtract 1 because the start of the day is at sunset the day before
-    let dayOfMoladTishri = new Date(moladTishri5732.getTime() + (Math.floor(daysSinceMolad5732-1)*24*60*60*1000));
-    dayOfMoladTishri.setUTCHours(16);
-    dayOfMoladTishri.setUTCMinutes(0);
-    dayOfMoladTishri.setUTCSeconds(0);
-    dayOfMoladTishri.setUTCMilliseconds(0);
+    let daysSinceMolad5732Adjusted = Math.floor(daysSinceMolad5732-1);
+    let dayOfMoladTishri = addDay(moladTishri5732, daysSinceMolad5732Adjusted, true);
+    dayOfMoladTishri = createAdjustedDateTime({currentDateTime: dayOfMoladTishri, timezone: 'UTC+02:00', hour: 'SUNSET'});
     
     return [dayOfMoladTishri, yearsSince5732 + 5732, weekdayOfMolad];
 }

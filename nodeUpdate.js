@@ -7,7 +7,7 @@
 */
 
 function updateSolarCalendars(currentDateTime, timezoneOffset) {
-    const springEquinox = getSolsticeEquinox(currentDateTime, 'spring');
+    const springEquinox = getSolsticeEquinox(currentDateTime, 'SPRING');
     setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime, timezoneOffset).date);
     setTimeValue('julian-node', getJulianCalendar(currentDateTime));
     setTimeValue('astronomical-node', getAstronomicalDate(currentDateTime));
@@ -15,7 +15,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
     setTimeValue('pisan-node', getPisanCalendar(currentDateTime));
     setTimeValue('venetian-node', getVenetianCalendar(currentDateTime));
-    setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime, getSolsticeEquinox(currentDateTime, 'autumn')));
+    setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime));
     setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
     setTimeValue('minguo-node', getMinguo(currentDateTime));
     setTimeValue('thai-node', getThaiSolar(currentDateTime));
@@ -33,6 +33,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('anno-lucis-node', getAnnoLucisDate(currentDateTime, timezoneOffset));
     setTimeValue('tabot-node', getTabotDate(currentDateTime));
     setTimeValue('icelandic-node', getIcelandicDate(currentDateTime));
+    //setTimeValue('saka-samvat-node', getSakaSamvatDate(currentDateTime));
 }
 
 function updateLunisolarCalendars(currentDateTime) {

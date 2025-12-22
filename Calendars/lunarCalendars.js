@@ -33,7 +33,7 @@ function getUmmalQuraDate(currentDateTime) {
     ];
 
     // Get the date of last day of New Moon and calculate it's sunset at Mecca (5:30pm UTC+3)
-    let firstDayOfIslamicMonth = new Date(timeOfSunsetAfterLastNewMoon(currentDateTime));
+    let firstDayOfIslamicMonth = timeOfSunsetAfterLastNewMoon(currentDateTime);
 
     // Calculate the number of days since the first day of the Islamic month
     const daysSinceStartOfMonth = Math.floor(differenceInDays(currentDateTime, firstDayOfIslamicMonth));
@@ -53,7 +53,7 @@ function getUmmalQuraDate(currentDateTime) {
     }
 
     // Get the weekday based on sunset in Mecca
-    const dayOfWeek = getWeekdayAtTime(currentDateTime, {hour: 15, minute: 0});
+    const dayOfWeek = getWeekdayAtTime(currentDateTime, {hour: 'SUNSET'}, 'UTC+03:00');
 
     return hijriDay + ' ' + hijriMonth + ' ' + hijriYear + ' ' + suffix + '\n' + islamicWeek[dayOfWeek];
 }
@@ -73,12 +73,12 @@ function calculateIslamicMonthAndYear(ln) {
 // Find the sunset that occurred after the last New Moon happened in Mecca
 function timeOfSunsetAfterLastNewMoon(currentDateTime) {
     function adjustToSunsetDate(newMoon) {
+        let newMoonAdjusted = createAdjustedDateTime({currentDateTime: newMoon, timezone: 'UTC+03:00', hour: 'SUNSET'});
         // If the new moon happened after 15:00 UTC, move to the next day’s sunset
         if (newMoon.getUTCHours() > 15) {
-            newMoon.setUTCDate(newMoon.getUTCDate() + 1);
+            addDay(newMoonAdjusted, 1);
         }
-        newMoon.setUTCHours(15, 0, 0, 0); // Set to 15:00 UTC (approximate Mecca sunset)
-        return newMoon;
+        return newMoonAdjusted;
     }
 
     let offset = 0;
@@ -87,12 +87,11 @@ function timeOfSunsetAfterLastNewMoon(currentDateTime) {
     // Try up to 3 previous new moons
     for (let attempts = 0; attempts < 3; attempts++) {
         let newMoon = getNewMoon(currentDateTime, offset);
-        sunsetTime = adjustToSunsetDate(new Date(newMoon));
+        sunsetTime = adjustToSunsetDate(newMoon);
 
         if (currentDateTime >= sunsetTime) {
             return sunsetTime;
         }
-
         offset--;
     }
 

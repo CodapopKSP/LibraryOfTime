@@ -62,7 +62,7 @@ function parseInputDate(dateInput_, timezoneOffset) {
     const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
 
     // Construct UTC time in milliseconds
-    let utcMillis = createDateWithFixedYear(inputYear, inputMonth - 1, inputDay, inputHour, inputMinute, inputSecond);
+    let utcMillis = createAdjustedDateTime({year: inputYear, month: inputMonth, day: inputDay, hour: inputHour, minute: inputMinute, second: inputSecond});
 
     // Apply BCE year handling
     let dateTime = new Date(utcMillis);
@@ -98,21 +98,21 @@ function adjustCalendarType(currentDateTime) {
 function adjustForJulianLiturgical(currentDateTime, gregJulDifference) {
     // No Year 0 exists, so add 1 to negative years
     if (currentDateTime.getFullYear() < 0) {
-        currentDateTime.setFullYear(currentDateTime.getFullYear()+1);
+        addYear(currentDateTime, 1);
     
     // No Year 0 exists, so return current date as fallback
     } else if (currentDateTime.getFullYear()===0) {
         currentDateTime = new Date();
     }
-    currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
+    addDay(currentDateTime, gregJulDifference);
     return currentDateTime;
 }
 
 // Calculate display date if user chooses Astronomical
 function adjustForAstronomical(currentDateTime, gregJulDifference) {
-    const startOfGregorian = new Date(1582, 9, 15);
+    const startOfGregorian = createAdjustedDateTime({year: 1582, month: 10, day: 15});
     if (currentDateTime < startOfGregorian) {
-        currentDateTime.setDate(currentDateTime.getDate() + gregJulDifference);
+        addDay(currentDateTime, gregJulDifference);
     }
     return currentDateTime;
 }
@@ -157,11 +157,11 @@ function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
             case 5:
                 updateProposedCalendars(currentDateTime, timezoneOffsetConverted);
             case 6:
-                setTimeValue('spring-equinox-node', getSolsticeOrEquinox(currentDateTime, 'spring').toUTCString());
-                setTimeValue('summer-solstice-node', getSolsticeOrEquinox(currentDateTime, 'summer').toUTCString());
-                setTimeValue('autumn-equinox-node', getSolsticeOrEquinox(currentDateTime, 'autumn').toUTCString());
+                setTimeValue('spring-equinox-node', getSolsticeOrEquinox(currentDateTime, 'SPRING').toUTCString());
+                setTimeValue('summer-solstice-node', getSolsticeOrEquinox(currentDateTime, 'SUMMER').toUTCString());
+                setTimeValue('autumn-equinox-node', getSolsticeOrEquinox(currentDateTime, 'AUTUMN').toUTCString());
             case 7:
-                setTimeValue('winter-solstice-node', getSolsticeOrEquinox(currentDateTime, 'winter').toUTCString());
+                setTimeValue('winter-solstice-node', getSolsticeOrEquinox(currentDateTime, 'WINTER').toUTCString());
                 setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime) + '°');
                 setTimeValue('this-new-moon-node', getMoonPhase(currentDateTime, 0).toUTCString());
                 setTimeValue('this-first-quarter-moon-node', getMoonPhase(currentDateTime, 0.25).toUTCString());

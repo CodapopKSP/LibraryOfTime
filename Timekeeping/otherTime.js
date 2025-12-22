@@ -23,7 +23,7 @@ function getMTC(currentDateTime) {
 }
 
 function getIoPrimeMeridianTime(currentDateTime) {
-    const epoch = new Date(Date.UTC(2001, 11, 31, 16, 7, 45));
+    const epoch = createAdjustedDateTime({year: 2001, month: 12, day: 31, hour: 16, minute: 7, second: 45});
     const ioCircad = 21.23833;
     const ioDayMilliseconds = ioCircad * 60 * 60 * 1000;
     const ioDaysSince = (currentDateTime - epoch) / ioDayMilliseconds;
@@ -49,7 +49,7 @@ function getIoPrimeMeridianTime(currentDateTime) {
 
 
 function getEuropaPrimeMeridianTime(currentDateTime) {
-    const epoch = new Date(Date.UTC(2002, 0, 2, 17, 12, 57));
+    const epoch = createAdjustedDateTime({year: 2002, month: 1, day: 2, hour: 17, minute: 12, second: 57});
     const europaCircad = 21.32456;
     const europaDayMilliseconds = europaCircad * 60 * 60 * 1000;
     const europaDaysSince = (currentDateTime-epoch)/europaDayMilliseconds;
@@ -72,7 +72,7 @@ function getEuropaPrimeMeridianTime(currentDateTime) {
 }
 
 function getGanymedePrimeMeridianTime(currentDateTime) {
-    const epoch = new Date(Date.UTC(2002, 0, 1, 11, 8, 29));
+    const epoch = createAdjustedDateTime({year: 2002, month: 1, day: 1, hour: 11, minute: 8, second: 29});
     const ganymedeCircad = 21.49916;
     const ganymedeDayMilliseconds = ganymedeCircad * 60 * 60 * 1000;
     const ganymedeDaysSince = (currentDateTime-epoch)/ganymedeDayMilliseconds;
@@ -95,7 +95,7 @@ function getGanymedePrimeMeridianTime(currentDateTime) {
 }
 
 function getCallistoPrimeMeridianTime(currentDateTime) {
-    const epoch = new Date(Date.UTC(2001, 11, 28, 12, 27, 23));
+    const epoch = createAdjustedDateTime({year: 2001, month: 12, day: 28, hour: 12, minute: 27, second: 23});
     const callistoCircad = 21.16238;
     const callistoDayMilliseconds = callistoCircad * 60 * 60 * 1000;
     const callistoDaysSince = (currentDateTime-epoch)/callistoDayMilliseconds;
@@ -118,7 +118,7 @@ function getCallistoPrimeMeridianTime(currentDateTime) {
 }
 
 function getTitanPrimeMeridianTime(currentDateTime) {
-    const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32));
+    const epoch = createAdjustedDateTime({year: 1609, month: 3, day: 15, hour: 18, minute: 37, second: 32});
     const titanCircad = 0.998068439;
     const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
     const titanDaysSince = (currentDateTime-epoch)/titanDayMilliseconds;

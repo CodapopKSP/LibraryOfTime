@@ -6,11 +6,8 @@
 
 function getCurrentPresidentialTerm(currentDateTime) {
     const epochYear = 1789;
-    let januaryThisYear = createDateWithFixedYear(currentDateTime);
-    januaryThisYear.setUTCMonth(0);
-    januaryThisYear.setUTCDate(20);
-    januaryThisYear.setUTCHours(16); // Noon in DC
-    let january1789 = createDateWithFixedYear(1789, 0, 20, 16, 0, 0);
+    let januaryThisYear = createAdjustedDateTime({currentDateTime: currentDateTime, timezone: 'UTC-04:00', month: 1, day: 20, hour: 'NOON'});
+    let january1789 = createAdjustedDateTime({timezone: 'UTC-04:00', year: 1789, month: 1, day: 20, hour: 'NOON'});
     let yearsSinceEpoch = currentDateTime.getFullYear()-epochYear;
     if (currentDateTime<januaryThisYear) {
         yearsSinceEpoch-=1;

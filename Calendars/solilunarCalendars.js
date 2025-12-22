@@ -57,13 +57,12 @@ function getTogysDate(currentDateTime) {
     // Get start of Togys year
     let startOfTogysYear = getTogysNewYear(currentDateTime);
     if (startOfTogysYear > currentDateTime) {
-        startOfTogysYear.setUTCFullYear(startOfTogysYear.getUTCFullYear() - 1);
+        addYear(startOfTogysYear, -1);
         startOfTogysYear = getTogysNewYear(startOfTogysYear);
     }
 
     // Get leap year status
-    let startOfTogysPlusOneYear = new Date(startOfTogysYear);
-    startOfTogysPlusOneYear.setUTCFullYear(startOfTogysPlusOneYear.getUTCFullYear() + 1);
+    let startOfTogysPlusOneYear = addYear(startOfTogysYear, 1, true);
     const startOfTogysNextYear = getTogysNewYear(startOfTogysPlusOneYear);
     const monthsBetweenStartOfTogysYearAndNextYear = Math.round(differenceInDays(startOfTogysNextYear, startOfTogysYear) / 27.3);
     let months = TogysMonthNames;
@@ -73,7 +72,7 @@ function getTogysDate(currentDateTime) {
 
     // Get year name and current cycle number
     const mod = (n, m) => ((n % m) + m) % m;
-    const startOfTogysYearCycle = getTogysNewYear(new Date(2008, 7, 1)); // 2008 was the start of a cycle
+    const startOfTogysYearCycle = getTogysNewYear(createAdjustedDateTime({year: 2008, month: 7, day: 1})); // 2008 was the start of a cycle
     const fixedYearLength = 365.2663; // Weird number chosen because epoch accumulated errors, should start with Mouse in -3669. Probably a sidereal year/precession thing.
     const yearsSinceStartOfTogysYearCycle = Math.round(differenceInDays(startOfTogysYear, startOfTogysYearCycle) / fixedYearLength);
     const yearName = TogysYearNames[mod(yearsSinceStartOfTogysYearCycle, 12)];
@@ -111,8 +110,7 @@ function isTogysStartOfMonth(currentDateTime) {
     
     // Get the range for today
     let startOfToday = getTogysDayStart(currentDateTime);
-    let startOfTomorrow = new Date(startOfToday);
-    startOfTomorrow.setUTCDate(startOfTomorrow.getUTCDate() + 1);
+    let startOfTomorrow = addDay(new Date(startOfToday), 1);
     
     // Get the range of lunar right ascensions for the period
     const [lunar_alpha_startOfToday, lunar_delta_startOfToday] = getPositionOfTheMoon(startOfToday);
@@ -126,24 +124,28 @@ function isTogysStartOfMonth(currentDateTime) {
     return todayIsStartOfMonth;
 }
 
-function getTogysDayStart(dt, test) {
-    const d = new Date(dt);
+function getTogysDayStart(dt) {
+    // Get the date in UTC+05:00 timezone, then set to midnight
+    // First, convert to UTC+05:00 to get the correct local date
+    // We ADD the offset to convert UTC to local time representation
+    const timezoneOffset = convertUTCOffsetToMinutes('UTC+05:00');
+    const localTime = new Date(dt.getTime() + timezoneOffset * 60 * 1000);
     
-    // Account for Kazakh midnight (UTC+5:00)
-    const isBefore1900 = d.getUTCHours() < 19;
-    if (isBefore1900) {
-      d.setUTCDate(d.getUTCDate() - 1);
-    }
-    d.setUTCHours(19, 0, 0, 0);
-    return d;
+    // Extract date components from the local time
+    const year = localTime.getUTCFullYear();
+    const month = localTime.getUTCMonth();
+    const day = localTime.getUTCDate();
+    
+    // Create midnight in UTC+05:00 (which is 19:00 UTC the previous day)
+    return createAdjustedDateTime({year: year, month: month + 1, day: day, hour: 'MIDNIGHT', timezone: 'UTC+05:00'});
 }
 
 function getTogysNewYear(currentDateTime) { 
     const currentYear = currentDateTime.getUTCFullYear();
     
     // Define the search range: March 1 to June 30
-    const marchStart = createDateWithFixedYear(currentYear, 2, 1);
-    const juneEnd = createDateWithFixedYear(currentYear, 5, 30);
+    const marchStart = createAdjustedDateTime({year: currentYear, month: 3, day: 1});
+    const juneEnd = createAdjustedDateTime({year: currentYear, month: 6, day: 30});
     
     // Find all Togys month starts between March and June
     const togysMonthStarts = [];
@@ -156,7 +158,7 @@ function getTogysNewYear(currentDateTime) {
         }
 
         // Move forward by about 25 days to find next potential month start, may result in duplicates but it's ok
-        currentDate.setUTCDate(currentDate.getUTCDate() + 25);
+        addDay(currentDate, 25);
     }
     
     // Find the last Togys month start that is less than 15 days after a new moon

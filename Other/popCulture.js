@@ -9,8 +9,8 @@ function pad(num, size) {
 }
 
 function getMinecraftTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
-    let midnight = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 0, 0, 0));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
+    let midnight = createAdjustedDateTime({currentDateTime: currentDateTime, hour: 'MIDNIGHT'});
 
     // Convert date to milliseconds since midnight
     const millisecondsSinceMidnight = currentDateTime - midnight;
@@ -27,12 +27,8 @@ function getMinecraftTime(currentDateTime_, timezoneOffset) {
 }
 
 function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
-    const currentDateTime = new Date(currentDateTime_.getTime() + timezoneOffset * 60 * 1000);
-    const midnight = new Date(Date.UTC(
-      currentDateTime.getUTCFullYear(),
-      currentDateTime.getUTCMonth(),
-      currentDateTime.getUTCDate(), 0, 0, 0
-    ));
+    const currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
+    const midnight = createAdjustedDateTime({currentDateTime: currentDateTime, hour: 'MIDNIGHT'});
   
     const ms = currentDateTime - midnight;               // real ms since midnight
     const dreamDays = (ms / 86_400_000) * 20;            // 1 real day → 20 dream days
@@ -50,11 +46,11 @@ function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
   
 
 function getTerminaTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     // Days start at 6am
-    let SixAMToday = new Date(Date.UTC(currentDateTime.getUTCFullYear(), currentDateTime.getUTCMonth(), currentDateTime.getUTCDate(), 6, 0, 0));
+    let SixAMToday = createAdjustedDateTime({currentDateTime: currentDateTime, hour: 'SUNRISE'});
     if (currentDateTime<SixAMToday) {
-        SixAMToday.setDate(currentDateTime.getDate()-1);
+        addDay(SixAMToday, -1);
     }
 
     // Calculate current time
@@ -104,8 +100,8 @@ function getTerminaTime(currentDateTime_, timezoneOffset) {
     return pad(currentHour, 2) + ':' + pad(currentMinute, 2) + ':' + pad(currentSecond, 2) + '\n' + dayName + '\n' + remainingHoursMessage;
 }
 
-function getStardate(currentDateTime, timezoneOffset) {
-    const stardate0 = new Date(Date.UTC(2265, 3, 25, 0, 0, 0));
+function getStardate(currentDateTime) {
+    const stardate0 = createAdjustedDateTime({year: 2265, month: 4, day: 25});
     const stardatesPerDay = 7.21;
     const stardate = (currentDateTime - stardate0) / (1000 * 60 * 60 * 24) * stardatesPerDay;
     return stardate.toFixed(2);;
@@ -168,7 +164,7 @@ function getImperialDatingSystem(currentDateTime, timezoneOffset) {
     const yearFraction = (calculateYear(currentDateTime, timezoneOffset).toFixed(3)*1000);
     
     // Get the actual year
-    let adjustedDateTime = new Date(currentDateTime.getTime() + (timezoneOffset*60*1000));
+    let adjustedDateTime = createFauxUTCDate(currentDateTime, timezoneOffset);
     const year = adjustedDateTime.getUTCFullYear() + 1000; // Millennium is 1-based counting rather than 0-based, so year 0 is Millennium 1
     
     // For digit extraction, use absolute value

@@ -5,7 +5,7 @@
 // A set of functions for calculating dates in the Proposed Calendars category.
 
 function getHumanEra(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     let day = currentDateTime.getUTCDate();
     let month = currentDateTime.getUTCMonth();
     let year = currentDateTime.getUTCFullYear() + 10000;
@@ -14,10 +14,10 @@ function getHumanEra(currentDateTime_, timezoneOffset) {
 }
 
 function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     const year = currentDateTime.getUTCFullYear();
-    const startOfYear = createDateWithFixedYear(year, 0, 1, 0, 0, 0);
-    const endOfYear = createDateWithFixedYear(year, 11, 31, 23, 59, 59);
+    const startOfYear = createAdjustedDateTime({year: year, month: 1, day: 1});
+    const endOfYear = addYear(startOfYear, 1, true);
     const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
@@ -84,10 +84,10 @@ function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
 }
 
 function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     const year = currentDateTime.getUTCFullYear();
-    const startOfYear = createDateWithFixedYear(year, 0, 1, 0, 0, 0);
-    const endOfYear = createDateWithFixedYear(year, 11, 31, 23, 59, 59);
+    const startOfYear = createAdjustedDateTime({year: year, month: 1, day: 1});
+    const endOfYear = addYear(startOfYear, 1, true);
     const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear))+1;
     let daysRemaining = daysSinceStartOfYear;
 
@@ -154,11 +154,11 @@ function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
 }
 
 function getSymmetry454Date(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     let monthDays = [28, 35, 28, 28, 35, 28, 28, 35, 28, 28, 35, 28];
     
     // Choose a date that has the same January 1st in both calendars
-    const knownJan1st = new Date(Date.UTC(2001, 0, 1));
+    const knownJan1st = createAdjustedDateTime({year: 2001, month: 1, day: 1});
     let daysSinceKnownJan1st = Math.floor(differenceInDays(currentDateTime, knownJan1st))+1;
 
     // Iterate through years and subtract days based on if leap year or normal year
@@ -200,9 +200,9 @@ function getSymmetry454Date(currentDateTime_, timezoneOffset) {
 }
 
 function getSymmetry010Date(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     const monthDays = [30, 31, 30, 30, 31, 30, 30, 31, 30, 30, 31, 30, 7];
-    const epoch = createDateWithFixedYear(1, 0, 1);
+    const epoch = createAdjustedDateTime({year: 1, month: 1, day: 1});
 
     let daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, epoch));
     
@@ -370,11 +370,11 @@ function getPositivistDate(currentDateTime_, timezoneOffset) {
     ];
 
     // Calculate the year
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     let year = currentDateTime.getUTCFullYear()-1788;
 
     // Calculate the days since the start of the year
-    const thisYearEpoch = createDateWithFixedYear(currentDateTime.getUTCFullYear(), 0, 1);
+    const thisYearEpoch = createAdjustedDateTime({currentDateTime: currentDateTime, month: 1, day: 1});
     let daysSinceThisYearEpoch = Math.floor(differenceInDays(currentDateTime, thisYearEpoch));
 
     // Calculate the positivist named day and day of week

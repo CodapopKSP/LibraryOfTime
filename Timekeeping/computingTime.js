@@ -9,13 +9,13 @@ function getUnixTime(currentDateTime) {
 }
 
 function getCurrentFiletime(currentDateTime) {
-    const jan1601 = new Date(Date.UTC(1601, 0, 1));
+    const jan1601 = createAdjustedDateTime({year: 1601, month: 1, day: 1});
     const filetime = Math.floor((currentDateTime.getTime() - jan1601.getTime())/1000) * 10000000;
     return filetime;
 }
 
 function getGPSTime(currentDateTime) {
-    const gpsEpoch = new Date("1980-01-06T00:00:00Z").getTime();
+    const gpsEpoch = createAdjustedDateTime({year: 1980, month: 1, day: 6});
     
     // Calculate total time difference in seconds
     let gpsTime = Math.floor((currentDateTime - gpsEpoch) / 1000);
@@ -215,7 +215,7 @@ function getOrdinalDate(currentDateTime) {
     const yearStr = String(year).padStart(2, '0'); // will show -01 for 1999, etc.
 
     // Always compare to Jan 1st of the current date's year
-    const jan1st = createDateWithFixedYear(currentDateTime.getUTCFullYear(), 0, 1);
+    const jan1st = createAdjustedDateTime({currentDateTime: currentDateTime, month: 1, day: 1});
     const days = Math.floor(differenceInDays(currentDateTime, jan1st)) + 1; 
     const paddedDays = String(days).padStart(3, '0'); // Always positive 001-365
 
@@ -237,7 +237,7 @@ function getJulianSolDate(currentDateTime) {
 // Return the Kali Ahargana from midnight (IST)
 function getKaliAhargana(currentDateTime) {
     const kAOf10July2001 = 1863635;
-    const July10of2001 = new Date(Date.UTC(2001, 6, 9, 18, 30));
+    const July10of2001 = createAdjustedDateTime({timezone: 'UTC+05:30', year: 2001, month: 7, day: 10});
     return differenceInDays(currentDateTime, July10of2001) + kAOf10July2001;
 }
 
@@ -245,7 +245,7 @@ function getKaliAhargana(currentDateTime) {
 // This equation was sourced from Astronomical Algorithms
 function calculateLunationNumber(newMoon) {
     // Using Jean Meeus's date for lunation epoch
-    const firstNewMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
+    const firstNewMoon2000 = createAdjustedDateTime({year: 2000, month: 1, day: 6, hour: 18, minute: 14});
     const secondsSince2000 = (newMoon - firstNewMoon2000)/1000;
 
     // Calculate the number of days since the first new moon of 2000
@@ -278,16 +278,16 @@ function getThaiLunationNumber(lunationNumber) {
 }
 
 function getJulianCircadNumber(currentDateTime) {
-    const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32));
+    const epoch = createAdjustedDateTime({year: 1609, month: 3, day: 15, hour: 18, minute: 37, second: 32});
     const titanCircad = 0.998068439;
     const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
     return ((currentDateTime-epoch)/titanDayMilliseconds);
 }
 
 function getSpreadsheetNowTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime() + (timezoneOffset*60*1000));
+    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     // Base date: December 30, 1899
-    let baseDate = new Date(1899, 11, 30);
+    let baseDate = createAdjustedDateTime({year: 1899, month: 12, day: 30});
     
     // Difference in time (milliseconds)
     let timeDifference = currentDateTime.getTime() - baseDate.getTime();

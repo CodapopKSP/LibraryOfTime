@@ -127,6 +127,7 @@ function testThaiSolarCalendar() {
 
 function testEraFascistaCalendar() {
     return runSolarTests("Era Fascista Calendar", getEraFascista, [
+        ["1922-10-28, 23:00:00", "UTC+01:00", "Anno O"],
         ["1922-10-29, 00:00:00", "UTC+01:00", "Anno I"],
         ["1922-10-29, 00:00:00", "UTC+02:00", "Anno O"],
         ["1931-10-29, 00:00:00", "UTC+01:00", "Anno X"],
@@ -193,6 +194,7 @@ function testVenetianCalendar() {
 
 function testPataphysicalCalendar() {
     return runSolarTests("Pataphysical Calendar", getPataphysicalDate, [
+        ["1873-9-7, 23:00:00", "UTC+01:00", "28 Phalle 0 A.P.\nDimanche"],
         ["1873-9-8, 00:00:00", "UTC+00:00", "1 Absolu 1 A.P.\nLundi"],
         ["1873-9-8, 00:00:00", "UTC+14:00", "1 Absolu 1 A.P.\nLundi"],
         ["2000-1-1, 00:00:00", "UTC-00:00", "4 Décervelage 127 A.P.\nSamedi"],
@@ -255,8 +257,9 @@ function testHaabCalendar() {
 }
 
 function testBahaiCalendar() {
-    const equinox = 'spring';
+    const equinox = 'SPRING';
     return runCalendarEquinoxTests("Bahai Calendar", equinox, getBahaiCalendar, [
+        ["2025-3-19, 14:29:00", "UTC+00:00", "19 ‘Alá’ 181 BE\n‘Idál"],
         ["2025-3-19, 14:30:00", "UTC+00:00", "1 Bahá 182 BE\nIstijlál"],
         ["1844-3-19, 18:00:00", "UTC+03:30", "1 Bahá 1 BE\n‘Idál"],
         ["2064-3-19, 14:30:00", "UTC+00:00", "1 Bahá 221 BE\nIstijlál"],
@@ -266,7 +269,7 @@ function testBahaiCalendar() {
 }
 
 function testSolarHijriCalendar() {
-    const equinox = 'spring';
+    const equinox = 'SPRING';
     return runCalendarEquinoxTests("Solar Hijri Calendar", equinox, getSolarHijriDate, [
         ["2025-6-11, 17:30:00", "UTC+00:00", "21 Khordad 1404 SH\nSeshanbeh"],
         ["2025-6-11, 20:30:00", "UTC+00:00", "22 Khordad 1404 SH\nChaharshanbeh"],
@@ -277,12 +280,12 @@ function testSolarHijriCalendar() {
 }
 
 function testFrenchRepublicanCalendar() {
-    const equinox = 'autumn';
+    const equinox = 'AUTUMN';
     return runCalendarEquinoxTests("French Republican Calendar", equinox, getRepublicanCalendar, [
-        ["1792-9-22, 01:00:00", "UTC+00:00", "1 Vendémiaire I RE\nPrimidi Décade 1"],
-        ["1793-9-22, 01:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1"],
+        ["1792-9-21, 23:00:00", "UTC+00:00", "1 Vendémiaire I RE\nPrimidi Décade 1"],
+        ["1793-9-21, 23:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1"],
         ["1793-9-22, 10:00:00", "UTC+00:00", "1 Vendémiaire II RE\nPrimidi Décade 1"],
-        ["1795-9-22, 01:00:00", "UTC+00:00", "6 Sansculottides III RE\nLa Fête de la Révolution"]
+        ["1795-9-21, 23:00:00", "UTC+00:00", "6 Sansculottides III RE\nLa Fête de la Révolution"]
     ]);
 }
 
@@ -296,15 +299,15 @@ function testAnnoLucisCalendar() {
 
 function testTabotCalendar() {
     return runSolarTests("Tabot Calendar", getTabotDate, [
-        ["2025-11-1, 04:00:00", "UTC+00:00", "34 Negus & Dejazmatch H.I.M. 94\nMamlak"],
-        ["2025-11-1, 05:00:00", "UTC+00:00", "35 Negus & Dejazmatch H.I.M. 94\nGerma"],
-        ["2025-11-2, 05:00:00", "UTC+00:00", "1 Anbassa H.I.M. 95\nErgat"],
+        ["2025-10-31, 23:00:00", "UTC-05:00", "34 Negus & Dejazmatch H.I.M. 94\nMamlak"],
+        ["2025-11-1, 00:00:00", "UTC-05:00", "35 Negus & Dejazmatch H.I.M. 94\nGerma"],
+        ["2025-11-2, 00:00:00", "UTC-05:00", "1 Anbassa H.I.M. 95\nErgat"],
         ["2024-11-2, 05:00:00", "UTC+00:00", "1 Anbassa H.I.M. 94\nGerma"],
-        ["2024-11-1, 05:00:00", "UTC+00:00", "35 Negus & Dejazmatch H.I.M. 93\nMamlak"],
-        ["2024-2-28, 05:00:00", "UTC+00:00", "29 Ras H.I.M. 93\nRa'ee"],
-        ["2024-2-29, 05:00:00", "UTC+00:00", "30 Ras H.I.M. 93\nMakrab"],
-        ["2024-3-1, 05:00:00", "UTC+00:00", "31 Ras H.I.M. 93\nMamlak"],
-        ["2024-3-2, 05:00:00", "UTC+00:00", "1 Ta'Berhan H.I.M. 93\nGerma"],
+        ["2024-11-1, 00:00:00", "UTC-05:00", "35 Negus & Dejazmatch H.I.M. 93\nMamlak"],
+        ["2024-2-28, 00:00:00", "UTC-05:00", "29 Ras H.I.M. 93\nRa'ee"],
+        ["2024-2-29, 00:00:00", "UTC-05:00", "30 Ras H.I.M. 93\nMakrab"],
+        ["2024-3-1, 00:00:00", "UTC-05:00", "31 Ras H.I.M. 93\nMamlak"],
+        ["2024-3-2, 00:00:00", "UTC-05:00", "1 Ta'Berhan H.I.M. 93\nGerma"],
     ]);
 }
 
@@ -317,6 +320,12 @@ function testIcelandicCalendar() {
         ["2024-4-24, 00:00:00", "UTC+00:00", "30 Einmánuðr\nMisseri: Winter\nWeek: 26\nóðinsdagr"],
         ["2024-4-25, 00:00:00", "UTC+00:00", "1 Harpa\nMisseri: Summer\nWeek: 1\nþorsdagr"],
         ["2029-4-19, 00:00:00", "UTC+00:00", "1 Harpa\nMisseri: Summer\nWeek: 1\nþorsdagr"],
+    ]);
+}
+
+function testSakaSamvatCalendar() {
+    return runSolarTests("Saka Samvat Calendar", getSakaSamvatDate, [
+        ["2025-3-22, 00:00:00", "UTC+00:00", "1 Chaitra 1947\nŚanivāra"],
     ]);
 }
 
@@ -348,6 +357,7 @@ function runSolarCalendarTests() {
         testAnnoLucisCalendar,
         testTabotCalendar,
         testIcelandicCalendar,
+        //testSakaSamvatCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

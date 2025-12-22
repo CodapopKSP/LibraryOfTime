@@ -53,7 +53,7 @@ function getNewMoon(referenceDate, lunations) {
 let allSolsticesEquinoxes = [];
 
 function generateAllSolsticesEquinoxes(currentDateTime) {
-    const seasons = ['spring', 'summer', 'autumn', 'winter'];
+    const seasons = ['SPRING', 'SUMMER', 'AUTUMN', 'WINTER'];
     const centerYear = currentDateTime.getUTCFullYear();
     const solsticesEquinoxes = [];
 
@@ -61,7 +61,7 @@ function generateAllSolsticesEquinoxes(currentDateTime) {
         const year = centerYear + yearOffset;
 
         for (const season of seasons) {
-            const date = getSolsticeOrEquinox(createDateWithFixedYear(year, 0, 1, 0, 0, 0), season);
+            const date = getSolsticeOrEquinox(createAdjustedDateTime({currentDateTime: currentDateTime, year: year, month: 1, day: 1}), season);
             solsticesEquinoxes.push({ date, season });
         }
     }
@@ -143,7 +143,7 @@ function calculateDateFromJDE(JDE) {
     const hours = Math.trunc(totalSecondsOfRemainingDay / 3600);
     const minutes = Math.trunc((totalSecondsOfRemainingDay % 3600) / 60);
     const seconds = totalSecondsOfRemainingDay % 60;
-    let unfixedDateTime = createDateWithFixedYear(year, month-1, day, hours, minutes, seconds);
+    let unfixedDateTime = createAdjustedDateTime({year: year, month: month, day: day, hour: hours, minute: minutes, second: seconds});
     // I think this is how to add Dynamical Time but I'm not sure
     let fixedDateTime = new Date(getDynamicalTimeBackward(unfixedDateTime));
     
@@ -158,8 +158,8 @@ function calculateDateFromJDE(JDE) {
 
 function calculateUTCYearFraction(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
-    let yearStart = createDateWithFixedYear(year, 0, 1);
-    let nextYearStart = createDateWithFixedYear(year + 1, 0, 1);
+    let yearStart = createAdjustedDateTime({year: year, month: 1, day: 1});
+    let nextYearStart = createAdjustedDateTime({year: year + 1, month: 1, day: 1});
     let yearFraction = (currentDateTime - yearStart) / (nextYearStart - yearStart);
     return yearFraction;
 }
@@ -204,16 +204,16 @@ function getSolsticeOrEquinox(currentDateTime, season) {
     if (year > 999) {
         const Y = (year-2000)/1000;
         let JDE_ = 0;
-        if (season === 'spring') {
+        if (season === 'SPRING') {
             JDE_ = calculateSolsEquiJDE(Y, 2451623.80984, 365242.37404, 0.05169, -0.00411, -0.00057);
         }
-        if (season === 'summer') {
+        if (season === 'SUMMER') {
             JDE_ = calculateSolsEquiJDE(Y, 2451716.56767, 365241.62603, 0.00325, 0.00888, -0.00030);
         }
-        if (season === 'autumn') {
+        if (season === 'AUTUMN') {
             JDE_ = calculateSolsEquiJDE(Y, 2451810.21715, 365242.01767, -0.11575, 0.00337, 0.00078);
         }
-        if (season === 'winter') {
+        if (season === 'WINTER') {
             JDE_ = calculateSolsEquiJDE(Y, 2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032);
         }
         const T = (JDE_ - 2451545)/36525;
@@ -225,16 +225,16 @@ function getSolsticeOrEquinox(currentDateTime, season) {
     } else {
         const Y = year/1000;
         let JDE_ = 0;
-        if (season === 'spring') {
+        if (season === 'SPRING') {
             JDE_ = calculateSolsEquiJDE(Y, 1721139.29189, 365242.13740, 0.06134, 0.00111, -0.00071);
         }
-        if (season === 'summer') {
+        if (season === 'SUMMER') {
             JDE_ = calculateSolsEquiJDE(Y, 1721233.25401, 365241.72562, -0.05323, 0.00907, 0.00025);
         }
-        if (season === 'autumn') {
+        if (season === 'AUTUMN') {
             JDE_ = calculateSolsEquiJDE(Y, 1721325.70455, 365242.49558, -0.11677, -0.00297, 0.00074);
         }
-        if (season === 'winter') {
+        if (season === 'WINTER') {
             JDE_ = calculateSolsEquiJDE(Y, 1721414.39987, 365242.88257, -0.00769, -0.00933, -0.00006);
         }
         const T = (JDE_ - 2451545)/36525;

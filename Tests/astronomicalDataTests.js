@@ -86,9 +86,9 @@ function testGetLongitudeOfSun() {
 
 function testGetSolsticeOrEquinox() {
     return runAstronomicalTests("SolsticeOrEquinox", getSolsticeOrEquinox, [
-        ["2001-3-20, 00:00:00", "UTC+00:00", "Tue, 20 Mar 2001 13:30:41 GMT", 'spring'],
-        ["2100-3-20, 00:00:00", "UTC+00:00", "Sat, 20 Mar 2100 13:03:11 GMT", 'spring'],
-        ["2050-9-22, 00:00:00", "UTC+00:00", "Thu, 22 Sep 2050 19:28:30 GMT", 'autumn'],
+        ["2001-3-20, 00:00:00", "UTC+00:00", "Tue, 20 Mar 2001 13:30:41 GMT", 'SPRING'],
+        ["2100-3-20, 00:00:00", "UTC+00:00", "Sat, 20 Mar 2100 13:03:11 GMT", 'SPRING'],
+        ["2050-9-22, 00:00:00", "UTC+00:00", "Thu, 22 Sep 2050 19:28:30 GMT", 'AUTUMN'],
     ]);
 }
 

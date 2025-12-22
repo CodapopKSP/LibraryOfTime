@@ -11,7 +11,7 @@ function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
     for (const [inputDate, timezone, expectedOutput] of testCases) {
         testCount++;
         const testedDate = parseInputDate(inputDate, timezone);
-        let result = getCalendarFunction(testedDate, 16);
+        let result = getCalendarFunction(testedDate, timezone);
         if (result instanceof Date) {
             result = result.toUTCString();
         } else if (typeof result === 'object' && result !== null) {
@@ -68,9 +68,9 @@ function runGetMoladTishriTest(calendarName, getCalendarFunction, testCases) {
 
 function testGetSolarTermTypeThisMonth() {
     return runSingleParameterTests("Solar Term Type This Month", getSolarTermTypeThisMonth, [
-        ["2025-5-27, 00:00:00", "UTC+08:00", "major"],
-        ["2025-2-28, 00:00:00", "UTC+08:00", "major"],
-        ["2025-7-25, 00:00:00", "UTC+08:00", "minor"],
+        ["2025-5-27, 00:00:00", "UTC+08:00", "MAJOR"],
+        ["2025-2-28, 00:00:00", "UTC+08:00", "MAJOR"],
+        ["2025-7-25, 00:00:00", "UTC+08:00", "MINOR"],
     ]);
 }
 
@@ -93,6 +93,7 @@ function testGetLunisolarCalendarDate() {
     return runSingleParameterTests("Lunisolar Calendar Date", getLunisolarCalendarDate, [
         ["2025-12-1, 00:00:00", "UTC+08:00", "month: 10, day: 12, leapMonth: false"],
         ["2025-4-15, 00:00:00", "UTC+08:00", "month: 3, day: 18, leapMonth: false"],
+        ["2025-6-29, 00:00:00", "UTC+08:00", "month: 6, day: 5, leapMonth: false"],
         ["2025-7-29, 00:00:00", "UTC+08:00", "month: 6, day: 5, leapMonth: true"],
     ]);
 }
@@ -100,8 +101,8 @@ function testGetLunisolarCalendarDate() {
 function testGetChineseLunisolarCalendarDate() {
     return runGetChineseLunisolarCalendarDate("Chinese Calendar Date", getChineseLunisolarCalendarDate, [
         ["2025-12-1, 00:00:00", "UTC+08:00", "china", "4723年 10月 12日\nYear of the Snake (蛇)"],
-        ["2025-12-1, 00:00:00", "UTC+08:00", "vietnam", "2025 10 11\nYear of the Snake (𧋻)"],
-        ["2025-12-1, 00:00:00", "UTC+08:00", "korea", "4358년 10월 12일"],
+        ["2025-12-1, 00:00:00", "UTC+07:00", "vietnam", "2025 10 12\nYear of the Snake (𧋻)"],
+        ["2025-12-1, 00:00:00", "UTC+09:00", "korea", "4358년 10월 12일"],
     ]);
 }
 

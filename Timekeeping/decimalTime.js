@@ -22,7 +22,7 @@ function getRevolutionaryTime(currentDateTime_, timezoneOffset) {
 
 function convertToSwatchBeats(currentDateTime) {
     // Get UTC time
-    let utcDateTime = new Date(currentDateTime.getTime() + currentDateTime.getTimezoneOffset() * 60000);
+    let utcDateTime = createFauxUTCDate(currentDateTime, currentDateTime.getTimezoneOffset());
     // Get the day fraction and convert to BMT
     let dayFraction = ((utcDateTime.getHours()+1) * 3600 + utcDateTime.getMinutes() * 60 + utcDateTime.getSeconds()) / 86400;
     // Convert day fraction to milliseconds

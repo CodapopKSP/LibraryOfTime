@@ -6,7 +6,7 @@
 
 function getCurrentMayaLongCount(currentDateTime) {
     const MS_PER_DAY = 86400000;
-    const mayaEpoch = createDateWithFixedYear(-3113, 7, 11, 6, 0, 0);
+    const mayaEpoch = createAdjustedDateTime({timezone: 'UTC-06:00', year: -3113, month: 8, day: 11});
     const totalDays = Math.floor((currentDateTime - mayaEpoch) / MS_PER_DAY);
     let days = totalDays;
 
@@ -254,19 +254,19 @@ function getGalileanDate(currentDateTime, body) {
     let epoch = new Date();
     let circad = 0;
     if (body==='Io') {
-        epoch = new Date(Date.UTC(2001, 11, 31, 16, 7, 45));
+        epoch = createAdjustedDateTime({year: 2001, month: 12, day: 31, hour: 16, minute: 7, second: 45});
         circad = 21.238325;
     }
     if (body==='Eu') {
-        epoch = new Date(Date.UTC(2002, 0, 2, 17, 12, 57));
+        epoch = createAdjustedDateTime({year: 2002, month: 1, day: 2, hour: 17, minute: 12, second: 57});
         circad = 21.32456;
     }
     if (body==='Gan') {
-        epoch = new Date(Date.UTC(2002, 0, 1, 11, 8, 29));
+        epoch = createAdjustedDateTime({year: 2002, month: 1, day: 1, hour: 11, minute: 8, second: 29});
         circad = 21.49916;
     }
     if (body==='Cal') {
-        epoch = new Date(Date.UTC(2001, 11, 28, 12, 27, 23));
+        epoch = createAdjustedDateTime({year: 2001, month: 12, day: 28, hour: 12, minute: 27, second: 23});
         circad = 21.16238;
     }
 
@@ -455,19 +455,19 @@ function getDarianGalileanDate(currentDateTime, body) {
     let epoch = new Date();
     let circad = 0;
     if (body === 'Io') {
-        epoch = new Date(Date.UTC(1609, 2, 13, 5, 29, 26));
+        epoch = createAdjustedDateTime({year: 1609, month: 3, day: 13, hour: 5, minute: 29, second: 26});
         circad = 21.238325;
     }
     if (body === 'Eu') {
-        epoch = new Date(Date.UTC(1609, 2, 12, 1, 19, 41));
+        epoch = createAdjustedDateTime({year: 1609, month: 3, day: 12, hour: 1, minute: 19, second: 41});
         circad = 21.32456;
     }
     if (body === 'Gan') {
-        epoch = new Date(Date.UTC(1609, 2, 11, 9, 52, 12));
+        epoch = createAdjustedDateTime({year: 1609, month: 3, day: 11, hour: 9, minute: 52, second: 12});
         circad = 21.49916;
     }
     if (body === 'Cal') {
-        epoch = new Date(Date.UTC(1609, 2, 17, 20, 57, 24));
+        epoch = createAdjustedDateTime({year: 1609, month: 3, day: 17, hour: 20, minute: 57, second: 24});
         circad = 21.16238;
     }
 
@@ -558,7 +558,7 @@ function getDarianTitanDate(currentDateTime, body) {
         return false;
     }
 
-    const epoch = new Date(Date.UTC(1609, 2, 15, 18, 37, 32)); // Titan epoch
+    const epoch = createAdjustedDateTime({year: 1609, month: 3, day: 15, hour: 18, minute: 37, second: 32}); // Titan epoch
     const titanCircad = 0.998068439; // Titan "day" in Earth days
     const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
     
@@ -645,7 +645,7 @@ function getYugaCycle(currentDateTime) {
 }
 
 function getSothicCycle(currentDateTime) {
-    const startOf139Cycle = createDateWithFixedYear(139, 6, 19); // Sothic cycle anchor point
+    const startOf139Cycle = createAdjustedDateTime({year: 139, month: 7, day: 19}); // Sothic cycle anchor point
     const daysSinceStart = differenceInDays(currentDateTime, startOf139Cycle);
     const totalYears = Math.floor(daysSinceStart / 365.25);
 
@@ -662,7 +662,7 @@ function getSothicCycle(currentDateTime) {
 
 function getOlympiad(currentDateTime) {
     const julianDate = getApproxJulianDate(currentDateTime);
-    const olympiad1_ = createDateWithFixedYear(-775, 6, 24); // Start of 1st Olympiad
+    const olympiad1_ = createAdjustedDateTime({year: -775, month: 7, day: 24}); // Start of 1st Olympiad
     const olympiad1 = getApproxJulianDate(olympiad1_);
     
     const daysSinceOlympiad1 = differenceInDays(julianDate, olympiad1);
@@ -693,7 +693,7 @@ function getTzolkinDate(currentDateTime) {
         "K'ib'", "Kab'an", "Etz'nab'", "Kawak", "Ajaw"
     ];
 
-    const mayaLongCount0 = createDateWithFixedYear(-3113, 7, 11, 6, 0, 0);
+    const mayaLongCount0 = createAdjustedDateTime({timezone: 'UTC-06:00', year: -3113, month: 8, day: 11});
     const totalDays = Math.floor(differenceInDays(currentDateTime, mayaLongCount0));
     
     const startingTzolkinDay = 4; // 4 Ahau is the starting Tzolk'in day for 0.0.0.0.0
@@ -707,7 +707,7 @@ function getTzolkinDate(currentDateTime) {
 };
 
 function getLordOfTheNight(currentDateTime) {
-    const startingBaktun13 = createDateWithFixedYear(2012, 11, 21, 6, 0, 0);
+    const startingBaktun13 = createAdjustedDateTime({timezone: 'UTC-06:00', year: 2012, month: 12, day: 21});
     const daysSince = differenceInDays(currentDateTime, startingBaktun13);
     let lord = Math.floor(((daysSince % 9) + 9) % 9);
     if (lord === 0) {
@@ -720,6 +720,7 @@ function getLordOfTheNight(currentDateTime) {
     return 'G' + lord + ' | Y' + Y;
 }
 
+// Returns a formatted Pawukon calendar (WITA) date
 function getPawukonCalendarDate(currentDateTime) {
 
     // Week day names
@@ -743,9 +744,9 @@ function getPawukonCalendarDate(currentDateTime) {
     const urip7 = [5, 4, 3, 7, 8, 6, 9];
     const urip10 = [5, 2, 8, 6, 4, 7, 10, 3, 9, 1];
 
-    const recentEpoch = new Date(Date.UTC(2020, 6, 4, 16, 0, 0)); // Midnight in Bali 
+    const recentEpoch = createAdjustedDateTime({timezone: 'UTC+08:00', year: 2020, month: 7, day: 5});
     const stepMs = 210 * 24 * 60 * 60 * 1000;
-    let newEpoch = new Date(recentEpoch.getTime());
+    let newEpoch = createAdjustedDateTime({currentDateTime: recentEpoch});
     while (newEpoch.getTime() > currentDateTime.getTime()) {
         newEpoch = new Date(newEpoch.getTime() - stepMs);
     }
