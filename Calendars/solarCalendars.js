@@ -1149,35 +1149,32 @@ function getSakaSamvatDate(currentDateTime) {
     let sakaSamvatDays = [30, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30];
     const sakaSamvatDays_Leap = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30];
 
+    function isLeapYear(currentDateTime_) {
+        const year = currentDateTime_.getUTCFullYear();
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+
     // Find the start of today
-    let startOfToday = new Date(currentDateTime);
-    startOfToday.setUTCDate(currentDateTime.getUTCDate()-1);
-    startOfToday.setUTCHours(18);
-    startOfToday.setUTCMinutes(30);
-    startOfToday.setUTCSeconds(0);
-    startOfToday.setUTCMilliseconds(0);
+    let startOfToday = createFauxUTCDate(currentDateTime, 'UTC+05:30');
+    addDay(startOfToday, -1);
 
     // Find the start of the Saka year
-    const isLeapYear = (currentDateTime.getUTCFullYear() % 4 === 0 && currentDateTime.getUTCFullYear() % 100 !== 0) || (currentDateTime.getUTCFullYear() % 400 === 0);
-    let newYearThisYear = createAdjustedDateTime({year: currentDateTime.getUTCFullYear(), month: 3, day: 21, hour: 18, minute: 30});
-    if (isLeapYear) {
-        newYearThisYear = createAdjustedDateTime({year: currentDateTime.getUTCFullYear(), month: 3, day: 20, hour: 18, minute: 30});
+    let newYearThisYear = createAdjustedDateTime({timezone: 'UTC+05:30', year: currentDateTime.getUTCFullYear(), month: 3, day: 22});
+    if (isLeapYear(newYearThisYear)) {
+        addDay(newYearThisYear, -1);
     }
     if (currentDateTime < newYearThisYear) {
-        newYearThisYear = createAdjustedDateTime({year: currentDateTime.getUTCFullYear() - 1, month: 3, day: 21, hour: 18, minute: 30});
-        const isLeapYearLastYear = (currentDateTime.getUTCFullYear() - 1 % 4 === 0 && currentDateTime.getUTCFullYear() - 1 % 100 !== 0) || (currentDateTime.getUTCFullYear() - 1 % 400 === 0);
-        if (isLeapYearLastYear) {
-            newYearThisYear = createAdjustedDateTime({year: currentDateTime.getUTCFullYear() - 1, month: 3, day: 20, hour: 18, minute: 30});
+        newYearThisYear = createAdjustedDateTime({timezone: 'UTC+05:30', year: currentDateTime.getUTCFullYear() - 1, month: 3, day: 22});
+        if (isLeapYear(newYearThisYear)) {
+            addDay(newYearThisYear, -1);
         }
     }
 
     // Determine if current Saka year is a leap year
-    const yearOfStartOfYear = newYearThisYear.getUTCFullYear();
-    const isLeapYearOfStartOfYear = (yearOfStartOfYear % 4 === 0 && yearOfStartOfYear % 100 !== 0) || (yearOfStartOfYear % 400 === 0);
-    if (isLeapYearOfStartOfYear) {
+    if (isLeapYear(newYearThisYear)) {
         sakaSamvatDays = sakaSamvatDays_Leap;
     }
-    const sakaSamvatYear = yearOfStartOfYear - 78;
+    const sakaSamvatYear = newYearThisYear.getUTCFullYear() - 78;
 
     let daysSinceStartOfYear = Math.floor(differenceInDays(currentDateTime, newYearThisYear)) + 1;
     let monthIndex = 0;
@@ -1191,6 +1188,7 @@ function getSakaSamvatDate(currentDateTime) {
     const day = remainingDays;  
 
     // Get day of week (same as Gregorian, using IST-adjusted date)
+    addDay(startOfToday, 1);
     const dayOfWeek = startOfToday.getUTCDay();
     const weekday = sakaSamvatWeek[dayOfWeek];
 

@@ -293,7 +293,7 @@ function handleEpochClick(epoch) {
         timePicked = getDatePickerTimezone();
         let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
         const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getSolsticeOrEquinox(now, 'spring');
+        let target = getSolsticeOrEquinox(now, 'SPRING');
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
@@ -305,7 +305,7 @@ function handleEpochClick(epoch) {
         timePicked = getDatePickerTimezone();
         let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
         const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getSolsticeOrEquinox(now, 'summer');
+        let target = getSolsticeOrEquinox(now, 'SUMMER');
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
@@ -317,7 +317,7 @@ function handleEpochClick(epoch) {
         timePicked = getDatePickerTimezone();
         let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
         const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getSolsticeOrEquinox(now, 'autumn');
+        let target = getSolsticeOrEquinox(now, 'AUTUMN');
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');
@@ -329,7 +329,7 @@ function handleEpochClick(epoch) {
         timePicked = getDatePickerTimezone();
         let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
         const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getSolsticeOrEquinox(now, 'winter');
+        let target = getSolsticeOrEquinox(now, 'WINTER');
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');

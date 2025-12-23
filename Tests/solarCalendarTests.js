@@ -325,7 +325,13 @@ function testIcelandicCalendar() {
 
 function testSakaSamvatCalendar() {
     return runSolarTests("Saka Samvat Calendar", getSakaSamvatDate, [
-        ["2025-3-22, 00:00:00", "UTC+00:00", "1 Chaitra 1947\nŚanivāra"],
+        ["2025-3-21, 00:00:00", "UTC+05:30", "30 Phalguna 1946\nŚukravāra"],
+        ["2025-3-22, 00:00:00", "UTC+06:00", "30 Phalguna 1946\nŚukravāra"],
+        ["2025-3-22, 00:00:00", "UTC+05:30", "1 Chaitra 1947\nŚanivāra"],
+        ["2025-12-22, 00:00:00", "UTC+05:30", "1 Pausha 1947\nSomavāra"],
+        ["2025-2-20, 00:00:00", "UTC+05:30", "1 Phalguna 1946\nBṛhaspativāra"],
+        ["2020-3-20, 00:00:00", "UTC+05:30", "30 Phalguna 1941\nŚukravāra"],
+        ["2020-3-21, 00:00:00", "UTC+05:30", "1 Chaitra 1942\nŚanivāra"],
     ]);
 }
 
@@ -357,7 +363,7 @@ function runSolarCalendarTests() {
         testAnnoLucisCalendar,
         testTabotCalendar,
         testIcelandicCalendar,
-        //testSakaSamvatCalendar,
+        testSakaSamvatCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

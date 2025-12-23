@@ -125,6 +125,8 @@
   - [Tabot (EST)](SolarCalendars/Tabot.md)
   
   - [Icelandic (UTC)](SolarCalendars/Icelandic.md)
+  
+  - [Saka Samvat (IST)](SolarCalendars/SakaSamvat.md)
 
 - [Other Calendars](OtherCalendars/OtherCalendars.md)
   

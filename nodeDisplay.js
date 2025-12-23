@@ -12,7 +12,7 @@ let selectedNodeData = null; // Store the JavaScript object for the selected nod
 
 function handleNodeClick(content, item) {
     // Build the description format
-    const descriptionTypes = ['OVERVIEW', 'INFO', 'ACCURACY', 'SOURCE'];
+    const descriptionTypes = ['overview', 'info', 'accuracy', 'source'];
     const descriptions = descriptionTypes.map(type => createNodeDescription(item, type));
     const descriptionWrapper = document.querySelector('.description-wrapper');
     descriptions.forEach(description => {
