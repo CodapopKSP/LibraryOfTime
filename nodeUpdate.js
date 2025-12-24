@@ -34,6 +34,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('tabot-node', getTabotDate(currentDateTime));
     setTimeValue('icelandic-node', getIcelandicDate(currentDateTime));
     setTimeValue('saka-samvat-node', getSakaSamvatDate(currentDateTime));
+    setTimeValue('society-for-creative-anachronism-node', getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset));
 }
 
 function updateLunisolarCalendars(currentDateTime) {

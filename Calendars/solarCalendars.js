@@ -1195,3 +1195,21 @@ function getSakaSamvatDate(currentDateTime) {
 
     return day + ' ' + month + ' ' + sakaSamvatYear + '\n' + weekday;
 }
+
+function getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset) {
+    let today = createFauxUTCDate(currentDateTime, timezoneOffset);
+    // Get Gregorian date components
+    let SCAdate = getGregorianDateTime(today, 0).date;
+    let SCAday = SCAdate.split(' ')[0];
+    let SCAmonth = SCAdate.split(' ')[1];
+    let SCAweek = SCAdate.split('\n')[1];
+
+    let yearGregorian = today.getUTCFullYear();
+    let yearSCA = yearGregorian - 1965;
+    const thisYearMay1 = createAdjustedDateTime({currentDateTime: today, month: 5, day: 1});
+    if (today < thisYearMay1) {
+        yearSCA -= 1;
+    }
+
+    return SCAday + ' ' + SCAmonth + ' A.S. ' + toRomanNumerals(yearSCA) + '\n' + SCAweek;
+}

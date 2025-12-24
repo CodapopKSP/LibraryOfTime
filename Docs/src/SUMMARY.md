@@ -110,6 +110,8 @@
   
   - [Discordian](SolarCalendars/Discordian.md)
   
+  - [SCA](SolarCalendars/SCA.md)
+  
   - [Solar Hijri (IRST)](SolarCalendars/SolarHijri.md)
   
   - [Qadimi (IRST)](SolarCalendars/Qadimi.md)

@@ -335,6 +335,13 @@ function testSakaSamvatCalendar() {
     ]);
 }
 
+function testSCACalendar() {
+    return runSolarTests("SCA Calendar", getSocietyForCreativeAnachronismDate, [
+        ["2025-4-30, 00:00:00", "UTC-14:00", "30 April A.S. LIX\nWednesday"],
+        ["2025-5-1, 00:00:00", "UTC+12:00", "1 May A.S. LX\nThursday"]
+    ]);
+}
+
 // Run all tests.
 function runSolarCalendarTests() {
     const testFunctions = [
@@ -364,6 +371,7 @@ function runSolarCalendarTests() {
         testTabotCalendar,
         testIcelandicCalendar,
         testSakaSamvatCalendar,
+        testSCACalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

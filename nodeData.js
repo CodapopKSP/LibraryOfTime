@@ -872,6 +872,18 @@ const solarCalendarsData = [
         info: `<table><tr><th colspan="2">Śaka Samvat Months</th></tr><tr><th>Month</th><th>Days</th></tr><tr><td>Chaitra</td><td>30/31</td></tr><tr><td>Vaishakha</td><td>31</td></tr><tr><td>Jyestha</td><td>31</td></tr><tr><td>Ashadha</td><td>31</td></tr><tr><td>Sravana</td><td>31</td></tr><tr><td>Bhadra</td><td>31</td></tr><tr><td>Asvina</td><td>30</td></tr><tr><td>Kartika</td><td>30</td></tr><tr><td>Agrahayana</td><td>30</td></tr><tr><td>Pausha</td><td>30</td></tr><tr><td>Magha</td><td>30</td></tr><tr><td>Phalguna</td><td>30</td></tr></table>`,
         accuracy: `As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.`,
         source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Indian_national_calendar">Wikipedia article</a>, but there are some additional details found <a href="https://archive.org/details/IndianCalendricSystem-SK-Chatterjee/page/n25/mode/2up">here</a>.`
+    },
+
+    {
+        name: 'SCA',
+        id: 'society-for-creative-anachronism',
+        type: 'Solar Calendar',
+        epoch: '1 May 1966 CE',
+        confidence: 'Exact',
+        overview: `The SCA calendar is the calendar used by the Society for Creative Anachronism. It is based off the Gregorian calendar, sharing months and days, but with a different epoch.\n\nYears are written as roman numerals and denoted with 'A.S.', short for 'Anno Societatis', meaning 'in the year of the Society', counting the number of years since the First Tournament on 1 May 1966 CE. Years begin on May 1st, so April 30th is the last day of the previous year.`,
+        info: `<table><tr><th colspan="2">SCA Months</th></tr><tr><th>Month</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28/29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>`,
+        accuracy: `As this calendar is based off the Gregorian calendar, this calculation is exactly accurate.`,
+        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Society_for_Creative_Anachronism">Wikipedia article</a> as well as the <a href="https://www.sca.org/sca-calendar-reckoning-dates-in-the-society/">SCA website</a>.`
     }
 ]
 
