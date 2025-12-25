@@ -107,8 +107,6 @@ function createHomePageDescription(contentKey, contentClass) {
     const contentElement = document.createElement('div');
     contentElement.innerHTML = welcomeDescription[0][contentKey];
     contentElement.classList.add(contentClass);
-    contentElement.style.overflowY = 'auto';  // Ensure scrollable
-    contentElement.style.maxHeight = '100%';  // Or whatever height you want
 
     // Apply scroll-fade logic
     setupScrollFade(contentElement, description);
@@ -135,8 +133,6 @@ function createNodeDescription(item, type) {
         const overviewElement = document.createElement('div');
         overviewElement.innerHTML = item.overview;
         overviewElement.classList.add('nodeinfo-overview');
-        overviewElement.style.overflowY = 'auto';
-        overviewElement.style.maxHeight = '100%';
 
         description.appendChild(overviewElement);
         contentElement = overviewElement;
@@ -145,8 +141,6 @@ function createNodeDescription(item, type) {
         contentElement = document.createElement('div');
         contentElement.innerHTML = item[type];
         contentElement.classList.add(`nodeinfo-${type}`);
-        contentElement.style.overflowY = 'auto';
-        contentElement.style.maxHeight = '100%';
         description.appendChild(contentElement);
     }
 

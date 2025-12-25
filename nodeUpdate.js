@@ -6,6 +6,102 @@
     This is a collection of container functions for updating nodes.
 */
 
+// Manages the update interval of the calculator
+let _currentUpdateInterval = setInterval(updateAllNodes, updateMilliseconds);
+function getCurrentUpdateInterval() {
+    return _currentUpdateInterval;
+}
+function setCurrentUpdateInterval(newInterval) {
+    _currentUpdateInterval = newInterval;
+}
+
+function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
+
+    // Set Timezone to local time if there is none specified
+    let timezoneOffset = timezoneOffset_;
+    let timezoneOffsetConverted = 0;
+    if (timezoneOffset === undefined) {
+        timezoneOffset = getLocalTimezoneOffset();
+    }
+    timezoneOffsetConverted = convertUTCOffsetToMinutes(timezoneOffset);
+
+    // Get the current datetime, keeping in mind the timezone, calendar type, and Date() bullshit
+    let currentDateTime = dateInput ? parseInputDate(dateInput, timezoneOffset) : new Date();
+
+    // Make adjustments based on calendar choice
+    currentDateTime = adjustCalendarType(currentDateTime);
+
+    // Update once per day
+    if ((getNeedsUpdate_PerDay() && (currentDateTime.getHours() < 5))||firstPass) {
+        generateAllNewMoons(currentDateTime);
+        generateAllSolsticesEquinoxes(currentDateTime);
+        updateAstronomicalData(currentDateTime);
+        setNeedsUpdate_PerDay(false);
+    }
+    // Reset the update interval for the next day
+    if (currentDateTime.getHours() > 5) {
+        setNeedsUpdate_PerDay(true);
+    }
+
+    // Update once per quarter hour
+    if ((getNeedsUpdate_PerQuarterHour() && ((currentDateTime.getMinutes() % 15) < 5))||firstPass) {
+        updateLunisolarCalendars(currentDateTime);
+        updateProposedCalendars(currentDateTime, timezoneOffset);
+        updateAstronomicalData(currentDateTime);
+        updateSolarCalendars(currentDateTime, timezoneOffsetConverted);
+        updateComputingTimes(currentDateTime, timezoneOffsetConverted);
+        updateOtherCalendars(currentDateTime);
+        updatePopCultureCalendars(currentDateTime, timezoneOffsetConverted);
+        setNeedsUpdate_PerQuarterHour(false);
+    }
+    // Reset the update interval for the next second
+    if ((currentDateTime.getMinutes() % 15) > 5) {
+        setNeedsUpdate_PerQuarterHour(true);
+    }
+
+    // Update once per second
+    if ((getNeedsUpdate_PerSecond() && (currentDateTime.getMilliseconds() < 500))||firstPass) {
+        updateClocks_Slow(currentDateTime, timezoneOffsetConverted);
+        setNeedsUpdate_PerSecond(false);
+    }
+    // Reset the update interval for the next second
+    if ((currentDateTime.getMilliseconds() > 500)) {
+        setNeedsUpdate_PerSecond(true);
+    }
+
+    // Update everything that needs to change constantly
+    updateClocks_Fast(currentDateTime, timezoneOffsetConverted, dateInput);
+}
+
+// Main function for populating a node
+function setTimeValue(type, value) {
+    // Update the original node
+    const originalNode = document.getElementById(type);
+    if (originalNode) {
+        originalNode.textContent = value;
+    }
+
+    // Update cloned nodes, if any
+    const clonedNodes = document.querySelectorAll(`.grid-item .${type}`);
+    clonedNodes.forEach(clonedNode => {
+        clonedNode.textContent = value;
+    });
+}
+
+function updateAstronomicalData(currentDateTime) {
+    setTimeValue('spring-equinox-node', getSolsticeOrEquinox(currentDateTime, 'SPRING').toUTCString());
+    setTimeValue('summer-solstice-node', getSolsticeOrEquinox(currentDateTime, 'SUMMER').toUTCString());
+    setTimeValue('autumn-equinox-node', getSolsticeOrEquinox(currentDateTime, 'AUTUMN').toUTCString());
+    setTimeValue('winter-solstice-node', getSolsticeOrEquinox(currentDateTime, 'WINTER').toUTCString());
+    setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime) + '°');
+    setTimeValue('this-new-moon-node', getMoonPhase(currentDateTime, 0).toUTCString());
+    setTimeValue('this-first-quarter-moon-node', getMoonPhase(currentDateTime, 0.25).toUTCString());
+    setTimeValue('this-full-moon-node', getMoonPhase(currentDateTime, 0.5).toUTCString());
+    setTimeValue('this-last-quarter-moon-node', getMoonPhase(currentDateTime, 0.75).toUTCString());
+    setTimeValue('next-solar-eclipse-node', getNextSolarLunarEclipse(currentDateTime, 0));
+    setTimeValue('next-lunar-eclipse-node', getNextSolarLunarEclipse(currentDateTime, 0.5));
+}
+
 function updateSolarCalendars(currentDateTime, timezoneOffset) {
     const springEquinox = getSolsticeEquinox(currentDateTime, 'SPRING');
     setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime, timezoneOffset).date);
@@ -43,6 +139,7 @@ function updateLunisolarCalendars(currentDateTime) {
     setTimeValue('vietnamese-node', getChineseLunisolarCalendarDate(currentDateTime, 'VIETNAM'));
     setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, 'KOREA'));
     setTimeValue('umm-al-qura-node', getUmmalQuraDate(currentDateTime));
+    setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
 }
 
 function updateOtherCalendars(currentDateTime) {
@@ -66,39 +163,15 @@ function updateOtherCalendars(currentDateTime) {
     setTimeValue('togys-node', getTogysDate(currentDateTime));
 }
 
-function updateFractionalTimes(currentDateTime, dateInput, timezoneOffset) {
-    setTimeValue('day-node', calculateDay(currentDateTime, timezoneOffset).toFixed(decimals));
-    setTimeValue('month-node', calculateMonth(currentDateTime, timezoneOffset).toFixed(decimals));
-    setTimeValue('year-node', calculateYear(currentDateTime, timezoneOffset).toFixed(decimals));
-    setTimeValue('hour-node', calculateHour(currentDateTime, timezoneOffset).toFixed(decimals));
-    setTimeValue('minute-node', calculateMinute(currentDateTime).toFixed(decimals));
-    // Create the illusion of actual microsecond calculation
-    if ((dateInput === 0)||(dateInput === undefined)) {
-        setTimeValue('second-node', calculateSecond(currentDateTime));
-    } else {
-        setTimeValue('second-node', '0.0000000000');
-    }
-    setTimeValue('decade-node', calculateDecade(currentDateTime, timezoneOffset).toFixed(decimals));
-    setTimeValue('century-node', calculateCentury(currentDateTime, timezoneOffset).toFixed(decimals));
-}
-
 function updateComputingTimes(currentDateTime, timezoneOffset) {
-    setTimeValue('unix-node', getUnixTime(currentDateTime));
-    setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
-    setTimeValue('gps-node', getGPSTime(currentDateTime));
     setTimeValue('julian-period-node', getJulianPeriod(currentDateTime));
     setTimeValue('rata-die-node', getRataDie(currentDateTime));
-    setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
-    setTimeValue('tt-node', getTT(currentDateTime).toISOString().slice(0, -5));
-    setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
     setTimeValue('lilian-date-node', getLilianDate(currentDateTime));
     setTimeValue('ordinal-date-node', getOrdinalDate(currentDateTime));
-    setTimeValue('mars-sol-date-node', getMarsSolDate(currentDateTime).toFixed(5));
     setTimeValue('julian-sol-number-node', getJulianSolDate(currentDateTime).toFixed(0));
     setTimeValue('julian-circad-number-node', getJulianCircadNumber(currentDateTime).toFixed(0));
     setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
     setTimeValue('spreadsheet-now-node', getSpreadsheetNowTime(currentDateTime, timezoneOffset));
-
     const lunationNumber = calculateLunationNumber(currentDateTime);
     setTimeValue('lunation-number-node', lunationNumber);
     setTimeValue('brown-lunation-number-node', getBrownLunationNumber(lunationNumber));
@@ -117,7 +190,14 @@ function updateProposedCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('positivist-node', getPositivistDate(currentDateTime, timezoneOffset));
 }
 
-function updateOtherAndDecimalTimes(currentDateTime, timezoneOffset) {
+function updatePopCultureCalendars(currentDateTime, timezoneOffset) {
+    setTimeValue('tamrielic-node', getTamrielicDate(currentDateTime, timezoneOffset));
+    setTimeValue('imperial-dating-system-node', getImperialDatingSystem(currentDateTime, timezoneOffset));
+}
+
+// Update clocks that change every millisecond
+function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
+
     // Decimal Time
     setTimeValue('revolutionary-time-node', getRevolutionaryTime(currentDateTime, timezoneOffset));
     setTimeValue('beat-time-node', convertToSwatchBeats(currentDateTime));
@@ -131,9 +211,49 @@ function updateOtherAndDecimalTimes(currentDateTime, timezoneOffset) {
     setTimeValue('ganymede-meridian-time-node', getGanymedePrimeMeridianTime(currentDateTime));
     setTimeValue('callisto-meridian-time-node', getCallistoPrimeMeridianTime(currentDateTime));
     setTimeValue('titan-meridian-time-node', getTitanPrimeMeridianTime(currentDateTime));
+
+    // Political Cycles
+    setTimeValue('us-presidential-terms-node', getCurrentPresidentialTerm(currentDateTime).toFixed(10));
+
+    // Computing Times
+    setTimeValue('julian-day-number-node', getJulianDayNumber(currentDateTime));
+    setTimeValue('delta-time-node', getDeltaT(currentDateTime));
+    setTimeValue('iso8601-node', currentDateTime.toISOString());
+    setTimeValue('mars-sol-date-node', getMarsSolDate(currentDateTime).toFixed(5));
+
+    // Pop Culture
+    setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime, timezoneOffset));
+    setTimeValue('inception-dream-time-node', getInceptionDreamTime(currentDateTime, timezoneOffset));
+    setTimeValue('termina-time-node', getTerminaTime(currentDateTime, timezoneOffset));
+    setTimeValue('stardate-node', getStardate(currentDateTime, timezoneOffset));
+
+    // Fractional Time
+    setTimeValue('day-node', calculateDay(currentDateTime, timezoneOffset).toFixed(decimals));
+    setTimeValue('month-node', calculateMonth(currentDateTime, timezoneOffset).toFixed(decimals));
+    setTimeValue('year-node', calculateYear(currentDateTime, timezoneOffset).toFixed(decimals));
+    setTimeValue('hour-node', calculateHour(currentDateTime, timezoneOffset).toFixed(decimals));
+    setTimeValue('minute-node', calculateMinute(currentDateTime).toFixed(decimals));
+    // Create the illusion of actual microsecond calculation
+    if ((dateInput === 0)||(dateInput === undefined)) {
+        setTimeValue('second-node', calculateSecond(currentDateTime));
+    } else {
+        setTimeValue('second-node', '0.0000000000');
+    }
+    setTimeValue('decade-node', calculateDecade(currentDateTime, timezoneOffset).toFixed(decimals));
+    setTimeValue('century-node', calculateCentury(currentDateTime, timezoneOffset).toFixed(decimals));
 }
 
-function updatePopCultureTimes(currentDateTime, timezoneOffset) {
-    setTimeValue('tamrielic-node', getTamrielicDate(currentDateTime, timezoneOffset));
-    setTimeValue('imperial-dating-system-node', getImperialDatingSystem(currentDateTime, timezoneOffset));
+// Update clocks that change every second
+function updateClocks_Slow(currentDateTime, timezoneOffset) {
+    setTimeValue('local-time-node', getGregorianDateTime(currentDateTime, timezoneOffset).time);
+    setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
+    setTimeValue('millennium-node', calculateMillennium(currentDateTime, timezoneOffset).toFixed(decimals));
+
+    // Computing Times
+    setTimeValue('unix-node', getUnixTime(currentDateTime));
+    setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
+    setTimeValue('gps-node', getGPSTime(currentDateTime));
+    setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
+    setTimeValue('tt-node', getTT(currentDateTime).toISOString().slice(0, -5));
+    setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));
 }

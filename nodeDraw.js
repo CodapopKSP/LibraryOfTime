@@ -1,7 +1,7 @@
 /*
-    |====================|
-    |    Node Display    |
-    |====================|
+    |==================|
+    |    Node Draw     |
+    |==================|
 
     This is a collection of functions for drawing and handling Nodes.
 */
@@ -9,6 +9,15 @@
 // The current selected Node, blank if none
 let selectedNode = '';
 let selectedNodeData = null; // Store the JavaScript object for the selected node
+
+// Keeps track of how far ahead the Julian calendar is from the Gregorian
+let _gregJulianDifference = 0;
+function getGregJulianDifference() {
+    return _gregJulianDifference;
+}
+function setGregJulianDifference(newDifference) {
+    _gregJulianDifference = newDifference;
+}
 
 function handleNodeClick(content, item) {
     // Build the description format

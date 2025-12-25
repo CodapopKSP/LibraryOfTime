@@ -1,0 +1,1747 @@
+:root {
+    /* Colors - Backgrounds */
+    --bg-primary: rgb(47, 47, 47);
+    --bg-secondary: rgb(55, 55, 55);
+    --bg-tertiary: rgb(52, 52, 52);
+    --bg-quaternary: rgb(50, 50, 54);
+    --bg-quinary: rgb(60, 60, 60);
+    --bg-hover: rgb(95, 95, 95);
+    --bg-active: rgb(60, 60, 60);
+    --bg-clicking: rgb(150, 150, 150);
+    --bg-menu: #2b2b2b;
+    --bg-input: #c0c0c0;
+    --bg-panel: rgb(75, 75, 75);
+    --bg-section: rgb(65, 65, 65);
+    --bg-section-header: rgb(45, 45, 45);
+    --bg-section-controls: rgb(55, 55, 55);
+    --bg-modal: rgb(55, 55, 55);
+    --bg-modal-overlay: rgba(0, 0, 0, 0.5);
+    --bg-tooltip: #242424;
+    --bg-fade-gradient-start: rgba(40, 40, 40, 0);
+    --bg-fade-gradient-end: rgba(40, 40, 40, 1);
+    --bg-button-hover: rgba(85, 85, 85, 0.1);
+
+    /* Colors - Text */
+    --text-primary: #cbcbcb;
+    --text-secondary: rgb(214, 214, 214);
+    --text-tertiary: rgb(224, 224, 224);
+    --text-quaternary: #afafaf;
+    --text-link: rgb(187, 211, 255);
+    --text-input: #000000;
+    --text-modal-close: #aaa;
+
+    /* Colors - Borders */
+    --border-primary: #000000;
+    --border-secondary: #bbbbbb;
+    --border-tertiary: #444;
+    --border-quaternary: #555;
+    --border-hover: rgb(150, 150, 150);
+    --border-input: #000000;
+    --border-button: #443c3c;
+    --border-menu: #1f1f1f;
+    --border-tooltip: #4f4f4f;
+    --border-image: #666;
+
+    /* Colors - Category Specific */
+    --color-computing-time: #c4e4ffff;
+    --color-solar-calendars: #ffe4c4ff;
+    --color-lunisolar-calendars: #c4ffe4ff;
+    --color-lunar-calendars: rgb(196, 212, 255);
+    --color-proposed-calendars: rgb(191, 255, 252);
+    --color-other-calendars: rgb(220, 255, 191);
+    --color-decimal-time: rgb(232, 196, 255);
+    --color-other-time: rgb(203, 255, 196);
+    --color-astronomical-data: rgb(252, 255, 196);
+    --color-pop-culture: rgb(228, 196, 255);
+    --color-politics: rgb(196, 215, 255);
+
+    /* Colors - Category Borders */
+    --border-computing-time: #696d9f;
+    --border-solar-calendars: #966a6a;
+    --border-lunisolar-calendars: #6f986a;
+    --border-decimal-time: #896a98;
+    --border-other-time: #98866a;
+    --border-lunar-calendars: #7c6a98;
+    --border-solilunar-calendars: #986a6a;
+    --border-proposed-calendars: #876a96;
+    --border-other-calendars: #716a96;
+    --border-astronomical-data: #6a9698;
+    --border-pop-culture: #95986a;
+    --border-politics: #986a6a;
+
+    /* Colors - Table */
+    --table-epoch-header: #c9b79a;
+    --table-confidence-header: #6f986a;
+
+    /* Spacing - Viewport Units */
+    --spacing-xs: 0.1vh;
+    --spacing-sm: 0.2vh;
+    --spacing-md: 0.3vh;
+    --spacing-lg: 0.4vh;
+    --spacing-xl: 0.5vh;
+    --spacing-2xl: 0.6vh;
+    --spacing-3xl: 0.7vh;
+    --spacing-4xl: 0.8vh;
+    --spacing-5xl: 1vh;
+    --spacing-6xl: 1.2vh;
+    --spacing-7xl: 1.5vh;
+    --spacing-8xl: 2vh;
+    --spacing-9xl: 2.5vh;
+    --spacing-10xl: 3vh;
+    --spacing-11xl: 4vh;
+    --spacing-12xl: 5vh;
+    --spacing-13xl: 6vh;
+    --spacing-14xl: 10vh;
+
+    /* Spacing - Widths */
+    --width-title: 99vw;
+    --width-description: 33vw;
+    --width-node-max: 63vw;
+    --width-container: 17vh;
+    --width-container-mac: 20.5vh;
+    --width-node: 16vh;
+    --width-node-mac: 19vh;
+    --width-menu: 15vh;
+    --width-input-wrapper: 33vw;
+    --width-input: 15vw;
+    --width-input-mac: 22vh;
+    --width-date-picker: 2vw;
+    --width-date-picker-mac: 5vh;
+    --width-calendar-type: 5vw;
+    --width-calendar-type-mac: 11vh;
+    --width-panel: 37vh;
+    --width-panel-mac: 43.6vh;
+    --width-nodeinfo: 33vw;
+    --width-desktop-home: 28vw;
+    --width-modal: 80vh;
+    --width-modal-max: 90vw;
+
+    /* Spacing - Heights */
+    --height-title: 5vh;
+    --height-title-mac: 5vh;
+    --height-description: 90vh;
+    --height-nodeinfo: 73vh;
+    --height-nodeinfo-homepage: 81vh;
+    --height-fade: 6vh;
+    --height-input-wrapper: 5vh;
+    --height-input: 2vh;
+    --height-date-picker: 2.5vh;
+    --height-date-picker-mac: 2.5vh;
+    --height-calendar-type: 2.5vh;
+    --height-panel-min: 20vh;
+    --height-section-min: 8vh;
+    --height-section-min-mac: 12vh;
+    --height-desktop-home: 4vh;
+    --height-modal-max: 80vh;
+
+    /* Typography - Font Sizes */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 0.9375rem;
+    --font-size-lg: 1rem;
+    --font-size-xl: 1.125rem;
+    --font-size-2xl: 1.25rem;
+    --font-size-3xl: 1.5rem;
+    --font-size-4xl: 1.5rem;
+    --font-size-5xl: 1.75rem;
+    --font-size-6xl: 1.875rem;
+    --font-size-7xl: 2rem;
+    --font-size-8xl: 2.25rem;
+    --font-size-9xl: 2.5rem;
+    --font-size-10xl: 2.75rem;
+    --font-size-11xl: 3rem;
+    --font-size-12xl: 3.75rem;
+    --font-size-title: 3rem;
+    --font-size-title-mac: 3.75rem;
+    --font-size-container: 1rem;
+    --font-size-container-mac: 1.5rem;
+    --font-size-container-name: 1.25rem;
+    --font-size-container-name-mac: 1.75rem;
+    --font-size-content: 1rem;
+    --font-size-content-mac: 1.25rem;
+    --font-size-menu: 1rem;
+    --font-size-input: 1rem;
+    --font-size-input-mac: 1.5rem;
+    --font-size-date-picker: 0.875rem;
+    --font-size-date-picker-mac: 1.375rem;
+    --font-size-date-picker-icon: 24px;
+    --font-size-date-picker-icon-mac: 20px;
+    --font-size-calendar-type: 0.875rem;
+    --font-size-calendar-type-mac: 1.5rem;
+    --font-size-section-header: 0.875rem;
+    --font-size-section-header-mac: 0.875rem;
+    --font-size-button: 0.875rem;
+    --font-size-button-mac: 1.375rem;
+    --font-size-nodeinfo: 1.375rem;
+    --font-size-nodeinfo-mac: 1.875rem;
+    --font-size-nodeinfo-title: 2rem;
+    --font-size-header-button: 0.875rem;
+    --font-size-header-button-mac: 1.375rem;
+    --font-size-modal-title: 2.75rem;
+    --font-size-modal-text: 1.25rem;
+    --font-size-modal-text-mac: 1.75rem;
+    --font-size-modal-close: 28px;
+    --font-size-toggle-icon: 0.875rem;
+    --font-size-images-toggle: 1rem;
+    --font-size-images-toggle-mac: 1.375rem;
+
+    /* Typography - Font Families */
+    --font-family-title: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    --font-family-content: Arial, sans-serif;
+
+    /* Borders */
+    --border-width-xs: 1px;
+    --border-width-sm: 1px;
+    --border-width-md: 1px;
+    --border-width-lg: 2px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 6px;
+    --border-radius-lg: 8px;
+    --border-radius-xl: 8px;
+    --border-radius-2xl: 8px;
+    --border-radius-3xl: 8px;
+    --border-radius-4xl: 12px;
+
+    /* Z-Index */
+    --z-index-base: 10;
+    --z-index-menu: 100;
+    --z-index-modal: 1000;
+    --z-index-title-button: 10000;
+    --z-index-top-buttons: 1000;
+    --z-index-description: 21;
+    --z-index-nodeinfo: 10;
+    --z-index-tooltip: 1000;
+    --z-index-expand-button: 25;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-color: color 150ms ease;
+    --transition-background: background-color 150ms ease;
+    --transition-transform: transform 150ms ease;
+    --transition-opacity: opacity 150ms ease;
+    --transition-height: height 200ms ease;
+    --transition-top: top 200ms ease;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-button: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+    /* Other */
+    --opacity-fade: 1;
+    --opacity-tooltip: 0.95;
+}
+
+html {
+    font-size: 16px;
+    /* Base font size for rem calculations */
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow-y: hidden;
+}
+
+a {
+    color: var(--text-link);
+}
+
+
+/*
+|==========|
+|  Layout  |
+|==========|
+*/
+
+.page-wrapper {
+    background-color: var(--bg-primary);
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.page-wrapper::after {
+    content: "";
+    display: block;
+    height: 0h;
+    width: 99%;
+    clear: both;
+    overflow-x: hidden;
+}
+
+.mac-chrome-only .page-wrapper::after {
+    height: var(--spacing-14xl);
+}
+
+.title-wrapper {
+    position: absolute;
+    width: var(--width-title);
+    font-size: var(--font-size-title);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--height-title);
+    font-family: var(--font-family-title);
+    z-index: var(--z-index-base);
+    background-color: var(--bg-primary);
+    overflow: hidden;
+}
+
+.title-wrapper:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 0.3vh;
+    background-color: var(--text-primary);
+}
+
+.mac-chrome-only .title-wrapper {
+    font-size: var(--font-size-title-mac);
+}
+
+.invisible-title-button {
+    position: absolute;
+    top: 0vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    min-width: 50vw;
+    min-height: var(--height-title);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: var(--z-index-title-button);
+}
+
+.invisible-title-button:hover {
+    background-color: var(--bg-button-hover);
+    border-radius: var(--border-radius-md);
+}
+
+#page-title {
+    cursor: pointer;
+    transition: var(--transition-color);
+}
+
+
+.description-wrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: var(--width-description);
+    height: var(--height-description);
+    top: var(--spacing-11xl);
+    right: 0;
+    margin: var(--spacing-11xl);
+    margin-right: var(--spacing-10xl);
+    margin-left: var(--spacing-8xl);
+    margin-bottom: 0;
+    background-color: var(--bg-secondary);
+    border: var(--border-width-sm) solid var(--border-primary);
+    overflow: hidden;
+}
+
+.node-wrapper {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    max-width: var(--width-node-max);
+    top: var(--spacing-13xl);
+    left: var(--spacing-5xl);
+    margin: var(--spacing-8xl) 0 0 var(--spacing-8xl);
+    grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
+    grid-gap: 1vw;
+    overflow-x: hidden;
+}
+
+.mac-chrome-only .node-wrapper {
+    overflow-y: hidden;
+}
+
+/*
+|==============|
+|  Containers  |
+|==============|
+*/
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: var(--font-size-container);
+    border: var(--border-width-sm) solid var(--border-primary);
+    margin: 0 var(--spacing-5xl) var(--spacing-5xl) 0vh;
+    width: var(--width-container);
+}
+
+.mac-chrome-only .container {
+    font-size: var(--font-size-container-mac);
+    width: var(--width-container-mac);
+}
+
+.container-name {
+    font-size: var(--font-size-container-name);
+}
+
+.mac-chrome-only .container-name {
+    font-size: var(--font-size-container-name-mac);
+}
+
+
+.standard-time {
+    background-color: var(--bg-tertiary);
+    color: var(--text-tertiary);
+}
+
+.computing-time {
+    background-color: var(--bg-quaternary);
+    color: var(--color-computing-time);
+}
+
+.solar-calendars {
+    background-color: rgb(54, 50, 50);
+    color: var(--color-solar-calendars);
+}
+
+.lunisolar-calendars {
+    background-color: rgb(50, 54, 50);
+    color: var(--color-lunisolar-calendars);
+}
+
+.lunar-calendars {
+    background-color: var(--bg-quaternary);
+    color: var(--color-lunar-calendars);
+}
+
+.solilunar-calendars {
+    background-color: rgb(54, 50, 50);
+    color: var(--text-tertiary);
+}
+
+.proposed-calendars {
+    background-color: rgb(53, 50, 53);
+    color: var(--color-proposed-calendars);
+}
+
+.other-calendars {
+    background-color: var(--bg-quaternary);
+    color: var(--color-other-calendars);
+}
+
+.decimal-time {
+    background-color: rgb(54, 50, 50);
+    color: var(--color-decimal-time);
+}
+
+.other-time {
+    background-color: rgb(54, 50, 50);
+    color: var(--color-other-time);
+}
+
+.astronomical-data {
+    background-color: rgb(53, 53, 50);
+    color: var(--color-astronomical-data);
+}
+
+.pop-culture {
+    background-color: rgb(53, 53, 50);
+    color: var(--color-pop-culture);
+}
+
+.politics {
+    background-color: var(--bg-tertiary);
+    color: var(--color-politics);
+}
+
+
+/*
+|=========|
+|  Nodes  |
+|=========|
+*/
+
+.node {
+    margin: var(--spacing-xl);
+    width: var(--width-node);
+    position: relative;
+    display: inline-block;
+}
+
+.mac-chrome-only .node {
+    width: var(--width-node-mac);
+}
+
+.standard-time>.node>.content {
+    border: var(--border-width-sm) solid var(--border-secondary);
+}
+
+.computing-time>.node>.content {
+    border: var(--border-width-sm) solid var(--border-computing-time);
+}
+
+.solar-calendars>.node>.content {
+    border: var(--border-width-sm) solid var(--border-solar-calendars);
+}
+
+.lunisolar-calendars>.node>.content {
+    border: var(--border-width-sm) solid var(--border-lunisolar-calendars);
+}
+
+.decimal-time>.node>.content {
+    border: var(--border-width-sm) solid var(--border-decimal-time);
+}
+
+.other-time>.node>.content {
+    border: var(--border-width-sm) solid var(--border-other-time);
+}
+
+.lunar-calendars>.node>.content {
+    border: var(--border-width-sm) solid var(--border-lunar-calendars);
+}
+
+.solilunar-calendars>.node>.content {
+    border: var(--border-width-sm) solid var(--border-solilunar-calendars);
+}
+
+.proposed-calendars>.node>.content {
+    border: var(--border-width-sm) solid var(--border-proposed-calendars);
+}
+
+.other-calendars>.node>.content {
+    border: var(--border-width-sm) solid var(--border-other-calendars);
+}
+
+.astronomical-data>.node>.content {
+    border: var(--border-width-sm) solid var(--border-astronomical-data);
+}
+
+.pop-culture>.node>.content {
+    border: var(--border-width-sm) solid var(--border-pop-culture);
+}
+
+.politics>.node>.content {
+    border: var(--border-width-sm) solid var(--border-politics);
+}
+
+.content {
+    border-width: var(--border-width-md);
+    padding: var(--spacing-3xl);
+    font-size: var(--font-size-content);
+    font-family: var(--font-family-content);
+    margin-top: var(--spacing-2xl);
+    background-color: var(--bg-primary);
+    white-space: pre-wrap;
+}
+
+.mac-chrome-only .content {
+    font-size: var(--font-size-content-mac);
+}
+
+.node .content.hover {
+    border-color: var(--border-hover) !important;
+}
+
+.node .content.active {
+    background-color: var(--bg-active);
+    border-color: var(--border-hover);
+}
+
+.content.clicking {
+    background-color: var(--bg-clicking);
+}
+
+.node-menu {
+    position: absolute;
+    /* Position it absolutely to the viewport */
+    font-size: var(--font-size-menu);
+    width: var(--width-menu);
+    color: var(--text-quaternary);
+    background-color: var(--bg-menu);
+    border: var(--border-width-lg) solid var(--border-menu);
+    box-shadow: var(--shadow-md);
+    z-index: var(--z-index-menu);
+    /* Ensure it's on top */
+}
+
+.node-menu ul {
+    list-style-type: none;
+    /* Remove bullet points */
+    margin: 0;
+    padding: var(--spacing-xl);
+}
+
+.node-menu li {
+    cursor: pointer;
+}
+
+.node-menu li:hover {
+    background-color: var(--bg-active);
+    /* Highlight on hover */
+}
+
+
+
+/*
+|===============|
+|  Input Panel  |
+|===============|
+*/
+
+.input-box-wrapper {
+    position: absolute;
+    border-bottom: var(--border-width-lg) solid var(--border-menu);
+    top: 0;
+    width: var(--width-input-wrapper);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: var(--height-input-wrapper);
+}
+
+#date-input {
+    width: var(--width-input);
+    height: var(--height-input);
+    background-color: var(--bg-input);
+    color: var(--text-input);
+    border: var(--border-width-sm) solid var(--border-input);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-input);
+    padding: 0 8px;
+    margin-left: var(--spacing-5xl);
+    margin-right: var(--spacing-lg);
+}
+
+.mac-chrome-only #date-input {
+    font-size: var(--font-size-input-mac);
+    width: var(--width-input-mac);
+}
+
+.date-picker-button {
+    height: var(--height-date-picker);
+    width: var(--width-date-picker);
+    font-size: var(--font-size-date-picker);
+    margin: var(--spacing-sm);
+    color: var(--text-quaternary);
+    background-color: var(--bg-menu);
+    border: var(--border-width-sm) solid var(--border-button);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition-background);
+}
+
+.date-picker-button:hover {
+    background-color: var(--bg-hover);
+}
+
+.mac-chrome-only .date-picker-button {
+    font-size: var(--font-size-date-picker-mac);
+    width: var(--width-date-picker-mac);
+}
+
+.date-picker-icon {
+    font-size: var(--font-size-date-picker-icon);
+    background: var(--bg-menu);
+}
+
+.mac-chrome-only .date-picker-icon {
+    font-size: var(--font-size-date-picker-icon-mac);
+}
+
+#calendar-type {
+    height: var(--height-calendar-type);
+    width: var(--width-calendar-type);
+    font-size: var(--font-size-calendar-type);
+    color: var(--text-quaternary);
+    background-color: var(--bg-menu);
+    border: var(--border-width-sm) solid var(--border-button);
+    border-radius: var(--border-radius-sm);
+    padding: 0 8px;
+    margin: var(--spacing-5xl);
+}
+
+#timezone {
+    height: var(--height-calendar-type);
+    width: var(--width-calendar-type);
+    font-size: var(--font-size-calendar-type);
+    color: var(--text-quaternary);
+    background-color: var(--bg-menu);
+    border: var(--border-width-sm) solid var(--border-button);
+    border-radius: var(--border-radius-sm);
+    padding: 0 8px;
+}
+
+.mac-chrome-only #timezone,
+.mac-chrome-only #calendar-type {
+    font-size: var(--font-size-calendar-type-mac);
+    width: var(--width-calendar-type-mac);
+}
+
+#floating-panel {
+    min-height: var(--height-panel-min);
+    width: var(--width-panel);
+    background-color: var(--bg-panel);
+    border: var(--border-width-sm) solid var(--border-primary);
+    border-radius: var(--border-radius-lg);
+    position: absolute;
+    top: 20vh;
+    left: 50vh;
+    cursor: move;
+    z-index: var(--z-index-base);
+    box-shadow: var(--shadow-md);
+    display: none;
+    overflow: visible;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.mac-chrome-only #floating-panel {
+    width: var(--width-panel-mac);
+}
+
+#floating-box-node-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    min-height: 100%;
+    align-items: start;
+}
+
+.panel-section {
+    background-color: var(--bg-section);
+    border: var(--border-width-xs) solid var(--border-tertiary);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    flex-direction: column;
+    min-height: var(--height-section-min);
+    overflow: visible;
+}
+
+.mac-chrome-only .panel-section {
+    min-height: var(--height-section-min-mac);
+    width: 21vh;
+}
+
+.section-header {
+    background-color: var(--bg-section-header);
+    color: var(--text-secondary);
+    padding: 12px 16px;
+    font-size: var(--font-size-section-header);
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid var(--border-tertiary);
+    flex-shrink: 0;
+}
+
+.mac-chrome-only .section-header {
+    font-size: var(--font-size-section-header-mac);
+}
+
+.section-controls {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background-color: var(--bg-section-controls);
+    border-bottom: 1px solid var(--border-tertiary);
+    flex-shrink: 0;
+}
+
+.add-node-button,
+.remove-node-button {
+    padding: 6px 12px;
+    background: var(--bg-panel);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-quaternary);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 0.875rem;
+    flex: 1;
+    transition: var(--transition-background);
+    font-weight: 500;
+}
+
+.mac-chrome-only .add-node-button,
+.mac-chrome-only .remove-node-button {
+    font-size: 0.875rem;
+}
+
+.add-node-button:hover,
+.remove-node-button:hover {
+    background-color: var(--bg-hover);
+}
+
+.top-buttons-wrapper {
+    position: absolute;
+    top: var(--spacing-5xl);
+    left: var(--spacing-5xl);
+    right: var(--spacing-5xl);
+    display: flex;
+    justify-content: space-between;
+    z-index: var(--z-index-top-buttons);
+}
+
+.left-buttons {
+    display: flex;
+    gap: var(--spacing-xl);
+}
+
+.right-buttons {
+    display: flex;
+    gap: var(--spacing-xl);
+}
+
+#floating-panel-toggle-button {
+    padding: 8px 16px;
+    background: var(--bg-section-controls);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-tertiary);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: var(--font-size-button);
+    height: auto;
+    min-height: 36px;
+    transition: var(--transition-background);
+    font-weight: 500;
+}
+
+#floating-panel-toggle-button:hover {
+    background-color: var(--bg-hover);
+}
+
+#on-making-LoT-button {
+    padding: 8px 16px;
+    background: var(--bg-section-controls);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-tertiary);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: var(--font-size-button);
+    height: auto;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    z-index: var(--z-index-top-buttons);
+    transition: var(--transition-background);
+    font-weight: 500;
+}
+
+#on-making-LoT-button:hover {
+    background-color: var(--bg-hover);
+}
+
+#glossary-button {
+    padding: 8px 16px;
+    background: var(--bg-section-controls);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-tertiary);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: var(--font-size-button);
+    height: auto;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    z-index: var(--z-index-top-buttons);
+    transition: var(--transition-background);
+    font-weight: 500;
+}
+
+#glossary-button:hover {
+    background-color: var(--bg-hover);
+}
+
+.mac-chrome-only #floating-panel-toggle-button,
+.mac-chrome-only #glossary-button,
+.mac-chrome-only #on-making-LoT-button {
+    font-size: var(--font-size-button-mac);
+}
+
+
+/*
+|=====================|
+|  Description Pages  |
+|=====================|
+*/
+
+.nodeinfo {
+    position: relative;
+    visibility: hidden;
+    color: var(--text-secondary);
+    text-align: center;
+    position: absolute;
+    z-index: var(--z-index-nodeinfo);
+    font-size: var(--font-size-nodeinfo);
+    width: var(--width-nodeinfo);
+    top: 9vh;
+    height: var(--height-nodeinfo);
+    overflow: hidden;
+    --fade-opacity: var(--opacity-fade);
+}
+
+.nodeinfo.homepage {
+    height: var(--height-nodeinfo-homepage);
+}
+
+.nodeinfo::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--height-fade);
+    pointer-events: none;
+    background: linear-gradient(to bottom, var(--bg-fade-gradient-start), var(--bg-fade-gradient-end));
+    opacity: var(--fade-opacity);
+    transition: var(--transition-opacity);
+    z-index: var(--z-index-base);
+
+    /* Default: hidden unless there's overflow */
+    display: none;
+}
+
+.nodeinfo.fade-visible::after {
+    display: block;
+}
+
+.nodeinfo-title {
+    font-size: var(--font-size-nodeinfo-title);
+    font-weight: 600;
+    padding: 16px;
+    margin: 0;
+}
+
+.nodeinfo-title:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 4vh;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 0.3vh;
+    background-color: var(--text-primary);
+}
+
+.nodeinfo-epoch {
+    text-align: left;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    padding-top: var(--spacing-7xl);
+}
+
+.nodeinfo-confidence {
+    text-align: left;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    cursor: pointer;
+}
+
+.nodeinfo-confidence .tooltiptext {
+    visibility: hidden;
+    background-color: var(--bg-tooltip);
+    color: #fff;
+    text-align: left;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-tooltip);
+    padding: 12px 16px;
+    position: absolute;
+    z-index: var(--z-index-tooltip);
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: var(--shadow-md);
+}
+
+.nodeinfo-confidence:hover .tooltiptext {
+    visibility: visible;
+    opacity: var(--opacity-tooltip);
+}
+
+/* Mac Chrome only styles */
+.mac-chrome-only .nodeinfo-confidence .tooltiptext {
+    width: 300px;
+    max-width: 300px;
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.mac-chrome-only .nodeinfo {
+    font-size: var(--font-size-nodeinfo-mac);
+    margin: 0vh;
+    padding: 0vh;
+}
+
+.description-button-wrapper {
+    position: absolute;
+    top: 5.3vh;
+    min-width: 32.9vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.header-button {
+    height: var(--height-calendar-type);
+    font-size: var(--font-size-header-button);
+    color: var(--text-quaternary);
+    background-color: var(--bg-menu);
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--border-tertiary);
+    flex: 1 0 auto;
+    font-weight: 500;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: var(--transition-background);
+}
+
+.mac-chrome-only .header-button {
+    font-size: var(--font-size-header-button-mac);
+    height: var(--spacing-10xl);
+}
+
+.header-button:hover {
+    background-color: var(--bg-hover);
+}
+
+.header-button.hoveringTab {
+    background-color: var(--bg-hover);
+}
+
+.activeTab {
+    background-color: var(--bg-section-controls);
+    border-bottom: 2px solid var(--text-primary);
+    color: var(--text-secondary);
+}
+
+.description-page {
+    visibility: hidden;
+}
+
+.activePage {
+    visibility: visible;
+}
+
+.home-info,
+.home-mission,
+.home-sources,
+.home-accuracy {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 93%;
+    padding: 16px;
+    margin: 16px;
+    white-space: pre-wrap;
+    text-align: justify;
+}
+
+.nodeinfo-overview {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 74%;
+    padding: 16px;
+    margin: 16px;
+    white-space: pre-wrap;
+    text-align: justify;
+}
+
+.mac-chrome-only .nodeinfo-overview {
+    height: 69%;
+}
+
+.clickable-epoch.hovering {
+    background-color: var(--bg-active);
+    cursor: pointer;
+    z-index: var(--z-index-menu);
+}
+
+.nodeinfo-info,
+.nodeinfo-accuracy,
+.nodeinfo-source {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 90%;
+    padding: 16px;
+    margin: 16px;
+    white-space: pre-wrap;
+    text-align: justify;
+}
+
+.mac-chrome-only .nodeinfo-info,
+.mac-chrome-only .nodeinfo-accuracy,
+.mac-chrome-only .nodeinfo-source {
+    height: 89%;
+}
+
+/* Desktop home button (inside description panel) */
+.desktop-home-button {
+    position: absolute;
+    height: var(--height-desktop-home);
+    width: var(--width-desktop-home);
+    bottom: var(--spacing-8xl);
+    font-size: var(--font-size-4xl);
+    color: var(--text-quaternary);
+    background-color: var(--bg-menu);
+    border: 1px solid var(--border-button);
+    visibility: hidden;
+    border-radius: var(--border-radius-md);
+    font-weight: 500;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: var(--transition-background);
+}
+
+.desktop-home-button:hover {
+    background-color: var(--bg-hover);
+}
+
+#desktop-home-button.hoveringHome {
+    background-color: var(--bg-section-header);
+}
+
+#expand-description-button {
+    visibility: hidden;
+}
+
+
+/*
+|=======================|
+|  Tables and Elements  |
+|=======================|
+*/
+
+.presidential-terms-container {
+    column-count: 2;
+    font-size: var(--font-size-container);
+    text-align: center;
+    background-color: var(--bg-primary);
+    border: var(--border-width-sm) solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-long th,
+.table-long td {
+    padding: var(--spacing-lg);
+}
+
+.table-short th,
+.table-short td {
+    padding: var(--spacing-2xl);
+}
+
+.table-very-long th,
+.table-very-long td {
+    padding: var(--spacing-xs);
+}
+
+.table-very-very-long th,
+.table-very-very-long td {
+    font-size: var(--font-size-xl);
+}
+
+.table-very-very-very-long th,
+.table-very-very-very-long td {
+    font-size: var(--font-size-sm);
+}
+
+.mac-chrome-only .table-very-very-long th,
+.mac-chrome-only .table-very-very-long td {
+    font-size: var(--font-size-6xl);
+}
+
+th,
+td {
+    border: var(--border-width-sm) solid black;
+    background-color: var(--bg-primary);
+    text-align: center;
+}
+
+.table-epoch th {
+    color: var(--table-epoch-header);
+}
+
+.table-confidence th {
+    color: var(--table-confidence-header);
+}
+
+
+/*
+|==================|
+|   Large Modals   |
+|==================|
+*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: var(--z-index-modal);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-modal-overlay);
+}
+
+.modal-content {
+    background-color: var(--bg-modal);
+    margin: 40px auto;
+    padding: 24px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--border-radius-lg);
+    width: var(--width-modal);
+    max-width: var(--width-modal-max);
+    max-height: var(--height-modal-max);
+    overflow-y: auto;
+    position: relative;
+}
+
+.close {
+    color: var(--text-modal-close);
+    float: right;
+    font-size: var(--font-size-modal-close);
+    font-weight: 600;
+    cursor: pointer;
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-background);
+}
+
+.close:hover,
+.close:focus {
+    color: var(--text-secondary);
+    background-color: var(--bg-hover);
+    text-decoration: none;
+}
+
+.modal-content h2 {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    margin-top: 0;
+    font-family: var(--font-family-title);
+    font-size: var(--font-size-modal-title);
+    font-weight: 600;
+}
+
+.modal-text {
+    color: var(--text-secondary);
+    font-size: var(--font-size-modal-text);
+    line-height: 1.6;
+}
+
+.mac-chrome-only .modal-text {
+    font-size: var(--font-size-modal-text-mac);
+}
+
+.modal-text p {
+    margin-bottom: 16px;
+}
+
+.modal-text p:last-child {
+    margin-bottom: 0;
+}
+
+.modal-images {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8xl);
+    margin: var(--spacing-8xl) 0;
+}
+
+.modal-image {
+    max-width: 80%;
+    height: auto;
+    border: 1px solid var(--border-image);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.modal-images-container {
+    margin: var(--spacing-8xl) 0;
+}
+
+.images-toggle-btn {
+    background-color: var(--bg-menu);
+    color: var(--text-secondary);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-primary);
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: var(--font-size-images-toggle);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-background);
+    font-weight: 500;
+}
+
+.mac-chrome-only .images-toggle-btn {
+    font-size: var(--font-size-images-toggle-mac);
+}
+
+.images-toggle-btn:hover {
+    background-color: var(--bg-section-controls);
+}
+
+.toggle-icon {
+    font-size: var(--font-size-toggle-icon);
+    transition: var(--transition-transform);
+}
+
+.modal-close-button {
+    background-color: var(--bg-menu);
+    color: var(--text-secondary);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-primary);
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: var(--font-size-images-toggle);
+    display: block;
+    margin: 24px auto 0 auto;
+    transition: var(--transition-background);
+    font-weight: 500;
+    min-width: 80px;
+}
+
+.modal-close-button:hover {
+    background-color: var(--bg-section-controls);
+}
+
+
+/*
+|====================|
+|  Mobile Layout     |
+|====================|
+*/
+
+/* Mobile portrait layout - split screen */
+@media (max-width: 768px) and (orientation: portrait) {
+    .page-wrapper {
+        min-height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .title-wrapper {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 6vh;
+        font-size: 2.5rem;
+        z-index: 20;
+        background-color: var(--bg-primary);
+    }
+
+    .description-wrapper {
+        position: fixed;
+        top: 6vh;
+        /* Below title */
+        left: 0;
+        width: 100vw;
+        height: 30vh;
+        /* Top half minus title */
+        margin: 0;
+        border: none;
+        border-bottom: 2px solid var(--border-primary);
+        overflow: hidden;
+        z-index: var(--z-index-description) !important;
+        background-color: var(--bg-secondary);
+        transition: var(--transition-height);
+    }
+
+    .node-wrapper {
+        position: relative;
+        top: 33vh;
+        /* Start below the fixed description panel */
+        left: 0;
+        width: 100vw;
+        min-height: 50vh;
+        margin: 0;
+        padding: 1vh;
+        padding-bottom: 10vh;
+        /* Add extra space at the bottom */
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1vh;
+        overflow-y: visible;
+        overflow-x: hidden;
+        z-index: var(--z-index-base);
+        justify-content: start;
+        align-items: start;
+        max-width: none;
+        transition: var(--transition-top);
+    }
+
+    /* Adjust input panel for mobile */
+    .input-box-wrapper {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 4vh;
+        padding: 1vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1vh;
+        z-index: 5;
+    }
+
+    #date-input {
+        width: 50%;
+        height: 3vh;
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+    #calendar-type,
+    #timezone {
+        width: 15%;
+        height: 3vh;
+        font-size: 1.375rem;
+        margin: 0;
+    }
+
+    .date-picker-button {
+        height: 3vh;
+        width: 6vw;
+        font-size: 1.375rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Adjust description buttons for mobile */
+    .description-button-wrapper {
+        position: absolute;
+        top: 6vh;
+        width: 100%;
+        height: 5vh;
+        padding: 0 1vh;
+        z-index: 10;
+    }
+
+    .header-button {
+        height: var(--height-desktop-home);
+        font-size: var(--font-size-header-button-mac);
+        padding: 0 var(--spacing-5xl);
+    }
+
+    /* Adjust node info for mobile */
+    .nodeinfo {
+        position: absolute;
+        width: 100%;
+        height: 69vh;
+        /* 75% of remaining space (44vh - 11vh = 33vh) */
+        top: 11vh;
+        /* Below input (6vh) and buttons (5vh) */
+        left: 0;
+        font-size: 1.5rem;
+    }
+
+    .nodeinfo.homepage {
+        height: 69vh;
+    }
+
+    .home-info,
+    .home-mission,
+    .home-sources,
+    .home-accuracy {
+        height: 94%;
+    }
+
+    .home-info::after,
+    .home-mission::after,
+    .home-sources::after,
+    .home-accuracy::after {
+        content: "";
+        display: block;
+        height: 4vh;
+    }
+
+    .nodeinfo-overview {
+        height: 70%;
+        z-index: 20;
+    }
+
+    .nodeinfo-overview::after {
+        content: "";
+        display: block;
+        height: 4vh;
+    }
+
+    .nodeinfo-info,
+    .nodeinfo-accuracy,
+    .nodeinfo-source {
+        height: 85%;
+    }
+
+    .nodeinfo-info::after,
+    .nodeinfo-accuracy::after,
+    .nodeinfo-source::after {
+        content: "";
+        display: block;
+        height: 4vh;
+    }
+
+    /* Adjust top buttons for mobile */
+    .top-buttons-wrapper {
+        position: absolute;
+        top: var(--spacing-5xl);
+        right: var(--spacing-5xl);
+        z-index: var(--z-index-top-buttons);
+        gap: var(--spacing-md);
+    }
+
+    .input-box-wrapper {
+        gap: var(--spacing-xl);
+    }
+
+    .header-button {
+        height: 3.4vh;
+    }
+
+    .container {
+        width: 22vh;
+        font-size: 1.125rem;
+    }
+
+    .container-name {
+        font-size: 1.375rem;
+    }
+
+    .node {
+        width: 21vh;
+    }
+
+    .content {
+        font-size: 1.125rem;
+    }
+
+    #on-making-LoT-button {
+        padding: 6px 12px;
+        background: var(--bg-section-controls);
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: var(--font-size-button);
+        border: 1px solid var(--border-tertiary);
+        height: var(--height-desktop-home);
+        max-width: 8vh;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+        text-align: center;
+        white-space: pre-line;
+        z-index: 1001;
+        visibility: visible !important;
+        opacity: 1 !important;
+        border-radius: var(--border-radius-md);
+        font-weight: 500;
+    }
+
+    /* Move glossary button to right side on mobile only */
+    #glossary-button {
+        position: absolute !important;
+        right: 0vh !important;
+        top: 0vh !important;
+        padding: 6px 12px;
+        background: var(--bg-section-controls);
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: var(--font-size-button);
+        border: 1px solid var(--border-tertiary);
+        height: var(--height-desktop-home);
+        max-width: 8vh;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+        text-align: center;
+        white-space: pre-line;
+        z-index: 1001;
+        visibility: visible !important;
+        opacity: 1 !important;
+        border-radius: var(--border-radius-md);
+        font-weight: 500;
+    }
+
+    #floating-box-node-container {
+        gap: var(--spacing-md);
+        padding: var(--spacing-md);
+    }
+
+    .section-header {
+        font-size: 0.875rem;
+        padding: 12px 16px;
+    }
+
+    .section-controls {
+        padding: 8px;
+    }
+
+    .add-node-button,
+    .remove-node-button {
+        font-size: 0.875rem;
+        padding: 6px 12px;
+    }
+
+    /* Adjust modal for mobile */
+    .modal-content {
+        width: 95vw;
+        max-height: 90vh;
+        margin: 20px auto;
+        padding: 16px;
+    }
+
+    .modal-content h2 {
+        font-size: var(--font-size-9xl);
+    }
+
+    .modal-text {
+        font-size: var(--font-size-4xl);
+    }
+
+    .images-toggle-btn {
+        font-size: var(--font-size-header-button-mac);
+        padding: 8px 16px;
+    }
+
+    .modal-image {
+        max-width: 95%;
+    }
+
+    /* Hide dropdown menu on mobile or adjust as needed */
+    .node-menu {
+        display: none;
+    }
+
+    /* Hide show/hide panel button on mobile */
+    #floating-panel-toggle-button {
+        display: none !important;
+    }
+
+    #expand-description-button {
+        visibility: visible;
+        position: fixed;
+        top: 35vh;
+        left: 35vw;
+        width: 30vw;
+        height: var(--height-desktop-home);
+        border: var(--border-width-sm) solid var(--border-primary);
+        border-radius: var(--border-radius-md);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: var(--z-index-expand-button);
+        transition: var(--transition-top);
+        font-size: var(--font-size-header-button-mac);
+        color: var(--text-quaternary);
+        background-color: var(--bg-menu);
+        font-weight: 500;
+    }
+
+    /* Make confidence tooltip wider on mobile */
+    .nodeinfo-confidence .tooltiptext {
+        width: 60vw;
+        max-width: 60vw;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .mac-chrome-only .nodeinfo-confidence .tooltiptext {
+        visibility: hidden;
+    }
+
+    /* iOS Safari fix: Ensure content is properly clipped when description panel is collapsed */
+    /* Only apply on Apple devices using webkit-specific properties */
+    @supports (-webkit-touch-callout: none) {
+        .description-wrapper.collapsed {
+            overflow: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        .description-wrapper.collapsed .nodeinfo {
+            position: absolute;
+            top: 11vh;
+            height: 19vh;
+            /* 30vh - 11vh = 19vh remaining space */
+            overflow: hidden;
+            clip-path: inset(0 0 0 0);
+            -webkit-clip-path: inset(0 0 0 0);
+        }
+    }
+}
+
+/*
+|====================|
+|  Narrow Viewports  |
+|====================|
+*/
+
+@media (max-aspect-ratio: 2/4.26) {
+    .container {
+        width: 20vh;
+    }
+
+    .node {
+        width: 19vh;
+    }
+}
+
+/*
+|=======================|
+|  Very Narrow Viewports|
+|=======================|
+*/
+
+@media (max-aspect-ratio: 2/4.65) {
+    .container {
+        width: 19vh;
+    }
+
+    .node {
+        width: 18vh;
+    }
+}

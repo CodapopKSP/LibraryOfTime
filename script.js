@@ -22,6 +22,33 @@ const urlTimezone = urlParameters.get('timezone');
 const urlCalendarType = urlParameters.get('type');
 setCalendarType(getCalendarTypeFromURL(urlCalendarType));
 
+let needsUpdate_PerSecond = true;
+function setNeedsUpdate_PerSecond(newNeedsUpdate_PerSecond) {
+    needsUpdate_PerSecond = newNeedsUpdate_PerSecond;
+}
+
+function getNeedsUpdate_PerSecond() {
+    return needsUpdate_PerSecond;
+}
+
+let needsUpdate_PerQuarterHour = true;
+function setNeedsUpdate_PerQuarterHour(newNeedsUpdate_PerQuarterHour) {
+    needsUpdate_PerQuarterHour = newNeedsUpdate_PerQuarterHour;
+}
+
+function getNeedsUpdate_PerQuarterHour() {
+    return needsUpdate_PerQuarterHour;
+}
+
+let needsUpdate_PerDay = true;
+function setNeedsUpdate_PerDay(newNeedsUpdate_PerDay) {
+    needsUpdate_PerDay = newNeedsUpdate_PerDay;
+}
+
+function getNeedsUpdate_PerDay() {
+    return needsUpdate_PerDay;
+}
+
 function getDateTimeFromURL(urlDateString) {
     if (!urlDateString) return null; // Return null if no parameter is provided
     const [date, time] = urlDateString.split('_');
@@ -147,6 +174,22 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+function formatDateTimeForURL(dateTimeString) {
+    if (!dateTimeString) return null; // Return null if no string is provided
+    // Split the string into the date and time parts (assuming they are separated by ", ")
+    const [date, time] = dateTimeString.split(', ');
+    // Replace colons in the time with dashes
+    const formattedTime = time.replace(/:/g, '-');
+    // Return the URL parameter format with an underscore between date and time
+    return `${date}_${formattedTime}`;
+}
+
+function formatTimezoneForURL(timezone) {
+    if (!timezone) return "UTC~00_00";
+    // Convert '+' to '~' and ':' to '_'
+    return timezone.replace('+', '~').replace(':', '_');
+}
 
 // Display the initial Description Panel
 homeButton();
