@@ -1,8 +1,8 @@
-# .beat Time
+# .beat (BMT)
 
 | Epoch             | Confidence |
 | ----------------- | ---------- |
-| Midnight (BMT)    | Exact       |
+| Midnight (BMT)    | Exact      |
 
 #### Overview
 

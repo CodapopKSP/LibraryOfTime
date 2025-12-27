@@ -1,8 +1,8 @@
-# Tamrielic Calendar
+# Tamrielic
 
 | Epoch             | Confidence |
 | ----------------- | ---------- |
-| Unknown           | Exact       |
+| Unknown           | Exact      |
 
 #### Overview
 

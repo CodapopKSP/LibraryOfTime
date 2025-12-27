@@ -1,8 +1,8 @@
-# Binary Time
+# Binary (16 bit)
 
 | Epoch             | Confidence |
 | ----------------- | ---------- |
-| Midnight          | Exact       |
+| Midnight          | Exact      |
 
 #### Overview
 

@@ -89,15 +89,15 @@ function setTimeValue(type, value) {
 }
 
 function updateAstronomicalData(currentDateTime) {
-    setTimeValue('spring-equinox-node', getSolsticeOrEquinox(currentDateTime, 'SPRING').toUTCString());
-    setTimeValue('summer-solstice-node', getSolsticeOrEquinox(currentDateTime, 'SUMMER').toUTCString());
-    setTimeValue('autumn-equinox-node', getSolsticeOrEquinox(currentDateTime, 'AUTUMN').toUTCString());
-    setTimeValue('winter-solstice-node', getSolsticeOrEquinox(currentDateTime, 'WINTER').toUTCString());
-    setTimeValue('sun-longitude-node', getLongitudeOfSun(currentDateTime) + '°');
-    setTimeValue('this-new-moon-node', getMoonPhase(currentDateTime, 0).toUTCString());
-    setTimeValue('this-first-quarter-moon-node', getMoonPhase(currentDateTime, 0.25).toUTCString());
-    setTimeValue('this-full-moon-node', getMoonPhase(currentDateTime, 0.5).toUTCString());
-    setTimeValue('this-last-quarter-moon-node', getMoonPhase(currentDateTime, 0.75).toUTCString());
+    setTimeValue('northward-equinox-node', getSolsticeOrEquinox(currentDateTime, 'SPRING').toUTCString());
+    setTimeValue('northern-solstice-node', getSolsticeOrEquinox(currentDateTime, 'SUMMER').toUTCString());
+    setTimeValue('southward-equinox-node', getSolsticeOrEquinox(currentDateTime, 'AUTUMN').toUTCString());
+    setTimeValue('southern-solstice-node', getSolsticeOrEquinox(currentDateTime, 'WINTER').toUTCString());
+    setTimeValue('longitude-of-the-sun-node', getLongitudeOfSun(currentDateTime) + '°');
+    setTimeValue('this-months-new-moon-node', getMoonPhase(currentDateTime, 0).toUTCString());
+    setTimeValue('this-months-first-quarter-moon-node', getMoonPhase(currentDateTime, 0.25).toUTCString());
+    setTimeValue('this-months-full-moon-node', getMoonPhase(currentDateTime, 0.5).toUTCString());
+    setTimeValue('this-months-last-quarter-moon-node', getMoonPhase(currentDateTime, 0.75).toUTCString());
     setTimeValue('next-solar-eclipse-node', getNextSolarLunarEclipse(currentDateTime, 0));
     setTimeValue('next-lunar-eclipse-node', getNextSolarLunarEclipse(currentDateTime, 0.5));
 }
@@ -117,7 +117,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('thai-node', getThaiSolar(currentDateTime));
     setTimeValue('juche-node', getJuche(currentDateTime));
     setTimeValue('coptic-node', getCopticDate(currentDateTime));
-    setTimeValue('ethiopian-node', getEthiopianDate(currentDateTime));
+    setTimeValue('geez-node', getEthiopianDate(currentDateTime));
     setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
     setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime, timezoneOffset));
     setTimeValue('discordian-node', getDiscordianDate(currentDateTime, timezoneOffset));
@@ -130,13 +130,13 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('tabot-node', getTabotDate(currentDateTime));
     setTimeValue('icelandic-node', getIcelandicDate(currentDateTime));
     setTimeValue('saka-samvat-node', getSakaSamvatDate(currentDateTime));
-    setTimeValue('society-for-creative-anachronism-node', getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset));
+    setTimeValue('sca-node', getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset));
 }
 
 function updateLunisolarCalendars(currentDateTime) {
     setTimeValue('chinese-node', getChineseLunisolarCalendarDate(currentDateTime, 'CHINA'));
     setTimeValue('sexagenary-year-node', getSexagenaryYear(currentDateTime));
-    setTimeValue('vietnamese-node', getChineseLunisolarCalendarDate(currentDateTime, 'VIETNAM'));
+    setTimeValue('dai-lich-node', getChineseLunisolarCalendarDate(currentDateTime, 'VIETNAM'));
     setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, 'KOREA'));
     setTimeValue('umm-al-qura-node', getUmmalQuraDate(currentDateTime));
     setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
@@ -145,7 +145,7 @@ function updateLunisolarCalendars(currentDateTime) {
 function updateOtherCalendars(currentDateTime) {
     setTimeValue('maya-long-count-node', getCurrentMayaLongCount(currentDateTime));
     setTimeValue('tzolkin-node', getTzolkinDate(currentDateTime));
-    setTimeValue('lord-of-the-night-node', getLordOfTheNight(currentDateTime));
+    setTimeValue('lord-of-the-night-y-node', getLordOfTheNight(currentDateTime));
     setTimeValue('darian-mars-node', getDarianMarsDate(getJulianSolDate(currentDateTime)));
     setTimeValue('galilean-io-node', getGalileanDate(currentDateTime, 'Io'));
     setTimeValue('galilean-europa-node', getGalileanDate(currentDateTime, 'Eu'));
@@ -170,7 +170,8 @@ function updateComputingTimes(currentDateTime, timezoneOffset) {
     setTimeValue('ordinal-date-node', getOrdinalDate(currentDateTime));
     setTimeValue('julian-sol-number-node', getJulianSolDate(currentDateTime).toFixed(0));
     setTimeValue('julian-circad-number-node', getJulianCircadNumber(currentDateTime).toFixed(0));
-    setTimeValue('kali-ahargaṅa-node', getKaliAhargana(currentDateTime).toFixed(0));
+    setTimeValue('kali-ahargana-node', getKaliAhargana(currentDateTime).toFixed(0));
+    setTimeValue('deltat-node', getDeltaT(currentDateTime));
     setTimeValue('spreadsheet-now-node', getSpreadsheetNowTime(currentDateTime, timezoneOffset));
     const lunationNumber = calculateLunationNumber(currentDateTime);
     setTimeValue('lunation-number-node', lunationNumber);
@@ -184,7 +185,7 @@ function updateComputingTimes(currentDateTime, timezoneOffset) {
 function updateProposedCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('human-era-node', getHumanEra(currentDateTime, timezoneOffset));
     setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime, timezoneOffset));
-    setTimeValue('world-calendar-node', getWorldCalendarDate(currentDateTime, timezoneOffset));
+    setTimeValue('the-world-calendar-node', getWorldCalendarDate(currentDateTime, timezoneOffset));
     setTimeValue('symmetry454-node', getSymmetry454Date(currentDateTime, timezoneOffset));
     setTimeValue('symmetry010-node', getSymmetry010Date(currentDateTime, timezoneOffset));
     setTimeValue('positivist-node', getPositivistDate(currentDateTime, timezoneOffset));
@@ -199,10 +200,10 @@ function updatePopCultureCalendars(currentDateTime, timezoneOffset) {
 function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
 
     // Decimal Time
-    setTimeValue('revolutionary-time-node', getRevolutionaryTime(currentDateTime, timezoneOffset));
-    setTimeValue('beat-time-node', convertToSwatchBeats(currentDateTime));
+    setTimeValue('french-revolutionary-node', getRevolutionaryTime(currentDateTime, timezoneOffset));
+    setTimeValue('beat-node', convertToSwatchBeats(currentDateTime));
     setTimeValue('hexadecimal-node', getHexadecimalTime(currentDateTime, timezoneOffset));
-    setTimeValue('binary-node', getBinaryTime(currentDateTime, timezoneOffset));
+    setTimeValue('binary-16-bit-node', getBinaryTime(currentDateTime, timezoneOffset));
 
     // Other Time
     setTimeValue('coordinated-mars-time-node', getMTC(currentDateTime));
@@ -217,13 +218,12 @@ function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
 
     // Computing Times
     setTimeValue('julian-day-number-node', getJulianDayNumber(currentDateTime));
-    setTimeValue('delta-time-node', getDeltaT(currentDateTime));
-    setTimeValue('iso8601-node', currentDateTime.toISOString());
+    setTimeValue('iso-8601-node', currentDateTime.toISOString());
     setTimeValue('mars-sol-date-node', getMarsSolDate(currentDateTime).toFixed(5));
 
     // Pop Culture
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime, timezoneOffset));
-    setTimeValue('inception-dream-time-node', getInceptionDreamTime(currentDateTime, timezoneOffset));
+    setTimeValue('dream-time-node', getInceptionDreamTime(currentDateTime, timezoneOffset));
     setTimeValue('termina-time-node', getTerminaTime(currentDateTime, timezoneOffset));
     setTimeValue('stardate-node', getStardate(currentDateTime, timezoneOffset));
 
