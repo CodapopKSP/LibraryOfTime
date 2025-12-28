@@ -1,8 +1,8 @@
 # US Presidential Terms
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 20 January 1789 CE +16:00:00 | High       |
+| Epoch                        | Confidence |
+| ---------------------------- | ---------- |
+| 20 January 1789 CE +16:00:00 |    High    |
 
 #### Overview
 
@@ -55,7 +55,8 @@ Bill Clinton 1993-2001
 George W. Bush 2001-2009
 Barack Obama 2009-2017
 Donald Trump 2017-2021
-Joe Biden 2021-
+Joe Biden 2021-2025
+Donald Trump 2025-2029
 
 #### Accuracy
 
