@@ -185,7 +185,8 @@ function parseMarkdownFile(filePath, directory) {
         }
         
         // Collect content for current section
-        if (currentSection && line.trim() !== '') {
+        // Preserve blank lines as they're important for table separation
+        if (currentSection) {
             sectionContent.push(line);
         }
     }
@@ -241,13 +242,11 @@ function convertMarkdownTables(text) {
             let separatorIndex = -1;
             
             // First pass: collect all table lines
-            let lastWasBlank = false;
             while (j < lines.length) {
                 const nextLine = lines[j].trim();
                 
                 // Stop at blank line (potential table boundary)
                 if (nextLine === '') {
-                    lastWasBlank = true;
                     // Check if we have a complete table already
                     if (separatorIndex > 0 && tableLines.length > separatorIndex + 1) {
                         // Check if next non-blank line starts a new table (header, not separator)
@@ -257,7 +256,11 @@ function convertMarkdownTables(text) {
                             const potentialHeader = lines[k].trim();
                             if (potentialHeader.startsWith('|') && potentialHeader.endsWith('|')) {
                                 // Check if it's NOT a separator (likely a new table header)
-                                const isSeparator = /^\|[\s\-:|]+\|$/.test(potentialHeader) && /[\-:]/.test(potentialHeader);
+                                // A separator line contains only dashes, colons, spaces, and pipes
+                                // and has at least one dash or colon
+                                const isSeparator = /^\|[\s\-:|]+\|$/.test(potentialHeader) && 
+                                                   /[\-:]/.test(potentialHeader) &&
+                                                   !/[a-zA-Z0-9]/.test(potentialHeader); // No letters or numbers
                                 if (!isSeparator) {
                                     // This is likely a new table header, stop here
                                     break;
@@ -265,17 +268,21 @@ function convertMarkdownTables(text) {
                             }
                         }
                     }
-                    // Allow one blank line within table
+                    // Allow blank line within table (but we'll check next line)
                     j++;
                     continue;
                 }
                 
                 if (nextLine.startsWith('|') && nextLine.endsWith('|')) {
-                    // Before adding, check if this might be a new table
+                    // Check if this might be a new table
                     // If we have a complete table and just passed a blank line, this might be a new table
-                    if (lastWasBlank && separatorIndex > 0 && tableLines.length > separatorIndex + 1) {
+                    if (j > i + 1 && lines[j - 1].trim() === '' && separatorIndex > 0 && tableLines.length > separatorIndex + 1) {
                         // Check if this line is a separator (part of current table) or a header (new table)
-                        const isSeparator = /^\|[\s\-:|]+\|$/.test(nextLine) && /[\-:]/.test(nextLine);
+                        // A separator line contains only dashes, colons, spaces, and pipes
+                        // and has at least one dash or colon, and no letters or numbers
+                        const isSeparator = /^\|[\s\-:|]+\|$/.test(nextLine) && 
+                                           /[\-:]/.test(nextLine) &&
+                                           !/[a-zA-Z0-9]/.test(nextLine);
                         if (!isSeparator) {
                             // This looks like a new table header (not a separator), stop before adding it
                             break;
@@ -283,7 +290,6 @@ function convertMarkdownTables(text) {
                     }
                     
                     tableLines.push(nextLine);
-                    lastWasBlank = false;
                     
                     // Check if this is a separator line
                     if (separatorIndex === -1 && 
@@ -302,26 +308,43 @@ function convertMarkdownTables(text) {
             if (separatorIndex > 0 && separatorIndex < tableLines.length - 1) {
                 // Parse header row
                 const headerRow = tableLines[0];
-                const headerCells = headerRow.split('|').map(cell => cell.trim()).filter(cell => cell);
-                const headerHtml = headerCells.map(cell => `<th>${cell}</th>`).join('');
+                const headerCellsRaw = headerRow.split('|').map(cell => cell.trim());
+                // Remove first and last empty cells (from leading/trailing |)
+                const headerCells = headerCellsRaw.slice(1, -1);
+                const headerCellsNonEmpty = headerCells.filter(cell => cell !== '');
                 
-                // Parse data rows (skip separator line)
+                // Parse data rows (skip separator line) to determine column count
                 const dataRows = tableLines.slice(separatorIndex + 1);
+                // Count columns from first data row
+                const firstDataRow = dataRows[0];
+                const firstDataCells = firstDataRow.split('|').map(cell => cell.trim());
+                const columnCount = firstDataCells.slice(1, -1).length; // Remove leading/trailing empty
+                
+                // Build header HTML
+                // If there's only one non-empty header cell but multiple data columns, span it
+                let headerHtml;
+                if (headerCellsNonEmpty.length === 1 && columnCount > 1) {
+                    // Single header cell should span all columns
+                    headerHtml = `<th colspan="${columnCount}">${headerCellsNonEmpty[0]}</th>`;
+                } else {
+                    // Multiple header cells - use them as-is
+                    headerHtml = headerCellsNonEmpty.map(cell => `<th>${cell}</th>`).join('');
+                }
+                
                 const rowsHtml = dataRows.map(row => {
-                    const cells = row.split('|').map(cell => cell.trim()).filter(cell => cell);
-                    const cellsHtml = cells.map(cell => `<td>${cell}</td>`).join('');
+                    const cells = row.split('|').map(cell => cell.trim()).slice(1, -1); // Remove leading/trailing empty
+                    const cellsHtml = cells.map(cell => `<td>${cell || ''}</td>`).join('');
                     return `<tr>${cellsHtml}</tr>`;
                 }).join('');
                 
                 // Determine table class based on number of columns
-                let tableClass = '';
-                if (headerCells.length <= 2) {
-                    tableClass = ' class="table-short"';
-                } else if (headerCells.length <= 3) {
+                let tableClass = ' class="table-very-very-long"';
+                /*
+                if (headerCells.length <= 3) {
                     tableClass = ' class="table-long"';
                 } else {
                     tableClass = ' class="table-very-very-long"';
-                }
+                }*/
                 
                 result.push(`<table${tableClass}><tr>${headerHtml}</tr>${rowsHtml}</table>`);
                 i = j;
@@ -368,11 +391,75 @@ function formatNodeData(nodeData) {
                     .replace(/\${/g, '\\${');
             }
             // Otherwise, do full escaping including newlines
-            return part
-                .replace(/`/g, '\\`')
-                .replace(/\${/g, '\\${')
-                .replace(/\n/g, '\\n\\n')
-                .replace(/\r/g, '');
+            const hasTableBefore = index > 0 && parts[index - 1].startsWith('<table');
+            const hasTableAfter = index < parts.length - 1 && parts[index + 1].startsWith('<table');
+            const isBetweenTwoTables = hasTableBefore && hasTableAfter;
+            const isTableToText = hasTableBefore && !hasTableAfter;
+            
+            // Check if this part contains actual text (not just whitespace/newlines)
+            const hasTextContent = part.trim().length > 0;
+            
+            if (isBetweenTwoTables && !hasTextContent) {
+                // Between two tables with only whitespace: use single \n
+                return part
+                    .replace(/\n{2,}/g, '\n')   // Collapse 2+ newlines to single \n
+                    .replace(/`/g, '\\`')
+                    .replace(/\${/g, '\\${')
+                    .replace(/\n/g, '\\n')     // Convert each \n to \n (not \n\n)
+                    .replace(/\r/g, '');
+            } else if (isTableToText) {
+                // Table to text: use single \n (not \n\n)
+                return part
+                    .replace(/\n{2,}/g, '\n')   // Collapse 2+ newlines to single \n
+                    .replace(/`/g, '\\`')
+                    .replace(/\${/g, '\\${')
+                    .replace(/\n/g, '\\n')     // Convert each \n to \n (not \n\n)
+                    .replace(/\r/g, '');
+            } else if (isBetweenTwoTables && hasTextContent) {
+                // Between two tables with text: 
+                // - Use \n between first table and text start
+                // - Use \n\n for paragraph breaks within text
+                // - Use \n\n between text end and second table
+                // Split the content into: leading whitespace, text content, trailing whitespace
+                const leadingMatch = part.match(/^(\s*)/);
+                const trailingMatch = part.match(/(\s*)$/);
+                const leadingWhitespace = leadingMatch ? leadingMatch[1] : '';
+                const trailingWhitespace = trailingMatch ? trailingMatch[1] : '';
+                const textContent = part.substring(leadingWhitespace.length, part.length - trailingWhitespace.length);
+                
+                // Process each part separately
+                const leading = leadingWhitespace
+                    .replace(/\n{2,}/g, '\n')   // Collapse to single newline
+                    .replace(/\n/g, '\\n');    // Escape as single \n
+                
+                const text = textContent
+                    .replace(/\n{2,}/g, '\n')   // Collapse multiple newlines to single
+                    .replace(/`/g, '\\`')
+                    .replace(/\${/g, '\\${')
+                    .replace(/\n/g, '\\n\\n');  // Paragraph breaks in text use \n\n
+                
+                // For trailing whitespace: collapse to \n\n (paragraph break before second table)
+                // First collapse all newlines to a single \n\n, then escape it
+                let trailing = trailingWhitespace;
+                if (trailing.includes('\n')) {
+                    // Has newlines - collapse to \n\n and escape as \\n\\n
+                    trailing = trailing.replace(/\n+/g, '\n\n').replace(/\n/g, '\\n');
+                } else {
+                    // No newlines, just escape other characters
+                    trailing = trailing.replace(/`/g, '\\`').replace(/\${/g, '\\${');
+                }
+                trailing = trailing.replace(/\r/g, '');
+                
+                return leading + text + trailing;
+            } else {
+                // Regular content (text to table, table to text, or just text): use \n\n
+                return part
+                    .replace(/\n{2,}/g, '\n')   // Collapse 2+ newlines to single \n BEFORE escaping
+                    .replace(/`/g, '\\`')
+                    .replace(/\${/g, '\\${')
+                    .replace(/\n/g, '\\n\\n')   // Convert each \n to \n\n in the escaped string
+                    .replace(/\r/g, '');
+            }
         }).join('');
     };
     
