@@ -54,9 +54,9 @@ function calculateDay(currentDateTime_, timezoneOffset) {
 function calculateMonth(currentDateTime_, timezoneOffset) {
     let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     const year = currentDateTime.getUTCFullYear();
-    const month = currentDateTime.getUTCMonth();
-    const nextMonth = createAdjustedDateTime({year: year, month: month + 2, day: 0});
+    const month = currentDateTime.getUTCMonth()+1;
     const thisMonth = createAdjustedDateTime({year: year, month: month, day: 0});
+    const nextMonth = createAdjustedDateTime({year: year, month: month+1, day: 0});
     const daysInMonth = differenceInDays(nextMonth, thisMonth);
     return (currentDateTime.getUTCDate() - 1 + 
             currentDateTime.getUTCHours() / 24 + 
