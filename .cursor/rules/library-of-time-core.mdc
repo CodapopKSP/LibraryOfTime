@@ -1,0 +1,36 @@
+---
+description: Core AI rules for the Library of Time project
+alwaysApply: true
+---
+
+# Library of Time – Core Rules
+
+- **Tech constraints**
+  - Use only vanilla HTML, JavaScript, and CSS.
+  - Do not introduce build tools, frameworks, or dependencies.
+  - Do not add new external scripts, CDNs, or APIs beyond the existing `masonry.pkgd.min.js` file.
+  - The site must continue to work when `index.html` is opened directly from disk.
+
+- **Deployment model**
+  - Keep the site as a single-page static HTML document.
+  - Ensure any changes remain compatible with the GitHub Actions flow that produces a single minified HTML file for releases.
+
+- **Calendars and correctness**
+  - Treat all timekeeping and calendar calculations as correctness‑critical.
+  - Prefer clarity and accuracy over micro‑optimizations.
+  - Avoid changing function signatures or public behavior in the Calendar API layer (`CalendarAPI/Calendars/*`, `CalendarAPI/Timekeeping/*`, `CalendarAPI/Other/*`, `Tests/*`, and other shared modules) unless explicitly requested.
+
+- **Testing expectations**
+  - When finalizing changes to calendar or time computation logic, ensure that relevant tests in `Tests/*.js` pass.
+  - It is acceptable during early development of a new calendar/time system to introduce tests that intentionally fail while a stub implementation is in place, especially when run via the focused `runCalendarDevTests()` helper.
+  - Full-suite runs should use `runAllTests()` in `Tests/runTests.js`; never leave `runAllTests()` enabled in code that is meant for production use.
+
+- **Style and structure**
+  - Preserve the current project structure (root scripts, `CalendarAPI/Calendars/`, `CalendarAPI/Timekeeping/`, `CalendarAPI/Other/`, `Tests/`, `Docs/`) unless the user explicitly requests a reorganization.
+  - Keep new code consistent with existing vanilla JS/CSS patterns.
+  - Favor small, well‑named helper functions over large, monolithic blocks of logic.
+
+- **Documentation in `Docs/`**
+  - Do not modify existing content within `Docs/` (including `Docs/src` and generated `Docs/book`) unless the user explicitly requests specific changes to those sections.
+  - It is allowed to add new files under `Docs/` and set up basic document structure (including names, epochs, and headings) when adding a new calendar, but not to add the body text of new sections without explicit instruction.
+
