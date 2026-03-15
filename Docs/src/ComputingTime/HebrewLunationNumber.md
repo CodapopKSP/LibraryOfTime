@@ -2,13 +2,13 @@
 
 | Epoch              | Confidence |
 | ------------------ | ---------- |
-| 6 September 3760 BCE | Exact     |
+| 6 September 3760 BCE | Exact |
 
 #### Overview
 
 The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.
 
-This lunation number is used by the Hebrew calendar. It uses the New Moon of 6 October 3761 BCE? for its epoch, in this case denoted as Lunation 1.
+This lunation number is used by the Hebrew calendar. It uses the New Moon of 6 September 3761 BCE for its epoch, in this case denoted as Lunation 1.
 
 #### Info
 

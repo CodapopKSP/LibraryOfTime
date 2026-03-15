@@ -8,7 +8,7 @@
 
 The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.
 
-This lunation number is associated with the Nabonassar Era of Babylon.
+This lunation number is associated with the Nabonassar Era of Babylon, using the new moon of 12 February 746 BCE as Lunation 1.
 
 #### Info
 

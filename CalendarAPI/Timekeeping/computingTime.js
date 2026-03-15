@@ -243,7 +243,7 @@ function getKaliAhargana(currentDateTime) {
 
 // Returns the number of lunations (lunar cycles) since January 6 2000
 // This equation was sourced from Astronomical Algorithms
-function calculateLunationNumber(newMoon) {
+function calculateLunationNumber(newMoon, estimate=false) {
     // Using Jean Meeus's date for lunation epoch
     const firstNewMoon2000 = createAdjustedDateTime({year: 2000, month: 1, day: 6, hour: 18, minute: 14});
     const secondsSince2000 = (newMoon - firstNewMoon2000)/1000;
@@ -252,7 +252,7 @@ function calculateLunationNumber(newMoon) {
     const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
 
     // Calculate the number of lunations since Lunation 0
-    let lunationNumber = Math.floor(daysSince2000 / 29.53058861);
+    let lunationNumber = estimate ? Math.round(daysSince2000 / 29.53058861) : Math.floor(daysSince2000 / 29.53058861);
 
     return lunationNumber;
 }

@@ -163,16 +163,16 @@ function testBabylonianLunisolarCalendar() {
     return runSingleParameterTests("Babylonian Lunisolar Calendar", getBabylonianLunisolarCalendar, [
         // Base: day boundary at 18:00:00 UTC+03:00 (sunset). All times below use UTC+03:00.
         // Anchor dates (sunset = 18:00 local)
-        ["-385-4-15, 18:00:00", "UTC+03:00", "1 𒌚𒁈 -74 SE\n-138 AE"],
-        ["-384-4-4, 18:00:00", "UTC+03:00", "1 𒌚𒁈 -73 SE\n-137 AE"],
-        ["-379-3-11, 18:00:00", "UTC+03:00", "1 𒌚𒋛𒀀𒊺 -69 SE\n-133 AE"],
-        ["-369-3-20, 18:00:00", "UTC+03:00", "1 𒌚𒁈 -58 SE\n-122 AE"],
-        ["-369-9-13, 18:00:00", "UTC+03:00", "1 𒌚𒋛𒀀𒆥 -58 SE\n-122 AE"], // This test seems to be incorrect in the source material, it has been ammended to be 1 day earlier
+        ["-385-4-15, 18:00:00", "UTC+03:00", "1 𒌚𒁈 -74 SE (-138 AE)"],
+        ["-384-4-4, 18:00:00", "UTC+03:00", "1 𒌚𒁈 -73 SE (-137 AE)"],
+        ["-379-3-11, 18:00:00", "UTC+03:00", "1 𒌚𒋛𒀀𒊺 -69 SE (-133 AE)"],
+        ["-369-3-20, 18:00:00", "UTC+03:00", "1 𒌚𒁈 -58 SE (-122 AE)"],
+        ["-369-9-13, 18:00:00", "UTC+03:00", "1 𒌚𒋛𒀀𒆥 -58 SE (-122 AE)"], // This test seems to be incorrect in the source material, it has been ammended to be 1 day earlier
         // One day before first day of year: 17:00 local = before 18:00 sunset → previous year, month 12 or 12 leap (guess 29 or 30)
-        ["-385-4-15, 17:00:00", "UTC+03:00", "29 𒌚𒋛𒀀𒊺 -75 SE\n-139 AE"],
-        ["-384-4-4, 17:00:00", "UTC+03:00", "30 𒌚𒊺 -74 SE\n-138 AE"],
+        ["-385-4-15, 17:00:00", "UTC+03:00", "29 𒌚𒋛𒀀𒊺 -75 SE (-139 AE)"],
+        ["-384-4-4, 17:00:00", "UTC+03:00", "30 𒌚𒊺 -74 SE (-138 AE)"],
         // Day boundary at UTC
-        ["-385-4-15, 15:00:00", "UTC+00:00", "1 𒌚𒁈 -74 SE\n-138 AE"],
+        ["-385-4-15, 15:00:00", "UTC+00:00", "1 𒌚𒁈 -74 SE (-138 AE)"],
     ]);
 }
 

@@ -2,7 +2,7 @@
 
 | Epoch              | Confidence |
 | ------------------ | ---------- |
-| 11 January 1000 BCE | Exact      |
+| 11 January 1000 BCE | Exact |
 
 #### Overview
 

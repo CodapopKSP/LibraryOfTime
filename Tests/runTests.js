@@ -16,4 +16,4 @@ function runAllTests() {
     runOtherCalendarTests();
 }
 
-//runAllTests();
+runAllTests();

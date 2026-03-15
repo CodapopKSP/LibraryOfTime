@@ -37,7 +37,7 @@ function getUmmalQuraDate(currentDateTime) {
 
     // Calculate the number of days since the first day of the Islamic month
     const daysSinceStartOfMonth = Math.floor(differenceInDays(currentDateTime, firstDayOfIslamicMonth));
-    const currentLunationSince2000 = calculateLunationNumber(firstDayOfIslamicMonth);
+    const currentLunationSince2000 = calculateLunationNumber(firstDayOfIslamicMonth, true);
     const hijriMonthYear = calculateIslamicMonthAndYear(currentLunationSince2000);
     
     let hijriMonthIndex = hijriMonthYear.month;

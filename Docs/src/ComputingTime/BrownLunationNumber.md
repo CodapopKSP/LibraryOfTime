@@ -2,7 +2,7 @@
 
 | Epoch              | Confidence |
 | ------------------ | ---------- |
-| 17 January 1923 CE | Exact      |
+| 17 January 1923 CE +15:21:00 | Exact |
 
 #### Overview
 

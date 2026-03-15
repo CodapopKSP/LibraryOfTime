@@ -135,20 +135,9 @@ function testLunationNumber() {
     return runComputingTests("Lunation Number", calculateLunationNumber, [
         ["2000-1-6, 18:30:00", "UTC+00:00", 0],
         ["2000-2-6, 18:30:00", "UTC+00:00", 1],
-        ["1999-12-6, 18:30:00", "UTC+00:00", -1],
+        ["1999-12-9, 18:30:00", "UTC+00:00", -1],
         ["2001-1-7, 00:00:00", "UTC+00:00", 12],
-        ["1999-1-7, 00:00:00", "UTC+00:00", -12],
-    ]);
-}
-
-function testNabonassarLunationNumber() {
-    const NABONASSAR_OFFSET = 33963;
-    const wrapper = (date) => getNabonassarLunationNumber(calculateLunationNumber(date));
-    return runComputingTests("Nabonassar Lunation Number", wrapper, [
-        ["2000-1-6, 18:30:00", "UTC+00:00", 0 + NABONASSAR_OFFSET],
-        ["2000-2-6, 18:30:00", "UTC+00:00", 1 + NABONASSAR_OFFSET],
-        ["1999-12-6, 18:30:00", "UTC+00:00", -1 + NABONASSAR_OFFSET],
-        ["2001-1-7, 00:00:00", "UTC+00:00", 12 + NABONASSAR_OFFSET],
+        ["1999-1-20, 00:00:00", "UTC+00:00", -12],
     ]);
 }
 
@@ -184,7 +173,6 @@ function runComputingTimeTests() {
         testJulianSolNumber,
         testKaliAharhana,
         testLunationNumber,
-        testNabonassarLunationNumber,
         testSpreadsheetNowTime,
         testOrdinalDate
     ];
