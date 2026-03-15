@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 119
+// Total nodes: 121
 
 /*
 Node Data is a collection of data for each node.
@@ -427,6 +427,18 @@ const computingTimeData = [
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Thai Lunation Number can be calculated by adding 16843 to the Lunation Number.`,
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
         source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+    },
+
+    {
+        name: `Nabonassar Lunation Number`,
+        id: `nabonassar-lunation-number`,
+        type: `Computing Time`,
+        epoch: `12 February 746 BCE`,
+        confidence: `Exact`,
+        overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number is associated with the Nabonassar Era of Babylon.`,
+        info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Nabonassar Lunation Number can be calculated by adding 33963 to the Lunation Number.`,
+        accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
+        source: `This lunation number was calibrated using <a href="https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm">this converter</a>.`
     },
 
     {
@@ -939,6 +951,18 @@ const lunisolarCalendarsData = [
         info: `The Hebrew calendar is not strictly based on the moon. The modern Jewish calendar, which is a mathematical equation, was codified by Rabbi Hillel II in the year 358 CE. Days start at sunset, which is approximated as 18:00 in Israel.\n\n<table class="table-long"><tr><th>Months</th><th>Approx. Gregorian Dates</th></tr><tr><td>Tishri</td><td>September - October</td></tr><tr><td>Heshvan</td><td>October - November</td></tr><tr><td>Kislev</td><td>November - December</td></tr><tr><td>Tevet</td><td>December - January</td></tr><tr><td>Shevat</td><td>January - February</td></tr><tr><td>Adar</td><td>February - March</td></tr><tr><td>(Adar II)</td><td>February - March</td></tr><tr><td>Nisan</td><td>March - April</td></tr><tr><td>Iyyar</td><td>April - May</td></tr><tr><td>Sivan</td><td>May - June</td></tr><tr><td>Tammuz</td><td>June - July</td></tr><tr><td>Av</td><td>July - August</td></tr><tr><td>Elul</td><td>August - September</td></tr></table>`,
         accuracy: `Though it is a complex equation, the calculation for this calendar is exactly accurate to modern Jewish calendars. However, prior to the Jewish year 4119 (358 CE), the calendar was decided through observation.`,
         source: `The main calculation of this calendar came from <a href="https://www.jewfaq.org/jewish_calendar_calculation">this website</a>.\n\nDates can be checked for calibration <a href="https://www.chabad.org/calendar/view/month.htm">here</a>.\n\nSome general information was taken from the <a href="https://en.wikipedia.org/wiki/Hebrew_calendar">Wikipedia article</a> for this calendar.`
+    },
+
+    {
+        name: `Babylonian (AST)`,
+        id: `babylonian`,
+        type: `Lunisolar Calendar`,
+        epoch: `29 March 310 BCE +15:00:00`,
+        confidence: `Medium`,
+        overview: `The Babylonian calendar is a lunisolar calendar that was used in ancient Babylon. It consists of 12 months of 29 or 30 days that begin after the first sighting of the new crescent moon at sunset. An intercalary month is added every 2-3 years in accordance with the 19-year Metonic cycle, typically repeating the 12th month but repeating the 6th month for only the 17th year of the Metonic cycle.\n\nDays start at sunset. While there is no week structure, "holy-days" take place at intervals of 7 days after the start of each month to make offerings to specific gods; Marduk and Ishtar on the 7th, Ninlil and Nergal on the 14th, Sin and Shamash on the 21st, and Enki and Mah on the 28th.\n\nDue to the long history of empires and conquests of Babylon, years can be counted from a number of different epochs. Two are displayed here: the Seleucid Era (SE) denoting the time since the founding of the Seleucid Empire, and the Asarcid Era (AE) denoting the time from the start of the Arsacid Empire.`,
+        info: `The Babylonian calendar is derived from the ancient Sumerian calendar and shares many similarities in month names, while the Hebrew calendar is derived from the Babylonian calendar.\n\n<table class="table-very-very-long"><tr><th colspan="4">Months</th></tr><tr><td>Month</td><td>Cuneiform</td><td>Transliteration (Akkadian)</td><td>Approx. Gregorian</td></tr><tr><td>1</td><td>𒌚𒁈</td><td>Arah Nisānu</td><td>Mar/Apr</td></tr><tr><td>2</td><td>𒌚𒄞</td><td>Arah Āru</td><td>Apr/May</td></tr><tr><td>3</td><td>𒌚𒋞</td><td>Arah Simānu</td><td>May/Jun</td></tr><tr><td>4</td><td>𒌚𒋗</td><td>Arah Dumuzu</td><td>Jun/Jul</td></tr><tr><td>5</td><td>𒌚𒉈</td><td>Arah Abu</td><td>Jul/Aug</td></tr><tr><td>6</td><td>𒌚𒆥</td><td>Arah Ulūlu</td><td>Aug/Sep</td></tr><tr><td>Intercalary (year 17 only)</td><td>𒌚𒋛𒀀𒆥</td><td>Arah Makarūša Ulūlu</td><td>Sep</td></tr><tr><td>7</td><td>𒌚𒇯</td><td>Arah Tišrītum</td><td>Sep/Oct</td></tr><tr><td>8</td><td>𒌚𒀳</td><td>Arah Samnu</td><td>Oct/Nov</td></tr><tr><td>9</td><td>𒌚𒃶</td><td>Arah Kislīmu</td><td>Nov/Dec</td></tr><tr><td>10</td><td>𒌚𒀊</td><td>Arah Ṭebētum</td><td>Dec/Jan</td></tr><tr><td>11</td><td>𒌚𒍩</td><td>Arah Šabāṭu</td><td>Jan/Feb</td></tr><tr><td>12</td><td>𒌚𒊺</td><td>Arah Addaru / Adār</td><td>Feb/Mar</td></tr><tr><td>Intercalary</td><td>𒌚𒋛𒀀𒊺</td><td>Arah Makarūša Addari / Arah Addaru Arku</td><td>Mar</td></tr></table>\n<table class="table-very-very-long"><tr><th colspan="2">Holy-days</th></tr><tr><td>Day</td><td>Offering to</td></tr><tr><td>7</td><td>Marduk and Ishtar</td></tr><tr><td>14</td><td>Ninlil and Nergal</td></tr><tr><td>21</td><td>Sin and Shamash</td></tr><tr><td>28</td><td>Enki and Mah</td></tr></table>`,
+        accuracy: `The Babylonian calendar is well-documented, but there is some debate as to how it should be calibrated. Certain dates are well-defined, but since it is largely an observational calendar, then there is no set formula to determine the start of each month. This site uses 6pm in Babylon as the time of sunset, and the start of a month is calculated as being the first sunset that occurs at least 24 hours after a new moon.\n\nThe dates that result from this calculation line up very closely with date tables found from various sources, but not exactly. They also vary amongst each other. It is unclear how these tables were calculated, so it's possible that any or all of these calculations are wrong in some way.\n\nThe Metonic cycle wasn't established in the Babylonian calendar until around 380 BCE. Leap years prior to that date aren't handled with historical accuracy. Similarly, dates after 75 CE are calculated but not historical.\n\nThe intercalary month of 𒌚𒋛𒀀𒆥 was not explicitely named but directly described. The name was chosen to match the pattern found in the other intercalary month, 𒌚𒋛𒀀𒊺.`,
+        source: `Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Babylonian_calendar">Wikipedia article</a>.\n\nThe calendar can be calibrated using <a href="https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm">this converter</a> which is sourced from <a href="https://webspace.science.uu.nl/~gent0113/babylon/downloads/babylonian_chronology_pd_1971.dat">this table of dates</a>.`
     }
 ];
 

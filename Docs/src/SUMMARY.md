@@ -72,6 +72,8 @@
   
   - [Thai Lunation Number](ComputingTime/ThaiLunationNumber.md)
   
+  - [Nabonassar Lunation Number](ComputingTime/NabonassarLunationNumber.md)
+  
   - [Spreadsheet =NOW()](ComputingTime/SpreadsheetNOW.md)
 
 - [Solar Calendars](SolarCalendars/SolarCalendars.md)
@@ -201,6 +203,8 @@
   - [Dangun (KST)](LunisolarCalendars/Dangun.md)
   
   - [Hebrew (IST)](LunisolarCalendars/Hebrew.md)
+  
+  - [Babylonian Lunisolar Calendar](LunisolarCalendars/Babylonian.md)
 
 - [Lunar Calendars](LunarCalendars/LunarCalendars.md)
   

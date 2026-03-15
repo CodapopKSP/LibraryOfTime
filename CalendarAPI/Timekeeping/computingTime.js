@@ -252,7 +252,7 @@ function calculateLunationNumber(newMoon) {
     const daysSince2000 = secondsSince2000 / (60 * 60 * 24);
 
     // Calculate the number of lunations since Lunation 0
-    let lunationNumber = Math.round(daysSince2000 / 29.53058861);
+    let lunationNumber = Math.floor(daysSince2000 / 29.53058861);
 
     return lunationNumber;
 }
@@ -275,6 +275,10 @@ function getIslamicLunationNumber(lunationNumber) {
 
 function getThaiLunationNumber(lunationNumber) {
     return lunationNumber + 16843;
+}
+
+function getNabonassarLunationNumber(lunationNumber) {
+    return lunationNumber + 33963;
 }
 
 function getJulianCircadNumber(currentDateTime) {

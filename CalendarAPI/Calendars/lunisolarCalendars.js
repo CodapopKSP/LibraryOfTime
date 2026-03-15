@@ -257,6 +257,185 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
     }
 }
 
+//|-------------------------------------------|
+//|     Babylonian Lunisolar Calendar         |
+//|-------------------------------------------|
+
+// Babylonian calendar: anchor at sunset 15 April 385 BCE (UTC+3) = year -74 month 1 day 1
+// (start of Metonic cycle). Leap years: cycle years 3, 6, 8, 11, 14, 17, 19 (1-based).
+// Year 17: leap month after month 6 (𒌚𒋛𒀀𒆥); other leap years: after month 12 (𒌚𒋛𒀀𒊺).
+// Day/month start at sunset (UTC+3). Month boundaries from new moon + sunset rule.
+
+const BABYLON_TZ = 'UTC+03:00';
+const BABYLON_ANCHOR_YEAR = -74;
+const MEAN_SYNODIC_DAY = 29.530588853;
+const MEAN_SYNODIC_MS = MEAN_SYNODIC_DAY * 24 * 60 * 60 * 1000;
+const MAX_YEAR_ITERATIONS = 500;
+
+const BABYLON_MONTH_NAMES = [
+    '𒌚𒁈', '𒌚𒄞', '𒌚𒋞', '𒌚𒋗', '𒌚𒉈', '𒌚𒆥',
+    '𒌚𒇯', '𒌚𒀳', '𒌚𒃶', '𒌚𒀊', '𒌚𒍩', '𒌚𒊺'
+];
+const BABYLON_LEAP_MONTH_6 = '𒌚𒋛𒀀𒆥';
+const BABYLON_LEAP_MONTH_12 = '𒌚𒋛𒀀𒊺';
+
+function getBabylonianOffering(day) {
+    if (day === 7) {
+        return 'Marduk and Ishtar';
+    }
+    if (day === 14) {
+        return 'Ninlil and Nergal';
+    }
+    if (day === 21) {
+        return 'Sin and Shamash';
+    }
+    if (day === 28) {
+        return 'Enki and Mah';
+    }
+    return null;
+}
+
+function getBabylonianCycleYear1Based(babylonYear) {
+    const r = ((babylonYear - BABYLON_ANCHOR_YEAR) % 19 + 19) % 19;
+    return r + 1;
+}
+
+function isBabylonianLeapYear(babylonYear) {
+    const cycleYear = getBabylonianCycleYear1Based(babylonYear);
+    return [3, 6, 8, 11, 14, 17, 19].indexOf(cycleYear) >= 0;
+}
+
+function isCycleYear17(babylonYear) {
+    return getBabylonianCycleYear1Based(babylonYear) === 17;
+}
+
+function countLeapYearsFromAnchor(toYear) {
+    let count = 0;
+    for (let y = BABYLON_ANCHOR_YEAR; y < toYear; y++) {
+        if (isBabylonianLeapYear(y)) count++;
+    }
+    return count;
+}
+
+// Leap years in [low, high) (for computing month offset when going backward from anchor).
+function countLeapYearsInRange(low, high) {
+    let count = 0;
+    for (let y = low; y < high; y++) {
+        if (isBabylonianLeapYear(y)) count++;
+    }
+    return count;
+}
+
+// Two-step rule: (1) choose candidate sunset; (2) require new moon ≥ 24 h before that sunset, else next sunset.
+const BABYLON_VISIBILITY_HOURS = 24;
+
+function getMonthStartFromNewMoon(newMoonUtc, timezone) {
+    const offsetMs = convertUTCOffsetToMinutes(timezone) * 60 * 1000;
+    const localDate = new Date(newMoonUtc.getTime() + offsetMs);
+    const y = localDate.getUTCFullYear();
+    const m = localDate.getUTCMonth() + 1;
+    const d = localDate.getUTCDate();
+    let candidateSunset = createAdjustedDateTime({ timezone: timezone, year: y, month: m, day: d, hour: 'SUNSET' });
+    if (newMoonUtc.getTime() > candidateSunset.getTime()) {
+        const nextDay = new Date(candidateSunset.getTime());
+        addDay(nextDay, 1);
+        candidateSunset = createAdjustedDateTime({ currentDateTime: nextDay, timezone: timezone, hour: 'SUNSET' });
+    }
+    const hoursBeforeCandidate = (candidateSunset.getTime() - newMoonUtc.getTime()) / (60 * 60 * 1000);
+    if (hoursBeforeCandidate >= BABYLON_VISIBILITY_HOURS) {
+        return candidateSunset;
+    }
+    const dayAfter = new Date(candidateSunset.getTime());
+    addDay(dayAfter, 1);
+    return createAdjustedDateTime({ currentDateTime: dayAfter, timezone: timezone, hour: 'SUNSET' });
+}
+
+function getBabylonianYearStart(babylonYear, timezone) {
+    const epoch = createAdjustedDateTime({ timezone: BABYLON_TZ, year: -385, month: 4, day: 15, hour: 'SUNSET' });
+    if (babylonYear === BABYLON_ANCHOR_YEAR) {
+        return epoch;
+    }
+    const yearsFromAnchor = babylonYear - BABYLON_ANCHOR_YEAR;
+    let totalMonths;
+    if (babylonYear > BABYLON_ANCHOR_YEAR) {
+        totalMonths = yearsFromAnchor * 12 + countLeapYearsFromAnchor(babylonYear);
+    } else {
+        // Years before anchor: go back (anchor - year) years; subtract leap months in [babylonYear, anchor)
+        totalMonths = yearsFromAnchor * 12 - countLeapYearsInRange(babylonYear, BABYLON_ANCHOR_YEAR);
+    }
+    const approxMs = epoch.getTime() + totalMonths * MEAN_SYNODIC_MS;
+    const approxDate = new Date(approxMs);
+    const newMoon = getMoonPhase(approxDate, 0);
+    return getMonthStartFromNewMoon(newMoon, timezone);
+}
+
+function getBabylonianLunisolarCalendar(currentDateTime, timezone) {
+    const tz = timezone || BABYLON_TZ;
+    const epoch = createAdjustedDateTime({ timezone: BABYLON_TZ, year: -385, month: 4, day: 15, hour: 'SUNSET' });
+    const approxYears = Math.floor((currentDateTime.getTime() - epoch.getTime()) / (MEAN_SYNODIC_MS * 12.5));
+    let babylonYear = BABYLON_ANCHOR_YEAR + approxYears;
+
+    let yearStart;
+    let nextYearStart;
+    let iter = 0;
+    do {
+        yearStart = getBabylonianYearStart(babylonYear, tz);
+        nextYearStart = getBabylonianYearStart(babylonYear + 1, tz);
+        if (currentDateTime.getTime() < yearStart.getTime()) {
+            babylonYear--;
+        } else if (currentDateTime.getTime() >= nextYearStart.getTime()) {
+            babylonYear++;
+        } else {
+            break;
+        }
+        if (++iter >= MAX_YEAR_ITERATIONS) {
+            return "—";
+        }
+    } while (true);
+
+    const isLeap = isBabylonianLeapYear(babylonYear);
+    const leapAfter6 = isCycleYear17(babylonYear);
+    const monthStarts = [];
+    let cursor = new Date(yearStart.getTime());
+    const numMonths = isLeap ? 13 : 12;
+    for (let i = 0; i < numMonths; i++) {
+        monthStarts.push(new Date(cursor.getTime()));
+        const nextNewMoon = getMoonPhase(cursor, 1);
+        cursor = getMonthStartFromNewMoon(nextNewMoon, tz);
+    }
+
+    let monthIndex = -1;
+    let monthStart = null;
+    for (let i = 0; i < monthStarts.length; i++) {
+        if (currentDateTime.getTime() >= monthStarts[i].getTime() && (i + 1 === monthStarts.length || currentDateTime.getTime() < monthStarts[i + 1].getTime())) {
+            monthIndex = i;
+            monthStart = monthStarts[i];
+            break;
+        }
+    }
+    if (monthIndex < 0 || !monthStart) {
+        return "—";
+    }
+    let day = Math.floor(differenceInDays(currentDateTime, monthStart)) + 1;
+    if (day < 1) day = 1;
+
+    let monthName;
+    if (isLeap && leapAfter6 && monthIndex === 6) {
+        monthName = BABYLON_LEAP_MONTH_6;
+    } else if (isLeap && !leapAfter6 && monthIndex === 12) {
+        monthName = BABYLON_LEAP_MONTH_12;
+    } else {
+        const nameIndex = leapAfter6 && monthIndex > 6 ? monthIndex - 1 : monthIndex;
+        monthName = BABYLON_MONTH_NAMES[nameIndex];
+    }
+    const arsacidYear = babylonYear - 64;
+    const baseString = day + " " + monthName + " " + babylonYear + " SE (" + arsacidYear + " AE)";
+    const offering = getBabylonianOffering(day);
+    if (offering) {
+        return baseString + "\nOffering to " + offering;
+    }
+    return baseString;
+}
 
 //|-------------------------|
 //|     Hebrew Calendar     |

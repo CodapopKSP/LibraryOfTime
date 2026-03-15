@@ -14,7 +14,15 @@ Use this skill whenever you:
 
 ## Core date/time conventions
 
-1. **Prefer `createAdjustedDateTime` over raw `Date` construction**
+1. **Year numbering and BCE**
+   - The project uses **Gregorian proleptic dates with a real year 0**.
+   - That means:
+     - `... 2 BCE, 1 BCE, 1 CE ...` becomes `... -2, -1, 1 ...` (year 0 sits between 1 BCE and 1 CE).
+     - In general, **N BCE is written as year `-N`** in all code, tests, and examples.  
+       - Example: “385 BCE” → `-385`, not `-384`.
+   - When a user gives a BCE year in prose (e.g. “sunset on 15 April 385 BCE, UTC+3”), **use that numeric year directly with a leading minus** and do not shift it by ±1.
+
+2. **Prefer `createAdjustedDateTime` over raw `Date` construction**
    - Use `createAdjustedDateTime` for any logic that depends on:
      - Specific years, months, days in historical ranges.
      - Non-UTC local timezones (e.g., Egyptian calendars in Egypt’s local time).
@@ -43,6 +51,26 @@ Use this skill whenever you:
      - Use `getWeekdayAtTime(currentDateTime, afterTime, timezone)` with hour enums (`SUNRISE`, `SUNSET`, etc.) to compute the **effective weekday index only** (0–6).
      - Compute the **day count and calendar date** separately using anchor dates and `differenceInDays`, as in the existing Coptic, Ethiopian, Baháʼí, Solar Hijri, Qadimi, and Hebrew implementations.
    - Do not reimplement custom weekday-boundary logic with raw `Date` arithmetic if `getWeekdayAtTime` already matches the intended behavior.
+
+## Structure: main function and load-time safety
+
+1. **Prefer logic inside the calendar’s main function**
+   - Put the calendar’s behavior in the **main function** (the one called from `nodeUpdate.js`: e.g. `getXxxDate`, `getXxxCalendar`). Call helpers from there; avoid scattering logic at top level.
+   - **Exceptions** (extract to helpers, still called from the main function or its callees):
+     - A calculation is **reused** in several places within the same calendar.
+     - A **long or complex** calculation affects only a small part of the result (e.g. one sub-step); extracting it keeps the main function readable.
+   - When in doubt, keep logic inside the main function.
+
+2. **Avoid load-time dependency on other scripts**
+   - Scripts load in a fixed order in `index.html`. Calendar files (e.g. `lunisolarCalendars.js`) often load **before** `utilities.js`. Do **not** run code at top level that calls `createAdjustedDateTime`, `getMoonPhase`, `getNewMoon`, or any other API from another file — at load time those may be undefined and will throw.
+   - **Safe at top level:** Pure data (month names, leap-year indices, timezone strings) and function definitions. No invocation of helpers from other modules. However, even data should still go in the main function.
+   - **Unsafe at top level:** Epochs or caches built with `createAdjustedDateTime` or astronomical functions. Build those **inside** the main function (or a helper called from it), or use **lazy initialization** (e.g. a getter that creates the epoch on first use, when all scripts have loaded).
+
+3. **Summary**
+   - Main function = single entry point; logic lives there or in helpers it calls.
+   - Top level = data and declarations only; no calls into `utilities.js` or `astronomicalData.js` at load time.
+
+---
 
 ## Implementation patterns
 
@@ -74,6 +102,7 @@ Use this skill whenever you:
 
 Before finalizing a new system, verify:
 
+- [ ] Logic lives in the main function (or helpers called from it); no top-level calls to `createAdjustedDateTime`, `getMoonPhase`, or other modules (avoids load-order errors).
 - [ ] Epoch/anchor is defined as a specific Gregorian date in a named local timezone.
 - [ ] All core date construction uses `createAdjustedDateTime` (or higher-level helpers that rely on it), not raw `Date` constructors.
 - [ ] Timezone offsets are handled via explicit `UTC±HH:MM` strings or numeric minute offsets, not implicit environment time.

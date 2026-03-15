@@ -19,6 +19,7 @@ alwaysApply: true
   - Treat all timekeeping and calendar calculations as correctness‑critical.
   - Prefer clarity and accuracy over micro‑optimizations.
   - Avoid changing function signatures or public behavior in the Calendar API layer (`CalendarAPI/Calendars/*`, `CalendarAPI/Timekeeping/*`, `CalendarAPI/Other/*`, `Tests/*`, and other shared modules) unless explicitly requested.
+  - When a function is clearly marked or used as a **stub** or placeholder (e.g., returns `"TODO: implement …"`), any user request to “implement”, “fill out”, or “replace” that stub counts as **explicit permission** to change its behavior while keeping the public signature stable.
 
 - **Testing expectations**
   - When finalizing changes to calendar or time computation logic, ensure that relevant tests in `Tests/*.js` pass.

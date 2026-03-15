@@ -20,8 +20,9 @@ Follow this end-to-end workflow for each calendar or timekeeping feature:
    - Carefully read any user-provided description and, if relevant, related pages under `Docs/src/`.
    - Identify:
      - Calendar type (solar, lunar, lunisolar, proposed, other, etc.).
-     - Reference epochs or anchor dates, typically expressed as **Gregorian dates in the relevant local timezone** (e.g., an Egyptian calendar epoch anchored to Egypt’s local time).
+     - Reference epochs or **anchor dates** (e.g. "date X = year Y month 1 day 1"), typically in **Gregorian + local timezone**. Use only these and the rules the user actually stated — do **not** add rules they did not give (e.g. do not add "year starts at first new moon after equinox" if the spec only gives anchor dates and a Metonic rule).
      - Cycle lengths (days per month, leap rules, eras, intercalations, etc.).
+   - For lunisolar calendars defined by **explicit anchor dates and a fixed cycle** (e.g. Metonic), use the `anchor-based-lunisolar` skill.
 
 2. **Design the data and API surface**
    - Treat the following as a single **Calendar API layer**:
@@ -41,6 +42,11 @@ Follow this end-to-end workflow for each calendar or timekeeping feature:
    - Make all assumptions explicit in comments near the formulas, especially for:
      - Historical vs. proleptic behavior.
      - Ambiguous or disputed rules.
+   - For **lunar or lunisolar calendars**, do **not** approximate month boundaries purely with a mean synodic month length when correctness matters:
+     - Use the project’s actual astronomical helpers (e.g. `generateAllNewMoons` + `getNewMoon`, or `getMoonPhase`, from `CalendarAPI/Other/astronomicalData.js`) to determine the real new-moon instants.
+     - Apply the calendar’s day-boundary rule (e.g. local **sunset** vs. midnight) to those instants to decide when a new month begins.
+     - It is acceptable to use the mean synodic month **only for indexing long cycles** (e.g. Metonic year/position) once month starts are already tied to real new moons.
+   - For **anchor-based lunisolar** (year boundaries from a fixed epoch + month count): resolve which calendar year a date falls in by **iterating** until the date is in `[yearStart, nextYearStart)` (with a max-iteration guard). Never assume one decrement/increment is enough. Never display a negative day-of-month — fix the year resolution. See `anchor-based-lunisolar` skill.
 
 4. **Place the implementation**
    - Put core logic in the appropriate part of the Calendar API layer:
@@ -58,8 +64,9 @@ Follow this end-to-end workflow for each calendar or timekeeping feature:
 6. **Design and implement tests**
    - Add tests in the appropriate file under `Tests/` (for example, `Tests/otherCalendarsTests.js`, `Tests/lunisolarCalendarTests.js`, etc.).
    - Include:
-     - Known historical dates with cross-checked sources where possible.
+     - Known historical dates with cross-checked sources where possible; use **fixed expected values** from the spec (e.g. anchor dates the user gave).
      - Edge cases: leap days, intercalary months, era boundaries, and long-cycle edges.
+   - **Never** assert that the result equals the function’s own output (e.g. `expected: getCalendar(input)`); that is a tautology and does not validate correctness.
    - Follow the pattern of existing tests and keep `runAllTests()` commented out by default.
 
 7. **Validate and iterate**

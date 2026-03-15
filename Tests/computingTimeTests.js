@@ -141,6 +141,17 @@ function testLunationNumber() {
     ]);
 }
 
+function testNabonassarLunationNumber() {
+    const NABONASSAR_OFFSET = 33963;
+    const wrapper = (date) => getNabonassarLunationNumber(calculateLunationNumber(date));
+    return runComputingTests("Nabonassar Lunation Number", wrapper, [
+        ["2000-1-6, 18:30:00", "UTC+00:00", 0 + NABONASSAR_OFFSET],
+        ["2000-2-6, 18:30:00", "UTC+00:00", 1 + NABONASSAR_OFFSET],
+        ["1999-12-6, 18:30:00", "UTC+00:00", -1 + NABONASSAR_OFFSET],
+        ["2001-1-7, 00:00:00", "UTC+00:00", 12 + NABONASSAR_OFFSET],
+    ]);
+}
+
 function testSpreadsheetNowTime() {
     return runComputingTests("Lunation Number", getSpreadsheetNowTime, [
         ["1899-12-30, 00:00:00", "UTC+00:00", 0],
@@ -173,6 +184,7 @@ function runComputingTimeTests() {
         testJulianSolNumber,
         testKaliAharhana,
         testLunationNumber,
+        testNabonassarLunationNumber,
         testSpreadsheetNowTime,
         testOrdinalDate
     ];

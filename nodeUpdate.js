@@ -138,6 +138,7 @@ function updateLunisolarCalendars(currentDateTime) {
     setTimeValue('sexagenary-year-node', getSexagenaryYear(currentDateTime));
     setTimeValue('dai-lich-node', getChineseLunisolarCalendarDate(currentDateTime, 'VIETNAM'));
     setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, 'KOREA'));
+    setTimeValue('babylonian-node', getBabylonianLunisolarCalendar(currentDateTime));
     setTimeValue('umm-al-qura-node', getUmmalQuraDate(currentDateTime));
     setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
 }
@@ -180,6 +181,7 @@ function updateComputingTimes(currentDateTime, timezoneOffset) {
     setTimeValue('hebrew-lunation-number-node', getHebrewLunationNumber(lunationNumber));
     setTimeValue('islamic-lunation-number-node', getIslamicLunationNumber(lunationNumber));
     setTimeValue('thai-lunation-number-node', getThaiLunationNumber(lunationNumber));
+    setTimeValue('nabonassar-lunation-number-node', getNabonassarLunationNumber(lunationNumber));
 }
 
 function updateProposedCalendars(currentDateTime, timezoneOffset) {
