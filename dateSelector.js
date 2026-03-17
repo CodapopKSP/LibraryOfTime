@@ -51,6 +51,107 @@ if (typeof document !== 'undefined') {
     });
 }
 
+// Adjust the date picker value by a given unit and step, then apply it
+function adjustDatePickerField(unit, step) {
+    const inputEl = typeof document !== 'undefined' ? document.getElementById('date-input') : null;
+
+    // If the user has typed something, treat that as the canonical picker time
+    if (inputEl && inputEl.value) {
+        setDatePickerTime(inputEl.value);
+    }
+
+    // Always operate on the stored picker time so state stays consistent
+    let currentValue = getDatePickerTime();
+    if (!currentValue) {
+        return;
+    }
+
+    // Expect format "yyyy-mm-dd, hh:mm:ss" or "-yyyy-mm-dd, hh:mm:ss" for BCE
+    let [datePart, timePart] = currentValue.split(', ');
+    if (!datePart) {
+        return;
+    }
+
+    const pad = (n) => n.toString().padStart(2, '0');
+
+    // Handle possible leading '-' for BCE years
+    let bce = false;
+    if (datePart.startsWith('-')) {
+        bce = true;
+        datePart = datePart.substring(1);
+    }
+
+    const [rawYearString, monthString, dayString] = datePart.split('-');
+    const yearString = rawYearString || '0';
+    const [hourString = '0', minuteString = '0', secondString = '0'] = (timePart || '').split(':');
+
+    let year = parseInt(yearString, 10);
+    if (bce) {
+        year = -year;
+    }
+    const month = parseInt(monthString || '1', 10);
+    const day = parseInt(dayString || '1', 10);
+    const hour = parseInt(hourString || '0', 10);
+    const minute = parseInt(minuteString || '0', 10);
+    const second = parseInt(secondString || '0', 10);
+
+    if (Number.isNaN(year)) {
+        return;
+    }
+
+    // Work in UTC so we treat the fields as a simple civil date/time
+    const workingDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+
+    switch (unit) {
+        case 'year':
+            workingDate.setUTCFullYear(workingDate.getUTCFullYear() + step);
+            break;
+        case 'month':
+            workingDate.setUTCMonth(workingDate.getUTCMonth() + step);
+            break;
+        case 'day':
+            workingDate.setUTCDate(workingDate.getUTCDate() + step);
+            break;
+        case 'hour':
+            workingDate.setUTCHours(workingDate.getUTCHours() + step);
+            break;
+        case 'minute':
+            workingDate.setUTCMinutes(workingDate.getUTCMinutes() + step);
+            break;
+        case 'second':
+            workingDate.setUTCSeconds(workingDate.getUTCSeconds() + step);
+            break;
+        default:
+            return;
+    }
+
+    const newYear = workingDate.getUTCFullYear();
+    const newMonth = workingDate.getUTCMonth() + 1;
+    const newDay = workingDate.getUTCDate();
+    const newHour = workingDate.getUTCHours();
+    const newMinute = workingDate.getUTCMinutes();
+    const newSecond = workingDate.getUTCSeconds();
+
+    const newValue = `${newYear}-${pad(newMonth)}-${pad(newDay)}, ${pad(newHour)}:${pad(newMinute)}:${pad(newSecond)}`;
+    setDatePickerTime(newValue);
+    changeDateTime(newValue);
+}
+
+// Wire up desktop-only step buttons
+if (typeof document !== 'undefined') {
+    const stepButtons = document.querySelectorAll('.step-button');
+    stepButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const unit = button.getAttribute('data-unit');
+            const step = parseInt(button.getAttribute('data-step') || '0', 10);
+            if (!unit || !step) {
+                return;
+            }
+            adjustDatePickerField(unit, step);
+        });
+    });
+}
+
 // Manages the calendar that the user can choose to frame the calculator
 let _calendarType = 'GREGORIAN';
 function getCalendarType() {

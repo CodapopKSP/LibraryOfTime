@@ -360,10 +360,58 @@ a {
     top: 0;
     width: 33vw;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    height: 6.5vh;
+}
+
+.input-main-row {
+    width: 100%;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 5vh;
+    height: 4vh;
+}
+
+.input-step-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    bottom: -2vh;
+}
+
+.step-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.2vh;
+    font-size: 1.1vh;
+}
+
+.step-label {
+    color: #afafaf;
+    min-width: 2vh;
+    text-align: right;
+}
+
+.step-arrows {
+    display: flex;
+    flex-direction: column;
+}
+
+.step-button {
+    height: 1.2vh;
+    width: 2vh;
+    font-size: 0.7vh;
+    line-height: 1;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border: 0.15vh solid #443c3c;
+    border-radius: 0.3vh;
+    cursor: pointer;
 }
 
 #date-input {
@@ -395,6 +443,7 @@ a {
     justify-content: center;
     overflow: hidden;
     border-radius: 0.5vh;
+    cursor: pointer;
 }
 
 .mac-chrome-only .date-picker-button {
@@ -672,7 +721,8 @@ a {
 .nodeinfo-title {
     font-size: 2.5vh;
     font-weight: bold;
-    padding: 0.5vh;
+    padding-top: 1vh;
+    padding-bottom: 0.5vh;
 }
 
 .nodeinfo-title:after {
@@ -736,7 +786,7 @@ a {
 
 .description-button-wrapper {
     position: absolute;
-    top: 5.3vh;
+    top: 6.8vh;
     min-width: 32.9vw;
     display: flex;
     flex-direction: row;
@@ -1122,6 +1172,19 @@ th, td {
         justify-content: center;
         gap: 1vh;
         z-index: 5;
+    }
+
+    .input-main-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1vh;
+    }
+
+    .input-step-controls {
+        display: none;
     }
     
     #date-input {

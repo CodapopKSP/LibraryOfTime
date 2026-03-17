@@ -81,15 +81,61 @@
         </div>
         <div class="description-wrapper">
             <div class="input-box-wrapper">
-                <select id="calendar-type">
-                    <option value="GREGORIAN">Gregorian (Proleptic)</option>
-                    <option value="JULIAN">Julian (Liturgical)</option>
-                    <option value="ASTRONOMICAL">Astronomical</option>
-                </select>
-                <select id="timezone"></select>
-                <input type="text" id="date-input" placeholder="yyyy-mm-dd, hh:mm:ss">
-                <button class='date-picker-button' id='change-date-button'><b><span class="date-picker-icon">↩</span></b></button>
-                <button class='date-picker-button' id='reset-date-button'><b><span class="date-picker-icon">⟲</span></b></button>
+                <div class="input-main-row">
+                    <select id="calendar-type">
+                        <option value="GREGORIAN">Gregorian (Proleptic)</option>
+                        <option value="JULIAN">Julian (Liturgical)</option>
+                        <option value="ASTRONOMICAL">Astronomical</option>
+                    </select>
+                    <select id="timezone"></select>
+                    <input type="text" id="date-input" placeholder="yyyy-mm-dd, hh:mm:ss">
+                    <button class='date-picker-button' id='change-date-button'><b><span class="date-picker-icon">↩</span></b></button>
+                    <button class='date-picker-button' id='reset-date-button'><b><span class="date-picker-icon">⟲</span></b></button>
+                </div>
+                <div class="input-step-controls">
+                    <div class="step-group">
+                        <span class="step-label">Y</span>
+                        <div class="step-arrows">
+                            <button class="step-button" data-unit="year" data-step="1">▲</button>
+                            <button class="step-button" data-unit="year" data-step="-1">▼</button>
+                        </div>
+                    </div>
+                    <div class="step-group">
+                        <span class="step-label">M</span>
+                        <div class="step-arrows">
+                            <button class="step-button" data-unit="month" data-step="1">▲</button>
+                            <button class="step-button" data-unit="month" data-step="-1">▼</button>
+                        </div>
+                    </div>
+                    <div class="step-group">
+                        <span class="step-label">D</span>
+                        <div class="step-arrows">
+                            <button class="step-button" data-unit="day" data-step="1">▲</button>
+                            <button class="step-button" data-unit="day" data-step="-1">▼</button>
+                        </div>
+                    </div>
+                    <div class="step-group">
+                        <span class="step-label">H</span>
+                        <div class="step-arrows">
+                            <button class="step-button" data-unit="hour" data-step="1">▲</button>
+                            <button class="step-button" data-unit="hour" data-step="-1">▼</button>
+                        </div>
+                    </div>
+                    <div class="step-group">
+                        <span class="step-label">M</span>
+                        <div class="step-arrows">
+                            <button class="step-button" data-unit="minute" data-step="1">▲</button>
+                            <button class="step-button" data-unit="minute" data-step="-1">▼</button>
+                        </div>
+                    </div>
+                    <div class="step-group">
+                        <span class="step-label">S</span>
+                        <div class="step-arrows">
+                            <button class="step-button" data-unit="second" data-step="1">▲</button>
+                            <button class="step-button" data-unit="second" data-step="-1">▼</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="description-button-wrapper">
                 <button class="header-button" id='header-button-1'><b>About</b></button>
