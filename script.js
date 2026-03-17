@@ -108,6 +108,8 @@ document.addEventListener('DOMContentLoaded', function () {
         columnWidth: '.container',
         percentPosition: true,
     });
+    // Expose Masonry instance globally so other scripts can trigger relayouts
+    window.msnry = msnry;
 
     // Get user's local timezone offset
     const localTimezone = getLocalTimezoneOffset();
@@ -174,6 +176,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Safe helper to trigger a Masonry relayout when node sizes or visibility change.
+function relayoutMasonry() {
+    if (window.msnry && typeof window.msnry.layout === 'function') {
+        window.msnry.layout();
+    }
+}
 
 function formatDateTimeForURL(dateTimeString) {
     if (!dateTimeString) return null; // Return null if no string is provided

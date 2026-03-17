@@ -162,7 +162,10 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
         window.history.replaceState(null, '', currentUrl);
         setDatePickerTime(newDateString);
         updateAllNodes(newDateString, timezoneChoice, true);
-    
+        if (typeof relayoutMasonry === 'function') {
+            relayoutMasonry();
+        }
+
     // Date was cleared, restart without argument
     } else {
         currentUrl.search = ""; // Removes all query parameters
@@ -170,6 +173,9 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
         // Update the browser's URL without reloading the page
         window.history.replaceState(null, "", currentUrl);
         updateAllNodes(0, getLocalTimezoneOffset(), true);
+        if (typeof relayoutMasonry === 'function') {
+            relayoutMasonry();
+        }
         // Start repeating update
         setTimeout(() => {
             setCurrentUpdateInterval(setInterval(updateAllNodes, updateMilliseconds));
