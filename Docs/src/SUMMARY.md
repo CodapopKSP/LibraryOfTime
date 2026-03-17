@@ -205,6 +205,8 @@
   - [Hebrew (IST)](LunisolarCalendars/Hebrew.md)
   
   - [Babylonian Lunisolar Calendar](LunisolarCalendars/Babylonian.md)
+  
+  - [Epirote](LunisolarCalendars/Epirote.md)
 
 - [Lunar Calendars](LunarCalendars/LunarCalendars.md)
   

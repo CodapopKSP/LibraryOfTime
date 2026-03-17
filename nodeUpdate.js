@@ -141,6 +141,7 @@ function updateLunisolarCalendars(currentDateTime) {
     setTimeValue('babylonian-node', getBabylonianLunisolarCalendar(currentDateTime));
     setTimeValue('umm-al-qura-node', getUmmalQuraDate(currentDateTime));
     setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
+    setTimeValue('epirote-node', getEpiroteCalendar(currentDateTime));
 }
 
 function updateOtherCalendars(currentDateTime) {

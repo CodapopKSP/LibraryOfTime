@@ -602,3 +602,263 @@ function calculateMoladTishri(currentYear) {
     
     return [dayOfMoladTishri, yearsSince5732 + 5732, weekdayOfMolad];
 }
+
+//|-------------------------|
+//|     Epirote Calendar    |
+//|-------------------------|
+
+// Anchor: 20 August -204 at sunset in Greece (UTC+02:00)
+// This is year 1, month 1, day 1, and the start of the Metonic cycle.
+
+const EPIROTE_TZ = 'UTC+02:00';
+
+// Metonic leap years within each 19-year cycle (1-based)
+const EPIROTE_LEAP_YEARS = [1, 3, 6, 9, 11, 14, 17];
+
+// Month names (non-leap year)
+const EPIROTE_MONTHS_NON_LEAP = [
+    'ΦΟΙΝΙΚΑΙΟΣ',
+    'ΚΡΑΝΕΙΟΣ',
+    'ΛΑΝΟΤΡΟΠΙΟΣ',
+    'ΜΑΧΑΝΕΥΣ',
+    'ΔΩΔΕΚΑΤΕΥΣ',
+    'ΕΥΚΛΕΙΟΣ',
+    'ΑΡΤΕΜΙΣΙΟΣ',
+    'ΨΥΔΡΕΥΣ',
+    'ΓΑΜΕΙΛΙΟΣ',
+    'ΑΓΡΙΑΝΙΟΣ',
+    'ΠΑΝΑΜΟΣ',
+    'ΑΠΕΛΛΑΙΟΣ'
+];
+
+// Month names (leap year, with an extra ΜΑΧΑΝΕΥΣ month)
+const EPIROTE_MONTHS_LEAP = [
+    'ΦΟΙΝΙΚΑΙΟΣ',
+    'ΚΡΑΝΕΙΟΣ',
+    'ΛΑΝΟΤΡΟΠΙΟΣ',
+    'ΜΑΧΑΝΕΥΣ',
+    'ΜΑΧΑΝΕΥΣ (Leap Month)',
+    'ΔΩΔΕΚΑΤΕΥΣ',
+    'ΕΥΚΛΕΙΟΣ',
+    'ΑΡΤΕΜΙΣΙΟΣ',
+    'ΨΥΔΡΕΥΣ',
+    'ΓΑΜΕΙΛΙΟΣ',
+    'ΑΓΡΙΑΝΙΟΣ',
+    'ΠΑΝΑΜΟΣ',
+    'ΑΠΕΛΛΑΙΟΣ'
+];
+
+// Full / hollow month pattern over 47 months, repeating 5 times per Metonic cycle (47 * 5 = 235 months)
+// "true"  = full (30 days)
+// "false" = hollow (29 days) with a skipped *label* inside the month according to EPIROTE_MONTH_PATTERN_SKIP.
+const EPIROTE_MONTH_PATTERN_FULL = [
+    //  1: Skip 1,  2: Full
+    false, true,
+    //  3: Skip 5,  4: Full
+    false, true,
+    //  5: Skip 9,  6: Full
+    false, true,
+    //  7: Skip 13, 8: Full
+    false, true,
+    //  9: Skip 17, 10: Full
+    false, true,
+    // 11: Skip 21, 12: Full
+    false, true,
+    // 13: Skip 26, 14: Full
+    false, true,
+    // 15: Skip 30, 16: Full, 17: Full
+    false, true, true,
+    // 18: Skip 4,  19: Full
+    false, true,
+    // 20: Skip 8,  21: Full
+    false, true,
+    // 22: Skip 12, 23: Full
+    false, true,
+    // 24: Skip 16, 25: Full
+    false, true,
+    // 26: Skip 20, 27: Full
+    false, true,
+    // 28: Skip 24, 29: Full
+    false, true,
+    // 30: Skip 28, 31: Full, 32: Full
+    false, true, true,
+    // 33: Skip 2,  34: Full
+    false, true,
+    // 35: Skip 6,  36: Full
+    false, true,
+    // 37: Skip 11, 38: Full
+    false, true,
+    // 39: Skip 15, 40: Full
+    false, true,
+    // 41: Skip 19, 42: Full
+    false, true,
+    // 43: Skip 23, 44: Full
+    false, true,
+    // 45: Skip 27, 46: Full, 47: Full
+    false, true, true
+];
+
+// For each hollow month in the pattern, record the skipped *day label* (1–30).
+// For full months, the skip label is 0.
+const EPIROTE_MONTH_PATTERN_SKIP = [
+    //  1: Skip 1,  2: Full
+    1, 0,
+    //  3: Skip 5,  4: Full
+    5, 0,
+    //  5: Skip 9,  6: Full
+    9, 0,
+    //  7: Skip 13, 8: Full
+    13, 0,
+    //  9: Skip 17, 10: Full
+    17, 0,
+    // 11: Skip 21, 12: Full
+    21, 0,
+    // 13: Skip 26, 14: Full
+    26, 0,
+    // 15: Skip 30, 16: Full, 17: Full
+    30, 0, 0,
+    // 18: Skip 4,  19: Full
+    4, 0,
+    // 20: Skip 8,  21: Full
+    8, 0,
+    // 22: Skip 12, 23: Full
+    12, 0,
+    // 24: Skip 16, 25: Full
+    16, 0,
+    // 26: Skip 20, 27: Full
+    20, 0,
+    // 28: Skip 24, 29: Full
+    24, 0,
+    // 30: Skip 28, 31: Full, 32: Full
+    28, 0, 0,
+    // 33: Skip 2,  34: Full
+    2, 0,
+    // 35: Skip 6,  36: Full
+    6, 0,
+    // 37: Skip 11, 38: Full
+    11, 0,
+    // 39: Skip 15, 40: Full
+    15, 0,
+    // 41: Skip 19, 42: Full
+    19, 0,
+    // 43: Skip 23, 44: Full
+    23, 0,
+    // 45: Skip 27, 46: Full, 47: Full
+    27, 0, 0
+];
+
+const EPIROTE_PATTERN_LENGTH = EPIROTE_MONTH_PATTERN_FULL.length; // 47
+
+// Precompute month lengths (29 or 30 days) and the total days in one 47‑month pattern and one 19‑year cycle.
+const EPIROTE_MONTH_PATTERN_LENGTHS = [];
+let EPIROTE_DAYS_PER_PATTERN = 0;
+for (let i = 0; i < EPIROTE_PATTERN_LENGTH; i++) {
+    const days = EPIROTE_MONTH_PATTERN_FULL[i] ? 30 : 29;
+    EPIROTE_MONTH_PATTERN_LENGTHS.push(days);
+    EPIROTE_DAYS_PER_PATTERN += days;
+}
+
+const EPIROTE_MONTHS_PER_CYCLE = 235; // 19-year Metonic: 12*19 + 7 leap months
+const EPIROTE_DAYS_PER_CYCLE = EPIROTE_DAYS_PER_PATTERN * 5; // 47 * 5 = 235 months
+
+function getEpiroteAnchorDate() {
+    return createAdjustedDateTime({
+        timezone: 'UTC+02:00',
+        year: -204,
+        month: 8,
+        day: 20,
+        hour: 'SUNSET'
+    });
+}
+
+function isEpiroteLeapYearInCycle(yearInCycle) {
+    return EPIROTE_LEAP_YEARS.indexOf(yearInCycle) !== -1;
+}
+
+function getEpiroteYearMonthFromMonthIndex(monthIndexInCycle) {
+    // monthIndexInCycle: 0..234 within the 19‑year Metonic cycle
+    let remainingMonths = monthIndexInCycle;
+    let yearInCycle = 1;
+
+    while (yearInCycle <= 19) {
+        const monthsThisYear = isEpiroteLeapYearInCycle(yearInCycle) ? 13 : 12;
+        if (remainingMonths < monthsThisYear) {
+            break;
+        }
+        remainingMonths -= monthsThisYear;
+        yearInCycle++;
+    }
+
+    const monthIndexInYear = remainingMonths; // 0‑based within that year
+    return { yearInCycle, monthIndexInYear };
+}
+
+function getEpiroteMonthName(yearInCycle, monthIndexInYear) {
+    const isLeapYear = isEpiroteLeapYearInCycle(yearInCycle);
+    const months = isLeapYear ? EPIROTE_MONTHS_LEAP : EPIROTE_MONTHS_NON_LEAP;
+    return months[monthIndexInYear] || '';
+}
+
+// Returns a formatted Epirote calendar date string:
+// "<day> <month name> <years since anchor>"
+function getEpiroteCalendar(currentDateTime) {
+    const anchor = getEpiroteAnchorDate();
+
+    // Determine the start of the current Epirote civil day (days start at local sunset in EPIROTE_TZ)
+    let startOfEpiroteDay = createAdjustedDateTime({
+        currentDateTime: currentDateTime,
+        timezone: EPIROTE_TZ,
+        hour: 'SUNSET'
+    });
+    if (currentDateTime < startOfEpiroteDay) {
+        addDay(startOfEpiroteDay, -1);
+    }
+
+    // Day index since anchor, with the anchor sunset as day 1 start.
+    // This value may be negative for dates before the anchor; the cycle logic
+    // below extends the calendar backwards as well as forwards.
+    const dayIndex = Math.floor(differenceInDays(startOfEpiroteDay, anchor));
+
+    // Locate position within the Metonic cycle.
+    const cyclesCompleted = Math.floor(dayIndex / EPIROTE_DAYS_PER_CYCLE);
+    let dayInCycle = dayIndex - cyclesCompleted * EPIROTE_DAYS_PER_CYCLE;
+
+    // Find the month within the 235‑month Metonic cycle and the day within that month.
+    let monthIndexInCycle = 0;        // 0..234
+    let dayOfMonthIndex = 0;          // 0‑based index within that month (physical day count)
+    let patternIndexForMonth = 0;     // index into the 47‑month pattern
+
+    for (let m = 0; m < EPIROTE_MONTHS_PER_CYCLE; m++) {
+        const patternIndex = m % EPIROTE_PATTERN_LENGTH;
+        const monthLength = EPIROTE_MONTH_PATTERN_LENGTHS[patternIndex];
+
+        if (dayInCycle < monthLength) {
+            monthIndexInCycle = m;
+            dayOfMonthIndex = dayInCycle;
+            patternIndexForMonth = patternIndex;
+            break;
+        }
+
+        dayInCycle -= monthLength;
+    }
+
+    // Map month index in cycle to year‑in‑cycle and month‑in‑year.
+    const { yearInCycle, monthIndexInYear } = getEpiroteYearMonthFromMonthIndex(monthIndexInCycle);
+
+    // Years since the anchor year (year 1 at the epoch).
+    const epiroteYear = cyclesCompleted * 19 + yearInCycle;
+
+    // Day-of-month label counting from 1 with an internal skipped label for hollow months.
+    const isFullMonth = EPIROTE_MONTH_PATTERN_FULL[patternIndexForMonth];
+    let dayOfMonth = dayOfMonthIndex + 1;
+    if (!isFullMonth) {
+        const skipLabel = EPIROTE_MONTH_PATTERN_SKIP[patternIndexForMonth];
+        if (skipLabel > 0 && dayOfMonth >= skipLabel) {
+            dayOfMonth += 1;
+        }
+    }
+
+    const monthName = getEpiroteMonthName(yearInCycle, monthIndexInYear);
+
+    return dayOfMonth + ' ' + monthName + ' (' + epiroteYear + ')';
+}

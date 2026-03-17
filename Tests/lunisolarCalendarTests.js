@@ -176,6 +176,33 @@ function testBabylonianLunisolarCalendar() {
     ]);
 }
 
+function testEpiroteCalendar() {
+    return runSingleParameterTests("Epirote Calendar", getEpiroteCalendar, [
+        // Anchor date: 20 August -204 at sunset in Greece (UTC+02:00)
+        // First month is "Skip 1", so the first civil day is labelled 2.
+        ["-204-8-20, 18:00:00", "UTC+02:00", "2 ΦΟΙΝΙΚΑΙΟΣ (1)"],
+        // One day later
+        ["-204-8-21, 18:00:00", "UTC+02:00", "3 ΦΟΙΝΙΚΑΙΟΣ (1)"],
+        // Day before epoch (one civil day earlier)
+        ["-204-8-19, 18:00:00", "UTC+02:00", "30 ΑΠΕΛΛΑΙΟΣ (0)"],
+        // Start of next Metonic cycle: 20th year, first month again, "Skip 1" → label 2
+        ["-185-8-22, 18:00:00", "UTC+02:00", "2 ΦΟΙΝΙΚΑΙΟΣ (20)"],
+        // Day before start of next cycle: last day of year 19
+        ["-185-8-21, 18:00:00", "UTC+02:00", "30 ΑΠΕΛΛΑΙΟΣ (19)"],
+
+        // First leap month in year 1
+        ["-204-12-16, 18:00:00", "UTC+02:00", "1 ΜΑΧΑΝΕΥΣ (Leap Month) (1)"],
+        // Day before a skipped label inside that month (Skip 9 → label 8)
+        ["-204-12-23, 18:00:00", "UTC+02:00", "8 ΜΑΧΑΝΕΥΣ (Leap Month) (1)"],
+        // Day after the skipped label (label 10)
+        ["-204-12-24, 18:00:00", "UTC+02:00", "10 ΜΑΧΑΝΕΥΣ (Leap Month) (1)"],
+        // Same instant as the epoch but expressed as UTC+00:00
+        ["-204-8-20, 16:00:00", "UTC+00:00", "2 ΦΟΙΝΙΚΑΙΟΣ (1)"],
+        // Time before local sunset on anchor date should still belong to the previous Epirote day
+        ["-204-8-20, 17:00:00", "UTC+02:00", "30 ΑΠΕΛΛΑΙΟΣ (0)"],
+    ]);
+}
+
 // Run all tests.
 function runLunisolarCalendarTests() {
     const currentDateTime = createAdjustedDateTime({year: 2025, month: 4, day: 8, hour: 18, minute: 20, second: 46});
@@ -191,7 +218,8 @@ function runLunisolarCalendarTests() {
         testGetSexagenaryYear,
         testCalculateHebrewCalendar,
         testCalculateMoladTishri,
-        testBabylonianLunisolarCalendar
+        testBabylonianLunisolarCalendar,
+        testEpiroteCalendar
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);
