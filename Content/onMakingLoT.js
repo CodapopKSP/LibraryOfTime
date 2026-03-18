@@ -7,7 +7,7 @@ const modalContent = {
         </p>`,
 
         `<p>
-        But much like how the Rosetta Stone allowed linguists to decode ancient Egyptian hieroglyphs by having the same passage written in Ancient Greek, Demotic, and Egyptian hieroglyphs (of which we had already known the Greek and some of the Demotic), these earlier websites have allowed me to calibrate unknown calendars to known ones. 
+        But much like how the Rosetta Stone allowed linguists to decode ancient Egyptian hieroglyphs by having the same passage also written in Ancient Greek and Demotic, these earlier websites have allowed me to calibrate unknown calendars to known ones. 
         </p>`,
 
         `<p>

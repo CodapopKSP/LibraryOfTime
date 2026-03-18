@@ -16,7 +16,7 @@ There is no known epoch for the Epirote calendar, but this site uses the calibra
 
 #### Info
 
-When the Antikythera mechanism was discovered in the early 1900s, it shocked historians as proof that the Ancient Greeks had the technology to create precision bronze gears. While large portions of the mechanism were damaged or missing, enough remained that enabled 20th century researchers, with careful deduction and investigation, to rebuild and sufficiently calibrate its calendar.
+When the Antikythera mechanism was discovered in the early 1900s, it shocked historians as proof that the Ancient Greeks had the technology to create precision bronze gears. While large portions of the mechanism were damaged or missing, enough remained that enabled 21st century researchers, with careful deduction and investigation, to rebuild and sufficiently calibrate its calendar.
 
 | Months            |              |
 | ----------------- | ------------ |

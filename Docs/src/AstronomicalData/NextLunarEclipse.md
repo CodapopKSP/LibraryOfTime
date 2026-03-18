@@ -20,9 +20,9 @@ Lunar eclipses happen two to four times per year. Penumbral eclipses typically a
 
 #### Accuracy
 
-This calculation is reasonably accurate within thousands of years of 2000 CE. After that, errors are induced which can grow from hours to even days.
+This calculation is reasonably accurate (to within seconds or minutes) for thousands of years before and after the year 2000 CE. Outside of that, errors are induced which can grow from hours to even days.
 
-This calculation relies on the Full Moon calculation as well as Terrestrial Time, each of which have potential to induce errors, either due to my own misunderstanding of the source or because of the uncertainty of the cosmos.
+This calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.
 
 #### Source
 

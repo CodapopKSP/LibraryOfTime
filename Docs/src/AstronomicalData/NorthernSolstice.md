@@ -14,7 +14,7 @@ The Northern Solstice usually occurs around June 20th. Over time, roughly in a c
 
 #### Accuracy
 
-The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality, but they aren't perfect.
+The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.
 
 #### Source
 

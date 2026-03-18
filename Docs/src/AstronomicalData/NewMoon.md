@@ -20,7 +20,7 @@ New Moons are on average 29.53059 days apart, but that number can vary by severa
 
 #### Accuracy
 
-This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates far away from the current year are likely to be significantly off.
+This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.
 
 #### Source
 
