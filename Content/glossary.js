@@ -42,7 +42,7 @@ const glossaryContent = {
         },
         {
             term: "Metonic Cycle",
-            definition: "A cycle of 19 years that repeats the same pattern of leap months and non-leap months in a lunisolar calendar."
+            definition: "A cycle of 19 years that repeats the same pattern of leap months and non-leap months in a lunisolar calendar. Leap years are typically years 3, 6, 8, 11, 14, 17, 19 in the cycle."
         },
         {
             term: "Year 0 Problem",
