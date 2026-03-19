@@ -265,6 +265,8 @@
   - [Tamrielic Calendar](PopCulture/Tamrielic.md)
   
   - [Imperial Dating System](PopCulture/ImperialDatingSystem.md)
+  
+  - [Shire](PopCulture/Shire.md)
 
 - [Political Cycles](PoliticalCycles/PoliticalCycles.md)
   

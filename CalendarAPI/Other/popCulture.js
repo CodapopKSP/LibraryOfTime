@@ -182,3 +182,225 @@ function getImperialDatingSystem(currentDateTime, timezoneOffset) {
 
     return '0 ' + yearFraction + ' ' + yearHundreds + '.M' + millennium;
 }
+
+function getShireDate(currentDateTime, timezoneOffset) {
+    // Shire calendar (constructed)
+    // Epoch: Shire year 1419, day 1 = Gregorian 1941-12-25 at midnight UTC+0.
+
+    const firstMonths = ['Afteryule', 'Solmath', 'Rethe', 'Astron', 'Thrimidge', 'Forelithe'];
+    const secondMonths = ['Afterlithe', 'Wedmath', 'Halimath', 'Winterfilth', 'Blotmath', 'Foreyule'];
+    const shireWeekdays = ['Sterday', 'Sunday', 'Monday', 'Trewsday', 'Hevensday', 'Mersday', 'Highday'];
+
+    function isShireLeapYear(shireYear) {
+        // Leap years every 4 years; no Gregorian-style 400-year century correction.
+        // Works for negative years too.
+        return (((shireYear % 4) + 4) % 4) === 0;
+    }
+
+    function yearLength(shireYear) {
+        return isShireLeapYear(shireYear) ? 366 : 365;
+    }
+
+    function labelForDay(shireYear, dayIndex) {
+        // dayIndex: 0..yearLength-1 where 0 is "2 Yule".
+        const leap = isShireLeapYear(shireYear);
+
+        if (dayIndex === 0) return '2 Yule';
+
+        let idx = dayIndex - 1; // 0-based after "2 Yule"
+
+        // First 6 months (180 days total), each 30 days.
+        if (idx < 180) {
+            const monthIndex = Math.floor(idx / 30);
+            const dayInMonth = (idx % 30) + 1;
+            return `${dayInMonth} ${firstMonths[monthIndex]}`;
+        }
+        idx -= 180;
+
+        // Intercalary block
+        // Non-leap: 1 Lithe, Mid-year's Day, 2 Lithe
+        // Leap: 1 Lithe, Mid-year's Day, Overlithe, 2 Lithe
+        const interLen = leap ? 4 : 3;
+        if (idx < interLen) {
+            if (!leap) {
+                if (idx === 0) return '1 Lithe';
+                if (idx === 1) return "Mid-year's Day";
+                return '2 Lithe';
+            }
+            if (idx === 0) return '1 Lithe';
+            if (idx === 1) return "Mid-year's Day";
+            if (idx === 2) return 'Overlithe';
+            return '2 Lithe';
+        }
+        idx -= interLen;
+
+        // Second 6 months (180 days total), each 30 days.
+        if (idx < 180) {
+            const monthIndex = Math.floor(idx / 30);
+            const dayInMonth = (idx % 30) + 1;
+            return `${dayInMonth} ${secondMonths[monthIndex]}`;
+        }
+
+        // Final day of the year.
+        return '1 Yule';
+    }
+
+    function weekdayForDay(shireYear, dayIndex) {
+        // Weekday cycle participates on all regular days.
+        // Mid-year's Day and (in leap years) Overlithe are skipped and do not advance the cycle.
+        const leap = isShireLeapYear(shireYear);
+        const midYearsDayIndex = 182; // dayIndex within year
+
+        const isMidYearDay = dayIndex === midYearsDayIndex;
+        const isOverlitheDay = leap && dayIndex === 183;
+        if (isMidYearDay || isOverlitheDay) return null;
+
+        let skippedBefore = 0;
+        if (dayIndex > midYearsDayIndex) skippedBefore += 1;
+        if (leap && dayIndex > 183) skippedBefore += 1;
+
+        // Anchor rule: year start (dayIndex 0) is always Sterday (weekdayIndex 0).
+        const regularDaysElapsed = dayIndex - skippedBefore;
+        const weekdayIndex = ((regularDaysElapsed % 7) + 7) % 7;
+        return shireWeekdays[weekdayIndex];
+    }
+
+    const midnight = createAdjustedDateTime({ currentDateTime: currentDateTime, hour: 'MIDNIGHT' });
+
+    const shireEpochYear = 1419;
+    const shireEpochUTC = createAdjustedDateTime({year: 1941, month: 12, day: 25}); // 1941-12-25T00:00:00Z
+
+    const dayOffset = Math.round((midnight.getTime() - shireEpochUTC.getTime()) / 86400000);
+
+    let shireYear = shireEpochYear;
+    let dayIndex = dayOffset;
+
+    if (dayIndex >= 0) {
+        while (dayIndex >= yearLength(shireYear)) {
+            dayIndex -= yearLength(shireYear);
+            shireYear += 1;
+        }
+    } else {
+        while (dayIndex < 0) {
+            shireYear -= 1;
+            dayIndex += yearLength(shireYear);
+        }
+    }
+
+    const dayLabel = labelForDay(shireYear, dayIndex);
+    const base = `${dayLabel} S.R. ${shireYear}`;
+    const weekday = weekdayForDay(shireYear, dayIndex);
+    return weekday ? `${base}\n${weekday}` : base;
+}
+
+function getBreeDate(currentDateTime, timezoneOffset) {
+    // Bree calendar (constructed)
+    // Same structure as Shire, but month/day naming is different.
+    // Epoch: Bree year 1419, day 1 = Gregorian 1941-12-25 at midnight UTC+0.
+
+    const firstMonths = ['Frey', 'Solmath', 'Rethe', 'Chithing', 'Thrimidge', 'Lithe'];
+    const secondMonths = ['Mede', 'Wedmath', 'Harvestmath', 'Wintring', 'Blooting', 'Yulemath'];
+    const shireWeekdays = ['Sterday', 'Sunday', 'Monday', 'Trewsday', 'Hevensday', 'Mersday', 'Highday'];
+
+    function isBreeLeapYear(breeYear) {
+        // Leap years every 4 years; no Gregorian-style 400-year century correction.
+        // Works for negative years too.
+        return (((breeYear % 4) + 4) % 4) === 0;
+    }
+
+    function yearLength(breeYear) {
+        return isBreeLeapYear(breeYear) ? 366 : 365;
+    }
+
+    function labelForDay(breeYear, dayIndex) {
+        // dayIndex: 0..yearLength-1 where 0 is "2 Yule".
+        const leap = isBreeLeapYear(breeYear);
+
+        if (dayIndex === 0) return '2 Yule';
+
+        let idx = dayIndex - 1; // 0-based after "2 Yule"
+
+        // First 6 months (180 days total), each 30 days.
+        if (idx < 180) {
+            const monthIndex = Math.floor(idx / 30);
+            const dayInMonth = (idx % 30) + 1;
+            return `${dayInMonth} ${firstMonths[monthIndex]}`;
+        }
+        idx -= 180;
+
+        // Intercalary block
+        // Non-leap: 1 Summer, The Summerdays, 2 Summer
+        // Leap: 1 Summer, The Summerdays, Oversummer, 2 Summer
+        const interLen = leap ? 4 : 3;
+        if (idx < interLen) {
+            if (!leap) {
+                if (idx === 0) return 'First Summerday';
+                if (idx === 1) return "Second Summerday";
+                return 'Third Summerday';
+            }
+            if (idx === 0) return 'First Summerday';
+            if (idx === 1) return "Second Summerday";
+            if (idx === 2) return 'Third Summerday';
+            return 'Fourth Summerday';
+        }
+        idx -= interLen;
+
+        // Second 6 months (180 days total), each 30 days.
+        if (idx < 180) {
+            const monthIndex = Math.floor(idx / 30);
+            const dayInMonth = (idx % 30) + 1;
+            return `${dayInMonth} ${secondMonths[monthIndex]}`;
+        }
+
+        // Final day of the year.
+        return '1 Yule';
+    }
+
+    function weekdayForDay(breeYear, dayIndex) {
+        // Weekday cycle participates on all regular days.
+        // The skipped days (Mid-year's Day and, in leap years, Overlithe) are renamed
+        // here, but they are still omitted from the weekday cycle progression.
+        const leap = isBreeLeapYear(breeYear);
+        const midYearsDayIndex = 182; // dayIndex within year
+
+        const isMidYearDay = dayIndex === midYearsDayIndex;
+        const isOverlitheDay = leap && dayIndex === 183;
+        if (isMidYearDay || isOverlitheDay) return null;
+
+        let skippedBefore = 0;
+        if (dayIndex > midYearsDayIndex) skippedBefore += 1;
+        if (leap && dayIndex > 183) skippedBefore += 1;
+
+        // Anchor rule: year start (dayIndex 0) is always Sterday (weekdayIndex 0).
+        const regularDaysElapsed = dayIndex - skippedBefore;
+        const weekdayIndex = ((regularDaysElapsed % 7) + 7) % 7;
+        return shireWeekdays[weekdayIndex];
+    }
+
+    const midnight = createAdjustedDateTime({ currentDateTime: currentDateTime, hour: 'MIDNIGHT' });
+
+    const breeEpochYear = 1419+301;
+    const breeEpochUTC = createAdjustedDateTime({ year: 1941, month: 12, day: 25 }); // 1941-12-25T00:00:00Z
+
+    const dayOffset = Math.round((midnight.getTime() - breeEpochUTC.getTime()) / 86400000);
+
+    let breeYear = breeEpochYear;
+    let dayIndex = dayOffset;
+
+    if (dayIndex >= 0) {
+        while (dayIndex >= yearLength(breeYear)) {
+            dayIndex -= yearLength(breeYear);
+            breeYear += 1;
+        }
+    } else {
+        while (dayIndex < 0) {
+            breeYear -= 1;
+            dayIndex += yearLength(breeYear);
+        }
+    }
+
+    const dayLabel = labelForDay(breeYear, dayIndex);
+    const base = `${dayLabel} B.R. ${breeYear}`;
+    const weekday = weekdayForDay(breeYear, dayIndex);
+    return weekday ? `${base}\n${weekday}` : base;
+}

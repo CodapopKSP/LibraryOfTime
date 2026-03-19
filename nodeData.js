@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 122
+// Total nodes: 124
 
 /*
 Node Data is a collection of data for each node.
@@ -1491,6 +1491,30 @@ const popCultureData = [
         info: `Since this website is located on Terra (Earth), the first digit will always be 0.\n\nThis calendar considers the beginning of a millennium to be on year 1 (e.g. 2001 rather than 2000), so the final year of any millennium is written as 000.`,
         accuracy: `This calculation is exactly accurate, as it is based on the Gregorian calendar and its year calculations. There is a bit of uncertainty regarding the handling of years before the Gregorian epoch, but that is outside the range of this calendar anyway.`,
         source: `This calculation was sourced from <a href="https://warhammer40k.fandom.com/wiki/Imperial_Dating_System#Original_System">the Warhammer 40k Fandom Wiki</a>.`
+    },
+
+    {
+        name: `Shire (UTC)`,
+        id: `shire`,
+        type: `Pop Culture`,
+        epoch: `25 December 1941`,
+        confidence: `High`,
+        overview: `The Shire calendar is a fictional calendar used in the Lord of the Rings franchise. It is one of the calendars of the Hobbits, with the other calendar being the very similar Bree calendar. It is a solar calendar with 12 months of 30 days plus 5 or 6 named days.\n\nYears begin in the winter with the special day of 2 Yule, taking place immediately after 1 Yule, which is the last day of the previous year. In the middle of the year between the months of Forelithe and Afterlithe are the special days of 1 Lithe, Mid-year's Day, and 2 Lithe. On leap years, the day of Overlithe is added after Mid-year's Day.\n\nLeap years happen every 4 years but not on centennial years. Years are denoted with S.R. referring to Shire Reckoning, the count of years from the migration of Hobbits to the Shire from Bree in December 523 BCE.`,
+        info: `The Shire and Bree calendars took inspiration from many European calendars, including the Julian and Gregorian calendars for leap year rules as well as German calendars for month names and year structure. The leap year rules make its drift from the equinoxes a bit less than the Julian calendar but a bit more than the Gregorian.\n\n<table>\n\n  <thead>\n\n    <tr><th colspan="3">Months</th></tr>\n\n    <tr><th>Name</th><th>Days</th><th>Approx. Gregiorian</th></tr>\n\n  </thead>\n\n  <tbody>\n\n    <tr><td>2 Yule</td><td>1</td><td>Dec</td></tr>\n\n    <tr><td>Afteryule</td><td>30</td><td>Dec - Jan</td></tr>\n\n    <tr><td>Solmath</td><td>30</td><td>Jan - Feb</td></tr>\n\n    <tr><td>Rethe</td><td>30</td><td>Feb - Mar</td></tr>\n\n    <tr><td>Astron</td><td>30</td><td>Mar - Apr</td></tr>\n\n    <tr><td>Thrimidge</td><td>30</td><td>Apr - May</td></tr>\n\n    <tr><td>Forelithe</td><td>30</td><td>May - Jun</td></tr>\n\n    <tr><td>1 Lithe</td><td>1</td><td>Jun</td></tr>\n\n    <tr><td>Mid-year's Day</td><td>1</td><td>Jun</td></tr>\n\n    <tr><td>Overlithe (leap)</td><td>1</td><td>Jun</td></tr>\n\n    <tr><td>2 Lithe</td><td>1</td><td>Jun</td></tr>\n\n    <tr><td>Afterlithe</td><td>30</td><td>Jun - Jul</td></tr>\n\n    <tr><td>Wedmath</td><td>30</td><td>Jul - Aug</td></tr>\n\n    <tr><td>Halimath</td><td>30</td><td>Aug - Sep</td></tr>\n\n    <tr><td>Winterfilth</td><td>30</td><td>Sep - Oct</td></tr>\n\n    <tr><td>Blotmath</td><td>30</td><td>Oct - Nov</td></tr>\n\n    <tr><td>Foreyule</td><td>30</td><td>Nov - Dec</td></tr>\n\n    <tr><td>1 Yule</td><td>1</td><td>Dec</td></tr>\n\n  </tbody>\n\n</table>\n\n<table class="table-very-very-long"><tr><th>Weekdays</th></tr><tr><td>Sterday</td></tr><tr><td>Sunday</td></tr><tr><td>Monday</td></tr><tr><td>Trewsday</td></tr><tr><td>Hevensday</td></tr><tr><td>Mersday</td></tr><tr><td>Highday</td></tr></table>`,
+        accuracy: `Many would be surprised to learn that Tolkein intended for the Lord of the Rings and its companion novels to be historical texts, taking place in the same universe as the real world and translated by Tolkein from their original language into English.\n\nHowever, despite making several highly-detailed calendar systems for the races and nations in his stories, Tolkein was not specific as to when any of the dates were supposed to occur. In various appendices, letters, and interviews, he gave figures for the War of the Ring, corresponding to S.R. 1419, happening anywhere from around 4000 BCE to 6000 BCE.\n\nWithout an anchor date, calculating this calendar is impossible, and every attempt to do so must make some sort of trade-off. There are fan sites that place Mid-year's Day on the day of the summer solstice each year, but that requires breaking the leap year rules of the calendar. Other sites place 2 Yule of S.R. 1419 at 1 January 4000 BC in either the Gregorian or Julian calendar. But since the leap year rules match neither the Gregorian nor Julian calendars, then this date is entirely arbitrary.\n\nWhile Tolkein's use of dates of events in the books is surprisingly consistent, calendar algorithms are not the only way to keep track of time; Tolkein also kept meticulous track of lunar phases and made several references to them. These references were enough for <a href="https://shire-reckoning.com/moon.html">Brandon Rhodes to uncover</a> the fact that Tolkein used a 1942 CE lunar almanac to align his phases, specifically placing 2 Yule S.R. 1419 on 25 December 1941 CE.\n\nUsing the moon calculations on this site, I was unable to find a pattern of moons that closely matched those of 1942 CE within 2000 years +/- 4000 BCE, meaning Tolkein's estimate of when his story took place could not possibly be consistent with what he wrote in his story.\n\nThus, my conclusion is that 2 Yule S.R. 1 took place on 15 December 523 CE. Calculating the remainder of the calendar is simply a matter of following the algorithm clearly established in Tolkein's writings.`,
+        source: `As stated in the Accuracy tab, much of the work that went into calibrating this calendar was thanks to <a href="https://shire-reckoning.com/moon.html">Brandon Rhodes</a>.\n\nMonth and day names as well as general structure can be found <a href="https://tolkiengateway.net/wiki/Shire_Calendar">here</a>.`
+    },
+
+    {
+        name: `Bree (UTC)`,
+        id: `bree`,
+        type: `Pop Culture`,
+        epoch: `To be determined.`,
+        confidence: `To be determined.`,
+        overview: `To be determined: the Shire calendar/date-formatting system is currently stubbed out.`,
+        info: `To be determined.`,
+        accuracy: `To be determined.`,
+        source: `To be determined.`
     }
 ];
 
