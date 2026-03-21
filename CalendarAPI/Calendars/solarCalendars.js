@@ -706,10 +706,11 @@ function getDiscordianDate(currentDateTime, timezoneOffset) {
         remainingDays--;
     }
 
-    // Calculate basic calendar elements
+    // Calculate basic calendar elements (1-based day-in-year: 1–365)
     const daysPerMonth = 73;
-    let month = Math.floor(remainingDays / daysPerMonth);
-    let day = Math.floor(remainingDays % daysPerMonth);
+    const dayIndex = remainingDays - 1;
+    let month = Math.floor(dayIndex / daysPerMonth);
+    let day = (dayIndex % daysPerMonth) + 1;
     let year = localTime.getUTCFullYear() + 1166;
     const dayOfWeek = remainingDays % 5;
 

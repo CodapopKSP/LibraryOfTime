@@ -214,6 +214,8 @@ function testDiscordianCalendar() {
         ["2025-12-8, 00:00:00", "UTC+00:00", "50 The Aftermath 3191 YOLD\nPungenday"],
         ["2025-12-8, 23:00:00", "UTC+14:00", "50 The Aftermath 3191 YOLD\nPungenday"],
         ["2024-2-29, 23:00:00", "UTC+14:00", "St. Tib's Day 3190 YOLD\nSetting Orange"],
+        ["2024-12-31, 00:00:00", "UTC+00:00", "73 The Aftermath 3190 YOLD\nSweetmorn"],
+        ["2025-12-31, 00:00:00", "UTC+00:00", "73 The Aftermath 3191 YOLD\nSweetmorn"],
     ]);
 }
 
