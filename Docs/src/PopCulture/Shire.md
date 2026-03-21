@@ -2,11 +2,11 @@
 
 | Epoch             | Confidence |
 | ----------------- | ---------- |
-| 25 December 1941  | High       |
+| 15 December 523 CE  | High       |
 
 #### Overview
 
-The Shire calendar is a fictional calendar used in the Lord of the Rings franchise. It is one of the calendars of the Hobbits, with the other calendar being the very similar Bree calendar. It is a solar calendar with 12 months of 30 days plus 5 or 6 named days.
+The Shire calendar is a fictional calendar used in the Lord of the Rings franchise. It is one of the calendars of the Hobbits. It is a solar calendar with 12 months of 30 days plus 5 or 6 named days.
 
 Years begin in the winter with the special day of 2 Yule, taking place immediately after 1 Yule, which is the last day of the previous year. In the middle of the year between the months of Forelithe and Afterlithe are the special days of 1 Lithe, Mid-year's Day, and 2 Lithe. On leap years, the day of Overlithe is added after Mid-year's Day.
 
@@ -14,7 +14,7 @@ Leap years happen every 4 years but not on centennial years. Years are denoted w
 
 #### Info
 
-The Shire and Bree calendars took inspiration from many European calendars, including the Julian and Gregorian calendars for leap year rules as well as German calendars for month names and year structure. The leap year rules make its drift from the equinoxes a bit less than the Julian calendar but a bit more than the Gregorian.
+The Shire calendar took inspiration from many European calendars, including the Julian and Gregorian calendars for leap year rules as well as German calendars for month names and year structure. The leap year rules make its drift from the equinoxes a bit less than the Julian calendar but a bit more than the Gregorian.
 
 <table>
   <thead>
