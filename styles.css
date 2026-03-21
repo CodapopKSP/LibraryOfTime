@@ -1215,6 +1215,12 @@ th, td {
     flex-direction: column;
 }
 
+.calendar-view-day-today {
+    outline: 0.2vh solid rgba(255, 200, 100, 0.9);
+    outline-offset: -0.2vh;
+    z-index: 1;
+}
+
 .calendar-view-day-num {
     font-size: 0.7vh;
     opacity: 0.8;

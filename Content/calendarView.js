@@ -141,6 +141,7 @@ function buildNodeValueGetters(tzOffset) {
     };
 }
 
+/** Returns { display, monthKey } when a calendar is selected, or null. */
 function getNodeValueForDay(nodeId, year, month, day, getters) {
     if (!nodeId || typeof parseInputDate !== 'function') return null;
     var dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00';
@@ -155,7 +156,16 @@ function getNodeValueForDay(nodeId, year, month, day, getters) {
     if (!getter) return null;
     try {
         var raw = getter(dt);
-        return typeof out === 'function' ? out(raw) : (raw != null ? String(raw) : '');
+        if (raw == null) return null;
+        var display = typeof out === 'function' ? out(raw) : String(raw);
+        var monthKey;
+        if (raw && typeof raw === 'object' && raw.month != null) {
+            var m = raw.month, y = raw.year;
+            monthKey = (y != null && y !== '') ? String(y) + '-' + String(m) : String(m);
+        } else {
+            monthKey = extractMonthKeyFromValue(display);
+        }
+        return { display: display, monthKey: monthKey };
     } catch (e) {
         return null;
     }
@@ -273,57 +283,40 @@ function escapeHtml(text) {
         .replace(/\n/g, '&#10;');
 }
 
-/** Extract a month identifier from a calendar value string for grouping/shading. Returns '' if not parseable. */
-function extractMonthKeyFromValue(value) {
-    if (!value || typeof value !== 'string') return '';
-    var line = value.split('\n')[0];
-    var m;
-    // "22 ΦΟΙΝΙΚΑΙΟΣ (1)" or "1 ΜΑΧΑΝΕΥΣ (Leap Month) (1)" - day month (year)
-    m = line.match(/^\d+\s+(.+)\s+\(\d+\)\s*$/);
-    if (m) return m[1].trim();
-    // "1 Vendémiaire CCXXXIII RE" - French Republican
-    m = line.match(/^\d{1,2}\s+([A-Za-zÀ-ÿ]+)\s+[IVXLCDM]+\s*RE/i);
-    if (m) return m[1].trim();
-    // "22 Ramaḍān 1446 AH" or "22 al-Muḥarram 1446 BH" - Islamic
-    m = line.match(/^\d{1,2}\s+(.+?)\s+\d+\s*(?:AH|BH)/);
-    if (m) return m[1].trim();
-    // "4723年 二月 22日" or "4723年 2月 22日" - Chinese (year年 month月 day日)
-    m = line.match(/年\s+(.+?)月/);
-    if (m) return m[1].trim();
-    // "4358년 이월 22일" - Korean (year년 month월 day일)
-    m = line.match(/년\s+(.+?)월/);
-    if (m) return m[1].trim();
-    // "2025 Tháng Hai 22" - Vietnamese (year month day)
-    m = line.match(/^\d{4}\s+(.+?)\s+\d{1,2}\s*$/);
-    if (m) return m[1].trim();
-    // "15 Koiak 1741 AM" - Coptic, "15 Mäskäräm 2017" - Ethiopian (day Month year)
-    m = line.match(/^\d+\s+([A-Za-zÀ-ÿ\u0370-\u03FF\u02BE\u02BF\u1E0C\u1E0D\u1E24\u1E25\u1E2A\u1E2B\u1E62\u1E63]+)\s+\d+\s*(?:AM|[\u12A0-\u12FF])?/);
-    if (m) return m[1].trim();
-    // "21 August 2025" or "21 August 2025 CE" - Gregorian-style (day Month year)
-    m = line.match(/^\d{1,2}\s+([A-Za-zÀ-ÿ\u0370-\u03FF]+)\s+\d+/);
-    if (m) return m[1].trim();
-    // "Day 15 of MonthName" - Togys
-    m = line.match(/Day\s+\d+\s+of\s+(.+?)(?:\n|$)/);
-    if (m) return m[1].trim();
-    return '';
-}
-
-/** Light background tints for calendar month shading (on dark base). */
+/** Light background tints for calendar month shading (on dark base). Six distinct hues so no color repeats within any six-month span. */
 var CALENDAR_MONTH_SHADES = [
-    'rgba(120,160,200,0.18)',
-    'rgba(160,120,200,0.18)',
-    'rgba(120,200,160,0.18)',
-    'rgba(200,160,120,0.18)',
-    'rgba(200,120,160,0.18)',
-    'rgba(160,200,120,0.18)'
+    'rgba(100,140,220,0.2)',
+    'rgba(160,100,200,0.2)',
+    'rgba(80,180,160,0.2)',
+    'rgba(220,160,80,0.2)',
+    'rgba(200,100,140,0.2)',
+    'rgba(140,200,100,0.2)'
 ];
 
+function hashMonthKey(s) {
+    var h = 0;
+    for (var i = 0; i < s.length; i++) h = ((h << 5) - h) + s.charCodeAt(i) | 0;
+    return Math.abs(h);
+}
+
+/** Fixed cycle for numeric months; hash for composite (year-month) or named months. */
 function getShadeForMonthKey(monthKey, monthKeyToIndex) {
-    if (!monthKey || !monthKeyToIndex) return '';
-    if (!(monthKey in monthKeyToIndex)) {
-        monthKeyToIndex[monthKey] = Object.keys(monthKeyToIndex).length;
+    if (!monthKey) return '';
+    var idx;
+    if (monthKey.indexOf('-') >= 0) {
+        idx = hashMonthKey(monthKey) % CALENDAR_MONTH_SHADES.length;
+    } else {
+        var n = parseInt(monthKey, 10);
+        if (!isNaN(n) && n >= 0 && n <= 31) {
+            idx = n % CALENDAR_MONTH_SHADES.length;
+        } else {
+            if (!monthKeyToIndex) return '';
+            if (!(monthKey in monthKeyToIndex)) {
+                monthKeyToIndex[monthKey] = Object.keys(monthKeyToIndex).length;
+            }
+            idx = monthKeyToIndex[monthKey] % CALENDAR_MONTH_SHADES.length;
+        }
     }
-    var idx = monthKeyToIndex[monthKey] % CALENDAR_MONTH_SHADES.length;
     return CALENDAR_MONTH_SHADES[idx];
 }
 
@@ -336,6 +329,27 @@ function buildCalendarHTML(year, month, selectedNodeData) {
     var systemLabel = null;
     var getters = null;
     var monthKeyToIndex = {};
+    var selectedYear, selectedMonth, selectedDay;
+    var dateStr = typeof getDatePickerTime === 'function' ? getDatePickerTime() : '';
+    if (dateStr) {
+        var datePart = dateStr.split(', ')[0];
+        var parts = datePart ? datePart.replace(/^-/, '').split('-') : [];
+        selectedYear = parseInt(parts[0] || '0', 10);
+        selectedMonth = parseInt(parts[1] || '1', 10);
+        selectedDay = parseInt(parts[2] || '1', 10);
+        if (datePart && datePart.startsWith('-')) selectedYear = -selectedYear;
+    } else {
+        var now = new Date();
+        selectedYear = now.getFullYear();
+        selectedMonth = now.getMonth() + 1;
+        selectedDay = now.getDate();
+    }
+    if (Number.isNaN(selectedYear) || Number.isNaN(selectedMonth) || selectedMonth < 1 || selectedMonth > 12 || Number.isNaN(selectedDay) || selectedDay < 1) {
+        var now = new Date();
+        selectedYear = now.getFullYear();
+        selectedMonth = now.getMonth() + 1;
+        selectedDay = now.getDate();
+    }
     if (selectedNodeData && selectedNodeData.id) {
         nodeId = selectedNodeData.id;
         systemLabel = selectedNodeData.name || selectedNodeData.id;
@@ -364,8 +378,9 @@ function buildCalendarHTML(year, month, selectedNodeData) {
                 var eventLabels = dayEvents.map(function (k) {
                     return ASTRONOMICAL_ICONS[k] ? ASTRONOMICAL_ICONS[k].title : k;
                 });
-                var systemValue = (nodeId && getters) ? getNodeValueForDay(nodeId, year, month, day, getters) : null;
-                var tooltip = formatDateTooltip(year, month, day, eventLabels, systemLabel, systemValue);
+                var nodeResult = (nodeId && getters) ? getNodeValueForDay(nodeId, year, month, day, getters) : null;
+                var displayValue = nodeResult ? nodeResult.display : null;
+                var tooltip = formatDateTooltip(year, month, day, eventLabels, systemLabel, displayValue);
                 var iconHtml = '';
                 dayEvents.forEach(function (k) {
                     if (ASTRONOMICAL_ICONS[k]) {
@@ -374,9 +389,11 @@ function buildCalendarHTML(year, month, selectedNodeData) {
                 });
                 var cellContent = '';
                 var shadeStyle = '';
-                if (systemValue !== null && systemValue !== '') {
-                    cellContent = '<span class="calendar-view-day-num">' + day + '</span><span class="calendar-view-system-value">' + escapeHtml(String(systemValue)) + '</span>';
-                    var monthKey = extractMonthKeyFromValue(systemValue);
+                var isSelectedDay = (year === selectedYear && month === selectedMonth && day === selectedDay);
+                var todayClass = isSelectedDay ? ' calendar-view-day-today' : '';
+                if (displayValue !== null && displayValue !== '') {
+                    cellContent = '<span class="calendar-view-day-num">' + day + '</span><span class="calendar-view-system-value">' + escapeHtml(String(displayValue)) + '</span>';
+                    var monthKey = nodeResult ? nodeResult.monthKey : '';
                     if (monthKey) {
                         var shade = getShadeForMonthKey(monthKey, monthKeyToIndex);
                         if (shade) shadeStyle = ' style="background-color:' + shade + '"';
@@ -384,7 +401,7 @@ function buildCalendarHTML(year, month, selectedNodeData) {
                 } else {
                     cellContent = String(day);
                 }
-                html += '<div class="calendar-view-cell calendar-view-day" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' + cellContent + (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') + '</div>';
+                html += '<div class="calendar-view-cell calendar-view-day' + todayClass + '" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' + cellContent + (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') + '</div>';
                 day++;
             } else {
                 html += '<div class="calendar-view-cell calendar-view-empty"></div>';
