@@ -664,9 +664,35 @@ a {
     background-color: #4f4f4f;
 }
 
+#calendar-view-button {
+    padding: 0.8vh 1.5vh;
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
+    border: none;
+    border-radius: 0.3vh;
+    cursor: pointer;
+    font-size: 1.2vh;
+    border: 0.1vh solid #444;
+    height: auto;
+    min-height: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 1000;
+    transition: background-color 0.2s ease;
+}
+
+#calendar-view-button:hover {
+    background-color: #4f4f4f;
+}
+
 .mac-chrome-only #floating-panel-toggle-button,
 .mac-chrome-only #glossary-button,
-.mac-chrome-only #on-making-LoT-button {
+.mac-chrome-only #on-making-LoT-button,
+.mac-chrome-only #calendar-view-button {
     font-size: 1.8vh;
 }
 
@@ -1096,6 +1122,160 @@ th, td {
 
 .modal-close-button:hover {
     background-color: rgb(55, 55, 55);
+}
+
+/* Calendar View modal */
+.calendar-view-modal-content {
+    width: 50vh;
+    max-width: 90vw;
+    padding: 1vh;
+    margin: 4vh auto 1.5vh auto;
+    overflow: visible;
+}
+
+.calendar-view-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1vh;
+}
+
+.calendar-view-nav h2 {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+#calendar-view-prev {
+    flex-shrink: 0;
+}
+
+#calendar-view-next {
+    flex-shrink: 0;
+}
+
+#calendar-view-prev,
+#calendar-view-next {
+    padding: 0.5vh 1.5vh;
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
+    border: 0.1vh solid #444;
+    border-radius: 0.3vh;
+    cursor: pointer;
+    font-size: 2vh;
+    line-height: 1;
+    transition: background-color 0.2s ease;
+}
+
+#calendar-view-prev:hover,
+#calendar-view-next:hover {
+    background-color: #4f4f4f;
+}
+
+.calendar-view-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.calendar-view-header-row,
+.calendar-view-week-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+}
+
+.calendar-view-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1vh;
+    color: rgb(214, 214, 214);
+    background-color: rgb(45, 45, 45);
+    border: 0.1vh solid #444;
+    border-radius: 0;
+}
+
+.calendar-view-day-name {
+    aspect-ratio: auto;
+    min-height: auto;
+    height: 2.5vh;
+    font-size: 1.2vh;
+    font-weight: bold;
+    background-color: rgb(40, 40, 40);
+}
+
+.calendar-view-day {
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 0.85vh;
+    padding: 0.25vh;
+    flex-direction: column;
+}
+
+.calendar-view-day-num {
+    font-size: 0.7vh;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+.calendar-view-system-value {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    word-break: break-word;
+    font-size: 0.75vh;
+}
+
+.calendar-view-empty {
+    color: rgb(80, 80, 80);
+    background-color: rgb(35, 35, 35);
+}
+
+.calendar-astronomy-icons {
+    position: absolute;
+    bottom: 0.2vh;
+    right: 0.2vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1vh;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.calendar-astronomy-icon {
+    font-size: 1vh;
+    line-height: 1;
+    opacity: 0.9;
+}
+
+.calendar-custom-tooltip {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0.6vh 1vh;
+    background: rgb(35, 35, 35);
+    color: rgb(214, 214, 214);
+    font-size: 1.3vh;
+    white-space: pre-line;
+    border: 0.1vh solid #444;
+    border-radius: 0.3vh;
+    pointer-events: none;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: none;
+}
+
+.calendar-custom-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 

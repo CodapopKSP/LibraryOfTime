@@ -76,6 +76,7 @@
                 <button id="glossary-button">Glossary</button>
             </div>
             <div class="right-buttons">
+                <button id="calendar-view-button">Calendar View</button>
                 <button id="floating-panel-toggle-button">Show/Hide Panel</button>
             </div>
         </div>
@@ -197,6 +198,20 @@
             </div>
         </div>
 
+        <!-- Modal for Calendar View -->
+        <div id="calendar-view-modal" class="modal">
+            <div class="modal-content calendar-view-modal-content">
+                <div class="calendar-view-nav">
+                    <button id="calendar-view-prev" type="button" aria-label="Previous month">‹</button>
+                    <h2 id="calendar-view-title">Month Year</h2>
+                    <button id="calendar-view-next" type="button" aria-label="Next month">›</button>
+                </div>
+                <div id="calendar-view-grid" class="calendar-view-grid"></div>
+                <div id="calendar-tooltip" class="calendar-custom-tooltip" role="tooltip"></div>
+                <button id="calendar-view-close-button" class="modal-close-button" type="button">Close</button>
+            </div>
+        </div>
+
         <!-- Modal for Glossary -->
         <div id="glossary-modal" class="modal">
             <div class="modal-content">
@@ -225,6 +240,7 @@
     <script src="CalendarAPI/Calendars/solilunarCalendars.js"></script>
     <script src="CalendarAPI/Calendars/proposedCalendars.js"></script>
     <script src="CalendarAPI/Calendars/otherCalendars.js"></script>
+    <script src="Content/calendarView.js"></script>
     <script src="nodeData.js"></script>
     <script src="utilities.js"></script>
     <script src="descriptionPanel.js"></script>

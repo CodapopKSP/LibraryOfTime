@@ -1,0 +1,528 @@
+/*
+    |=====================|
+    |   Calendar View     |
+    |=====================|
+    Opens a basic Gregorian calendar of the current month.
+    When a timekeeping node is selected, each day cell shows that system's
+    date/output at midnight (in the selected timezone) for that Gregorian day.
+*/
+
+const MONTH_NAMES = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+/**
+ * Map of node id (e.g. 'chinese', 'unix') to a getter(dt, tzOffset) returning a string.
+ * tzOffset = minutes from UTC (from convertUTCOffsetToMinutes).
+ * Used to display the selected system's output for each day at midnight.
+ */
+function buildNodeValueGetters(tzOffset) {
+    var offset = (typeof tzOffset === 'number') ? tzOffset : (typeof getDatePickerTimezone === 'function' && typeof convertUTCOffsetToMinutes === 'function' ? convertUTCOffsetToMinutes(getDatePickerTimezone()) : 0);
+    var lunationNum = function (dt) {
+        return typeof calculateLunationNumber === 'function' ? calculateLunationNumber(dt) : 0;
+    };
+    return {
+        'gregorian': function (dt) { return typeof getGregorianDateTime === 'function' ? getGregorianDateTime(dt, offset).date : ''; },
+        'julian': function (dt) { return typeof getJulianCalendar === 'function' ? getJulianCalendar(dt) : ''; },
+        'astronomical': function (dt) { return typeof getAstronomicalDate === 'function' ? getAstronomicalDate(dt) : ''; },
+        'byzantine': function (dt) { return typeof getByzantineCalendar === 'function' ? getByzantineCalendar(dt) : ''; },
+        'florentine': function (dt) { return typeof getFlorentineCalendar === 'function' ? getFlorentineCalendar(dt) : ''; },
+        'pisan': function (dt) { return typeof getPisanCalendar === 'function' ? getPisanCalendar(dt) : ''; },
+        'venetian': function (dt) { return typeof getVenetianCalendar === 'function' ? getVenetianCalendar(dt) : ''; },
+        'french-republican': function (dt) { return typeof getRepublicanCalendar === 'function' ? getRepublicanCalendar(dt) : ''; },
+        'era-fascista': function (dt) { return typeof getEraFascista === 'function' ? getEraFascista(dt) : ''; },
+        'minguo': function (dt) { return typeof getMinguo === 'function' ? getMinguo(dt) : ''; },
+        'thai': function (dt) { return typeof getThaiSolar === 'function' ? getThaiSolar(dt) : ''; },
+        'juche': function (dt) { return typeof getJuche === 'function' ? getJuche(dt) : ''; },
+        'coptic': function (dt) { return typeof getCopticDate === 'function' ? getCopticDate(dt) : ''; },
+        'geez': function (dt) { return typeof getEthiopianDate === 'function' ? getEthiopianDate(dt) : ''; },
+        'bahai': function (dt) { var seq = typeof getSolsticeEquinox === 'function' ? getSolsticeEquinox(dt, 'SPRING') : null; return typeof getBahaiCalendar === 'function' && seq ? getBahaiCalendar(dt, seq) : ''; },
+        'pataphysical': function (dt) { return typeof getPataphysicalDate === 'function' ? getPataphysicalDate(dt, offset) : ''; },
+        'discordian': function (dt) { return typeof getDiscordianDate === 'function' ? getDiscordianDate(dt, offset) : ''; },
+        'solar-hijri': function (dt) { var seq = typeof getSolsticeEquinox === 'function' ? getSolsticeEquinox(dt, 'SPRING') : null; return typeof getSolarHijriDate === 'function' && seq ? getSolarHijriDate(dt, seq) : ''; },
+        'qadimi': function (dt) { return typeof getQadimiDate === 'function' ? getQadimiDate(dt) : ''; },
+        'egyptian-civil': function (dt) { return typeof getEgyptianDate === 'function' ? getEgyptianDate(dt) : ''; },
+        'iso-week-date': function (dt) { return typeof getISOWeekDate === 'function' ? getISOWeekDate(dt, offset) : ''; },
+        'haab': function (dt) { return typeof getHaabDate === 'function' ? getHaabDate(dt) : ''; },
+        'anno-lucis': function (dt) { return typeof getAnnoLucisDate === 'function' ? getAnnoLucisDate(dt, offset) : ''; },
+        'tabot': function (dt) { return typeof getTabotDate === 'function' ? getTabotDate(dt) : ''; },
+        'icelandic': function (dt) { return typeof getIcelandicDate === 'function' ? getIcelandicDate(dt) : ''; },
+        'saka-samvat': function (dt) { return typeof getSakaSamvatDate === 'function' ? getSakaSamvatDate(dt) : ''; },
+        'sca': function (dt) { return typeof getSocietyForCreativeAnachronismDate === 'function' ? getSocietyForCreativeAnachronismDate(dt, offset) : ''; },
+        'chinese': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'CHINA') : ''; },
+        'sexagenary-year': function (dt) { return typeof getSexagenaryYear === 'function' ? getSexagenaryYear(dt) : ''; },
+        'dai-lich': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'VIETNAM') : ''; },
+        'dangun': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'KOREA') : ''; },
+        'babylonian': function (dt) { return typeof getBabylonianLunisolarCalendar === 'function' ? getBabylonianLunisolarCalendar(dt) : ''; },
+        'umm-al-qura': function (dt) { return typeof getUmmalQuraDate === 'function' ? getUmmalQuraDate(dt) : ''; },
+        'hebrew': function (dt) { return typeof calculateHebrewCalendar === 'function' ? calculateHebrewCalendar(dt) : ''; },
+        'epirote': function (dt) { return typeof getEpiroteCalendar === 'function' ? getEpiroteCalendar(dt) : ''; },
+        'maya-long-count': function (dt) { return typeof getCurrentMayaLongCount === 'function' ? getCurrentMayaLongCount(dt) : ''; },
+        'tzolkin': function (dt) { return typeof getTzolkinDate === 'function' ? getTzolkinDate(dt) : ''; },
+        'lord-of-the-night-y': function (dt) { return typeof getLordOfTheNight === 'function' ? getLordOfTheNight(dt) : ''; },
+        'darian-mars': function (dt) { return typeof getJulianSolDate === 'function' && typeof getDarianMarsDate === 'function' ? getDarianMarsDate(getJulianSolDate(dt)) : ''; },
+        'galilean-io': function (dt) { return typeof getGalileanDate === 'function' ? getGalileanDate(dt, 'Io') : ''; },
+        'galilean-europa': function (dt) { return typeof getGalileanDate === 'function' ? getGalileanDate(dt, 'Eu') : ''; },
+        'galilean-ganymede': function (dt) { return typeof getGalileanDate === 'function' ? getGalileanDate(dt, 'Gan') : ''; },
+        'galilean-callisto': function (dt) { return typeof getGalileanDate === 'function' ? getGalileanDate(dt, 'Cal') : ''; },
+        'darian-io': function (dt) { return typeof getDarianGalileanDate === 'function' ? getDarianGalileanDate(dt, 'Io') : ''; },
+        'darian-europa': function (dt) { return typeof getDarianGalileanDate === 'function' ? getDarianGalileanDate(dt, 'Eu') : ''; },
+        'darian-ganymede': function (dt) { return typeof getDarianGalileanDate === 'function' ? getDarianGalileanDate(dt, 'Gan') : ''; },
+        'darian-callisto': function (dt) { return typeof getDarianGalileanDate === 'function' ? getDarianGalileanDate(dt, 'Cal') : ''; },
+        'darian-titan': function (dt) { return typeof getDarianTitanDate === 'function' ? getDarianTitanDate(dt) : ''; },
+        'yuga-cycle': function (dt) { return typeof getYugaCycle === 'function' ? getYugaCycle(dt) : ''; },
+        'sothic-cycle': function (dt) { return typeof getSothicCycle === 'function' ? getSothicCycle(dt) : ''; },
+        'olympiad': function (dt) { return typeof getOlympiad === 'function' ? getOlympiad(dt) : ''; },
+        'pawukon': function (dt) { return typeof getPawukonCalendarDate === 'function' ? getPawukonCalendarDate(dt) : ''; },
+        'togys': function (dt) { return typeof getTogysDate === 'function' ? getTogysDate(dt) : ''; },
+        'julian-period': function (dt) { return typeof getJulianPeriod === 'function' ? getJulianPeriod(dt) : ''; },
+        'rata-die': function (dt) { return typeof getRataDie === 'function' ? getRataDie(dt) : ''; },
+        'lilian-date': function (dt) { return typeof getLilianDate === 'function' ? getLilianDate(dt) : ''; },
+        'ordinal-date': function (dt) { return typeof getOrdinalDate === 'function' ? getOrdinalDate(dt) : ''; },
+        'julian-sol-number': function (dt) { return typeof getJulianSolDate === 'function' ? getJulianSolDate(dt).toFixed(0) : ''; },
+        'julian-circad-number': function (dt) { return typeof getJulianCircadNumber === 'function' ? getJulianCircadNumber(dt).toFixed(0) : ''; },
+        'kali-ahargana': function (dt) { return typeof getKaliAhargana === 'function' ? getKaliAhargana(dt).toFixed(0) : ''; },
+        'deltat': function (dt) { return typeof getDeltaT === 'function' ? getDeltaT(dt) : ''; },
+        'spreadsheet-now': function (dt) { return typeof getSpreadsheetNowTime === 'function' ? getSpreadsheetNowTime(dt, offset) : ''; },
+        'lunation-number': function (dt) { return String(lunationNum(dt)); },
+        'brown-lunation-number': function (dt) { return typeof getBrownLunationNumber === 'function' ? getBrownLunationNumber(lunationNum(dt)) : ''; },
+        'goldstine-lunation-number': function (dt) { return typeof getGoldstineLunationNumber === 'function' ? getGoldstineLunationNumber(lunationNum(dt)) : ''; },
+        'hebrew-lunation-number': function (dt) { return typeof getHebrewLunationNumber === 'function' ? getHebrewLunationNumber(lunationNum(dt)) : ''; },
+        'islamic-lunation-number': function (dt) { return typeof getIslamicLunationNumber === 'function' ? getIslamicLunationNumber(lunationNum(dt)) : ''; },
+        'thai-lunation-number': function (dt) { return typeof getThaiLunationNumber === 'function' ? getThaiLunationNumber(lunationNum(dt)) : ''; },
+        'nabonassar-lunation-number': function (dt) { return typeof getNabonassarLunationNumber === 'function' ? getNabonassarLunationNumber(lunationNum(dt)) : ''; },
+        'human-era': function (dt) { return typeof getHumanEra === 'function' ? getHumanEra(dt, offset) : ''; },
+        'invariable': function (dt) { return typeof getInvariableCalendarDate === 'function' ? getInvariableCalendarDate(dt, offset) : ''; },
+        'the-world-calendar': function (dt) { return typeof getWorldCalendarDate === 'function' ? getWorldCalendarDate(dt, offset) : ''; },
+        'symmetry454': function (dt) { return typeof getSymmetry454Date === 'function' ? getSymmetry454Date(dt, offset) : ''; },
+        'symmetry010': function (dt) { return typeof getSymmetry010Date === 'function' ? getSymmetry010Date(dt, offset) : ''; },
+        'positivist': function (dt) { return typeof getPositivistDate === 'function' ? getPositivistDate(dt, offset) : ''; },
+        'tamrielic': function (dt) { return typeof getTamrielicDate === 'function' ? getTamrielicDate(dt, offset) : ''; },
+        'imperial-dating-system': function (dt) { return typeof getImperialDatingSystem === 'function' ? getImperialDatingSystem(dt, offset) : ''; },
+        'shire': function (dt) { return typeof getShireDate === 'function' ? getShireDate(dt, offset) : ''; },
+        'french-revolutionary': function (dt) { return typeof getRevolutionaryTime === 'function' ? getRevolutionaryTime(dt, offset) : ''; },
+        'beat': function (dt) { return typeof convertToSwatchBeats === 'function' ? convertToSwatchBeats(dt) : ''; },
+        'hexadecimal': function (dt) { return typeof getHexadecimalTime === 'function' ? getHexadecimalTime(dt, offset) : ''; },
+        'binary-16-bit': function (dt) { return typeof getBinaryTime === 'function' ? getBinaryTime(dt, offset) : ''; },
+        'coordinated-mars-time': function (dt) { return typeof getMTC === 'function' ? getMTC(dt) : ''; },
+        'io-meridian-time': function (dt) { return typeof getIoPrimeMeridianTime === 'function' ? getIoPrimeMeridianTime(dt) : ''; },
+        'europa-meridian-time': function (dt) { return typeof getEuropaPrimeMeridianTime === 'function' ? getEuropaPrimeMeridianTime(dt) : ''; },
+        'ganymede-meridian-time': function (dt) { return typeof getGanymedePrimeMeridianTime === 'function' ? getGanymedePrimeMeridianTime(dt) : ''; },
+        'callisto-meridian-time': function (dt) { return typeof getCallistoPrimeMeridianTime === 'function' ? getCallistoPrimeMeridianTime(dt) : ''; },
+        'titan-meridian-time': function (dt) { return typeof getTitanPrimeMeridianTime === 'function' ? getTitanPrimeMeridianTime(dt) : ''; },
+        'us-presidential-terms': function (dt) { return typeof getCurrentPresidentialTerm === 'function' ? getCurrentPresidentialTerm(dt).toFixed(10) : ''; },
+        'julian-day-number': function (dt) { return typeof getJulianDayNumber === 'function' ? getJulianDayNumber(dt) : ''; },
+        'iso-8601': function (dt) { return dt ? dt.toISOString() : ''; },
+        'mars-sol-date': function (dt) { return typeof getMarsSolDate === 'function' ? getMarsSolDate(dt).toFixed(5) : ''; },
+        'minecraft-time': function (dt) { return typeof getMinecraftTime === 'function' ? getMinecraftTime(dt, offset) : ''; },
+        'dream-time': function (dt) { return typeof getInceptionDreamTime === 'function' ? getInceptionDreamTime(dt, offset) : ''; },
+        'termina-time': function (dt) { return typeof getTerminaTime === 'function' ? getTerminaTime(dt, offset) : ''; },
+        'stardate': function (dt) { return typeof getStardate === 'function' ? getStardate(dt, offset) : ''; },
+        'day': function (dt) { return typeof calculateDay === 'function' && typeof decimals !== 'undefined' ? calculateDay(dt, offset).toFixed(decimals) : ''; },
+        'month': function (dt) { return typeof calculateMonth === 'function' && typeof decimals !== 'undefined' ? calculateMonth(dt, offset).toFixed(decimals) : ''; },
+        'year': function (dt) { return typeof calculateYear === 'function' && typeof decimals !== 'undefined' ? calculateYear(dt, offset).toFixed(decimals) : ''; },
+        'hour': function (dt) { return typeof calculateHour === 'function' && typeof decimals !== 'undefined' ? calculateHour(dt, offset).toFixed(decimals) : ''; },
+        'minute': function (dt) { return typeof calculateMinute === 'function' && typeof decimals !== 'undefined' ? calculateMinute(dt).toFixed(decimals) : ''; },
+        'second': function (dt) { return typeof calculateSecond === 'function' ? calculateSecond(dt) : ''; },
+        'decade': function (dt) { return typeof calculateDecade === 'function' && typeof decimals !== 'undefined' ? calculateDecade(dt, offset).toFixed(decimals) : ''; },
+        'century': function (dt) { return typeof calculateCentury === 'function' && typeof decimals !== 'undefined' ? calculateCentury(dt, offset).toFixed(decimals) : ''; },
+        'local-time': function (dt) { return typeof getGregorianDateTime === 'function' ? getGregorianDateTime(dt, offset).time : ''; },
+        'utc': function (dt) { return dt ? dt.toISOString().slice(0, -5) : ''; },
+        'millennium': function (dt) { return typeof calculateMillennium === 'function' && typeof decimals !== 'undefined' ? calculateMillennium(dt, offset).toFixed(decimals) : ''; },
+        'unix': function (dt) { return typeof getUnixTime === 'function' ? getUnixTime(dt) : ''; },
+        'filetime': function (dt) { return typeof getCurrentFiletime === 'function' ? getCurrentFiletime(dt) : ''; },
+        'gps': function (dt) { return typeof getGPSTime === 'function' ? getGPSTime(dt) : ''; },
+        'tai': function (dt) { return typeof getTAI === 'function' ? getTAI(dt).toISOString().slice(0, -5) : ''; },
+        'tt': function (dt) { return typeof getTT === 'function' ? getTT(dt).toISOString().slice(0, -5) : ''; },
+        'loran-c': function (dt) { return typeof getLORANC === 'function' ? getLORANC(dt).toISOString().slice(0, -5) : ''; }
+    };
+}
+
+function getNodeValueForDay(nodeId, year, month, day, getters) {
+    if (!nodeId || typeof parseInputDate !== 'function') return null;
+    // year may be negative (e.g. -204 for 205 BCE); concatenation already produces "-204-08-01"
+    var dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00';
+    var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
+    var dt;
+    try {
+        dt = parseInputDate(dateStr, tz);
+    } catch (e) {
+        return null;
+    }
+    var getter = getters ? getters[nodeId] : null;
+    if (!getter) return null;
+    try {
+        return getter(dt);
+    } catch (e) {
+        return null;
+    }
+}
+
+function getDaysInMonth(year, month) {
+    var lastDay = createAdjustedDateTime({ year: year, month: month + 1, day: 0 });
+    return lastDay.getUTCDate();
+}
+
+function getFirstDayOfMonth(year, month) {
+    var firstDay = createAdjustedDateTime({ year: year, month: month, day: 1 });
+    return firstDay.getUTCDay();
+}
+
+function formatDateTooltip(year, month, day, eventLabels, systemLabel, systemValue) {
+    var yearStr = year < 0 ? Math.abs(year) + ' BCE' : String(year);
+    var base = 'Gregorian: ' + day + ' ' + MONTH_NAMES[month - 1] + ' ' + yearStr;
+    if (systemLabel && systemValue) {
+        base += '\n' + systemLabel + ': ' + systemValue;
+    }
+    if (eventLabels && eventLabels.length > 0) {
+        base += '\n' + eventLabels.join('\n');
+    }
+    return base;
+}
+
+var ASTRONOMICAL_ICONS = {
+    'spring-equinox': { symbol: '\u2648', title: 'Vernal (Spring) Equinox' },
+    'summer-solstice': { symbol: '\u264B', title: 'Summer Solstice' },
+    'autumn-equinox': { symbol: '\u264E', title: 'Autumnal Equinox' },
+    'winter-solstice': { symbol: '\u2651', title: 'Winter Solstice' },
+    'new-moon': { symbol: '\u25CB', title: 'New Moon' },
+    'first-quarter': { symbol: '\u25D0', title: 'First Quarter Moon' },
+    'full-moon': { symbol: '\u25CF', title: 'Full Moon' },
+    'last-quarter': { symbol: '\u25D1', title: 'Last Quarter Moon' },
+    'solar-eclipse': { symbol: '\u2297', title: 'Solar Eclipse' },
+    'lunar-eclipse': { symbol: '\u263E', title: 'Lunar Eclipse' }
+};
+
+function getAstronomicalEventsForMonth(year, month) {
+    var eventsByDay = {};
+    var refDate = createAdjustedDateTime({ year: year, month: month, day: 15 });
+
+    function addEvent(day, key) {
+        if (!eventsByDay[day]) eventsByDay[day] = [];
+        if (eventsByDay[day].indexOf(key) === -1) eventsByDay[day].push(key);
+    }
+
+    try {
+        var seasons = [
+            ['SPRING', 'spring-equinox'],
+            ['SUMMER', 'summer-solstice'],
+            ['AUTUMN', 'autumn-equinox'],
+            ['WINTER', 'winter-solstice']
+        ];
+        for (var s = 0; s < seasons.length; s++) {
+            var d = getSolsticeOrEquinox(refDate, seasons[s][0]);
+            if (d.getUTCFullYear() === year && d.getUTCMonth() === month - 1) {
+                addEvent(d.getUTCDate(), seasons[s][1]);
+            }
+        }
+    } catch (e) {}
+
+    try {
+        var lunationOffsets = [
+            [-1, 0, 1],
+            [-0.5, 0.5, 1.5],
+            [-0.75, 0.25, 1.25],
+            [-0.25, 0.75, 1.75]
+        ];
+        var phaseKeys = ['new-moon', 'full-moon', 'first-quarter', 'last-quarter'];
+        for (var p = 0; p < 4; p++) {
+            for (var i = 0; i < lunationOffsets[p].length; i++) {
+                var phaseDate = getMoonPhase(refDate, lunationOffsets[p][i]);
+                if (phaseDate.getUTCFullYear() === year && phaseDate.getUTCMonth() === month - 1) {
+                    addEvent(phaseDate.getUTCDate(), phaseKeys[p]);
+                }
+            }
+        }
+    } catch (e) {}
+
+    try {
+        var eclipseRef = createAdjustedDateTime({ year: year, month: month, day: 1 });
+        for (var attempt = 0; attempt < 3; attempt++) {
+            var solarStr = getNextSolarLunarEclipse(eclipseRef, attempt);
+            if (solarStr) {
+                var firstLine = solarStr.split('\n')[0];
+                var eclipseDate = new Date(firstLine);
+                if (!isNaN(eclipseDate.getTime()) && eclipseDate.getUTCFullYear() === year && eclipseDate.getUTCMonth() === month - 1) {
+                    addEvent(eclipseDate.getUTCDate(), 'solar-eclipse');
+                }
+            }
+            var lunarStr = getNextSolarLunarEclipse(eclipseRef, attempt + 0.5);
+            if (lunarStr) {
+                var lunarFirst = lunarStr.split('\n')[0];
+                var lunarDate = new Date(lunarFirst);
+                if (!isNaN(lunarDate.getTime()) && lunarDate.getUTCFullYear() === year && lunarDate.getUTCMonth() === month - 1) {
+                    addEvent(lunarDate.getUTCDate(), 'lunar-eclipse');
+                }
+            }
+        }
+    } catch (e) {}
+
+    return eventsByDay;
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/\n/g, '&#10;');
+}
+
+/** Extract a month identifier from a calendar value string for grouping/shading. Returns '' if not parseable. */
+function extractMonthKeyFromValue(value) {
+    if (!value || typeof value !== 'string') return '';
+    var line = value.split('\n')[0];
+    var m;
+    // "22 ΦΟΙΝΙΚΑΙΟΣ (1)" or "1 ΜΑΧΑΝΕΥΣ (Leap Month) (1)" - day month (year)
+    m = line.match(/^\d+\s+(.+)\s+\(\d+\)\s*$/);
+    if (m) return m[1].trim();
+    // "1 Vendémiaire CCXXXIII RE" - French Republican
+    m = line.match(/^\d{1,2}\s+([A-Za-zÀ-ÿ]+)\s+[IVXLCDM]+\s*RE/i);
+    if (m) return m[1].trim();
+    // "22 Ramaḍān 1446 AH" or "22 al-Muḥarram 1446 BH" - Islamic
+    m = line.match(/^\d{1,2}\s+(.+?)\s+\d+\s*(?:AH|BH)/);
+    if (m) return m[1].trim();
+    // "4723年 二月 22日" or "4723年 2月 22日" - Chinese (year年 month月 day日)
+    m = line.match(/年\s+(.+?)月/);
+    if (m) return m[1].trim();
+    // "4358년 이월 22일" - Korean (year년 month월 day일)
+    m = line.match(/년\s+(.+?)월/);
+    if (m) return m[1].trim();
+    // "2025 Tháng Hai 22" - Vietnamese (year month day)
+    m = line.match(/^\d{4}\s+(.+?)\s+\d{1,2}\s*$/);
+    if (m) return m[1].trim();
+    // "15 Koiak 1741 AM" - Coptic, "15 Mäskäräm 2017" - Ethiopian (day Month year)
+    m = line.match(/^\d+\s+([A-Za-zÀ-ÿ\u0370-\u03FF\u02BE\u02BF\u1E0C\u1E0D\u1E24\u1E25\u1E2A\u1E2B\u1E62\u1E63]+)\s+\d+\s*(?:AM|[\u12A0-\u12FF])?/);
+    if (m) return m[1].trim();
+    // "21 August 2025" or "21 August 2025 CE" - Gregorian-style (day Month year)
+    m = line.match(/^\d{1,2}\s+([A-Za-zÀ-ÿ\u0370-\u03FF]+)\s+\d+/);
+    if (m) return m[1].trim();
+    // "Day 15 of MonthName" - Togys
+    m = line.match(/Day\s+\d+\s+of\s+(.+?)(?:\n|$)/);
+    if (m) return m[1].trim();
+    return '';
+}
+
+/** Light background tints for calendar month shading (on dark base). */
+var CALENDAR_MONTH_SHADES = [
+    'rgba(120,160,200,0.18)',
+    'rgba(160,120,200,0.18)',
+    'rgba(120,200,160,0.18)',
+    'rgba(200,160,120,0.18)',
+    'rgba(200,120,160,0.18)',
+    'rgba(160,200,120,0.18)'
+];
+
+function getShadeForMonthKey(monthKey, monthKeyToIndex) {
+    if (!monthKey || !monthKeyToIndex) return '';
+    if (!(monthKey in monthKeyToIndex)) {
+        monthKeyToIndex[monthKey] = Object.keys(monthKeyToIndex).length;
+    }
+    var idx = monthKeyToIndex[monthKey] % CALENDAR_MONTH_SHADES.length;
+    return CALENDAR_MONTH_SHADES[idx];
+}
+
+function buildCalendarHTML(year, month, selectedNodeData) {
+    var daysInMonth = getDaysInMonth(year, month);
+    var firstDay = getFirstDayOfMonth(year, month);
+    var eventsByDay = (typeof getAstronomicalEventsForMonth === 'function') ? getAstronomicalEventsForMonth(year, month) : {};
+
+    var nodeId = null;
+    var systemLabel = null;
+    var getters = null;
+    var monthKeyToIndex = {};
+    if (selectedNodeData && selectedNodeData.id) {
+        nodeId = selectedNodeData.id;
+        systemLabel = selectedNodeData.name || selectedNodeData.id;
+        var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
+        var tzOffset = typeof convertUTCOffsetToMinutes === 'function' ? convertUTCOffsetToMinutes(tz) : 0;
+        getters = buildNodeValueGetters(tzOffset);
+    }
+
+    var html = '<div class="calendar-view-header-row">';
+    DAY_NAMES.forEach(function (name) {
+        html += '<div class="calendar-view-cell calendar-view-day-name">' + name + '</div>';
+    });
+    html += '</div>';
+
+    var day = 1;
+    var started = false;
+
+    for (var row = 0; row < 6; row++) {
+        html += '<div class="calendar-view-week-row">';
+        for (var col = 0; col < 7; col++) {
+            if (!started && col === firstDay) {
+                started = true;
+            }
+            if (started && day <= daysInMonth) {
+                var dayEvents = eventsByDay[day] || [];
+                var eventLabels = dayEvents.map(function (k) {
+                    return ASTRONOMICAL_ICONS[k] ? ASTRONOMICAL_ICONS[k].title : k;
+                });
+                var systemValue = (nodeId && getters) ? getNodeValueForDay(nodeId, year, month, day, getters) : null;
+                var tooltip = formatDateTooltip(year, month, day, eventLabels, systemLabel, systemValue);
+                var iconHtml = '';
+                dayEvents.forEach(function (k) {
+                    if (ASTRONOMICAL_ICONS[k]) {
+                        iconHtml += '<span class="calendar-astronomy-icon">' + ASTRONOMICAL_ICONS[k].symbol + '</span>';
+                    }
+                });
+                var cellContent = '';
+                var shadeStyle = '';
+                if (systemValue !== null && systemValue !== '') {
+                    cellContent = '<span class="calendar-view-day-num">' + day + '</span><span class="calendar-view-system-value">' + escapeHtml(String(systemValue)) + '</span>';
+                    var monthKey = extractMonthKeyFromValue(systemValue);
+                    if (monthKey) {
+                        var shade = getShadeForMonthKey(monthKey, monthKeyToIndex);
+                        if (shade) shadeStyle = ' style="background-color:' + shade + '"';
+                    }
+                } else {
+                    cellContent = String(day);
+                }
+                html += '<div class="calendar-view-cell calendar-view-day" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' + cellContent + (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') + '</div>';
+                day++;
+            } else {
+                html += '<div class="calendar-view-cell calendar-view-empty"></div>';
+            }
+        }
+        html += '</div>';
+        if (day > daysInMonth) break;
+    }
+
+    return html;
+}
+
+var _calendarTooltipsInitialized = false;
+
+function renderCalendarView(year, month) {
+    var titleEl = document.getElementById('calendar-view-title');
+    var gridEl = document.getElementById('calendar-view-grid');
+    if (!titleEl || !gridEl) return;
+    var title = MONTH_NAMES[month - 1] + ' ' + year;
+    titleEl.textContent = title;
+    var selectedData = (typeof selectedNodeData !== 'undefined') ? selectedNodeData : null;
+    gridEl.innerHTML = buildCalendarHTML(year, month, selectedData);
+    if (!_calendarTooltipsInitialized) {
+        setupCalendarTooltips();
+        _calendarTooltipsInitialized = true;
+    }
+}
+
+function setupCalendarTooltips() {
+    var grid = document.getElementById('calendar-view-grid');
+    var tooltipEl = document.getElementById('calendar-tooltip');
+    if (!grid || !tooltipEl) return;
+
+    grid.addEventListener('mouseover', function (e) {
+        var cell = e.target.closest('.calendar-view-day');
+        if (cell && cell.dataset.tooltip) {
+            tooltipEl.textContent = cell.dataset.tooltip.replace(/&#10;/g, '\n');
+            tooltipEl.classList.add('visible');
+            var rect = cell.getBoundingClientRect();
+            tooltipEl.style.left = rect.left + 'px';
+            tooltipEl.style.top = (rect.top - 4) + 'px';
+            tooltipEl.style.transform = 'translate(0, -100%)';
+        }
+    });
+
+    grid.addEventListener('mouseout', function (e) {
+        var related = e.relatedTarget ? e.relatedTarget.closest('.calendar-view-day') : null;
+        if (!related) {
+            tooltipEl.classList.remove('visible');
+        }
+    });
+}
+
+var _calendarViewYear = new Date().getFullYear();
+var _calendarViewMonth = new Date().getMonth() + 1;
+
+function setCalendarViewMonth(year, month) {
+    _calendarViewYear = year;
+    _calendarViewMonth = month;
+    renderCalendarView(_calendarViewYear, _calendarViewMonth);
+}
+
+function openCalendarView() {
+    var dateStr = typeof getDatePickerTime === 'function' ? getDatePickerTime() : '';
+    var year, month;
+    if (dateStr) {
+        var datePart = dateStr.split(', ')[0];
+        var parts = datePart ? datePart.replace(/^-/, '').split('-') : [];
+        year = parseInt(parts[0] || '0', 10);
+        month = parseInt(parts[1] || '1', 10);
+        if (datePart && datePart.startsWith('-')) {
+            year = -year;
+        }
+    } else {
+        var now = new Date();
+        year = now.getFullYear();
+        month = now.getMonth() + 1;
+    }
+    if (Number.isNaN(year)) year = new Date().getFullYear();
+    if (Number.isNaN(month) || month < 1 || month > 12) month = new Date().getMonth() + 1;
+
+    setCalendarViewMonth(year, month);
+    document.getElementById('calendar-view-modal').style.display = 'block';
+}
+
+function goToPrevMonth() {
+    if (_calendarViewMonth === 1) {
+        setCalendarViewMonth(_calendarViewYear - 1, 12);
+    } else {
+        setCalendarViewMonth(_calendarViewYear, _calendarViewMonth - 1);
+    }
+}
+
+function goToNextMonth() {
+    if (_calendarViewMonth === 12) {
+        setCalendarViewMonth(_calendarViewYear + 1, 1);
+    } else {
+        setCalendarViewMonth(_calendarViewYear, _calendarViewMonth + 1);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('calendar-view-modal');
+    var btn = document.getElementById('calendar-view-button');
+    var closeBtn = document.getElementById('calendar-view-close-button');
+    var prevBtn = document.getElementById('calendar-view-prev');
+    var nextBtn = document.getElementById('calendar-view-next');
+
+    btn.addEventListener('click', openCalendarView);
+    if (prevBtn) prevBtn.addEventListener('click', goToPrevMonth);
+    if (nextBtn) nextBtn.addEventListener('click', goToNextMonth);
+
+    function hideCalendarTooltip() {
+        var tip = document.getElementById('calendar-tooltip');
+        if (tip) tip.classList.remove('visible');
+    }
+
+    function closeCalendarView() {
+        if (modal) {
+            modal.style.display = 'none';
+            hideCalendarTooltip();
+        }
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeCalendarView);
+    }
+
+    modal.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            closeCalendarView();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
+            modal.style.display = 'none';
+            hideCalendarTooltip();
+        }
+    });
+});
