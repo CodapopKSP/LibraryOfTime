@@ -104,65 +104,65 @@ function updateAstronomicalData(currentDateTime) {
 
 function updateSolarCalendars(currentDateTime, timezoneOffset) {
     const springEquinox = getSolsticeEquinox(currentDateTime, 'SPRING');
-    setTimeValue('gregorian-node', getGregorianDateTime(currentDateTime, timezoneOffset).date);
-    setTimeValue('julian-node', getJulianCalendar(currentDateTime));
-    setTimeValue('astronomical-node', getAstronomicalDate(currentDateTime));
-    setTimeValue('byzantine-node', getByzantineCalendar(currentDateTime));
-    setTimeValue('florentine-node', getFlorentineCalendar(currentDateTime));
-    setTimeValue('pisan-node', getPisanCalendar(currentDateTime));
-    setTimeValue('venetian-node', getVenetianCalendar(currentDateTime));
-    setTimeValue('french-republican-node', getRepublicanCalendar(currentDateTime));
-    setTimeValue('era-fascista-node', getEraFascista(currentDateTime));
-    setTimeValue('minguo-node', getMinguo(currentDateTime));
-    setTimeValue('thai-node', getThaiSolar(currentDateTime));
-    setTimeValue('juche-node', getJuche(currentDateTime));
-    setTimeValue('coptic-node', getCopticDate(currentDateTime));
-    setTimeValue('geez-node', getEthiopianDate(currentDateTime));
-    setTimeValue('bahai-node', getBahaiCalendar(currentDateTime, springEquinox));
-    setTimeValue('pataphysical-node', getPataphysicalDate(currentDateTime, timezoneOffset));
-    setTimeValue('discordian-node', getDiscordianDate(currentDateTime, timezoneOffset));
-    setTimeValue('solar-hijri-node', getSolarHijriDate(currentDateTime, springEquinox));
-    setTimeValue('qadimi-node', getQadimiDate(currentDateTime));
-    setTimeValue('egyptian-civil-node', getEgyptianDate(currentDateTime));
-    setTimeValue('iso-week-date-node', getISOWeekDate(currentDateTime, timezoneOffset));
-    setTimeValue('haab-node', getHaabDate(currentDateTime));
-    setTimeValue('anno-lucis-node', getAnnoLucisDate(currentDateTime, timezoneOffset));
-    setTimeValue('tabot-node', getTabotDate(currentDateTime));
-    setTimeValue('icelandic-node', getIcelandicDate(currentDateTime));
-    setTimeValue('saka-samvat-node', getSakaSamvatDate(currentDateTime));
-    setTimeValue('sca-node', getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset));
+    setTimeValue('gregorian-node', out(getGregorianDateTime(currentDateTime, timezoneOffset)));
+    setTimeValue('julian-node', out(getJulianCalendar(currentDateTime)));
+    setTimeValue('astronomical-node', out(getAstronomicalDate(currentDateTime)));
+    setTimeValue('byzantine-node', out(getByzantineCalendar(currentDateTime)));
+    setTimeValue('florentine-node', out(getFlorentineCalendar(currentDateTime)));
+    setTimeValue('pisan-node', out(getPisanCalendar(currentDateTime)));
+    setTimeValue('venetian-node', out(getVenetianCalendar(currentDateTime)));
+    setTimeValue('french-republican-node', out(getRepublicanCalendar(currentDateTime)));
+    setTimeValue('era-fascista-node', out(getEraFascista(currentDateTime)));
+    setTimeValue('minguo-node', out(getMinguo(currentDateTime)));
+    setTimeValue('thai-node', out(getThaiSolar(currentDateTime)));
+    setTimeValue('juche-node', out(getJuche(currentDateTime)));
+    setTimeValue('coptic-node', out(getCopticDate(currentDateTime)));
+    setTimeValue('geez-node', out(getEthiopianDate(currentDateTime)));
+    setTimeValue('bahai-node', out(getBahaiCalendar(currentDateTime, springEquinox)));
+    setTimeValue('pataphysical-node', out(getPataphysicalDate(currentDateTime, timezoneOffset)));
+    setTimeValue('discordian-node', out(getDiscordianDate(currentDateTime, timezoneOffset)));
+    setTimeValue('solar-hijri-node', out(getSolarHijriDate(currentDateTime, springEquinox)));
+    setTimeValue('qadimi-node', out(getQadimiDate(currentDateTime)));
+    setTimeValue('egyptian-civil-node', out(getEgyptianDate(currentDateTime)));
+    setTimeValue('iso-week-date-node', out(getISOWeekDate(currentDateTime, timezoneOffset)));
+    setTimeValue('haab-node', out(getHaabDate(currentDateTime)));
+    setTimeValue('anno-lucis-node', out(getAnnoLucisDate(currentDateTime, timezoneOffset)));
+    setTimeValue('tabot-node', out(getTabotDate(currentDateTime)));
+    setTimeValue('icelandic-node', out(getIcelandicDate(currentDateTime)));
+    setTimeValue('saka-samvat-node', out(getSakaSamvatDate(currentDateTime)));
+    setTimeValue('sca-node', out(getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset)));
 }
 
 function updateLunisolarCalendars(currentDateTime) {
-    setTimeValue('chinese-node', getChineseLunisolarCalendarDate(currentDateTime, 'CHINA'));
-    setTimeValue('sexagenary-year-node', getSexagenaryYear(currentDateTime));
-    setTimeValue('dai-lich-node', getChineseLunisolarCalendarDate(currentDateTime, 'VIETNAM'));
-    setTimeValue('dangun-node', getChineseLunisolarCalendarDate(currentDateTime, 'KOREA'));
-    setTimeValue('babylonian-node', getBabylonianLunisolarCalendar(currentDateTime));
-    setTimeValue('umm-al-qura-node', getUmmalQuraDate(currentDateTime));
-    setTimeValue('hebrew-node', calculateHebrewCalendar(currentDateTime));
-    setTimeValue('epirote-node', getEpiroteCalendar(currentDateTime));
+    setTimeValue('chinese-node', out(getChineseLunisolarCalendarDate(currentDateTime, 'CHINA')));
+    setTimeValue('sexagenary-year-node', out(getSexagenaryYear(currentDateTime)));
+    setTimeValue('dai-lich-node', out(getChineseLunisolarCalendarDate(currentDateTime, 'VIETNAM')));
+    setTimeValue('dangun-node', out(getChineseLunisolarCalendarDate(currentDateTime, 'KOREA')));
+    setTimeValue('babylonian-node', out(getBabylonianLunisolarCalendar(currentDateTime)));
+    setTimeValue('umm-al-qura-node', out(getUmmalQuraDate(currentDateTime)));
+    setTimeValue('hebrew-node', out(calculateHebrewCalendar(currentDateTime)));
+    setTimeValue('epirote-node', out(getEpiroteCalendar(currentDateTime)));
 }
 
 function updateOtherCalendars(currentDateTime) {
-    setTimeValue('maya-long-count-node', getCurrentMayaLongCount(currentDateTime));
-    setTimeValue('tzolkin-node', getTzolkinDate(currentDateTime));
-    setTimeValue('lord-of-the-night-y-node', getLordOfTheNight(currentDateTime));
-    setTimeValue('darian-mars-node', getDarianMarsDate(getJulianSolDate(currentDateTime)));
-    setTimeValue('galilean-io-node', getGalileanDate(currentDateTime, 'Io'));
-    setTimeValue('galilean-europa-node', getGalileanDate(currentDateTime, 'Eu'));
-    setTimeValue('galilean-ganymede-node', getGalileanDate(currentDateTime, 'Gan'));
-    setTimeValue('galilean-callisto-node', getGalileanDate(currentDateTime, 'Cal'));
-    setTimeValue('darian-io-node', getDarianGalileanDate(currentDateTime, 'Io'));
-    setTimeValue('darian-europa-node', getDarianGalileanDate(currentDateTime, 'Eu'));
-    setTimeValue('darian-ganymede-node', getDarianGalileanDate(currentDateTime, 'Gan'));
-    setTimeValue('darian-callisto-node', getDarianGalileanDate(currentDateTime, 'Cal'));
-    setTimeValue('darian-titan-node', getDarianTitanDate(currentDateTime));
-    setTimeValue('yuga-cycle-node', getYugaCycle(currentDateTime));
-    setTimeValue('sothic-cycle-node', getSothicCycle(currentDateTime));
-    setTimeValue('olympiad-node', getOlympiad(currentDateTime));
-    setTimeValue('pawukon-node', getPawukonCalendarDate(currentDateTime));
-    setTimeValue('togys-node', getTogysDate(currentDateTime));
+    setTimeValue('maya-long-count-node', out(getCurrentMayaLongCount(currentDateTime)));
+    setTimeValue('tzolkin-node', out(getTzolkinDate(currentDateTime)));
+    setTimeValue('lord-of-the-night-y-node', out(getLordOfTheNight(currentDateTime)));
+    setTimeValue('darian-mars-node', out(getDarianMarsDate(getJulianSolDate(currentDateTime))));
+    setTimeValue('galilean-io-node', out(getGalileanDate(currentDateTime, 'Io')));
+    setTimeValue('galilean-europa-node', out(getGalileanDate(currentDateTime, 'Eu')));
+    setTimeValue('galilean-ganymede-node', out(getGalileanDate(currentDateTime, 'Gan')));
+    setTimeValue('galilean-callisto-node', out(getGalileanDate(currentDateTime, 'Cal')));
+    setTimeValue('darian-io-node', out(getDarianGalileanDate(currentDateTime, 'Io')));
+    setTimeValue('darian-europa-node', out(getDarianGalileanDate(currentDateTime, 'Eu')));
+    setTimeValue('darian-ganymede-node', out(getDarianGalileanDate(currentDateTime, 'Gan')));
+    setTimeValue('darian-callisto-node', out(getDarianGalileanDate(currentDateTime, 'Cal')));
+    setTimeValue('darian-titan-node', out(getDarianTitanDate(currentDateTime)));
+    setTimeValue('yuga-cycle-node', out(getYugaCycle(currentDateTime)));
+    setTimeValue('sothic-cycle-node', out(getSothicCycle(currentDateTime)));
+    setTimeValue('olympiad-node', out(getOlympiad(currentDateTime)));
+    setTimeValue('pawukon-node', out(getPawukonCalendarDate(currentDateTime)));
+    setTimeValue('togys-node', out(getTogysDate(currentDateTime)));
 }
 
 function updateComputingTimes(currentDateTime, timezoneOffset) {
@@ -186,12 +186,12 @@ function updateComputingTimes(currentDateTime, timezoneOffset) {
 }
 
 function updateProposedCalendars(currentDateTime, timezoneOffset) {
-    setTimeValue('human-era-node', getHumanEra(currentDateTime, timezoneOffset));
-    setTimeValue('invariable-node', getInvariableCalendarDate(currentDateTime, timezoneOffset));
-    setTimeValue('the-world-calendar-node', getWorldCalendarDate(currentDateTime, timezoneOffset));
-    setTimeValue('symmetry454-node', getSymmetry454Date(currentDateTime, timezoneOffset));
-    setTimeValue('symmetry010-node', getSymmetry010Date(currentDateTime, timezoneOffset));
-    setTimeValue('positivist-node', getPositivistDate(currentDateTime, timezoneOffset));
+    setTimeValue('human-era-node', out(getHumanEra(currentDateTime, timezoneOffset)));
+    setTimeValue('invariable-node', out(getInvariableCalendarDate(currentDateTime, timezoneOffset)));
+    setTimeValue('the-world-calendar-node', out(getWorldCalendarDate(currentDateTime, timezoneOffset)));
+    setTimeValue('symmetry454-node', out(getSymmetry454Date(currentDateTime, timezoneOffset)));
+    setTimeValue('symmetry010-node', out(getSymmetry010Date(currentDateTime, timezoneOffset)));
+    setTimeValue('positivist-node', out(getPositivistDate(currentDateTime, timezoneOffset)));
 }
 
 function updatePopCultureCalendars(currentDateTime, timezoneOffset) {
@@ -249,7 +249,7 @@ function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
 
 // Update clocks that change every second
 function updateClocks_Slow(currentDateTime, timezoneOffset) {
-    setTimeValue('local-time-node', getGregorianDateTime(currentDateTime, timezoneOffset).time);
+    setTimeValue('local-time-node', (getGregorianDateTime(currentDateTime, timezoneOffset).time || ''));
     setTimeValue('utc-node', currentDateTime.toISOString().slice(0, -5));
     setTimeValue('millennium-node', calculateMillennium(currentDateTime, timezoneOffset).toFixed(decimals));
 

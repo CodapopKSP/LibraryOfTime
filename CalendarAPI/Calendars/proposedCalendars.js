@@ -10,7 +10,8 @@ function getHumanEra(currentDateTime_, timezoneOffset) {
     let month = currentDateTime.getUTCMonth();
     let year = currentDateTime.getUTCFullYear() + 10000;
     const dayOfWeek = currentDateTime.getUTCDay();
-    return day + ' ' + monthNames[month] + ' ' + year + ' ' + 'HE\n' + weekNames[dayOfWeek];
+    var output = day + ' ' + monthNames[month] + ' ' + year + ' HE\n' + weekNames[dayOfWeek];
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
 }
 
 function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
@@ -80,7 +81,8 @@ function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
         invariableWeek = '';
     }
 
-    return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
+    var output = invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
+    return { output: output, day: invariableDate, month: invariableMonth, year: year, dayOfWeek: invariableWeek };
 }
 
 function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
@@ -150,7 +152,8 @@ function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
         invariableWeek = '';
     }
 
-    return invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
+    var output = invariableDate + invariableMonth + ' ' + year + ' CE' + invariableWeek;
+    return { output: output, day: invariableDate, month: invariableMonth, year: year, dayOfWeek: invariableWeek };
 }
 
 function getSymmetry454Date(currentDateTime_, timezoneOffset) {
@@ -196,7 +199,8 @@ function getSymmetry454Date(currentDateTime_, timezoneOffset) {
 
     const dayOfWeek = daysSinceKnownJan1st % 7;
 
-    return daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + weekNames[dayOfWeek];
+    var output = daysSinceKnownJan1st + ' ' + monthNames[symmetryMonth] + ' ' + symmetryYear + ' CE\n' + weekNames[dayOfWeek];
+    return { output: output, day: daysSinceKnownJan1st, month: symmetryMonth, year: symmetryYear, dayOfWeek: dayOfWeek };
 }
 
 function getSymmetry010Date(currentDateTime_, timezoneOffset) {
@@ -263,7 +267,8 @@ function getSymmetry010Date(currentDateTime_, timezoneOffset) {
     
     let dayOfWeek = currentDateTime.getUTCDay();
     
-    return symmetryDay + ' ' + symmetryMonthString + ' ' + yearDisplay + '\n' + weekNames[dayOfWeek];
+    var output = symmetryDay + ' ' + symmetryMonthString + ' ' + yearDisplay + '\n' + weekNames[dayOfWeek];
+    return { output: output, day: symmetryDay, month: symmetryMonth, year: symmetryYear, dayOfWeek: dayOfWeek };
 }
 
 function getPositivistDate(currentDateTime_, timezoneOffset) {
@@ -400,5 +405,6 @@ function getPositivistDate(currentDateTime_, timezoneOffset) {
         positivistDay = '\n' + positivistDay;
     }
 
-    return dayMonthString + '\n' + year + ' of the Great Crisis' + dayOfWeek + positivistDay;
+    var output = dayMonthString + '\n' + year + ' of the Great Crisis' + dayOfWeek + positivistDay;
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek, other: { positivistDay: positivistDay } };
 }

@@ -30,7 +30,8 @@ function getCurrentMayaLongCount(currentDateTime) {
     [tuns, days] = divmod(days, daysPerTun);
     [uinals, kins] = divmod(days, daysPerUinal);
 
-    return `${baktuns}.${katuns}.${tuns}.${uinals}.${kins}`;
+    var output = `${baktuns}.${katuns}.${tuns}.${uinals}.${kins}`;
+    return { output: output, other: { baktun: baktuns, katun: katuns, tun: tuns, uinal: uinals, kin: kins } };
 }
 
 
@@ -145,8 +146,8 @@ function getDarianMarsDate(julianSolNumber) {
 
     const dayOfWeek = (day-1) % 7;
 
-    // Display negative years as negative
-    return day + ' ' + DarianMonths[month] + ' ' + (year >= 0 ? year : year) + '\nSol ' + darianWeek[dayOfWeek];
+    var output = day + ' ' + DarianMonths[month] + ' ' + year + '\nSol ' + darianWeek[dayOfWeek];
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
 }
 
 function getGalileanDate(currentDateTime, body) {
@@ -327,7 +328,8 @@ function getGalileanDate(currentDateTime, body) {
     const adjustedDays = isNegative ? -daysSince : daysSince;
     const dayOfWeek = GalileanWeek[(adjustedDays % 8 + 8) % 8];
 
-    return day + ' ' + body + ' ' + GalileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
+    var output = day + ' ' + body + ' ' + GalileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
+    return { output: output, day: day, month: month, year: year, other: { body: body } };
 }
 
 function getDarianGalileanDate(currentDateTime, body) {
@@ -531,7 +533,8 @@ function getDarianGalileanDate(currentDateTime, body) {
     }
 
     const day = Math.trunc(remainingDays) + 1;
-    return `${day} ${body} ${DarianMonths[month]} ${year}\n${body} ${dayOfWeek}`;
+    var output = `${day} ${body} ${DarianMonths[month]} ${year}\n${body} ${dayOfWeek}`;
+    return { output: output, day: day, month: month, year: year, other: { body: body } };
 }
 
 
@@ -600,7 +603,8 @@ function getDarianTitanDate(currentDateTime, body) {
 
     const day = Math.floor(remainingDays) + 1;
 
-    return day + ' Ti ' + DarianMonths[month] + ' ' + year + '\nTi ' + dayOfWeek;
+    var output = day + ' Ti ' + DarianMonths[month] + ' ' + year + '\nTi ' + dayOfWeek;
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
 }
 
 function getYugaCycle(currentDateTime) {
@@ -637,11 +641,8 @@ function getYugaCycle(currentDateTime) {
     ];
 
     const kaliAhargana = getKaliAhargana(currentDateTime);
-    if (kaliAhargana < 1) {
-        return "Dvapara Yuga: Sandhyamsa";
-    }
-
-    return "Kali Yuga: Sandhya";
+    var output = kaliAhargana < 1 ? "Dvapara Yuga: Sandhyamsa" : "Kali Yuga: Sandhya";
+    return { output: output };
 }
 
 function getSothicCycle(currentDateTime) {
@@ -657,7 +658,8 @@ function getSothicCycle(currentDateTime) {
         yearsInCurrentCycle += 1460;
     }
 
-    return 'Cycle: ' + currentCycle + ' | Year: ' + (yearsInCurrentCycle + 1);
+    var output = 'Cycle: ' + currentCycle + ' | Year: ' + (yearsInCurrentCycle + 1);
+    return { output: output, year: yearsInCurrentCycle, other: { cycle: currentCycle } };
 }
 
 function getOlympiad(currentDateTime) {
@@ -681,7 +683,8 @@ function getOlympiad(currentDateTime) {
         yearInOlympiad = yearOffset === 0 ? 4 : yearOffset;
     }
 
-    return olympiad + ' | Year: ' + yearInOlympiad;
+    var output = olympiad + ' | Year: ' + yearInOlympiad;
+    return { output: output, year: yearInOlympiad, other: { olympiad: olympiad } };
 }
 
 
@@ -703,8 +706,9 @@ function getTzolkinDate(currentDateTime) {
     const dayNumber = (startingTzolkinDay + adjustedDays) % 13 || 13;
     const monthIndex = (startingTzolkinMonthIndex + adjustedDays) % 20;
     
-    return `${dayNumber} ${tzolkinMonths[monthIndex]}`;
-};
+    var output = `${dayNumber} ${tzolkinMonths[monthIndex]}`;
+    return { output: output, day: dayNumber, month: monthIndex };
+}
 
 function getLordOfTheNight(currentDateTime) {
     const startingBaktun13 = createAdjustedDateTime({timezone: 'UTC-06:00', year: 2012, month: 12, day: 21});
@@ -717,7 +721,8 @@ function getLordOfTheNight(currentDateTime) {
     if (Y === 0) {
         Y = 7;
     }
-    return 'G' + lord + ' | Y' + Y;
+    var output = 'G' + lord + ' | Y' + Y;
+    return { output: output, other: { lord: lord, Y: Y } };
 }
 
 // Returns a formatted Pawukon calendar (WITA) date
@@ -814,5 +819,6 @@ function getPawukonCalendarDate(currentDateTime) {
     // Get Week Name
     const weekName = weekNames[(Math.floor(daysSinceEpoch/7)%30)];
 
-    return `${dayOfWeek1}${dayOfWeek2} ${dayOfWeek3} ${dayOfWeek4} ${dayOfWeek5} ${dayOfWeek6} ${dayOfWeek7} ${dayOfWeek8} ${dayOfWeek9} ${dayOfWeek10}\nWeek Name: ${weekName}`;
+    var output = `${dayOfWeek1}${dayOfWeek2} ${dayOfWeek3} ${dayOfWeek4} ${dayOfWeek5} ${dayOfWeek6} ${dayOfWeek7} ${dayOfWeek8} ${dayOfWeek9} ${dayOfWeek10}\nWeek Name: ${weekName}`;
+    return { output: output, other: { weekName: weekName } };
 }

@@ -14,10 +14,11 @@ function runCalendarTests(calendarName, getCalendarFunction, testCases) {
         const timezoneOffset = convertUTCOffsetToMinutes(timezone);
         const testedDate = parseInputDate(inputDate, timezone);
         const result = getCalendarFunction(testedDate, timezoneOffset);
-        if (result !== expectedOutput) {
+        const display = typeof out === 'function' ? out(result) : result;
+        if (display !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
-            console.error('Received:', result);
+            console.error('Received:', display);
             failedTestCount++;
         }
     }

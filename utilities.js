@@ -13,6 +13,10 @@ function radians(num) {
     return num * Math.PI / 180;
 }
 
+function out(r) {
+    return (r && r.output != null) ? r.output : (r || '');
+}
+
 // Convert chosen timezone into minutes to add
 function convertUTCOffsetToMinutes(offsetString) {
     // Validate the input format

@@ -25,7 +25,7 @@ function buildNodeValueGetters(tzOffset) {
         return typeof calculateLunationNumber === 'function' ? calculateLunationNumber(dt) : 0;
     };
     return {
-        'gregorian': function (dt) { return typeof getGregorianDateTime === 'function' ? getGregorianDateTime(dt, offset).date : ''; },
+        'gregorian': function (dt) { return typeof getGregorianDateTime === 'function' ? getGregorianDateTime(dt, offset) : ''; },
         'julian': function (dt) { return typeof getJulianCalendar === 'function' ? getJulianCalendar(dt) : ''; },
         'astronomical': function (dt) { return typeof getAstronomicalDate === 'function' ? getAstronomicalDate(dt) : ''; },
         'byzantine': function (dt) { return typeof getByzantineCalendar === 'function' ? getByzantineCalendar(dt) : ''; },
@@ -143,7 +143,6 @@ function buildNodeValueGetters(tzOffset) {
 
 function getNodeValueForDay(nodeId, year, month, day, getters) {
     if (!nodeId || typeof parseInputDate !== 'function') return null;
-    // year may be negative (e.g. -204 for 205 BCE); concatenation already produces "-204-08-01"
     var dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00';
     var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
     var dt;
@@ -155,7 +154,8 @@ function getNodeValueForDay(nodeId, year, month, day, getters) {
     var getter = getters ? getters[nodeId] : null;
     if (!getter) return null;
     try {
-        return getter(dt);
+        var raw = getter(dt);
+        return typeof out === 'function' ? out(raw) : (raw != null ? String(raw) : '');
     } catch (e) {
         return null;
     }

@@ -52,10 +52,10 @@ function getUmmalQuraDate(currentDateTime) {
         suffix = 'BH'
     }
 
-    // Get the weekday based on sunset in Mecca
     const dayOfWeek = getWeekdayAtTime(currentDateTime, {hour: 'SUNSET'}, 'UTC+03:00');
 
-    return hijriDay + ' ' + hijriMonth + ' ' + hijriYear + ' ' + suffix + '\n' + islamicWeek[dayOfWeek];
+    var output = hijriDay + ' ' + hijriMonth + ' ' + hijriYear + ' ' + suffix + '\n' + islamicWeek[dayOfWeek];
+    return { output: output, day: hijriDay, month: hijriMonth, year: hijriYear, dayOfWeek: dayOfWeek };
 }
 
 function calculateIslamicMonthAndYear(ln) {

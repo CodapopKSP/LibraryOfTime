@@ -43,11 +43,12 @@ function runCalendarEquinoxTests(calendarName, season, getCalendarFunction, test
         setGregJulianDifference(calculateGregorianJulianDifference(testedDate));
         const equinox = getSolsticeOrEquinox(testedDate, season);
         const result = getCalendarFunction(testedDate, equinox);
+        const display = typeof out === 'function' ? out(result) : result;
 
-        if (result !== expectedOutput) {
+        if (display !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
-            console.error('Received:', result);
+            console.error('Received:', display);
             failedTestCount++;
         }
     }
@@ -61,14 +62,14 @@ function runSolarTests(calendarName, getCalendarFunction, testCases) {
 
     for (const [inputDate, timezone, expectedOutput] of testCases) {
         testCount++;
-        // Get Timezone Offset for Local Calendars
         const timezoneOffset = convertUTCOffsetToMinutes(timezone);
         const testedDate = parseInputDate(inputDate, timezone);
         const result = getCalendarFunction(testedDate, timezoneOffset);
-        if (result !== expectedOutput) {
+        const display = typeof out === 'function' ? out(result) : result;
+        if (display !== expectedOutput) {
             console.error(`${calendarName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);
-            console.error('Received:', result);
+            console.error('Received:', display);
             failedTestCount++;
         }
     }

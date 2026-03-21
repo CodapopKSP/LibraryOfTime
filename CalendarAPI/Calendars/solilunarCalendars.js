@@ -84,7 +84,8 @@ function getTogysDate(currentDateTime) {
     const monthsSinceStartOfTogysYear = Math.round(differenceInDays(startOfTogysMonth, startOfTogysYear) / 27.5);
     const daysSinceStartOfTogysMonth = Math.floor(differenceInDays(currentDateTime, startOfTogysMonth)) + 1;
 
-    return 'Day ' + daysSinceStartOfTogysMonth + ' of ' + months[monthsSinceStartOfTogysYear] + '\nYear of the ' + yearName + '\nof Cycle ' + currentCycle;
+    var output = 'Day ' + daysSinceStartOfTogysMonth + ' of ' + months[monthsSinceStartOfTogysYear] + '\nYear of the ' + yearName + '\nof Cycle ' + currentCycle;
+    return { output: output, day: daysSinceStartOfTogysMonth, month: monthsSinceStartOfTogysYear, year: currentCycle, other: { yearName: yearName } };
 }
 
 function getTogysStartOfMonth(currentDateTime) {

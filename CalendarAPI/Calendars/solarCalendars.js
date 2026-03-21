@@ -82,7 +82,7 @@ function getAstronomicalDate(currentDateTime) {
     const startOfGregorian = createAdjustedDateTime({year: 1582, month: 10, day: 15});
     let astronomical = new Date(currentDateTime);
     let year = astronomical.getUTCFullYear();
-    let day = astronomical.getUTCDate().toString();
+    let day = astronomical.getUTCDate();
     let month = astronomical.getUTCMonth();
     const dayOfWeek = currentDateTime.getUTCDay();
 
@@ -93,7 +93,8 @@ function getAstronomicalDate(currentDateTime) {
         day = julianDate.day;
     }
 
-    return day + ' ' + monthNames[month] + ' ' + year + '\n' + weekNames[dayOfWeek];
+    var output = day + ' ' + monthNames[month] + ' ' + year + '\n' + weekNames[dayOfWeek];
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Gregorian calendar local date and time
@@ -103,7 +104,7 @@ function getGregorianDateTime(currentDateTime, timezoneOffset) {
 
     // Adjust the date with the offset
     const adjustedDate = new Date(currentDateTime.getTime() + offsetMilliseconds);
-    let day = adjustedDate.getUTCDate().toString();
+    let day = adjustedDate.getUTCDate();
     let month = adjustedDate.getUTCMonth();
     let year = adjustedDate.getUTCFullYear();
     let hour = adjustedDate.getUTCHours().toString().padStart(2, '0');
@@ -113,14 +114,23 @@ function getGregorianDateTime(currentDateTime, timezoneOffset) {
 
     // Set year suffix based on the value of year
     let yearSuffix = 'CE';
+    let displayYear = year;
     if (year < 1) {
         yearSuffix = 'BCE';
-        year = Math.abs(year);  // Adjust year for BCE without negative sign
+        displayYear = Math.abs(year);  // Adjust year for BCE without negative sign
     }
     
-    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + year + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
+    let dateDisplayString = day + ' ' + monthNames[month] + ' ' + displayYear + ' ' + yearSuffix + '\n' + weekNames[dayOfWeek];
     let timeDisplayString = hour + ':' + minute + ':' + second;
-    return {date: dateDisplayString, time: timeDisplayString};
+    return {
+        date: dateDisplayString,
+        time: timeDisplayString,
+        output: dateDisplayString,
+        day: day,
+        month: month,
+        year: year,
+        dayOfWeek: dayOfWeek
+    };
 }
 
 // Returns a formatted Julian calendar UTC date
@@ -134,7 +144,8 @@ function getJulianCalendar(currentDateTime) {
         yearSuffix = 'BC';
         displayYear = -year + 1; // Convert to BC notation
     }
-    return `${day} ${monthNames[month-1]} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    var output = `${day} ${monthNames[month-1]} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Minguo CST (Chinese Standard Time) date
@@ -144,9 +155,9 @@ function getMinguo(currentDateTime) {
     let month = taiwanTime.getUTCMonth() + 1; // Month is zero-based, so add 1
     let year = taiwanTime.getUTCFullYear() - 1911;
     let dayOfWeek = taiwanTime.getUTCDay();
-    const minguoWeek = ['天','一','二','三','四','五','六']
-    
-    return '民國 ' + year + '年 ' + month + '月 ' + day + '日\n星期' + minguoWeek[dayOfWeek];
+    const minguoWeek = ['天','一','二','三','四','五','六'];
+    var output = '民國 ' + year + '年 ' + month + '月 ' + day + '日\n星期' + minguoWeek[dayOfWeek];
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Juche KST date
@@ -157,10 +168,9 @@ function getJuche(currentDateTime) {
     let year = jucheTime.getUTCFullYear() - 1911;
     let dayOfWeek = jucheTime.getUTCDay();
     const jucheWeek = ['일', '월', '화', '수', '목', '금', '토'];
-    
-    // Add leading zeros if necessary
     let monthString = (month < 10) ? '0' + month : month;
-    return 'Juche ' + year + '.' + monthString + '.' + day + '\n' + jucheWeek[dayOfWeek] + '요일';
+    var output = 'Juche ' + year + '.' + monthString + '.' + day + '\n' + jucheWeek[dayOfWeek] + '요일';
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Thai Solar THB date
@@ -179,7 +189,8 @@ function getThaiSolar(currentDateTime) {
     let month = thaiTime.getUTCMonth();
     let year = thaiTime.getUTCFullYear() + 543;
     let dayOfWeek = thaiTime.getUTCDay();
-    return day + ' ' + thaiSolarMonths[month] + ' B.E. ' + year + '\n' + thaiSolarWeek[dayOfWeek];
+    var output = day + ' ' + thaiSolarMonths[month] + ' B.E. ' + year + '\n' + thaiSolarWeek[dayOfWeek];
+    return { output: output, day: day, month: month + 1, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted French Republican CET date
@@ -230,18 +241,19 @@ function getRepublicanCalendar(currentDateTime) {
         weekString = SansculottidesWeek[day-1];
     }
 
-    return day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE\n' + weekString;
+    var output = day + " " + FrenchRevolutionaryMonths[month] + " " + toRomanNumerals(yearsSince1792) + ' RE\n' + weekString;
+    return { output: output, day: day, month: month, year: yearsSince1792 };
 }
 
 // Returns a formatted EF CET date
 function getEraFascista(currentDateTime) {
-    // Only update the year if past October 29th, otherwise it is the previous year.
     let october29 = createAdjustedDateTime({currentDateTime: currentDateTime, timezone: 'UTC+01:00', month: 10, day: 29});
     if (currentDateTime < october29) {
         october29.setUTCFullYear(currentDateTime.getUTCFullYear() - 1);
     }
     let yearsSince1922 = october29.getUTCFullYear() - 1921;
-    return `Anno ${toRomanNumerals(yearsSince1922)}`;
+    var output = `Anno ${toRomanNumerals(yearsSince1922)}`;
+    return { output: output, year: yearsSince1922 };
 }
 
 // Returns a formatted Coptic UTC date based on the Julian Day (not Julian date)
@@ -299,7 +311,8 @@ function getCopticDate(currentDateTime) {
         remainingDays = Coptic_monthDays[CopticMonth];
     }
 
-    return remainingDays + ' ' + copticMonths[CopticMonth] + ' ' + CopticYear + ' AM\n' + copticWeek[dayOfWeek];
+    var output = remainingDays + ' ' + copticMonths[CopticMonth] + ' ' + CopticYear + ' AM\n' + copticWeek[dayOfWeek];
+    return { output: output, day: remainingDays, month: CopticMonth, year: CopticYear, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Ethiopian EET date
@@ -357,7 +370,8 @@ function getEthiopianDate(currentDateTime) {
         remainingDays = Coptic_monthDays[EthiopianMonth];
     }
 
-    return remainingDays + ' ' + ethiopianMonths[EthiopianMonth] + ' ዓ.ም.' + EthiopianYear + '\n' + ethiopianWeek[dayOfWeek];
+    var output = remainingDays + ' ' + ethiopianMonths[EthiopianMonth] + ' ዓ.ም.' + EthiopianYear + '\n' + ethiopianWeek[dayOfWeek];
+    return { output: output, day: remainingDays, month: EthiopianMonth, year: EthiopianYear, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Byzantine TRT date
@@ -386,8 +400,8 @@ function getByzantineCalendar(currentDateTime) {
     const monthString = monthNames[julianDate.month - 1]; // Adjust for 0-based index
     const dayString = julianDate.day;
 
-    let dateString = `${dayString} ${monthString} ${byzantineYear} AM\n${weekNames[dayOfWeek]}`;
-    return dateString;
+    var output = `${dayString} ${monthString} ${byzantineYear} AM\n${weekNames[dayOfWeek]}`;
+    return { output: output, day: julianDate.day, month: julianDate.month, year: byzantineYear, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Florentine (CET) date
@@ -424,8 +438,8 @@ function getFlorentineCalendar(currentDateTime) {
         yearSuffix  = 'BC';
     }
 
-    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
-    return dateString;
+    var output = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    return { output: output, day: dayString, month: adjustedJulian.month, year: florentineYear, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Pisan (CET) date
@@ -463,8 +477,8 @@ function getPisanCalendar(currentDateTime) {
         yearSuffix  = 'BC';
     }
 
-    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
-    return dateString;
+    var output = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    return { output: output, day: dayString, month: adjustedJulian.month, year: pisanYear, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Venetian (CET) date
@@ -496,8 +510,8 @@ function getVenetianCalendar(currentDateTime) {
         displayYear = -venetianYear + 1; // Adjust for BC notation
     }
 
-    let dateString = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
-    return dateString;
+    var output = `${dayString} ${monthString} ${displayYear} ${yearSuffix}\n${weekNames[dayOfWeek]}`;
+    return { output: output, day: dayString, month: adjustedJulianDate.month, year: venetianYear, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Baha'i IRST date
@@ -594,7 +608,8 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
     // Get the weekday based on sunset in Tehran
     const dayOfWeek = getWeekdayAtTime(currentDateTime, { hour: 'SUNSET' }, 'UTC+03:30');
 
-    return currentDayOfYear + ' ' + bahaiMonths[monthIndex] + ' ' + year + ' BE\n' + bahaiWeek[dayOfWeek];
+    var output = currentDayOfYear + ' ' + bahaiMonths[monthIndex] + ' ' + year + ' BE\n' + bahaiWeek[dayOfWeek];
+    return { output: output, day: currentDayOfYear, month: monthIndex, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Pataphysical local date
@@ -649,7 +664,8 @@ function getPataphysicalDate(currentDateTime, timezoneOffset) {
     let year = mostRecentSept8.getUTCFullYear()-1872; // Get epoch
     const dayOfWeek = localTime.getUTCDay();
 
-    return day + ' ' + month + ' ' + year + ' A.P.\n' + pataphysicalWeek[dayOfWeek];
+    var output = day + ' ' + month + ' ' + year + ' A.P.\n' + pataphysicalWeek[dayOfWeek];
+    return { output: output, day: day, month: monthIndex, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Discordian local date
@@ -701,7 +717,8 @@ function getDiscordianDate(currentDateTime, timezoneOffset) {
         dayMonthString = day + ' ' + discordianMonths[month];
     }
 
-    return dayMonthString + ' ' + year + ' YOLD\n' + discordianWeek[dayOfWeek];
+    var output = dayMonthString + ' ' + year + ' YOLD\n' + discordianWeek[dayOfWeek];
+    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Solar Hijri IRST date
@@ -789,7 +806,8 @@ function getSolarHijriDate(currentDateTime, vernalEquinox_) {
     // Determine weekday based on midnight in Tehran (20:30 UTC)
     const dayOfWeek = getWeekdayAtTime(currentDateTime, { hour: 20, minute: 30 });
 
-    return day + ' ' + month + ' ' + year + ' SH\n' + solarHijriWeek[dayOfWeek];
+    var output = day + ' ' + month + ' ' + year + ' SH\n' + solarHijriWeek[dayOfWeek];
+    return { output: output, day: day, month: monthIndex, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Qadimi IRST date
@@ -849,10 +867,12 @@ function getQadimiDate(currentDateTime) {
     // If Gatha days, use Gatha day names
     if ((monthIndex>11)&&(remainingDays<6)) {
         day = gathaDays[remainingDays-1];
-        return day + ' ' + year + ' Y.Z.\n' + qadimiWeek[dayOfWeek];
+        var outputGatha = day + ' ' + year + ' Y.Z.\n' + qadimiWeek[dayOfWeek];
+        return { output: outputGatha, day: day, month: monthIndex, year: year, dayOfWeek: dayOfWeek, other: { gatha: true } };
     }
 
-  return day + ' ' + month + ' ' + year + ' Y.Z.\n' + qadimiWeek[dayOfWeek];
+    var outputQadimi = day + ' ' + month + ' ' + year + ' Y.Z.\n' + qadimiWeek[dayOfWeek];
+    return { output: outputQadimi, day: remainingDays, month: monthIndex, year: year, dayOfWeek: dayOfWeek, other: { dayName: day } };
 }
 
 // Returns a formatted Egyptian Civil EET date
@@ -898,7 +918,8 @@ function getEgyptianDate(currentDateTime) {
         monthAndDayText = EgyptianIntercalaryDays[dayOfMonth-1];
     }
 
-    return monthAndDayText + ' (' + yearsSinceStartOfAkhet2781 + ')';
+    var output = monthAndDayText + ' (' + yearsSinceStartOfAkhet2781 + ')';
+    return { output: output, day: dayOfMonth, month: currentMonthNumber, year: yearsSinceStartOfAkhet2781, other: { season: currentSeason } };
 }
 
 // Returns an ISO Week local date
@@ -924,7 +945,8 @@ function getISOWeekDate(currentDateTime, timezoneOffset) {
     const diff = thursday - firstThursday;
     const weekNumber = Math.round(diff / (7 * 86400000)) + 1;
 
-    return `${weekYear}-W${weekNumber}-${isoDay}`;
+    var output = `${weekYear}-W${weekNumber}-${isoDay}`;
+    return { output: output, day: isoDay, month: undefined, year: weekYear, dayOfWeek: isoDay, other: { weekNumber: weekNumber } };
 }
 
 // Returns a formatted Haab CST date
@@ -951,36 +973,33 @@ function getHaabDate(localTime) {
     const totalHaabDays = (startingHaabMonthIndex * 20 + startingHaabDay + adjustedDays) % daysInYear;
     const haabMonthIndex = Math.floor(totalHaabDays / 20);
     const haabDay = totalHaabDays % 20;
-    
-    return `${haabDay} ${haabMonths[haabMonthIndex]}`;
-};
+    var output = `${haabDay} ${haabMonths[haabMonthIndex]}`;
+    return { output: output, day: haabDay, month: haabMonthIndex };
+}
 
 // Returns a formatted Anno Lucis local date
 function getAnnoLucisDate(currentDateTime, timezoneOffset) {
 
-    // Get Gregorian date components
-    let annoLucis = getGregorianDateTime(currentDateTime, timezoneOffset).date;
+    var greg = getGregorianDateTime(currentDateTime, timezoneOffset);
+    let annoLucis = greg.date;
     let annoLucisDay = annoLucis.split(' ')[0];
     let annoLucisMonth = annoLucis.split(' ')[1];
-    let annoLucisYear = annoLucis.split(' ')[2] + annoLucis.split(' ')[3];
+    let annoLucisYear = annoLucis.split(' ')[2] + (annoLucis.split(' ')[3] || '');
     let annoLucisWeek = annoLucis.split('\n')[1];
     
     // Get year number
     let annoLucisYearNumber = 0;
     if (annoLucisYear.includes('BCE')) {
-        annoLucisYearNumber = annoLucisYear.replace(' BCE', '');
-        annoLucisYearNumber = parseInt(annoLucisYearNumber) * -1;
+        annoLucisYearNumber = parseInt(annoLucisYear.replace(' BCE', ''), 10) * -1;
     } else {
-        annoLucisYearNumber = annoLucisYear.replace(' CE', '');
-        annoLucisYearNumber = parseInt(annoLucisYearNumber);
+        annoLucisYearNumber = parseInt(annoLucisYear.replace(' CE', ''), 10);
     }
 
     // Add 4000 years to the year
     annoLucisYearNumber += 4000;
 
-    // Reconstruct the date string
-    annoLucis = annoLucisDay + ' ' + annoLucisMonth + ' ' + annoLucisYearNumber + ' AL\n' + annoLucisWeek;
-    return annoLucis;
+    var output = annoLucisDay + ' ' + annoLucisMonth + ' ' + annoLucisYearNumber + ' AL\n' + annoLucisWeek;
+    return { output: output, day: greg.day, month: greg.month, year: annoLucisYearNumber, dayOfWeek: greg.dayOfWeek };
 }
 
 // Returns a formatted Tabot EST date
@@ -1056,7 +1075,8 @@ function getTabotDate(currentDateTime) {
     const month = tabotMonths[monthIndex];
     const year = startOfThisYear.getUTCFullYear()-1930;
 
-    return day + ' ' + month + ' H.I.M. ' + year + '\n' + tabotWeek[dayOfWeek];
+    var output = day + ' ' + month + ' H.I.M. ' + year + '\n' + tabotWeek[dayOfWeek];
+    return { output: output, day: day, month: monthIndex, year: year, dayOfWeek: dayOfWeek };
 }
 
 // Returns a formatted Icelandic (GMT) date
@@ -1125,7 +1145,8 @@ function getIcelandicDate(currentDateTime) {
         missieriWeek -= icelandicMessieriWeeks[0];
     }
 
-    return icelandicDay + ' ' + icelandicMonth + '\nMisseri: ' + icelandicSeason + '\nWeek: ' + missieriWeek + '\n' + icelandicDays[icelandicDayOfWeek];
+    var output = icelandicDay + ' ' + icelandicMonth + '\nMisseri: ' + icelandicSeason + '\nWeek: ' + missieriWeek + '\n' + icelandicDays[icelandicDayOfWeek];
+    return { output: output, day: icelandicDay, month: icelandicMonthIndex, year: undefined, dayOfWeek: icelandicDayOfWeek, other: { season: icelandicSeason, week: missieriWeek } };
 }
 
 
@@ -1193,7 +1214,8 @@ function getSakaSamvatDate(currentDateTime) {
     const weekday = sakaSamvatWeek[dayOfWeek];
 
 
-    return day + ' ' + month + ' ' + sakaSamvatYear + '\n' + weekday;
+    var output = day + ' ' + month + ' ' + sakaSamvatYear + '\n' + weekday;
+    return { output: output, day: day, month: monthIndex, year: sakaSamvatYear, dayOfWeek: dayOfWeek };
 }
 
 function getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset) {
@@ -1211,5 +1233,6 @@ function getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset) {
         yearSCA -= 1;
     }
 
-    return SCAday + ' ' + SCAmonth + ' A.S. ' + toRomanNumerals(yearSCA) + '\n' + SCAweek;
+    var output = SCAday + ' ' + SCAmonth + ' A.S. ' + toRomanNumerals(yearSCA) + '\n' + SCAweek;
+    return { output: output, day: SCAday, month: SCAmonth, year: yearSCA, dayOfWeek: SCAweek };
 }

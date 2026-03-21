@@ -49,7 +49,8 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
         if (lunisolarDate.leapMonth) {
             monthString = monthString + "閏";
         }
-        return `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+        var output = `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+        return { output: output, day: lunisolarDate.day, month: lunisolarDate.month, year: year, dayOfWeek: undefined, other: { zodiac: zodiacAnimals[earthlyBranchIndex] } };
     }
 
     // Format for Vietnamese calendar
@@ -67,7 +68,8 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
         if (lunisolarDate.leapMonth) {
             monthString = monthString + "Nhuận";
         }
-        return `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+        var output = `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
+        return { output: output, day: lunisolarDate.day, month: lunisolarDate.month, year: year, dayOfWeek: undefined, other: { zodiac: zodiacAnimals[earthlyBranchIndex] } };
     }
 
     // Format for Korean calendar
@@ -84,7 +86,8 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
         if (lunisolarDate.leapMonth) {
             monthString = monthString + "윤";
         }
-        return `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
+        var output = `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
+        return { output: output, day: lunisolarDate.day, month: lunisolarDate.month, year: year };
     }
 }
 
@@ -95,10 +98,10 @@ function getSexagenaryYear(currentDateTime) {
     let heavenlyStemsEnglish = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
     let earthlyBranchesEnglish = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
 
-    // Get number of current Chinese year
     let chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'CHINA');
-    let chineseYear_ = chineseDate.split('年');
-    let chineseYear = chineseYear_[0]-2;
+    let chineseStr = (chineseDate && chineseDate.output != null) ? chineseDate.output : chineseDate;
+    let chineseYear_ = String(chineseStr).split('年');
+    let chineseYear = chineseYear_[0] - 2;
     
     // Ensure year is positive before calculating indices
     let positiveYear = chineseYear < 0 ? 60 + (chineseYear % 60) : chineseYear;
@@ -111,7 +114,8 @@ function getSexagenaryYear(currentDateTime) {
     let heavenlyStemEnglish = heavenlyStemsEnglish[heavenlyStemIndex];
     let earthlyBrancheEnglish = earthlyBranchesEnglish[earthlyBranchIndex];
     
-    return heavenlyStem + earthlyBranch + ' (' + heavenlyStemEnglish + earthlyBrancheEnglish + ')';
+    var output = heavenlyStem + earthlyBranch + ' (' + heavenlyStemEnglish + earthlyBrancheEnglish + ')';
+    return { output: output, year: chineseYear, other: { heavenlyStem: heavenlyStem, earthlyBranch: earthlyBranch } };
 }
 
 
@@ -389,7 +393,7 @@ function getBabylonianLunisolarCalendar(currentDateTime, timezone) {
             break;
         }
         if (++iter >= MAX_YEAR_ITERATIONS) {
-            return "—";
+            return { output: "—" };
         }
     } while (true);
 
@@ -414,7 +418,7 @@ function getBabylonianLunisolarCalendar(currentDateTime, timezone) {
         }
     }
     if (monthIndex < 0 || !monthStart) {
-        return "—";
+        return { output: "—" };
     }
     let day = Math.floor(differenceInDays(currentDateTime, monthStart)) + 1;
     if (day < 1) day = 1;
@@ -431,10 +435,8 @@ function getBabylonianLunisolarCalendar(currentDateTime, timezone) {
     const arsacidYear = babylonYear - 64;
     const baseString = day + " " + monthName + " " + babylonYear + " SE (" + arsacidYear + " AE)";
     const offering = getBabylonianOffering(day);
-    if (offering) {
-        return baseString + "\nOffering to " + offering;
-    }
-    return baseString;
+    var output = offering ? baseString + "\nOffering to " + offering : baseString;
+    return { output: output, day: day, month: monthIndex, year: babylonYear, dayOfWeek: undefined, other: { arsacidYear: arsacidYear, offering: offering } };
 }
 
 //|-------------------------|
@@ -511,7 +513,8 @@ function calculateHebrewCalendar(currentDateTime) {
         daysThisYearSoFar -= yearMonths[monthIndex];
     }
 
-    return (daysThisYearSoFar+1) + " " + HebrewMonths[monthIndex] + " " + earlyTishri[1] + " AM\n" + hebrewDaysOfWeek[weekday];
+    var output = (daysThisYearSoFar+1) + " " + HebrewMonths[monthIndex] + " " + earlyTishri[1] + " AM\n" + hebrewDaysOfWeek[weekday];
+    return { output: output, day: daysThisYearSoFar, month: monthIndex, year: earlyTishri[1], dayOfWeek: weekday };
 }
 
 function calculateMoladTishri(currentYear) {
@@ -860,5 +863,6 @@ function getEpiroteCalendar(currentDateTime) {
 
     const monthName = getEpiroteMonthName(yearInCycle, monthIndexInYear);
 
-    return dayOfMonth + ' ' + monthName + ' (' + epiroteYear + ')';
+    var output = dayOfMonth + ' ' + monthName + ' (' + epiroteYear + ')';
+    return { output: output, day: dayOfMonth, month: monthIndexInYear, year: epiroteYear };
 }

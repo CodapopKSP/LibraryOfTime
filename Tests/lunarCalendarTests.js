@@ -12,7 +12,8 @@ function runGetUmmalQuraDateTests(testCases) {
         testCount++;
 
         const testedDate = parseInputDate(inputDate, timezone);
-        const actualDate = getUmmalQuraDate(testedDate);
+        const result = getUmmalQuraDate(testedDate);
+        const actualDate = typeof out === 'function' ? out(result) : result;
         if (actualDate !== expectedDate) {
             console.error(`Umm al-Qura: Test ${testCount} failed.`);
             console.error('Expected:', expectedDate);

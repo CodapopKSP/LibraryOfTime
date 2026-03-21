@@ -89,11 +89,12 @@ function multidaySpanTest(calendarFn, arg2, arg3, arg4) {
             break;
         }
 
+        const display = typeof out === 'function' ? out(output) : output;
         console.log(
             `[${i + 1}/${days}]`,
             formatInputStyleDate(current),
             '\n',
-            output
+            display
         );
 
         // Advance one civil day in UTC; underlying calendar logic can apply its own local rules.
