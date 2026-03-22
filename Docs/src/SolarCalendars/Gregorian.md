@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Gregorian Calendar is the calendar used by most of the world. It has 365 days, with an extra leap day every year divisible by 4 unless divisible by 100, except for years also divisible by 400.
+The Gregorian Calendar is the calculated solar calendar used by most of the world. It has 365 days, with an extra leap day every year divisible by 4 unless divisible by 100, except for years also divisible by 400.
 
 The era is denoted 'CE' meaning 'Common Era' and 'BCE' meaning 'Before Common Era'. Dates can also be expressed in AD/BC as in the Julian calendar.
 

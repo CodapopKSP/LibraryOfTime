@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Galilean calendars were created by Thomas Gangale for use on the four Galilean moons of Jupiter---Io, Europa, Ganymede, and Callisto. They are intended to loosely align with the Earth-based Gregorian calendar, roughly sharing an epoch and most month names.
+The Galilean calendars are calculated calendars created by Thomas Gangale for use on the four Galilean moons of Jupiter---Io, Europa, Ganymede, and Callisto. They are intended to loosely align with the Earth-based Gregorian calendar, roughly sharing an epoch and most month names.
 
 The inner three moons are in a 2:4:8 Laplace resonance, and thus their orbits and solar days are in nearly exact ratios. As the solar day of Io, the inner-most moon, is over 42 hours, its day is broken into two units of time called 'circads' that are ~21 hours each and act as calendar days. The remaining moons have their orbits broken up into similar-sized circads: 4 for Europa, 8 for Ganymede, and 19 for Callisto.
 

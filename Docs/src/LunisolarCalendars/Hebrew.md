@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Hebrew calendar is a lunisolar calendar used by the Jewish faith for religious and celebratory purposes, and it is also an official calendar of Israel.
+The Hebrew calendar is a calculated lunisolar calendar used by the Jewish faith for religious and celebratory purposes, and it is also an official calendar of Israel.
 
 It features 12 months of 29 or 30 days that start approximately on the day of the New Moon, referred to as a Molad. It has an intercalary 13th month added after the month of Adar, called Adar II, based on the Metonic cycle which places 7 leap years in every cycle of 19 years. 
 

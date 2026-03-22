@@ -6,9 +6,9 @@
 
 #### Overview
 
-The Dangun calendar is the traditional calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while years (년) are counted from 2333 BCE.
+The Dangun calendar is a traditional observational lunisolar calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while years (년) are counted from 2333 BCE.
 
-The Dangun calendar is calculated based on midnight in Korea, and as such its dates may misalign, sometimes significantly, from the Chinese lunisolar calendar.
+The Dangun calendar is calculated based on midnight in Korea, and its dates may misalign, sometimes significantly, from the Chinese lunisolar calendar.
 
 #### Info
 

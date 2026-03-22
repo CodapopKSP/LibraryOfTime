@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Byzantine calendar was the official calendar of the Byzantine Empire from 988 to 1453 and was used in Ukraine and Russia until 1700.
+The Byzantine calendar was the official Julian-based calendar of the Byzantine Empire from 988 to 1453 and was used in Ukraine and Russia until 1700.
 
 It followed the Julian calendar but differed by the new year starting on September 1st and the epoch being September 1st, 5509 BC (July 19th, 5508 BCE in the proleptic Gregorian calendar). Years are counted in AM, or 'Anno Mundi' meaning 'Year After Creation'.
 

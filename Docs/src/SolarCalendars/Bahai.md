@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Baháʼí calendar is the calendar of the Baháʼí Faith. It is a pure solar calendar, as it begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift through the Gregorian year following the precession of the equinoxes.
+The Baháʼí calendar is an observational solar calendar of the Baháʼí Faith. It begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift through the Gregorian year following the precession of the equinoxes.
 
 It features 19 months (or sometimes referred to as weeks) of 19 days, for a total of 361 days. The remaining 4 or 5 days of each year are called Ayyám-i-Há and take place between the final two months, Mulk and 'Alá', typically at the end of February.
 

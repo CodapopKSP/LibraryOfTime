@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Icelandic calendar is the traditional calendar of Iceland. It features two seasons, Summer and Winter, called 'misseri' meaning 'semester', each with 26-28 weeks. There is no epoch, and years do not necessarily begin with either misseri.
+The Icelandic calendar is the traditional calculated solar calendar of Iceland. It features two seasons, Summer and Winter, called 'misseri' meaning 'semester', each with 26-28 weeks. There is no epoch, and years do not necessarily begin with either misseri.
 
 Although the misseri and weeks are the primary units, the misseri are further broken down into 6 months each, all of which consist of 30 days for a total of 360 days. Another four days are added between the 3rd and 4th months of Summer (midsummer) called 'Aukanætur' and is treated as a holiday. This brings the year to exactly 52 weeks or 364 days.
 

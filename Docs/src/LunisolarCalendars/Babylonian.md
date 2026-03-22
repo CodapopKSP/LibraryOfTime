@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Babylonian calendar is a lunisolar calendar that was used in ancient Babylon. It consists of 12 months of 29 or 30 days that begin after the first sighting of the new crescent moon at sunset. An intercalary month is added every 2-3 years in accordance with the 19-year Metonic cycle, typically repeating the 12th month but repeating the 6th month for only the 17th year of the Metonic cycle.
+The Babylonian calendar is an observational lunisolar calendar that was used in ancient Babylon. It consists of 12 months of 29 or 30 days that begin after the first sighting of the new crescent moon at sunset. An intercalary month is added every 2-3 years in accordance with the 19-year Metonic cycle, typically repeating the 12th month but repeating the 6th month for only the 17th year of the Metonic cycle.
 
 Days start at sunset. While there is no week structure, "holy-days" take place at intervals of 7 days after the start of each month to make offerings to specific gods; Marduk and Ishtar on the 7th, Ninlil and Nergal on the 14th, Sin and Shamash on the 21st, and Enki and Mah on the 28th.
 

@@ -6,7 +6,7 @@
 
 #### Overview
 
-The French Republican calendar was used during and after the French Revolution from 1793 to 1805 and was a drastic change to the Gregorian calendar.
+The French Republican calendar was an observational solar calendar used during and after the French Revolution from 1793 to 1805.
 
 It featured twelve months of 30 days each, broken into 3 weeks of 10 days. The remaining 5 or 6 days of each solar year were the Sansculottides, to be treated as national holidays at the end of the year.
 

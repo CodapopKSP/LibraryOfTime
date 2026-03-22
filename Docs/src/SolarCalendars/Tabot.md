@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Tabot calendar, an anacronym of "The Anointed Body of Testimony", is the calendar of Rastafarianism. It features 12 months of 30 days, except for the final month of 35 days and an extra leap day added onto the 4th month.
+The Tabot calendar, an anacronym of "The Anointed Body of Testimony", is a Gregorian-derived calendar of Rastafarianism. It features 12 months of 30 days, except for the final month of 35 days and an extra leap day added onto the 4th month.
 
 The epoch is the coronation of H.I.M. Haile Selassie 1st as Emperor of Abyssinia on 2 November 1930 CE. Years are denoted with 'H.I.M', meaning 'His Imperial Majesty'.
 

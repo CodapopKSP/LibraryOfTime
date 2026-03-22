@@ -5,8 +5,40 @@ const glossaryContent = {
     title: "Glossary of Terms",
     terms: [
         {
-            term: "Solar Calendar",
-            definition: "A calendar that uses the solar year as its basic unit, keeping the seasons in alignment. Usually refers to the Earth moving once around the sun."
+            term: "Calculated",
+            definition: "Based on mathematical formulas, typically including rules for leap years and intercalations in order to approximate the solar year or lunar month."
+        },
+        {
+            term: "Calibration",
+            definition: "The process of adjusting an algorithm on this website to keep it in sync with official sources."
+        },
+        {
+            term: "Drift",
+            definition: "The gradual accumulation of error in a timekeeping system."
+        },
+        {
+            term: "Epoch",
+            definition: "A specific point in time used as a reference point for a calendar system."
+        },
+        {
+            term: "Gregorian-based, Julian-based",
+            definition: "Including all of the elements of the Gregorian or Julian calendar, such as the month names, leap year rules, and the number of days in each month, but with a different epoch."
+        },
+        {
+            term: "Gregorian-derived, Julian-derived",
+            definition: "A completely separate calendar system from the Gregorian or Julian calendar, but intrinsically related to them so that they do not experience any drift and can be calculated from them."
+        },
+        {
+            term: "Intercalation",
+            definition: "The process of adding an extra day or month to a calendar to keep it in sync with the solar year or lunar month."
+        },
+        {
+            term: "Leap Second",
+            definition: "An extra second added to the UTC time scale to keep it in sync with the solar year."
+        },
+        {
+            term: "Liturgical",
+            definition: "Used for religious purposes."
         },
         {
             term: "Lunar Calendar",
@@ -17,50 +49,33 @@ const glossaryContent = {
             definition: "A calendar that uses both the lunar month and the solar year as its basic units, using the moon to determine the month and the solar year to determine the year, with an intercalary leap month added every few years to keep the lunar month in sync with the solar year."
         },
         {
-            term: "Solilunar Calendar",
-            definition: "A calendar that uses both the lunar month and the solar year as its basic units, using the moon to determine the month and the solar year to determine the year. Unlike a lunisolar calendar, the solar year always occurs after the same event, eliminating the need for intercalation rules."
-        },
-        {
-            term: "Epoch",
-            definition: "A specific point in time used as a reference point for a calendar system."
-        },
-        {
-            term: "Intercalation",
-            definition: "The process of adding an extra day or month to a calendar to keep it in sync with the solar year or lunar month."
-        },
-        {
-            term: "Liturgical",
-            definition: "Used for religious purposes."
-        },
-        {
-            term: "Proleptic",
-            definition: "The process of extending a calendar system backward in time before its historical introduction."
-        },
-        {
-            term: "Leap Second",
-            definition: "An extra second added to the UTC time scale to keep it in sync with the solar year."
-        },
-        {
             term: "Metonic Cycle",
             definition: "A cycle of 19 years that repeats the same pattern of leap months and non-leap months in a lunisolar calendar. Leap years are typically years 3, 6, 8, 11, 14, 17, 19 in the cycle."
         },
         {
-            term: "Year 0 Problem",
-            definition: "The issue of having no year 0 in the Julian calendar and how it relates to the Gregorian calendar. This website assumes year 0 exists for the Gregorian calendar but not for the Julian calendar."
+            term: "Observational",
+            definition: "Based on observations of celestial phenomena such as the phases of the moon, equinoxes, solstices, positions of stars, and other astronomical events."
         },
         {
             term: "Orbit",
             definition: "The path of a celestial body around another celestial body."
         },
         {
-            term: "Calibration",
-            definition: "The process of adjusting an algorithm on this website to keep it in sync with official sources."
+            term: "Proleptic",
+            definition: "The process of extending a calendar system backward in time before its historical introduction."
         },
         {
-            term: "Drift",
-            definition: "The gradual accumulation of error in a timekeeping system."
+            term: "Solar Calendar",
+            definition: "A calendar that uses the solar year as its basic unit, keeping the seasons in alignment. Usually refers to the Earth moving once around the sun."
         },
-        
+        {
+            term: "Solilunar Calendar",
+            definition: "A calendar that uses both the lunar month and the solar year as its basic units, using the moon to determine the month and the solar year to determine the year. Unlike a lunisolar calendar, the solar year always occurs after the same event, eliminating the need for intercalation rules."
+        },
+        {
+            term: "Year 0 Problem",
+            definition: "The issue of having no year 0 in the Julian calendar and how it relates to the Gregorian calendar. This website assumes year 0 exists for the Gregorian calendar but not for the Julian calendar."
+        },
     ]
 };
 

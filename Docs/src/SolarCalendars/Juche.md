@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Juche calendar is used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar.
+The Juche calendar is a Gregorian-based calendar used in North Korea. It represents the number of years since the birth year of Kim Il Sung, the founder of the DPRK, and was adopted in 1997. For its months and days it follows the Gregorian calendar.
 
 #### Info
 

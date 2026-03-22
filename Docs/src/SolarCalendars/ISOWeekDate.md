@@ -6,9 +6,9 @@
 
 #### Overview
 
-The ISO Week Date is part of the ISO standard for time. It breaks the year entirely into a whole number of weeks rather than months, which is often useful for business accounting.
+The ISO Week Date is part of the ISO standard for time. It is Gregorian-derived and breaks the year entirely into a whole number of weeks rather than months, which is often useful for business accounting.
 
-Each year can have either 52 weeks (364 days) or 53 weeks (371 days). It keeps in sync with the Gregorian calendar.
+Each year can have either 52 weeks (364 days) or 53 weeks (371 days).
 
 #### Info
 

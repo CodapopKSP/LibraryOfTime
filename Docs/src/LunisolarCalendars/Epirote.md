@@ -8,7 +8,7 @@
 
 The Epirote calendar is the previously-undescribed Greek lunisolar calendar displayed on the Antikythera mechanism, theorized to be from the Epirus region of Ancient Greece.
 
-It is a lunisolar calendar with 12 months of 29 or 30 days, with an intercalary month added every 2-3 years in accordance with a variant of the Metonic cycle (year 1 instead of year 19). The exact intercalary month is unknown, but it is theorized to be the 4th month of ΜΑΧΑΝΕΥΣ.
+It is a calculated lunisolar calendar with 12 months of 29 or 30 days, with an intercalary month added every 2-3 years in accordance with a variant of the Metonic cycle (year 1 instead of year 19). The exact intercalary month is unknown, but it is theorized to be the 4th month of ΜΑΧΑΝΕΥΣ.
 
 Months were either "full" (30 days) or "hollow" (29 days) in a roughly alternating pattern; however, hollow months still had days that numbered 1-30, but one day was skipped entirely, starting with the 1st day of the 1st month of the Metonic cycle and then skipping a day every 64 days on a cycle of 47 months (repeating 5 times per Metonic cycle). Thus, the first day of each Metonic cycle is skipped and begins on the 2nd day of ΦΟΙΝΙΚΑΙΟΣ.
 

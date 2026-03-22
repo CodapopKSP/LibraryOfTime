@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Haab is one of many calendars used by the Maya people. It features 18 months of 20 days plus a short month of 5 days, with days counted starting from 0. Thus, it has 365 days with no intercalation.
+The Haab is a calculated solar calendar and one of many calendars used by the Maya people. It features 18 months of 20 days plus a short month of 5 days, with days counted starting from 0. Thus, it has 365 days with no intercalation.
 
 The Haab combines with another Maya calendar, the 260-day Tzolkin, to create the Maya Calendar Round. This is the cycle that the two calendars create, which takes roughly 52 years to complete.
 

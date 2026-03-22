@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Togys calendar was used by Kazakh nomads. It consists of 13 or 14 months of 27 or 28 days. Months begin on the day when the moon crosses through the Pleiades star cluster (or matches its right ascension) and follows the sidereal month, making it particularly unique among calendars.
+The Togys calendar is an observational solilunar calendar used by Kazakh nomads. It consists of 13 or 14 months of 27 or 28 days. Months begin on the day when the moon crosses through the Pleiades star cluster (or matches its right ascension) and follows the sidereal month, making it particularly unique among calendars.
 
 Each month is named after the approximate age of the moon on the first day; since the sidereal month is around 2 days shorter than the lunar month, each time the moon passes through Pleiades, it looks visually distinct.
 

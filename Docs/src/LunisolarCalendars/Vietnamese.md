@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Đại lịch calendar is the traditional calendar of Vietnam. It is derived from the Chinese lunisolar calendar and shares many of the same elements, but it is set to Vietnamese time, meaning on rare occasions the two calendars can temporarily be significantly offset, only to realign again later.
+The Đại lịch calendar is a traditional observational lunisolar calendar of Vietnam. It is derived from the Chinese lunisolar calendar and shares many of the same elements, but it is set to Vietnamese time, meaning on rare occasions the two calendars can temporarily be significantly offset, only to realign again later.
 
 It features 12 months of 29 or 30 days with a leap month on average every 2-3 years.
 

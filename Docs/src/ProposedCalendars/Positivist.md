@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Positivist calendar was created by French philosopher and Positivist Auguste Comte in 1849. It features 13 months of 28 days named after significant figures in Western history.
+The Positivist calendar was a Gregorian-derived calendar proposed by French philosopher and Positivist Auguste Comte in 1849. It features 13 months of 28 days named after significant figures in Western history.
 
 Each of the 364 days is also named after a historical figure, not all of whom are intended to be remembered as heroes but also as villains. Days of the week are still carried over from the Gregorian calendar, though the final day of the year, The Festival of All the Dead, is not part of a day of the week, as is the following day during leap years, The Festival of Holy Women. Leap year rules follow the Gregorian calendar.
 

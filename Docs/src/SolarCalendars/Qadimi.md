@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Qadimi calendar is one of the calendars of Zoroastrianism. It was intended to follow the Spring Equinox, but a lack of intercalary days has resulted in this calendar drifting significantly.
+The Qadimi calendar is a calculated solar calendar of Zoroastrianism. It was intended to follow the Spring Equinox, but a lack of intercalary days has resulted in this calendar drifting significantly.
 
 It features 12 months of 30 days, plus a period of 5 days at the end of each year called the Gatha days. Each of the 30 days of the month are named, as well as each of the Gatha days. Days start at sunrise in Iran.
 

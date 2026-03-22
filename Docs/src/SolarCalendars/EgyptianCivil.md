@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Egyptian Civil calendar was the calendar used by Ancient Egypt, alongside its lunar calendar.
+The Egyptian Civil calendar was a calculated solar calendar used by Ancient Egypt, alongside its lunar calendar.
 
 It featured 12 months of 30 days, divided into 3 seasons of 4 months each. The months have names but are usually labeled by their sequence in each season, leading to a pattern of [month] [season] [day]. Each year has 5 intercalary days with individual names at the end, for a total of 365 days.
 

@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Tamrielic calendar is used in the Elder Scrolls franchise. It is a simple 1-1 mapping to the Gregorian calendar, including its leap years.
+The Tamrielic calendar is a fictional Gregorian-derived calendar used in the Elder Scrolls franchise. It is a simple 1-1 mapping to the Gregorian calendar, including its leap years.
 
 It has 12 months of 28-31 days along with weeks of seven days. Since the timeline is fictional, it is impossible to map it to a specific epoch. This site assumes the Tamrielic calendar shares a New Year with the Gregorian.
 

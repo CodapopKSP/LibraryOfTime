@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Umm al-Qura calendar is the Islamic calendar used in Saudi Arabia. The Hijri calendar, of which the Umm al-Qura is a variation of, is perhaps the only extant true lunar calendar in the world. It features 12 lunar months of 29 or 30 days, with days starting at sunset, for a total of 355 or 356 days per year, causing it to be out of sync with solar calendars.
+The Umm al-Qura calendar is an observational lunar calendar used in Saudi Arabia. It is the predictive version of the Islamic Hijri calendar, perhaps the only extant true lunar calendar in the world. It features 12 lunar months of 29 or 30 days, with days starting at sunset, for a total of 355 or 356 days per year, causing it to be out of sync with solar calendars.
 
 Era dates are denoted 'AH' from 'Anno Hegirae', meaning 'In the year of the Hijrah'. Each month starts shortly after the New Moon when it begins to appear as a crescent.
 
@@ -20,7 +20,7 @@ The Hijri calendar is on a roughly 37-year cycle when compared with the solar ye
 
 #### Accuracy
 
-Many Muslim nations have their own rules for determining the start of the month, often based on direct observation, and as such their calendar dates may occasionally misalign for a month or two. The algorithm used by this website requires calculating the New Moon and uses 18:00 local time in Mecca for sunset. Its accuracy is dependent on the New Moon calculations and may not reflect historical records.
+Many Muslim nations have their own rules for determining the start of the month, often based on direct observation, and as a result their calendar dates may occasionally misalign. The algorithm used by this website requires calculating the New Moon and uses 18:00 local time in Mecca for sunset. Its accuracy is dependent on the New Moon calculations and may not reflect historical records.
 
 #### Source
 

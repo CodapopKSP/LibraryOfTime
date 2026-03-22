@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Darian calendar is a proposed calendar for use on Mars. It was created in 1985 by Thomas Gangale and named after his son, Darius.
+The Darian calendar is a proposed calculated solar calendar for use on Mars. It was created in 1985 by Thomas Gangale and named after his son, Darius.
 
 It takes the ~668.5 sol Martian year (~687 Earth days) and divides it into 24 months of 28 or 27 sols. The new year is on the day of the Martian Northern Equinox.
 

@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Discordian calendar is the calendar used in the virtual religion of Discordianism. It features 5 months, each of 73 days, with the year beginning on January 1st.
+The Discordian calendar is a Gregorian-derived calendar used in the virtual religion of Discordianism. It features 5 months, each of 73 days, with the year beginning on January 1st.
 
 It follows Gregorian leap years, inserting a day between the 59th and 60th of the month of Chaos, lining up with February 29th on the Gregorian calendar. The leap day is called 'St. Tib's Day', and it takes place outside of any month or week, as though the calendar paused for a day.
 

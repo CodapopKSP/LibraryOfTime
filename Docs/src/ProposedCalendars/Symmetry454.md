@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Symmetry454 calendar is a proposed calendar reform created in 2005 by Irv Bromberg that is based on the Gregorian calendar.
+The Symmetry454 calendar is a Gregorian-derived calendar proposed in 2005 by Irv Bromberg.
 
 It features the same months as the Gregorian calendar but of different lengths, following a pattern of 28/35/28 days. This allows for a whole number of weeks in each month, 4/5/4 respectively, hence the calendar's name.
 

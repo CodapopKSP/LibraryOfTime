@@ -10,7 +10,7 @@ The Darian calendar for Titan, moon of Saturn, was created by Thomas Gangale and
 
 As the solar day of Titan is nearly 16 Earth days long, its day is broken into 16 units of time called 'circads' that are ~24 hours each and act as calendar days.
 
-This calendar features 24 months of 28 or 32 circads each, allowing for a clean division of the 8-circad week.
+This calculated calendar features 24 months of 28 or 32 circads each, allowing for a clean division of the 8-circad week.
 
 Leap years add an entire week, split evenly between the 12th and 24th months, adding 4 circads each for a total of 32 circads, allowing it to stay in sync with the Martian Darian calendar.
 

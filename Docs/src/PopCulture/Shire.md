@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Shire calendar is a fictional calendar used in the Lord of the Rings franchise. It is one of the calendars of the Hobbits. It is a solar calendar with 12 months of 30 days plus 5 or 6 named days.
+The Shire calendar is a fictional calculated solar calendar used in the Lord of the Rings franchise. It is one of the calendars of the Hobbits. It is a solar calendar with 12 months of 30 days plus 5 or 6 named days.
 
 Years begin in the winter with the special day of 2 Yule, taking place immediately after 1 Yule, which is the last day of the previous year. In the middle of the year between the months of Forelithe and Afterlithe are the special days of 1 Lithe, Mid-year's Day, and 2 Lithe. On leap years, the day of Overlithe is added after Mid-year's Day.
 

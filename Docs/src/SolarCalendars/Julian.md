@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Julian Calendar was issued by Julius Caesar in 45 BC after several corrections to the solar date.
+The Julian Calendar was a calculated solar calendar issued by Julius Caesar in 45 BC after several corrections to the solar date.
 
 It features a leap day every 4 years, leading it to drift from the Gregorian calendar by 3 days every 400 years. Years are denoted 'AD' or 'Anno Domini', meaning 'in the year of the Lord', as well as 'BC' meaning 'Before Christ'.
 
