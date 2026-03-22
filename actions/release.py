@@ -78,12 +78,12 @@ def process_images_in_js(js_content):
     """Find image references in JavaScript content and replace them with base64 data URIs"""
     
     # Pattern to match image src attributes in HTML strings within JavaScript
-    # This matches src="OnMakingLoTImages/filename.ext" or src='OnMakingLoTImages/filename.ext'
-    image_pattern = r'src=["\']OnMakingLoTImages/([^"\']+)["\']'
+    # This matches src="Content/OnMakingLoTImages/filename.ext" or src='Content/OnMakingLoTImages/filename.ext'
+    image_pattern = r'src=["\']Content/OnMakingLoTImages/([^"\']+)["\']'
     
     def replace_image_src(match):
         image_filename = match.group(1)
-        image_path = f'../OnMakingLoTImages/{image_filename}'
+        image_path = f'../Content/OnMakingLoTImages/{image_filename}'
         data_uri = image_to_data_uri(image_path)
         
         if data_uri:
@@ -176,7 +176,7 @@ def copy_images_to_output():
     """Copy OnMakingLoTImages folder to the actions directory for deployment"""
     import shutil
     
-    source_dir = '../OnMakingLoTImages'
+    source_dir = '../Content/OnMakingLoTImages'
     dest_dir = './OnMakingLoTImages'
     
     if os.path.exists(source_dir):
