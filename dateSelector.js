@@ -100,7 +100,7 @@ function adjustDatePickerField(unit, step) {
     }
 
     // Work in UTC so we treat the fields as a simple civil date/time
-    const workingDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+    const workingDate = createAdjustedDateTime({year, month, day, hour, minute, second});
 
     switch (unit) {
         case 'year':

@@ -9,18 +9,6 @@ function isMetonicCycleLeapYear(year) {
     return metonicCycle.includes(year);
 }
 
-function getLocalMidnightInUTC(dateToFind, localMidnight) {
-    let midnightInUTC = new Date(dateToFind);
-    if (midnightInUTC.getUTCHours() < localMidnight) {
-        midnightInUTC.setUTCDate(midnightInUTC.getUTCDate() - 1);
-    }
-    midnightInUTC.setUTCHours(localMidnight);
-    midnightInUTC.setUTCMinutes(0);
-    midnightInUTC.setUTCSeconds(0);
-    midnightInUTC.setUTCMilliseconds(0);
-    return midnightInUTC;
-}
-
 
 //|--------------------------------------|
 //|     Chinese Calendar Derivatives     |

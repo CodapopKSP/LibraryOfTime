@@ -158,12 +158,10 @@ function getNodeValueForDay(nodeId, year, month, day, getters) {
         var raw = getter(dt);
         if (raw == null) return null;
         var display = typeof out === 'function' ? out(raw) : String(raw);
-        var monthKey;
+        var monthKey = '';
         if (raw && typeof raw === 'object' && raw.month != null) {
             var m = raw.month, y = raw.year;
             monthKey = (y != null && y !== '') ? String(y) + '-' + String(m) : String(m);
-        } else {
-            monthKey = extractMonthKeyFromValue(display);
         }
         return { display: display, monthKey: monthKey };
     } catch (e) {
@@ -182,15 +180,24 @@ function getFirstDayOfMonth(year, month) {
 }
 
 function formatDateTooltip(year, month, day, eventLabels, systemLabel, systemValue) {
-    var yearStr = year < 0 ? Math.abs(year) + ' BCE' : String(year);
-    var base = 'Gregorian: ' + day + ' ' + MONTH_NAMES[month - 1] + ' ' + yearStr;
-    if (systemLabel && systemValue) {
-        base += '\n' + systemLabel + ': ' + systemValue;
+    var gregorianText = '—';
+    if (typeof parseInputDate === 'function' && typeof getGregorianDateTime === 'function' && typeof getDatePickerTimezone === 'function' && typeof convertUTCOffsetToMinutes === 'function') {
+        try {
+            var dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00';
+            var tz = getDatePickerTimezone();
+            var dt = parseInputDate(dateStr, tz);
+            var offset = convertUTCOffsetToMinutes(tz);
+            var raw = getGregorianDateTime(dt, offset);
+            gregorianText = typeof out === 'function' ? out(raw) : (raw && raw.output != null ? raw.output : '');
+        } catch (e) {}
     }
+    var calendarLabel = systemLabel || 'Selected calendar';
+    var calendarText = (systemLabel && systemValue) ? systemValue : '—';
+    var sections = ['Gregorian:\n' + gregorianText, calendarLabel + ':\n' + calendarText];
     if (eventLabels && eventLabels.length > 0) {
-        base += '\n' + eventLabels.join('\n');
+        sections.push('Astronomical Event:\n' + eventLabels.join(', '));
     }
-    return base;
+    return sections.join('\n\n');
 }
 
 var ASTRONOMICAL_ICONS = {
@@ -284,13 +291,14 @@ function escapeHtml(text) {
 }
 
 /** Light background tints for calendar month shading (on dark base). Six distinct hues so no color repeats within any six-month span. */
+
 var CALENDAR_MONTH_SHADES = [
-    'rgba(100,140,220,0.2)',
-    'rgba(160,100,200,0.2)',
-    'rgba(80,180,160,0.2)',
-    'rgba(220,160,80,0.2)',
-    'rgba(200,100,140,0.2)',
-    'rgba(140,200,100,0.2)'
+    'rgba(67, 92, 141, 0.2)',
+    'rgba(98, 61, 122, 0.2)',
+    'rgba(43, 99, 88, 0.2)',
+    'rgba(107, 78, 39, 0.2)',
+    'rgba(110, 55, 77, 0.2)',
+    'rgba(71, 102, 50, 0.2)'
 ];
 
 function hashMonthKey(s) {
@@ -401,7 +409,8 @@ function buildCalendarHTML(year, month, selectedNodeData) {
                 } else {
                     cellContent = String(day);
                 }
-                html += '<div class="calendar-view-cell calendar-view-day' + todayClass + '" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' + cellContent + (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') + '</div>';
+                var yearAttr = year < 0 ? '-' + Math.abs(year) : String(year);
+                html += '<div class="calendar-view-cell calendar-view-day' + todayClass + '" data-year="' + yearAttr + '" data-month="' + month + '" data-day="' + day + '" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' + cellContent + (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') + '</div>';
                 day++;
             } else {
                 html += '<div class="calendar-view-cell calendar-view-empty"></div>';
@@ -452,6 +461,21 @@ function setupCalendarTooltips() {
         if (!related) {
             tooltipEl.classList.remove('visible');
         }
+    });
+
+    grid.addEventListener('click', function (e) {
+        if (!window.matchMedia('(min-width: 769px)').matches) return;
+        var cell = e.target.closest('.calendar-view-day');
+        if (!cell || !cell.dataset.year) return;
+        var y = cell.dataset.year;
+        var m = parseInt(cell.dataset.month, 10);
+        var d = parseInt(cell.dataset.day, 10);
+        if (Number.isNaN(m) || Number.isNaN(d)) return;
+        var pad = function (n) { return String(n).padStart(2, '0'); };
+        var dateStr = y + '-' + pad(m) + '-' + pad(d) + ', 00:00:00';
+        if (typeof setDatePickerTime === 'function') setDatePickerTime(dateStr);
+        if (typeof changeDateTime === 'function') changeDateTime(dateStr);
+        renderCalendarView(_calendarViewYear, _calendarViewMonth);
     });
 }
 

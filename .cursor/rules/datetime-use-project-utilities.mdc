@@ -1,0 +1,18 @@
+---
+description: Never use native new Date(); always use createAdjustedDateTime or createFauxUTCDate.
+alwaysApply: true
+---
+
+# Use Project Date/Time Utilities
+
+- **Never** use JavaScript's native `new Date()` or `Date.UTC()` for constructing or interpreting dates in calendar or timekeeping logic.
+- Use the project's utilities from `utilities.js` instead:
+
+  - **`createAdjustedDateTime`** – Use when you need to construct or adjust a date:
+    - From year, month, day (and optionally hour, minute, second).
+    - With timezone offsets (e.g. `UTC+02:00`).
+    - With hour enums: `MIDNIGHT`, `SUNRISE`, `NOON`, `SUNSET`.
+    - Correctly handles years 1–99 and 1-based months.
+  - **`createFauxUTCDate`** – Use when you have an existing `Date` and need to interpret it in a different timezone (so `getUTC*` methods return that timezone's local values).
+
+- Avoid `new Date(...)`, `new Date(Date.UTC(...))`, and `new Date(timestamp)` except inside `utilities.js` itself or where a raw `Date` is required for a low-level API (e.g. `getTime()` input). Even then, prefer constructing via `createAdjustedDateTime` when possible.
