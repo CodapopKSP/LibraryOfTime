@@ -4,56 +4,26 @@
 
 // A set of functions for calculating dates in the Solilunar Calendars category.
 
+// --- Togys ---
+const TOGYS_TZ = 'UTC+05:00';
+const TOGYS_MONTH_NAMES = [
+    '1 togys aiy', '25 togys aiy', '23 togys aiy', '21 togys aiy', '19 togys aiy',
+    '17 togys aiy', '15 togys aiy', '13 togys aiy', '11 togys aiy', '9 togys aiy',
+    '7 togys aiy', '5 togys aiy', '3 togys aiy'
+];
+const TOGYS_MONTH_NAMES_LEAP = [
+    '1 togys aiy', '27 togys aiy', '25 togys aiy', '23 togys aiy', '21 togys aiy',
+    '19 togys aiy', '17 togys aiy', '15 togys aiy', '13 togys aiy', '11 togys aiy',
+    '9 togys aiy', '7 togys aiy', '5 togys aiy', '3 togys aiy'
+];
+const TOGYS_YEAR_NAMES = [
+    'Mouse', 'Cow', 'Leopard', 'Hare', 'Wolf', 'Snake',
+    'Horse', 'Sheep', 'Monkey', 'Hen', 'Dog', 'Boar'
+];
+const TOGYS_ALCYONE_RA = 56.8711541667;
+const TOGYS_FIXED_YEAR_LENGTH = 365.2663;
+
 function getTogysDate(currentDateTime) {
-
-    const TogysMonthNames = [
-        '1 togys aiy',
-        '25 togys aiy',
-        '23 togys aiy',
-        '21 togys aiy',
-        '19 togys aiy',
-        '17 togys aiy',
-        '15 togys aiy',
-        '13 togys aiy',
-        '11 togys aiy',
-        '9 togys aiy',
-        '7 togys aiy',
-        '5 togys aiy',
-        '3 togys aiy',
-    ];
-    
-    const TogysMonthNames_Leap = [
-        '1 togys aiy',
-        '27 togys aiy',
-        '25 togys aiy',
-        '23 togys aiy',
-        '21 togys aiy',
-        '19 togys aiy',
-        '17 togys aiy',
-        '15 togys aiy',
-        '13 togys aiy',
-        '11 togys aiy',
-        '9 togys aiy',
-        '7 togys aiy',
-        '5 togys aiy',
-        '3 togys aiy',
-    ];
-
-    const TogysYearNames = [
-        'Mouse',
-        'Cow',
-        'Leopard',
-        'Hare',
-        'Wolf',
-        'Snake',
-        'Horse',
-        'Sheep',
-        'Monkey',
-        'Hen',
-        'Dog',
-        'Boar',
-    ];
-
     // Get start of Togys year
     let startOfTogysYear = getTogysNewYear(currentDateTime);
     if (startOfTogysYear > currentDateTime) {
@@ -65,17 +35,13 @@ function getTogysDate(currentDateTime) {
     let startOfTogysPlusOneYear = addYear(startOfTogysYear, 1, true);
     const startOfTogysNextYear = getTogysNewYear(startOfTogysPlusOneYear);
     const monthsBetweenStartOfTogysYearAndNextYear = Math.round(differenceInDays(startOfTogysNextYear, startOfTogysYear) / 27.3);
-    let months = TogysMonthNames;
-    if (monthsBetweenStartOfTogysYearAndNextYear > 13) {
-        months = TogysMonthNames_Leap;
-    }
+    const months = monthsBetweenStartOfTogysYearAndNextYear > 13 ? TOGYS_MONTH_NAMES_LEAP : TOGYS_MONTH_NAMES;
 
     // Get year name and current cycle number
     const mod = (n, m) => ((n % m) + m) % m;
-    const startOfTogysYearCycle = getTogysNewYear(createAdjustedDateTime({year: 2008, month: 7, day: 1})); // 2008 was the start of a cycle
-    const fixedYearLength = 365.2663; // Weird number chosen because epoch accumulated errors, should start with Mouse in -3669. Probably a sidereal year/precession thing.
-    const yearsSinceStartOfTogysYearCycle = Math.round(differenceInDays(startOfTogysYear, startOfTogysYearCycle) / fixedYearLength);
-    const yearName = TogysYearNames[mod(yearsSinceStartOfTogysYearCycle, 12)];
+    const startOfTogysYearCycle = getTogysNewYear(createAdjustedDateTime({ year: 2008, month: 7, day: 1 }));
+    const yearsSinceStartOfTogysYearCycle = Math.round(differenceInDays(startOfTogysYear, startOfTogysYearCycle) / TOGYS_FIXED_YEAR_LENGTH);
+    const yearName = TOGYS_YEAR_NAMES[mod(yearsSinceStartOfTogysYearCycle, 12)];
     const cyclesSinceStart = Math.floor(yearsSinceStartOfTogysYearCycle / 12);
     const currentCycle = 474 + cyclesSinceStart;
 
@@ -84,13 +50,12 @@ function getTogysDate(currentDateTime) {
     const monthsSinceStartOfTogysYear = Math.round(differenceInDays(startOfTogysMonth, startOfTogysYear) / 27.5);
     const daysSinceStartOfTogysMonth = Math.floor(differenceInDays(currentDateTime, startOfTogysMonth)) + 1;
 
-    var output = 'Day ' + daysSinceStartOfTogysMonth + ' of ' + months[monthsSinceStartOfTogysYear] + '\nYear of the ' + yearName + '\nof Cycle ' + currentCycle;
-    return { output: output, day: daysSinceStartOfTogysMonth, month: monthsSinceStartOfTogysYear, year: currentCycle, other: { yearName: yearName } };
+    const output = `Day ${daysSinceStartOfTogysMonth} of ${months[monthsSinceStartOfTogysYear]}\nYear of the ${yearName}\nof Cycle ${currentCycle}`;
+    return { output, day: daysSinceStartOfTogysMonth, month: monthsSinceStartOfTogysYear, year: currentCycle, other: { yearName } };
 }
 
 function getTogysStartOfMonth(currentDateTime) {
-    let startOfMonth = new Date(currentDateTime);
-    startOfMonth = getTogysDayStart(startOfMonth);
+    let startOfMonth = getTogysDayStart(new Date(currentDateTime));
 
     // Iterate through the last 35 days and find which one begins a month
     for (let i = 0; i < 35; i++) {
@@ -104,32 +69,22 @@ function getTogysStartOfMonth(currentDateTime) {
 }
 
 function isTogysStartOfMonth(currentDateTime) {
-
-    // Star data for Alcyone, delta is unused
-    const alcyone_alpha = 56.8711541667;
-    //const alcyone_delta = 24.1051361111;
-    
     // Get the range for today
-    let startOfToday = getTogysDayStart(currentDateTime);
-    let startOfTomorrow = addDay(new Date(startOfToday), 1);
+    const startOfToday = getTogysDayStart(currentDateTime);
+    const startOfTomorrow = addDay(new Date(startOfToday), 1);
     
     // Get the range of lunar right ascensions for the period
-    const [lunar_alpha_startOfToday, lunar_delta_startOfToday] = getPositionOfTheMoon(startOfToday);
-    const [lunar_alpha_startOfTomorrow, lunar_delta_startOfTomorrow] = getPositionOfTheMoon(startOfTomorrow);
+    const [lunar_alpha_startOfToday] = getPositionOfTheMoon(startOfToday);
+    const [lunar_alpha_startOfTomorrow] = getPositionOfTheMoon(startOfTomorrow);
 
-    // See if the right ascension of the moon matched Alcyone during that time
-    let todayIsStartOfMonth = false;
-    if (lunar_alpha_startOfToday < alcyone_alpha && lunar_alpha_startOfTomorrow > alcyone_alpha) {
-        todayIsStartOfMonth = true;
-    }
-    return todayIsStartOfMonth;
+    return lunar_alpha_startOfToday < TOGYS_ALCYONE_RA && lunar_alpha_startOfTomorrow > TOGYS_ALCYONE_RA;
 }
 
 function getTogysDayStart(dt) {
     // Get the date in UTC+05:00 timezone, then set to midnight
     // First, convert to UTC+05:00 to get the correct local date
     // We ADD the offset to convert UTC to local time representation
-    const timezoneOffset = convertUTCOffsetToMinutes('UTC+05:00');
+    const timezoneOffset = convertUTCOffsetToMinutes(TOGYS_TZ);
     const localTime = new Date(dt.getTime() + timezoneOffset * 60 * 1000);
     
     // Extract date components from the local time
@@ -138,7 +93,7 @@ function getTogysDayStart(dt) {
     const day = localTime.getUTCDate();
     
     // Create midnight in UTC+05:00 (which is 19:00 UTC the previous day)
-    return createAdjustedDateTime({year: year, month: month + 1, day: day, hour: 'MIDNIGHT', timezone: 'UTC+05:00'});
+    return createAdjustedDateTime({ year, month: month + 1, day, hour: 'MIDNIGHT', timezone: TOGYS_TZ });
 }
 
 function getTogysNewYear(currentDateTime) { 
@@ -174,7 +129,7 @@ function getTogysNewYear(currentDateTime) {
             const daysDifference = Math.floor(differenceInDays(togysMonthStart, newMoonBefore));
             
             // Check if Togys month start is less than 15 days after the new moon and that the new moon happened first
-            if ((daysDifference >= 0 && daysDifference < 15) && (getPositionOfTheMoon(newMoonBefore)[0] < 56.8711541667)) {
+            if (daysDifference >= 0 && daysDifference < 15 && getPositionOfTheMoon(newMoonBefore)[0] < TOGYS_ALCYONE_RA) {
                 lastValidTogysMonth = togysMonthStart;
             }
         }

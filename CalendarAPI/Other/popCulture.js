@@ -8,189 +8,193 @@ function pad(num, size) {
     return ('000' + num).slice(-size);
 }
 
+const MC_MS_PER_TICK = 50;
+const MC_TICKS_PER_HOUR = 1000;
+const MC_HOURS_PER_DAY = 24;
+const MC_MINUTES_PER_TICK = 0.06;
+const MC_SECONDS_PER_MINUTE = 60;
+
 function getMinecraftTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
-    let midnight = createAdjustedDateTime({currentDateTime: currentDateTime, hour: 'MIDNIGHT'});
+    const currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
+    const midnight = createAdjustedDateTime({ currentDateTime, hour: 'MIDNIGHT' });
 
-    // Convert date to milliseconds since midnight
     const millisecondsSinceMidnight = currentDateTime - midnight;
+    const minecraftTime = Math.floor(millisecondsSinceMidnight / MC_MS_PER_TICK);
+    const hoursSinceMidnight = Math.floor(minecraftTime / MC_TICKS_PER_HOUR);
+    const day = Math.floor(hoursSinceMidnight / MC_HOURS_PER_DAY) + 1;
+    const hours = hoursSinceMidnight % MC_HOURS_PER_DAY;
+    const minutes = Math.floor((minecraftTime % MC_TICKS_PER_HOUR) * MC_MINUTES_PER_TICK);
+    const seconds = Math.floor(((minecraftTime % MC_TICKS_PER_HOUR) * MC_MINUTES_PER_TICK - minutes) * MC_SECONDS_PER_MINUTE);
 
-    // Convert milliseconds to Minecraft time
-    const minecraftTime = Math.floor(millisecondsSinceMidnight / 50); // 1 Minecraft hour = 50 milliseconds
-    const hoursSinceMidnight = Math.floor(minecraftTime / 1000);
-    let day = Math.floor(hoursSinceMidnight / 24)+1;
-    let hours = hoursSinceMidnight % 24;
-    const minutes = Math.floor((minecraftTime % 1000) * 0.06);
-    const seconds = Math.floor(((minecraftTime % 1000) * 0.06 - minutes) * 60);
-
-    return  'Day: ' + day + ' | ' + pad(hours,2) + ':' + pad(minutes,2) + ':' + pad(seconds,2);
+    return 'Day: ' + day + ' | ' + pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
 }
+
+const INCEPTION_MS_PER_DAY = 86400000;
+const INCEPTION_DREAM_DAYS_PER_REAL_DAY = 20;
+const INCEPTION_HOURS_PER_DAY = 24;
+const INCEPTION_MINUTES_PER_HOUR = 60;
+const INCEPTION_SECONDS_PER_MINUTE = 60;
 
 function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
     const currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
-    const midnight = createAdjustedDateTime({currentDateTime: currentDateTime, hour: 'MIDNIGHT'});
-  
-    const ms = currentDateTime - midnight;               // real ms since midnight
-    const dreamDays = (ms / 86_400_000) * 20;            // 1 real day → 20 dream days
-    const totalDreamHours = dreamDays * 24;              // 0..<480
-    const totalDreamMinutes = totalDreamHours * 60;
-    const totalDreamSeconds = totalDreamMinutes * 60;
-  
-    const day = Math.floor(totalDreamHours / 24) + 1;    // 1..20 (for that real day)
-    const hours = Math.floor(totalDreamHours) % 24;      // 0..23
-    const minutes = Math.floor(totalDreamMinutes) % 60;  // 0..59
-    const seconds = Math.floor(totalDreamSeconds) % 60;  // 0..59
-  
-    return `Day: ${day} | ${pad(hours,2)}:${pad(minutes,2)}:${pad(seconds,2)}`;
-  }
-  
+    const midnight = createAdjustedDateTime({ currentDateTime, hour: 'MIDNIGHT' });
+
+    const ms = currentDateTime - midnight;
+    const dreamDays = (ms / INCEPTION_MS_PER_DAY) * INCEPTION_DREAM_DAYS_PER_REAL_DAY;
+    const totalDreamHours = dreamDays * INCEPTION_HOURS_PER_DAY;
+    const totalDreamMinutes = totalDreamHours * INCEPTION_MINUTES_PER_HOUR;
+    const totalDreamSeconds = totalDreamMinutes * INCEPTION_SECONDS_PER_MINUTE;
+
+    const day = Math.floor(totalDreamHours / INCEPTION_HOURS_PER_DAY) + 1;
+    const hours = Math.floor(totalDreamHours) % INCEPTION_HOURS_PER_DAY;
+    const minutes = Math.floor(totalDreamMinutes) % INCEPTION_MINUTES_PER_HOUR;
+    const seconds = Math.floor(totalDreamSeconds) % INCEPTION_SECONDS_PER_MINUTE;
+
+    return `Day: ${day} | ${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`;
+}
+
+const TERMINA_REAL_SECONDS_PER_HOUR = 150;
+const TERMINA_HOURS_PER_DAY = 24;
+const TERMINA_MINUTES_PER_HOUR = 60;
+const TERMINA_DAYS_PER_CYCLE = 3;
+const TERMINA_HOURS_PER_CYCLE = 72;
+const TERMINA_DAY_START_HOUR = 6;
+const TERMINA_NIGHT_START_HOUR = 18;
+const TERMINA_HOURS_IN_12_FORMAT = 12;
 
 function getTerminaTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
-    // Days start at 6am
-    let SixAMToday = createAdjustedDateTime({currentDateTime: currentDateTime, hour: 'SUNRISE'});
-    if (currentDateTime<SixAMToday) {
-        addDay(SixAMToday, -1);
+    const currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
+    const sixAMToday = createAdjustedDateTime({ currentDateTime, hour: 'SUNRISE' });
+    if (currentDateTime < sixAMToday) {
+        addDay(sixAMToday, -1);
     }
 
-    // Calculate current time
-    const totalRealSecondsSinceEpoch = (currentDateTime-SixAMToday)/1000;
-    const totalHoursSinceEpoch = totalRealSecondsSinceEpoch/150;
-    const daysSinceEpoch = totalHoursSinceEpoch/24;
-    const currentDay = Math.floor(daysSinceEpoch%3)+1;
-    let currentHour = Math.floor(totalHoursSinceEpoch%24);
-    const currentMinute = Math.floor(((totalHoursSinceEpoch%24) - (currentHour))*60);
-    const currentSecond = Math.floor(((((totalHoursSinceEpoch%24) - (currentHour))*60)-currentMinute)*60);
+    const totalRealSecondsSinceEpoch = (currentDateTime - sixAMToday) / 1000;
+    const totalHoursSinceEpoch = totalRealSecondsSinceEpoch / TERMINA_REAL_SECONDS_PER_HOUR;
+    const daysSinceEpoch = totalHoursSinceEpoch / TERMINA_HOURS_PER_DAY;
+    const currentDay = Math.floor(daysSinceEpoch % TERMINA_DAYS_PER_CYCLE) + 1;
+    let currentHour = Math.floor(totalHoursSinceEpoch % TERMINA_HOURS_PER_DAY);
+    const currentMinute = Math.floor(((totalHoursSinceEpoch % TERMINA_HOURS_PER_DAY) - currentHour) * TERMINA_MINUTES_PER_HOUR);
+    const currentSecond = Math.floor((((totalHoursSinceEpoch % TERMINA_HOURS_PER_DAY) - currentHour) * TERMINA_MINUTES_PER_HOUR - currentMinute) * 60);
 
-    // Build Hours Remains message
-    let remainingHours = 72 - ((currentHour) + ((currentDay-1)*24));
-    let remainingHoursMessage = remainingHours + ' Hours Remain';
-    if (remainingHours===1) {
-        remainingHoursMessage = remainingHours + ' Hour Remains';
-    }
+    const remainingHours = TERMINA_HOURS_PER_CYCLE - (currentHour + (currentDay - 1) * TERMINA_HOURS_PER_DAY);
+    const remainingHoursMessage = remainingHours === 1 ? remainingHours + ' Hour Remains' : remainingHours + ' Hours Remain';
 
-    // Add 6 because days start at 6am
-    currentHour += 6;
+    currentHour += TERMINA_DAY_START_HOUR;
 
-    // Build Day message
-    let dayName = 'First Day';
-    if (currentDay==2) {
-        dayName = 'Second Day';
-    }
-    if (currentDay==3) {
-        dayName = 'Third Day';
-    }
+    let dayName = currentDay === 2 ? 'Second Day' : currentDay === 3 ? 'Third Day' : 'First Day';
+    dayName = currentHour >= TERMINA_NIGHT_START_HOUR ? 'Night of the ' + dayName : 'The ' + dayName;
 
-    // If After 6pm (night)
-    if (currentHour >= 18) {
-        dayName = 'Night of the ' + dayName;
-    } else {
-        dayName = 'The ' + dayName;
+    if (currentHour >= TERMINA_HOURS_PER_DAY) {
+        currentHour -= TERMINA_HOURS_PER_DAY;
     }
-
-    // Fix hours to 12 hour format
-    if (currentHour >= 24) {
-        currentHour -= 24;
-    }
-    currentHour%=12;
+    currentHour %= TERMINA_HOURS_IN_12_FORMAT;
     if (currentHour === 0) {
-        currentHour = 12;
+        currentHour = TERMINA_HOURS_IN_12_FORMAT;
     }
 
     return pad(currentHour, 2) + ':' + pad(currentMinute, 2) + ':' + pad(currentSecond, 2) + '\n' + dayName + '\n' + remainingHoursMessage;
 }
 
+const STAR_DATE_EPOCH_YEAR = 2265;
+const STAR_DATE_EPOCH_MONTH = 4;
+const STAR_DATE_EPOCH_DAY = 25;
+const STAR_DATES_PER_DAY = 7.21;
+const STAR_DATE_MS_PER_DAY = 86400000;
+
 function getStardate(currentDateTime) {
-    const stardate0 = createAdjustedDateTime({year: 2265, month: 4, day: 25});
-    const stardatesPerDay = 7.21;
-    const stardate = (currentDateTime - stardate0) / (1000 * 60 * 60 * 24) * stardatesPerDay;
-    return stardate.toFixed(2);;
+    const stardate0 = createAdjustedDateTime({ year: STAR_DATE_EPOCH_YEAR, month: STAR_DATE_EPOCH_MONTH, day: STAR_DATE_EPOCH_DAY });
+    const stardate = (currentDateTime - stardate0) / STAR_DATE_MS_PER_DAY * STAR_DATES_PER_DAY;
+    return stardate.toFixed(2);
 }
 
+const TAMRIELIC_MONTHS = [
+    "Morning Star",
+    "Sun's Dawn",
+    "First Seed",
+    "Rain's Hand",
+    "Second Seed",
+    "Midyear",
+    "Sun's Height",
+    "Last Seed",
+    "Hearthfire",
+    "Frostfall",
+    "Sun's Dusk",
+    "Evening Star",
+];
+
+const TAMRIELIC_WEEK = [
+    "Morndas",
+    "Tirdas",
+    "Middas",
+    "Turdas",
+    "Fredas",
+    "Loredas",
+    "Sundas",
+];
+
 function getTamrielicDate(currentDateTime, timezoneOffset) {
-
-    const tamrielicMonths = [
-        "Morning Star",
-        "Sun's Dawn",
-        "First Seed",
-        "Rain's Hand",
-        "Second Seed",
-        "Midyear",
-        "Sun's Height",
-        "Last Seed",
-        "Hearthfire",
-        "Frostfall",
-        "Sun's Dusk",
-        "Evening Star",
-    ];
-
-    const tamrielicWeek = [
-        "Morndas",
-        "Tirdas",   
-        "Middas",
-        "Turdas",
-        "Fredas",
-        "Loredas",
-        "Sundas",
-    ];
-
-    // Get Gregorian date
     const gregorianDate = getGregorianDateTime(currentDateTime, timezoneOffset);
     const tamrielicDate = gregorianDate.date;
     const day = tamrielicDate.split(' ')[0];
     let month = tamrielicDate.split(' ')[1];
     let week = tamrielicDate.split('\n')[1];
 
-    // Get month by comparing to Gregorian
-    for (let i = 0; i < tamrielicMonths.length; i++) {
+    for (let i = 0; i < TAMRIELIC_MONTHS.length; i++) {
         if (month === monthNames[i]) {
             month = i;
             break;
         }
     }
 
-    // Get week by comparing to Gregorian (adjusted to start at Monday)
-    for (let i = 0; i < tamrielicWeek.length; i++) {
+    for (let i = 0; i < TAMRIELIC_WEEK.length; i++) {
         if (week === weekNames[i]) {
-            week = (i+6)%7;
+            week = (i + 6) % 7;
             break;
         }
     }
 
-    return day + ' ' + tamrielicMonths[month] + '\n' + tamrielicWeek[week];
+    return day + ' ' + TAMRIELIC_MONTHS[month] + '\n' + TAMRIELIC_WEEK[week];
 }
 
+const IMPERIAL_MILLENNIUM_YEAR_OFFSET = 1000;
+const IMPERIAL_FRACTION_MULTIPLIER = 1000;
+const IMPERIAL_YEARS_PER_MILLENNIUM = 1000;
+
 function getImperialDatingSystem(currentDateTime, timezoneOffset) {
-    const yearFraction = (calculateYear(currentDateTime, timezoneOffset).toFixed(3)*1000);
-    
-    // Get the actual year
-    let adjustedDateTime = createFauxUTCDate(currentDateTime, timezoneOffset);
-    const year = adjustedDateTime.getUTCFullYear() + 1000; // Millennium is 1-based counting rather than 0-based, so year 0 is Millennium 1
-    
-    // For digit extraction, use absolute value
+    const yearFraction = (calculateYear(currentDateTime, timezoneOffset).toFixed(3) * IMPERIAL_FRACTION_MULTIPLIER);
+
+    const adjustedDateTime = createFauxUTCDate(currentDateTime, timezoneOffset);
+    const year = adjustedDateTime.getUTCFullYear() + IMPERIAL_MILLENNIUM_YEAR_OFFSET;
+
     const absYear = Math.abs(year);
     const absYearString = absYear.toString();
     
     // Get last 3 digits for yearHundreds (pad with zeros if needed)
     const yearHundreds = absYearString.slice(-3).padStart(3, '0');
-    
-    // Calculate millennium - millenniums start at 001, so M3 starts at 2001, not 2000
-    // After +1000 adjustment: year 2000 → 3000 should be M2, year 2001 → 3001 should be M3
-    // Use Math.floor((year - 1) / 1000) to account for starting at 001
-    const millenniumNum = Math.floor((year - 1) / 1000);
+
+    const millenniumNum = Math.floor((year - 1) / IMPERIAL_YEARS_PER_MILLENNIUM);
     const millennium = millenniumNum.toString();
 
     return '0 ' + yearFraction + ' ' + yearHundreds + '.M' + millennium;
 }
 
+const SHIRE_EPOCH_YEAR = 1419;
+const SHIRE_EPOCH_GREGORIAN_YEAR = 1941;
+const SHIRE_EPOCH_GREGORIAN_MONTH = 12;
+const SHIRE_EPOCH_GREGORIAN_DAY = 25;
+const SHIRE_MS_PER_DAY = 86400000;
+const SHIRE_DAYS_PER_MONTH = 30;
+const SHIRE_DAYS_IN_HALF_YEAR = 180;
+const SHIRE_MID_YEARS_DAY_INDEX = 182;
+const SHIRE_OVERLITHE_DAY_INDEX = 183;
+const SHIRE_DAYS_PER_WEEK = 7;
+
+const SHIRE_FIRST_MONTHS = ['Afteryule', 'Solmath', 'Rethe', 'Astron', 'Thrimidge', 'Forelithe'];
+const SHIRE_SECOND_MONTHS = ['Afterlithe', 'Wedmath', 'Halimath', 'Winterfilth', 'Blotmath', 'Foreyule'];
+const SHIRE_WEEKDAYS = ['Sterday', 'Sunday', 'Monday', 'Trewsday', 'Hevensday', 'Mersday', 'Highday'];
+
 function getShireDate(currentDateTime, timezoneOffset) {
-    // Shire calendar (constructed)
-    // Epoch: Shire year 1419, day 1 = Gregorian 1941-12-25 at midnight UTC+0.
-
-    const firstMonths = ['Afteryule', 'Solmath', 'Rethe', 'Astron', 'Thrimidge', 'Forelithe'];
-    const secondMonths = ['Afterlithe', 'Wedmath', 'Halimath', 'Winterfilth', 'Blotmath', 'Foreyule'];
-    const shireWeekdays = ['Sterday', 'Sunday', 'Monday', 'Trewsday', 'Hevensday', 'Mersday', 'Highday'];
-
     function isShireLeapYear(shireYear) {
         // Leap years every 4 years; no Gregorian-style 400-year century correction.
         // Works for negative years too.
@@ -209,13 +213,12 @@ function getShireDate(currentDateTime, timezoneOffset) {
 
         let idx = dayIndex - 1; // 0-based after "2 Yule"
 
-        // First 6 months (180 days total), each 30 days.
-        if (idx < 180) {
-            const monthIndex = Math.floor(idx / 30);
-            const dayInMonth = (idx % 30) + 1;
-            return `${dayInMonth} ${firstMonths[monthIndex]}`;
+        if (idx < SHIRE_DAYS_IN_HALF_YEAR) {
+            const monthIndex = Math.floor(idx / SHIRE_DAYS_PER_MONTH);
+            const dayInMonth = (idx % SHIRE_DAYS_PER_MONTH) + 1;
+            return `${dayInMonth} ${SHIRE_FIRST_MONTHS[monthIndex]}`;
         }
-        idx -= 180;
+        idx -= SHIRE_DAYS_IN_HALF_YEAR;
 
         // Intercalary block
         // Non-leap: 1 Lithe, Mid-year's Day, 2 Lithe
@@ -234,11 +237,10 @@ function getShireDate(currentDateTime, timezoneOffset) {
         }
         idx -= interLen;
 
-        // Second 6 months (180 days total), each 30 days.
-        if (idx < 180) {
-            const monthIndex = Math.floor(idx / 30);
-            const dayInMonth = (idx % 30) + 1;
-            return `${dayInMonth} ${secondMonths[monthIndex]}`;
+        if (idx < SHIRE_DAYS_IN_HALF_YEAR) {
+            const monthIndex = Math.floor(idx / SHIRE_DAYS_PER_MONTH);
+            const dayInMonth = (idx % SHIRE_DAYS_PER_MONTH) + 1;
+            return `${dayInMonth} ${SHIRE_SECOND_MONTHS[monthIndex]}`;
         }
 
         // Final day of the year.
@@ -246,33 +248,27 @@ function getShireDate(currentDateTime, timezoneOffset) {
     }
 
     function weekdayForDay(shireYear, dayIndex) {
-        // Weekday cycle participates on all regular days.
-        // Mid-year's Day and (in leap years) Overlithe are skipped and do not advance the cycle.
         const leap = isShireLeapYear(shireYear);
-        const midYearsDayIndex = 182; // dayIndex within year
 
-        const isMidYearDay = dayIndex === midYearsDayIndex;
-        const isOverlitheDay = leap && dayIndex === 183;
+        const isMidYearDay = dayIndex === SHIRE_MID_YEARS_DAY_INDEX;
+        const isOverlitheDay = leap && dayIndex === SHIRE_OVERLITHE_DAY_INDEX;
         if (isMidYearDay || isOverlitheDay) return null;
 
         let skippedBefore = 0;
-        if (dayIndex > midYearsDayIndex) skippedBefore += 1;
-        if (leap && dayIndex > 183) skippedBefore += 1;
+        if (dayIndex > SHIRE_MID_YEARS_DAY_INDEX) skippedBefore += 1;
+        if (leap && dayIndex > SHIRE_OVERLITHE_DAY_INDEX) skippedBefore += 1;
 
-        // Anchor rule: year start (dayIndex 0) is always Sterday (weekdayIndex 0).
         const regularDaysElapsed = dayIndex - skippedBefore;
-        const weekdayIndex = ((regularDaysElapsed % 7) + 7) % 7;
-        return shireWeekdays[weekdayIndex];
+        const weekdayIndex = ((regularDaysElapsed % SHIRE_DAYS_PER_WEEK) + SHIRE_DAYS_PER_WEEK) % SHIRE_DAYS_PER_WEEK;
+        return SHIRE_WEEKDAYS[weekdayIndex];
     }
 
-    const midnight = createAdjustedDateTime({ currentDateTime: currentDateTime, hour: 'MIDNIGHT' });
+    const midnight = createAdjustedDateTime({ currentDateTime, hour: 'MIDNIGHT' });
+    const shireEpochUTC = createAdjustedDateTime({ year: SHIRE_EPOCH_GREGORIAN_YEAR, month: SHIRE_EPOCH_GREGORIAN_MONTH, day: SHIRE_EPOCH_GREGORIAN_DAY });
 
-    const shireEpochYear = 1419;
-    const shireEpochUTC = createAdjustedDateTime({year: 1941, month: 12, day: 25}); // 1941-12-25T00:00:00Z
+    const dayOffset = Math.round((midnight.getTime() - shireEpochUTC.getTime()) / SHIRE_MS_PER_DAY);
 
-    const dayOffset = Math.round((midnight.getTime() - shireEpochUTC.getTime()) / 86400000);
-
-    let shireYear = shireEpochYear;
+    let shireYear = SHIRE_EPOCH_YEAR;
     let dayIndex = dayOffset;
 
     if (dayIndex >= 0) {

@@ -4,69 +4,53 @@
 
 // A set of functions for calculating dates in the Other Calendars category.
 
+// --- Maya calendar constants ---
+const MAYAN_TZ = 'UTC-06:00';
+const MAYAN_EPOCH_CONFIG = { timezone: MAYAN_TZ, year: -3113, month: 8, day: 11 };
+
+function getMayanEpoch() {
+    return createAdjustedDateTime(MAYAN_EPOCH_CONFIG);
+}
+const MS_PER_DAY = 86400000;
+const MAYAN_DAYS_PER_BAKTUN = 144000;
+const MAYAN_DAYS_PER_KATUN = 7200;
+const MAYAN_DAYS_PER_TUN = 360;
+const MAYAN_DAYS_PER_UINAL = 20;
+
+function mayaDivmod(n, d) {
+    const q = Math.floor(n / d);
+    const r = n % d;
+    return [q, r < 0 ? r + d : r];
+}
+
 function getCurrentMayaLongCount(currentDateTime) {
-    const MS_PER_DAY = 86400000;
-    const mayaEpoch = createAdjustedDateTime({timezone: 'UTC-06:00', year: -3113, month: 8, day: 11});
-    const totalDays = Math.floor((currentDateTime - mayaEpoch) / MS_PER_DAY);
+    const totalDays = Math.floor((currentDateTime - getMayanEpoch()) / MS_PER_DAY);
     let days = totalDays;
 
-    // Constants
-    const daysPerBaktun = 144000;
-    const daysPerKatun = 7200;
-    const daysPerTun = 360;
-    const daysPerUinal = 20;
+    const [baktuns, daysAfterBaktun] = mayaDivmod(days, MAYAN_DAYS_PER_BAKTUN);
+    const [katuns, daysAfterKatun] = mayaDivmod(daysAfterBaktun, MAYAN_DAYS_PER_KATUN);
+    const [tuns, daysAfterTun] = mayaDivmod(daysAfterKatun, MAYAN_DAYS_PER_TUN);
+    const [uinals, kins] = mayaDivmod(daysAfterTun, MAYAN_DAYS_PER_UINAL);
 
-    // Handle negative days properly with floor division
-    function divmod(n, d) {
-        const q = Math.floor(n / d);
-        const r = n % d;
-        return [q, r < 0 ? r + d : r];  // Make sure remainder is always positive
-    }
-
-    let baktuns, katuns, tuns, uinals, kins;
-
-    [baktuns, days] = divmod(days, daysPerBaktun);
-    [katuns, days] = divmod(days, daysPerKatun);
-    [tuns, days] = divmod(days, daysPerTun);
-    [uinals, kins] = divmod(days, daysPerUinal);
-
-    var output = `${baktuns}.${katuns}.${tuns}.${uinals}.${kins}`;
-    return { output: output, other: { baktun: baktuns, katun: katuns, tun: tuns, uinal: uinals, kin: kins } };
+    const output = `${baktuns}.${katuns}.${tuns}.${uinals}.${kins}`;
+    return { output, other: { baktun: baktuns, katun: katuns, tun: tuns, uinal: uinals, kin: kins } };
 }
 
 
+// --- Darian (Mars) calendar constants ---
+const DARIAN_MONTH_NAMES = [
+    'Sagittarius', 'Dhanus', 'Capricornus', 'Makara', 'Aquarius', 'Khumba',
+    'Pisces', 'Mina', 'Aries', 'Mesha', 'Taurus', 'Rishabha',
+    'Gemini', 'Mithuna', 'Cancer', 'Karka', 'Leo', 'Simha',
+    'Virgo', 'Kanya', 'Libra', 'Tula', 'Scorpius', 'Vrishika'
+];
+
+const DARIAN_MARS_WEEKDAY_NAMES = ['Solis', 'Lunae', 'Martis', 'Mercurii', 'Jovis', 'Veneris', 'Saturni'];
+
+const DARIAN_MARS_MONTH_DAYS_LEAP = [28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 28];
+const DARIAN_MARS_MONTH_DAYS_NON_LEAP = [28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27];
+
 function getDarianMarsDate(julianSolNumber) {
-    const DarianMonths = [
-        "Sagittarius",
-        "Dhanus",
-        "Capricornus",
-        "Makara",
-        "Aquarius",
-        "Khumba",
-        "Pisces",
-        "Mina",
-        "Aries",
-        "Mesha",
-        "Taurus",
-        "Rishabha",
-        "Gemini",
-        "Mithuna",
-        "Cancer",
-        "Karka",
-        "Leo",
-        "Simha",
-        "Virgo",
-        "Kanya",
-        "Libra",
-        "Tula",
-        "Scorpius",
-        "Vrishika"
-    ];
-
-    const darianWeek = ['Solis', 'Lunae', 'Martis', 'Mercurii', 'Jovis', 'Veneris', 'Saturni'];
-
-    const daysOfMonthsLeapYear = [28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 28];
-    const daysOfMonthsNonLeapYear = [28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27, 28, 28, 28, 28, 28, 27];
 
     // Odd years except if divisible by 10, but not 100 except for 500
     function isLeapYear(year) {
@@ -135,43 +119,56 @@ function getDarianMarsDate(julianSolNumber) {
         }
     }
 
-    // Find the day and month based on remaining days
-    const daysOfMonths = isLeapYear(year) ? daysOfMonthsLeapYear : daysOfMonthsNonLeapYear;
+    const daysOfMonths = isLeapYear(year) ? DARIAN_MARS_MONTH_DAYS_LEAP : DARIAN_MARS_MONTH_DAYS_NON_LEAP;
     let month = 0;
     while (remainingDays >= daysOfMonths[month]) {
         remainingDays -= daysOfMonths[month];
         month++;
     }
-    let day = Math.trunc(remainingDays) + 1; // Days in calendar start from 1
+    const day = Math.trunc(remainingDays) + 1;
+    const dayOfWeek = (day - 1) % 7;
 
-    const dayOfWeek = (day-1) % 7;
-
-    var output = day + ' ' + DarianMonths[month] + ' ' + year + '\nSol ' + darianWeek[dayOfWeek];
-    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
+    const output = day + ' ' + DARIAN_MONTH_NAMES[month] + ' ' + year + '\nSol ' + DARIAN_MARS_WEEKDAY_NAMES[dayOfWeek];
+    return { output, day, month, year, dayOfWeek };
 }
 
-function getGalileanDate(currentDateTime, body) {
-    const GalileanMonths = [
-        'Januarius',
-        'Februarius',
-        'Mercedonius',
-        'Martius',
-        'Aprilis',
-        'Maius',
-        'Junius',
-        'Julius',
-        'Augustus',
-        'September',
-        'October',
-        'November',
-        'December'
-    ];
+// --- Galilean (Jovian moons) calendar constants ---
+const GALILEAN_MONTH_NAMES = [
+    'Januarius', 'Februarius', 'Mercedonius', 'Martius', 'Aprilis', 'Maius',
+    'Junius', 'Julius', 'Augustus', 'September', 'October', 'November', 'December'
+];
 
-    const GalileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
-    const daysInMonths = [32,32,32,32,32,32,32,32,32,32,32,32,24];
-    const daysInMonthsLeap = [32,32,32,32,32,32,32,32,32,32,32,32,32];
-    const daysInMonthsGanymedeShort = [32,32,32,32,32,32,24,32,32,32,32,32,24];
-    const daysInMonthsGanymedeLeap = [32,32,32,32,32,32,24,32,32,32,32,32,32];
+const GALILEAN_WEEKDAY_NAMES = ['Solis', 'Lunae', 'Terrae', 'Martis', 'Mercurii', 'Jovis', 'Veneris', 'Saturni'];
+
+const GALILEAN_IO_CALLISTO_MONTH_DAYS = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 24];
+const GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
+const GALILEAN_GANYMEDE_MONTH_DAYS_SHORT = [32, 32, 32, 32, 32, 32, 24, 32, 32, 32, 32, 32, 24];
+const GALILEAN_GANYMEDE_MONTH_DAYS_LEAP = [32, 32, 32, 32, 32, 32, 24, 32, 32, 32, 32, 32, 32];
+
+const GALILEAN_EPOCHS = {
+    Io: { year: 2001, month: 12, day: 31, hour: 16, minute: 7, second: 45 },
+    Eu: { year: 2002, month: 1, day: 2, hour: 17, minute: 12, second: 57 },
+    Gan: { year: 2002, month: 1, day: 1, hour: 11, minute: 8, second: 29 },
+    Cal: { year: 2001, month: 12, day: 28, hour: 12, minute: 27, second: 23 }
+};
+
+const GALILEAN_CIRCAD_HOURS = { Io: 21.238325, Eu: 21.32456, Gan: 21.49916, Cal: 21.16238 };
+
+const DARIAN_GALILEAN_EPOCHS = {
+    Io: { year: 1609, month: 3, day: 13, hour: 5, minute: 29, second: 26 },
+    Eu: { year: 1609, month: 3, day: 12, hour: 1, minute: 19, second: 41 },
+    Gan: { year: 1609, month: 3, day: 11, hour: 9, minute: 52, second: 12 },
+    Cal: { year: 1609, month: 3, day: 17, hour: 20, minute: 57, second: 24 }
+};
+
+const DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
+const DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40];
+const DARIAN_GALILEAN_EUROPA_MONTH_DAYS = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
+const DARIAN_GALILEAN_EUROPA_MONTH_DAYS_LEAP = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40];
+const DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 24];
+const DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS_LEAP = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
+
+function getGalileanDate(currentDateTime, body) {
 
     // The original formula doesn't make sense to me, so I added my own
     function isLeapYearIo(Y) {
@@ -252,25 +249,9 @@ function getGalileanDate(currentDateTime, body) {
         return true;
     }
 
-    let epoch = new Date();
-    let circad = 0;
-    if (body==='Io') {
-        epoch = createAdjustedDateTime({year: 2001, month: 12, day: 31, hour: 16, minute: 7, second: 45});
-        circad = 21.238325;
-    }
-    if (body==='Eu') {
-        epoch = createAdjustedDateTime({year: 2002, month: 1, day: 2, hour: 17, minute: 12, second: 57});
-        circad = 21.32456;
-    }
-    if (body==='Gan') {
-        epoch = createAdjustedDateTime({year: 2002, month: 1, day: 1, hour: 11, minute: 8, second: 29});
-        circad = 21.49916;
-    }
-    if (body==='Cal') {
-        epoch = createAdjustedDateTime({year: 2001, month: 12, day: 28, hour: 12, minute: 27, second: 23});
-        circad = 21.16238;
-    }
-
+    const epochConfig = GALILEAN_EPOCHS[body];
+    const epoch = createAdjustedDateTime(epochConfig);
+    const circad = GALILEAN_CIRCAD_HOURS[body];
     const dayMilliseconds = circad * 60 * 60 * 1000;
     let daysSince = Math.floor((currentDateTime - epoch) / dayMilliseconds);
     const isNegative = daysSince < 0;
@@ -306,16 +287,16 @@ function getGalileanDate(currentDateTime, body) {
     let daysInMonthsArray = '';
 
     if (body === 'Io') {
-        daysInMonthsArray = isLeapYearIo(year) ? daysInMonthsLeap : daysInMonths;
+        daysInMonthsArray = isLeapYearIo(year) ? GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : GALILEAN_IO_CALLISTO_MONTH_DAYS;
     }
     if (body === 'Eu') {
-        daysInMonthsArray = isLeapYearEuropa(year) ? daysInMonthsLeap : daysInMonths;
+        daysInMonthsArray = isLeapYearEuropa(year) ? GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : GALILEAN_IO_CALLISTO_MONTH_DAYS;
     }
     if (body === 'Gan') {
-        daysInMonthsArray = isLeapYearGanymede(year) ? daysInMonthsGanymedeLeap : daysInMonthsGanymedeShort;
+        daysInMonthsArray = isLeapYearGanymede(year) ? GALILEAN_GANYMEDE_MONTH_DAYS_LEAP : GALILEAN_GANYMEDE_MONTH_DAYS_SHORT;
     }
     if (body === 'Cal') {
-        daysInMonthsArray = isLeapYearCallisto(year) ? daysInMonthsLeap : daysInMonths;
+        daysInMonthsArray = isLeapYearCallisto(year) ? GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : GALILEAN_IO_CALLISTO_MONTH_DAYS;
     }
 
     let month = 0;
@@ -326,30 +307,13 @@ function getGalileanDate(currentDateTime, body) {
 
     const day = remainingDays + 1;
     const adjustedDays = isNegative ? -daysSince : daysSince;
-    const dayOfWeek = GalileanWeek[(adjustedDays % 8 + 8) % 8];
+    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[(adjustedDays % 8 + 8) % 8];
 
-    var output = day + ' ' + body + ' ' + GalileanMonths[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
-    return { output: output, day: day, month: month, year: year, other: { body: body } };
+    const output = day + ' ' + body + ' ' + GALILEAN_MONTH_NAMES[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
+    return { output, day, month, year, other: { body } };
 }
 
 function getDarianGalileanDate(currentDateTime, body) {
-    const DarianMonths = [
-        "Sagittarius", "Dhanus", "Capricornus", "Makara", "Aquarius", "Khumba",
-        "Pisces", "Mina", "Aries", "Mesha", "Taurus", "Rishabha", 
-        "Gemini", "Mithuna", "Cancer", "Karka", "Leo", "Simha", 
-        "Virgo", "Kanya", "Libra", "Tula", "Scorpius", "Vrishika"
-    ];
-
-    const GalileanWeek = ['Solis', 'Lunae', 'Terrae', 'Martis', 'Mercurii', 'Jovis', 'Veneris', 'Saturni'];
-
-    const daysInIoCallistoMonths = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
-    const daysInEuropaMonths = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
-    const daysInGanymedeMonths = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 24];
-
-    const daysInIoCallistoMonthsLeap = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40];
-    const daysInEuropaMonthsLeap = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 40];
-    const daysInGanymedeMonthsLeap = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
-
     function isLeapYearIo(Y) {
         if (Y <= 3200) {
             if (Y % 80 === 0) {
@@ -454,31 +418,14 @@ function getDarianGalileanDate(currentDateTime, body) {
         return false;
     }
 
-    let epoch = new Date();
-    let circad = 0;
-    if (body === 'Io') {
-        epoch = createAdjustedDateTime({year: 1609, month: 3, day: 13, hour: 5, minute: 29, second: 26});
-        circad = 21.238325;
-    }
-    if (body === 'Eu') {
-        epoch = createAdjustedDateTime({year: 1609, month: 3, day: 12, hour: 1, minute: 19, second: 41});
-        circad = 21.32456;
-    }
-    if (body === 'Gan') {
-        epoch = createAdjustedDateTime({year: 1609, month: 3, day: 11, hour: 9, minute: 52, second: 12});
-        circad = 21.49916;
-    }
-    if (body === 'Cal') {
-        epoch = createAdjustedDateTime({year: 1609, month: 3, day: 17, hour: 20, minute: 57, second: 24});
-        circad = 21.16238;
-    }
-
+    const epoch = createAdjustedDateTime(DARIAN_GALILEAN_EPOCHS[body]);
+    const circad = GALILEAN_CIRCAD_HOURS[body];
     const dayMilliseconds = circad * 60 * 60 * 1000;
     let daysSince = (currentDateTime - epoch) / dayMilliseconds;
     const isNegative = daysSince < 0;
     daysSince = Math.abs(daysSince);
 
-    const dayOfWeek = GalileanWeek[Math.floor(daysSince % 8)];
+    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[Math.floor(daysSince % 8)];
     let year = 0;
     
     // Calculate the year and day remaining within the year
@@ -514,16 +461,16 @@ function getDarianGalileanDate(currentDateTime, body) {
     let daysInMonthsArray = '';
     
     if (body === 'Io') {
-        daysInMonthsArray = isLeapYearIo(year) ? daysInIoCallistoMonthsLeap : daysInIoCallistoMonths;
+        daysInMonthsArray = isLeapYearIo(year) ? DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS;
     }
     if (body === 'Eu') {
-        daysInMonthsArray = isLeapYearEuropa(year) ? daysInEuropaMonthsLeap : daysInEuropaMonths;
+        daysInMonthsArray = isLeapYearEuropa(year) ? DARIAN_GALILEAN_EUROPA_MONTH_DAYS_LEAP : DARIAN_GALILEAN_EUROPA_MONTH_DAYS;
     }
     if (body === 'Gan') {
-        daysInMonthsArray = isLeapYearGanymede(year) ? daysInGanymedeMonthsLeap : daysInGanymedeMonths;
+        daysInMonthsArray = isLeapYearGanymede(year) ? DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS_LEAP : DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS;
     }
     if (body === 'Cal') {
-        daysInMonthsArray = isLeapYearCallisto(year) ? daysInIoCallistoMonthsLeap : daysInIoCallistoMonths;
+        daysInMonthsArray = isLeapYearCallisto(year) ? DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS;
     }
 
     let month = 0;
@@ -533,25 +480,20 @@ function getDarianGalileanDate(currentDateTime, body) {
     }
 
     const day = Math.trunc(remainingDays) + 1;
-    var output = `${day} ${body} ${DarianMonths[month]} ${year}\n${body} ${dayOfWeek}`;
-    return { output: output, day: day, month: month, year: year, other: { body: body } };
+    const output = `${day} ${body} ${DARIAN_MONTH_NAMES[month]} ${year}\n${body} ${dayOfWeek}`;
+    return { output, day, month, year, other: { body } };
 }
 
 
+// --- Darian Titan calendar constants ---
+const DARIAN_TITAN_EPOCH_CONFIG = { year: 1609, month: 3, day: 15, hour: 18, minute: 37, second: 32 };
+const DARIAN_TITAN_CIRCAD_DAYS = 0.998068439;
+
+const DARIAN_TITAN_MONTH_DAYS = [28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28];
+const DARIAN_TITAN_MONTH_DAYS_LEAP = [28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 32, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 32];
+
 function getDarianTitanDate(currentDateTime, body) {
-    const DarianMonths = [
-        "Sagittarius", "Dhanus", "Capricornus", "Makara", "Aquarius", "Khumba", 
-        "Pisces", "Mina", "Aries", "Mesha", "Taurus", "Rishabha", 
-        "Gemini", "Mithuna", "Cancer", "Karka", "Leo", "Simha", 
-        "Virgo", "Kanya", "Libra", "Tula", "Scorpius", "Vrishika"
-    ];
-
-    const GalileanWeek = ['Solis','Lunae','Terrae','Martis','Mercurii','Jovis','Veneris','Saturni'];
-
-    const titanMonthDays = [28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 28];
-    const titanMonthDaysLeap = [28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 32, 28, 28, 32, 28, 28, 28, 28, 28, 32, 28, 28, 32];
-
-    function isLeapYear(Y) {
+    function isDarianTitanLeapYear(Y) {
         if (Y % 400 === 0) {
             return false;
         }
@@ -561,21 +503,18 @@ function getDarianTitanDate(currentDateTime, body) {
         return false;
     }
 
-    const epoch = createAdjustedDateTime({year: 1609, month: 3, day: 15, hour: 18, minute: 37, second: 32}); // Titan epoch
-    const titanCircad = 0.998068439; // Titan "day" in Earth days
-    const titanDayMilliseconds = titanCircad * 24 * 60 * 60 * 1000;
-    
-    // Calculate the total days since the epoch (positive or negative)
+    const epoch = createAdjustedDateTime(DARIAN_TITAN_EPOCH_CONFIG);
+    const titanDayMilliseconds = DARIAN_TITAN_CIRCAD_DAYS * 24 * 60 * 60 * 1000;
     let titanDaysSince = (currentDateTime - epoch) / titanDayMilliseconds;
     const isNegative = titanDaysSince < 0;
     titanDaysSince = Math.abs(titanDaysSince);
 
-    const dayOfWeek = GalileanWeek[Math.floor(titanDaysSince % 8)];
+    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[Math.floor(titanDaysSince % 8)];
     let year = 0;
     
     // Calculate the year and remaining days within the year
     while (true) {
-        let daysInYear = isLeapYear(year) ? 696 : 688;
+        let daysInYear = isDarianTitanLeapYear(year) ? 696 : 688;
         
         if (titanDaysSince < daysInYear) {
             break;
@@ -588,12 +527,12 @@ function getDarianTitanDate(currentDateTime, body) {
     // Handle negative years and reverse time correctly
     if (isNegative) {
         year -= 1;  // Adjust for a full reverse year
-        titanDaysSince = (isLeapYear(year) ? 696 : 688) - titanDaysSince;
+        titanDaysSince = (isDarianTitanLeapYear(year) ? 696 : 688) - titanDaysSince;
     }
 
     // Calculate the month and day
     let remainingDays = titanDaysSince;
-    const daysInMonthsArray = isLeapYear(year) ? titanMonthDaysLeap : titanMonthDays;
+    const daysInMonthsArray = isDarianTitanLeapYear(year) ? DARIAN_TITAN_MONTH_DAYS_LEAP : DARIAN_TITAN_MONTH_DAYS;
     let month = 0;
 
     while (remainingDays >= daysInMonthsArray[month]) {
@@ -603,116 +542,96 @@ function getDarianTitanDate(currentDateTime, body) {
 
     const day = Math.floor(remainingDays) + 1;
 
-    var output = day + ' Ti ' + DarianMonths[month] + ' ' + year + '\nTi ' + dayOfWeek;
-    return { output: output, day: day, month: month, year: year, dayOfWeek: dayOfWeek };
+    const output = day + ' Ti ' + DARIAN_MONTH_NAMES[month] + ' ' + year + '\nTi ' + dayOfWeek;
+    return { output, day, month, year, dayOfWeek };
 }
+
+// --- Yuga Cycle ---
+const YUGA_DVAPARA_SANDHYAMSA = 'Dvapara Yuga: Sandhyamsa';
+const YUGA_KALI_SANDHYA = 'Kali Yuga: Sandhya';
 
 function getYugaCycle(currentDateTime) {
-    const YugaCycle = [
-        /*
-        "Satya Yuga: Sandhya",
-        "Satya Yuga",
-        "Satya Yuga: Sandhyamsa",
-        "Treta Yuga: Sandhya",
-        "Treta Yuga",
-        "Treta Yuga: Sandhyamsa",
-        "Dvapara Yuga: Sandhya",*/
-        "Dvapara Yuga",
-        "Dvapara Yuga: Sandhyamsa",
-        "Kali Yuga: Sandhya",
-        "Kali Yuga",
-        "Kali Yuga: Sandhyamsa",
-    ];
-
-    const yearsOfYugas = [
-        /*
-        144000,
-        1440000,
-        144000,
-        108000,
-        1080000,
-        108000,
-        72000,*/
-        720000,
-        72000,
-        36000,
-        360000,
-        36000
-    ];
-
     const kaliAhargana = getKaliAhargana(currentDateTime);
-    var output = kaliAhargana < 1 ? "Dvapara Yuga: Sandhyamsa" : "Kali Yuga: Sandhya";
-    return { output: output };
+    const output = kaliAhargana < 1 ? YUGA_DVAPARA_SANDHYAMSA : YUGA_KALI_SANDHYA;
+    return { output };
 }
+
+// --- Sothic Cycle ---
+const SOTHIC_ANCHOR_CONFIG = { year: 139, month: 7, day: 19 };
+const SOTHIC_CYCLE_YEARS = 1460;
+const SOTHIC_CYCLE_OFFSET = 3;
 
 function getSothicCycle(currentDateTime) {
-    const startOf139Cycle = createAdjustedDateTime({year: 139, month: 7, day: 19}); // Sothic cycle anchor point
-    const daysSinceStart = differenceInDays(currentDateTime, startOf139Cycle);
+    const anchor = createAdjustedDateTime(SOTHIC_ANCHOR_CONFIG);
+    const daysSinceStart = differenceInDays(currentDateTime, anchor);
     const totalYears = Math.floor(daysSinceStart / 365.25);
 
-    const currentCycle = Math.floor(totalYears / 1460) + 3;
-    let yearsInCurrentCycle = totalYears % 1460;
-
-    // Fix negative modulus (e.g., -1 % 1460 = -1 instead of 1459)
+    const currentCycle = Math.floor(totalYears / SOTHIC_CYCLE_YEARS) + SOTHIC_CYCLE_OFFSET;
+    let yearsInCurrentCycle = totalYears % SOTHIC_CYCLE_YEARS;
     if (yearsInCurrentCycle < 0) {
-        yearsInCurrentCycle += 1460;
+        yearsInCurrentCycle += SOTHIC_CYCLE_YEARS;
     }
 
-    var output = 'Cycle: ' + currentCycle + ' | Year: ' + (yearsInCurrentCycle + 1);
-    return { output: output, year: yearsInCurrentCycle, other: { cycle: currentCycle } };
+    const output = 'Cycle: ' + currentCycle + ' | Year: ' + (yearsInCurrentCycle + 1);
+    return { output, year: yearsInCurrentCycle, other: { cycle: currentCycle } };
 }
+
+// --- Olympiad ---
+const OLYMPIAD_1_START_CONFIG = { year: -775, month: 7, day: 24 };
+const OLYMPIAD_YEARS = 4;
+const DAYS_PER_YEAR_OLYMPIAD = 365.2425;
 
 function getOlympiad(currentDateTime) {
     const julianDate = getApproxJulianDate(currentDateTime);
-    const olympiad1_ = createAdjustedDateTime({year: -775, month: 7, day: 24}); // Start of 1st Olympiad
-    const olympiad1 = getApproxJulianDate(olympiad1_);
-    
+    const olympiad1 = getApproxJulianDate(createAdjustedDateTime(OLYMPIAD_1_START_CONFIG));
+
     const daysSinceOlympiad1 = differenceInDays(julianDate, olympiad1);
-    const yearsSinceOlympiad1 = daysSinceOlympiad1 / 365.2425;
+    const yearsSinceOlympiad1 = daysSinceOlympiad1 / DAYS_PER_YEAR_OLYMPIAD;
 
     let olympiad, yearInOlympiad;
 
     if (yearsSinceOlympiad1 >= 0) {
-        olympiad = Math.floor(yearsSinceOlympiad1 / 4) + 1;
-        yearInOlympiad = Math.floor(yearsSinceOlympiad1 % 4) + 1;
+        olympiad = Math.floor(yearsSinceOlympiad1 / OLYMPIAD_YEARS) + 1;
+        yearInOlympiad = Math.floor(yearsSinceOlympiad1 % OLYMPIAD_YEARS) + 1;
     } else {
-        const olympiadOffset = Math.ceil(Math.abs(yearsSinceOlympiad1) / 4);
+        const olympiadOffset = Math.ceil(Math.abs(yearsSinceOlympiad1) / OLYMPIAD_YEARS);
         olympiad = 1 - olympiadOffset;
-        
-        const yearOffset = (4 - Math.floor(Math.abs(yearsSinceOlympiad1) % 4)) % 4;
-        yearInOlympiad = yearOffset === 0 ? 4 : yearOffset;
+        const yearOffset = (OLYMPIAD_YEARS - Math.floor(Math.abs(yearsSinceOlympiad1) % OLYMPIAD_YEARS)) % OLYMPIAD_YEARS;
+        yearInOlympiad = yearOffset === 0 ? OLYMPIAD_YEARS : yearOffset;
     }
 
-    var output = olympiad + ' | Year: ' + yearInOlympiad;
-    return { output: output, year: yearInOlympiad, other: { olympiad: olympiad } };
+    const output = olympiad + ' | Year: ' + yearInOlympiad;
+    return { output, year: yearInOlympiad, other: { olympiad } };
 }
 
+
+// --- Tzolk'in ---
+const TZOLKIN_DAY_NAMES = [
+    "Imix", "Ik'", "Ak'b'al", "K'an", "Chikchan",
+    "Kimi", "Manik'", "Lamat", "Muluk", "Ok",
+    "Chuwen", "Eb'", "B'en", "Ix", "Men",
+    "K'ib'", "Kab'an", "Etz'nab'", "Kawak", "Ajaw"
+];
+const TZOLKIN_CYCLE_DAYS = 260;
+const TZOLKIN_STARTING_DAY = 4;
+const TZOLKIN_STARTING_NAME_INDEX = 19;
 
 function getTzolkinDate(currentDateTime) {
-    const tzolkinMonths = [
-        "Imix", "Ik'", "Ak'b'al", "K'an", "Chikchan",
-        "Kimi", "Manik'", "Lamat", "Muluk", "Ok",
-        "Chuwen", "Eb'", "B'en", "Ix", "Men",
-        "K'ib'", "Kab'an", "Etz'nab'", "Kawak", "Ajaw"
-    ];
+    const totalDays = Math.floor(differenceInDays(currentDateTime, getMayanEpoch()));
+    const adjustedDays = (totalDays % TZOLKIN_CYCLE_DAYS + TZOLKIN_CYCLE_DAYS) % TZOLKIN_CYCLE_DAYS;
+    const dayNumber = (TZOLKIN_STARTING_DAY + adjustedDays) % 13 || 13;
+    const monthIndex = (TZOLKIN_STARTING_NAME_INDEX + adjustedDays) % 20;
 
-    const mayaLongCount0 = createAdjustedDateTime({timezone: 'UTC-06:00', year: -3113, month: 8, day: 11});
-    const totalDays = Math.floor(differenceInDays(currentDateTime, mayaLongCount0));
-    
-    const startingTzolkinDay = 4; // 4 Ahau is the starting Tzolk'in day for 0.0.0.0.0
-    const startingTzolkinMonthIndex = tzolkinMonths.indexOf("Ajaw");
-
-    const adjustedDays = (totalDays % 260 + 260) % 260;
-    const dayNumber = (startingTzolkinDay + adjustedDays) % 13 || 13;
-    const monthIndex = (startingTzolkinMonthIndex + adjustedDays) % 20;
-    
-    var output = `${dayNumber} ${tzolkinMonths[monthIndex]}`;
-    return { output: output, day: dayNumber, month: monthIndex };
+    const output = `${dayNumber} ${TZOLKIN_DAY_NAMES[monthIndex]}`;
+    return { output, day: dayNumber, month: monthIndex };
 }
 
+// --- Lord of the Night ---
+const LORD_OF_NIGHT_EPOCH_CONFIG = { timezone: MAYAN_TZ, year: 2012, month: 12, day: 21 };
+
 function getLordOfTheNight(currentDateTime) {
-    const startingBaktun13 = createAdjustedDateTime({timezone: 'UTC-06:00', year: 2012, month: 12, day: 21});
-    const daysSince = differenceInDays(currentDateTime, startingBaktun13);
+    const epoch = createAdjustedDateTime(LORD_OF_NIGHT_EPOCH_CONFIG);
+    const daysSince = differenceInDays(currentDateTime, epoch);
     let lord = Math.floor(((daysSince % 9) + 9) % 9);
     if (lord === 0) {
         lord = 9;
@@ -725,33 +644,35 @@ function getLordOfTheNight(currentDateTime) {
     return { output: output, other: { lord: lord, Y: Y } };
 }
 
+// --- Pawukon calendar constants ---
+const PAWUKON_TZ = 'UTC+08:00';
+const PAWUKON_RECENT_EPOCH_CONFIG = { timezone: PAWUKON_TZ, year: 2020, month: 7, day: 5 };
+const PAWUKON_CYCLE_STEP_DAYS = 210;
+
+const PAWUKON_DASAWARA = ['Sri', 'Pati', 'Raja', 'Manuh', 'Duka', 'Manusa', 'Raksasa', 'Suka', 'Dewa', 'Pandita'];
+const PAWUKON_SANGAWARA = ['Dangu', 'Jangur', 'Gigis', 'Nohan', 'Ogan', 'Erangan', 'Urungan', 'Tulus', 'Dadi'];
+const PAWUKON_ASTAWARA = ['Sri', 'Indra', 'Guru', 'Yama', 'Ludra', 'Brahma', 'Kala', 'Uma'];
+const PAWUKON_SAPTAWARA = ['Redite', 'Soma', 'Anggara', 'Buda', 'Wraspati', 'Sukra', 'Saniscara'];
+const PAWUKON_SADWARA = ['Tungleh', 'Aryang', 'Urukung', 'Paniron', 'Was', 'Maulu'];
+const PAWUKON_PANCAWARA = ['Paing', 'Pon', 'Wage', 'Keliwon', 'Umanis'];
+const PAWUKON_CATURWARA = ['Sri', 'Laba', 'Jaya', 'Menala'];
+const PAWUKON_TRIWARA = ['Pasah', 'Beteng', 'Kajeng'];
+const PAWUKON_DWIWARA = ['Menga', 'Pepet'];
+const PAWUKON_EKAWARA = ['Luang '];
+const PAWUKON_WEEK_NAMES = [
+    'Sinta', 'Landep', 'Ukir', 'Kulantir', 'Taulu', 'Gumbreg', 'Wariga', 'Warigadian', 'Julungwangi', 'Sungsang',
+    'Dunggulan', 'Kuningan', 'Langkir', 'Medangsia', 'Pujut', 'Pahang', 'Krulut', 'Merakih', 'Tambir', 'Medangkungan',
+    'Matal', 'Uye', 'Menail', 'Parangbakat', 'Bala', 'Ugu', 'Wayang', 'Kelawu', 'Dukut', 'Watugunung'
+];
+
+const PAWUKON_URIP_5 = [9, 7, 4, 8, 5];
+const PAWUKON_URIP_7 = [5, 4, 3, 7, 8, 6, 9];
+const PAWUKON_URIP_10 = [5, 2, 8, 6, 4, 7, 10, 3, 9, 1];
+
 // Returns a formatted Pawukon calendar (WITA) date
 function getPawukonCalendarDate(currentDateTime) {
-
-    // Week day names
-    const Dasawara10 = ['Sri', 'Pati', 'Raja', 'Manuh', 'Duka', 'Manusa', 'Raksasa', 'Suka', 'Dewa', 'Pandita'];
-    const Sangawara9 = ['Dangu', 'Jangur', 'Gigis', 'Nohan', 'Ogan', 'Erangan', 'Urungan', 'Tulus', 'Dadi'];
-    const Astawara8 = ['Sri', 'Indra', 'Guru', 'Yama', 'Ludra', 'Brahma', 'Kala', 'Uma'];
-    const Saptawara7 = ['Redite', 'Soma', 'Anggara', 'Buda', 'Wraspati', 'Sukra', 'Saniscara'];
-    const Sadwara6 = ['Tungleh', 'Aryang', 'Urukung', 'Paniron', 'Was', 'Maulu'];
-    const Pancawara5 = ['Paing', 'Pon', 'Wage', 'Keliwon', 'Umanis'];
-    const Caturwara4 = ['Sri', 'Laba', 'Jaya', 'Menala'];
-    const Triwara3 = ['Pasah', 'Beteng', 'Kajeng'];
-    const Dwiwara2 = ['Menga', 'Pepet'];
-    const Ekawara1 = ['Luang '];
-    const weekNames = ['Sinta', 'Landep', 'Ukir', 'Kulantir', 'Taulu', 'Gumbreg', 'Wariga', 'Warigadian', 'Julungwangi', 'Sungsang',
-        'Dunggulan', 'Kuningan', 'Langkir', 'Medangsia', 'Pujut', 'Pahang', 'Krulut', 'Merakih', 'Tambir', 'Medangkungan',
-        'Matal', 'Uye', 'Menail', 'Parangbakat', 'Bala', 'Ugu', 'Wayang', 'Kelawu', 'Dukut', 'Watugunung'
-    ];
-
-    // Urip Values
-    const urip5 = [9, 7, 4, 8, 5];
-    const urip7 = [5, 4, 3, 7, 8, 6, 9];
-    const urip10 = [5, 2, 8, 6, 4, 7, 10, 3, 9, 1];
-
-    const recentEpoch = createAdjustedDateTime({timezone: 'UTC+08:00', year: 2020, month: 7, day: 5});
-    const stepMs = 210 * 24 * 60 * 60 * 1000;
-    let newEpoch = createAdjustedDateTime({currentDateTime: recentEpoch});
+    const stepMs = PAWUKON_CYCLE_STEP_DAYS * 24 * 60 * 60 * 1000;
+    let newEpoch = createAdjustedDateTime(PAWUKON_RECENT_EPOCH_CONFIG);
     while (newEpoch.getTime() > currentDateTime.getTime()) {
         newEpoch = new Date(newEpoch.getTime() - stepMs);
     }
@@ -771,54 +692,47 @@ function getPawukonCalendarDate(currentDateTime) {
     let daysSinceEpoch4_8 = daysSinceEpoch;
     let daysSinceEpoch9 = daysSinceEpoch-3;
 
-    // Get 3rd, 5th, 6th, and 7th weeks
-    dayOfWeek3 = Triwara3[daysSinceEpoch % 3];
-    dayOfWeek5 = Pancawara5[daysSinceEpoch % 5];
-    dayOfWeek6 = Sadwara6[daysSinceEpoch % 6];
-    dayOfWeek7 = Saptawara7[daysSinceEpoch % 7];
+    dayOfWeek3 = PAWUKON_TRIWARA[daysSinceEpoch % 3];
+    dayOfWeek5 = PAWUKON_PANCAWARA[daysSinceEpoch % 5];
+    dayOfWeek6 = PAWUKON_SADWARA[daysSinceEpoch % 6];
+    dayOfWeek7 = PAWUKON_SAPTAWARA[daysSinceEpoch % 7];
 
-    // Get 4th and 8th weeks
     if ((daysSinceEpoch===71) || (daysSinceEpoch===72)) {
         daysSinceEpoch4_8 = 70;
     }
     if (daysSinceEpoch4_8>72) {
         daysSinceEpoch4_8 -= 2;
     }
-    dayOfWeek4 = Caturwara4[daysSinceEpoch4_8 % 4];
-    dayOfWeek8 = Astawara8[daysSinceEpoch4_8 % 8];
+    dayOfWeek4 = PAWUKON_CATURWARA[daysSinceEpoch4_8 % 4];
+    dayOfWeek8 = PAWUKON_ASTAWARA[daysSinceEpoch4_8 % 8];
 
-    // Get 9th week
     if (daysSinceEpoch9<0) {
         daysSinceEpoch9 = 0;
     }
-    dayOfWeek9 = Sangawara9[daysSinceEpoch9 % 9];
-    
-    // Get current urip
-    let urip = urip5[daysSinceEpoch % 5] + urip7[daysSinceEpoch % 7] + 1;
-    if (urip>10) {
+    dayOfWeek9 = PAWUKON_SANGAWARA[daysSinceEpoch9 % 9];
+
+    let urip = PAWUKON_URIP_5[daysSinceEpoch % 5] + PAWUKON_URIP_7[daysSinceEpoch % 7] + 1;
+    if (urip > 10) {
         urip -= 10;
     }
-    
-    // Get 10th week
-    for (let i = 0; i < urip10.length; i++) {
-        if (urip10[i] === urip) {
-            dayOfWeek10 = Dasawara10[i];
+
+    for (let i = 0; i < PAWUKON_URIP_10.length; i++) {
+        if (PAWUKON_URIP_10[i] === urip) {
+            dayOfWeek10 = PAWUKON_DASAWARA[i];
             break;
         }
     }
 
-    // Get 1st and 2nd weeks
-    if (urip%2===0) {
-        dayOfWeek1 = Ekawara1[0];
-        dayOfWeek2 = Dwiwara2[1];
+    if (urip % 2 === 0) {
+        dayOfWeek1 = PAWUKON_EKAWARA[0];
+        dayOfWeek2 = PAWUKON_DWIWARA[1];
     } else {
         dayOfWeek1 = '';
-        dayOfWeek2 = Dwiwara2[0];
+        dayOfWeek2 = PAWUKON_DWIWARA[0];
     }
 
-    // Get Week Name
-    const weekName = weekNames[(Math.floor(daysSinceEpoch/7)%30)];
+    const weekName = PAWUKON_WEEK_NAMES[(Math.floor(daysSinceEpoch / 7) % 30)];
 
-    var output = `${dayOfWeek1}${dayOfWeek2} ${dayOfWeek3} ${dayOfWeek4} ${dayOfWeek5} ${dayOfWeek6} ${dayOfWeek7} ${dayOfWeek8} ${dayOfWeek9} ${dayOfWeek10}\nWeek Name: ${weekName}`;
-    return { output: output, other: { weekName: weekName } };
+    const output = `${dayOfWeek1}${dayOfWeek2} ${dayOfWeek3} ${dayOfWeek4} ${dayOfWeek5} ${dayOfWeek6} ${dayOfWeek7} ${dayOfWeek8} ${dayOfWeek9} ${dayOfWeek10}\nWeek Name: ${weekName}`;
+    return { output, other: { weekName } };
 }

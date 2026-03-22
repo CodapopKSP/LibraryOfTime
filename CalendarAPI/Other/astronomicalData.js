@@ -4,14 +4,44 @@
 
 // A set of functions for calculating data in the Astronomical Data category.
 
+// JDE (Julian Ephemeris Day) and calendar conversion constants (Astronomical Algorithms)
+const JDE_JULIAN_EPOCH = 2451545;
+const JDE_MIDDAY_OFFSET = 0.5;
+const JDE_GREGORIAN_START = 2299161;
+const JDE_JULIAN_CENTURY_DAYS = 36525;
+const JDE_JULIAN_PERIOD_START = 1867216.25;
+const JDE_JULIAN_PERIOD_DAYS = 36524.25;
+const JDE_MONTH_ADJUST = 1524;
+const JDE_DAY_OFFSET = 122.1;
+const JDE_DAYS_PER_YEAR = 365.25;
+const JDE_MONTH_COEFF = 30.6001;
+const JDE_YEAR_MARCH_OFFSET = 4716;
+const JDE_YEAR_JAN_FEB_OFFSET = 4715;
+const GREGORIAN_REFORM_YEAR = 1582;
+const GREGORIAN_REFORM_MONTH = 9;
+const GREGORIAN_REFORM_DAY = 15;
+
+const SECONDS_PER_DAY = 24 * 60 * 60;
+const SECONDS_PER_HOUR = 3600;
+const SECONDS_PER_MINUTE = 60;
+
+const RAD_TO_DEG = 180 / Math.PI;
+
+const SEASONS = ['SPRING', 'SUMMER', 'AUTUMN', 'WINTER'];
+
+const LUNATION_RANGE_MIN = -14;
+const LUNATION_RANGE_MAX = 12;
+
+const SOLSTICE_EQUINOX_YEAR_OFFSET = 3;
+
 // Manages the global list of new moons
 let allNewMoons = [];
 
 // Generate a list of all new moons to reduce resource usage
 function generateAllNewMoons(currentDateTime) {
     let newMoons = [];
-    let lunation = -14;
-    while (lunation < 13) {
+    let lunation = LUNATION_RANGE_MIN;
+    while (lunation <= LUNATION_RANGE_MAX) {
         const newMoon = getMoonPhase(currentDateTime, lunation);
         newMoons.push(newMoon);
         lunation++;
@@ -62,14 +92,13 @@ function getNewMoon(referenceDate, lunations) {
 let allSolsticesEquinoxes = [];
 
 function generateAllSolsticesEquinoxes(currentDateTime) {
-    const seasons = ['SPRING', 'SUMMER', 'AUTUMN', 'WINTER'];
     const centerYear = currentDateTime.getUTCFullYear();
     const solsticesEquinoxes = [];
 
-    for (let yearOffset = -3; yearOffset <= 3; yearOffset++) {
+    for (let yearOffset = -SOLSTICE_EQUINOX_YEAR_OFFSET; yearOffset <= SOLSTICE_EQUINOX_YEAR_OFFSET; yearOffset++) {
         const year = centerYear + yearOffset;
 
-        for (const season of seasons) {
+        for (const season of SEASONS) {
             const date = getSolsticeOrEquinox(createAdjustedDateTime({currentDateTime: currentDateTime, year: year, month: 1, day: 1}), season);
             solsticesEquinoxes.push({ date, season });
         }
@@ -118,45 +147,29 @@ function getSolsticeEquinox(referenceDate, season, offset = 0) {
 // Return an unformatted date from an unsigned JDE
 // This equation was sourced from Astronomical Algorithms
 function calculateDateFromJDE(JDE) {
-    const newJDE = JDE + 0.5;
+    const newJDE = JDE + JDE_MIDDAY_OFFSET;
     const Z = Math.trunc(newJDE);
     const F = newJDE - Z;
-    const alpha = Math.trunc((Z - 1867216.25)/36524.25);
-    let A = 0;
-    if (Z < 2299161) {
-        A = Z;
-    } else {
-        A = Z + 1 + alpha - Math.trunc(alpha/4);
-    }
-    const B = A + 1524;
-    const C = Math.trunc((B - 122.1)/365.25);
-    const D = Math.trunc(365.25*C);
-    const E = Math.trunc((B - D)/30.6001);
-    const dayDecimal = B - D - Math.trunc(30.6001*E) + F;
-    let month;
-    if (E < 14) {
-        month = E - 1;
-    } else {
-        month = E - 13;
-    }
-    let year;
-    if (month > 2) {
-        year = C - 4716;
-    } else {
-        year = C - 4715;
-    }
+    const alpha = Math.trunc((Z - JDE_JULIAN_PERIOD_START) / JDE_JULIAN_PERIOD_DAYS);
+    const A = Z < JDE_GREGORIAN_START ? Z : Z + 1 + alpha - Math.trunc(alpha / 4);
+    const B = A + JDE_MONTH_ADJUST;
+    const C = Math.trunc((B - JDE_DAY_OFFSET) / JDE_DAYS_PER_YEAR);
+    const D = Math.trunc(JDE_DAYS_PER_YEAR * C);
+    const E = Math.trunc((B - D) / JDE_MONTH_COEFF);
+    const dayDecimal = B - D - Math.trunc(JDE_MONTH_COEFF * E) + F;
+    const month = E < 14 ? E - 1 : E - 13;
+    const year = month > 2 ? C - JDE_YEAR_MARCH_OFFSET : C - JDE_YEAR_JAN_FEB_OFFSET;
     const day = Math.trunc(dayDecimal);
     const remainingDayDecimal = dayDecimal - day;
-    const totalSecondsInDay = 24 * 60 * 60;
-    const totalSecondsOfRemainingDay = Math.trunc(remainingDayDecimal * totalSecondsInDay);
-    const hours = Math.trunc(totalSecondsOfRemainingDay / 3600);
-    const minutes = Math.trunc((totalSecondsOfRemainingDay % 3600) / 60);
-    const seconds = totalSecondsOfRemainingDay % 60;
+    const totalSecondsOfRemainingDay = Math.trunc(remainingDayDecimal * SECONDS_PER_DAY);
+    const hours = Math.trunc(totalSecondsOfRemainingDay / SECONDS_PER_HOUR);
+    const minutes = Math.trunc((totalSecondsOfRemainingDay % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE);
+    const seconds = totalSecondsOfRemainingDay % SECONDS_PER_MINUTE;
     let unfixedDateTime = createAdjustedDateTime({year: year, month: month, day: day, hour: hours, minute: minutes, second: seconds});
     // I think this is how to add Dynamical Time but I'm not sure
     let fixedDateTime = new Date(getDynamicalTimeBackward(unfixedDateTime));
     
-    const startOfGregorian = new Date(Date.UTC(1582, 9, 15));
+    const startOfGregorian = new Date(Date.UTC(GREGORIAN_REFORM_YEAR, GREGORIAN_REFORM_MONTH, GREGORIAN_REFORM_DAY));
     if (fixedDateTime < startOfGregorian) { //&& (getCalendarType()==='gregorian-proleptic')) {
         setGregJulianDifference(calculateGregorianJulianDifference(fixedDateTime));
         fixedDateTime.setUTCDate(fixedDateTime.getUTCDate() + getGregJulianDifference());
@@ -166,11 +179,10 @@ function calculateDateFromJDE(JDE) {
 }
 
 function calculateUTCYearFraction(currentDateTime) {
-    let year = currentDateTime.getUTCFullYear();
-    let yearStart = createAdjustedDateTime({year: year, month: 1, day: 1});
-    let nextYearStart = createAdjustedDateTime({year: year + 1, month: 1, day: 1});
-    let yearFraction = (currentDateTime - yearStart) / (nextYearStart - yearStart);
-    return yearFraction;
+    const year = currentDateTime.getUTCFullYear();
+    const yearStart = createAdjustedDateTime({ year: year, month: 1, day: 1 });
+    const nextYearStart = createAdjustedDateTime({ year: year + 1, month: 1, day: 1 });
+    return (currentDateTime - yearStart) / (nextYearStart - yearStart);
 }
 
 
@@ -186,7 +198,7 @@ function getSolsticeOrEquinox(currentDateTime, season) {
     // Sum up all the values in a table from Astronomical Algorithms
     function sumSolsticeEquinoxTable(T) {
         function sumSolsticeEquinoxTableHelper(T, num1, num2, num3) {
-            return num1 * Math.cos((num2 + num3*T)* Math.PI / 180);
+            return num1 * Math.cos(radians(num2 + num3 * T));
         }
         const sum =
         sumSolsticeEquinoxTableHelper(T, 485, 324.96, 1934.136) +
@@ -225,11 +237,11 @@ function getSolsticeOrEquinox(currentDateTime, season) {
         if (season === 'WINTER') {
             JDE_ = calculateSolsEquiJDE(Y, 2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032);
         }
-        const T = (JDE_ - 2451545)/36525;
-        const W = 35999.373*T - 2.47;
-        const DeltaLambda =  1 + (0.0334 * Math.cos(W* Math.PI / 180)) + (0.0007 * Math.cos(2*W* Math.PI / 180));
+        const T = (JDE_ - JDE_JULIAN_EPOCH) / JDE_JULIAN_CENTURY_DAYS;
+        const W = 35999.373 * T - 2.47;
+        const DeltaLambda = 1 + (0.0334 * Math.cos(radians(W))) + (0.0007 * Math.cos(radians(2 * W)));
         const S = sumSolsticeEquinoxTable(T);
-        const specialDay = JDE_ + ((0.00001*S)/DeltaLambda);
+        const specialDay = JDE_ + ((0.00001 * S) / DeltaLambda);
         return new Date(calculateDateFromJDE(specialDay));
     } else {
         const Y = year/1000;
@@ -246,11 +258,11 @@ function getSolsticeOrEquinox(currentDateTime, season) {
         if (season === 'WINTER') {
             JDE_ = calculateSolsEquiJDE(Y, 1721414.39987, 365242.88257, -0.00769, -0.00933, -0.00006);
         }
-        const T = (JDE_ - 2451545)/36525;
-        const W = 35999.373*T - 2.47;
-        const DeltaLambda =  1 + (0.0334 * Math.cos(W* Math.PI / 180)) + (0.0007 * Math.cos(2*W* Math.PI / 180));
+        const T = (JDE_ - JDE_JULIAN_EPOCH) / JDE_JULIAN_CENTURY_DAYS;
+        const W = 35999.373 * T - 2.47;
+        const DeltaLambda = 1 + (0.0334 * Math.cos(radians(W))) + (0.0007 * Math.cos(radians(2 * W)));
         const S = sumSolsticeEquinoxTable(T);
-        const specialDay = JDE_ + ((0.00001*S)/DeltaLambda);
+        const specialDay = JDE_ + ((0.00001 * S) / DeltaLambda);
         return new Date(calculateDateFromJDE(specialDay));
     }
 }
@@ -260,18 +272,18 @@ function getSolsticeOrEquinox(currentDateTime, season) {
 function getLongitudeOfSun(currentDateTime) {
 
     function normalizeAngleTo360(angle) {
-        let normalizeAngle = (angle+360)%360;
-        if (normalizeAngle<0) {
-            normalizeAngle += 360;
+        let result = (angle + 360) % 360;
+        if (result < 0) {
+            result += 360;
         }
-        return normalizeAngle;
+        return result;
     }
 
     const JD = getJulianDayNumber(currentDateTime);
-    const T = (JD - 2451545.0)/36525;
-    const L =  normalizeAngleTo360(280.46645 + 36000.76983*T + 0.0003032*T**2);
-    const M =  normalizeAngleTo360(357.52910 + 35999.05030*T - 0.0001559*T**2 - 0.00000048*T**3);
-    const C = + (1.914600 - 0.004817*T - 0.000014*T**2)*Math.sin(M* Math.PI / 180) + (0.019993 - 0.000101*T)*Math.sin((2*M)* Math.PI / 180) + 0.000290*Math.sin((3*M)* Math.PI / 180);
+    const T = (JD - JDE_JULIAN_EPOCH) / JDE_JULIAN_CENTURY_DAYS;
+    const L = normalizeAngleTo360(280.46645 + 36000.76983 * T + 0.0003032 * T ** 2);
+    const M = normalizeAngleTo360(357.52910 + 35999.05030 * T - 0.0001559 * T ** 2 - 0.00000048 * T ** 3);
+    const C = (1.914600 - 0.004817 * T - 0.000014 * T ** 2) * Math.sin(radians(M)) + (0.019993 - 0.000101 * T) * Math.sin(radians(2 * M)) + 0.000290 * Math.sin(radians(3 * M));
     const sunLongitude = L + C;
     return Number(normalizeAngleTo360(sunLongitude).toFixed(2));
 }
@@ -329,7 +341,7 @@ function getMoonPhase(currentDateTime, monthModifier) {
 // Sum the New Moon table from Astronomical Algorithms
 function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
     function sumNewMoonTableHelper(num1, num2) {
-        return num1 * Math.sin((num2)* Math.PI / 180)
+        return num1 * Math.sin(radians(num2));
     }
     const sum =
         sumNewMoonTableHelper(-0.40720, MoonM) +
@@ -360,10 +372,10 @@ function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
     return sum;
 }
 
-// Sum the New Moon table from Astronomical Algorithms
+// Sum the Full Moon table from Astronomical Algorithms
 function sumFullMoonTable(SunM, MoonM, F, E, lunarNode) {
     function sumFullMoonTableHelper(num1, num2) {
-        return num1 * Math.sin((num2)* Math.PI / 180)
+        return num1 * Math.sin(radians(num2));
     }
     const sum =
         sumFullMoonTableHelper(-0.40614, MoonM) +
@@ -394,13 +406,13 @@ function sumFullMoonTable(SunM, MoonM, F, E, lunarNode) {
     return sum;
 }
 
-// Sum the New Moon table from Astronomical Algorithms
+// Sum the Quarter Moon table from Astronomical Algorithms
 function sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier) {
     function sumQuarterMoonTableHelper(num1, num2) {
-        return num1 * Math.sin((num2)* Math.PI / 180)
+        return num1 * Math.sin(radians(num2));
     }
     function sumQuarterMoonTableHelperW(num1, num2) {
-        return num1 * Math.cos((num2)* Math.PI / 180)
+        return num1 * Math.cos(radians(num2));
     }
     let sum =
         sumQuarterMoonTableHelper(-0.62801, MoonM) +
@@ -448,7 +460,7 @@ function sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier) {
 // Sum the All Phases table from Astronomical Algorithms
 function allLunarPhaseTable(k, T) {
     function allPhaseTableHelper(num, A) {
-        return num*Math.sin(A* Math.PI / 180);
+        return num * Math.sin(radians(A));
     }
 
     const A1 = 299.77+0.107408*k-0.009173*T**2;
@@ -491,7 +503,7 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
     const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
 
     // Eclipse is impossible
-    if (Math.abs(Math.sin(F*(Math.PI / 180)))>0.36) {
+    if (Math.abs(Math.sin(radians(F))) > 0.36) {
         return getNextSolarLunarEclipse(currentDateTime, monthModifier+1);
     }
 
@@ -500,11 +512,11 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
     const SunM = 2.5534 + 29.10535669*k - 0.0000218*T**2 - 0.00000011*T**3;
     const MoonM = 201.5643 + 385.81693528*k + 0.0107438*T**2 + 0.00001239*T**3 - 0.000000058*T**4;
     const lunarNode = 124.7746 - 1.56375580*k + 0.0020691*T**2 + 0.00000215*T**3;
-    const F1 = F - 0.02665 * Math.sin(lunarNode*(Math.PI / 180));
+    const F1 = F - 0.02665 * Math.sin(radians(lunarNode));
     const A1 = 299.77 + (0.107408*k) - (0.009173*T**2);
 
     function PTableHelper(num1, num2) {
-        return num1*Math.sin(num2*(Math.PI / 180));
+        return num1 * Math.sin(radians(num2));
     }
     const P = PTableHelper(0.2070*E, SunM) +
         PTableHelper(0.0024*E, 2*SunM) +
@@ -515,7 +527,7 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
         PTableHelper(0.0118, 2*F1);
 
     function QTableHelper(num1, num2) {
-        return num1*Math.cos(num2*(Math.PI / 180));
+        return num1 * Math.cos(radians(num2));
     }
     const Q = 5.2207+
         QTableHelper(-0.0048*E, SunM) +
@@ -524,11 +536,11 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
         QTableHelper(-0.0060*E, MoonM+SunM) +
         QTableHelper(0.0041*E, MoonM-SunM);
 
-    const W = Math.abs(Math.cos(F1*(Math.PI / 180)));
-    const Y = (P*Math.cos(F1*(Math.PI / 180))+Q*Math.sin(F1*(Math.PI / 180)))*(1-0.0048*W);
+    const W = Math.abs(Math.cos(radians(F1)));
+    const Y = (P * Math.cos(radians(F1)) + Q * Math.sin(radians(F1))) * (1 - 0.0048 * W);
 
     function uTableHelper(num1, num2) {
-        return num1*Math.cos(num2*(Math.PI / 180));
+        return num1 * Math.cos(radians(num2));
     }
     const u = 0.0059 +
         uTableHelper(0.0046*E, SunM) +
@@ -567,7 +579,7 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
 
         const umbralP = 1.0128 - u;
         const umbralT = 0.4678 - u;
-        const umbraln = 0.5458 + 0.0400 * Math.cos(MoonM*(Math.PI / 180));
+        const umbraln = 0.5458 + 0.0400 * Math.cos(radians(MoonM));
 
         // Partial phase
         const partialPhase = (60 / umbraln) * Math.sqrt(Math.pow(umbralP, 2) - Math.pow(Y, 2));
@@ -610,7 +622,7 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
 
 // Taken from Astronomical Algorithms
 function getPositionOfTheMoon(currentDateTime) {
-    const T = ((getJulianDayNumber(currentDateTime) - 2451545.0) / 36525.0);
+    const T = (getJulianDayNumber(currentDateTime) - JDE_JULIAN_EPOCH) / JDE_JULIAN_CENTURY_DAYS;
 
     // Get all variables
     const L_prime = 218.3164477 + (481267.88123421 * T) - (0.0015786 * T**2) + ((T**3) / 538841) - ((T**4) / 65194000);
@@ -795,24 +807,24 @@ function getPositionOfTheMoon(currentDateTime) {
         sumΣB += ΣB * Math.sin(argRad);
     }
 
-    const add_to_ΣL = 3958*Math.sin(radians(A1)) + 1962*Math.sin(radians(L_prime - F)) + 318*Math.sin(radians(A2));
+    const addToSumL = 3958 * Math.sin(radians(A1)) + 1962 * Math.sin(radians(L_prime - F)) + 318 * Math.sin(radians(A2));
 
-    const add_to_ΣB = -2235*Math.sin(radians(L_prime)) + 
+    const addToSumB = -2235 * Math.sin(radians(L_prime)) + 
         382*Math.sin(radians(A3)) + 
         175*Math.sin(radians(A1-F)) + 
         175*Math.sin(radians(A1+F)) +
         127*Math.sin(radians(L_prime-M_prime)) -
         115*Math.sin(radians(L_prime+M_prime));
 
-    sumΣL += add_to_ΣL;
-    sumΣB += add_to_ΣB;
+    sumΣL += addToSumL;
+    sumΣB += addToSumB;
 
     // Get remaining variables
     const λ = L_prime + sumΣL/1000000;
     const β = sumΣB/1000000;
     const δ = 385000.56 + (sumΣR/1000);
-    const var_pi = Math.asin(6378.14 / δ);
-    const var_pi_deg = var_pi * (180 / Math.PI);
+    const varPi = Math.asin(6378.14 / δ);
+    const varPiDeg = varPi * RAD_TO_DEG;
     const [dPsi, dEpsilon] = getNutationAndObliquity(T);
     const epsilon0 = getObliquity(T);
     const ε = epsilon0 + (dEpsilon/3600);
@@ -833,7 +845,7 @@ function getApparentStellarCoordinates(currentDateTime, rightAscension, declinat
     const JDE = getJulianEphemerisDay(currentDateTime);
 
     // Find Nutation
-    const T = (JDE-2451545)/36525;
+    const T = (JDE - JDE_JULIAN_EPOCH) / JDE_JULIAN_CENTURY_DAYS;
     const [Δψ, Δε] = getNutationAndObliquity(T);
     const ε = (23 + 26/60 + 21.448/3600) + (-46.8150*T - 0.00059*T**2 + 0.001813*T**3)/3600;
 
@@ -877,7 +889,7 @@ function getApparentStellarCoordinates(currentDateTime, rightAscension, declinat
         * Math.sin(radians(Π)))
     ) / Math.cos(radians(δ));
 
-    const temp_sub_expression_δ2 = Math.tan(radians(ε))
+    const tempSubExprDelta2 = Math.tan(radians(ε))
         * Math.cos(radians(δ))
         - Math.sin(radians(α))
         * Math.sin(radians(δ));
@@ -885,14 +897,14 @@ function getApparentStellarCoordinates(currentDateTime, rightAscension, declinat
     const Δδ2 = -k * (
         Math.cos(radians(sunTrueLongitude))
         * Math.cos(radians(ε))
-        * temp_sub_expression_δ2
+        * tempSubExprDelta2
         + Math.cos(radians(α))
         * Math.sin(radians(δ))
         * Math.sin(radians(sunTrueLongitude))
     ) + e * k * (
         Math.cos(radians(Π))
         * Math.cos(radians(ε))
-        * temp_sub_expression_δ2
+        * tempSubExprDelta2
         + Math.cos(radians(α))
         * Math.sin(radians(δ))
         * Math.sin(radians(Π))
@@ -948,9 +960,9 @@ function getAlphaAndDelta(apparent_lambda, epsilon, beta) {
   
     let α = Math.atan2(y, x);
     if (α < 0) α += 2 * Math.PI;
-  
+
     const δ = Math.asin(Math.sin(β) * Math.cos(ε) + Math.cos(β) * Math.sin(ε) * Math.sin(λ));
-  
-    return [α * (180 / Math.PI), δ * (180 / Math.PI)];
+
+    return [α * RAD_TO_DEG, δ * RAD_TO_DEG];
 }
 

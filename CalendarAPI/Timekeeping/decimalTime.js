@@ -4,77 +4,82 @@
 
 // A set of functions for calculating times in the Decimal Time category.
 
+const REVOLUTIONARY_HOURS_PER_DAY = 10;
+const REVOLUTIONARY_MINUTES_PER_HOUR = 100;
+const REVOLUTIONARY_SECONDS_PER_MINUTE = 100;
+const REVOLUTIONARY_HOUR_PRECISION = 10;
+const REVOLUTIONARY_MINUTE_PRECISION = 1000;
+const REVOLUTIONARY_SECOND_PRECISION = 100000;
+const REVOLUTIONARY_PAD_LENGTH = 2;
+
 function getRevolutionaryTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime());
+    const currentDateTime = new Date(currentDateTime_.getTime());
     const dayFraction = calculateDay(currentDateTime, timezoneOffset);
-    let decimalHour = Math.trunc(dayFraction * 10);
-    let decimalMinute = Math.trunc(dayFraction * 1000) - (decimalHour * 100);
-    let decimalSecond = Math.trunc(dayFraction * 100000) - (decimalHour * 10000) - (decimalMinute * 100);
-    
-    // Convert each part to strings and pad them with leading zeros if needed
-    let hourStr = decimalHour.toString().padStart(2, '0');
-    let minuteStr = decimalMinute.toString().padStart(2, '0');
-    let secondStr = decimalSecond.toString().padStart(2, '0');
+    const decimalHour = Math.trunc(dayFraction * REVOLUTIONARY_HOUR_PRECISION);
+    const decimalMinute = Math.trunc(dayFraction * REVOLUTIONARY_MINUTE_PRECISION) - (decimalHour * REVOLUTIONARY_MINUTES_PER_HOUR);
+    const decimalSecond = Math.trunc(dayFraction * REVOLUTIONARY_SECOND_PRECISION) - (decimalHour * REVOLUTIONARY_MINUTES_PER_HOUR * REVOLUTIONARY_MINUTES_PER_HOUR) - (decimalMinute * REVOLUTIONARY_SECONDS_PER_MINUTE);
+
+    const hourStr = decimalHour.toString().padStart(REVOLUTIONARY_PAD_LENGTH, '0');
+    const minuteStr = decimalMinute.toString().padStart(REVOLUTIONARY_PAD_LENGTH, '0');
+    const secondStr = decimalSecond.toString().padStart(REVOLUTIONARY_PAD_LENGTH, '0');
 
     return hourStr + ":" + minuteStr + ":" + secondStr;
 }
 
+const SWATCH_SECONDS_PER_HOUR = 3600;
+const SWATCH_SECONDS_PER_MINUTE = 60;
+const SWATCH_SECONDS_PER_DAY = 86400;
+const SWATCH_MS_PER_DAY = 86400000;
+const SWATCH_BEATS_PER_DAY = 1000;
+const SWATCH_DECIMAL_PLACES = 2;
 
 function convertToSwatchBeats(currentDateTime) {
-    // Get UTC time
-    let utcDateTime = createFauxUTCDate(currentDateTime, currentDateTime.getTimezoneOffset());
-    // Get the day fraction and convert to BMT
-    let dayFraction = ((utcDateTime.getHours()+1) * 3600 + utcDateTime.getMinutes() * 60 + utcDateTime.getSeconds()) / 86400;
-    // Convert day fraction to milliseconds
-    let milliseconds = dayFraction * 86400000; // 86400000 ms = 1 day
-    // Calculate Swatch .beats
-    let swatchBeats = (milliseconds % 86400000) * (1000 / 86400000); // 864000 ms = 1000 .beats
-    return swatchBeats.toFixed(2);
+    const utcDateTime = createFauxUTCDate(currentDateTime, currentDateTime.getTimezoneOffset());
+    const dayFraction = ((utcDateTime.getHours() + 1) * SWATCH_SECONDS_PER_HOUR + utcDateTime.getMinutes() * SWATCH_SECONDS_PER_MINUTE + utcDateTime.getSeconds()) / SWATCH_SECONDS_PER_DAY;
+    const milliseconds = dayFraction * SWATCH_MS_PER_DAY;
+    const swatchBeats = (milliseconds % SWATCH_MS_PER_DAY) * (SWATCH_BEATS_PER_DAY / SWATCH_MS_PER_DAY);
+    return swatchBeats.toFixed(SWATCH_DECIMAL_PLACES);
 }
 
+const HEX_TIME_FRACTION_BASE = 65536;
+const HEX_TIME_DIGIT_COUNT = 4;
+const HEX_RADIX = 16;
+
 function getHexadecimalTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime());
+    const currentDateTime = new Date(currentDateTime_.getTime());
     const dayFraction = calculateDay(currentDateTime, timezoneOffset);
-    // Convert the day fraction to hexadecimal format
-    let hexadecimalFraction = Math.trunc((dayFraction * 65536)).toString(16).toUpperCase();
-    // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
-    while (hexadecimalFraction.length < 4) {
-        hexadecimalFraction = "0" + hexadecimalFraction;
-    }
+    const hexadecimalFraction = Math.trunc(dayFraction * HEX_TIME_FRACTION_BASE).toString(HEX_RADIX).toUpperCase().padStart(HEX_TIME_DIGIT_COUNT, '0');
     return "." + hexadecimalFraction;
 }
 
+const BINARY_TIME_FRACTION_BASE = 65536;
+const BINARY_TIME_BIT_COUNT = 16;
+const BINARY_RADIX = 2;
+
 function getBinaryTime(currentDateTime_, timezoneOffset) {
-    let currentDateTime = new Date(currentDateTime_.getTime());
+    const currentDateTime = new Date(currentDateTime_.getTime());
     const dayFraction = calculateDay(currentDateTime, timezoneOffset);
-    // Convert the day fraction to the equivalent binary count
-    let binaryCount = Math.trunc(dayFraction * 65536).toString(2);
-    
-    // Pad the binary count with leading zeros if necessary to ensure it has 16 bits
-    while (binaryCount.length < 16) {
-        binaryCount = "0" + binaryCount;
-    }
-    
-    // Return the binary time string
+    const binaryCount = Math.trunc(dayFraction * BINARY_TIME_FRACTION_BASE).toString(BINARY_RADIX).padStart(BINARY_TIME_BIT_COUNT, '0');
     return binaryCount;
 }
 
+const HEX_6_FRACTION_BASE = 16777215;
+const HEX_6_DIGIT_COUNT = 6;
+
 function get6DigitHexadecimalTime(dayFraction) {
-    // Convert the day fraction to hexadecimal format
-    let hexadecimalFraction = Math.trunc((dayFraction * 16777215)).toString(16).toUpperCase();
-    // Pad the hexadecimal fraction with leading zeros if necessary to ensure four digits
-    while (hexadecimalFraction.length < 6) {
-        hexadecimalFraction = "0" + hexadecimalFraction;
-    }
+    const hexadecimalFraction = Math.trunc(dayFraction * HEX_6_FRACTION_BASE).toString(16).toUpperCase().padStart(HEX_6_DIGIT_COUNT, '0');
     return hexadecimalFraction;
 }
 
+const RGBA_HEX_RADIX = 16;
+const RGBA_RED_SHIFT = 16;
+const RGBA_GREEN_SHIFT = 8;
+const RGBA_COMPONENT_MASK = 255;
+
 function hexToRGBA(hex, alpha) {
-    // Convert hex color to RGB
-    const bigint = parseInt(hex, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    // Return RGBA color string
+    const bigint = parseInt(hex, RGBA_HEX_RADIX);
+    const r = (bigint >> RGBA_RED_SHIFT) & RGBA_COMPONENT_MASK;
+    const g = (bigint >> RGBA_GREEN_SHIFT) & RGBA_COMPONENT_MASK;
+    const b = bigint & RGBA_COMPONENT_MASK;
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }

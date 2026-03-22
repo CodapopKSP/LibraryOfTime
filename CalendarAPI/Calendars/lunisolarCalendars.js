@@ -4,9 +4,11 @@
 
 // A set of functions for calculating dates in the Lunisolar Calendars category.
 
+// --- Metonic cycle ---
+const METONIC_LEAP_YEARS = [0, 3, 6, 8, 11, 14, 17];
+
 function isMetonicCycleLeapYear(year) {
-    const metonicCycle = [0, 3, 6, 8, 11, 14, 17];
-    return metonicCycle.includes(year);
+    return METONIC_LEAP_YEARS.includes(year);
 }
 
 
@@ -14,96 +16,104 @@ function isMetonicCycleLeapYear(year) {
 //|     Chinese Calendar Derivatives     |
 //|--------------------------------------|
 
+const CHINA_TZ = 'UTC+08:00';
+const VIETNAM_TZ = 'UTC+07:00';
+const KOREA_TZ = 'UTC+09:00';
+const CHINA_YEAR_OFFSET = 2698;
+const KOREA_YEAR_OFFSET = 2333;
+const CHINA_EARTHLY_BRANCH_OFFSET = 2;
+const VIETNAM_EARTHLY_BRANCH_OFFSET = 4;
+
+const CHINESE_ZODIAC_ANIMALS = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
+const VIETNAMESE_ZODIAC_ANIMALS = ['Rat (𤝞)', 'Water Buffalo (𤛠)', 'Tiger (𧲫)', 'Cat (猫)', 'Dragon (龍)', 'Snake (𧋻)', 'Horse (馭)', 'Goat (羝)', 'Monkey (𤠳)', 'Rooster (𪂮)', 'Dog (㹥)', 'Pig (㺧)'];
+
+const CHINESE_LEAP_MONTH_SUFFIX = '閏';
+const VIETNAMESE_LEAP_MONTH_SUFFIX = 'Nhuận';
+const KOREAN_LEAP_MONTH_SUFFIX = '윤';
+
 // Returns a formatted Chinese calendar CST date based on the lunisolar calculation
 function getChineseLunisolarCalendarDate(currentDateTime, country) {
     const gregorianYear = currentDateTime.getUTCFullYear();
     const gregorianMonth = currentDateTime.getUTCMonth();
     let year = gregorianYear;
 
-    // Format for Chinese calendar
-    if (country==='CHINA') {
-        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+08:00');
-        if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+    if (country === 'CHINA') {
+        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, CHINA_TZ);
+        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
             year -= 1;
         }
-        year += 2698;
-        let zodiacAnimals = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
-        let earthlyBranchIndex = ((year - 2) % 12 + 12) % 12;
+        year += CHINA_YEAR_OFFSET;
+        let earthlyBranchIndex = ((year - CHINA_EARTHLY_BRANCH_OFFSET) % 12 + 12) % 12;
         if (year < 0) {
             earthlyBranchIndex++;
         }
 
         let monthString = lunisolarDate.month;
         if (lunisolarDate.leapMonth) {
-            monthString = monthString + "閏";
+            monthString = monthString + CHINESE_LEAP_MONTH_SUFFIX;
         }
-        var output = `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
-        return { output: output, day: lunisolarDate.day, month: lunisolarDate.month, year: year, dayOfWeek: undefined, other: { zodiac: zodiacAnimals[earthlyBranchIndex] } };
+        const output = `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${CHINESE_ZODIAC_ANIMALS[earthlyBranchIndex]}`;
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac: CHINESE_ZODIAC_ANIMALS[earthlyBranchIndex] } };
     }
 
-    // Format for Vietnamese calendar
-    if (country==='VIETNAM') {
-        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+07:00');
-        if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+    if (country === 'VIETNAM') {
+        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, VIETNAM_TZ);
+        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
             year -= 1;
         }
-        let zodiacAnimals = ['Rat (𤝞)', 'Water Buffalo (𤛠)', 'Tiger (𧲫)', 'Cat (猫)', 'Dragon (龍)', 'Snake (𧋻)', 'Horse (馭)', 'Goat (羝)', 'Monkey (𤠳)', 'Rooster (𪂮)', 'Dog (㹥)', 'Pig (㺧)'];
-        let earthlyBranchIndex = ((year - 4) % 12 + 12) % 12;
+        let earthlyBranchIndex = ((year - VIETNAM_EARTHLY_BRANCH_OFFSET) % 12 + 12) % 12;
         if (year < 0) {
             earthlyBranchIndex++;
         }
         let monthString = lunisolarDate.month;
         if (lunisolarDate.leapMonth) {
-            monthString = monthString + "Nhuận";
+            monthString = monthString + VIETNAMESE_LEAP_MONTH_SUFFIX;
         }
-        var output = `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${zodiacAnimals[earthlyBranchIndex]}`;
-        return { output: output, day: lunisolarDate.day, month: lunisolarDate.month, year: year, dayOfWeek: undefined, other: { zodiac: zodiacAnimals[earthlyBranchIndex] } };
+        const output = `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${VIETNAMESE_ZODIAC_ANIMALS[earthlyBranchIndex]}`;
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac: VIETNAMESE_ZODIAC_ANIMALS[earthlyBranchIndex] } };
     }
 
-    // Format for Korean calendar
-    if (country==='KOREA') {
-        let lunisolarDate = getLunisolarCalendarDate(currentDateTime, 'UTC+09:00');
-        if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+    if (country === 'KOREA') {
+        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, KOREA_TZ);
+        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
             year -= 1;
         }
-        year += 2333;
-        if ((gregorianMonth < 4)&&(lunisolarDate.month>9)) {
+        year += KOREA_YEAR_OFFSET;
+        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
             year -= 1;
         }
         let monthString = lunisolarDate.month;
         if (lunisolarDate.leapMonth) {
-            monthString = monthString + "윤";
+            monthString = monthString + KOREAN_LEAP_MONTH_SUFFIX;
         }
-        var output = `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
-        return { output: output, day: lunisolarDate.day, month: lunisolarDate.month, year: year };
+        const output = `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year };
     }
 }
 
+const SEXAGENARY_HEAVENLY_STEMS = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+const SEXAGENARY_EARTHLY_BRANCHES = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+const SEXAGENARY_HEAVENLY_STEMS_ENGLISH = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
+const SEXAGENARY_EARTHLY_BRANCHES_ENGLISH = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
+const SEXAGENARY_YEAR_OFFSET_FOR_CYCLE = 2;
+
 // Returns a formatted Sexagenary year CST date based on the lunisolar calculation
 function getSexagenaryYear(currentDateTime) {
-    let heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
-    let earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
-    let heavenlyStemsEnglish = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
-    let earthlyBranchesEnglish = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
+    const chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'CHINA');
+    const chineseStr = (chineseDate && chineseDate.output != null) ? chineseDate.output : chineseDate;
+    const chineseYear = String(chineseStr).split('年')[0] - SEXAGENARY_YEAR_OFFSET_FOR_CYCLE;
 
-    let chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'CHINA');
-    let chineseStr = (chineseDate && chineseDate.output != null) ? chineseDate.output : chineseDate;
-    let chineseYear_ = String(chineseStr).split('年');
-    let chineseYear = chineseYear_[0] - 2;
-    
-    // Ensure year is positive before calculating indices
-    let positiveYear = chineseYear < 0 ? 60 + (chineseYear % 60) : chineseYear;
-    let heavenlyStemIndex = (positiveYear) % 10; // Adjusting for the start of the sexagenary cycle
-    let earthlyBranchIndex = (positiveYear) % 12; // Adjusting for the start of the sexagenary cycle
-    
-    // Find all stems and branches
-    let heavenlyStem = heavenlyStems[heavenlyStemIndex];
-    let earthlyBranch = earthlyBranches[earthlyBranchIndex];
-    let heavenlyStemEnglish = heavenlyStemsEnglish[heavenlyStemIndex];
-    let earthlyBrancheEnglish = earthlyBranchesEnglish[earthlyBranchIndex];
-    
-    var output = heavenlyStem + earthlyBranch + ' (' + heavenlyStemEnglish + earthlyBrancheEnglish + ')';
-    return { output: output, year: chineseYear, other: { heavenlyStem: heavenlyStem, earthlyBranch: earthlyBranch } };
+    const positiveYear = chineseYear < 0 ? 60 + (chineseYear % 60) : chineseYear;
+    const heavenlyStemIndex = positiveYear % 10;
+    const earthlyBranchIndex = positiveYear % 12;
+
+    const heavenlyStem = SEXAGENARY_HEAVENLY_STEMS[heavenlyStemIndex];
+    const earthlyBranch = SEXAGENARY_EARTHLY_BRANCHES[earthlyBranchIndex];
+    const heavenlyStemEnglish = SEXAGENARY_HEAVENLY_STEMS_ENGLISH[heavenlyStemIndex];
+    const earthlyBranchEnglish = SEXAGENARY_EARTHLY_BRANCHES_ENGLISH[earthlyBranchIndex];
+
+    const output = heavenlyStem + earthlyBranch + ' (' + heavenlyStemEnglish + earthlyBranchEnglish + ')';
+    return { output, year: chineseYear, other: { heavenlyStem, earthlyBranch } };
 }
 
 
@@ -111,138 +121,113 @@ function getSexagenaryYear(currentDateTime) {
 //|     Chinese Calendar     |
 //|--------------------------|
 
+const CHINESE_MEAN_SYNODIC_DAYS = 29.53;
+
 function getLunisolarCalendarDate(currentDateTime, timezone) {
-    let LastWinterSolstice = getSolsticeEquinox(currentDateTime, 'WINTER', 0);
-    let nextWinterSolstice = getSolsticeEquinox(currentDateTime, 'WINTER', 1);
+    const lastWinterSolstice = getSolsticeEquinox(currentDateTime, 'WINTER', 0);
+    const nextWinterSolstice = getSolsticeEquinox(currentDateTime, 'WINTER', 1);
 
-    let startofThisMonth = getNewMoon(currentDateTime, 0);
-    startofThisMonth = createFauxUTCDate(startofThisMonth, timezone);
-    startofThisMonth = createAdjustedDateTime({currentDateTime: startofThisMonth, timezone: timezone});
+    let startOfThisMonth = getNewMoon(currentDateTime, 0);
+    startOfThisMonth = createFauxUTCDate(startOfThisMonth, timezone);
+    startOfThisMonth = createAdjustedDateTime({ currentDateTime: startOfThisMonth, timezone });
 
-    // If on the day of the new moon but the new moon hasn't happened yet, then we need to take the next new moon
     let startOfNextMonth = getNewMoon(currentDateTime, 1);
     startOfNextMonth = createFauxUTCDate(startOfNextMonth, timezone);
-    startOfNextMonth = createAdjustedDateTime({currentDateTime: startOfNextMonth, timezone: timezone});
-    if (currentDateTime>=startOfNextMonth) {
-        startofThisMonth = startOfNextMonth;
+    startOfNextMonth = createAdjustedDateTime({ currentDateTime: startOfNextMonth, timezone });
+    if (currentDateTime >= startOfNextMonth) {
+        startOfThisMonth = startOfNextMonth;
     }
+
     const startOfMonthElevenNextYear = getMonthEleven(nextWinterSolstice, timezone);
-    const startOfMonthEleven = getMonthEleven(LastWinterSolstice, timezone);
+    const startOfMonthEleven = getMonthEleven(lastWinterSolstice, timezone);
 
-    // Find out roughly how many months between solstices
     const daysBetweenEleventhMonths = differenceInDays(startOfMonthElevenNextYear, startOfMonthEleven);
-    const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
-    let currentMonth = 0;
-    const daysBetweenStartOfMonthAndMonthEleven = differenceInDays(startofThisMonth, startOfMonthEleven);
-    
-    // Get rough estimates of the current day/month,
-    // likely to be wrong if close to the beginning or ending of a month
-    currentMonth = Math.round(daysBetweenStartOfMonthAndMonthEleven / 29.53)-1;
-    let currentDay = Math.floor(differenceInDays(currentDateTime, startofThisMonth))+1;
+    const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / CHINESE_MEAN_SYNODIC_DAYS);
+    const daysBetweenStartOfMonthAndMonthEleven = differenceInDays(startOfThisMonth, startOfMonthEleven);
 
-    // Leap Year
+    let currentMonth = Math.round(daysBetweenStartOfMonthAndMonthEleven / CHINESE_MEAN_SYNODIC_DAYS) - 1;
+    const currentDay = Math.floor(differenceInDays(currentDateTime, startOfThisMonth)) + 1;
+
     let isLeapMonth = false;
     let leapMonth = 0;
-    if (lunationsBetweenEleventhMonths===13) {
-
-        // Ensure the currentMonth is within the range 1 to 12
+    if (lunationsBetweenEleventhMonths === 13) {
         currentMonth = ((currentMonth - 1) % 13 + 13) % 13 + 1;
 
-        // The leap month repeats the number of the last month, so subsequent months will be back by 1
         leapMonth = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthEleven, timezone);
-        if (leapMonth===currentMonth) {
+        if (leapMonth === currentMonth) {
             isLeapMonth = true;
         }
-
-        if (leapMonth<=currentMonth) {
-            currentMonth-=1;
+        if (leapMonth <= currentMonth) {
+            currentMonth -= 1;
         }
-
     }
-    // Ensure the currentMonth is within the range 1 to 12
     currentMonth = ((currentMonth - 1) % 12 + 12) % 12 + 1;
 
-    return {
-        month: currentMonth,
-        day: currentDay,
-        leapMonth: isLeapMonth,
-    };
+    return { month: currentMonth, day: currentDay, leapMonth: isLeapMonth };
 }
 
+const CHINESE_MAJOR_SOLAR_TERM_LONGITUDES = [
+    0, 30, 60, 90, 120, 150, 180,
+    210, 240, 270, 300, 330, 360
+];
+
 // Returns 'major' or 'minor' depending on the latitude of the sun calculation
-function getSolarTermTypeThisMonth(startOfMonth_, timezone) {
-    let startOfMonth = getNewMoon(startOfMonth_, 1);
-    let startOfNextMonth = getNewMoon(startOfMonth_, 2);  // Get 2 lunations later, Lunation 1 is later in the same day
-    startOfNextMonth = createAdjustedDateTime({currentDateTime: startOfNextMonth, timezone: timezone});
-    startOfNextMonth.setUTCDate(startOfNextMonth.getUTCDate() - 1);  // Go back 1 day to not count the first day of the next month
-    
-    const newMoonThisMonthLongitudeOfSun = getLongitudeOfSun(startOfMonth);
-    const newMoonNextMonthLongitudeOfSun = getLongitudeOfSun(startOfNextMonth);
+function getSolarTermTypeThisMonth(startOfMonthRef, timezone) {
+    const startOfMonth = getNewMoon(startOfMonthRef, 1);
+    let startOfNextMonth = getNewMoon(startOfMonthRef, 2);
+    startOfNextMonth = createAdjustedDateTime({ currentDateTime: startOfNextMonth, timezone });
+    startOfNextMonth.setUTCDate(startOfNextMonth.getUTCDate() - 1);
 
-    const MajorSolarTerms = [
-        0, 30, 60, 90,
-        120, 150, 180,
-        210, 240, 270,
-        300, 330, 360
-    ]
+    const longitudeAtNewMoon = getLongitudeOfSun(startOfMonth);
+    const longitudeAtNextNewMoon = getLongitudeOfSun(startOfNextMonth);
 
-    // Sun passes 360/0 in this month and screws with the comparison logic below
-    if (newMoonThisMonthLongitudeOfSun > newMoonNextMonthLongitudeOfSun) {
+    if (longitudeAtNewMoon > longitudeAtNextNewMoon) {
         return 'MAJOR';
     }
 
-    for (const term of MajorSolarTerms) {
-        // Check if the current term falls between the longitudes
-        if (term > newMoonThisMonthLongitudeOfSun && term < newMoonNextMonthLongitudeOfSun) {
+    for (const termLongitude of CHINESE_MAJOR_SOLAR_TERM_LONGITUDES) {
+        if (termLongitude > longitudeAtNewMoon && termLongitude < longitudeAtNextNewMoon) {
             return 'MAJOR';
         }
     }
     return 'MINOR';
 }
 
-// Possible errors here if the conjunction happens a few hours after the solstice but before midnight
-// Returns an unformatted date object of the last New Moon before the Winter Solstice
+// Returns the last New Moon before the Winter Solstice (start of month 11).
+// Possible errors if conjunction happens a few hours after solstice but before midnight.
 function getMonthEleven(winterSolstice, timezone, weirdShitAroundSolstice) {
+    let lunationOffset = weirdShitAroundSolstice ? -1 : 0;
 
-    let currentMonth = 0;
-    if (weirdShitAroundSolstice) {
-        currentMonth = -1;
-    }
+    let closestConjunction = getNewMoon(winterSolstice, lunationOffset);
+    closestConjunction = createAdjustedDateTime({ currentDateTime: closestConjunction, timezone });
 
-    // Get the lunar conjunction closest to the winter solstice
-    let closestConjunction = getNewMoon(winterSolstice, currentMonth);
-    closestConjunction = createAdjustedDateTime({currentDateTime: closestConjunction, timezone: timezone});
-
-    // Check if the closest conjunction is after the winter solstice
     if (closestConjunction > winterSolstice) {
-        // Move to the previous month to find the start of the eleventh month
-        closestConjunction = getNewMoon(winterSolstice, currentMonth - 1);
-        closestConjunction = createAdjustedDateTime({currentDateTime: closestConjunction, timezone: timezone});
+        closestConjunction = getNewMoon(winterSolstice, lunationOffset - 1);
+        closestConjunction = createAdjustedDateTime({ currentDateTime: closestConjunction, timezone });
     }
     return closestConjunction;
 }
 
 // Returns the first month in the Chinese calendar that doesn't contain a major solar term
 function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear, timezone) {
-    const costantStartingPoint = new Date(midnightStartOfMonthElevenLastYear);
+    const constantStartingPoint = new Date(midnightStartOfMonthElevenLastYear);
     let dateToCheck = new Date(midnightStartOfMonthElevenLastYear);
     let lunations = 0;
+
     while (true) {
-        let solarTermType = getSolarTermTypeThisMonth(dateToCheck, timezone);
+        const solarTermType = getSolarTermTypeThisMonth(dateToCheck, timezone);
 
         if (solarTermType !== 'MAJOR') {
-            // Found the first month without a major solar term
             lunations--;
             if (lunations < 1) {
                 lunations += 13;
             }
             return lunations;
         }
-        
-        // Move to the start of the next month
+
         lunations += 1;
-        dateToCheck = getNewMoon(costantStartingPoint, lunations+1);
-        dateToCheck = createAdjustedDateTime({currentDateTime: dateToCheck, timezone: timezone});
+        dateToCheck = getNewMoon(constantStartingPoint, lunations + 1);
+        dateToCheck = createAdjustedDateTime({ currentDateTime: dateToCheck, timezone });
         if (lunations > 11) {
             return 0;
         }
@@ -271,6 +256,7 @@ const BABYLON_MONTH_NAMES = [
 ];
 const BABYLON_LEAP_MONTH_6 = '𒌚𒋛𒀀𒆥';
 const BABYLON_LEAP_MONTH_12 = '𒌚𒋛𒀀𒊺';
+const BABYLON_LEAP_YEARS_1_BASED = [3, 6, 8, 11, 14, 17, 19];
 
 function getBabylonianOffering(day) {
     if (day === 7) {
@@ -295,7 +281,7 @@ function getBabylonianCycleYear1Based(babylonYear) {
 
 function isBabylonianLeapYear(babylonYear) {
     const cycleYear = getBabylonianCycleYear1Based(babylonYear);
-    return [3, 6, 8, 11, 14, 17, 19].indexOf(cycleYear) >= 0;
+    return BABYLON_LEAP_YEARS_1_BASED.indexOf(cycleYear) >= 0;
 }
 
 function isCycleYear17(babylonYear) {
@@ -444,167 +430,129 @@ function getBabylonianLunisolarCalendar(currentDateTime) {
 //|     Hebrew Calendar     |
 //|-------------------------|
 
+const JERUSALEM_TZ = 'UTC+02:00';
+const JERUSALEM_UTC_HOUR_DAY_START = 16;
+
+const HEBREW_MONTH_DAYS_DEFICIENT = [30, 29, 29, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29];
+const HEBREW_MONTH_DAYS_REGULAR = [30, 29, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29];
+const HEBREW_MONTH_DAYS_COMPLETE = [30, 30, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29];
+
+const HEBREW_MONTH_NAMES = [
+    'Tishri', 'Heshvan', 'Kislev', 'Tevet',
+    'Shevat', 'Adar', 'Adar II',
+    'Nisan', 'Iyyar', 'Sivan', 'Tammuz',
+    'Av', 'Elul'
+];
+
+const HEBREW_WEEKDAY_NAMES = [
+    'Yom Rishon', 'Yom Sheni', 'Yom Shlishi', 'Yom Revi\'i',
+    'Yom Chamishi', 'Yom Shishi', 'Shabbat'
+];
+
 // Returns a formatted Hebrew calendar IST date
 function calculateHebrewCalendar(currentDateTime) {
-
-    // Number of days in each Hebrew month
-    const Hebrew_monthDaysDeficient = [30, 29, 29, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 353 or 383 days
-    const Hebrew_monthDaysRegular = [30, 29, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 354 or 384 days
-    const Hebrew_monthDaysComplete = [30, 30, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29]; // 355 or 385 days
-
-    let HebrewMonths = [
-        "Tishri","Heshvan","Kislev","Tevet",
-        "Shevat","Adar","Adar II", // In leap years only
-        "Nisan","Iyyar","Sivan","Tammuz",
-        "Av","Elul"
-    ];
-
-    const hebrewDaysOfWeek = [
-        "Yom Rishon",    // Sunday
-        "Yom Sheni",     // Monday
-        "Yom Shlishi",   // Tuesday
-        "Yom Revi'i",    // Wednesday
-        "Yom Chamishi",  // Thursday
-        "Yom Shishi",    // Friday
-        "Shabbat"        // Saturday
-    ];
-
-    // Get the start of today. If before sunset in Jerusalem (UTC+2, 6pm) then go back one day.
-    let startOfToday = createAdjustedDateTime({currentDateTime: currentDateTime, timezone: 'UTC+02:00', hour: 'SUNSET'});
-    if (currentDateTime.getUTCHours() < 16) {
+    let startOfToday = createAdjustedDateTime({ currentDateTime, timezone: JERUSALEM_TZ, hour: 'SUNSET' });
+    if (currentDateTime.getUTCHours() < JERUSALEM_UTC_HOUR_DAY_START) {
         addDay(startOfToday, -1);
     }
 
-    // Figure out the starting and ending Tishri
-    let earlyTishri = calculateMoladTishri(currentDateTime.getUTCFullYear()-1);
-    let latterTishri = calculateMoladTishri(currentDateTime.getUTCFullYear());
+    const gregorianYear = currentDateTime.getUTCFullYear();
+    let earlyTishri = calculateMoladTishri(gregorianYear - 1);
+    let latterTishri = calculateMoladTishri(gregorianYear);
     if (startOfToday >= latterTishri[0]) {
         earlyTishri = latterTishri;
-        latterTishri = calculateMoladTishri(currentDateTime.getUTCFullYear()+1);
+        latterTishri = calculateMoladTishri(gregorianYear + 1);
     }
 
-    // Calculate number of days this year and use that to determine the year type
     const daysThisYear = differenceInDays(latterTishri[0], earlyTishri[0]);
-    let yearMonths = Hebrew_monthDaysComplete;
+    let yearMonths = HEBREW_MONTH_DAYS_COMPLETE;
     if (daysThisYear === 353 || daysThisYear === 383) {
-        yearMonths = Hebrew_monthDaysDeficient;
+        yearMonths = HEBREW_MONTH_DAYS_DEFICIENT;
     }
     if (daysThisYear === 354 || daysThisYear === 384) {
-        yearMonths = Hebrew_monthDaysRegular;
+        yearMonths = HEBREW_MONTH_DAYS_REGULAR;
     }
 
-    // If not a leap year, remove Adar II
+    let hebrewMonthNames = HEBREW_MONTH_NAMES.slice();
     if (daysThisYear < 380) {
-        yearMonths.splice(6, 1);
-        HebrewMonths.splice(6, 1);
+        yearMonths = yearMonths.slice(0, 6).concat(yearMonths.slice(7));
+        hebrewMonthNames = hebrewMonthNames.slice(0, 6).concat(hebrewMonthNames.slice(7));
     }
 
-    // Get current day of the year
     let daysThisYearSoFar = differenceInDays(startOfToday, earlyTishri[0]);
+    const weekday = (earlyTishri[2] + daysThisYearSoFar) % 7;
 
-    // Figure out weekday
-    let weekday = (earlyTishri[2] + daysThisYearSoFar) % 7;
-
-    // Iterate through months until we run out of days
     let monthIndex = 0;
-    for (monthIndex; monthIndex < yearMonths.length; monthIndex++) {
+    for (; monthIndex < yearMonths.length; monthIndex++) {
         if (daysThisYearSoFar < yearMonths[monthIndex]) {
             break;
         }
         daysThisYearSoFar -= yearMonths[monthIndex];
     }
 
-    var output = (daysThisYearSoFar+1) + " " + HebrewMonths[monthIndex] + " " + earlyTishri[1] + " AM\n" + hebrewDaysOfWeek[weekday];
-    return { output: output, day: daysThisYearSoFar, month: monthIndex, year: earlyTishri[1], dayOfWeek: weekday };
+    const dayOfMonth = daysThisYearSoFar + 1;
+    const output = dayOfMonth + ' ' + hebrewMonthNames[monthIndex] + ' ' + earlyTishri[1] + ' AM\n' + HEBREW_WEEKDAY_NAMES[weekday];
+    return { output, day: daysThisYearSoFar, month: monthIndex, year: earlyTishri[1], dayOfWeek: weekday };
 }
 
+const HEBREW_MOLAD_REFERENCE_YEAR = 5732;
+const HEBREW_MOLAD_REFERENCE_METONIC_YEAR = 13;
+const HEBREW_MOLAD_LENGTH_DAYS = 29.530594136;
+const HEBREW_MOLAD_5732_FRACTIONAL_DAY = 0.070335648;
+const HEBREW_DECHIYAH_GATRAD_HOUR = 0.13287037;
+const HEBREW_DECHIYAH_BETUKAFOT_HOUR = 0.397719907;
+
 function calculateMoladTishri(currentYear) {
-    // I originally did this calculation by using a modified currentDateTime to account for sunset, and also adding time to the base molad because it doesn't actually happen at midnight UTC
-    // However, none of that was necessary. The calculation just finds how many days since the start of the base molad day for a given year.
-    // This may be incorrect in rare cases, but I can't find any. If that happens it might be necessary to re-calculate based on timezone/sunset and molad time
+    const moladTishri5732 = createAdjustedDateTime({ timezone: JERUSALEM_TZ, year: 1971, month: 9, day: 20, hour: 2 });
 
-    // Start with a known Molad
-    // 5732, First Molad Tishri after Unix epoch, no dechiyot (modifications), year 13 in a metonic cycle, Monday
-    const moladTishri5732 = createAdjustedDateTime({timezone: 'UTC+02:00', year: 1971, month: 9, day: 20, hour: 2});
-
-    // Determine how many months are between your starting year and the year you want
-    // The starting year number can come from starting in December and counting solar years from 5732
-    let decemberOfThisYear = createAdjustedDateTime({timezone: 'UTC+02:00', year: currentYear, month: 12});
+    const decemberOfThisYear = createAdjustedDateTime({ timezone: JERUSALEM_TZ, year: currentYear, month: 12 });
     const yearsSince5732 = decemberOfThisYear.getUTCFullYear() - moladTishri5732.getUTCFullYear();
 
-    // Full Metonic cycles have 235 months
-    let metonicCyclesSince5732 = Math.floor(yearsSince5732/19);
-    let cycleMonthsSince5732 = metonicCyclesSince5732 * 235;
+    const metonicCyclesSince5732 = Math.floor(yearsSince5732 / 19);
+    const cycleMonthsSince5732 = metonicCyclesSince5732 * 235;
 
-    // Metonic leap years have 13 months. Other years have 12.
-    let yearsThisMetonicCycle = yearsSince5732 - (metonicCyclesSince5732*19);
+    const yearsThisMetonicCycle = yearsSince5732 - (metonicCyclesSince5732 * 19);
     let totalMonths = 0;
-    let baseMetonicYear = 13; // 5732 is year 13 of Metonic cycle
 
-    // Iterate over all years starting from the baseMetonicYear and moving forward
     for (let i = 0; i < yearsThisMetonicCycle; i++) {
-    let currentMetonicYear = (baseMetonicYear + i) % 19;
-    if (isMetonicCycleLeapYear(currentMetonicYear)) {
-        totalMonths += 13;
-    } else {
-        totalMonths += 12;
-    }
+        const currentMetonicYear = (HEBREW_MOLAD_REFERENCE_METONIC_YEAR + i) % 19;
+        totalMonths += isMetonicCycleLeapYear(currentMetonicYear) ? 13 : 12;
     }
     totalMonths += cycleMonthsSince5732;
 
-    // Multiply months by the length of the molad
-    const moladLength = 29.530594136;
-    let daysSinceMolad5732 = totalMonths * moladLength;
-    // Add the fraction of the day from Molad 5732 (0.070335648). Not really sure but there are a ton of wrong results if I do the full 7h 41m but it's fine if I take 6 hours off of that...
-    daysSinceMolad5732+=0.070335648;
+    let daysSinceMolad5732 = totalMonths * HEBREW_MOLAD_LENGTH_DAYS + HEBREW_MOLAD_5732_FRACTIONAL_DAY;
 
-    // Get the number of days since Molad Tishri 5732, add 1 (starting Molad is on Monday), and modulo by 7 to get the week day
-    let weekdayOfMolad = (daysSinceMolad5732 + 1) % 7;
-    weekdayOfMolad = ((Math.floor(weekdayOfMolad) % 7) + 7) % 7; // Fix negative dates
+    let weekdayOfMolad = ((Math.floor((daysSinceMolad5732 + 1) % 7) % 7) + 7) % 7;
 
-    // Apply the Dechiyot
-    // Molad Zakein: (if past noon, add one day)
     if (daysSinceMolad5732 - Math.floor(daysSinceMolad5732) > 0.5) {
         daysSinceMolad5732++;
-        weekdayOfMolad++;
-        weekdayOfMolad = weekdayOfMolad%7;
+        weekdayOfMolad = (weekdayOfMolad + 1) % 7;
     }
 
-    // Gatarad: Non-leap year, Tuesday between 3:11:20 and 12:00:00, (Occurred in 1984, Next is 2035)
-    // 3:11:20 = 0.13287037
-    if ((Math.floor(weekdayOfMolad)===2) && 
-        ((daysSinceMolad5732 - Math.floor(daysSinceMolad5732)) > 0.13287037) && 
-        ((daysSinceMolad5732 - Math.floor(daysSinceMolad5732)) < 0.5) &&
-        (!isMetonicCycleLeapYear(yearsSince5732 + 5732))) {
+    let fractionalDay = daysSinceMolad5732 - Math.floor(daysSinceMolad5732);
+    if (Math.floor(weekdayOfMolad) === 2 && fractionalDay > HEBREW_DECHIYAH_GATRAD_HOUR && fractionalDay < 0.5 &&
+        !isMetonicCycleLeapYear((yearsSince5732 + HEBREW_MOLAD_REFERENCE_YEAR) % 19)) {
         daysSinceMolad5732++;
-        weekdayOfMolad++;
-        weekdayOfMolad = weekdayOfMolad%7;
+        weekdayOfMolad = (weekdayOfMolad + 1) % 7;
     }
 
-    // Betukafot: After a leap year, Monday between 9:32:43 and 12:00:00, (Occurred in 2005, Next is 2116)
-    // 9:32:43 = 0.397719907
-    if ((Math.floor(weekdayOfMolad)===1) && 
-        ((daysSinceMolad5732 - Math.floor(daysSinceMolad5732)) > 0.397719907) && 
-        ((daysSinceMolad5732 - Math.floor(daysSinceMolad5732)) < 0.5) &&
-        (isMetonicCycleLeapYear((yearsSince5732 + 5731)%19))) {
+    fractionalDay = daysSinceMolad5732 - Math.floor(daysSinceMolad5732);
+    if (Math.floor(weekdayOfMolad) === 1 && fractionalDay > HEBREW_DECHIYAH_BETUKAFOT_HOUR && fractionalDay < 0.5 &&
+        isMetonicCycleLeapYear((yearsSince5732 + HEBREW_MOLAD_REFERENCE_YEAR - 1) % 19)) {
         daysSinceMolad5732++;
-        weekdayOfMolad++;
-        weekdayOfMolad = weekdayOfMolad%7;
+        weekdayOfMolad = (weekdayOfMolad + 1) % 7;
     }
 
-    // Lo A"DU Rosh: (if Sunday, Wednesday, Friday, add one day)
-    if (Math.floor(weekdayOfMolad)===0 || Math.floor(weekdayOfMolad)===3 || Math.floor(weekdayOfMolad)===5) {
+    if (Math.floor(weekdayOfMolad) === 0 || Math.floor(weekdayOfMolad) === 3 || Math.floor(weekdayOfMolad) === 5) {
         daysSinceMolad5732++;
-        weekdayOfMolad++;
-        weekdayOfMolad = weekdayOfMolad%7;
+        weekdayOfMolad = (weekdayOfMolad + 1) % 7;
     }
 
-    // Subtract 1 because the start of the day is at sunset the day before
-    let daysSinceMolad5732Adjusted = Math.floor(daysSinceMolad5732-1);
+    const daysSinceMolad5732Adjusted = Math.floor(daysSinceMolad5732 - 1);
     let dayOfMoladTishri = addDay(moladTishri5732, daysSinceMolad5732Adjusted, true);
-    dayOfMoladTishri = createAdjustedDateTime({currentDateTime: dayOfMoladTishri, timezone: 'UTC+02:00', hour: 'SUNSET'});
-    
-    return [dayOfMoladTishri, yearsSince5732 + 5732, weekdayOfMolad];
+    dayOfMoladTishri = createAdjustedDateTime({ currentDateTime: dayOfMoladTishri, timezone: JERUSALEM_TZ, hour: 'SUNSET' });
+
+    return [dayOfMoladTishri, yearsSince5732 + HEBREW_MOLAD_REFERENCE_YEAR, weekdayOfMolad];
 }
 
 //|-------------------------|
@@ -767,7 +715,7 @@ const EPIROTE_DAYS_PER_CYCLE = EPIROTE_DAYS_PER_PATTERN * 5; // 47 * 5 = 235 mon
 
 function getEpiroteAnchorDate() {
     return createAdjustedDateTime({
-        timezone: 'UTC+02:00',
+        timezone: EPIROTE_TZ,
         year: -204,
         month: 8,
         day: 20,
