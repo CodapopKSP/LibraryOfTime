@@ -232,10 +232,10 @@ function getAstronomicalEventsForMonth(year, month) {
 
     try {
         var lunationOffsets = [
-            [-1, 0, 1],
-            [-0.5, 0.5, 1.5],
-            [-0.75, 0.25, 1.25],
-            [-0.25, 0.75, 1.75]
+            [-2, -1, 0, 1, 2],
+            [-1.5, -0.5, 0.5, 1.5],
+            [-1.25, -0.75, 0.25, 1.25],
+            [-1.75, -0.25, 0.75, 1.75]
         ];
         var phaseKeys = ['new-moon', 'full-moon', 'first-quarter', 'last-quarter'];
         for (var p = 0; p < 4; p++) {

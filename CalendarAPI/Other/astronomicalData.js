@@ -21,12 +21,21 @@ function generateAllNewMoons(currentDateTime) {
 
 // Get a new moon from the allNewMoons list, with lunations = 0 being just before the date
 function getNewMoon(referenceDate, lunations) {
+    if (allNewMoons.length === 0) {
+        generateAllNewMoons(referenceDate);
+    } else if (
+        referenceDate < allNewMoons[0] ||
+        referenceDate > allNewMoons[allNewMoons.length - 1]
+    ) {
+        generateAllNewMoons(referenceDate);
+    }
+
     const len = allNewMoons.length;
     if (len === 0) return null;
 
     let bestIndex = -1;
 
-    // Binary search to find the last date < referenceDate
+    // Binary search to find the last date <= referenceDate
     let low = 0;
     let high = len - 1;
 
@@ -271,6 +280,23 @@ function getLongitudeOfSun(currentDateTime) {
 //|-----------------------------|
 //|     Lunar  Calculations     |
 //|-----------------------------|
+
+// Get the moon phase (new/first quarter/full/last quarter) that falls within the given Gregorian month.
+// phaseType: 0=new, 0.25=first quarter, 0.5=full, 0.75=last quarter
+// Used by Calendar View and "This Month's" nodes to avoid off-by-one issues from getMoonPhase(refDate, phaseType).
+function getMoonPhaseInMonth(year, month, phaseType) {
+    const monthStart = createAdjustedDateTime({ year: year, month: month, day: 1 });
+    const monthEnd = createAdjustedDateTime({ year: year, month: month + 1, day: 0 });
+    const refDate = createAdjustedDateTime({ year: year, month: month, day: 15 });
+    const offsets = [-2, -1, 0, 1, 2].map(function (o) { return o + phaseType; });
+    for (let i = 0; i < offsets.length; i++) {
+        const phaseDate = getMoonPhase(refDate, offsets[i]);
+        if (phaseDate.getTime() >= monthStart.getTime() && phaseDate.getTime() <= monthEnd.getTime()) {
+            return phaseDate;
+        }
+    }
+    return getMoonPhase(refDate, phaseType);
+}
 
 // Calculates a moon phase
 function getMoonPhase(currentDateTime, monthModifier) {

@@ -1,0 +1,10 @@
+---
+description: Never look up astronomical data online; use the project's internal functions instead.
+alwaysApply: true
+---
+
+# Use Internal Astronomical Functions
+
+- **Never** search the web or look up eclipse, moon phase, new moon, or other astronomical data from external sources.
+- Calendar calculations in this project already use the functions in `CalendarAPI/Other/astronomicalData.js` (e.g. `getMoonPhase`, `getNewMoon`, `getSolsticeEquinox`, eclipse helpers) to compute correct dates.
+- When working on calendar or timekeeping logic, use those internal functions. Do not try to verify or source astronomical data from the internet.

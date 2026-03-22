@@ -333,47 +333,14 @@ function handleEpochClick(epoch) {
     }
 
     // Moon Phases
-    if (epoch === 'New Moon') {
+    if (epoch === 'New Moon' || epoch === 'First Quarter Moon' || epoch === 'Full Moon' || epoch === 'Last Quarter Moon') {
         timePicked = getDatePickerTimezone();
         let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
         const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getNewMoon(now, 0);
-        target.setTime(target.getTime() + (timezoneOffset*1000*60));
-
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
-    if (epoch === 'First Quarter Moon') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getMoonPhase(now, 0.25);
-        target.setTime(target.getTime() + (timezoneOffset*1000*60));
-
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
-    if (epoch === 'Full Moon') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getMoonPhase(now, 0.5);
-        target.setTime(target.getTime() + (timezoneOffset*1000*60));
-
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
-    if (epoch === 'Last Quarter Moon') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getMoonPhase(now, 0.75);
+        const y = now.getUTCFullYear();
+        const m = now.getUTCMonth() + 1;
+        const phaseType = epoch === 'New Moon' ? 0 : epoch === 'First Quarter Moon' ? 0.25 : epoch === 'Full Moon' ? 0.5 : 0.75;
+        let target = getMoonPhaseInMonth(y, m, phaseType);
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');

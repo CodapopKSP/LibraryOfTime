@@ -275,6 +275,7 @@ const BABYLON_ANCHOR_YEAR = -74;
 const MEAN_SYNODIC_DAY = 29.530588853;
 const MEAN_SYNODIC_MS = MEAN_SYNODIC_DAY * 24 * 60 * 60 * 1000;
 const MAX_YEAR_ITERATIONS = 500;
+const MONTHS_PER_METONIC_CYCLE = 12.368421053;
 
 const BABYLON_MONTH_NAMES = [
     '𒌚𒁈', '𒌚𒄞', '𒌚𒋞', '𒌚𒋗', '𒌚𒉈', '𒌚𒆥',
@@ -373,10 +374,13 @@ function getBabylonianYearStart(babylonYear, timezone) {
     return getMonthStartFromNewMoon(newMoon, timezone);
 }
 
-function getBabylonianLunisolarCalendar(currentDateTime, timezone) {
-    const tz = timezone || BABYLON_TZ;
+function getBabylonianLunisolarCalendar(currentDateTime) {
+    // Babylonian calendar is defined by sunset in Babylon; always use BABYLON_TZ for boundaries.
+    // Passing a different timezone (e.g. UTC+00:00 in tests) would compute month starts at the
+    // wrong local sunset, causing epoch-aligned instants like 15:00 UTC to fall before monthStarts[0].
+    const tz = BABYLON_TZ;
     const epoch = createAdjustedDateTime({ timezone: BABYLON_TZ, year: -385, month: 4, day: 15, hour: 'SUNSET' });
-    const approxYears = Math.floor((currentDateTime.getTime() - epoch.getTime()) / (MEAN_SYNODIC_MS * 12.5));
+    const approxYears = Math.floor((currentDateTime.getTime() - epoch.getTime()) / (MEAN_SYNODIC_MS * MONTHS_PER_METONIC_CYCLE));
     let babylonYear = BABYLON_ANCHOR_YEAR + approxYears;
 
     let yearStart;
@@ -400,12 +404,21 @@ function getBabylonianLunisolarCalendar(currentDateTime, timezone) {
     const isLeap = isBabylonianLeapYear(babylonYear);
     const leapAfter6 = isCycleYear17(babylonYear);
     const monthStarts = [];
-    let cursor = new Date(yearStart.getTime());
+    // Use getNewMoon (binary search on actual new moon instants) instead of getMoonPhase(cursor, 1).
+    // The k-based formula in getMoonPhase can misresolve lunations when cursor is near boundaries,
+    // causing skipped or merged month boundaries and days > 30. getNewMoon finds new moons relative
+    // to a reference, which avoids that. Ensure coverage by generating around yearStart.
+    generateAllNewMoons(yearStart);
+    let newMoonRef = getNewMoon(yearStart, 0);
+    if (!newMoonRef) {
+        newMoonRef = getMoonPhase(yearStart, 0);
+    }
     const numMonths = isLeap ? 13 : 12;
     for (let i = 0; i < numMonths; i++) {
-        monthStarts.push(new Date(cursor.getTime()));
-        const nextNewMoon = getMoonPhase(cursor, 1);
-        cursor = getMonthStartFromNewMoon(nextNewMoon, tz);
+        const monthStart = getMonthStartFromNewMoon(newMoonRef, tz);
+        monthStarts.push(new Date(monthStart.getTime()));
+        const nextNewMoon = getNewMoon(newMoonRef, 1);
+        newMoonRef = nextNewMoon || getMoonPhase(newMoonRef, 1);
     }
 
     let monthIndex = -1;

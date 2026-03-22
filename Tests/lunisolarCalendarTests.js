@@ -166,7 +166,7 @@ function testCalculateMoladTishri() {
 }
 
 function testBabylonianLunisolarCalendar() {
-    return runSingleParameterTests("Babylonian Lunisolar Calendar", getBabylonianLunisolarCalendar, [
+    return runSingleParameterTests("Babylonian Calendar", getBabylonianLunisolarCalendar, [
         // Base: day boundary at 18:00:00 UTC+03:00 (sunset). All times below use UTC+03:00.
         // Anchor dates (sunset = 18:00 local)
         ["-385-4-15, 18:00:00", "UTC+03:00", "1 𒌚𒁈 -74 SE (-138 AE)"],
