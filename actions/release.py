@@ -15,6 +15,13 @@ def main():
         style_links = soup.find_all('link', rel='stylesheet')
         favicon = soup.find('link', rel='icon')
 
+        # Preserve analytics scripts (in head) before they get removed
+        analytics_scripts = []
+        for tag in soup.find_all('script'):
+            src = tag.get('src') or ''
+            if '_vercel' in src or 'vercel' in src or (tag.string and 'window.va' in (tag.string or '')):
+                analytics_scripts.append((tag.name, tag.attrs, tag.string))
+
         # Read linked files and extract into strings
         scripts = parse_scripts(scripts)
         styles = parse_styles(style_links)
@@ -23,6 +30,13 @@ def main():
         # Remove linked tags from the original document
         for tag in soup(['script', 'style', 'link']):
             tag.decompose()
+
+        # Re-insert analytics scripts at start of head (va stub must load before bundle)
+        for tag_name, attrs, string in reversed(analytics_scripts):
+            new_tag = soup.new_tag(tag_name, **attrs)
+            if string:
+                new_tag.string = string
+            soup.head.insert(0, new_tag)
 
         # Append new tags
         new_script_tag = soup.new_tag('script', defer=True)
