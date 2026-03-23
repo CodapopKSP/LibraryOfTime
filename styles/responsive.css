@@ -1,0 +1,406 @@
+/*
+|====================|
+|  Mobile Layout     |
+|====================|
+*/
+
+/* Mobile portrait layout - split screen */
+@media (max-width: 768px) and (orientation: portrait) {
+    .page-wrapper {
+        min-height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .title-wrapper {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 6vh;
+        font-size: 3.2vh;
+        z-index: 20;
+        background-color: rgb(47, 47, 47);
+    }
+    
+    .description-wrapper {
+        position: fixed;
+        top: 6vh; /* Below title */
+        left: 0;
+        width: 100vw;
+        height: 30vh; /* Top half minus title */
+        margin: 0;
+        border: none;
+        border-bottom: 2px solid #000000;
+        overflow: hidden;
+        z-index: 21 !important;
+        background-color: rgb(55, 55, 55);
+        transition: height 0.3s ease;
+    }
+    
+    .node-wrapper {
+        position: relative;
+        top: 33vh; /* Start below the fixed description panel */
+        left: 0;
+        width: 100vw;
+        min-height: 50vh;
+        margin: 0;
+        padding: 1vh;
+        padding-bottom: 10vh; /* Add extra space at the bottom */
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1vh;
+        overflow-y: visible;
+        overflow-x: hidden;
+        z-index: 10;
+        justify-content: start;
+        align-items: start;
+        max-width: none;
+        transition: top 0.3s ease;
+    }
+    
+    /* Adjust input panel for mobile */
+    .input-box-wrapper {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 4vh;
+        padding: 1vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1vh;
+        z-index: 5;
+    }
+
+    .input-main-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1vh;
+    }
+
+    .input-step-controls {
+        display: none;
+    }
+    
+    #date-input {
+        width: 50%;
+        height: 3vh;
+        font-size: 2vh;
+        margin: 0;
+    }
+    
+    #calendar-type,
+    #timezone {
+        width: 15%;
+        height: 3vh;
+        font-size: 1.8vh;
+        margin: 0;
+    }
+    
+    .date-picker-button {
+        height: 3vh;
+        width: 6vw;
+        font-size: 1.8vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Adjust description buttons for mobile */
+    .description-button-wrapper {
+        position: absolute;
+        top: 6vh;
+        width: 100%;
+        height: 5vh;
+        padding: 0 1vh;
+        z-index: 10;
+    }
+    
+    .header-button {
+        height: 4vh;
+        font-size: 1.8vh;
+        padding: 0 1vh;
+    }
+    
+    /* Adjust node info for mobile */
+    .nodeinfo {
+        position: absolute;
+        width: 100%;
+        height: 69vh; /* 75% of remaining space (44vh - 11vh = 33vh) */
+        top: 11vh; /* Below input (6vh) and buttons (5vh) */
+        left: 0;
+        font-size: 2vh;
+    }
+
+    .nodeinfo.homepage {
+        height: 69vh;
+    }
+
+    .home-info,
+    .home-mission,
+    .home-sources,
+    .home-accuracy {
+        height: 94%;
+    }
+
+    .home-info::after,
+    .home-mission::after,
+    .home-sources::after,
+    .home-accuracy::after {
+        content: "";
+        display: block;
+        height: 4vh;
+    }
+
+    .nodeinfo-overview {
+        height: 70%;
+        z-index: 20;
+    }
+
+    .nodeinfo-overview::after {
+        content: "";
+        display: block;
+        height: 4vh;
+    }
+
+    .nodeinfo-info,
+    .nodeinfo-accuracy,
+    .nodeinfo-source {
+        height: 85%;
+    }
+
+    .nodeinfo-info::after,
+    .nodeinfo-accuracy::after,
+    .nodeinfo-source::after {
+        content: "";
+        display: block;
+        height: 4vh;
+    }
+    
+    /* Adjust top buttons for mobile */
+    .top-buttons-wrapper {
+        position: absolute;
+        top: 1vh;
+        right: 1vh;
+        z-index: 1000;
+        gap: 0.3vh;
+    }
+
+    .input-box-wrapper {
+        gap: 0.5vh;
+    }
+
+    .header-button {
+        height: 3.4vh;
+    }
+
+    .container {
+        width: 22vh;
+        font-size: 1.5vh;
+    }
+
+    .container-name {
+        font-size: 1.8vh;
+    }
+
+    .node {
+        width: 21vh;
+    }
+    
+    .content {
+        font-size: 1.5vh;
+    }
+    
+    #on-making-LoT-button {
+        padding: 0.6vh 1vh;
+        background: rgb(55, 55, 55);
+        color: rgb(214, 214, 214);
+        border: none;
+        cursor: pointer;
+        font-size: 1.2vh;
+        border: 0.1vh solid #444;
+        height: 4vh;
+        max-width: 8vh;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+        text-align: center;
+        white-space: pre-line;
+        z-index: 1001;
+        visibility: visible !important;
+        opacity: 1 !important;
+        border-radius: 0.3vh;
+        box-shadow: 0 0.1vh 0.2vh rgba(0, 0, 0, 0.3);
+    }
+
+    /* Move glossary button to right side on mobile only */
+    #glossary-button {
+        position: absolute !important;
+        right: 0vh !important;
+        top: 0vh !important;
+        padding: 0.6vh 1vh;
+        background: rgb(55, 55, 55);
+        color: rgb(214, 214, 214);
+        border: none;
+        cursor: pointer;
+        font-size: 1.2vh;
+        border: 0.1vh solid #444;
+        height: 4vh;
+        max-width: 8vh;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+        text-align: center;
+        white-space: pre-line;
+        z-index: 1001;
+        visibility: visible !important;
+        opacity: 1 !important;
+        border-radius: 0.3vh;
+        box-shadow: 0 0.1vh 0.2vh rgba(0, 0, 0, 0.3);
+    }
+    
+    #floating-box-node-container {
+        gap: 0.3vh;
+        padding: 0.3vh;
+    }
+    
+    .section-header {
+        font-size: 1.5vh;
+        padding: 0.4vh 0.6vh;
+    }
+    
+    .section-controls {
+        padding: 0.3vh;
+    }
+    
+    .add-node-button, .remove-node-button {
+        font-size: 1.3vh;
+        padding: 0.3vh 0.5vh;
+    }
+    
+    /* Adjust modal for mobile */
+    .modal-content {
+        width: 95vw;
+        max-height: 90vh;
+        margin: 2vh auto;
+        padding: 2vh;
+    }
+    
+    .modal-content h2 {
+        font-size: 2.5vh;
+    }
+    
+    .modal-text {
+        font-size: 2vh;
+    }
+    
+    .images-toggle-btn {
+        font-size: 1.8vh;
+        padding: 1.5vh 2vh;
+    }
+    
+    .modal-image {
+        max-width: 95%;
+    }
+    
+    /* Hide dropdown menu on mobile or adjust as needed */
+    .node-menu {
+        display: none;
+    }
+    
+         /* Hide show/hide panel button on mobile */
+    #floating-panel-toggle-button {
+        display: none !important;
+    }
+     
+    #expand-description-button {
+        visibility: visible;
+        position: fixed;
+        top: 35vh;
+        left: 35vw;
+        width: 30vw;
+        height: 4vh;
+        border: 0.2vh solid #000000;
+        border-radius: 0.5vh;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 25;
+        transition: top 0.3s ease;
+        font-size: 1.8vh;
+        color: #afafaf;
+        background-color: #2b2b2b;
+        font-weight: bold;
+    }
+    
+    /* Make confidence tooltip wider on mobile */
+    .nodeinfo-confidence .tooltiptext {
+        width: 60vw;
+        max-width: 60vw;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .mac-chrome-only .nodeinfo-confidence .tooltiptext {
+        visibility: hidden;
+    }
+    
+    /* iOS Safari fix: Ensure content is properly clipped when description panel is collapsed */
+    /* Only apply on Apple devices using webkit-specific properties */
+    @supports (-webkit-touch-callout: none) {
+        .description-wrapper.collapsed {
+            overflow: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+        
+        .description-wrapper.collapsed .nodeinfo {
+            position: absolute;
+            top: 11vh;
+            height: 19vh; /* 30vh - 11vh = 19vh remaining space */
+            overflow: hidden;
+            clip-path: inset(0 0 0 0);
+            -webkit-clip-path: inset(0 0 0 0);
+        }
+    }
+}
+ 
+ /*
+|====================|
+|  Narrow Viewports  |
+|====================|
+*/
+
+@media (max-aspect-ratio: 2/4.26) {
+    .container {
+        width: 20vh;
+    }
+    .node {
+        width: 19vh;
+    }
+}
+
+/*
+|=======================|
+|  Very Narrow Viewports|
+|=======================|
+*/
+
+@media (max-aspect-ratio: 2/4.65) {
+    .container {
+        width: 19vh;
+    }
+    .node {
+        width: 18vh;
+    }
+}

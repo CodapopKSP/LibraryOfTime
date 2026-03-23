@@ -58,7 +58,7 @@ Follow this end-to-end workflow for each calendar or timekeeping feature:
 
 5. **Integrate with the UI**
    - Wire the new calendar into the site using existing patterns:
-     - **Do not edit** `nodeData.js` directly; it is procedurally generated from the mdBook in `Docs/`. Instead, update the relevant source docs when explicitly requested, and rely on the build process to regenerate `nodeData.js`.
+     - **Do not edit** `Content/nodeData.js` directly; it is procedurally generated from the mdBook in `Docs/`. Instead, update the relevant source docs when explicitly requested, and rely on the build process to regenerate it.
      - When necessary, adjust rendering or interaction behavior in `nodeDraw.js` and `descriptionPanel.js` so that the new system appears correctly in the Library of Time UI without breaking existing calendars.
 
 6. **Design and implement tests**

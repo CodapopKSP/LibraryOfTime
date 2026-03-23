@@ -22,7 +22,7 @@ This workflow assumes you also follow:
 
 For each new system, follow this pipeline:
 
-1. **Docs stub** → 2. **Regenerate `nodeData.js`** → 3. **Implement main function** → 4. **Wire into `nodeUpdate.js`** → 5. **Add tests**.
+1. **Docs stub** → 2. **Regenerate `Content/nodeData.js`** → 3. **Implement main function** → 4. **Wire into `nodeUpdate.js`** → 5. **Add tests**.
 
 Each step below is required unless explicitly skipped by the user.
 
@@ -50,13 +50,13 @@ Each step below is required unless explicitly skipped by the user.
 
 ---
 
-## Step 2: Regenerate `nodeData.js`
+## Step 2: Regenerate `Content/nodeData.js`
 
-1. Run the build pipeline to regenerate `nodeData.js` and the mdBook output, typically via:
+1. Run the build pipeline to regenerate `Content/nodeData.js` and the mdBook output, typically via:
    - `bash build.sh`
-   - or directly `node buildNodeData.js` if only `nodeData.js` is needed.
-2. **Do not edit** `nodeData.js` by hand; it is generated.
-3. After the build, locate the new node entry in `nodeData.js`:
+   - or directly `node buildNodeData.js` if only `Content/nodeData.js` is needed.
+2. **Do not edit** `Content/nodeData.js` by hand; it is generated.
+3. After the build, locate the new node entry in `Content/nodeData.js`:
    - Search by the doc filename or title.
    - Note the node’s DOM id (e.g., `egyptian-civil-node`) that will be passed to `setTimeValue` in `nodeUpdate.js`.
 
@@ -96,7 +96,7 @@ Each step below is required unless explicitly skipped by the user.
    - Pop culture calendars → `updatePopCultureCalendars(currentDateTime, timezoneOffset)`
    - Timekeeping / clocks / decimal time → `updateClocks_Fast` or `updateClocks_Slow` depending on update frequency.
 2. Add a new `setTimeValue` call within the appropriate wrapper:
-   - First argument: the node id from `nodeData.js` (e.g., `'solar-hijri-node'`).
+   - First argument: the node id from `Content/nodeData.js` (e.g., `'solar-hijri-node'`).
    - Second argument: the result of your main function (e.g., `getSolarHijriDate(currentDateTime, springEquinox)`).
 3. Keep the style consistent:
    - Group the new line near similar systems.
@@ -130,7 +130,7 @@ Each step below is required unless explicitly skipped by the user.
 Before considering a new calendar/time system “hooked up”, confirm:
 
 - [ ] A Docs stub exists in `Docs/src/...` with title/outline and is referenced from `Docs/src/SUMMARY.md`.
-- [ ] `nodeData.js` has been regenerated (via `build.sh` or `buildNodeData.js`), and the node id is known.
+- [ ] `Content/nodeData.js` has been regenerated (via `build.sh` or `buildNodeData.js`), and the node id is known.
 - [ ] A main implementation function exists in the correct `CalendarAPI/...` file, following existing patterns and conventions.
 - [ ] `nodeUpdate.js` calls `setTimeValue` for this node id using the main function.
 - [ ] Tests exist in the appropriate `Tests/*.js` file and are wired into that file’s runner.

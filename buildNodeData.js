@@ -3,7 +3,7 @@
     |    Build Script  |
     |==================|
     
-    Converts markdown files from Docs/src to nodeData.js format
+    Converts markdown files from Docs/src to Content/nodeData.js format
 */
 
 const fs = require('fs');
@@ -562,7 +562,7 @@ function formatNodeDataArray(nodeDataArray, variableName) {
 // Main build function
 function build() {
     const docsSrcPath = path.join(__dirname, 'Docs/src');
-    const outputPath = path.join(__dirname, 'nodeData.js');
+    const outputPath = path.join(__dirname, 'Content', 'nodeData.js');
     
     console.log('Parsing SUMMARY.md for file order...');
     const fileOrder = parseSummaryForFileOrder();

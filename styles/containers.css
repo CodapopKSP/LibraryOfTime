@@ -1,0 +1,94 @@
+/*
+|==============|
+|  Containers  |
+|==============|
+*/
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.3vh;
+    border: 0.2vh solid #000000;
+    margin: 0 1vh 1vh 0vh;
+    width: 17vh;
+}
+
+.mac-chrome-only .container {
+    font-size: 2vh;
+    width: 20.5vh;
+}
+
+.container-name {
+    font-size: 1.6vh;
+}
+
+.mac-chrome-only .container-name {
+    font-size: 2.2vh;
+}
+
+
+.standard-time {
+    background-color: rgb(52, 52, 52);
+    color: rgb(224, 224, 224);
+}
+
+.computing-time {
+    background-color: rgb(50, 50, 54);
+    color: #c4e4ffff;
+}
+
+.solar-calendars{
+    background-color: rgb(54, 50, 50);
+    color: #ffe4c4ff
+}
+
+.lunisolar-calendars{
+    background-color: rgb(50, 54, 50);
+    color: #c4ffe4ff;
+}
+
+.lunar-calendars{
+    background-color: rgb(50, 50, 54);
+    color: rgb(196, 212, 255);
+}
+
+.solilunar-calendars{
+    background-color: rgb(54, 50, 50);
+    color: rgb(224, 224, 224);
+}
+
+.proposed-calendars {
+    background-color: rgb(53, 50, 53);
+    color: rgb(191, 255, 252);
+}
+
+.other-calendars {
+    background-color: rgb(50, 50, 54);
+    color: rgb(220, 255, 191);
+}
+
+.decimal-time {
+    background-color: rgb(54, 50, 50);
+    color: rgb(232, 196, 255);
+}
+
+.other-time {
+    background-color: rgb(54, 50, 50);
+    color: rgb(203, 255, 196);
+}
+
+.astronomical-data {
+    background-color: rgb(53, 53, 50);
+    color: rgb(252, 255, 196);
+}
+
+.pop-culture {
+    background-color: rgb(53, 53, 50);
+    color: rgb(228, 196, 255);
+}
+
+.politics {
+    background-color: rgb(52, 52, 52);
+    color: rgb(196, 215, 255);
+}

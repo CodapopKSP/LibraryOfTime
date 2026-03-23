@@ -1,0 +1,10 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow-y: hidden;
+}
+
+a {
+    color: rgb(187, 211, 255);
+}

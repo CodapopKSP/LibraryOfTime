@@ -1,0 +1,216 @@
+/*
+|=================|
+|  Floating Panel |
+|=================|
+*/
+
+#floating-panel {
+    min-height: 20vh;
+    width: 37vh;
+    background-color: rgb(75, 75, 75);
+    border: 0.2vh solid #000000;
+    border-radius: 0.7vh;
+    position: absolute;
+    top: 20vh;
+    left: 50vh;
+    cursor: move;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    overflow: visible;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.mac-chrome-only #floating-panel {
+    width: 43.6vh;
+}
+
+#floating-box-node-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5vh;
+    padding: 0.5vh;
+    min-height: 100%;
+    align-items: start;
+}
+
+.panel-section {
+    background-color: rgb(65, 65, 65);
+    border: 0.1vh solid #444;
+    border-radius: 0.3vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 8vh;
+    overflow: visible;
+    box-shadow: inset 0 0 0.2vh rgba(0, 0, 0, 0.3);
+}
+
+.mac-chrome-only .panel-section {
+    min-height: 12vh;
+    width: 21vh;
+}
+
+.section-header {
+    background-color: rgb(45, 45, 45);
+    color: rgb(214, 214, 214);
+    padding: 0.3vh 0.5vh;
+    font-size: 1.2vh;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 0.1vh solid #444;
+    flex-shrink: 0;
+}
+
+.mac-chrome-only .section-header {
+    font-size: 1.8vh;
+}
+
+.section-controls {
+    display: flex;
+    gap: 0.2vh;
+    padding: 0.2vh;
+    background-color: rgb(55, 55, 55);
+    border-bottom: 0.1vh solid #444;
+    flex-shrink: 0;
+}
+
+.add-node-button, .remove-node-button {
+    padding: 0.2vh 0.4vh;
+    background: rgb(75, 75, 75);
+    color: rgb(214, 214, 214);
+    border: 0.1vh solid #555;
+    border-radius: 0.2vh;
+    cursor: pointer;
+    font-size: 1vh;
+    flex: 1;
+    transition: background-color 0.2s ease;
+}
+
+.mac-chrome-only .add-node-button, .mac-chrome-only .remove-node-button {
+    font-size: 1.6vh;
+}
+
+.add-node-button:hover, .remove-node-button:hover {
+    background-color: rgb(95, 95, 95);
+}
+
+.top-buttons-wrapper {
+    position: absolute;
+    top: 1vh;
+    left: 1vh;
+    right: 1vh;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+.left-buttons {
+    display: flex;
+    gap: 0.5vh;
+}
+
+.right-buttons {
+    display: flex;
+    gap: 0.5vh;
+}
+
+#floating-panel-toggle-button {
+    padding: 0.8vh 1.5vh;
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
+    border: none;
+    border-radius: 0.3vh;
+    cursor: pointer;
+    font-size: 1.2vh;
+    border: 0.1vh solid #444;
+    height: auto;
+    min-height: 3vh;
+    transition: background-color 0.2s ease;
+}
+
+#floating-panel-toggle-button:hover {
+    background-color: #4f4f4f; /* Darker green on hover */
+}
+
+#on-making-LoT-button {
+    padding: 0.8vh 1.5vh;
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
+    border: none;
+    border-radius: 0.3vh;
+    cursor: pointer;
+    font-size: 1.2vh;
+    border: 0.1vh solid #444;
+    height: auto;
+    min-height: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 1000;
+    transition: background-color 0.2s ease;
+}
+
+#on-making-LoT-button:hover {
+    background-color: #4f4f4f;
+}
+
+#glossary-button {
+    padding: 0.8vh 1.5vh;
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
+    border: none;
+    border-radius: 0.3vh;
+    cursor: pointer;
+    font-size: 1.2vh;
+    border: 0.1vh solid #444;
+    height: auto;
+    min-height: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 1000;
+    transition: background-color 0.2s ease;
+}
+
+#glossary-button:hover {
+    background-color: #4f4f4f;
+}
+
+#calendar-view-button {
+    padding: 0.8vh 1.5vh;
+    background: rgb(55, 55, 55);
+    color: rgb(214, 214, 214);
+    border: none;
+    border-radius: 0.3vh;
+    cursor: pointer;
+    font-size: 1.2vh;
+    border: 0.1vh solid #444;
+    height: auto;
+    min-height: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 1000;
+    transition: background-color 0.2s ease;
+}
+
+#calendar-view-button:hover {
+    background-color: #4f4f4f;
+}
+
+.mac-chrome-only #floating-panel-toggle-button,
+.mac-chrome-only #glossary-button,
+.mac-chrome-only #on-making-LoT-button,
+.mac-chrome-only #calendar-view-button {
+    font-size: 1.8vh;
+}

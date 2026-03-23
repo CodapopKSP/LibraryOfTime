@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 123
+// Total nodes: 124
 
 /*
 Node Data is a collection of data for each node.
@@ -903,6 +903,18 @@ const lunisolarCalendarsData = [
         info: `The Chinese calendar is one of the most widespread calendars in history, used by various cultures in Asia and around the world either directly or as a base.\n\n<table class="table-long"><tr><th>Year Cycle</th><th>English</th></tr><tr><td>鼠</td><td>Rat</td></tr><tr><td>牛</td><td>Ox</td></tr><tr><td>虎</td><td>Tiger</td></tr><tr><td>兔</td><td>Rabbit</td></tr><tr><td>龍</td><td>Dragon</td></tr><tr><td>蛇</td><td>Snake</td></tr><tr><td>馬</td><td>Horse</td></tr><tr><td>羊</td><td>Goat</td></tr><tr><td>猴</td><td>Monkey</td></tr><tr><td>雞</td><td>Rooster</td></tr><tr><td>狗</td><td>Dog</td></tr><tr><td>豬</td><td>Pig</td></tr></table>`,
         accuracy: `Calculating this calendar is very difficult and requires calculating the Winter Solstice, Longitude of the Sun, and any given New Moon. Due to the difficulty of this calculation, months and days might be off by 1 at times, though they typically self-correct by the next month. Rarely, the leap month may be incorrect, especially in cases where the new moon and solstice happen on the same day.`,
         source: `This equation was based off of the steps found <a href="https://ytliu0.github.io/ChineseCalendar/rules.html">here</a>.\n\nGeneral information was taken from the <a href="https://en.wikipedia.org/wiki/Chinese_calendar">Wikipedia article</a> for this calendar.`
+    },
+
+    {
+        name: `Sexagenary Year (CST)`,
+        id: `sexagenary-year`,
+        type: `Lunisolar Calendar`,
+        epoch: ``,
+        confidence: ``,
+        overview: ``,
+        info: ``,
+        accuracy: ``,
+        source: ``
     },
 
     {

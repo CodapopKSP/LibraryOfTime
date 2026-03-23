@@ -12,12 +12,12 @@ def main():
 
         # Extract linked tags from the HTML
         scripts = soup.body.find_all('script')
-        styles = soup.find('link', rel='stylesheet')
+        style_links = soup.find_all('link', rel='stylesheet')
         favicon = soup.find('link', rel='icon')
 
         # Read linked files and extract into strings
         scripts = parse_scripts(scripts)
-        styles = parse_styles(styles)
+        styles = parse_styles(style_links)
         favicon_data = parse_favicon(favicon)
 
         # Remove linked tags from the original document
@@ -99,13 +99,17 @@ def process_images_in_js(js_content):
     
     return processed_content
 
-# Returns a string containing the content of all style tags
-def parse_styles(styles):
-    styles_path = styles['href']  # Extract file name
-    path = f'../{styles_path}'    # Adjust path for styles directory
-
-    with open(path, 'r') as file:
-        return file.read()
+# Returns a string containing the content of all linked stylesheets
+def parse_styles(style_links):
+    all_contents = ''
+    for link in style_links:
+        styles_path = link.get('href')
+        if not styles_path:
+            continue
+        path = f'../{styles_path}'
+        with open(path, 'r', encoding='utf-8') as file:
+            all_contents += '\n' + file.read()
+    return all_contents
 
 # Returns a string containing the Base64 conversion of a favicon image
 def parse_favicon(favicon):

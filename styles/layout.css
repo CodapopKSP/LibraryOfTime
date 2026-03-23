@@ -1,0 +1,118 @@
+/*
+|==========|
+|  Layout  |
+|==========|
+*/
+
+.page-wrapper {
+    background-color: rgb(47, 47, 47);
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.page-wrapper::after {
+    content: "";
+    display: block;
+    height: 0h;
+    width: 99%;
+    clear: both;
+    overflow-x: hidden;
+}
+
+.mac-chrome-only .page-wrapper::after {
+    height: 10vh;
+}
+
+.title-wrapper {
+    position: absolute;
+    width: 99vw;
+    font-size: 4vh;
+    color: #cbcbcb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    z-index: 10;
+    background-color: rgb(47, 47, 47);
+    overflow: hidden;
+}
+
+.mac-chrome-only .title-wrapper {
+    font-size: 5vh;
+}
+
+.invisible-title-button {
+    position: absolute;
+    top: 0vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    min-width: 50vw;
+    min-height: 5vh;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.invisible-title-button:hover {
+    background-color: rgba(85, 85, 85, 0.1);
+    border-radius: 4px;
+}
+
+#page-title {
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.title-wrapper:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 0.3vh;
+    background-color: #cbcbcb;
+}
+
+.description-wrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 33vw;
+    height: 90vh;
+    top: 4vh;
+    right: 0;
+    margin: 4vh;
+    margin-right: 3vh;
+    margin-left: 2vh;
+    margin-bottom: 0;
+    background-color: rgb(55, 55, 55);
+    border: 0.2vh solid #000000;
+    overflow: hidden;
+}
+
+.node-wrapper {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    max-width: 63vw;
+    top: 6vh;
+    left: 1vh;
+    margin: 2vh 0 0 2vh;
+    grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
+    grid-gap: 1vw;
+    overflow-x: hidden;
+}
+
+.mac-chrome-only .node-wrapper {
+    overflow-y: hidden;
+}

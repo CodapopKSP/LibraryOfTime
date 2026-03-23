@@ -1,0 +1,136 @@
+/*
+|===============|
+|  Input Panel  |
+|===============|
+*/
+
+.input-box-wrapper {
+    position: absolute;
+    border-bottom: 0.3vh solid #1f1f1f;
+    top: 0;
+    width: 33vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    height: 6.5vh;
+}
+
+.input-main-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 4vh;
+}
+
+.input-step-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    bottom: -2vh;
+}
+
+.step-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.2vh;
+    font-size: 1.1vh;
+}
+
+.step-label {
+    color: #afafaf;
+    min-width: 2vh;
+    text-align: right;
+}
+
+.step-arrows {
+    display: flex;
+    flex-direction: column;
+}
+
+.step-button {
+    height: 1.2vh;
+    width: 2vh;
+    font-size: 0.7vh;
+    line-height: 1;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border: 0.15vh solid #443c3c;
+    border-radius: 0.3vh;
+    cursor: pointer;
+}
+
+#date-input {
+    width: 15vw;
+    height: 2vh;
+    background-color: #c0c0c0;
+    color: #000000;
+    border-color: #000000;
+    font-size: 1.2vh;
+    margin-left: 1vh;
+    margin-right: 0.4vh;
+}
+
+.mac-chrome-only #date-input {
+    font-size: 2vh;
+    width: 22vh;
+}
+
+.date-picker-button {
+    height: 2.5vh;
+    width: 2vw;
+    font-size: 1.2vh;
+    margin: 0.2vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border-color: #443c3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.5vh;
+    cursor: pointer;
+}
+
+.mac-chrome-only .date-picker-button {
+    font-size: 1.8vh;
+    width: 5vh;
+}
+
+.date-picker-icon {
+    font-size: 24px;
+    background: #2b2b2b;
+}
+
+.mac-chrome-only .date-picker-icon {
+    font-size: 20px;
+}
+
+#calendar-type {
+    height: 2.5vh;
+    width: 5vw;
+    font-size: 1.2vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border-color: #443c3c;
+    margin: 1vh;
+}
+
+#timezone {
+    height: 2.5vh;
+    width: 5vw;
+    font-size: 1.2vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border-color: #443c3c;
+}
+
+.mac-chrome-only #timezone,
+.mac-chrome-only #calendar-type {
+    font-size: 2vh;
+    width: 11vh;
+}

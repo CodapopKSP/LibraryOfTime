@@ -1,0 +1,120 @@
+/*
+|=========|
+|  Nodes  |
+|=========|
+*/
+
+.node {
+    margin: 0.5vh;
+    width: 16vh;
+    position: relative;
+    display: inline-block;
+}
+
+.mac-chrome-only .node {
+    width: 19vh;
+}
+
+.standard-time > .node > .content {
+    border: 0.2vh solid #bbbbbb;
+}
+
+.computing-time > .node > .content {
+    border: 0.2vh solid #696d9f;
+}
+
+.solar-calendars > .node > .content {
+    border: 0.2vh solid #966a6a;
+}
+
+.lunisolar-calendars > .node > .content {
+    border: 0.2vh solid #6f986a;
+}
+
+.decimal-time > .node > .content {
+    border: 0.2vh solid #896a98;
+}
+
+.other-time > .node > .content {
+    border: 0.2vh solid #98866a;
+}
+
+.lunar-calendars > .node > .content {
+    border: 0.2vh solid #7c6a98;
+}
+
+.solilunar-calendars > .node > .content {
+    border: 0.2vh solid #986a6a;
+}
+
+.proposed-calendars > .node > .content {
+    border: 0.2vh solid #876a96;
+}
+
+.other-calendars > .node > .content {
+    border: 0.2vh solid #716a96;
+}
+
+.astronomical-data > .node > .content {
+    border: 0.2vh solid #6a9698;
+}
+
+.pop-culture > .node > .content {
+    border: 0.2vh solid #95986a;
+}
+
+.politics > .node > .content {
+    border: 0.2vh solid #986a6a;
+}
+
+.content {
+    border-width: 0.25vh;
+    padding: 0.7vh;
+    font-size: 1.2vh;
+    font-family: Arial, sans-serif;
+    margin-top: 0.6vh;
+    background-color: rgb(47, 47, 47);
+    white-space: pre-wrap;
+}
+
+.mac-chrome-only .content {
+    font-size: 1.6vh;
+}
+
+.node .content.hover {
+    border-color: rgb(150, 150, 150) !important;
+}
+
+.node .content.active {
+    background-color: rgb(60, 60, 60);
+    border-color: rgb(150, 150, 150);
+}
+
+.content.clicking {
+    background-color: rgb(150, 150, 150);
+}
+
+.node-menu {
+    position: absolute; /* Position it absolutely to the viewport */
+    font-size: 1.2vh;
+    width: 15vh;
+    color: #afafaf;
+    background-color: #2b2b2b;
+    border: 0.3vh solid #1f1f1f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100; /* Ensure it's on top */
+}
+
+.node-menu ul {
+    list-style-type: none; /* Remove bullet points */
+    margin: 0;
+    padding: 5px;
+}
+
+.node-menu li {
+    cursor: pointer;
+}
+
+.node-menu li:hover {
+    background-color: rgb(60, 60, 60);; /* Highlight on hover */
+}
