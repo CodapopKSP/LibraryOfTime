@@ -45,13 +45,12 @@ def main():
             file.write(pretty_html)
         
         # Minify HTML file and save again
-        minified = minify_html.minify(pretty_html, minify_js=True, minify_css=True, remove_processing_instructions=True)
-
-        # The JS minifier doesn't parse correctly escape sequences: replace all double slashes "\\" with single ones "\"
-        unescaped_minified = minified.replace('\\\\', '\\')    
+        # minify_js=False: the JS minifier causes scope collisions (e.g. weekNames->w vs local const w)
+        # leading to "w is not defined" ReferenceError in production
+        minified = minify_html.minify(pretty_html, minify_js=False, minify_css=True, remove_processing_instructions=True)
 
         with open('minified.html', 'w', encoding="utf-8") as out_file:
-            out_file.write(unescaped_minified)
+            out_file.write(minified)
 
 
 # Returns a string containing the content of all script tags
