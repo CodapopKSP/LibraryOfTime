@@ -46,3 +46,10 @@ jobs:
         asset_path: "./actions/minified.html"
         asset_name: library_of_time.html
         asset_content_type: text/html
+
+    - name: Trigger Vercel Deploy
+      if: success()
+      run: |
+        if [ -n "${{ secrets.VERCEL_DEPLOY_HOOK }}" ]; then
+          curl -sf -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
+        fi
