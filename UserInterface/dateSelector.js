@@ -19,6 +19,36 @@ function setDatePickerTimezone(newTimezone) {
     _datePickerTimezone = newTimezone;
 }
 
+function getDateInputDateEl() {
+    return typeof document !== 'undefined' ? document.getElementById('date-input-date') : null;
+}
+
+function getDateInputTimeEl() {
+    return typeof document !== 'undefined' ? document.getElementById('date-input-time') : null;
+}
+
+/**
+ * Same canonical string as the former single field: "yyyy-mm-dd, hh:mm:ss"
+ * (BCE years keep a leading "-" on the date part only).
+ */
+function getCombinedDateInputValue() {
+    const dateEl = getDateInputDateEl();
+    const timeEl = getDateInputTimeEl();
+    if (!dateEl || !timeEl) {
+        return '';
+    }
+    const datePart = dateEl.value.trim();
+    const timePart = timeEl.value.trim();
+    if (!datePart && !timePart) {
+        return '';
+    }
+    if (!datePart) {
+        return '';
+    }
+    const t = timePart || '00:00:00';
+    return `${datePart}, ${t}`;
+}
+
 // Keeps track of date picker time selection
 let _datePickerTime = '';
 function getDatePickerTime() {
@@ -32,7 +62,25 @@ function getDatePickerTime() {
 }
 
 function setDatePickerTime(newTime) {
-    document.getElementById('date-input').value = newTime;
+    const dateEl = getDateInputDateEl();
+    const timeEl = getDateInputTimeEl();
+    if (!dateEl || !timeEl) {
+        return;
+    }
+    if (!newTime) {
+        dateEl.value = '';
+        timeEl.value = '';
+        _datePickerTime = '';
+        return;
+    }
+    const commaIdx = newTime.indexOf(', ');
+    if (commaIdx === -1) {
+        dateEl.value = newTime.trim();
+        timeEl.value = '00:00:00';
+    } else {
+        dateEl.value = newTime.slice(0, commaIdx).trim();
+        timeEl.value = newTime.slice(commaIdx + 2).trim() || '00:00:00';
+    }
     _datePickerTime = newTime;
 }
 
@@ -43,7 +91,7 @@ if (typeof document !== 'undefined') {
 
 if (typeof document !== 'undefined') {
     document.getElementById('reset-date-button')?.addEventListener('click', () => {
-        document.getElementById('date-input').value = '';
+        setDatePickerTime('');
         document.getElementById('timezone').value = "UTC+08:00";
         setDatePickerTimezone(getLocalTimezoneOffset());
         setDatePickerTime("");
@@ -53,11 +101,11 @@ if (typeof document !== 'undefined') {
 
 // Adjust the date picker value by a given unit and step, then apply it
 function adjustDatePickerField(unit, step) {
-    const inputEl = typeof document !== 'undefined' ? document.getElementById('date-input') : null;
+    const combined = getCombinedDateInputValue();
 
-    // If the user has typed something, treat that as the canonical picker time
-    if (inputEl && inputEl.value) {
-        setDatePickerTime(inputEl.value);
+    // If the user has a parseable date in the fields, treat that as the canonical picker time
+    if (combined) {
+        setDatePickerTime(combined);
     }
 
     // Always operate on the stored picker time so state stays consistent
@@ -246,7 +294,7 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
 
     // If newDateString isn't provided, use the input box value
     if (newDateString === '') {
-        newDateString = document.getElementById('date-input').value;
+        newDateString = getCombinedDateInputValue();
     }
     setCalendarType(document.getElementById('calendar-type').value);
     let timezoneChoice = getDatePickerTimezone();

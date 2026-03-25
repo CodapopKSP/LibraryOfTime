@@ -9,9 +9,10 @@
     flex-direction: column;
     align-items: center;
     font-size: 1.3vh;
-    border: 0.2vh solid #000000;
+    border: 0.2vh solid var(--ui-border);
     margin: 0 1vh 1vh 0vh;
     width: 17vh;
+    max-width: 17vh;
 }
 
 .mac-chrome-only .container {
@@ -55,7 +56,7 @@
 
 .solilunar-calendars{
     background-color: rgb(54, 50, 50);
-    color: rgb(224, 224, 224);
+    color: var(--ui-text-muted);
 }
 
 .proposed-calendars {

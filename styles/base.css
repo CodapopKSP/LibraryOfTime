@@ -3,6 +3,37 @@ body, html {
     padding: 0;
     border: 0;
     overflow-y: hidden;
+    color: var(--ui-text-muted);
+    font-family: var(--ui-font-body);
+}
+
+/*
+  Scrollbars: thin, low-contrast — matches the dark UI.
+  - Firefox / standard: scrollbar-width + scrollbar-color
+  - Chrome / Safari / Edge: ::-webkit-scrollbar-* (full control: size, thumb, hover)
+*/
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ui-scrollbar-thumb) var(--ui-scrollbar-track);
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--ui-scrollbar-track);
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--ui-scrollbar-thumb);
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: var(--ui-scrollbar-thumb-hover);
 }
 
 a {

@@ -6,13 +6,12 @@
 
 .node {
     margin: 0.5vh;
-    width: 16vh;
+    width: var(--layout-node-width);
     position: relative;
     display: inline-block;
-}
-
-.mac-chrome-only .node {
-    width: 19vh;
+    box-sizing: border-box;
+    max-width: var(--layout-node-width);
+    font-family: var(--ui-font-heading);
 }
 
 .standard-time > .node > .content {
@@ -71,10 +70,12 @@
     border-width: 0.25vh;
     padding: 0.7vh;
     font-size: 1.2vh;
-    font-family: Arial, sans-serif;
+    font-family: var(--ui-font-body);
     margin-top: 0.6vh;
     background-color: rgb(47, 47, 47);
     white-space: pre-wrap;
+    /* Border + padding included in width so nodes don’t exceed --layout-node-width */
+    box-sizing: border-box;
 }
 
 .mac-chrome-only .content {
@@ -98,9 +99,9 @@
     position: absolute; /* Position it absolutely to the viewport */
     font-size: 1.2vh;
     width: 15vh;
-    color: #afafaf;
-    background-color: #2b2b2b;
-    border: 0.3vh solid #1f1f1f;
+    color: var(--ui-text-muted);
+    background-color: var(--ui-accent-bg);
+    border: 0.3vh solid var(--ui-border-muted);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 100; /* Ensure it's on top */
 }

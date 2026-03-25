@@ -4,346 +4,555 @@
 |====================|
 */
 
-/* Mobile portrait layout - split screen */
-@media (max-width: 768px) and (orientation: portrait) {
-    .page-wrapper {
-        min-height: 100vh;
-        overflow-y: auto;
-        overflow-x: hidden;
+.mobile-toolbar,
+.mobile-sheet-backdrop,
+.mobile-info-sheet {
+    display: none;
+}
+
+/* Phone + tablet + iPad: same touch UI; phones use 2 masonry columns, tablets 3 (see nested query). */
+@media (max-width: 1024px) {
+    :root {
+        /* Min content height of the bar; real height adds vertical padding + border + safe area */
+        --mobile-toolbar-height: 3.35rem;
+        /* Extra space so the last nodes scroll fully above the fixed toolbar */
+        --mobile-scroll-bottom-gap: 1.75rem;
+        /* Node columns: vw-based so card width tracks the screen */
+        --mobile-node-edge: 1rem;
+        /* Horizontal space between masonry columns; keep in sync with getMainGridMasonryGutter() in script.js */
+        --mobile-node-col-gap: 0.75rem;
     }
 
-    .title-wrapper {
+    .modal {
+        z-index: 10050;
+    }
+
+    .page-wrapper {
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        --layout-site-header-height: 3rem;
+        /* Toolbar: min-height + top/bottom padding (see .mobile-toolbar) + safe area + buffer */
+        padding-bottom: calc(
+            var(--mobile-toolbar-height) +
+            0.7rem +
+            env(safe-area-inset-bottom, 0px) +
+            var(--mobile-scroll-bottom-gap)
+        );
+        scroll-padding-bottom: calc(
+            var(--mobile-toolbar-height) +
+            env(safe-area-inset-bottom, 0px) +
+            0.5rem
+        );
+    }
+
+    .site-header {
         position: sticky;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 6vh;
-        font-size: 3.2vh;
-        z-index: 20;
+        width: 100%;
+        min-height: var(--layout-site-header-height);
+        font-size: clamp(0.85rem, 3.5vw, 1rem);
+        z-index: 8000;
         background-color: rgb(47, 47, 47);
+        padding-left: max(0.5rem, env(safe-area-inset-left));
+        padding-right: max(0.5rem, env(safe-area-inset-right));
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
-    
-    .description-wrapper {
-        position: fixed;
-        top: 6vh; /* Below title */
-        left: 0;
-        width: 100vw;
-        height: 30vh; /* Top half minus title */
+
+    .site-header .header-left,
+    .site-header .header-right {
+        display: none !important;
+    }
+
+    .site-header-title {
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #page-title.page-name {
+        font-size: clamp(1.1rem, 5.2vw, 1.45rem);
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    /* Flatten right column so date strip sits in document flow directly under the header */
+    .site-right-column {
+        display: contents;
+    }
+
+    /* Sticky date + time controls below the header */
+    .site-right-column > .input-box-wrapper {
+        position: sticky;
+        top: var(--layout-site-header-height);
+        z-index: 7990;
+        width: 100%;
         margin: 0;
-        border: none;
-        border-bottom: 2px solid #000000;
-        overflow: hidden;
-        z-index: 21 !important;
-        background-color: rgb(55, 55, 55);
-        transition: height 0.3s ease;
+        background-color: var(--ui-elevated-bg);
+        border: 0.2vh solid var(--ui-border);
+        border-top: none;
+        box-sizing: border-box;
+        box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.25);
     }
-    
+
+    /* Main content: masonry; vw widths — 3 cols on tablet/iPad, 2 on phone */
     .node-wrapper {
         position: relative;
-        top: 33vh; /* Start below the fixed description panel */
-        left: 0;
-        width: 100vw;
-        min-height: 50vh;
-        margin: 0;
-        padding: 1vh;
-        padding-bottom: 10vh; /* Add extra space at the bottom */
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 1vh;
-        overflow-y: visible;
-        overflow-x: hidden;
-        z-index: 10;
-        justify-content: start;
-        align-items: start;
-        max-width: none;
-        transition: top 0.3s ease;
-    }
-    
-    /* Adjust input panel for mobile */
-    .input-box-wrapper {
-        position: absolute;
         top: 0;
-        width: 100%;
-        height: 4vh;
-        padding: 1vh;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 1vh;
-        z-index: 5;
-    }
-
-    .input-main-row {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 1vh;
-    }
-
-    .input-step-controls {
-        display: none;
-    }
-    
-    #date-input {
-        width: 50%;
-        height: 3vh;
-        font-size: 2vh;
-        margin: 0;
-    }
-    
-    #calendar-type,
-    #timezone {
-        width: 15%;
-        height: 3vh;
-        font-size: 1.8vh;
-        margin: 0;
-    }
-    
-    .date-picker-button {
-        height: 3vh;
-        width: 6vw;
-        font-size: 1.8vh;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* Adjust description buttons for mobile */
-    .description-button-wrapper {
-        position: absolute;
-        top: 6vh;
-        width: 100%;
-        height: 5vh;
-        padding: 0 1vh;
-        z-index: 10;
-    }
-    
-    .header-button {
-        height: 4vh;
-        font-size: 1.8vh;
-        padding: 0 1vh;
-    }
-    
-    /* Adjust node info for mobile */
-    .nodeinfo {
-        position: absolute;
-        width: 100%;
-        height: 69vh; /* 75% of remaining space (44vh - 11vh = 33vh) */
-        top: 11vh; /* Below input (6vh) and buttons (5vh) */
         left: 0;
-        font-size: 2vh;
-    }
-
-    .nodeinfo.homepage {
-        height: 69vh;
-    }
-
-    .home-info,
-    .home-mission,
-    .home-sources,
-    .home-accuracy {
-        height: 94%;
-    }
-
-    .home-info::after,
-    .home-mission::after,
-    .home-sources::after,
-    .home-accuracy::after {
-        content: "";
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding-top: 0.65rem;
+        padding-bottom: 6rem;
+        padding-left: max(var(--mobile-node-edge), env(safe-area-inset-left));
+        padding-right: max(var(--mobile-node-edge), env(safe-area-inset-right));
+        box-sizing: border-box;
         display: block;
-        height: 4vh;
+        overflow-x: hidden;
+        overflow-y: visible;
     }
 
-    .nodeinfo-overview {
-        height: 70%;
-        z-index: 20;
+    .mac-chrome-only .node-wrapper {
+        overflow-y: visible;
     }
 
-    .nodeinfo-overview::after {
-        content: "";
-        display: block;
-        height: 4vh;
+    /* Tablet / iPad (769–1024): three columns — two gutters between three tracks */
+    .container,
+    .mac-chrome-only .container {
+        width: calc((100vw - 2 * var(--mobile-node-edge) - 2 * var(--mobile-node-col-gap)) / 3);
+        max-width: calc((100vw - 2 * var(--mobile-node-edge) - 2 * var(--mobile-node-col-gap)) / 3);
+        margin: 0 0 0.5rem 0;
+        box-sizing: border-box;
+        font-size: clamp(0.65rem, 2.8vw, 0.85rem);
     }
 
-    .nodeinfo-info,
-    .nodeinfo-accuracy,
-    .nodeinfo-source {
-        height: 85%;
-    }
-
-    .nodeinfo-info::after,
-    .nodeinfo-accuracy::after,
-    .nodeinfo-source::after {
-        content: "";
-        display: block;
-        height: 4vh;
-    }
-    
-    /* Adjust top buttons for mobile */
-    .top-buttons-wrapper {
-        position: absolute;
-        top: 1vh;
-        right: 1vh;
-        z-index: 1000;
-        gap: 0.3vh;
-    }
-
-    .input-box-wrapper {
-        gap: 0.5vh;
-    }
-
-    .header-button {
-        height: 3.4vh;
-    }
-
-    .container {
-        width: 22vh;
-        font-size: 1.5vh;
+    @media (max-width: 768px) {
+        /* Phone: two columns — one gutter */
+        .container,
+        .mac-chrome-only .container {
+            width: calc((100vw - 2 * var(--mobile-node-edge) - var(--mobile-node-col-gap)) / 2);
+            max-width: calc((100vw - 2 * var(--mobile-node-edge) - var(--mobile-node-col-gap)) / 2);
+        }
     }
 
     .container-name {
-        font-size: 1.8vh;
+        font-size: clamp(0.75rem, 3vw, 0.95rem);
     }
 
-    .node {
-        width: 21vh;
-    }
-    
-    .content {
-        font-size: 1.5vh;
-    }
-    
-    #on-making-LoT-button {
-        padding: 0.6vh 1vh;
-        background: rgb(55, 55, 55);
-        color: rgb(214, 214, 214);
-        border: none;
-        cursor: pointer;
-        font-size: 1.2vh;
-        border: 0.1vh solid #444;
-        height: 4vh;
-        max-width: 8vh;
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        line-height: 1.2;
-        text-align: center;
-        white-space: pre-line;
-        z-index: 1001;
-        visibility: visible !important;
-        opacity: 1 !important;
-        border-radius: 0.3vh;
-        box-shadow: 0 0.1vh 0.2vh rgba(0, 0, 0, 0.3);
-    }
-
-    /* Move glossary button to right side on mobile only */
-    #glossary-button {
-        position: absolute !important;
-        right: 0vh !important;
-        top: 0vh !important;
-        padding: 0.6vh 1vh;
-        background: rgb(55, 55, 55);
-        color: rgb(214, 214, 214);
-        border: none;
-        cursor: pointer;
-        font-size: 1.2vh;
-        border: 0.1vh solid #444;
-        height: 4vh;
-        max-width: 8vh;
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        line-height: 1.2;
-        text-align: center;
-        white-space: pre-line;
-        z-index: 1001;
-        visibility: visible !important;
-        opacity: 1 !important;
-        border-radius: 0.3vh;
-        box-shadow: 0 0.1vh 0.2vh rgba(0, 0, 0, 0.3);
-    }
-    
-    #floating-box-node-container {
-        gap: 0.3vh;
-        padding: 0.3vh;
-    }
-    
-    .section-header {
-        font-size: 1.5vh;
-        padding: 0.4vh 0.6vh;
-    }
-    
-    .section-controls {
-        padding: 0.3vh;
-    }
-    
-    .add-node-button, .remove-node-button {
-        font-size: 1.3vh;
-        padding: 0.3vh 0.5vh;
-    }
-    
-    /* Adjust modal for mobile */
-    .modal-content {
-        width: 95vw;
-        max-height: 90vh;
-        margin: 2vh auto;
-        padding: 2vh;
-    }
-    
-    .modal-content h2 {
-        font-size: 2.5vh;
-    }
-    
-    .modal-text {
-        font-size: 2vh;
-    }
-    
-    .images-toggle-btn {
-        font-size: 1.8vh;
-        padding: 1.5vh 2vh;
-    }
-    
-    .modal-image {
+    /* Card width inside each masonry column (not the .container column width) */
+    .node-wrapper .node {
+        width: 95%;
         max-width: 95%;
+        margin: 0.25rem auto;
+        display: block;
+        box-sizing: border-box;
     }
-    
-    /* Hide dropdown menu on mobile or adjust as needed */
-    .node-menu {
+
+    .content {
+        font-size: clamp(0.65rem, 2.8vw, 0.85rem);
+    }
+
+    .mac-chrome-only .content {
+        font-size: clamp(0.75rem, 3vw, 0.95rem);
+    }
+
+    /* Description: full-height sheet with side inset so it reads as a distinct panel */
+    .site-right-column .description-wrapper {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: max(0.45rem, env(safe-area-inset-left, 0px));
+        right: max(0.45rem, env(safe-area-inset-right, 0px));
+        top: var(--layout-site-header-height);
+        bottom: calc(var(--mobile-toolbar-height) + env(safe-area-inset-bottom, 0px));
+        width: auto;
+        max-width: none;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        border: 0.2vh solid var(--ui-border);
+        border-radius: 0.65rem;
+        z-index: 9020;
+        overflow: hidden;
+        background-color: var(--ui-elevated-bg);
+        box-shadow:
+            0 0.25rem 0.75rem rgba(0, 0, 0, 0.35),
+            0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+        transform: translateY(calc(100% + 1rem));
+        transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+        pointer-events: none;
+    }
+
+    .page-wrapper.mobile-sheet-open .site-right-column .description-wrapper {
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .site-right-column .description-wrapper {
+            transition: none;
+        }
+    }
+
+    .input-box-wrapper {
+        width: 100%;
+        padding: 0.5rem 0.5rem 0.55rem;
+        box-sizing: border-box;
+        min-height: 0;
+    }
+
+    /* Row 1: calendar type | timezone — row 2: date | Go / Reset */
+    .input-main-row {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 0.45rem;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .input-row-pickers {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.35rem;
+        align-items: center;
+        width: 100%;
+    }
+
+    .input-row-datetime {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.35rem;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .date-picker-actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.25rem;
+        flex-shrink: 0;
+    }
+
+    #calendar-type,
+    #timezone {
+        width: 100%;
+        min-width: 0;
+        height: 2.25rem;
+        font-size: clamp(0.65rem, 2.6vw, 0.8rem);
+    }
+
+    .datetime-split-fields {
+        flex: 1 1 auto;
+        min-width: 0;
+        gap: 0.35rem;
+    }
+
+    #date-input-date,
+    #date-input-time {
+        flex: 1 1 0;
+        min-width: 0;
+        width: auto;
+        max-width: none;
+        height: 2.25rem;
+        font-size: clamp(0.75rem, 3vw, 0.9rem);
+    }
+
+    .date-picker-button {
+        min-width: 2.25rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        margin: 0;
+        font-size: 0.85rem;
+    }
+
+    .input-step-controls {
+        display: none !important;
+    }
+
+    .description-button-wrapper {
+        min-height: auto;
+        padding: 0;
+        width: 100%;
+        align-self: stretch;
+        justify-content: flex-start;
+    }
+
+    .header-button {
+        min-height: 2.25rem;
+        font-size: clamp(0.65rem, 2.6vw, 0.8rem);
+        padding: 0.25rem 0.2rem;
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .description-body {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nodeinfo {
+        font-size: clamp(0.8rem, 3.2vw, 1rem);
+    }
+
+    .desktop-home-button {
+        display: none !important;
+    }
+
+    .mobile-description-actions {
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 auto;
+        align-items: stretch;
+        gap: 0.5rem;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.5rem 0.65rem 0.65rem;
+        margin-top: auto;
+        border-top: 0.2vh solid var(--ui-border);
+        background-color: var(--ui-deep-accent-bg);
+    }
+
+    .mobile-description-actions-btn {
+        flex: 1 1 50%;
+        min-height: 2.75rem;
+        padding: 0.45rem 0.5rem;
+        font-size: clamp(0.85rem, 3.2vw, 1rem);
+        color: var(--ui-text-muted);
+        background-color: var(--ui-accent-bg);
+        border: 1px solid var(--ui-border);
+        border-radius: 0.4rem;
+        cursor: pointer;
+        font-family: inherit;
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    /* Home / welcome tabs: only Hide. After a node is selected, Clear appears (same flag as desktop Home). */
+    #mobile-description-clear {
         display: none;
     }
-    
-         /* Hide show/hide panel button on mobile */
+
+    #desktop-home-button.home-button-visible + .mobile-description-actions #mobile-description-clear {
+        display: block;
+    }
+
+    #desktop-home-button:not(.home-button-visible) + .mobile-description-actions #mobile-description-hide {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .mobile-description-actions-btn:active {
+        background-color: var(--ui-elevated-bg);
+    }
+
+    .expand-description-button-wrapper {
+        display: none !important;
+    }
+
+    /* Bottom toolbar */
+    .mobile-toolbar {
+        display: flex;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9100;
+        min-height: var(--mobile-toolbar-height);
+        padding: 0.35rem 0.25rem;
+        padding-bottom: calc(0.35rem + env(safe-area-inset-bottom, 0px));
+        box-sizing: border-box;
+        gap: 0.2rem;
+        justify-content: space-between;
+        align-items: stretch;
+        background-color: rgb(40, 40, 40);
+        border-top: 0.2vh solid var(--ui-border);
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .mobile-tool-btn {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0.35rem 0.2rem;
+        font-size: clamp(0.6rem, 2.5vw, 0.72rem);
+        line-height: 1.15;
+        text-align: center;
+        color: var(--ui-text-muted);
+        background-color: var(--ui-accent-bg);
+        border: 1px solid var(--ui-border);
+        border-radius: 0.35rem;
+        cursor: pointer;
+        font-family: inherit;
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    .mobile-tool-btn:active {
+        background-color: var(--ui-elevated-bg);
+    }
+
+    /* Highlight which bottom tool is currently open (matches description tab “active” tone) */
+    body.mobile-ui-description-open #mobile-tool-description,
+    body.mobile-ui-calendar-open #mobile-tool-calendar,
+    body.mobile-ui-info-open #mobile-tool-info,
+    body.floating-panel-open #mobile-tool-panel {
+        background-color: var(--ui-elevated-bg);
+        border-color: var(--ui-border-muted);
+    }
+
+    .mobile-sheet-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 9010;
+        background: rgba(0, 0, 0, 0.45);
+    }
+
+    .mobile-sheet-backdrop[hidden] {
+        display: none !important;
+    }
+
+    .mobile-info-sheet {
+        display: block;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: calc(var(--mobile-toolbar-height) + env(safe-area-inset-bottom, 0px));
+        z-index: 9030;
+        padding: 0 0.5rem;
+        pointer-events: none;
+    }
+
+    .mobile-info-sheet[hidden] {
+        display: none !important;
+    }
+
+    .mobile-info-sheet-inner {
+        pointer-events: auto;
+        background-color: var(--ui-elevated-bg);
+        border: 0.2vh solid var(--ui-border);
+        border-radius: 0.5rem 0.5rem 0 0;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+        max-width: 28rem;
+        margin: 0 auto;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .mobile-info-action {
+        width: 100%;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.95rem;
+        color: var(--ui-text-muted);
+        background-color: var(--ui-accent-bg);
+        border: 1px solid var(--ui-border);
+        border-radius: 0.35rem;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    .mobile-info-close {
+        align-self: center;
+        padding: 0.4rem 1.25rem;
+        font-size: 0.85rem;
+        color: var(--ui-text-muted);
+        background: transparent;
+        border: 1px solid var(--ui-border-muted);
+        border-radius: 0.35rem;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
     #floating-panel-toggle-button {
         display: none !important;
     }
-     
-    #expand-description-button {
-        visibility: visible;
-        position: fixed;
-        top: 35vh;
-        left: 35vw;
-        width: 30vw;
-        height: 4vh;
-        border: 0.2vh solid #000000;
-        border-radius: 0.5vh;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 25;
-        transition: top 0.3s ease;
-        font-size: 1.8vh;
-        color: #afafaf;
-        background-color: #2b2b2b;
-        font-weight: bold;
+
+    body.floating-panel-open #floating-panel {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed !important;
+        left: 0.5rem !important;
+        right: 0.5rem !important;
+        width: auto !important;
+        top: auto !important;
+        bottom: calc(var(--mobile-toolbar-height) + env(safe-area-inset-bottom, 0px) + 0.35rem) !important;
+        max-height: min(72vh, calc(100dvh - var(--layout-site-header-height) - var(--mobile-toolbar-height) - 2rem)) !important;
+        z-index: 9055 !important;
     }
-    
-    /* Make confidence tooltip wider on mobile */
+
+    /* Panel: 2×2 slots (four items); main node grid uses 3 cols on tablet separately */
+    #floating-box-node-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem;
+        padding-left: 0.35rem;
+        padding-right: 0.35rem;
+        box-sizing: border-box;
+    }
+
+    .node-menu {
+        display: none;
+    }
+
+    .modal-content {
+        width: 95vw;
+        max-height: 88vh;
+        margin: 2vh auto;
+        padding: 2vh;
+    }
+
+    .modal-content.modal-content--scroll-body {
+        padding: 0;
+    }
+
+    .modal-body-scroll {
+        padding: 2vh;
+    }
+
+    .modal-body-scroll.calendar-view-body-scroll {
+        padding: 0 0.4rem 0.85rem 0.4rem;
+    }
+
+    .calendar-view-month-title {
+        font-size: clamp(0.95rem, 3.8vw, 1.15rem);
+    }
+
+    .modal-panel-title {
+        font-size: clamp(1.1rem, 4vw, 1.4rem);
+    }
+
+    .modal-content h2 {
+        font-size: clamp(1.1rem, 4vw, 1.4rem);
+    }
+
+    .modal-text {
+        font-size: clamp(0.8rem, 3vw, 1rem);
+    }
+
+    .images-toggle-btn {
+        font-size: clamp(0.75rem, 2.8vw, 0.95rem);
+        padding: 1.5vh 2vh;
+    }
+
+    .modal-image {
+        max-width: 95%;
+    }
+
     .nodeinfo-confidence .tooltiptext {
         width: 60vw;
         max-width: 60vw;
@@ -354,34 +563,15 @@
     .mac-chrome-only .nodeinfo-confidence .tooltiptext {
         visibility: hidden;
     }
-    
-    /* iOS Safari fix: Ensure content is properly clipped when description panel is collapsed */
-    /* Only apply on Apple devices using webkit-specific properties */
-    @supports (-webkit-touch-callout: none) {
-        .description-wrapper.collapsed {
-            overflow: hidden;
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-        }
-        
-        .description-wrapper.collapsed .nodeinfo {
-            position: absolute;
-            top: 11vh;
-            height: 19vh; /* 30vh - 11vh = 19vh remaining space */
-            overflow: hidden;
-            clip-path: inset(0 0 0 0);
-            -webkit-clip-path: inset(0 0 0 0);
-        }
-    }
 }
- 
- /*
+
+/*
 |====================|
 |  Narrow Viewports  |
 |====================|
 */
 
-@media (max-aspect-ratio: 2/4.26) {
+@media (max-aspect-ratio: 2/4.26) and (min-width: 1025px) {
     .container {
         width: 20vh;
     }
@@ -396,7 +586,7 @@
 |=======================|
 */
 
-@media (max-aspect-ratio: 2/4.65) {
+@media (max-aspect-ratio: 2/4.65) and (min-width: 1025px) {
     .container {
         width: 19vh;
     }

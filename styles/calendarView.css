@@ -1,0 +1,208 @@
+/*
+|==================|
+|   Calendar View  |
+|==================|
+*/
+
+.calendar-view-modal-content {
+    width: 60vh;
+    max-width: 90vw;
+    margin: 1.5vh auto;
+}
+
+/* Blank top strip: same metrics as .floating-panel-header (close only, flex-end) */
+.calendar-view-modal-content .calendar-view-top-bar {
+    justify-content: flex-end;
+    padding: 0.25vh 0.4vh;
+    min-height: 2.6vh;
+    cursor: default;
+}
+
+.mac-chrome-only .calendar-view-modal-content .calendar-view-top-bar {
+    min-height: 3.2vh;
+    padding: 0.35vh 0.5vh;
+}
+
+/* Month navigation sits below the blank top bar (no bottom border — grid provides the top edge) */
+.calendar-view-nav-bar {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.4vh 0.6vh;
+    background-color: var(--ui-elevated-bg);
+}
+
+.calendar-view-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calendar-view-body-scroll.modal-body-scroll {
+    padding: 0 0.75vh 1.25vh 0.75vh;
+}
+
+.calendar-view-month-title {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    color: var(--ui-text-muted);
+    font-family: var(--ui-font-heading);
+    font-size: 2.6vh;
+    line-height: 1.2;
+}
+
+/* Beat .modal-content h2 { margin-bottom } from modals.css */
+.calendar-view-modal-content .calendar-view-month-title {
+    margin-bottom: 0;
+}
+
+#calendar-view-prev {
+    flex-shrink: 0;
+}
+
+#calendar-view-next {
+    flex-shrink: 0;
+}
+
+#calendar-view-prev,
+#calendar-view-next {
+    height: 4vh;
+    width: 4vh;
+    padding: 0 1vh;
+    background-color: var(--ui-accent-bg);
+    color: var(--ui-text-muted);
+    border: 0.1vh solid var(--ui-border-warm);
+    border-radius: 0.5vh;
+    cursor: pointer;
+    font-size: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background-color 0.2s ease;
+}
+
+#calendar-view-prev:hover,
+#calendar-view-next:hover {
+    background-color: var(--ui-hover-accent);
+}
+
+.calendar-view-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    /* Match cell borders; avoids a harsh pure-black line under the month row */
+    border: 0.2vh solid var(--ui-border-muted);
+}
+
+.calendar-view-header-row,
+.calendar-view-week-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+}
+
+.calendar-view-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1vh;
+    color: var(--ui-text-muted);
+    background-color: var(--ui-elevated-bg);
+    border: 0.1vh solid var(--ui-border-muted);
+    border-radius: 0;
+}
+
+.calendar-view-day-name {
+    aspect-ratio: auto;
+    min-height: auto;
+    height: 2.5vh;
+    font-size: 1.2vh;
+    font-weight: bold;
+    background-color: var(--ui-accent-bg);
+}
+
+.calendar-view-day {
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 0.85vh;
+    padding: 0.25vh;
+    flex-direction: column;
+}
+
+@media (min-width: 769px) {
+    .calendar-view-day {
+        cursor: pointer;
+    }
+}
+
+.calendar-view-day-today {
+    outline: 0.2vh solid rgba(255, 200, 100, 0.9);
+    outline-offset: -0.2vh;
+    z-index: 1;
+}
+
+.calendar-view-day-num {
+    font-size: 0.9vh;
+    flex-shrink: 0;
+}
+
+.calendar-view-system-value {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    white-space: pre-line;
+    font-size: 1vh;
+}
+
+.calendar-view-empty {
+    color: rgb(80, 80, 80);
+    background-color: var(--ui-deep-accent-bg);
+}
+
+.calendar-astronomy-icons {
+    position: absolute;
+    bottom: 0.2vh;
+    right: 0.2vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1vh;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.calendar-astronomy-icon {
+    font-size: 1.5vh;
+    line-height: 1;
+}
+
+.calendar-custom-tooltip {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0.6vh 1vh;
+    background: rgb(35, 35, 35);
+    color: var(--ui-text-muted);
+    font-size: 1.3vh;
+    white-space: pre-line;
+    border: 0.1vh solid var(--ui-border);
+    border-radius: 0.3vh;
+    pointer-events: none;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: none;
+}
+
+.calendar-custom-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+}

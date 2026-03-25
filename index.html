@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library of Time</title>
+    <link rel="stylesheet" href="styles/ui-tokens.css">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/layout.css">
     <link rel="stylesheet" href="styles/containers.css">
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="styles/descriptionPanel.css">
     <link rel="stylesheet" href="styles/tables.css">
     <link rel="stylesheet" href="styles/modals.css">
+    <link rel="stylesheet" href="styles/calendarView.css">
     <link rel="stylesheet" href="styles/responsive.css">
     <!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="32x32" href="Content/favicon.png">
@@ -23,10 +25,20 @@
 </head>
 <body>
     <div class="page-wrapper">
-        <button id="title-button" class="invisible-title-button"></button>
-        <div class="title-wrapper">
-            <label class="page-name" id="page-title">Library of Time</label>
-        </div>
+        <header class="site-header">
+            <div class="header-left">
+                <button id="on-making-LoT-button" type="button">On Making the LoT</button>
+                <button id="glossary-button" type="button">Glossary</button>
+            </div>
+            <div class="site-header-title">
+                <button id="title-button" type="button" class="invisible-title-button" aria-label="Home"></button>
+                <label class="page-name" id="page-title">Library of Time</label>
+            </div>
+            <div class="header-right">
+                <button id="calendar-view-button" type="button">Calendar View</button>
+                <button id="floating-panel-toggle-button" type="button">Show/Hide Panel</button>
+            </div>
+        </header>
         <!-- Dropdown Menu HTML -->
         <div id="node-menu" class="node-menu" style="display: none;">
             <ul>
@@ -37,70 +49,27 @@
             </ul>
         </div>
 
-        <div class="node-wrapper">
-            <div class="solar-calendars container">
-                <label class="container-name">Solar Calendars</label>
-            </div>
-            <div class="computing-time container">
-                <label class="container-name">Computing Time</label>
-            </div>
-            <div class="other-calendars container">
-                <label class="container-name">Other Calendars</label>
-            </div>
-            <div class="standard-time container">
-                <label class="container-name">Standard Time</label>
-            </div>
-            <div class="astronomical-data container">
-                <label class="container-name">Astronomical Data</label>
-            </div>
-            <div class="lunisolar-calendars container">
-                <label class="container-name">Lunisolar Calendars</label>
-            </div>
-            <div class="lunar-calendars container">
-                <label class="container-name">Lunar Calendars</label>
-            </div>
-            <div class="solilunar-calendars container">
-                <label class="container-name">Solilunar Calendars</label>
-            </div>
-            <div class="proposed-calendars container">
-                <label class="container-name">Proposed Calendars</label>
-            </div>
-            <div class="decimal-time container">
-                <label class="container-name">Decimal Time</label>
-            </div>
-            <div class="other-time container">
-                <label class="container-name">Other Time</label>
-            </div>
-            <div class="pop-culture container">
-                <label class="container-name">Pop Culture</label>
-            </div>
-            <div class="politics container">
-                <label class="container-name">Political Cycles</label>
-            </div>
-            
-        </div>
-        <div class="top-buttons-wrapper">
-            <div class="left-buttons">
-                <button id="on-making-LoT-button">On Making the LoT</button>
-                <button id="glossary-button">Glossary</button>
-            </div>
-            <div class="right-buttons">
-                <button id="calendar-view-button">Calendar View</button>
-                <button id="floating-panel-toggle-button">Show/Hide Panel</button>
-            </div>
-        </div>
-        <div class="description-wrapper">
-            <div class="input-box-wrapper">
+        <div class="site-right-column">
+            <div class="input-box-wrapper" data-ui="date-selector">
                 <div class="input-main-row">
-                    <select id="calendar-type">
-                        <option value="GREGORIAN">Gregorian (Proleptic)</option>
-                        <option value="JULIAN">Julian (Liturgical)</option>
-                        <option value="ASTRONOMICAL">Astronomical</option>
-                    </select>
-                    <select id="timezone"></select>
-                    <input type="text" id="date-input" placeholder="yyyy-mm-dd, hh:mm:ss">
-                    <button class='date-picker-button' id='change-date-button'><b><span class="date-picker-icon">↩</span></b></button>
-                    <button class='date-picker-button' id='reset-date-button'><b><span class="date-picker-icon">⟲</span></b></button>
+                    <div class="input-row input-row-pickers">
+                        <select id="calendar-type">
+                            <option value="GREGORIAN">Gregorian (Proleptic)</option>
+                            <option value="JULIAN">Julian (Liturgical)</option>
+                            <option value="ASTRONOMICAL">Astronomical</option>
+                        </select>
+                        <select id="timezone"></select>
+                    </div>
+                    <div class="input-row input-row-datetime">
+                        <div class="datetime-split-fields" role="group" aria-label="Date and time">
+                            <input type="text" id="date-input-date" placeholder="yyyy-mm-dd" aria-label="Date">
+                            <input type="text" id="date-input-time" placeholder="hh:mm:ss" aria-label="Time">
+                        </div>
+                        <div class="date-picker-actions">
+                            <button class='date-picker-button' id='change-date-button' type="button" aria-label="Apply date"><b><span class="date-picker-icon">↩</span></b></button>
+                            <button class='date-picker-button' id='reset-date-button' type="button" aria-label="Reset date"><b><span class="date-picker-icon">⟲</span></b></button>
+                        </div>
+                    </div>
                 </div>
                 <div class="input-step-controls">
                     <div class="step-group">
@@ -147,46 +116,99 @@
                     </div>
                 </div>
             </div>
-            <div class="description-button-wrapper">
-                <button class="header-button" id='header-button-1'><b>About</b></button>
-                <button class="header-button" id='header-button-2'><b>Mission</b></button>
-                <button class="header-button" id='header-button-3'><b>Accuracy</b></button>
-                <button class="header-button" id='header-button-4'><b>Sources</b></button>
+            <div class="description-wrapper">
+                <div class="description-button-wrapper" data-ui="description-tabs">
+                    <button class="header-button" id='header-button-1'><b>About</b></button>
+                    <button class="header-button" id='header-button-2'><b>Mission</b></button>
+                    <button class="header-button" id='header-button-3'><b>Accuracy</b></button>
+                    <button class="header-button" id='header-button-4'><b>Sources</b></button>
+                </div>
+                <div class="description-body" id="description-body" role="region" aria-label="Description"></div>
+                <button class="home-button desktop-home-button" id='desktop-home-button'>Home</button>
+                <div class="mobile-description-actions" role="group" aria-label="Description panel actions">
+                    <button type="button" id="mobile-description-clear" class="mobile-description-actions-btn">Clear</button>
+                    <button type="button" id="mobile-description-hide" class="mobile-description-actions-btn">Dismiss</button>
+                </div>
             </div>
-            <button class="home-button desktop-home-button" id='desktop-home-button'><b>Home</b></button>
+        </div>
+
+        <div class="node-wrapper">
+            <div class="solar-calendars container">
+                <label class="container-name">Solar Calendars</label>
+            </div>
+            <div class="computing-time container">
+                <label class="container-name">Computing Time</label>
+            </div>
+            <div class="other-calendars container">
+                <label class="container-name">Other Calendars</label>
+            </div>
+            <div class="standard-time container">
+                <label class="container-name">Standard Time</label>
+            </div>
+            <div class="astronomical-data container">
+                <label class="container-name">Astronomical Data</label>
+            </div>
+            <div class="lunisolar-calendars container">
+                <label class="container-name">Lunisolar Calendars</label>
+            </div>
+            <div class="lunar-calendars container">
+                <label class="container-name">Lunar Calendars</label>
+            </div>
+            <div class="solilunar-calendars container">
+                <label class="container-name">Solilunar Calendars</label>
+            </div>
+            <div class="proposed-calendars container">
+                <label class="container-name">Proposed Calendars</label>
+            </div>
+            <div class="decimal-time container">
+                <label class="container-name">Decimal Time</label>
+            </div>
+            <div class="other-time container">
+                <label class="container-name">Other Time</label>
+            </div>
+            <div class="pop-culture container">
+                <label class="container-name">Pop Culture</label>
+            </div>
+            <div class="politics container">
+                <label class="container-name">Political Cycles</label>
+            </div>
+            
         </div>
 
         <div id="floating-panel">
+            <div class="floating-panel-header" id="floating-panel-header">
+                <button type="button" class="floating-panel-close" id="floating-panel-close" aria-label="Close panel">&times;</button>
+            </div>
             <div id="floating-box-node-container">
                 <div class="panel-section">
-                    <div class="section-header">Panel Item 1</div>
                     <div class="section-controls">
-                        <button class="add-node-button">Add</button>
-                        <button class="remove-node-button">Remove</button>
+                        <button type="button" class="add-node-button">Add</button>
+                        <button type="button" class="remove-node-button">Remove</button>
+                        <button type="button" class="select-node-button" title="Select this node" aria-label="Select this node" disabled>◎</button>
                     </div>
                     <div class="grid-item grid-item1"></div>
                 </div>
                 <div class="panel-section">
-                    <div class="section-header">Panel Item 2</div>
                     <div class="section-controls">
-                        <button class="add-node-button">Add</button>
-                        <button class="remove-node-button">Remove</button>
+                        <button type="button" class="add-node-button">Add</button>
+                        <button type="button" class="remove-node-button">Remove</button>
+                        <button type="button" class="select-node-button" title="Select this node" aria-label="Select this node" disabled>◎</button>
                     </div>
                     <div class="grid-item grid-item2"></div>
                 </div>
                 <div class="panel-section">
-                    <div class="section-header">Panel Item 3</div>
                     <div class="section-controls">
-                        <button class="add-node-button">Add</button>
-                        <button class="remove-node-button">Remove</button>
+                        <button type="button" class="add-node-button">Add</button>
+                        <button type="button" class="remove-node-button">Remove</button>
+                        <button type="button" class="select-node-button" title="Select this node" aria-label="Select this node" disabled>◎</button>
                     </div>
                     <div class="grid-item grid-item3"></div>
                 </div>
                 <div class="panel-section">
-                    <div class="section-header">Panel Item 4</div>
                     <div class="section-controls">
-                        <button class="add-node-button">Add</button>
-                        <button class="remove-node-button">Remove</button>
+                        <button type="button" class="add-node-button">Add</button>
+                        <button type="button" class="remove-node-button">Remove</button>
+                        <button type="button" class="select-node-button" title="Select this node" aria-label="Select this node" disabled>◎</button>
                     </div>
                     <div class="grid-item grid-item4"></div>
                 </div>
@@ -195,40 +217,67 @@
         <div class="expand-description-button-wrapper">
             <button id="expand-description-button">Expand</button>
         </div>
+
+        <div id="mobile-sheet-backdrop" class="mobile-sheet-backdrop" hidden aria-hidden="true"></div>
+        <nav class="mobile-toolbar" id="mobile-toolbar" aria-label="Site tools">
+            <button type="button" id="mobile-tool-description" class="mobile-tool-btn">Description</button>
+            <button type="button" id="mobile-tool-calendar" class="mobile-tool-btn">Calendar</button>
+            <button type="button" id="mobile-tool-panel" class="mobile-tool-btn">Panel</button>
+            <button type="button" id="mobile-tool-info" class="mobile-tool-btn">Info</button>
+        </nav>
+        <div id="mobile-info-sheet" class="mobile-info-sheet" hidden>
+            <div class="mobile-info-sheet-inner">
+                <button type="button" id="mobile-info-glossary" class="mobile-info-action">Glossary</button>
+                <button type="button" id="mobile-info-making" class="mobile-info-action">On Making the LoT</button>
+                <button type="button" id="mobile-info-close" class="mobile-info-close">Close</button>
+            </div>
+        </div>
         
         <!-- Modal for On Making the LoT -->
         <div id="on-making-lot-modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2 id="modal-title"></h2>
-                <div id="modal-text" class="modal-text">
+            <div class="modal-content modal-content--scroll-body">
+                <div class="modal-panel-header">
+                    <h2 id="modal-title" class="modal-panel-title"></h2>
+                    <button type="button" class="floating-panel-close" id="on-making-modal-close" aria-label="Close">&times;</button>
                 </div>
-                <button id="modal-close-button" class="modal-close-button">Close</button>
+                <div class="modal-body-scroll">
+                    <div id="modal-text" class="modal-text"></div>
+                    <button id="modal-close-button" class="modal-close-button">Close</button>
+                </div>
             </div>
         </div>
 
         <!-- Modal for Calendar View -->
         <div id="calendar-view-modal" class="modal">
-            <div class="modal-content calendar-view-modal-content">
-                <div class="calendar-view-nav">
-                    <button id="calendar-view-prev" type="button" aria-label="Previous month">‹</button>
-                    <h2 id="calendar-view-title">Month Year</h2>
-                    <button id="calendar-view-next" type="button" aria-label="Next month">›</button>
+            <div class="modal-content modal-content--scroll-body calendar-view-modal-content">
+                <div class="modal-panel-header calendar-view-top-bar">
+                    <button type="button" class="floating-panel-close" id="calendar-view-modal-close" aria-label="Close">&times;</button>
                 </div>
-                <div id="calendar-view-grid" class="calendar-view-grid"></div>
-                <div id="calendar-tooltip" class="calendar-custom-tooltip" role="tooltip"></div>
-                <button id="calendar-view-close-button" class="modal-close-button" type="button">Close</button>
+                <div class="calendar-view-nav-bar">
+                    <div class="calendar-view-nav">
+                        <button id="calendar-view-prev" type="button" aria-label="Previous month">‹</button>
+                        <h2 id="calendar-view-title" class="calendar-view-month-title">Month Year</h2>
+                        <button id="calendar-view-next" type="button" aria-label="Next month">›</button>
+                    </div>
+                </div>
+                <div class="modal-body-scroll calendar-view-body-scroll">
+                    <div id="calendar-view-grid" class="calendar-view-grid"></div>
+                    <div id="calendar-tooltip" class="calendar-custom-tooltip" role="tooltip"></div>
+                </div>
             </div>
         </div>
 
         <!-- Modal for Glossary -->
         <div id="glossary-modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Glossary of Terms</h2>
-                <div id="glossary-text" class="modal-text">
+            <div class="modal-content modal-content--scroll-body">
+                <div class="modal-panel-header">
+                    <h2 class="modal-panel-title">Glossary of Terms</h2>
+                    <button type="button" class="floating-panel-close" id="glossary-modal-close" aria-label="Close">&times;</button>
                 </div>
-                <button id="glossary-close-button" class="modal-close-button">Close</button>
+                <div class="modal-body-scroll">
+                    <div id="glossary-text" class="modal-text"></div>
+                    <button id="glossary-close-button" class="modal-close-button">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -270,6 +319,7 @@
     <script src="Tests/runTests.js"></script>
     <script src="Tests/runCalendarDevTests.js"></script>
     <script src="script.js"></script>
+    <script src="UserInterface/mobileToolbar.js"></script>
     <script src="masonry.pkgd.min.js"></script>
 </body>
 </html>

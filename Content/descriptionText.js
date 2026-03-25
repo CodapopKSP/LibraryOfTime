@@ -1,6 +1,6 @@
 const welcomeDescription = [
     {
-        about: `Welcome to the Library of Time!\n<i>Created by CodapopKSP.</i>\n\nClick a calendar or clock for more info. You may input a date and time above using numerals and commas. Make sure they follow the correct format:\n\n<table><tr><th>Year-Month-Day, Hour:Minute:Second</th></tr><tr><td><i>Example: 2024-04-08, 18:20:46\n(April 8th, 2024 at 18:20:46 UTC)</i></td></tr><table>\nTo restart the current time ticker, click the reset (⟲) button.\n\nIf you have any other interesting ideas or ways to tell time in recurring cycles, please let me know!\n\nYou may access the source code of this website <a href="https://github.com/CodapopKSP/LibraryOfTime">here</a>. Feel free to contact me on <a href="https://github.com/CodapopKSP">GitHub</a> or on <a href="https://old.reddit.com/user/CodapopKSP/">Reddit</a> for any questions, ideas, or offers of help. You can also join the <a href="https://discord.gg/AWjSachwPU">Discord channel</a> for this project. You can also email me at  <a href="mailto:untitledspacecraft.controllers@gmail.com">untitledspacecraft.controllers@gmail.com</a>.\n\nIn particular, I need help with:\n<ul><li>Fixing the CSS or making a new UI entirely</li><li>Adding more calendars</li><li>Improving astronomical calculations</li><li>Providing historical insights, especially for Aztec, Roman, Vietnamese, Chinese, Indian, and Japanese calendars</li></ul>`,
+        about: `Welcome to the Library of Time!\n<i>Created by CodapopKSP.</i>\n\nClick a calendar or clock for more info. You may input a date and time above using numerals and commas. Make sure they follow the correct format:\n\n<table><tr><th>[Year-Month-Day] [Hour:Minute:Second]</th></tr><tr><td><i>Example: 2024-04-08 | 18:20:46\n(8 April 2024 CE at 18:20:46)</i></td></tr><table>\nTo restart the current time ticker, click the reset (⟲) button.\n\nIf you have any other interesting ideas or ways to tell time in recurring cycles, please let me know!\n\nYou may access the source code of this website <a href="https://github.com/CodapopKSP/LibraryOfTime">here</a>. Feel free to contact me on <a href="https://github.com/CodapopKSP">GitHub</a> or on <a href="https://old.reddit.com/user/CodapopKSP/">Reddit</a> for any questions, ideas, or offers of help. You can also join the <a href="https://discord.gg/AWjSachwPU">Discord channel</a> for this project. You can also email me at  <a href="mailto:untitledspacecraft.controllers@gmail.com">untitledspacecraft.controllers@gmail.com</a>.\n\nIn particular, I need help with:\n<ul><li>Fixing the CSS or making a new UI entirely</li><li>Adding more calendars</li><li>Improving astronomical calculations</li><li>Providing historical insights, especially for Aztec, Roman, Vietnamese, Chinese, Indian, and Japanese calendars</li></ul>`,
 
         mission: 'After seeing the total solar eclipse of 8th April 2024 CE, I became interested in the fantastic ability of the math and astronomy used to calculate its time and location. I considered how such an event might have appeared to people in ancient times; they apparently found it as incredible as I did, because through my reading I was fascinated to hear that many ancient calendars were calibrated to modern calendars by the writings of eclipses by ancient peoples.\n\nThe mission of this website is to create a collection of every calendar with a verifiable date at a specific point in time, as well as other methods of timekeeping. It is to be a celebration of time as counted by humans from all walks of life, displaying all of the unique ways different people chose to satisfy one of humanity\'s earliest and most universal curiosities.\n\nAlso included in this mission is the calculation of celestial phenomena, just as those who calculated the dates and times of the eclipse allowed me to know in advance of the event that would inspire me.\n\nCurrently my goal is to build this page and its calculations with simple HTML and JavaScript, utilizing few or no external libraries nor APIs and making it easy to duplicate and run locally. In the future I may add an API so that others may tap into the data here for their own projects.',
 
@@ -13,13 +13,13 @@ const welcomeDescription = [
 const confidenceDescription = [
   {
     confidenceNote: `
-      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+      <div style="font-family: var(--ui-font-body); font-size: 14px; line-height: 1.5;">
         <b>Note:</b> Confidence levels apply within the rated range of each calendar (e.g., positive years since the epoch, or times when the algorithm is valid).<br><br>
         They refer to how these <i>algorithms</i> are used on this site, not to the certainty of historical facts. Disagreements among historians are noted in the <i>Accuracy</i> tab.
       </div>
     `,
     confidenceExact: `
-      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+      <div style="font-family: var(--ui-font-body); font-size: 14px; line-height: 1.5;">
         <b style="color:#FFD700;">Exact</b><span> - Any of the following:</span>
         <ul>
           <li>Explicitly tied to the Gregorian Calendar or Unix time</li>
@@ -28,7 +28,7 @@ const confidenceDescription = [
       </div>
     `,
     confidenceHigh: `
-      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+      <div style="font-family: var(--ui-font-body); font-size: 14px; line-height: 1.5;">
         <b style="color:#4CAF50;">High</b><span> - Any of the following will reduce from Exact:</span>
         <ul>
           <li>Relies on another calculation with a High confidence level</li>
@@ -38,7 +38,7 @@ const confidenceDescription = [
       </div>
     `,
     confidenceMedium: `
-      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+      <div style="font-family: var(--ui-font-body); font-size: 14px; line-height: 1.5;">
         <b style="color:#FF9800;">Medium</b><span> - Any of the following will reduce from Exact:</span>
         <ul>
           <li>Relies on another calculation with a Medium confidence level</li>
@@ -48,7 +48,7 @@ const confidenceDescription = [
       </div>
     `,
     confidenceLow: `
-      <div style="font-family: sans-serif; font-size: 14px; line-height: 1.5;">
+      <div style="font-family: var(--ui-font-body); font-size: 14px; line-height: 1.5;">
         <b style="color:#F44336;">Low</b><span> - Any of the following will reduce from Exact:</span>
         <ul>
           <li>Relies on another calculation with a Low confidence level</li>

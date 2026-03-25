@@ -25,38 +25,76 @@
     height: 10vh;
 }
 
-.title-wrapper {
+/* Title + top nav in one row (grid keeps title visually centered) */
+.site-header {
     position: absolute;
-    width: 99vw;
-    font-size: 4vh;
-    color: #cbcbcb;
-    display: flex;
-    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-height: var(--layout-site-header-height);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    height: 5vh;
-    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-    z-index: 10;
+    gap: 0.5vh;
+    padding: 0 1vh;
+    font-size: 4vh;
+    color: var(--ui-text-muted);
+    font-family: var(--ui-font-heading);
+    z-index: 1000;
     background-color: rgb(47, 47, 47);
+    border-bottom: 0.2vh solid var(--ui-text-muted);
     overflow: hidden;
 }
 
-.mac-chrome-only .title-wrapper {
+.mac-chrome-only .site-header {
     font-size: 5vh;
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5vh;
+    min-width: 0;
+}
+
+.header-left {
+    justify-self: start;
+    justify-content: flex-start;
+}
+
+.header-right {
+    justify-self: end;
+    justify-content: flex-end;
+}
+
+.site-header-title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    align-self: stretch;
+    min-width: 0;
+    padding: 0 0.5vh;
 }
 
 .invisible-title-button {
     position: absolute;
-    top: 0vh;
     left: 50%;
+    top: 0;
+    bottom: 0;
     transform: translateX(-50%);
-    width: auto;
+    width: min(52vw, 28rem);
     height: auto;
-    min-width: 50vw;
-    min-height: 5vh;
+    min-height: 4vh;
     background: transparent;
     border: none;
     cursor: pointer;
-    z-index: 10000;
+    z-index: 2;
 }
 
 .invisible-title-button:hover {
@@ -65,38 +103,75 @@
 }
 
 #page-title {
+    position: relative;
+    z-index: 1;
     cursor: pointer;
     transition: color 0.2s ease;
+    /* Was min(..., 2rem), which capped the title at ~32px on most desktops */
+    font-size: clamp(1.75rem, 4.5vh + 1vw, 3.5rem);
+    text-align: center;
 }
 
-.title-wrapper:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50%;
-    height: 0.3vh;
-    background-color: #cbcbcb;
+.mac-chrome-only #page-title {
+    font-size: clamp(1.85rem, 5vh + 1vw, 3.75rem);
 }
 
-.description-wrapper {
+/* Right column: date strip + description panel (desktop); mobile uses display:contents in responsive.css */
+.site-right-column {
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 33vw;
-    height: 90vh;
-    top: 4vh;
+    justify-content: flex-start;
+    align-items: stretch;
+    box-sizing: border-box;
+    width: var(--layout-description-panel-width);
+    height: var(--layout-description-panel-height);
+    top: var(--layout-description-panel-top);
     right: 0;
     margin: 4vh;
-    margin-right: 3vh;
-    margin-left: 2vh;
+    margin-right: var(--layout-description-panel-margin-inline-end);
+    margin-left: var(--layout-description-panel-margin-inline-start);
     margin-bottom: 0;
-    background-color: rgb(55, 55, 55);
-    border: 0.2vh solid #000000;
+    background-color: var(--ui-elevated-bg);
+    border: 0.2vh solid var(--ui-border);
     overflow: hidden;
+}
+
+.site-right-column > .input-box-wrapper,
+.description-wrapper > .description-button-wrapper {
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+.site-right-column .description-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    overflow: hidden;
+}
+
+.description-body {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Full-width rule above the Home button (compact); toggled when a calendar node is open.
+   Use 0.2vh to match .description-wrapper border; 0.3vh looked heavy next to the panel edge. */
+#description-body.has-home-footer {
+    border-bottom: 0.2vh solid var(--ui-border);
 }
 
 .node-wrapper {
@@ -105,7 +180,7 @@
     justify-content: center;
     align-items: center;
     max-width: 63vw;
-    top: 6vh;
+    top: var(--layout-site-header-height);
     left: 1vh;
     margin: 2vh 0 0 2vh;
     grid-template-columns: repeat(auto-fill, minmax(0, 1fr));

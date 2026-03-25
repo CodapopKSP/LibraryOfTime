@@ -5,24 +5,61 @@
 */
 
 .input-box-wrapper {
-    position: absolute;
-    border-bottom: 0.3vh solid #1f1f1f;
-    top: 0;
-    width: 33vw;
+    position: relative;
+    box-sizing: border-box;
+    border-bottom: var(--layout-description-input-border);
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: top;
-    height: 6.5vh;
+    justify-content: flex-start;
+    min-height: 7.3vh;
 }
 
 .input-main-row {
     width: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    height: 4vh;
+    gap: 0.5vh;
+    min-height: 4vh;
+}
+
+.input-row-pickers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 0 1 auto;
+    gap: 0.5vh;
+}
+
+.input-row-datetime {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* Size to the field + buttons; do not stretch across the whole date strip */
+    flex: 0 1 auto;
+    min-width: 0;
+    gap: 0.4vh;
+}
+
+.datetime-split-fields {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 0 1 auto;
+    min-width: 0;
+    gap: 0.45vh;
+}
+
+.date-picker-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 0.2vh;
 }
 
 .input-step-controls {
@@ -42,9 +79,11 @@
 }
 
 .step-label {
-    color: #afafaf;
+    color: var(--ui-text-muted);
     min-width: 2vh;
     text-align: right;
+    font-family: var(--ui-font-heading);
+    font-size: 1.2vh;
 }
 
 .step-arrows {
@@ -57,27 +96,39 @@
     width: 2vh;
     font-size: 0.7vh;
     line-height: 1;
-    color: #afafaf;
-    background-color: #2b2b2b;
-    border: 0.15vh solid #443c3c;
+    color: var(--ui-text-muted);
+    background-color: var(--ui-accent-bg);
+    border: 0.15vh solid var(--ui-border-warm);
     border-radius: 0.3vh;
     cursor: pointer;
 }
 
-#date-input {
-    width: 15vw;
-    height: 2vh;
+#date-input-date,
+#date-input-time {
+    flex: 0 1 auto;
+    min-width: 0;
+    height: 2.2vh;
     background-color: #c0c0c0;
     color: #000000;
-    border-color: #000000;
-    font-size: 1.2vh;
-    margin-left: 1vh;
-    margin-right: 0.4vh;
+    border-color: var(--ui-border);
+    font-size: 1.3vh;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.mac-chrome-only #date-input {
+#date-input-date {
+    width: 12ch;
+    max-width: 55%;
+}
+
+#date-input-time {
+    width: 10ch;
+    max-width: 45%;
+}
+
+.mac-chrome-only #date-input-date,
+.mac-chrome-only #date-input-time {
     font-size: 2vh;
-    width: 22vh;
 }
 
 .date-picker-button {
@@ -85,9 +136,9 @@
     width: 2vw;
     font-size: 1.2vh;
     margin: 0.2vh;
-    color: #afafaf;
-    background-color: #2b2b2b;
-    border-color: #443c3c;
+    color: var(--ui-text-muted);
+    background-color: var(--ui-accent-bg);
+    border-color: var(--ui-border-warm);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,13 +148,13 @@
 }
 
 .mac-chrome-only .date-picker-button {
-    font-size: 1.8vh;
+    font-size: 1vh;
     width: 5vh;
 }
 
 .date-picker-icon {
-    font-size: 24px;
-    background: #2b2b2b;
+    font-size: 20px;
+    background: var(--ui-accent-bg);
 }
 
 .mac-chrome-only .date-picker-icon {
@@ -112,25 +163,26 @@
 
 #calendar-type {
     height: 2.5vh;
-    width: 5vw;
+    width: 8vw;
     font-size: 1.2vh;
-    color: #afafaf;
-    background-color: #2b2b2b;
-    border-color: #443c3c;
-    margin: 1vh;
+    color: var(--ui-text-muted);
+    background-color: var(--ui-accent-bg);
+    border-color: var(--ui-border-warm);
+    margin: 0;
+    box-sizing: border-box;
 }
 
 #timezone {
     height: 2.5vh;
-    width: 5vw;
+    width: 6vw;
     font-size: 1.2vh;
-    color: #afafaf;
-    background-color: #2b2b2b;
-    border-color: #443c3c;
+    color: var(--ui-text-muted);
+    background-color: var(--ui-accent-bg);
+    border-color: var(--ui-border-warm);
 }
 
 .mac-chrome-only #timezone,
 .mac-chrome-only #calendar-type {
     font-size: 2vh;
-    width: 11vh;
+    width: 8vh;
 }

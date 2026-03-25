@@ -23,9 +23,10 @@ function handleNodeClick(content, item) {
     // Build the description format
     const descriptionTypes = ['overview', 'info', 'accuracy', 'source'];
     const descriptions = descriptionTypes.map(type => createNodeDescription(item, type));
-    const descriptionWrapper = document.querySelector('.description-wrapper');
+    const descriptionBody = document.getElementById('description-body');
+    descriptionBody.classList.add('has-home-footer');
     descriptions.forEach(description => {
-        descriptionWrapper.appendChild(description);
+        descriptionBody.appendChild(description);
     });
     setCurrentDescriptionTab(descriptions);
     updateHeaderTabTitles(['Overview', 'Info', 'Accuracy', 'Source']);
@@ -38,10 +39,14 @@ function handleNodeClick(content, item) {
     selectedNodeData = item; // Store the JavaScript object
 
     // Show home button
-    document.getElementById('desktop-home-button').style.visibility = 'visible';
+    document.getElementById('desktop-home-button').classList.add('home-button-visible');
 
     // Show the first description by default
     changeActiveHeaderTab('header-button-1', 0);
+
+    if (typeof window.openMobileDescriptionSheet === 'function') {
+        window.openMobileDescriptionSheet();
+    }
 }
 
 function createNode(item, parentElements) {
@@ -98,7 +103,7 @@ function createNode_(item) {
     // Add right-click event for custom dropdown menu (prevent selection)
     node.addEventListener('contextmenu', (event) => {
         // Check if we're on mobile (portrait orientation and small screen)
-        if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
+        if (window.innerWidth <= 1024 && window.innerHeight > window.innerWidth) {
             event.preventDefault(); // Prevent default context menu on mobile
             return; // Don't show custom menu on mobile
         }

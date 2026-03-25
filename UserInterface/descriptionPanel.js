@@ -10,6 +10,19 @@
 document.getElementById('desktop-home-button').addEventListener('click', homeButton);
 document.getElementById('title-button').addEventListener('click', homeButton);
 
+const mobileDescriptionClear = document.getElementById('mobile-description-clear');
+const mobileDescriptionHide = document.getElementById('mobile-description-hide');
+if (mobileDescriptionClear) {
+    mobileDescriptionClear.addEventListener('click', homeButton);
+}
+if (mobileDescriptionHide) {
+    mobileDescriptionHide.addEventListener('click', function () {
+        if (typeof window.closeMobileDescriptionSheet === 'function') {
+            window.closeMobileDescriptionSheet();
+        }
+    });
+}
+
 // Attach event listeners to all header buttons
 document.getElementById('header-button-1').addEventListener('click', () => changeActiveHeaderTab('header-button-1', 0));
 document.getElementById('header-button-2').addEventListener('click', () => changeActiveHeaderTab('header-button-2', 1));
@@ -397,6 +410,10 @@ function handleEpochClick(epoch) {
     const datePicked = formatDateTime(epoch_);
     setDatePickerTimezone(timePicked);
     changeDateTime(datePicked, timePicked);
+
+    if (typeof window.closeMobileDescriptionSheet === 'function') {
+        window.closeMobileDescriptionSheet();
+    }
 }
 
 
@@ -471,7 +488,7 @@ function createConfidenceElement(item) {
             <tr><th><b>Confidence: ${item.confidence}</b></th></tr>
         </table>
         <div class="tooltiptext">
-            <div style="font-family: sans-serif; font-weight: bold; font-size: 16px; margin-bottom: 8px;">
+            <div style="font-family: var(--ui-font-body); font-weight: bold; font-size: 16px; margin-bottom: 8px;">
                 Confidence Criteria
             </div>
             ${specificInfo}
@@ -503,11 +520,13 @@ function homeButton() {
     clearDescriptionPanel();
     clearSelectedNode();
     const desktopHomeButton = document.getElementById('desktop-home-button');
-    desktopHomeButton.style.visibility = 'hidden';
+    desktopHomeButton.classList.remove('home-button-visible');
 
     // Build the Home Description Panel
+    const descriptionBody = document.getElementById('description-body');
+    descriptionBody.classList.remove('has-home-footer');
     Object.values(homePageDescriptions).forEach(description => {
-        document.querySelector('.description-wrapper').appendChild(description);
+        descriptionBody.appendChild(description);
     });
     setCurrentDescriptionTab(Object.values(homePageDescriptions));
     updateHeaderTabTitles(['About','Mission','Accuracy','Sources']);
@@ -532,29 +551,25 @@ function clearDescriptionPanel() {
 let isDescriptionExpanded = false;
 const expandButton = document.getElementById('expand-description-button');
 const descriptionWrapper = document.querySelector('.description-wrapper');
-const nodeWrapper = document.querySelector('.node-wrapper');
+const pageWrapper = document.querySelector('.page-wrapper');
 
 // Initialize the collapsed state for iOS Safari compatibility
 if (descriptionWrapper) {
     descriptionWrapper.classList.add('collapsed');
 }
 
-if (expandButton) {
+if (expandButton && pageWrapper && descriptionWrapper) {
     expandButton.addEventListener('click', function() {
         isDescriptionExpanded = !isDescriptionExpanded;
         
         if (isDescriptionExpanded) {
-            descriptionWrapper.style.height = '80vh';
+            pageWrapper.classList.add('description-panel-expanded');
             descriptionWrapper.classList.remove('collapsed');
             expandButton.textContent = 'Collapse';
-            expandButton.style.top = '85vh';
-            nodeWrapper.style.top = '83vh';
         } else {
-            descriptionWrapper.style.height = '30vh';
+            pageWrapper.classList.remove('description-panel-expanded');
             descriptionWrapper.classList.add('collapsed');
             expandButton.textContent = 'Expand';
-            expandButton.style.top = '35vh';
-            nodeWrapper.style.top = '33vh';
         }
         
         // Update fade effects after height change

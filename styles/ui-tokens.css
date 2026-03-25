@@ -1,0 +1,67 @@
+/*
+|===================|
+|  UI layout tokens |
+|===================|
+
+  Shared custom properties for the description panel and related chrome.
+  Breakpoints override these in responsive.css; expand/collapse toggles
+  variables on .page-wrapper (see descriptionPanel.js).
+*/
+
+:root {
+    --layout-title-bar-height: 5vh;
+    /* Single top bar (title + nav buttons); used for positioning main content */
+    --layout-site-header-height: 6vh;
+    --layout-description-panel-width: 33vw;
+    --layout-description-panel-height: 90vh;
+    --layout-description-panel-top: 4vh;
+    --layout-description-panel-margin-inline-end: 3vh;
+    --layout-description-panel-margin-inline-start: 2vh;
+
+    /* Main grid node card width (floating panel cells match this exactly) */
+    --layout-node-width: 16vh;
+    /* Typical main-grid node height (label + ~2 lines in .content); taller nodes still grow the slot */
+    --layout-node-standard-height: 6vh;
+    /* Add/Remove row in floating panel (section-controls padding + button row) */
+    --layout-floating-panel-controls-height: 3.2vh;
+    --layout-floating-panel-item-min-height: calc(
+        var(--layout-floating-panel-controls-height) + var(--layout-node-standard-height)
+    );
+
+    /* Dark UI palette — inactive tabs, inputs, header buttons, node menu, etc. */
+    /*--ui-accent-bg: #2b2b2b;
+    --ui-elevated-bg: rgb(55, 55, 55);
+    --ui-border: #1b1b1b;
+    --ui-border-muted: #1f1f1f;
+    --ui-border-warm: #443c3c;
+    --ui-text-muted: #afafaf;
+    --ui-hover-accent: #303030;*/
+
+    --ui-deep-accent-bg: #1f1f1f;
+    --ui-accent-bg: #2b2b2b;
+    --ui-elevated-bg: #373737;
+    --ui-elevated-bg2: #4b4b4b;
+    --ui-border: #000000;
+    --ui-border-muted: #1f1f1f;
+    --ui-border-warm: #443c3c;
+    --ui-text-muted: #d3d3d3;
+    --ui-hover-accent: #303030;
+
+    --layout-description-input-border: 0.3vh solid var(--ui-border-muted);
+
+    /* Typography — site header & modal titles; default UI; node card body */
+    --ui-font-heading: Georgia, "Times New Roman", Times, serif;
+    --ui-font-node: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --ui-font-body: system-ui, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+    /* Scrollbars (see base.css) */
+    --ui-scrollbar-thumb: #6a6a6a;
+    --ui-scrollbar-thumb-hover: #888888;
+    --ui-scrollbar-track: #2c2c2c;
+}
+
+body.mac-chrome-only {
+    --layout-node-width: 19vh;
+    --layout-node-standard-height: 8.5vh;
+    --layout-floating-panel-controls-height: 3.6vh;
+}

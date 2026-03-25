@@ -8,8 +8,8 @@
     column-count: 2;
     font-size: 1.3vh;
     text-align: center;
-    background-color: rgb(47, 47, 47);
-    border: 0.2vh solid black;
+    background-color: var(--ui-accent-bg);
+    border: 0.2vh solid var(--ui-border);
 }
 
 table {
@@ -50,13 +50,13 @@ table {
 }
 
 th, td {
-    border: 0.2vh solid black;
-    background-color: rgb(47, 47, 47);
+    border: 0.2vh solid var(--ui-border);
+    background-color: var(--ui-accent-bg);
     text-align: center;
 }
 
 .table-epoch th {
-    color: #c9b79a;
+    color: #bda47d;
 }
 
 .table-confidence th {

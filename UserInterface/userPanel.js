@@ -1,6 +1,8 @@
 
 const toggleButton = document.getElementById("floating-panel-toggle-button");
 const panel = document.getElementById("floating-panel");
+const panelHeader = document.getElementById("floating-panel-header");
+const panelClose = document.getElementById("floating-panel-close");
 
 let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
 
@@ -24,29 +26,48 @@ function stopDrag() {
     document.removeEventListener("mouseup", stopDrag);
 }
 
+function setFloatingPanelOpen(isOpen) {
+    if (!panel) {
+        return;
+    }
+    panel.style.display = isOpen ? "flex" : "none";
+    document.body.classList.toggle("floating-panel-open", isOpen);
+}
+
+function toggleFloatingPanelVisibility() {
+    if (!panel) {
+        return;
+    }
+    const isHidden = panel.style.display === "none" || panel.style.display === "";
+    setFloatingPanelOpen(isHidden);
+}
+
 function instantiateFloatingPanel() {
-    // Show/Hide the panel when the button is clicked
-    toggleButton.addEventListener("click", () => {
-        if (panel.style.display === "none" || panel.style.display === "") {
-        panel.style.display = "flex";
-        } else {
-        panel.style.display = "none";
-        }
+    if (toggleButton) {
+        toggleButton.addEventListener("click", toggleFloatingPanelVisibility);
+    }
+
+    panelClose.addEventListener("click", () => {
+        setFloatingPanelOpen(false);
     });
 
-    panel.addEventListener("mousedown", (e) => {
+    // Drag only from the header bar (not from grid buttons or the close control)
+    panelHeader.addEventListener("mousedown", (e) => {
+        if (e.target.closest("#floating-panel-close")) {
+            return;
+        }
         e.preventDefault();
-        
+
         // Get the mouse cursor position at startup
         mouseX = e.clientX;
         mouseY = e.clientY;
-        
-        // Call the function when the cursor moves
+
         document.addEventListener("mousemove", movePanel);
-        
-        // Stop moving when mouse button is released
         document.addEventListener("mouseup", stopDrag);
     });
+
+    window.toggleFloatingPanelVisibility = toggleFloatingPanelVisibility;
+    window.setFloatingPanelOpen = setFloatingPanelOpen;
 }
 
 // Function to redraw everything inside grid-item
@@ -86,6 +107,10 @@ function nodePlace(item, grid) {
         if (grandparentElement) {
             const grandparentClasses = Array.from(grandparentElement.classList);
             grandparentClasses.forEach(className => {
+                // Main grid uses .container for card chrome; that breaks panel layout and .content borders
+                if (className === 'container') {
+                    return;
+                }
                 gridItem.classList.add(className);
             });
         }
@@ -93,6 +118,10 @@ function nodePlace(item, grid) {
         gridItem.appendChild(clonedParent);
     } else {
         console.error(`Element with id ${item.id}-node not found.`);
+    }
+
+    if (typeof updateFloatingPanelSlotControls === 'function') {
+        updateFloatingPanelSlotControls(gridItem.closest('.panel-section'));
     }
 }
 

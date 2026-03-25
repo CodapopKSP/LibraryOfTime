@@ -5,143 +5,207 @@
 */
 
 #floating-panel {
-    min-height: 20vh;
-    width: 37vh;
-    background-color: rgb(75, 75, 75);
-    border: 0.2vh solid #000000;
+    width: calc(2 * var(--layout-node-width) + 0.5vh + 2 * 0.5vh);
+    background-color: var(--ui-elevated-bg2);
+    border: 0.2vh solid var(--ui-border);
     border-radius: 0.7vh;
     position: absolute;
     top: 20vh;
     left: 50vh;
-    cursor: move;
+    cursor: default;
     z-index: 10;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: none;
-    overflow: visible;
+    overflow: hidden;
     flex-direction: column;
     justify-content: flex-start;
+    box-sizing: border-box;
 }
 
-.mac-chrome-only #floating-panel {
-    width: 43.6vh;
+.floating-panel-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0.25vh 0.4vh;
+    min-height: 2.6vh;
+    box-sizing: border-box;
+    background-color: var(--ui-accent-bg);
+    border-bottom: 1px solid var(--ui-border);
+    cursor: move;
 }
 
+.mac-chrome-only .floating-panel-header {
+    min-height: 3.2vh;
+    padding: 0.35vh 0.5vh;
+}
+
+.floating-panel-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.2vh;
+    min-height: 2.2vh;
+    padding: 0 0.2vh;
+    margin: 0;
+    border: none;
+    background: transparent;
+    color: var(--ui-text-muted);
+    font-size: 1.9vh;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 0.25vh;
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.mac-chrome-only .floating-panel-close {
+    font-size: 2.4vh;
+    min-width: 2.8vh;
+    min-height: 2.8vh;
+}
+
+.floating-panel-close:hover {
+    color: var(--ui-text-muted);
+    background-color: rgb(60, 60, 60);
+}
+
+/* 2×2: row height = tallest cell in that row; cells stretch to match (default grid align-items: stretch) */
 #floating-box-node-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, var(--layout-node-width));
     gap: 0.5vh;
-    padding: 0.5vh;
-    min-height: 100%;
-    align-items: start;
+    padding: 0.5vh 0;
+    width: 100%;
+    flex: 0 0 auto;
+    justify-items: stretch;
+    justify-content: center;
+    box-sizing: border-box;
+    max-height: min(78vh, calc(100dvh - 18vh));
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .panel-section {
-    background-color: rgb(65, 65, 65);
-    border: 0.1vh solid #444;
+    background-color: var(--ui-elevated-bg);
+    border: 0.1vh solid var(--ui-border);
     border-radius: 0.3vh;
     display: flex;
     flex-direction: column;
-    min-height: 8vh;
-    overflow: visible;
-    box-shadow: inset 0 0 0.2vh rgba(0, 0, 0, 0.3);
+    align-items: stretch;
+    align-self: stretch;
+    min-width: 0;
+    min-height: var(--layout-floating-panel-item-min-height);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
-.mac-chrome-only .panel-section {
-    min-height: 12vh;
-    width: 21vh;
+#floating-box-node-container .grid-item {
+    flex: 0 0 auto;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0 0.35vh;
 }
 
-.section-header {
-    background-color: rgb(45, 45, 45);
-    color: rgb(214, 214, 214);
-    padding: 0.3vh 0.5vh;
-    font-size: 1.2vh;
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 0.1vh solid #444;
-    flex-shrink: 0;
-}
-
-.mac-chrome-only .section-header {
-    font-size: 1.8vh;
+#floating-box-node-container .grid-item .node {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    display: block;
 }
 
 .section-controls {
     display: flex;
-    gap: 0.2vh;
-    padding: 0.2vh;
-    background-color: rgb(55, 55, 55);
-    border-bottom: 0.1vh solid #444;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0.3vh;
+    padding: 0.35vh;
+    width: 100%;
+    align-self: stretch;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
-.add-node-button, .remove-node-button {
-    padding: 0.2vh 0.4vh;
-    background: rgb(75, 75, 75);
-    color: rgb(214, 214, 214);
-    border: 0.1vh solid #555;
-    border-radius: 0.2vh;
+.add-node-button,
+.remove-node-button,
+.select-node-button {
+    padding: 0.35vh 0.5vh;
+    background-color: var(--ui-accent-bg);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--ui-border);
+    border-radius: 0.25vh;
+    appearance: none;
+    -webkit-appearance: none;
     cursor: pointer;
     font-size: 1vh;
-    flex: 1;
-    transition: background-color 0.2s ease;
+    font-family: inherit;
+    box-sizing: border-box;
+    align-self: stretch;
 }
 
-.mac-chrome-only .add-node-button, .mac-chrome-only .remove-node-button {
+.add-node-button,
+.remove-node-button {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* Narrow icon control; same vertical padding as Add/Remove so row height stays the same */
+.select-node-button {
+    flex: 0 0 auto;
+    line-height: 1;
+    padding: 0.35vh 0.55vh;
+}
+
+.mac-chrome-only .add-node-button,
+.mac-chrome-only .remove-node-button,
+.mac-chrome-only .select-node-button {
     font-size: 1.6vh;
 }
 
-.add-node-button:hover, .remove-node-button:hover {
-    background-color: rgb(95, 95, 95);
+.add-node-button:hover,
+.remove-node-button:hover,
+.select-node-button:hover:not(:disabled) {
+    background-color: var(--ui-elevated-bg);
 }
 
-.top-buttons-wrapper {
-    position: absolute;
-    top: 1vh;
-    left: 1vh;
-    right: 1vh;
-    display: flex;
-    justify-content: space-between;
-    z-index: 1000;
+.select-node-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
 }
 
-.left-buttons {
-    display: flex;
-    gap: 0.5vh;
-}
-
-.right-buttons {
-    display: flex;
-    gap: 0.5vh;
-}
-
+/* Match description panel inactive tabs (.header-button) — uses --ui-control-* */
 #floating-panel-toggle-button {
     padding: 0.8vh 1.5vh;
-    background: rgb(55, 55, 55);
-    color: rgb(214, 214, 214);
-    border: none;
+    background-color: var(--ui-accent-bg);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--ui-border);
     border-radius: 0.3vh;
     cursor: pointer;
     font-size: 1.2vh;
-    border: 0.1vh solid #444;
     height: auto;
     min-height: 3vh;
     transition: background-color 0.2s ease;
 }
 
 #floating-panel-toggle-button:hover {
-    background-color: #4f4f4f; /* Darker green on hover */
+    background-color: var(--ui-elevated-bg);
 }
 
 #on-making-LoT-button {
     padding: 0.8vh 1.5vh;
-    background: rgb(55, 55, 55);
-    color: rgb(214, 214, 214);
-    border: none;
+    background-color: var(--ui-accent-bg);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--ui-border);
     border-radius: 0.3vh;
     cursor: pointer;
     font-size: 1.2vh;
-    border: 0.1vh solid #444;
     height: auto;
     min-height: 3vh;
     display: flex;
@@ -155,18 +219,17 @@
 }
 
 #on-making-LoT-button:hover {
-    background-color: #4f4f4f;
+    background-color: var(--ui-elevated-bg);
 }
 
 #glossary-button {
     padding: 0.8vh 1.5vh;
-    background: rgb(55, 55, 55);
-    color: rgb(214, 214, 214);
-    border: none;
+    background-color: var(--ui-accent-bg);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--ui-border);
     border-radius: 0.3vh;
     cursor: pointer;
     font-size: 1.2vh;
-    border: 0.1vh solid #444;
     height: auto;
     min-height: 3vh;
     display: flex;
@@ -180,18 +243,17 @@
 }
 
 #glossary-button:hover {
-    background-color: #4f4f4f;
+    background-color: var(--ui-elevated-bg);
 }
 
 #calendar-view-button {
     padding: 0.8vh 1.5vh;
-    background: rgb(55, 55, 55);
-    color: rgb(214, 214, 214);
-    border: none;
+    background-color: var(--ui-accent-bg);
+    color: var(--ui-text-muted);
+    border: 1px solid var(--ui-border);
     border-radius: 0.3vh;
     cursor: pointer;
     font-size: 1.2vh;
-    border: 0.1vh solid #444;
     height: auto;
     min-height: 3vh;
     display: flex;
@@ -205,7 +267,7 @@
 }
 
 #calendar-view-button:hover {
-    background-color: #4f4f4f;
+    background-color: var(--ui-elevated-bg);
 }
 
 .mac-chrome-only #floating-panel-toggle-button,

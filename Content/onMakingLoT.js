@@ -73,7 +73,7 @@ const modalContent = {
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('on-making-lot-modal');
     const btn = document.getElementById('on-making-LoT-button');
-    const span = document.getElementsByClassName('close')[0];
+    const headerCloseBtn = document.getElementById('on-making-modal-close');
     const modalTitle = document.getElementById('modal-title');
     const modalText = document.getElementById('modal-text');
 
@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'block';
     }
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    // When the user clicks the header (x), close the modal
+    headerCloseBtn.onclick = function() {
         modal.style.display = 'none';
     }
 

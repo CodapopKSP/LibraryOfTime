@@ -92,7 +92,7 @@ function generateGlossaryHTML() {
 document.addEventListener('DOMContentLoaded', function() {
     const glossaryModal = document.getElementById('glossary-modal');
     const glossaryBtn = document.getElementById('glossary-button');
-    const glossarySpan = glossaryModal.getElementsByClassName('close')[0];
+    const glossaryHeaderClose = document.getElementById('glossary-modal-close');
     const glossaryCloseButton = document.getElementById('glossary-close-button');
     const glossaryText = document.getElementById('glossary-text');
 
@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
         glossaryModal.style.display = 'block';
     }
 
-    // When the user clicks on <span> (x), close the glossary modal
-    glossarySpan.onclick = function() {
+    // When the user clicks the header (x), close the glossary modal
+    glossaryHeaderClose.onclick = function() {
         glossaryModal.style.display = 'none';
     }
 

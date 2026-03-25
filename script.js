@@ -88,12 +88,41 @@ const parentElements = {
     'Politics': document.querySelector('.politics')
 };
 
+function findNodeDataById(nodeId) {
+    for (let i = 0; i < nodeDataArrays.length; i++) {
+        const arr = nodeDataArrays[i];
+        for (let j = 0; j < arr.length; j++) {
+            if (arr[j].id === nodeId) {
+                return arr[j];
+            }
+        }
+    }
+    return null;
+}
+
+function updateFloatingPanelSlotControls(panelSection) {
+    if (!panelSection) {
+        return;
+    }
+    const selectBtn = panelSection.querySelector('.select-node-button');
+    const gridItem = panelSection.querySelector('.grid-item');
+    const hasNode = !!(gridItem && gridItem.querySelector('.node .content'));
+    if (selectBtn) {
+        selectBtn.disabled = !hasNode;
+    }
+}
+
 // Create the node arrays
 nodeDataArrays.forEach(dataArray => {
     dataArray.forEach(item => {
         createNode(item, parentElements);
     });
 });
+
+/** Pixels between masonry columns on compact layouts; must match --mobile-node-col-gap in responsive.css (~0.75rem at 16px root). */
+function getMainGridMasonryGutter() {
+    return window.matchMedia('(max-width: 1024px)').matches ? 12 : 0;
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     // Detect Mac Chrome and add class to body
@@ -107,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
         itemSelector: '.container',
         columnWidth: '.container',
         percentPosition: true,
+        gutter: getMainGridMasonryGutter(),
     });
     // Expose Masonry instance globally so other scripts can trigger relayouts
     window.msnry = msnry;
@@ -137,49 +167,87 @@ document.addEventListener('DOMContentLoaded', function () {
         setDatePickerTimezone(datePickerTimezone);
     });
 
-    // Add event listeners for all add/remove buttons in the floating panel
+    // Add event listeners for floating panel controls
     const addButtons = document.querySelectorAll('.add-node-button');
     const removeButtons = document.querySelectorAll('.remove-node-button');
-    
-    addButtons.forEach((button, index) => {
-        button.addEventListener('click', function() {
+    const selectButtons = document.querySelectorAll('.select-node-button');
+
+    document.querySelectorAll('#floating-box-node-container .panel-section').forEach(function (section) {
+        updateFloatingPanelSlotControls(section);
+    });
+
+    addButtons.forEach((button) => {
+        button.addEventListener('click', function () {
             if (selectedNodeData) {
-                // Find which panel section this button belongs to
                 const panelSection = button.closest('.panel-section');
                 const gridItem = panelSection.querySelector('.grid-item');
                 const gridNumber = gridItem.className.match(/grid-item(\d+)/)[1];
-                nodePlace(selectedNodeData, parseInt(gridNumber));
+                nodePlace(selectedNodeData, parseInt(gridNumber, 10));
             }
         });
     });
-    
-    removeButtons.forEach((button, index) => {
-        button.addEventListener('click', function() {
-            // Find which panel section this button belongs to
+
+    removeButtons.forEach((button) => {
+        button.addEventListener('click', function () {
             const panelSection = button.closest('.panel-section');
             const gridItem = panelSection.querySelector('.grid-item');
-            const gridNumber = gridItem.className.match(/grid-item(\d+)/)[1];
-            console.log(`Remove button clicked for grid item ${gridNumber}`);
-            
-            // Clear the grid item
+
             gridItem.innerHTML = '';
-            
-            // Remove any non-grid classes
+
             gridItem.classList.forEach(className => {
                 if (!className.startsWith('grid')) {
                     gridItem.classList.remove(className);
                 }
             });
-            
-            // Set grid item border to 0vh
+
             gridItem.style.border = '0vh';
+            updateFloatingPanelSlotControls(panelSection);
         });
     });
+
+    selectButtons.forEach((button) => {
+        button.addEventListener('click', function () {
+            if (button.disabled) {
+                return;
+            }
+            const panelSection = button.closest('.panel-section');
+            const gridItem = panelSection.querySelector('.grid-item');
+            const contentEl = gridItem && gridItem.querySelector('.content');
+            if (!contentEl || !contentEl.id) {
+                return;
+            }
+            const suffix = '-node';
+            if (!contentEl.id.endsWith(suffix)) {
+                return;
+            }
+            const nodeId = contentEl.id.slice(0, -suffix.length);
+            const item = findNodeDataById(nodeId);
+            if (!item) {
+                return;
+            }
+            const mainContent = document.getElementById(contentEl.id);
+            if (!mainContent) {
+                return;
+            }
+            clearDescriptionPanel();
+            handleNodeClick(mainContent, item);
+            mainContent.classList.add('active');
+        });
+    });
+});
+
+var mainGridMasonryResizeTimer;
+window.addEventListener('resize', function () {
+    clearTimeout(mainGridMasonryResizeTimer);
+    mainGridMasonryResizeTimer = setTimeout(relayoutMasonry, 100);
 });
 
 // Safe helper to trigger a Masonry relayout when node sizes or visibility change.
 function relayoutMasonry() {
     if (window.msnry && typeof window.msnry.layout === 'function') {
+        if (typeof window.msnry.option === 'function') {
+            window.msnry.option({ gutter: getMainGridMasonryGutter() });
+        }
         window.msnry.layout();
     }
 }

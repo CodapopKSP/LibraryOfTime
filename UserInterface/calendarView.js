@@ -191,9 +191,14 @@ function formatDateTooltip(year, month, day, eventLabels, systemLabel, systemVal
             gregorianText = typeof out === 'function' ? out(raw) : (raw && raw.output != null ? raw.output : '');
         } catch (e) {}
     }
-    var calendarLabel = systemLabel || 'Selected calendar';
-    var calendarText = (systemLabel && systemValue) ? systemValue : '—';
-    var sections = ['Gregorian:\n' + gregorianText, calendarLabel + ':\n' + calendarText];
+    var secondSection;
+    if (systemLabel) {
+        var calendarText = (systemValue != null && systemValue !== '') ? systemValue : '—';
+        secondSection = systemLabel + ':\n' + calendarText;
+    } else {
+        secondSection = 'Select a calendar to compare.';
+    }
+    var sections = ['Gregorian:\n' + gregorianText, secondSection];
     if (eventLabels && eventLabels.length > 0) {
         sections.push('Astronomical Event:\n' + eventLabels.join(', '));
     }
@@ -509,6 +514,13 @@ function openCalendarView() {
 
     setCalendarViewMonth(year, month);
     document.getElementById('calendar-view-modal').style.display = 'block';
+    setMobileCalendarToolbarActive(true);
+}
+
+function setMobileCalendarToolbarActive(isOpen) {
+    if (typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 1024px)').matches) {
+        document.body.classList.toggle('mobile-ui-calendar-open', isOpen);
+    }
 }
 
 function goToPrevMonth() {
@@ -530,7 +542,7 @@ function goToNextMonth() {
 document.addEventListener('DOMContentLoaded', function () {
     var modal = document.getElementById('calendar-view-modal');
     var btn = document.getElementById('calendar-view-button');
-    var closeBtn = document.getElementById('calendar-view-close-button');
+    var headerCloseBtn = document.getElementById('calendar-view-modal-close');
     var prevBtn = document.getElementById('calendar-view-prev');
     var nextBtn = document.getElementById('calendar-view-next');
 
@@ -548,10 +560,11 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = 'none';
             hideCalendarTooltip();
         }
+        setMobileCalendarToolbarActive(false);
     }
 
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeCalendarView);
+    if (headerCloseBtn) {
+        headerCloseBtn.addEventListener('click', closeCalendarView);
     }
 
     modal.addEventListener('click', function (event) {
@@ -562,8 +575,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape' && modal.style.display === 'block') {
-            modal.style.display = 'none';
-            hideCalendarTooltip();
+            closeCalendarView();
         }
     });
 });
