@@ -86,9 +86,10 @@ function setupScrollFade(scrollableElement, containerElement) {
         const scrollTop = scrollableElement.scrollTop;
         const scrollHeight = scrollableElement.scrollHeight;
         const clientHeight = scrollableElement.clientHeight;
+        // Treat sub-pixel overflow as no scroll so the gradient doesn’t show as a false “more below” cue
         const scrollable = scrollHeight - clientHeight;
 
-        if (scrollable <= 0) {
+        if (scrollable <= 1) {
             // No scroll, hide fade completely
             containerElement.style.setProperty('--fade-opacity', '0');
             containerElement.classList.remove('fade-visible');
@@ -111,6 +112,13 @@ function setupScrollFade(scrollableElement, containerElement) {
     window.addEventListener('load', updateFadeOpacity);
     
     scrollableElement.addEventListener('scroll', updateFadeOpacity);
+
+    if (typeof ResizeObserver !== 'undefined') {
+        const resizeObserver = new ResizeObserver(() => {
+            requestAnimationFrame(updateFadeOpacity);
+        });
+        resizeObserver.observe(scrollableElement);
+    }
 }
 
 function createHomePageDescription(contentKey, contentClass) {
@@ -584,7 +592,7 @@ if (expandButton && pageWrapper && descriptionWrapper) {
                     const clientHeight = element.clientHeight;
                     const scrollable = scrollHeight - clientHeight;
 
-                    if (scrollable <= 0) {
+                    if (scrollable <= 1) {
                         // No scroll, hide fade completely
                         nodeinfo.style.setProperty('--fade-opacity', '0');
                         nodeinfo.classList.remove('fade-visible');

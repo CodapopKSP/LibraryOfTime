@@ -22,6 +22,15 @@ def main():
             if '_vercel' in src or 'vercel' in src or (tag.string and 'window.va' in (tag.string or '')):
                 analytics_scripts.append((tag.name, tag.attrs, tag.string))
 
+        # Preserve SEO <link> tags (canonical, alternate); other links are rebuilt or inlined
+        seo_links = []
+        for link in list(soup.find_all('link')):
+            rel = link.get('rel')
+            if isinstance(rel, list):
+                rel = rel[0] if rel else None
+            if rel in ('canonical', 'alternate'):
+                seo_links.append(link.extract())
+
         # Read linked files and extract into strings
         scripts = parse_scripts(scripts)
         styles = parse_styles(style_links)
@@ -49,6 +58,9 @@ def main():
 
         new_favicon_tag = soup.new_tag("link", rel="icon", href='data:image/x-icon;base64,'+favicon_data)
         soup.head.append(new_favicon_tag)
+
+        for seo_link in seo_links:
+            soup.head.append(seo_link)
 
         # Copy images to output directory for Vercel deployment
         copy_images_to_output()

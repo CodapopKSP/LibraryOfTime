@@ -112,7 +112,7 @@
         max-width: none;
         margin: 0;
         padding-top: 0.65rem;
-        padding-bottom: 6rem;
+        padding-bottom: 10rem;
         padding-left: max(var(--mobile-node-edge), env(safe-area-inset-left));
         padding-right: max(var(--mobile-node-edge), env(safe-area-inset-right));
         box-sizing: border-box;
@@ -323,8 +323,10 @@
         box-sizing: border-box;
         padding: 0.5rem 0.65rem 0.65rem;
         margin-top: auto;
-        border-top: 0.2vh solid var(--ui-border);
-        background-color: var(--ui-deep-accent-bg);
+        border-top: 0.2vh solid var(--ui-border-muted);
+        background-color: var(--ui-elevated-bg);
+        /* No upward outer shadow: it reads like a scroll fade over the body even when content doesn’t scroll. */
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
     }
 
     .mobile-description-actions-btn {
@@ -357,7 +359,7 @@
     }
 
     .mobile-description-actions-btn:active {
-        background-color: var(--ui-elevated-bg);
+        background-color: var(--ui-hover-accent);
     }
 
     .expand-description-button-wrapper {
