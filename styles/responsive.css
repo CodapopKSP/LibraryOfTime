@@ -309,6 +309,11 @@
         font-size: clamp(0.8rem, 3.2vw, 1rem);
     }
 
+    /* Epoch: tap opens a small popover with “Go to Date” (see descriptionPanel.js). */
+    .nodeinfo-epoch .clickable-epoch {
+        cursor: pointer;
+    }
+
     .desktop-home-button {
         display: none !important;
     }
@@ -556,10 +561,13 @@
     }
 
     .nodeinfo-confidence .tooltiptext {
-        width: 60vw;
-        max-width: 60vw;
+        width: min(82vw, 26rem);
+        max-width: min(82vw, 26rem);
         left: 50%;
         transform: translateX(-50%);
+        padding: 0.75rem 0.95rem;
+        font-size: clamp(0.68rem, 3vw, 0.78rem);
+        line-height: 1.32;
     }
 
     .mac-chrome-only .nodeinfo-confidence .tooltiptext {

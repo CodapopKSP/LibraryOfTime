@@ -76,6 +76,53 @@
     font-family: var(--ui-font-heading);
 }
 
+.nodeinfo-epoch .epoch-block-wrap {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.nodeinfo-epoch .epoch-block-wrap .table-epoch {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Mobile: appended to document.body so it isn’t clipped by the description sheet. */
+.epoch-action-tooltip {
+    position: fixed;
+    z-index: 9060;
+    padding: 0.4rem;
+    background-color: var(--ui-deep-accent-bg);
+    border: 1px solid var(--ui-border);
+    border-radius: 0.4rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    box-sizing: border-box;
+}
+
+.epoch-action-tooltip[hidden] {
+    display: none !important;
+}
+
+.epoch-tooltip-go-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 0.65rem;
+    font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+    color: var(--ui-text-muted);
+    background-color: var(--ui-accent-bg);
+    border: 1px solid var(--ui-border);
+    border-radius: 0.35rem;
+    cursor: pointer;
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    white-space: nowrap;
+}
+
+.epoch-tooltip-go-btn:active {
+    background-color: var(--ui-hover-accent);
+}
+
 .nodeinfo-confidence {
     text-align: left;
     padding-left: 10vh;

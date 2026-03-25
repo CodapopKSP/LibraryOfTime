@@ -179,25 +179,134 @@ function createTitleElement(name) {
     return titleElement;
 }
 
+/** Closes any open mobile epoch “Go to Date” popover (listeners + DOM). */
+let dismissActiveEpochTooltip = null;
+
 function createEpochElement(item) {
     const epochElement = document.createElement('div');
     epochElement.innerHTML = `
-        <table class="table-epoch">
-            <tr><th><b>Epoch</b></th></tr>
-            <tr><td class="clickable-epoch">${item.epoch}</td></tr>
-        </table>`;
+        <div class="epoch-block-wrap">
+            <table class="table-epoch">
+                <tr><th><b>Epoch</b></th></tr>
+                <tr><td class="clickable-epoch">${item.epoch}</td></tr>
+            </table>
+        </div>`;
     epochElement.classList.add('nodeinfo-epoch');
 
-    // Enable Epoch to be clicked
     const epochDateElement = epochElement.querySelector('.clickable-epoch');
-    epochDateElement.addEventListener('click', function() {
-        handleEpochClick(item.epoch); // Function to be called on click
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'epoch-action-tooltip';
+    tooltip.setAttribute('hidden', '');
+    tooltip.setAttribute('role', 'dialog');
+    tooltip.setAttribute('aria-label', 'Epoch actions');
+    const goBtn = document.createElement('button');
+    goBtn.type = 'button';
+    goBtn.className = 'epoch-tooltip-go-btn';
+    goBtn.textContent = 'Go to Date';
+    tooltip.appendChild(goBtn);
+
+    const goToEpochDate = function () {
+        handleEpochClick(item.epoch);
+    };
+
+    function isMobileDescriptionLayout() {
+        return window.matchMedia('(max-width: 1024px)').matches;
+    }
+
+    function updateTooltipPosition() {
+        const rect = epochDateElement.getBoundingClientRect();
+        const pad = 8;
+        const tw = tooltip.offsetWidth;
+        const th = tooltip.offsetHeight;
+        let left = rect.left + rect.width / 2 - tw / 2;
+        left = Math.max(pad, Math.min(left, window.innerWidth - tw - pad));
+        let top = rect.bottom + 6;
+        if (top + th > window.innerHeight - pad) {
+            top = rect.top - th - 6;
+        }
+        top = Math.max(pad, Math.min(top, window.innerHeight - th - pad));
+        tooltip.style.left = left + 'px';
+        tooltip.style.top = top + 'px';
+    }
+
+    function onOutsideClick(e) {
+        if (tooltip.hasAttribute('hidden')) return;
+        if (tooltip.contains(e.target) || epochDateElement.contains(e.target)) return;
+        hideEpochTooltip();
+    }
+
+    function onEscape(e) {
+        if (e.key === 'Escape') hideEpochTooltip();
+    }
+
+    function onResizeReposition() {
+        if (!tooltip.hasAttribute('hidden')) updateTooltipPosition();
+    }
+
+    function onScrollClose() {
+        hideEpochTooltip();
+    }
+
+    function hideEpochTooltip() {
+        if (tooltip.hasAttribute('hidden')) return;
+        tooltip.setAttribute('hidden', '');
+        document.removeEventListener('click', onOutsideClick, true);
+        document.removeEventListener('keydown', onEscape, true);
+        window.removeEventListener('resize', onResizeReposition);
+        window.removeEventListener('scroll', onScrollClose, true);
+        if (tooltip.parentNode === document.body) {
+            document.body.removeChild(tooltip);
+        }
+        if (dismissActiveEpochTooltip === hideEpochTooltip) {
+            dismissActiveEpochTooltip = null;
+        }
+    }
+
+    function showEpochTooltip() {
+        if (dismissActiveEpochTooltip) dismissActiveEpochTooltip();
+        document.body.appendChild(tooltip);
+        tooltip.removeAttribute('hidden');
+        requestAnimationFrame(() => {
+            updateTooltipPosition();
+            requestAnimationFrame(updateTooltipPosition);
+        });
+        setTimeout(() => {
+            document.addEventListener('click', onOutsideClick, true);
+            document.addEventListener('keydown', onEscape, true);
+        }, 0);
+        window.addEventListener('resize', onResizeReposition);
+        window.addEventListener('scroll', onScrollClose, true);
+        dismissActiveEpochTooltip = hideEpochTooltip;
+    }
+
+    function toggleEpochTooltip() {
+        if (tooltip.hasAttribute('hidden')) {
+            showEpochTooltip();
+        } else {
+            hideEpochTooltip();
+        }
+    }
+
+    epochDateElement.addEventListener('click', function (e) {
+        if (isMobileDescriptionLayout()) {
+            e.stopPropagation();
+            toggleEpochTooltip();
+        } else {
+            goToEpochDate();
+        }
     });
 
-    epochDateElement.addEventListener('mouseenter', function() {
+    goBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        goToEpochDate();
+        hideEpochTooltip();
+    });
+
+    epochDateElement.addEventListener('mouseenter', function () {
         epochDateElement.classList.add('hovering');
     });
-    epochDateElement.addEventListener('mouseleave', function() {
+    epochDateElement.addEventListener('mouseleave', function () {
         epochDateElement.classList.remove('hovering');
     });
 
@@ -549,6 +658,10 @@ function updateHeaderTabTitles(labels) {
 }
 
 function clearDescriptionPanel() {
+    if (dismissActiveEpochTooltip) {
+        dismissActiveEpochTooltip();
+    }
+    document.querySelectorAll('.epoch-action-tooltip').forEach(el => el.remove());
     const nodeinfos = document.querySelectorAll('.nodeinfo');
     nodeinfos.forEach(nodeinfo => {
         nodeinfo.parentNode.removeChild(nodeinfo);
