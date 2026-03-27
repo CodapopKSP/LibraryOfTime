@@ -7,7 +7,7 @@ const modalContent = {
         </p>`,
 
         `<p>
-        But much like how the Rosetta Stone allowed linguists to decode ancient Egyptian hieroglyphs by having the same passage also written in Ancient Greek and Demotic, these earlier websites have allowed me to calibrate unknown calendars to known ones. 
+        But much like how the Rosetta Stone allowed linguists to decode ancient Egyptian hieroglyphs by having the same passage also written in Ancient Greek and Demotic, these earlier websites have given me tools to help me calibrate unknown calendars to known ones. 
         </p>`,
 
         `<p>
@@ -64,7 +64,7 @@ const modalContent = {
         </p>`,
 
         `<p>
-        With any luck, this work can stand the test of time as the ultimate Temporal Rosetta Stone.
+        With any luck, this work can stand the test of time as a Temporal Rosetta Stone for those that follow.
         </p>`,
     ]
 };

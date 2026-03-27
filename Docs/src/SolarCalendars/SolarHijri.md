@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Solar Hijri calendar is an observational solar calendar used in Islam. It is the official calendar of Iran and Afghanistan. Each year begins on the Spring Equinox or the day after; thus it has no intrinsic error and it very slowly drifts through the Gregorian year following the precession of the equinoxes.
+The Solar Hijri calendar is an observational solar calendar of Islam. It is the official calendar of Iran and Afghanistan. Each year begins on the Spring Equinox or the day after; thus it has no intrinsic error and it very slowly drifts through the Gregorian year following the precession of the equinoxes.
 
 It features 12 months, corresponding to the zodiacal signs, with the first 6 having 31 days and the latter 6 having 30 (or 29) days to account for the sun traveling slower through the Zodiac due to Earth's oblong orbit. In Afghanistan the month names still refer to the Zodiac while elsewhere this calendar uses the Zoroastrian month names.
 

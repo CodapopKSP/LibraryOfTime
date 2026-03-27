@@ -168,6 +168,8 @@
   
   - [Pawukon (WITA)](OtherCalendars/Pawukon.md)
 
+  - [Sexagenary Year (CST)](OtherCalendars/SexagenaryYear.md)
+
 - [Astronomical Data](AstronomicalData/AstronomicalData.md)
   
   - [Northward Equinox](AstronomicalData/NorthwardEquinox.md)
@@ -196,8 +198,6 @@
   
   - [Chinese (CST)](LunisolarCalendars/Chinese.md)
   
-  - [Sexagenary Year (CST)](LunisolarCalendars/SexagenaryYear.md)
-  
   - [Đại lịch (ICT)](LunisolarCalendars/Vietnamese.md)
   
   - [Dangun (KST)](LunisolarCalendars/Dangun.md)
@@ -214,7 +214,7 @@
 
 - [Solilunar Calendars](SolilunarCalendars/SolilunarCalendars.md)
   
-  - [Togys (KZT)](SolilunarCalendars/Togys.md)
+  - [Togys Esebi (KZT)](SolilunarCalendars/Togys.md)
 
 - [Proposed Calendars](ProposedCalendars/ProposedCalendars.md)
   

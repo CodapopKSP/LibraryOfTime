@@ -8,7 +8,7 @@
 
 The Pisan calendar was a Julian-based calendar used in the Republic of Pisa from the Middle Ages until the adoption of the Gregorian calendar in the 18th century.
 
-It matches the Julian calendar for days and months, but with years beginning on March 25th, meaning March 24th of one year is followed by March 25th of the next year. The Pisan calendar runs ahead of the Julian calendar, with the two calendars sharing dates only during January, February, and the beginning of March before the Pisan calendar year increments. It is one year ahead of the Florentine calendar.
+It differs from the Julian calendars with years beginning on March 25th, meaning March 24th of one year is followed by March 25th of the next year. The Pisan calendar runs ahead of the Julian calendar, with the two calendars sharing dates only during January, February, and the beginning of March before the Pisan calendar year increments. It is one year ahead of the Florentine calendar.
 
 #### Info
 

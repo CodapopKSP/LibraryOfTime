@@ -6,9 +6,7 @@
 
 #### Overview
 
-The Thai solar calendar is a Gregorian-based calendar used in Thailand. It is 543 years ahead of the Gregorian calendar, though it shares the same months with different names.
-
-It represents the number of years of the current Buddhist Era (B.E.), the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.
+The Thai solar calendar is a Gregorian-based calendar used in Thailand. It represents the number of years of the current Buddhist Era (B.E.), the Era of the Shaka Buddha. Year 0 falls on the Gregorian year of 543 BCE.
 
 #### Info
 

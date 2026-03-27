@@ -25,7 +25,7 @@ function runSingleParameterTests(calendarName, getCalendarFunction, testCases) {
 }
 
 function testGetTogysDate() {
-    return runSingleParameterTests("Togys Calendar", getTogysDate, [
+    return runSingleParameterTests("Togys Esebi Calendar", getTogysDate, [
         ["2009-4-27, 00:00:00", "UTC+05:00", "Day 1 of 1 togys aiy\nYear of the Cow\nof Cycle 474"],
         ["2009-5-24, 00:00:00", "UTC+05:00", "Day 1 of 25 togys aiy\nYear of the Cow\nof Cycle 474"],
         ["2010-3-21, 00:00:00", "UTC+05:00", "Day 1 of 3 togys aiy\nYear of the Cow\nof Cycle 474"],

@@ -137,7 +137,6 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
 
 function updateLunisolarCalendars(currentDateTime) {
     setTimeValue('chinese-node', out(getChineseLunisolarCalendarDate(currentDateTime, 'CHINA')));
-    setTimeValue('sexagenary-year-node', out(getSexagenaryYear(currentDateTime)));
     setTimeValue('dai-lich-node', out(getChineseLunisolarCalendarDate(currentDateTime, 'VIETNAM')));
     setTimeValue('dangun-node', out(getChineseLunisolarCalendarDate(currentDateTime, 'KOREA')));
     setTimeValue('babylonian-node', out(getBabylonianLunisolarCalendar(currentDateTime)));
@@ -164,7 +163,8 @@ function updateOtherCalendars(currentDateTime) {
     setTimeValue('sothic-cycle-node', out(getSothicCycle(currentDateTime)));
     setTimeValue('olympiad-node', out(getOlympiad(currentDateTime)));
     setTimeValue('pawukon-node', out(getPawukonCalendarDate(currentDateTime)));
-    setTimeValue('togys-node', out(getTogysDate(currentDateTime)));
+    setTimeValue('togys-esebi-node', out(getTogysDate(currentDateTime)));
+    setTimeValue('sexagenary-year-node', out(getSexagenaryYear(currentDateTime)));
 }
 
 function updateComputingTimes(currentDateTime, timezoneOffset) {

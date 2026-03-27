@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Ge'ez calendar is the official calculated solar calendar of Ethiopia. It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. It has a leap day every 4 years, keeping it in sync with the Julian calendar while sharing months and days with the Coptic calendar.
+The Ge'ez calendar is the official calendar of Ethiopia. A calculated solar calendar, it has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. It has a leap day every 4 years, keeping it in sync with the Julian calendar while sharing months and days with the Coptic calendar.
 
 The New Year starts on September 11th or 12th, with years abbreviated with ዓ.ም. which is pronounced 'am', short for Amätä Mihret, meaning 'Year of Mercy'.
 

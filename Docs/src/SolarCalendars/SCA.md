@@ -6,7 +6,7 @@
 
 #### Overview
 
-The SCA calendar is a Gregorian-based calendar used by the Society for Creative Anachronism. It shares months and days with the Gregorian calendar, but with a different epoch.
+The SCA calendar is a Gregorian-based calendar used by the Society for Creative Anachronism.
 
 Years are written as roman numerals and denoted with 'A.S.', short for 'Anno Societatis', meaning 'in the year of the Society', counting the number of years since the First Tournament on 1 May 1966 CE. Years begin on May 1st, so April 30th is the last day of the previous year.
 

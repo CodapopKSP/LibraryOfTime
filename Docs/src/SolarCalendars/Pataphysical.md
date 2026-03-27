@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Pataphysical calendar is a strange Gregorian-derived calendar. It is based off of the philosophy of Pataphysics, which is a parody of science created by Alfred Jarry in 1893, though the calendar wasn't created until 1949.
+The Pataphysical calendar is a Gregorian-derived calendar. It is based off of the philosophy of Pataphysics, which is a parody of science created by Alfred Jarry in 1893, though the calendar wasn't created until 1949.
 
 It features 13 months of 29 days, though for each month the 29th day is imaginary except for the month of Gidouille as well as Gueules in leap years. New Year is on September 8th of the Gregorian calendar, and the epoch, denoted A.P., is the day of Alfred Jarry's birth on 8 September 1873 CE.
 
