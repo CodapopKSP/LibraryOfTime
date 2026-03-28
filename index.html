@@ -236,9 +236,9 @@
         </nav>
         <div id="mobile-info-sheet" class="mobile-info-sheet" hidden>
             <div class="mobile-info-sheet-inner">
+                <button type="button" id="mobile-info-introduction" class="mobile-info-action">Introduction</button>
                 <button type="button" id="mobile-info-glossary" class="mobile-info-action">Glossary</button>
                 <button type="button" id="mobile-info-making" class="mobile-info-action">On Making the LoT</button>
-                <button type="button" id="mobile-info-close" class="mobile-info-close">Close</button>
             </div>
         </div>
         
@@ -268,7 +268,10 @@
                         <h2 id="calendar-view-title" class="calendar-view-month-title">Month Year</h2>
                         <button id="calendar-view-next" type="button" aria-label="Next month">›</button>
                     </div>
-                    <select id="calendar-view-node-select" class="calendar-view-node-select" aria-label="Timekeeping system for calendar"></select>
+                    <div class="calendar-view-node-select-row">
+                        <select id="calendar-view-node-select" class="calendar-view-node-select" aria-label="Timekeeping system for calendar"></select>
+                        <button type="button" id="calendar-view-node-clear" class="remove-node-button" aria-label="Clear calendar system selection" disabled>&times;</button>
+                    </div>
                 </div>
                 <div class="modal-body-scroll calendar-view-body-scroll">
                     <div id="calendar-view-grid" class="calendar-view-grid"></div>

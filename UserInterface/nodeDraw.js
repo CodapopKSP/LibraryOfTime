@@ -21,6 +21,7 @@ function setGregJulianDifference(newDifference) {
 
 // Fills the description panel for `item` and updates selection; `content` is the grid .content element or null.
 function populateNodeDescriptionAndSelection(content, item, options) {
+    clearDescriptionPanel();
     var opts = options || {};
     var openMobileSheet = opts.openMobileSheet !== false;
     var descriptionTypes = ['overview', 'info', 'accuracy', 'source'];
@@ -55,6 +56,22 @@ function populateNodeDescriptionAndSelection(content, item, options) {
     if (typeof window.refreshCalendarViewIfOpen === 'function') {
         window.refreshCalendarViewIfOpen();
     }
+    if (typeof window.syncMobileDescriptionUi === 'function') {
+        window.syncMobileDescriptionUi();
+    }
+}
+
+/** True when a main-grid node is selected (used for mobile Description toolbar). */
+function hasSelectedDescriptionNode() {
+    return selectedNode != null && selectedNodeData != null;
+}
+
+/** Rebuilds the description panel from the current selection (e.g. after viewing Introduction on mobile). */
+function ensureDescriptionShowsSelectedNode() {
+    if (!selectedNode || !selectedNodeData) {
+        return;
+    }
+    populateNodeDescriptionAndSelection(selectedNode, selectedNodeData, { openMobileSheet: false });
 }
 
 function handleNodeClick(content, item) {
@@ -87,7 +104,6 @@ function createNode_(item) {
     // Handle left-click (selection)
     node.addEventListener('click', (event) => {
         if (event.button === 0) { // Check if it's a left-click
-            clearDescriptionPanel();
             handleNodeClick(content, item);
         }
     });
@@ -175,6 +191,9 @@ function clearSelectedNode() {
     }
     if (typeof window.refreshCalendarViewIfOpen === 'function') {
         window.refreshCalendarViewIfOpen();
+    }
+    if (typeof window.syncMobileDescriptionUi === 'function') {
+        window.syncMobileDescriptionUi();
     }
 }
 

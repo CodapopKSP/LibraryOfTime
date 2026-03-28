@@ -11,6 +11,9 @@
 
     const MOBILE_QUERY = "(max-width: 1024px)";
 
+    /** Replaced in wireToolbar once the DOM is ready. */
+    window.syncMobileDescriptionUi = function () {};
+
     function isMobileLayout() {
         return window.matchMedia(MOBILE_QUERY).matches;
     }
@@ -39,6 +42,20 @@
     function setInfoToolbarActive(isActive) {
         document.body.classList.toggle("mobile-ui-info-open", isActive);
     }
+
+    function syncMobileDescriptionUi() {
+        const descBtn = document.getElementById("mobile-tool-description");
+        if (!descBtn) {
+            return;
+        }
+        const hasNode =
+            typeof window.hasSelectedDescriptionNode === "function" &&
+            window.hasSelectedDescriptionNode();
+        descBtn.disabled = !hasNode;
+        descBtn.setAttribute("aria-disabled", hasNode ? "false" : "true");
+    }
+
+    window.syncMobileDescriptionUi = syncMobileDescriptionUi;
 
     function closeMobileToolSheets() {
         const { pageWrapper, descriptionWrapper, backdrop } = getElements();
@@ -109,11 +126,29 @@
                 if (!isMobileLayout()) {
                     return;
                 }
+                if (descBtn.disabled) {
+                    return;
+                }
                 const pw = document.querySelector(".page-wrapper");
-                if (pw && pw.classList.contains("mobile-sheet-description") && pw.classList.contains("mobile-sheet-open")) {
-                    closeMobileToolSheets();
-                } else {
+                const sheetOpen = pw && pw.classList.contains("mobile-sheet-open");
+                const showingIntro =
+                    sheetOpen &&
+                    document.querySelector("#description-body .homepage") !== null;
+
+                if (
+                    typeof window.ensureDescriptionShowsSelectedNode === "function" &&
+                    window.hasSelectedDescriptionNode &&
+                    window.hasSelectedDescriptionNode()
+                ) {
+                    window.ensureDescriptionShowsSelectedNode();
+                }
+
+                if (!sheetOpen) {
                     openDescriptionSheetInternal();
+                } else if (showingIntro) {
+                    /* Was on Introduction; keep sheet open and show the selected node above. */
+                } else {
+                    closeMobileToolSheets();
                 }
             });
         }
@@ -163,7 +198,7 @@
 
         const glossaryBtn = document.getElementById("mobile-info-glossary");
         const makingBtn = document.getElementById("mobile-info-making");
-        const infoClose = document.getElementById("mobile-info-close");
+        const introBtn = document.getElementById("mobile-info-introduction");
 
         if (glossaryBtn) {
             glossaryBtn.addEventListener("click", function () {
@@ -187,9 +222,13 @@
             });
         }
 
-        if (infoClose) {
-            infoClose.addEventListener("click", function () {
+        if (introBtn) {
+            introBtn.addEventListener("click", function () {
                 closeInfoSheet();
+                if (typeof window.showHomeIntroductionInDescriptionPanel === "function") {
+                    window.showHomeIntroductionInDescriptionPanel();
+                }
+                openDescriptionSheetInternal();
             });
         }
 
@@ -246,10 +285,25 @@
         };
     }
 
+    /** Every full load (including refresh): intro sheet. sessionStorage was not used for this because it persists across refresh in the same tab. */
+    function showMobileIntroductionOnLoad() {
+        if (typeof window.showHomeIntroductionInDescriptionPanel !== "function") {
+            return;
+        }
+        window.showHomeIntroductionInDescriptionPanel();
+        if (typeof window.openMobileDescriptionSheet === "function") {
+            window.openMobileDescriptionSheet();
+        }
+    }
+
     function initMobileUi() {
         wireToolbar();
         if (isMobileLayout()) {
-            openDescriptionSheetInternal();
+            syncMobileDescriptionUi();
+            /* Defer until after script.js initial panel setup (same tick as other deferred work). */
+            setTimeout(function () {
+                showMobileIntroductionOnLoad();
+            }, 0);
         }
     }
 

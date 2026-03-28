@@ -251,9 +251,22 @@ function formatTimezoneForURL(timezone) {
     return timezone.replace('+', '~').replace(':', '_');
 }
 
-// Display the initial Description Panel
-homeButton();
+// Display the initial Description Panel (desktop: home intro; narrow viewports: cleared here, then mobileToolbar opens the introduction sheet every load including refresh — sessionStorage is not used because it survives refresh in the same tab)
+if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
+    clearDescriptionPanel();
+    const homeBtnEl = document.getElementById('desktop-home-button');
+    if (homeBtnEl) {
+        homeBtnEl.classList.remove('home-button-visible');
+    }
+} else {
+    homeButton();
+}
 changeActiveHeaderTab('header-button-1', 0);
+setTimeout(function () {
+    if (typeof window.syncMobileDescriptionUi === 'function') {
+        window.syncMobileDescriptionUi();
+    }
+}, 0);
 
 addHeaderTabHoverEffect();
 addHomeButtonHoverEffect();

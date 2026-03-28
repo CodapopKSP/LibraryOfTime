@@ -8,12 +8,12 @@
 
 // Add event listeners for home button and title button
 document.getElementById('desktop-home-button').addEventListener('click', homeButton);
-document.getElementById('title-button').addEventListener('click', homeButton);
+document.getElementById('title-button').addEventListener('click', titleButtonClick);
 
 const mobileDescriptionClear = document.getElementById('mobile-description-clear');
 const mobileDescriptionHide = document.getElementById('mobile-description-hide');
 if (mobileDescriptionClear) {
-    mobileDescriptionClear.addEventListener('click', homeButton);
+    mobileDescriptionClear.addEventListener('click', mobileDescriptionClearClick);
 }
 if (mobileDescriptionHide) {
     mobileDescriptionHide.addEventListener('click', function () {
@@ -632,22 +632,68 @@ function changeActiveHeaderTab(activeTab, index) {
     });
 }
 
-function homeButton() {
-    // Clear the Description Panel
-    clearDescriptionPanel();
-    clearSelectedNode();
-    const desktopHomeButton = document.getElementById('desktop-home-button');
-    desktopHomeButton.classList.remove('home-button-visible');
-
-    // Build the Home Description Panel
+function fillHomeDescriptionPanelContent() {
     const descriptionBody = document.getElementById('description-body');
     descriptionBody.classList.remove('has-home-footer');
     Object.values(homePageDescriptions).forEach(description => {
         descriptionBody.appendChild(description);
     });
     setCurrentDescriptionTab(Object.values(homePageDescriptions));
-    updateHeaderTabTitles(['About','Mission','Accuracy','Sources']);
+    updateHeaderTabTitles(['About', 'Mission', 'Accuracy', 'Sources']);
     changeActiveHeaderTab('header-button-1', 0);
+}
+
+/** Site introduction (About / Mission / …) without clearing the selected node — used on mobile from Info → Introduction. */
+function showHomeIntroductionInDescriptionPanel() {
+    clearDescriptionPanel();
+    fillHomeDescriptionPanelContent();
+    const desktopHomeButton = document.getElementById('desktop-home-button');
+    if (typeof window.hasSelectedDescriptionNode !== 'function' || !window.hasSelectedDescriptionNode()) {
+        desktopHomeButton.classList.remove('home-button-visible');
+    }
+    if (typeof window.syncMobileDescriptionUi === 'function') {
+        window.syncMobileDescriptionUi();
+    }
+}
+
+function titleButtonClick() {
+    if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
+        showHomeIntroductionInDescriptionPanel();
+        if (typeof window.openMobileDescriptionSheet === 'function') {
+            window.openMobileDescriptionSheet();
+        }
+    } else {
+        homeButton();
+    }
+}
+
+function mobileDescriptionClearClick() {
+    if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
+        clearMobileDescriptionAndSelection();
+    } else {
+        homeButton();
+    }
+}
+
+/** Mobile: clear node selection, close the description sheet, and disable the Description toolbar control. */
+function clearMobileDescriptionAndSelection() {
+    clearDescriptionPanel();
+    clearSelectedNode();
+    const desktopHomeButton = document.getElementById('desktop-home-button');
+    if (desktopHomeButton) {
+        desktopHomeButton.classList.remove('home-button-visible');
+    }
+    if (typeof window.closeMobileDescriptionSheet === 'function') {
+        window.closeMobileDescriptionSheet();
+    }
+}
+
+function homeButton() {
+    clearDescriptionPanel();
+    clearSelectedNode();
+    const desktopHomeButton = document.getElementById('desktop-home-button');
+    desktopHomeButton.classList.remove('home-button-visible');
+    fillHomeDescriptionPanelContent();
 }
 
 function updateHeaderTabTitles(labels) {

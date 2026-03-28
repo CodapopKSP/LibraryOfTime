@@ -10,6 +10,8 @@
     }
     expose('refreshCalendarViewIfOpen', refreshCalendarViewIfOpen);
     expose('populateNodeDescriptionAndSelection', populateNodeDescriptionAndSelection);
+    expose('hasSelectedDescriptionNode', hasSelectedDescriptionNode);
+    expose('ensureDescriptionShowsSelectedNode', ensureDescriptionShowsSelectedNode);
     expose('getAllSiteNodeDataItems', getAllSiteNodeDataItems);
     expose('setFloatingPanelAddSelectsEnabled', setFloatingPanelAddSelectsEnabled);
     expose('toggleFloatingPanelVisibility', toggleFloatingPanelVisibility);

@@ -359,6 +359,16 @@
         display: block;
     }
 
+    /* Introduction (About / Mission / …): Clear hidden; Dismiss only, full width. */
+    .site-right-column .description-wrapper:has(#description-body .homepage) #mobile-description-clear {
+        display: none !important;
+    }
+
+    .site-right-column .description-wrapper:has(#description-body .homepage) #mobile-description-hide {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
     #desktop-home-button:not(.home-button-visible) + .mobile-description-actions #mobile-description-hide {
         flex: 1 1 100%;
         max-width: 100%;
@@ -413,6 +423,17 @@
         background-color: var(--ui-elevated-bg);
     }
 
+    .mobile-tool-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    /* No node selected: hide tab strip until a node is chosen or Introduction is opened from Info */
+    .site-right-column .description-wrapper:has(#description-body:empty) .description-button-wrapper {
+        display: none;
+    }
+
     /* Highlight which bottom tool is currently open (matches description tab “active” tone) */
     body.mobile-ui-description-open #mobile-tool-description,
     body.mobile-ui-calendar-open #mobile-tool-calendar,
@@ -430,6 +451,11 @@
         background: rgba(0, 0, 0, 0.45);
     }
 
+    /* Info sheet: above floating panel (9055); backdrop must sit above panel too so dimmer receives taps */
+    body.mobile-ui-info-open .mobile-sheet-backdrop {
+        z-index: 9060;
+    }
+
     .mobile-sheet-backdrop[hidden] {
         display: none !important;
     }
@@ -440,7 +466,8 @@
         left: 0;
         right: 0;
         bottom: calc(var(--mobile-toolbar-height) + env(safe-area-inset-bottom, 0px));
-        z-index: 9030;
+        /* Above floating panel (9055) and Info backdrop (9060); toolbar stays on top at 9100 */
+        z-index: 9080;
         padding: 0 0.5rem;
         pointer-events: none;
     }
@@ -470,18 +497,6 @@
         color: var(--ui-text-muted);
         background-color: var(--ui-accent-bg);
         border: 1px solid var(--ui-border);
-        border-radius: 0.35rem;
-        cursor: pointer;
-        font-family: inherit;
-    }
-
-    .mobile-info-close {
-        align-self: center;
-        padding: 0.4rem 1.25rem;
-        font-size: 0.85rem;
-        color: var(--ui-text-muted);
-        background: transparent;
-        border: 1px solid var(--ui-border-muted);
         border-radius: 0.35rem;
         cursor: pointer;
         font-family: inherit;

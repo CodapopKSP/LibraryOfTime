@@ -35,6 +35,16 @@
     gap: 0.35vh;
 }
 
+/* Same pattern as floating panel .section-controls: narrow select + × */
+.calendar-view-node-select-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0.3vh;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .calendar-view-nav {
     display: flex;
     align-items: center;
@@ -46,7 +56,9 @@
  * (same base + hover/disabled as .add-node-select). All calendar-specific tweaks stay here.
  */
 .calendar-view-node-select {
-    width: 100%;
+    flex: 0 1 33%;
+    max-width: 33%;
+    min-width: 0;
     padding: 0 0.35vh;
     border-radius: 0.3vh;
 }

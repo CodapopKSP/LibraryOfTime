@@ -330,6 +330,15 @@ function getShadeForMonthKey(monthKey, monthKeyToIndex) {
     return CALENDAR_MONTH_SHADES[idx];
 }
 
+function syncCalendarViewNodeClearButton() {
+    var sel = document.getElementById('calendar-view-node-select');
+    var clearBtn = document.getElementById('calendar-view-node-clear');
+    if (!sel || !clearBtn) {
+        return;
+    }
+    clearBtn.disabled = !sel.value;
+}
+
 /**
  * Fills the calendar modal’s node &lt;select&gt; once per page load (nodeData is static until the next visit).
  * Same idea as populateFloatingPanelNodeSelectIfNeeded in userPanel.js.
@@ -352,6 +361,7 @@ function populateCalendarViewNodeSelect() {
         sel.appendChild(opt);
     }
     sel.dataset.prepared = '1';
+    syncCalendarViewNodeClearButton();
 }
 
 function syncCalendarViewNodeSelect() {
@@ -360,6 +370,7 @@ function syncCalendarViewNodeSelect() {
         return;
     }
     sel.value = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData.id : '';
+    syncCalendarViewNodeClearButton();
 }
 
 function refreshCalendarViewIfOpen() {
@@ -585,29 +596,41 @@ document.addEventListener('DOMContentLoaded', function () {
     var prevBtn = document.getElementById('calendar-view-prev');
     var nextBtn = document.getElementById('calendar-view-next');
     var nodeSelect = document.getElementById('calendar-view-node-select');
+    var nodeClearBtn = document.getElementById('calendar-view-node-clear');
 
     populateCalendarViewNodeSelect();
     if (nodeSelect) {
         nodeSelect.addEventListener('change', function () {
             if (!nodeSelect.value) {
-                if (typeof homeButton === 'function') {
+                if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
+                    if (typeof clearMobileDescriptionAndSelection === 'function') {
+                        clearMobileDescriptionAndSelection();
+                    }
+                } else if (typeof homeButton === 'function') {
                     homeButton();
                 }
+            } else {
+                var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(nodeSelect.value) : null;
+                if (!item) {
+                    renderCalendarView(_calendarViewYear, _calendarViewMonth);
+                    syncCalendarViewNodeSelect();
+                } else {
+                    var content = document.getElementById(item.id + '-node');
+                    if (typeof window.populateNodeDescriptionAndSelection === 'function') {
+                        window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: false });
+                    }
+                }
+            }
+            syncCalendarViewNodeClearButton();
+        });
+    }
+    if (nodeClearBtn && nodeSelect) {
+        nodeClearBtn.addEventListener('click', function () {
+            if (!nodeSelect.value) {
                 return;
             }
-            var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(nodeSelect.value) : null;
-            if (!item) {
-                renderCalendarView(_calendarViewYear, _calendarViewMonth);
-                syncCalendarViewNodeSelect();
-                return;
-            }
-            if (typeof clearDescriptionPanel === 'function') {
-                clearDescriptionPanel();
-            }
-            var content = document.getElementById(item.id + '-node');
-            if (typeof window.populateNodeDescriptionAndSelection === 'function') {
-                window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: false });
-            }
+            nodeSelect.value = '';
+            nodeSelect.dispatchEvent(new Event('change', { bubbles: true }));
         });
     }
 
