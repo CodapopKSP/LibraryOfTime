@@ -185,7 +185,12 @@
                 if (!isMobileLayout()) {
                     return;
                 }
-                openInfoSheet();
+                const { infoSheet } = getElements();
+                if (infoSheet && !infoSheet.hidden) {
+                    closeInfoSheet();
+                } else {
+                    openInfoSheet();
+                }
             });
         }
 
