@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 124
+// Total nodes: 123
 
 /*
 Node Data is a collection of data for each node.
@@ -981,18 +981,6 @@ const lunarCalendarsData = [
 ];
 
 const solilunarCalendarsData = [
-    {
-        name: `Togys Esebi (KZT)`,
-        id: `togys-esebi`,
-        type: `Solilunar Calendar`,
-        epoch: ``,
-        confidence: ``,
-        overview: ``,
-        info: ``,
-        accuracy: ``,
-        source: ``
-    },
-
     {
         name: `Togys Esebi (KZT)`,
         id: `togys-esebi`,

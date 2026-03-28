@@ -216,7 +216,7 @@
 
 - [Solilunar Calendars](SolilunarCalendars/SolilunarCalendars.md)
   
-  - [Togys Esebi (KZT)](SolilunarCalendars/Togys.md)
+  - [Togys Esebi (KZT)](SolilunarCalendars/TogysEsebi.md)
 
 - [Proposed Calendars](ProposedCalendars/ProposedCalendars.md)
   
