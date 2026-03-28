@@ -47,6 +47,10 @@ function handleNodeClick(content, item) {
     if (typeof window.openMobileDescriptionSheet === 'function') {
         window.openMobileDescriptionSheet();
     }
+
+    if (typeof window.setFloatingPanelAddSelectsEnabled === 'function') {
+        window.setFloatingPanelAddSelectsEnabled(false);
+    }
 }
 
 function createNode(item, parentElements) {
@@ -160,6 +164,9 @@ function clearSelectedNode() {
         selectedNode.classList.remove('active');
         selectedNode = '';
         selectedNodeData = null;
+    }
+    if (typeof window.setFloatingPanelAddSelectsEnabled === 'function') {
+        window.setFloatingPanelAddSelectsEnabled(!selectedNodeData);
     }
 }
 

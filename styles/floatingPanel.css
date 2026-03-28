@@ -133,48 +133,69 @@
     box-sizing: border-box;
 }
 
-.add-node-button,
+/* Recessed strip control — same vocabulary as #calendar-type / #timezone (inputPanel.css) */
+.add-node-select {
+    height: 2.5vh;
+    margin: 0;
+    padding: 0 0.4vh;
+    font-size: 1.2vh;
+    color: var(--ui-text-muted);
+    background-color: var(--ui-accent-bg);
+    border: 1px solid var(--ui-border-warm);
+    border-radius: 0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    font-family: inherit;
+    box-sizing: border-box;
+    align-self: stretch;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
 .remove-node-button,
 .select-node-button {
-    padding: 0.35vh 0.5vh;
+    flex: 0 0 auto;
+    width: 2.5vh;
+    height: 2.5vh;
+    min-width: 2.5vh;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
     background-color: var(--ui-accent-bg);
     color: var(--ui-text-muted);
     border: 1px solid var(--ui-border);
     border-radius: 0.25vh;
-    appearance: none;
-    -webkit-appearance: none;
     cursor: pointer;
-    font-size: 1vh;
+    font-size: 1.35vh;
     font-family: inherit;
     box-sizing: border-box;
     align-self: stretch;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
-.add-node-button,
-.remove-node-button {
-    flex: 1 1 0;
-    min-width: 0;
+.mac-chrome-only .add-node-select {
+    font-size: 2vh;
 }
 
-/* Narrow icon control; same vertical padding as Add/Remove so row height stays the same */
-.select-node-button {
-    flex: 0 0 auto;
-    line-height: 1;
-    padding: 0.35vh 0.55vh;
-}
-
-.mac-chrome-only .add-node-button,
 .mac-chrome-only .remove-node-button,
 .mac-chrome-only .select-node-button {
-    font-size: 1.6vh;
+    font-size: 1.85vh;
 }
 
-.add-node-button:hover,
-.remove-node-button:hover,
+.add-node-select:hover:not(:disabled) {
+    filter: brightness(1.06);
+}
+
+.remove-node-button:hover:not(:disabled),
 .select-node-button:hover:not(:disabled) {
     background-color: var(--ui-elevated-bg);
 }
 
+.add-node-select:disabled,
+.remove-node-button:disabled,
 .select-node-button:disabled {
     opacity: 0.35;
     cursor: not-allowed;

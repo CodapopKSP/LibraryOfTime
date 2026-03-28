@@ -88,27 +88,22 @@ const parentElements = {
     'Politics': document.querySelector('.politics')
 };
 
-function findNodeDataById(nodeId) {
-    for (let i = 0; i < nodeDataArrays.length; i++) {
-        const arr = nodeDataArrays[i];
-        for (let j = 0; j < arr.length; j++) {
-            if (arr[j].id === nodeId) {
-                return arr[j];
-            }
-        }
-    }
-    return null;
-}
-
 function updateFloatingPanelSlotControls(panelSection) {
     if (!panelSection) {
         return;
     }
     const selectBtn = panelSection.querySelector('.select-node-button');
+    const removeBtn = panelSection.querySelector('.remove-node-button');
     const gridItem = panelSection.querySelector('.grid-item');
     const hasNode = !!(gridItem && gridItem.querySelector('.node .content'));
     if (selectBtn) {
         selectBtn.disabled = !hasNode;
+    }
+    if (removeBtn) {
+        removeBtn.disabled = !hasNode;
+    }
+    if (typeof syncFloatingPanelAddSelectForSection === 'function') {
+        syncFloatingPanelAddSelectForSection(panelSection);
     }
 }
 
@@ -167,24 +162,12 @@ document.addEventListener('DOMContentLoaded', function () {
         setDatePickerTimezone(datePickerTimezone);
     });
 
-    // Add event listeners for floating panel controls
-    const addButtons = document.querySelectorAll('.add-node-button');
+    // Add event listeners for floating panel controls (add = inline select; wired in userPanel.js)
     const removeButtons = document.querySelectorAll('.remove-node-button');
     const selectButtons = document.querySelectorAll('.select-node-button');
 
     document.querySelectorAll('#floating-box-node-container .panel-section').forEach(function (section) {
         updateFloatingPanelSlotControls(section);
-    });
-
-    addButtons.forEach((button) => {
-        button.addEventListener('click', function () {
-            if (selectedNodeData) {
-                const panelSection = button.closest('.panel-section');
-                const gridItem = panelSection.querySelector('.grid-item');
-                const gridNumber = gridItem.className.match(/grid-item(\d+)/)[1];
-                nodePlace(selectedNodeData, parseInt(gridNumber, 10));
-            }
-        });
     });
 
     removeButtons.forEach((button) => {

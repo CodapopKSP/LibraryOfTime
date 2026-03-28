@@ -42,6 +42,107 @@ function toggleFloatingPanelVisibility() {
     setFloatingPanelOpen(isHidden);
 }
 
+function findNodeDataById(nodeId) {
+    for (let i = 0; i < nodeDataArrays.length; i++) {
+        const arr = nodeDataArrays[i];
+        for (let j = 0; j < arr.length; j++) {
+            if (arr[j].id === nodeId) {
+                return arr[j];
+            }
+        }
+    }
+    return null;
+}
+
+/** Every node on the main grid (same set as nodeData), sorted by display name. */
+function getAllSiteNodeDataItems() {
+    const out = [];
+    for (let i = 0; i < nodeDataArrays.length; i++) {
+        const arr = nodeDataArrays[i];
+        for (let j = 0; j < arr.length; j++) {
+            out.push(arr[j]);
+        }
+    }
+    out.sort(function (a, b) {
+        return (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base' });
+    });
+    return out;
+}
+
+function setFloatingPanelAddSelectsEnabled(enabled) {
+    document.querySelectorAll('.add-node-select').forEach(function (el) {
+        el.disabled = !enabled;
+    });
+}
+
+function populateFloatingPanelNodeSelectIfNeeded(selectEl) {
+    if (selectEl.dataset.prepared === '1') {
+        return;
+    }
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Add';
+    selectEl.appendChild(placeholder);
+
+    const items = getAllSiteNodeDataItems();
+    for (let i = 0; i < items.length; i++) {
+        const opt = document.createElement('option');
+        opt.value = items[i].id;
+        opt.textContent = items[i].name;
+        selectEl.appendChild(opt);
+    }
+    selectEl.dataset.prepared = '1';
+}
+
+/** Sync closed select label: "Add" when slot empty, otherwise the placed node's name. */
+function syncFloatingPanelAddSelectForSection(panelSection) {
+    if (!panelSection) {
+        return;
+    }
+    const selectEl = panelSection.querySelector('.add-node-select');
+    if (!selectEl || selectEl.dataset.prepared !== '1') {
+        return;
+    }
+    const placeholderOpt = selectEl.options[0];
+    const gridItem = panelSection.querySelector('.grid-item');
+    const contentEl = gridItem && gridItem.querySelector('.node .content');
+    const suffix = '-node';
+
+    if (contentEl && contentEl.id && contentEl.id.endsWith(suffix)) {
+        const nodeId = contentEl.id.slice(0, -suffix.length);
+        if (findNodeDataById(nodeId)) {
+            selectEl.value = nodeId;
+            if (placeholderOpt) {
+                placeholderOpt.disabled = true;
+            }
+            return;
+        }
+    }
+    selectEl.value = '';
+    if (placeholderOpt) {
+        placeholderOpt.disabled = false;
+    }
+}
+
+function wireFloatingPanelNodeSelects() {
+    document.querySelectorAll('.add-node-select').forEach(function (selectEl) {
+        populateFloatingPanelNodeSelectIfNeeded(selectEl);
+        selectEl.addEventListener('change', function () {
+            if (!selectEl.value) {
+                return;
+            }
+            const item = findNodeDataById(selectEl.value);
+            const panelSection = selectEl.closest('.panel-section');
+            const gridItem = panelSection && panelSection.querySelector('.grid-item');
+            const m = gridItem && gridItem.className.match(/grid-item(\d+)/);
+            const gridNumber = m ? parseInt(m[1], 10) : NaN;
+            if (item && !isNaN(gridNumber)) {
+                nodePlace(item, gridNumber);
+            }
+        });
+    });
+}
+
 function instantiateFloatingPanel() {
     if (toggleButton) {
         toggleButton.addEventListener("click", toggleFloatingPanelVisibility);
@@ -68,6 +169,11 @@ function instantiateFloatingPanel() {
 
     window.toggleFloatingPanelVisibility = toggleFloatingPanelVisibility;
     window.setFloatingPanelOpen = setFloatingPanelOpen;
+    window.findNodeDataById = findNodeDataById;
+    window.setFloatingPanelAddSelectsEnabled = setFloatingPanelAddSelectsEnabled;
+    window.syncFloatingPanelAddSelectForSection = syncFloatingPanelAddSelectForSection;
+
+    wireFloatingPanelNodeSelects();
 }
 
 // Function to redraw everything inside grid-item
