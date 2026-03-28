@@ -188,17 +188,14 @@ function formatDateTooltip(year, month, day, eventLabels, systemLabel, systemVal
             var dt = parseInputDate(dateStr, tz);
             var offset = convertUTCOffsetToMinutes(tz);
             var raw = getGregorianDateTime(dt, offset);
-            gregorianText = typeof out === 'function' ? out(raw) : (raw && raw.output != null ? raw.output : '');
+            gregorianText = (raw && raw.output != null) ? raw.output : '';
         } catch (e) {}
     }
-    var secondSection;
+    var sections = ['Gregorian:\n' + gregorianText];
     if (systemLabel) {
         var calendarText = (systemValue != null && systemValue !== '') ? systemValue : '—';
-        secondSection = systemLabel + ':\n' + calendarText;
-    } else {
-        secondSection = 'Select a calendar to compare.';
+        sections.push(systemLabel + ':\n' + calendarText);
     }
-    var sections = ['Gregorian:\n' + gregorianText, secondSection];
     if (eventLabels && eventLabels.length > 0) {
         sections.push('Astronomical Event:\n' + eventLabels.join(', '));
     }
@@ -333,6 +330,47 @@ function getShadeForMonthKey(monthKey, monthKeyToIndex) {
     return CALENDAR_MONTH_SHADES[idx];
 }
 
+/**
+ * Fills the calendar modal’s node &lt;select&gt; once per page load (nodeData is static until the next visit).
+ * Same idea as populateFloatingPanelNodeSelectIfNeeded in userPanel.js.
+ */
+function populateCalendarViewNodeSelect() {
+    var sel = document.getElementById('calendar-view-node-select');
+    if (!sel || sel.dataset.prepared === '1') {
+        return;
+    }
+    var items = typeof window.getAllSiteNodeDataItems === 'function' ? window.getAllSiteNodeDataItems() : [];
+    sel.innerHTML = '';
+    var placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'None';
+    sel.appendChild(placeholder);
+    for (var i = 0; i < items.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = items[i].id;
+        opt.textContent = items[i].name;
+        sel.appendChild(opt);
+    }
+    sel.dataset.prepared = '1';
+}
+
+function syncCalendarViewNodeSelect() {
+    var sel = document.getElementById('calendar-view-node-select');
+    if (!sel || sel.dataset.prepared !== '1') {
+        return;
+    }
+    sel.value = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData.id : '';
+}
+
+function refreshCalendarViewIfOpen() {
+    var modal = document.getElementById('calendar-view-modal');
+    if (!modal || modal.style.display === 'none' || modal.style.display === '') {
+        return;
+    }
+    renderCalendarView(_calendarViewYear, _calendarViewMonth);
+    syncCalendarViewNodeSelect();
+}
+
 function buildCalendarHTML(year, month, selectedNodeData) {
     var daysInMonth = getDaysInMonth(year, month);
     var firstDay = getFirstDayOfMonth(year, month);
@@ -436,7 +474,7 @@ function renderCalendarView(year, month) {
     if (!titleEl || !gridEl) return;
     var title = MONTH_NAMES[month - 1] + ' ' + year;
     titleEl.textContent = title;
-    var selectedData = (typeof selectedNodeData !== 'undefined') ? selectedNodeData : null;
+    var selectedData = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData : null;
     gridEl.innerHTML = buildCalendarHTML(year, month, selectedData);
     if (!_calendarTooltipsInitialized) {
         setupCalendarTooltips();
@@ -513,6 +551,7 @@ function openCalendarView() {
     if (Number.isNaN(month) || month < 1 || month > 12) month = new Date().getMonth() + 1;
 
     setCalendarViewMonth(year, month);
+    syncCalendarViewNodeSelect();
     document.getElementById('calendar-view-modal').style.display = 'block';
     setMobileCalendarToolbarActive(true);
 }
@@ -545,6 +584,32 @@ document.addEventListener('DOMContentLoaded', function () {
     var headerCloseBtn = document.getElementById('calendar-view-modal-close');
     var prevBtn = document.getElementById('calendar-view-prev');
     var nextBtn = document.getElementById('calendar-view-next');
+    var nodeSelect = document.getElementById('calendar-view-node-select');
+
+    populateCalendarViewNodeSelect();
+    if (nodeSelect) {
+        nodeSelect.addEventListener('change', function () {
+            if (!nodeSelect.value) {
+                if (typeof homeButton === 'function') {
+                    homeButton();
+                }
+                return;
+            }
+            var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(nodeSelect.value) : null;
+            if (!item) {
+                renderCalendarView(_calendarViewYear, _calendarViewMonth);
+                syncCalendarViewNodeSelect();
+                return;
+            }
+            if (typeof clearDescriptionPanel === 'function') {
+                clearDescriptionPanel();
+            }
+            var content = document.getElementById(item.id + '-node');
+            if (typeof window.populateNodeDescriptionAndSelection === 'function') {
+                window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: false });
+            }
+        });
+    }
 
     btn.addEventListener('click', openCalendarView);
     if (prevBtn) prevBtn.addEventListener('click', goToPrevMonth);

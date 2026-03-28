@@ -181,7 +181,8 @@
         padding: 0;
         border: 0.2vh solid var(--ui-border);
         border-radius: 0.65rem;
-        z-index: 9020;
+        /* Above floating panel (9055), below bottom toolbar (9100) */
+        z-index: 9070;
         overflow: hidden;
         background-color: var(--ui-elevated-bg);
         box-shadow:
@@ -532,7 +533,35 @@
     }
 
     .modal-body-scroll.calendar-view-body-scroll {
-        padding: 0 0.4rem 0.85rem 0.4rem;
+        padding: 0 0.125rem 0.5rem;
+    }
+
+    /* Calendar view: full width, starts 20vh below top; day cells use aspect-ratio: 1 so row height grows with width */
+    #calendar-view-modal .modal-content.calendar-view-modal-content {
+        width: 100%;
+        max-width: none;
+        margin: 20vh 0 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        max-height: calc(100vh - 20vh - 1rem);
+        max-height: calc(100dvh - 20vh - 1rem);
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    #calendar-view-modal .calendar-view-top-bar {
+        padding-left: max(0.2rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.2rem, env(safe-area-inset-right, 0px));
+    }
+
+    .calendar-view-nav-bar {
+        padding: 0.35rem 0.2rem;
+    }
+
+    .calendar-view-day-name {
+        height: clamp(1.5rem, 5.2vw, 2.75rem);
+        min-height: 0;
     }
 
     .calendar-view-month-title {

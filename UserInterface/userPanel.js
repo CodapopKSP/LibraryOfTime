@@ -54,21 +54,6 @@ function findNodeDataById(nodeId) {
     return null;
 }
 
-/** Every node on the main grid (same set as nodeData), sorted by display name. */
-function getAllSiteNodeDataItems() {
-    const out = [];
-    for (let i = 0; i < nodeDataArrays.length; i++) {
-        const arr = nodeDataArrays[i];
-        for (let j = 0; j < arr.length; j++) {
-            out.push(arr[j]);
-        }
-    }
-    out.sort(function (a, b) {
-        return (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base' });
-    });
-    return out;
-}
-
 function setFloatingPanelAddSelectsEnabled(enabled) {
     document.querySelectorAll('.add-node-select').forEach(function (el) {
         el.disabled = !enabled;
@@ -166,12 +151,6 @@ function instantiateFloatingPanel() {
         document.addEventListener("mousemove", movePanel);
         document.addEventListener("mouseup", stopDrag);
     });
-
-    window.toggleFloatingPanelVisibility = toggleFloatingPanelVisibility;
-    window.setFloatingPanelOpen = setFloatingPanelOpen;
-    window.findNodeDataById = findNodeDataById;
-    window.setFloatingPanelAddSelectsEnabled = setFloatingPanelAddSelectsEnabled;
-    window.syncFloatingPanelAddSelectForSection = syncFloatingPanelAddSelectForSection;
 
     wireFloatingPanelNodeSelects();
 }

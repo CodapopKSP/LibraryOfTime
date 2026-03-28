@@ -89,7 +89,7 @@
 /* Mobile: appended to document.body so it isn’t clipped by the description sheet. */
 .epoch-action-tooltip {
     position: fixed;
-    z-index: 9060;
+    z-index: 9095;
     padding: 0.4rem;
     background-color: var(--ui-deep-accent-bg);
     border: 1px solid var(--ui-border);

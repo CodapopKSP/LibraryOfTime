@@ -268,6 +268,7 @@
                         <h2 id="calendar-view-title" class="calendar-view-month-title">Month Year</h2>
                         <button id="calendar-view-next" type="button" aria-label="Next month">›</button>
                     </div>
+                    <select id="calendar-view-node-select" class="calendar-view-node-select" aria-label="Timekeeping system for calendar"></select>
                 </div>
                 <div class="modal-body-scroll calendar-view-body-scroll">
                     <div id="calendar-view-grid" class="calendar-view-grid"></div>
@@ -307,14 +308,17 @@
     <script src="CalendarAPI/Calendars/solilunarCalendars.js"></script>
     <script src="CalendarAPI/Calendars/proposedCalendars.js"></script>
     <script src="CalendarAPI/Calendars/otherCalendars.js"></script>
-    <script src="UserInterface/calendarView.js"></script>
-    <script src="Content/nodeData.js"></script>
+    
     <script src="utilities.js"></script>
+    <script src="UserInterface/siteNodeList.js"></script>
     <script src="UserInterface/descriptionPanel.js"></script>
     <script src="UserInterface/nodeDraw.js"></script>
-    <script src="nodeUpdate.js"></script>
+    <script src="UserInterface/calendarView.js"></script>
     <script src="UserInterface/userPanel.js"></script>
+    <script src="UserInterface/crossUiGlobals.js"></script>
     <script src="UserInterface/dateSelector.js"></script>
+    <script src="UserInterface/mobileToolbar.js"></script>
+
     <script src="Tests/astronomicalDataTests.js"></script>
     <script src="Tests/computingTimeTests.js"></script>
     <script src="Tests/dateManagementTests.js"></script>
@@ -327,8 +331,10 @@
     <script src="Tests/proposedCalendarTests.js"></script>
     <script src="Tests/runTests.js"></script>
     <script src="Tests/runCalendarDevTests.js"></script>
+
+    <script src="Content/nodeData.js"></script>
+    <script src="nodeUpdate.js"></script>
     <script src="script.js"></script>
-    <script src="UserInterface/mobileToolbar.js"></script>
     <script src="masonry.pkgd.min.js"></script>
 </body>
 </html>

@@ -30,12 +30,31 @@
     width: 100%;
     padding: 0.4vh 0.6vh;
     background-color: var(--ui-elevated-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35vh;
 }
 
 .calendar-view-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+/*
+ * Calendar modal dropdown: overrides on top of floatingPanel.css “recessed strip” rules
+ * (same base + hover/disabled as .add-node-select). All calendar-specific tweaks stay here.
+ */
+.calendar-view-node-select {
+    width: 100%;
+    padding: 0 0.35vh;
+    border-radius: 0.3vh;
+}
+
+.mac-chrome-only .calendar-view-node-select {
+    font-size: 2vh;
+    min-height: 3vh;
+    height: auto;
 }
 
 .calendar-view-body-scroll.modal-body-scroll {

@@ -6,8 +6,8 @@
     This is a collection of functions for drawing and handling Nodes.
 */
 
-// The current selected Node, blank if none
-let selectedNode = '';
+// Selected node's .content element, or null when selection is not tied to a grid cell (e.g. calendar picker).
+let selectedNode = null;
 let selectedNodeData = null; // Store the JavaScript object for the selected node
 
 // Keeps track of how far ahead the Julian calendar is from the Gregorian
@@ -19,38 +19,46 @@ function setGregJulianDifference(newDifference) {
     _gregJulianDifference = newDifference;
 }
 
-function handleNodeClick(content, item) {
-    // Build the description format
-    const descriptionTypes = ['overview', 'info', 'accuracy', 'source'];
-    const descriptions = descriptionTypes.map(type => createNodeDescription(item, type));
-    const descriptionBody = document.getElementById('description-body');
+// Fills the description panel for `item` and updates selection; `content` is the grid .content element or null.
+function populateNodeDescriptionAndSelection(content, item, options) {
+    var opts = options || {};
+    var openMobileSheet = opts.openMobileSheet !== false;
+    var descriptionTypes = ['overview', 'info', 'accuracy', 'source'];
+    var descriptions = descriptionTypes.map(function (type) {
+        return createNodeDescription(item, type);
+    });
+    var descriptionBody = document.getElementById('description-body');
     descriptionBody.classList.add('has-home-footer');
-    descriptions.forEach(description => {
+    descriptions.forEach(function (description) {
         descriptionBody.appendChild(description);
     });
     setCurrentDescriptionTab(descriptions);
     updateHeaderTabTitles(['Overview', 'Info', 'Accuracy', 'Source']);
 
-    // Update the selected node
     if (selectedNode && selectedNode !== content) {
         clearSelectedNode();
     }
-    selectedNode = content;
-    selectedNodeData = item; // Store the JavaScript object
+    selectedNode = content || null;
+    selectedNodeData = item;
 
-    // Show home button
     document.getElementById('desktop-home-button').classList.add('home-button-visible');
-
-    // Show the first description by default
     changeActiveHeaderTab('header-button-1', 0);
 
-    if (typeof window.openMobileDescriptionSheet === 'function') {
+    if (content) {
+        content.classList.add('active');
+    }
+
+    if (openMobileSheet && typeof window.openMobileDescriptionSheet === 'function') {
         window.openMobileDescriptionSheet();
     }
 
-    if (typeof window.setFloatingPanelAddSelectsEnabled === 'function') {
-        window.setFloatingPanelAddSelectsEnabled(false);
+    if (typeof window.refreshCalendarViewIfOpen === 'function') {
+        window.refreshCalendarViewIfOpen();
     }
+}
+
+function handleNodeClick(content, item) {
+    populateNodeDescriptionAndSelection(content, item, { openMobileSheet: true });
 }
 
 function createNode(item, parentElements) {
@@ -93,13 +101,13 @@ function createNode_(item) {
         content.classList.remove('hover');
     });
     
-    // Handle left mouse down to add 'clicking' class
+    // Handle left mouse down to add 'clicking' class (cleared after a short delay).
+    // Selection applies `active` in populateNodeDescriptionAndSelection when the click completes.
     node.addEventListener('mousedown', (event) => {
         if (event.button === 0) { // Check if it's a left-click
             content.classList.add('clicking');
             setTimeout(() => {
                 content.classList.remove('clicking');
-                content.classList.add('active');
             }, 150);
         }
     });
@@ -160,13 +168,13 @@ function hideNodeMenu() {
 }
 
 function clearSelectedNode() {
-    if (selectedNode !== '') {
+    if (selectedNode) {
         selectedNode.classList.remove('active');
-        selectedNode = '';
+        selectedNode = null;
         selectedNodeData = null;
     }
-    if (typeof window.setFloatingPanelAddSelectsEnabled === 'function') {
-        window.setFloatingPanelAddSelectsEnabled(!selectedNodeData);
+    if (typeof window.refreshCalendarViewIfOpen === 'function') {
+        window.refreshCalendarViewIfOpen();
     }
 }
 
