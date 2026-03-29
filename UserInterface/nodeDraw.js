@@ -85,6 +85,27 @@ function createNode(item, parentElements) {
     parentElement.appendChild(node);
 }
 
+/** Matches `responsive.css` mobile layout; node hover is desktop-only. */
+function isMobileLayout() {
+    return typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 1024px)').matches;
+}
+
+(function initStripNodeHoverOnMobileLayout() {
+    if (typeof window.matchMedia !== 'function') return;
+    var mq = window.matchMedia('(max-width: 1024px)');
+    function stripNodeHover() {
+        if (!mq.matches) return;
+        document.querySelectorAll('.node .content.hover').forEach(function (el) {
+            el.classList.remove('hover');
+        });
+    }
+    if (typeof mq.addEventListener === 'function') {
+        mq.addEventListener('change', stripNodeHover);
+    } else if (typeof mq.addListener === 'function') {
+        mq.addListener(stripNodeHover);
+    }
+})();
+
 function createNode_(item) {
     // Create the node element
     const node = document.createElement('div');
@@ -108,11 +129,12 @@ function createNode_(item) {
         }
     });
 
-    // Handle mouse hover effects
+    // Mouse hover highlight (desktop only; mobile uses touch — no hover affordance)
     node.addEventListener('mouseenter', () => {
+        if (isMobileLayout()) return;
         content.classList.add('hover');
     });
-    
+
     node.addEventListener('mouseleave', () => {
         content.classList.remove('hover');
     });
