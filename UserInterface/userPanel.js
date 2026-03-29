@@ -32,6 +32,11 @@ function setFloatingPanelOpen(isOpen) {
     }
     panel.style.display = isOpen ? "flex" : "none";
     document.body.classList.toggle("floating-panel-open", isOpen);
+    if (isOpen && typeof updateFloatingPanelSlotControls === 'function') {
+        document.querySelectorAll('#floating-box-node-container .panel-section').forEach(function (section) {
+            updateFloatingPanelSlotControls(section);
+        });
+    }
 }
 
 function toggleFloatingPanelVisibility() {
@@ -64,22 +69,11 @@ function populateFloatingPanelNodeSelectIfNeeded(selectEl) {
     if (selectEl.dataset.prepared === '1') {
         return;
     }
-    const placeholder = document.createElement('option');
-    placeholder.value = '';
-    placeholder.textContent = 'None';
-    selectEl.appendChild(placeholder);
-
-    const items = getAllSiteNodeDataItems();
-    for (let i = 0; i < items.length; i++) {
-        const opt = document.createElement('option');
-        opt.value = items[i].id;
-        opt.textContent = items[i].name;
-        selectEl.appendChild(opt);
-    }
+    fillNodeSelectCategoryList(selectEl);
     selectEl.dataset.prepared = '1';
 }
 
-/** Sync closed select label: "None" when slot empty, otherwise the placed node's name. */
+/** Sync select: category browser when slot empty, or full node list for that node’s category when filled. */
 function syncFloatingPanelAddSelectForSection(panelSection) {
     if (!panelSection) {
         return;
@@ -88,35 +82,31 @@ function syncFloatingPanelAddSelectForSection(panelSection) {
     if (!selectEl || selectEl.dataset.prepared !== '1') {
         return;
     }
-    const placeholderOpt = selectEl.options[0];
     const gridItem = panelSection.querySelector('.grid-item');
     const contentEl = gridItem && gridItem.querySelector('.node .content');
     const suffix = '-node';
 
     if (contentEl && contentEl.id && contentEl.id.endsWith(suffix)) {
         const nodeId = contentEl.id.slice(0, -suffix.length);
-        if (findNodeDataById(nodeId)) {
-            selectEl.value = nodeId;
-            if (placeholderOpt) {
-                placeholderOpt.disabled = true;
-            }
+        const item = findNodeDataById(nodeId);
+        if (item && item.type && typeof fillNodeSelectNodesForCategory === 'function') {
+            fillNodeSelectNodesForCategory(selectEl, item.type, nodeId);
             return;
         }
     }
+    fillNodeSelectCategoryList(selectEl);
     selectEl.value = '';
-    if (placeholderOpt) {
-        placeholderOpt.disabled = false;
-    }
 }
 
 function wireFloatingPanelNodeSelects() {
     document.querySelectorAll('.add-node-select').forEach(function (selectEl) {
         populateFloatingPanelNodeSelectIfNeeded(selectEl);
         selectEl.addEventListener('change', function () {
-            if (!selectEl.value) {
+            const interpreted = siteNodeSelectInterpretChange(selectEl);
+            if (interpreted.action === 'navigate' || interpreted.action === 'empty') {
                 return;
             }
-            const item = findNodeDataById(selectEl.value);
+            const item = findNodeDataById(interpreted.nodeId);
             const panelSection = selectEl.closest('.panel-section');
             const gridItem = panelSection && panelSection.querySelector('.grid-item');
             const m = gridItem && gridItem.className.match(/grid-item(\d+)/);

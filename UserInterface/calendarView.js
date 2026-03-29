@@ -336,29 +336,21 @@ function syncCalendarViewNodeClearButton() {
     if (!sel || !clearBtn) {
         return;
     }
-    clearBtn.disabled = !sel.value;
+    var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(sel.value) : null;
+    clearBtn.disabled = !item;
 }
 
 /**
  * Fills the calendar modal’s node &lt;select&gt; once per page load (nodeData is static until the next visit).
- * Same idea as populateFloatingPanelNodeSelectIfNeeded in userPanel.js.
+ * Same categorized flow as populateFloatingPanelNodeSelectIfNeeded in userPanel.js.
  */
 function populateCalendarViewNodeSelect() {
     var sel = document.getElementById('calendar-view-node-select');
     if (!sel || sel.dataset.prepared === '1') {
         return;
     }
-    var items = typeof window.getAllSiteNodeDataItems === 'function' ? window.getAllSiteNodeDataItems() : [];
-    sel.innerHTML = '';
-    var placeholder = document.createElement('option');
-    placeholder.value = '';
-    placeholder.textContent = 'None';
-    sel.appendChild(placeholder);
-    for (var i = 0; i < items.length; i++) {
-        var opt = document.createElement('option');
-        opt.value = items[i].id;
-        opt.textContent = items[i].name;
-        sel.appendChild(opt);
+    if (typeof fillNodeSelectCategoryList === 'function') {
+        fillNodeSelectCategoryList(sel);
     }
     sel.dataset.prepared = '1';
     syncCalendarViewNodeClearButton();
@@ -369,7 +361,14 @@ function syncCalendarViewNodeSelect() {
     if (!sel || sel.dataset.prepared !== '1') {
         return;
     }
-    sel.value = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData.id : '';
+    var id = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData.id : '';
+    var item = id && typeof window.findNodeDataById === 'function' ? window.findNodeDataById(id) : null;
+    if (item && item.type && typeof fillNodeSelectNodesForCategory === 'function') {
+        fillNodeSelectNodesForCategory(sel, item.type, id);
+    } else if (typeof fillNodeSelectCategoryList === 'function') {
+        fillNodeSelectCategoryList(sel);
+        sel.value = '';
+    }
     syncCalendarViewNodeClearButton();
 }
 
@@ -601,7 +600,18 @@ document.addEventListener('DOMContentLoaded', function () {
     populateCalendarViewNodeSelect();
     if (nodeSelect) {
         nodeSelect.addEventListener('change', function () {
-            if (!nodeSelect.value) {
+            var interpreted;
+            if (typeof siteNodeSelectInterpretChange === 'function') {
+                interpreted = siteNodeSelectInterpretChange(nodeSelect);
+            } else {
+                var raw = nodeSelect.value;
+                interpreted = !raw ? { action: 'empty' } : { action: 'node', nodeId: raw };
+            }
+            if (interpreted.action === 'navigate') {
+                syncCalendarViewNodeClearButton();
+                return;
+            }
+            if (interpreted.action === 'empty') {
                 if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
                     if (typeof clearMobileDescriptionAndSelection === 'function') {
                         clearMobileDescriptionAndSelection();
@@ -609,16 +619,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else if (typeof homeButton === 'function') {
                     homeButton();
                 }
+                syncCalendarViewNodeClearButton();
+                return;
+            }
+            var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(interpreted.nodeId) : null;
+            if (!item) {
+                renderCalendarView(_calendarViewYear, _calendarViewMonth);
+                syncCalendarViewNodeSelect();
             } else {
-                var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(nodeSelect.value) : null;
-                if (!item) {
-                    renderCalendarView(_calendarViewYear, _calendarViewMonth);
-                    syncCalendarViewNodeSelect();
-                } else {
-                    var content = document.getElementById(item.id + '-node');
-                    if (typeof window.populateNodeDescriptionAndSelection === 'function') {
-                        window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: false });
-                    }
+                var content = document.getElementById(item.id + '-node');
+                if (typeof window.populateNodeDescriptionAndSelection === 'function') {
+                    window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: false });
                 }
             }
             syncCalendarViewNodeClearButton();
