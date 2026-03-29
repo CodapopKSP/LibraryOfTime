@@ -35,6 +35,9 @@ const NODE_SELECT_BACK = '__back__';
 /** From a filled slot, open the category browser without removing the current node yet. */
 const NODE_SELECT_BROWSE = '__browse__';
 
+/** Virtual category: every node on the site (same set as getAllSiteNodeDataItems). */
+const NODE_SELECT_ALL_TYPE = '__all__';
+
 /**
  * Every node on the main grid (same set as nodeData), sorted by display name.
  * @returns {Array<{ id: string, name?: string, type?: string }>}
@@ -78,9 +81,12 @@ function getSiteNodeCategoriesOrdered() {
 
 /**
  * Nodes in one category, sorted by display name.
- * @param {string} categoryType nodeData `type` string (e.g. "Solar Calendar").
+ * @param {string} categoryType nodeData `type` string (e.g. "Solar Calendar"), or {@link NODE_SELECT_ALL_TYPE} for every node.
  */
 function getNodesInCategory(categoryType) {
+    if (categoryType === NODE_SELECT_ALL_TYPE) {
+        return getAllSiteNodeDataItems();
+    }
     const out = [];
     for (let i = 0; i < nodeDataArrays.length; i++) {
         const arr = nodeDataArrays[i];
@@ -125,6 +131,10 @@ function fillNodeSelectCategoryList(selectEl) {
     ph.textContent = 'None';
     ph.dataset.placeholder = '1';
     selectEl.appendChild(ph);
+    const allOpt = document.createElement('option');
+    allOpt.value = NODE_SELECT_TYPE_PREFIX + NODE_SELECT_ALL_TYPE;
+    allOpt.textContent = 'All';
+    selectEl.appendChild(allOpt);
     const cats = getSiteNodeCategoriesOrdered();
     for (let i = 0; i < cats.length; i++) {
         const opt = document.createElement('option');
