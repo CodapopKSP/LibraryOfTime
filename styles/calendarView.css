@@ -29,7 +29,7 @@
     box-sizing: border-box;
     width: 100%;
     padding: 0.4vh 0.6vh;
-    background-color: var(--ui-elevated-bg);
+    background-color: var(--ui-elevated-bg2);
     display: flex;
     flex-direction: column;
     gap: 0.35vh;
@@ -220,7 +220,7 @@
     left: 0;
     top: 0;
     padding: 0.6vh 1vh;
-    background: rgb(35, 35, 35);
+    background: var(--ui-deep-accent-bg);
     color: var(--ui-text-muted);
     font-size: 1.3vh;
     white-space: pre-line;

@@ -53,6 +53,7 @@
         left: 0;
         width: 100%;
         min-height: var(--layout-site-header-height);
+        height: var(--layout-site-header-height);
         font-size: clamp(0.85rem, 3.5vw, 1rem);
         z-index: 8000;
         background-color: rgb(47, 47, 47);
@@ -77,7 +78,7 @@
     }
 
     #page-title.page-name {
-        font-size: clamp(1.1rem, 5.2vw, 1.45rem);
+        font-size: 4vh;
         display: block;
         width: 100%;
         text-align: center;

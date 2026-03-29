@@ -6,9 +6,10 @@
 
 #floating-panel {
     width: calc(2 * var(--layout-node-width) + 0.5vh + 2 * 0.5vh);
-    background-color: var(--ui-elevated-bg2);
+    background-color: var(--ui-elevated-bg3);
     border: 0.2vh solid var(--ui-border);
     border-radius: 0.7vh;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
     position: absolute;
     top: 20vh;
     left: 50vh;
@@ -88,7 +89,7 @@
 }
 
 .panel-section {
-    background-color: var(--ui-elevated-bg);
+    background-color: var(--ui-elevated-bg2);
     border: 0.1vh solid var(--ui-border);
     border-radius: 0.3vh;
     display: flex;
