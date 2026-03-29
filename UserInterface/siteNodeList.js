@@ -39,6 +39,13 @@ const NODE_SELECT_BROWSE = '__browse__';
 const NODE_SELECT_ALL_TYPE = '__all__';
 
 /**
+ * Internal placeholder after drilling into a category when no node is chosen yet (a hidden option,
+ * not listed in the dropdown). Must not be a real node id — if we pre-selected the first node
+ * instead, choosing it would not fire a change event because the value would be unchanged.
+ */
+const NODE_SELECT_PICK_NODE = '__pick__';
+
+/**
  * Every node on the main grid (same set as nodeData), sorted by display name.
  * @returns {Array<{ id: string, name?: string, type?: string }>}
  */
@@ -146,8 +153,8 @@ function fillNodeSelectCategoryList(selectEl) {
 
 /**
  * Second level: "← Back" first, then nodes (must not pre-select Back).
- * When drilling in without a chosen node, the first node in the list is selected so Back still fires
- * a change event when chosen; pick another node if you need a different one.
+ * When drilling in without a chosen node, a hidden placeholder value is selected (not the first
+ * node) so choosing any node — including the first alphabetically — still fires a change event.
  * @param {string} [selectedNodeId] If set and in this category, that node is selected.
  */
 function fillNodeSelectNodesForCategory(selectEl, categoryType, selectedNodeId) {
@@ -160,6 +167,14 @@ function fillNodeSelectNodesForCategory(selectEl, categoryType, selectedNodeId) 
     backOpt.textContent = '\u2190 Back';
     selectEl.appendChild(backOpt);
 
+    if (!hasSelection && items.length) {
+        const pickOpt = document.createElement('option');
+        pickOpt.value = NODE_SELECT_PICK_NODE;
+        pickOpt.hidden = true;
+        pickOpt.textContent = '\u200b';
+        selectEl.appendChild(pickOpt);
+    }
+
     for (let i = 0; i < items.length; i++) {
         const opt = document.createElement('option');
         opt.value = items[i].id;
@@ -170,7 +185,7 @@ function fillNodeSelectNodesForCategory(selectEl, categoryType, selectedNodeId) 
     if (hasSelection) {
         selectEl.value = selectedNodeId;
     } else if (items.length) {
-        selectEl.value = items[0].id;
+        selectEl.value = NODE_SELECT_PICK_NODE;
     } else {
         selectEl.value = NODE_SELECT_BACK;
     }
@@ -192,6 +207,9 @@ function siteNodeSelectInterpretChange(selectEl) {
         const categoryType = v.substring(NODE_SELECT_TYPE_PREFIX.length);
         fillNodeSelectNodesForCategory(selectEl, categoryType, null);
         tryReopenNodeSelectPicker(selectEl);
+        return { action: 'navigate' };
+    }
+    if (v === NODE_SELECT_PICK_NODE) {
         return { action: 'navigate' };
     }
     if (!v) {
