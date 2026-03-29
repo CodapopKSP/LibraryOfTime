@@ -52,6 +52,7 @@
     border: none;
     background: transparent;
     color: var(--ui-text-muted);
+    -webkit-text-fill-color: var(--ui-text-muted);
     font-size: 1.9vh;
     line-height: 1;
     cursor: pointer;
@@ -59,6 +60,7 @@
     font-family: inherit;
     appearance: none;
     -webkit-appearance: none;
+    font-variant-emoji: text;
 }
 
 .mac-chrome-only .floating-panel-close {
@@ -69,6 +71,7 @@
 
 .floating-panel-close:hover {
     color: var(--ui-text-muted);
+    -webkit-text-fill-color: var(--ui-text-muted);
     background-color: rgb(60, 60, 60);
 }
 
@@ -153,7 +156,7 @@
 }
 
 .add-node-select {
-    padding: 0 0.4vh;
+    padding: 0 1.75em 0 0.4vh;
     border-radius: 0;
     align-self: stretch;
     flex: 1 1 auto;
@@ -173,6 +176,7 @@
     line-height: 1;
     background-color: var(--ui-accent-bg);
     color: var(--ui-text-muted);
+    -webkit-text-fill-color: var(--ui-text-muted);
     border: 1px solid var(--ui-border);
     border-radius: 0.25vh;
     cursor: pointer;
@@ -182,6 +186,7 @@
     align-self: stretch;
     appearance: none;
     -webkit-appearance: none;
+    font-variant-emoji: text;
 }
 
 .mac-chrome-only .add-node-select {

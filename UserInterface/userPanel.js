@@ -66,7 +66,7 @@ function populateFloatingPanelNodeSelectIfNeeded(selectEl) {
     }
     const placeholder = document.createElement('option');
     placeholder.value = '';
-    placeholder.textContent = 'Add';
+    placeholder.textContent = 'None';
     selectEl.appendChild(placeholder);
 
     const items = getAllSiteNodeDataItems();
@@ -79,7 +79,7 @@ function populateFloatingPanelNodeSelectIfNeeded(selectEl) {
     selectEl.dataset.prepared = '1';
 }
 
-/** Sync closed select label: "Add" when slot empty, otherwise the placed node's name. */
+/** Sync closed select label: "None" when slot empty, otherwise the placed node's name. */
 function syncFloatingPanelAddSelectForSection(panelSection) {
     if (!panelSection) {
         return;

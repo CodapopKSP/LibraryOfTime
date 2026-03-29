@@ -54,6 +54,50 @@
     gap: 0.45vh;
 }
 
+.input-format-tooltip-wrap {
+    position: relative;
+    display: inline-flex;
+    flex: 0 1 auto;
+    min-width: 0;
+    align-items: stretch;
+}
+
+/* Percent caps apply to the row segment (same as when inputs were direct flex children). */
+.datetime-split-fields > .input-format-tooltip-wrap:first-child {
+    max-width: 55%;
+}
+
+.datetime-split-fields > .input-format-tooltip-wrap:last-child {
+    max-width: 45%;
+}
+
+.input-format-tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    z-index: 20;
+    margin-bottom: 0.35vh;
+    padding: 0.45vh 0.65vh;
+    transform: translate(-50%, 200%);
+    font-size: 1.1vh;
+    line-height: 1.2;
+    white-space: nowrap;
+    pointer-events: none;
+    border-radius: 0.3vh;
+    border: 0.1vh solid var(--ui-border);
+    background: var(--ui-deep-accent-bg);
+    color: var(--ui-text-muted);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.12s ease, visibility 0.12s ease;
+}
+
+.input-format-tooltip-wrap:hover .input-format-tooltip,
+.input-format-tooltip-wrap:focus-within .input-format-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
 .date-picker-actions {
     display: flex;
     flex-direction: row;
@@ -122,14 +166,21 @@
     opacity: 1;
 }
 
+/* Blank-date validation popup (only; calendar view keeps .calendar-custom-tooltip defaults) */
+#input-date-tooltip.calendar-custom-tooltip {
+    background: var(--ui-deep-accent-bg);
+    color: var(--ui-text-muted);
+    border-color: var(--ui-border);
+}
+
 #date-input-date {
     width: 12ch;
-    max-width: 55%;
+    max-width: 100%;
 }
 
 #date-input-time {
     width: 10ch;
-    max-width: 45%;
+    max-width: 100%;
 }
 
 .mac-chrome-only #date-input-date,
@@ -138,13 +189,16 @@
 }
 
 .date-picker-button {
+    -webkit-appearance: none;
+    appearance: none;
     height: 2.5vh;
     width: 2vw;
     font-size: 1.2vh;
     margin: 0.2vh;
     color: var(--ui-text-muted);
+    -webkit-text-fill-color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
-    border-color: var(--ui-border-warm);
+    border: 0.15vh solid var(--ui-border-warm);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,9 +212,17 @@
     width: 5vh;
 }
 
+.date-picker-button b,
+.date-picker-button .date-picker-icon {
+    color: inherit;
+    -webkit-text-fill-color: inherit;
+}
+
 .date-picker-icon {
     font-size: 20px;
     background: var(--ui-accent-bg);
+    /* iOS: avoid emoji/color glyph for arrow symbols so color matches muted UI text */
+    font-variant-emoji: text;
 }
 
 .mac-chrome-only .date-picker-icon {
@@ -173,9 +235,12 @@
     font-size: 1.2vh;
     color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
-    border-color: var(--ui-border-warm);
+    border: 0.15vh solid var(--ui-border-warm);
     margin: 0;
     box-sizing: border-box;
+    font-family: inherit;
+    padding: 0 1.75em 0 0.35vh;
+    cursor: pointer;
 }
 
 #timezone {
@@ -184,7 +249,12 @@
     font-size: 1.2vh;
     color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
-    border-color: var(--ui-border-warm);
+    border: 0.15vh solid var(--ui-border-warm);
+    margin: 0;
+    box-sizing: border-box;
+    font-family: inherit;
+    padding: 0 1.75em 0 0.35vh;
+    cursor: pointer;
 }
 
 .mac-chrome-only #timezone,

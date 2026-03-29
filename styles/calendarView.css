@@ -2,25 +2,84 @@
 |==================|
 |   Calendar View  |
 |==================|
+
+  Full-screen overlay, panel chrome, month grid, and tooltips.
+  Separate from modals.css so the calendar can diverge from glossary / “On Making” dialogs.
 */
 
-.calendar-view-modal-content {
+/* --- Overlay + panel shell --- */
+
+.calendar-view-overlay {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.42);
+}
+
+.calendar-view-panel {
+    background-color: var(--ui-elevated-bg2);
+    margin: 1.5vh auto;
+    padding: 0;
+    border: 1px solid var(--ui-border);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
     width: 60vh;
     max-width: 90vw;
-    margin: 1.5vh auto;
+    max-height: 80vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-view-top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 1vh;
+    padding: 0.35vh 0.4vh 0.35vh 1.2vh;
+    min-height: 2.6vh;
+    box-sizing: border-box;
+    background-color: var(--ui-accent-bg);
+    border-bottom: 1px solid var(--ui-border);
+    cursor: default;
+}
+
+.mac-chrome-only .calendar-view-top-bar {
+    min-height: 3.2vh;
+    padding: 0.45vh 0.5vh 0.45vh 1.4vh;
+}
+
+.calendar-view-top-bar .floating-panel-close {
+    flex-shrink: 0;
 }
 
 /* Blank top strip: same metrics as .floating-panel-header (close only, flex-end) */
-.calendar-view-modal-content .calendar-view-top-bar {
+.calendar-view-panel .calendar-view-top-bar {
     justify-content: flex-end;
     padding: 0.25vh 0.4vh;
     min-height: 2.6vh;
     cursor: default;
 }
 
-.mac-chrome-only .calendar-view-modal-content .calendar-view-top-bar {
+.mac-chrome-only .calendar-view-panel .calendar-view-top-bar {
     min-height: 3.2vh;
     padding: 0.35vh 0.5vh;
+}
+
+.calendar-view-body-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 0.75vh 1.25vh 0.75vh;
+    box-sizing: border-box;
 }
 
 /* Month navigation sits below the blank top bar (no bottom border — grid provides the top edge) */
@@ -59,18 +118,14 @@
     flex: 0 1 33%;
     max-width: 33%;
     min-width: 0;
-    padding: 0 0.35vh;
-    border-radius: 0.3vh;
+    padding: 0 1.75em 0 0.35vh;
+    border-radius: 0;
 }
 
 .mac-chrome-only .calendar-view-node-select {
     font-size: 2vh;
     min-height: 3vh;
     height: auto;
-}
-
-.calendar-view-body-scroll.modal-body-scroll {
-    padding: 0 0.75vh 1.25vh 0.75vh;
 }
 
 .calendar-view-month-title {
@@ -84,8 +139,7 @@
     line-height: 1.2;
 }
 
-/* Beat .modal-content h2 { margin-bottom } from modals.css */
-.calendar-view-modal-content .calendar-view-month-title {
+.calendar-view-panel .calendar-view-month-title {
     margin-bottom: 0;
 }
 

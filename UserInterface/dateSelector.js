@@ -95,7 +95,7 @@ if (typeof document !== 'undefined') {
         document.getElementById('timezone').value = "UTC+08:00";
         setDatePickerTimezone(getLocalTimezoneOffset());
         setDatePickerTime("");
-        changeDateTime();
+        restartLiveDateTimeTicker();
     });
 }
 
@@ -288,14 +288,60 @@ function adjustForAstronomical(currentDateTime, gregJulDifference) {
     return currentDateTime;
 }
 
+let _inputDateTooltipHideTimer = null;
+
+function showInputDateRequiredTooltip() {
+    const tip = document.getElementById('input-date-tooltip');
+    const anchor = document.getElementById('change-date-button');
+    if (!tip || !anchor) {
+        return;
+    }
+    tip.textContent = 'Input a date to calculate';
+    tip.setAttribute('aria-hidden', 'false');
+    tip.classList.add('visible');
+    const rect = anchor.getBoundingClientRect();
+    tip.style.left = rect.left + rect.width / 2 + 'px';
+    tip.style.top = rect.top - 4 + 'px';
+    tip.style.transform = 'translate(-50%, -0%)';
+    if (_inputDateTooltipHideTimer) {
+        clearTimeout(_inputDateTooltipHideTimer);
+    }
+    _inputDateTooltipHideTimer = setTimeout(() => {
+        tip.classList.remove('visible');
+        tip.setAttribute('aria-hidden', 'true');
+        _inputDateTooltipHideTimer = null;
+    }, 1500);
+}
+
+/** Clears URL params and restores the live-updating clock (used by Reset). */
+function restartLiveDateTimeTicker() {
+    clearInterval(getCurrentUpdateInterval());
+    setCalendarType(document.getElementById('calendar-type').value);
+    const currentUrl = new URL(window.location.href);
+    currentUrl.search = '';
+    window.history.replaceState(null, '', currentUrl);
+    updateAllNodes(0, getLocalTimezoneOffset(), true);
+    if (typeof relayoutMasonry === 'function') {
+        relayoutMasonry();
+    }
+    setTimeout(() => {
+        setCurrentUpdateInterval(setInterval(updateAllNodes, updateMilliseconds));
+    }, 1);
+}
+
 // Read the input box and set the date or restart the current time ticker
 function changeDateTime(newDateString = '', timezonePassthrough = '') {
-    clearInterval(getCurrentUpdateInterval());
-
     // If newDateString isn't provided, use the input box value
     if (newDateString === '') {
         newDateString = getCombinedDateInputValue();
     }
+    if (newDateString === '') {
+        showInputDateRequiredTooltip();
+        return;
+    }
+
+    clearInterval(getCurrentUpdateInterval());
+
     setCalendarType(document.getElementById('calendar-type').value);
     let timezoneChoice = getDatePickerTimezone();
     if (timezonePassthrough) {
@@ -303,32 +349,14 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
     }
 
     const currentUrl = new URL(window.location.href);
-    // Date was input, add it as an argument
-    if (newDateString!=='') {
-        currentUrl.searchParams.set("datetime", formatDateTimeForURL(newDateString));
-        currentUrl.searchParams.set("timezone", formatTimezoneForURL(timezoneChoice));
-        currentUrl.searchParams.set("type", getCalendarType());
-        window.history.replaceState(null, '', currentUrl);
-        setDatePickerTime(newDateString);
-        updateAllNodes(newDateString, timezoneChoice, true);
-        if (typeof relayoutMasonry === 'function') {
-            relayoutMasonry();
-        }
-
-    // Date was cleared, restart without argument
-    } else {
-        currentUrl.search = ""; // Removes all query parameters
-
-        // Update the browser's URL without reloading the page
-        window.history.replaceState(null, "", currentUrl);
-        updateAllNodes(0, getLocalTimezoneOffset(), true);
-        if (typeof relayoutMasonry === 'function') {
-            relayoutMasonry();
-        }
-        // Start repeating update
-        setTimeout(() => {
-            setCurrentUpdateInterval(setInterval(updateAllNodes, updateMilliseconds));
-        }, 1);
+    currentUrl.searchParams.set('datetime', formatDateTimeForURL(newDateString));
+    currentUrl.searchParams.set('timezone', formatTimezoneForURL(timezoneChoice));
+    currentUrl.searchParams.set('type', getCalendarType());
+    window.history.replaceState(null, '', currentUrl);
+    setDatePickerTime(newDateString);
+    updateAllNodes(newDateString, timezoneChoice, true);
+    if (typeof relayoutMasonry === 'function') {
+        relayoutMasonry();
     }
 }
 

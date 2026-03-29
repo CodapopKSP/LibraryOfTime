@@ -23,7 +23,8 @@
         --mobile-node-col-gap: 0.75rem;
     }
 
-    .modal {
+    .modal,
+    .calendar-view-overlay {
         z-index: 10050;
     }
 
@@ -253,7 +254,7 @@
         width: 100%;
         min-width: 0;
         height: 2.25rem;
-        font-size: clamp(0.65rem, 2.6vw, 0.8rem);
+        font-size: clamp(0.85rem, 3.4vw, 1.05rem);
     }
 
     .datetime-split-fields {
@@ -262,14 +263,43 @@
         gap: 0.35rem;
     }
 
-    #date-input-date,
-    #date-input-time {
+    .datetime-split-fields > .input-format-tooltip-wrap:first-child,
+    .datetime-split-fields > .input-format-tooltip-wrap:last-child {
+        max-width: none;
+    }
+
+    .datetime-split-fields .input-format-tooltip-wrap {
         flex: 1 1 0;
         min-width: 0;
-        width: auto;
+    }
+
+    #date-input-date,
+    #date-input-time {
+        width: 100%;
+        min-width: 0;
         max-width: none;
         height: 2.25rem;
-        font-size: clamp(0.75rem, 3vw, 0.9rem);
+        font-size: clamp(0.9rem, 3.6vw, 1.05rem);
+    }
+
+    #date-input-date::placeholder,
+    #date-input-time::placeholder {
+        font-size: inherit;
+    }
+
+    /* vh-based tooltip from inputPanel.css is too small on phones */
+    .input-box-wrapper .input-format-tooltip {
+        font-size: clamp(0.8rem, 3.2vw, 0.95rem);
+        line-height: 1.35;
+        padding: 0.45rem 0.6rem;
+        margin-bottom: 0.4rem;
+    }
+
+    /* "Input a date to calculate" — shared .calendar-custom-tooltip uses vh (too small on phones) */
+    #input-date-tooltip.calendar-custom-tooltip {
+        font-size: clamp(0.85rem, 3.4vw, 1rem);
+        line-height: 1.35;
+        padding: 0.5rem 0.75rem;
     }
 
     .date-picker-button {
@@ -548,18 +578,19 @@
         padding: 2vh;
     }
 
-    .modal-body-scroll.calendar-view-body-scroll {
+    .calendar-view-body-scroll {
         padding: 0 0.125rem 0.5rem;
     }
 
     /* Calendar view: full width, starts 20vh below top; day cells use aspect-ratio: 1 so row height grows with width */
-    #calendar-view-modal .modal-content.calendar-view-modal-content {
+    #calendar-view-modal .calendar-view-panel {
         width: 100%;
         max-width: none;
         margin: 20vh 0 0;
         border-radius: 0;
         border-left: none;
         border-right: none;
+        box-shadow: none;
         max-height: calc(100vh - 20vh - 1rem);
         max-height: calc(100dvh - 20vh - 1rem);
         box-sizing: border-box;
