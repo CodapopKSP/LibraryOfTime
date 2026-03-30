@@ -354,6 +354,9 @@ function populateCalendarViewNodeSelect() {
     }
     sel.dataset.prepared = '1';
     syncCalendarViewNodeClearButton();
+    if (typeof mountMobileSiteNodePicker === 'function') {
+        mountMobileSiteNodePicker(sel);
+    }
     if (typeof wireNodeSelectDrillRestore === 'function') {
         wireNodeSelectDrillRestore(sel);
     }
@@ -376,6 +379,9 @@ function syncCalendarViewNodeSelect() {
         sel.value = '';
     }
     syncCalendarViewNodeClearButton();
+    if (typeof syncMobileSiteNodePickerTrigger === 'function') {
+        syncMobileSiteNodePickerTrigger(sel);
+    }
 }
 
 function refreshCalendarViewIfOpen() {
@@ -606,6 +612,9 @@ document.addEventListener('DOMContentLoaded', function () {
     populateCalendarViewNodeSelect();
     if (nodeSelect) {
         nodeSelect.addEventListener('change', function () {
+            if (nodeSelect.dataset.nodeSelectSuppressChange === '1') {
+                return;
+            }
             var interpreted;
             if (typeof siteNodeSelectInterpretChange === 'function') {
                 interpreted = siteNodeSelectInterpretChange(nodeSelect);
@@ -615,6 +624,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             if (interpreted.action === 'navigate') {
                 syncCalendarViewNodeClearButton();
+                if (typeof syncMobileSiteNodePickerTrigger === 'function') {
+                    syncMobileSiteNodePickerTrigger(nodeSelect);
+                }
                 return;
             }
             if (interpreted.action === 'empty') {
@@ -626,6 +638,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     homeButton();
                 }
                 syncCalendarViewNodeClearButton();
+                if (typeof syncMobileSiteNodePickerTrigger === 'function') {
+                    syncMobileSiteNodePickerTrigger(nodeSelect);
+                }
                 return;
             }
             var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(interpreted.nodeId) : null;

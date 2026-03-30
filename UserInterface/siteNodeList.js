@@ -39,6 +39,13 @@ const NODE_SELECT_BROWSE = '__browse__';
 const NODE_SELECT_ALL_TYPE = '__all__';
 
 /**
+ * Hidden option value used as the default selection after drilling into a category without picking a
+ * node yet. If &quot;← Back&quot; were selected by default, clicking Back again would not fire
+ * a change event (same value), so the native menu would close without navigating.
+ */
+const NODE_SELECT_DRILL = '__drill__';
+
+/**
  * When the user drills into a category (node list) but has not committed a node yet, we store the
  * category type here. If sync or the browser resets the &lt;select&gt; back to the category list
  * before the next open, ensureNodeSelectDrillBeforeOpen rebuilds the node list on the next
@@ -64,6 +71,39 @@ function isNodeSelectShowingNodeList(selectEl) {
 }
 
 /**
+ * Always keep a single-line &lt;select&gt; (size 1) so desktop uses the native dropdown/sheet popup.
+ * A larger size renders an inline listbox that steals layout space and is not the previous UX.
+ * Mobile sheet / coarse-pointer paths also rely on size 1.
+ */
+function applyNodeSelectListSize(selectEl) {
+    if (!selectEl) {
+        return;
+    }
+    selectEl.size = 1;
+}
+
+function prefersCoarsePointer() {
+    return typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+}
+
+/**
+ * While replacing &lt;select&gt; options, some UAs fire a synchronous &quot;change&quot; when the
+ * previous value no longer exists, before the new value is applied — that can commit the first
+ * real node. Change listeners should ignore events while dataset.nodeSelectSuppressChange is &quot;1&quot;.
+ */
+function suppressNodeSelectChange(selectEl, fn) {
+    if (!selectEl || typeof fn !== 'function') {
+        return;
+    }
+    selectEl.dataset.nodeSelectSuppressChange = '1';
+    try {
+        fn();
+    } finally {
+        delete selectEl.dataset.nodeSelectSuppressChange;
+    }
+}
+
+/**
  * Call on pointerdown/focus before the native picker opens. If we have a drill draft but the
  * options were replaced with the category list (e.g. sync), rebuild the node list so the second
  * tap shows the right sheet.
@@ -83,17 +123,24 @@ function ensureNodeSelectDrillBeforeOpen(selectEl) {
 }
 
 /**
- * Idempotent: wires pointerdown + focus once per select.
+ * Idempotent: wires focus once per select; pointerdown only on fine pointers.
+ * On touch, mutating options during pointerdown races the native picker and dismisses the sheet
+ * on every tap; focus still restores the node list when sync reset the options before open.
  */
 function wireNodeSelectDrillRestore(selectEl) {
     if (!selectEl || selectEl.dataset.nodeSelectDrillRestoreWired === '1') {
+        return;
+    }
+    if (selectEl.dataset.mobileSitePicker === '1') {
         return;
     }
     selectEl.dataset.nodeSelectDrillRestoreWired = '1';
     function onRestore() {
         ensureNodeSelectDrillBeforeOpen(selectEl);
     }
-    selectEl.addEventListener('pointerdown', onRestore);
+    if (!prefersCoarsePointer()) {
+        selectEl.addEventListener('pointerdown', onRestore);
+    }
     selectEl.addEventListener('focus', onRestore);
 }
 
@@ -162,11 +209,31 @@ function getNodesInCategory(categoryType) {
 }
 
 /**
- * After the user picks a category or Back, reopen the native picker when supported so the new list
- * appears without an extra tap. Not used after rebuilding the list when a node is chosen (avoids
- * reopening right after selection).
+ * Reopen the native picker after any drill step that does not commit a node (see
+ * siteNodeSelectInterpretChange: navigate only). Not called after a real node pick.
+ *
+ * Call showPicker synchronously first while still inside the user gesture that fired change;
+ * if the browser rejects it, fall back to focus + showPicker on the next frame.
  */
+function tryNodeSelectShowPickerNow(selectEl) {
+    if (typeof selectEl.showPicker !== 'function') {
+        return false;
+    }
+    try {
+        selectEl.showPicker();
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 function tryReopenNodeSelectPicker(selectEl) {
+    if (prefersCoarsePointer()) {
+        return;
+    }
+    if (tryNodeSelectShowPickerNow(selectEl)) {
+        return;
+    }
     if (typeof selectEl.showPicker !== 'function') {
         return;
     }
@@ -181,78 +248,141 @@ function tryReopenNodeSelectPicker(selectEl) {
 }
 
 /**
- * Top level: placeholder + one option per site category.
+ * After &quot;← Back&quot;, do not call showPicker in the same turn as change: many UAs report success
+ * without throwing while the native sheet is still dismissing, so we would skip the real reopen.
+ * Always wait for paint + a short delay on touch so the sheet can finish; then focus + showPicker,
+ * with click() fallback when showPicker is missing or throws.
  */
-function fillNodeSelectCategoryList(selectEl) {
-    selectEl.innerHTML = '';
-    const ph = document.createElement('option');
-    ph.value = '';
-    ph.textContent = 'None';
-    ph.dataset.placeholder = '1';
-    selectEl.appendChild(ph);
-    const allOpt = document.createElement('option');
-    allOpt.value = NODE_SELECT_TYPE_PREFIX + NODE_SELECT_ALL_TYPE;
-    allOpt.textContent = 'All';
-    selectEl.appendChild(allOpt);
-    const cats = getSiteNodeCategoriesOrdered();
-    for (let i = 0; i < cats.length; i++) {
-        const opt = document.createElement('option');
-        opt.value = NODE_SELECT_TYPE_PREFIX + cats[i].type;
-        opt.textContent = cats[i].label;
-        selectEl.appendChild(opt);
+function tryReopenNodeSelectPickerAfterBack(selectEl) {
+    if (prefersCoarsePointer()) {
+        return;
     }
+    requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+            setTimeout(function () {
+                try {
+                    selectEl.focus();
+                    if (typeof selectEl.showPicker === 'function') {
+                        selectEl.showPicker();
+                    } else {
+                        selectEl.click();
+                    }
+                } catch (e) {
+                    try {
+                        selectEl.click();
+                    } catch (e2) {
+                        // User can open again manually.
+                    }
+                }
+            }, 0);
+        });
+    });
 }
 
 /**
- * Second level: "← Back" first, then nodes (must not pre-select Back).
- * When drilling in without a chosen node, the first node in the list is selected so Back still fires
- * a change event when chosen; pick another node if you need a different one.
+ * Top level: placeholder + one option per site category.
+ */
+function fillNodeSelectCategoryList(selectEl) {
+    suppressNodeSelectChange(selectEl, function () {
+        selectEl.innerHTML = '';
+        const ph = document.createElement('option');
+        ph.value = '';
+        ph.textContent = 'None';
+        ph.dataset.placeholder = '1';
+        selectEl.appendChild(ph);
+        const allOpt = document.createElement('option');
+        allOpt.value = NODE_SELECT_TYPE_PREFIX + NODE_SELECT_ALL_TYPE;
+        allOpt.textContent = 'All';
+        selectEl.appendChild(allOpt);
+        const cats = getSiteNodeCategoriesOrdered();
+        for (let i = 0; i < cats.length; i++) {
+            const opt = document.createElement('option');
+            opt.value = NODE_SELECT_TYPE_PREFIX + cats[i].type;
+            opt.textContent = cats[i].label;
+            selectEl.appendChild(opt);
+        }
+        applyNodeSelectListSize(selectEl);
+    });
+}
+
+/**
+ * Second level: "← Back" first, then nodes in that category.
+ * When drilling without a chosen node, a hidden placeholder is selected (not Back) so Back can
+ * still fire a change event when chosen; the first real node is never auto-committed.
  * @param {string} [selectedNodeId] If set and in this category, that node is selected.
  */
 function fillNodeSelectNodesForCategory(selectEl, categoryType, selectedNodeId) {
-    selectEl.innerHTML = '';
-    const items = getNodesInCategory(categoryType);
-    const hasSelection = !!(selectedNodeId && items.some(function (n) { return n.id === selectedNodeId; }));
+    suppressNodeSelectChange(selectEl, function () {
+        selectEl.innerHTML = '';
+        const items = getNodesInCategory(categoryType);
+        const hasSelection = !!(selectedNodeId && items.some(function (n) { return n.id === selectedNodeId; }));
 
-    const backOpt = document.createElement('option');
-    backOpt.value = NODE_SELECT_BACK;
-    backOpt.textContent = '\u2190 Back';
-    selectEl.appendChild(backOpt);
+        const backOpt = document.createElement('option');
+        backOpt.value = NODE_SELECT_BACK;
+        backOpt.textContent = '\u2190 Back';
+        selectEl.appendChild(backOpt);
 
-    for (let i = 0; i < items.length; i++) {
-        const opt = document.createElement('option');
-        opt.value = items[i].id;
-        opt.textContent = items[i].name;
-        selectEl.appendChild(opt);
-    }
+        if (!hasSelection && items.length) {
+            const drillOpt = document.createElement('option');
+            drillOpt.value = NODE_SELECT_DRILL;
+            drillOpt.hidden = true;
+            drillOpt.textContent = '\u200b';
+            drillOpt.dataset.drillPlaceholder = '1';
+            selectEl.appendChild(drillOpt);
+        }
 
-    if (hasSelection) {
-        selectEl.value = selectedNodeId;
-    } else if (items.length) {
-        selectEl.value = items[0].id;
-    } else {
-        selectEl.value = NODE_SELECT_BACK;
-    }
+        for (let i = 0; i < items.length; i++) {
+            const opt = document.createElement('option');
+            opt.value = items[i].id;
+            opt.textContent = items[i].name;
+            selectEl.appendChild(opt);
+        }
+
+        if (hasSelection) {
+            selectEl.value = selectedNodeId;
+        } else if (items.length) {
+            selectEl.value = NODE_SELECT_DRILL;
+        } else {
+            selectEl.selectedIndex = 0;
+        }
+        applyNodeSelectListSize(selectEl);
+    });
 }
 
 /**
  * Handles one user change on a categorized node &lt;select&gt; (mutates options for drill-down).
+ * Navigation choices (category, Back, browse) rebuild options and may reopen the native picker.
+ * A committed node id or empty &quot;None&quot; does not reopen.
  * @returns {{ action: 'navigate' }|{ action: 'empty' }|{ action: 'node', nodeId: string }}
  */
 function siteNodeSelectInterpretChange(selectEl) {
     const v = selectEl.value;
-    if (v === NODE_SELECT_BROWSE || v === NODE_SELECT_BACK) {
+    if (v === NODE_SELECT_BACK) {
         clearNodeSelectDrillDraft(selectEl);
         fillNodeSelectCategoryList(selectEl);
         selectEl.value = '';
-        tryReopenNodeSelectPicker(selectEl);
+        tryReopenNodeSelectPickerAfterBack(selectEl);
+        return { action: 'navigate' };
+    }
+    if (v === NODE_SELECT_BROWSE) {
+        clearNodeSelectDrillDraft(selectEl);
+        fillNodeSelectCategoryList(selectEl);
+        selectEl.value = '';
+        setTimeout(function () {
+            tryReopenNodeSelectPicker(selectEl);
+        }, 0);
         return { action: 'navigate' };
     }
     if (v.indexOf(NODE_SELECT_TYPE_PREFIX) === 0) {
         const categoryType = v.substring(NODE_SELECT_TYPE_PREFIX.length);
         fillNodeSelectNodesForCategory(selectEl, categoryType, null);
         setNodeSelectDrillDraft(selectEl, categoryType);
-        tryReopenNodeSelectPicker(selectEl);
+        setTimeout(function () {
+            tryReopenNodeSelectPicker(selectEl);
+        }, 0);
+        return { action: 'navigate' };
+    }
+    if (v === NODE_SELECT_DRILL) {
         return { action: 'navigate' };
     }
     if (!v) {
@@ -262,3 +392,12 @@ function siteNodeSelectInterpretChange(selectEl) {
     clearNodeSelectDrillDraft(selectEl);
     return { action: 'node', nodeId: v };
 }
+
+/** Used by {@link UserInterface/siteNodeMobilePicker.js} (same file scope cannot share const across scripts). */
+window.SiteNodeListConstants = {
+    TYPE_PREFIX: NODE_SELECT_TYPE_PREFIX,
+    BACK: NODE_SELECT_BACK,
+    BROWSE: NODE_SELECT_BROWSE,
+    ALL_TYPE: NODE_SELECT_ALL_TYPE,
+    DRILL: NODE_SELECT_DRILL
+};

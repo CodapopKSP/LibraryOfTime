@@ -94,22 +94,37 @@ function syncFloatingPanelAddSelectForSection(panelSection) {
             if (typeof clearNodeSelectDrillDraft === 'function') {
                 clearNodeSelectDrillDraft(selectEl);
             }
+            if (typeof syncMobileSiteNodePickerTrigger === 'function') {
+                syncMobileSiteNodePickerTrigger(selectEl);
+            }
             return;
         }
     }
     fillNodeSelectCategoryList(selectEl);
     selectEl.value = '';
+    if (typeof syncMobileSiteNodePickerTrigger === 'function') {
+        syncMobileSiteNodePickerTrigger(selectEl);
+    }
 }
 
 function wireFloatingPanelNodeSelects() {
     document.querySelectorAll('.add-node-select').forEach(function (selectEl) {
         populateFloatingPanelNodeSelectIfNeeded(selectEl);
+        if (typeof mountMobileSiteNodePicker === 'function') {
+            mountMobileSiteNodePicker(selectEl);
+        }
         if (typeof wireNodeSelectDrillRestore === 'function') {
             wireNodeSelectDrillRestore(selectEl);
         }
         selectEl.addEventListener('change', function () {
+            if (selectEl.dataset.nodeSelectSuppressChange === '1') {
+                return;
+            }
             const interpreted = siteNodeSelectInterpretChange(selectEl);
             if (interpreted.action === 'navigate' || interpreted.action === 'empty') {
+                if (typeof syncMobileSiteNodePickerTrigger === 'function') {
+                    syncMobileSiteNodePickerTrigger(selectEl);
+                }
                 return;
             }
             const item = findNodeDataById(interpreted.nodeId);

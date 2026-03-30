@@ -122,6 +122,21 @@
     border-radius: 0;
 }
 
+@media (pointer: fine) {
+    .calendar-view-node-select-row:has(.calendar-view-node-select[size]:not([size="1"])) {
+        align-items: flex-start;
+    }
+
+    .calendar-view-node-select[size]:not([size="1"]) {
+        flex: 1 1 auto;
+        max-width: 100%;
+        height: auto;
+        min-height: 2.5vh;
+        max-height: min(42vh, 18rem);
+        overflow-y: auto;
+    }
+}
+
 .mac-chrome-only .calendar-view-node-select {
     font-size: 2vh;
     min-height: 3vh;
