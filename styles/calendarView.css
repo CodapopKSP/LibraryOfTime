@@ -122,6 +122,15 @@
     border-radius: 0;
 }
 
+/* Touch: siteNodeMobilePicker wraps the <select> in .site-node-mobile-picker-wrap (see floatingPanel.css flex: 1 1 auto); cap width to match desktop */
+@media (pointer: coarse) and (max-width: 1024px) {
+    .calendar-view-node-select-row .site-node-mobile-picker-wrap {
+        flex: 0 1 33%;
+        max-width: 33%;
+        min-width: 0;
+    }
+}
+
 @media (pointer: fine) {
     .calendar-view-node-select-row:has(.calendar-view-node-select[size]:not([size="1"])) {
         align-items: flex-start;
