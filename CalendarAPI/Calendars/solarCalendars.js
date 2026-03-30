@@ -503,7 +503,7 @@ function getVenetianCalendar(currentDateTime) {
 const BAHAI_TZ = 'UTC+03:30';
 
 // Returns a formatted Baha'i IRST date
-function getBahaiCalendar(currentDateTime, vernalEquinox) {
+function getBahaiCalendar(currentDateTime, _vernalEquinoxUnused) {
     const bahaiMonths = [
         "Bahá","Jalál","Jamál","‘Aẓamat","Núr","Raḥmat","Kalimát","Kamál","Asmá’","‘Izzat",
         "Mashíyyat","‘Ilm","Qudrat","Qawl","Masá’il","Sharaf","Sulṭán","Mulk","Ayyám-i-Há","‘Alá’"
@@ -529,19 +529,26 @@ function getBahaiCalendar(currentDateTime, vernalEquinox) {
         return equinoxDaySunset;
     }
 
-    // Figure out if the beginning of Bahai year was last Gregorian year or this year based on equinox
-    let startingEquinox = '';
-    let endingEquinox = '';
-    // Choose October to make sure the equinox is for the correct year
-    const octoberThisYear = createAdjustedDateTime({currentDateTime: currentDateTime, month: 10});
-    if (currentDateTime < vernalEquinox) {
-        let lastYear = addYear(octoberThisYear, -1);
-        startingEquinox = getSolsticeEquinox(lastYear, 'SPRING');
-        endingEquinox = vernalEquinox;
+    // Bahá'í year runs from one Naw-Rúz (vernal equinox) to the next. Use the spring equinox of the
+    // current Gregorian year, not getSolsticeEquinox(dt) ("last spring ≤ dt"), which is still the
+    // previous March when viewing early March before this year's equinox — that mis-sized the year and
+    // flipped bounds mid-month. Second argument kept for API compatibility with callers.
+    const gregorianYear = currentDateTime.getUTCFullYear();
+    const midThisYear = createAdjustedDateTime({ currentDateTime, year: gregorianYear, month: 7, day: 1 });
+    const springThisGregorianYear = getSolsticeOrEquinox(midThisYear, 'SPRING');
+    const midPrevYear = createAdjustedDateTime({ currentDateTime, year: gregorianYear - 1, month: 7, day: 1 });
+    const springPrevGregorianYear = getSolsticeOrEquinox(midPrevYear, 'SPRING');
+    const midNextYear = createAdjustedDateTime({ currentDateTime, year: gregorianYear + 1, month: 7, day: 1 });
+    const springNextGregorianYear = getSolsticeOrEquinox(midNextYear, 'SPRING');
+
+    let startingEquinox;
+    let endingEquinox;
+    if (currentDateTime < springThisGregorianYear) {
+        startingEquinox = springPrevGregorianYear;
+        endingEquinox = springThisGregorianYear;
     } else {
-        let nextYear = addYear(octoberThisYear, 1);
-        startingEquinox = vernalEquinox;
-        endingEquinox = getSolsticeEquinox(nextYear, 'SPRING');
+        startingEquinox = springThisGregorianYear;
+        endingEquinox = springNextGregorianYear;
     }
 
     // Calculate if the New Year should start later or earlier based on sunset in Tehran (UTC+3:30)

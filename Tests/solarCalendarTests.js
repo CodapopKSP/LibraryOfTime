@@ -267,7 +267,11 @@ function testBahaiCalendar() {
         ["1844-3-19, 18:00:00", "UTC+03:30", "1 Bahá 1 BE\n‘Idál"],
         ["2064-3-19, 14:30:00", "UTC+00:00", "1 Bahá 221 BE\nIstijlál"],
         ["2035-11-1, 13:30:00", "UTC+00:00", "17 ‘Ilm 192 BE\nIstijlál"],
-        ["2018-2-28, 14:30:00", "UTC+00:00", "5 Ayyám-i-Há 174 BE\nIstijlál"]
+        ["2018-2-28, 14:30:00", "UTC+00:00", "5 Ayyám-i-Há 174 BE\nIstijlál"],
+        // Regression: early March must use this Gregorian year’s spring, not “last spring ≤ dt” (was breaking Mulk/‘Alá’/Naw-Rúz).
+        ["1609-3-1, 12:00:00", "UTC+00:00", "1 ‘Alá’ -235 BE\nJamál"],
+        ["1609-3-16, 12:00:00", "UTC+00:00", "16 ‘Alá’ -235 BE\nKamál"],
+        ["1609-3-20, 12:00:00", "UTC+00:00", "1 Bahá -234 BE\nIstiqlál"]
     ]);
 }
 
