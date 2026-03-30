@@ -23,8 +23,7 @@
         --mobile-node-col-gap: 0.75rem;
     }
 
-    .modal,
-    .calendar-view-overlay {
+    .modal {
         z-index: 10050;
     }
 
@@ -479,7 +478,7 @@
         position: fixed;
         inset: 0;
         z-index: 9010;
-        background: rgba(0, 0, 0, 0.45);
+        background: var(--ui-scrim, rgba(0, 0, 0, 0.55));
     }
 
     /* Info sheet: above floating panel (9055); backdrop must sit above panel too so dimmer receives taps */
@@ -576,43 +575,6 @@
 
     .modal-body-scroll {
         padding: 2vh;
-    }
-
-    .calendar-view-body-scroll {
-        padding: 0 0.125rem 0.5rem;
-    }
-
-    /* Calendar view: full width, starts 20vh below top; day cells use aspect-ratio: 1 so row height grows with width */
-    #calendar-view-modal .calendar-view-panel {
-        width: 100%;
-        max-width: none;
-        margin: 20vh 0 0;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
-        box-shadow: none;
-        max-height: calc(100vh - 20vh - 1rem);
-        max-height: calc(100dvh - 20vh - 1rem);
-        box-sizing: border-box;
-        padding: 0;
-    }
-
-    #calendar-view-modal .calendar-view-top-bar {
-        padding-left: max(0.2rem, env(safe-area-inset-left, 0px));
-        padding-right: max(0.2rem, env(safe-area-inset-right, 0px));
-    }
-
-    .calendar-view-nav-bar {
-        padding: 0.35rem 0.2rem;
-    }
-
-    .calendar-view-day-name {
-        height: clamp(1.5rem, 5.2vw, 2.75rem);
-        min-height: 0;
-    }
-
-    .calendar-view-month-title {
-        font-size: clamp(0.95rem, 3.8vw, 1.15rem);
     }
 
     .modal-panel-title {

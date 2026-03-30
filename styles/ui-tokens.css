@@ -29,13 +29,6 @@
     );
 
     /* Dark UI palette — inactive tabs, inputs, header buttons, node menu, etc. */
-    /*--ui-accent-bg: #2b2b2b;
-    --ui-elevated-bg: rgb(55, 55, 55);
-    --ui-border: #1b1b1b;
-    --ui-border-muted: #1f1f1f;
-    --ui-border-warm: #443c3c;
-    --ui-text-muted: #afafaf;
-    --ui-hover-accent: #303030;*/
 
     --ui-deep-accent-bg: #1f1f1f;
     --ui-accent-bg: #2b2b2b;
@@ -47,6 +40,9 @@
     --ui-border-warm: #443c3c;
     --ui-text-muted: #d3d3d3;
     --ui-hover-accent: #303030;
+
+    /* Full-screen dim: modals, calendar view, mobile sheet backdrop, touch node-picker sheet — set to any solid color with alpha, e.g. rgba(0,0,0,0.55) or color-mix(in srgb, #000 55%, transparent) */
+    --ui-scrim: rgba(0, 0, 0, 0.65);
 
     --layout-description-input-border: 0.3vh solid var(--ui-border-muted);
 

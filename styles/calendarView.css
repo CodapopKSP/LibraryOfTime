@@ -12,16 +12,17 @@
 .calendar-view-overlay {
     display: none;
     position: fixed;
-    z-index: 1000;
+    /* Above mobile header (8000) and toolbar (9100); do not rely only on max-width:1024 — iPad landscape / “desktop” mode can skip that query */
+    z-index: 10050;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.42);
+    background-color: var(--ui-scrim, rgba(0, 0, 0, 0.55));
 }
 
 .calendar-view-panel {
-    background-color: var(--ui-elevated-bg2);
+    background-color: var(--ui-elevated-bg);
     margin: 1.5vh auto;
     padding: 0;
     border: 1px solid var(--ui-border);
@@ -322,4 +323,47 @@
 .calendar-custom-tooltip.visible {
     opacity: 1;
     visibility: visible;
+}
+
+/*
+ * Narrow viewports: calendar is NOT .modal / .modal-content, so it does not pick up those rules from responsive.css.
+ * This file is linked after responsive.css so these overrides win the cascade (same specificity as base #calendar rules).
+ */
+@media (max-width: 1024px) {
+    .calendar-view-body-scroll {
+        padding: 0 0.125rem 0.5rem;
+    }
+
+    /* Full width, starts 20vh below top; day cells use aspect-ratio: 1 so row height grows with width */
+    #calendar-view-modal .calendar-view-panel {
+        width: 100%;
+        max-width: none;
+        margin: 20vh 0 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+        max-height: calc(100vh - 20vh - 1rem);
+        max-height: calc(100dvh - 20vh - 1rem);
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    #calendar-view-modal .calendar-view-top-bar {
+        padding-left: max(0.2rem, env(safe-area-inset-left, 0px));
+        padding-right: max(0.2rem, env(safe-area-inset-right, 0px));
+    }
+
+    .calendar-view-nav-bar {
+        padding: 0.35rem 0.2rem;
+    }
+
+    .calendar-view-day-name {
+        height: clamp(1.5rem, 5.2vw, 2.75rem);
+        min-height: 0;
+    }
+
+    .calendar-view-month-title {
+        font-size: clamp(0.95rem, 3.8vw, 1.15rem);
+    }
 }

@@ -395,7 +395,7 @@ select.site-node-mobile-picker-hidden {
 .site-node-mobile-sheet-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--ui-scrim, rgba(0, 0, 0, 0.55));
 }
 
 .site-node-mobile-sheet-panel {
