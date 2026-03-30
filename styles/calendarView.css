@@ -200,11 +200,13 @@
 .calendar-view-header-row,
 .calendar-view-week-row {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    /* minmax(0, 1fr) keeps columns equal width when cell text is long (default min-width:auto would grow the track) */
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 0;
 }
 
 .calendar-view-cell {
+    min-width: 0;
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -232,6 +234,8 @@
     font-size: 0.85vh;
     padding: 0.25vh;
     flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 @media (min-width: 769px) {
@@ -252,7 +256,10 @@
 }
 
 .calendar-view-system-value {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -260,6 +267,7 @@
     -webkit-box-orient: vertical;
     line-clamp: 3;
     white-space: pre-line;
+    overflow-wrap: anywhere;
     font-size: 1vh;
 }
 
