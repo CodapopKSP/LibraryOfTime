@@ -342,7 +342,7 @@ function syncCalendarViewNodeClearButton() {
 
 /**
  * Fills the calendar modal’s node &lt;select&gt; once per page load (nodeData is static until the next visit).
- * Same categorized flow as populateFloatingPanelNodeSelectIfNeeded in userPanel.js.
+ * Same categorized flow as floating-panel node pickers (hidden value + siteNodePicker UI).
  */
 function populateCalendarViewNodeSelect() {
     var sel = document.getElementById('calendar-view-node-select');
@@ -354,6 +354,19 @@ function populateCalendarViewNodeSelect() {
     }
     sel.dataset.prepared = '1';
     syncCalendarViewNodeClearButton();
+    var wrap = document.getElementById('calendar-view-node-picker-wrap');
+    if (wrap && typeof initSiteNodePicker === 'function') {
+        initSiteNodePicker(wrap, {
+            getInitialBrowse: function () {
+                var id = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData.id : '';
+                var item = id && typeof window.findNodeDataById === 'function' ? window.findNodeDataById(id) : null;
+                if (item && item.type) {
+                    return { view: 'nodes', categoryType: item.type };
+                }
+                return { view: 'categories', categoryType: null };
+            }
+        });
+    }
 }
 
 function syncCalendarViewNodeSelect() {
@@ -363,6 +376,12 @@ function syncCalendarViewNodeSelect() {
     }
     var id = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData.id : '';
     var item = id && typeof window.findNodeDataById === 'function' ? window.findNodeDataById(id) : null;
+    if (typeof closeSiteNodePickerForRoot === 'function') {
+        var wrapEl = document.getElementById('calendar-view-node-picker-wrap');
+        if (wrapEl) {
+            closeSiteNodePickerForRoot(wrapEl);
+        }
+    }
     if (item && item.type && typeof fillNodeSelectNodesForCategory === 'function') {
         fillNodeSelectNodesForCategory(sel, item.type, id);
     } else if (typeof fillNodeSelectCategoryList === 'function') {
@@ -370,6 +389,12 @@ function syncCalendarViewNodeSelect() {
         sel.value = '';
     }
     syncCalendarViewNodeClearButton();
+    if (typeof refreshSiteNodePickerLabelForRoot === 'function') {
+        var wrap = document.getElementById('calendar-view-node-picker-wrap');
+        if (wrap) {
+            refreshSiteNodePickerLabelForRoot(wrap);
+        }
+    }
 }
 
 function refreshCalendarViewIfOpen() {
@@ -639,6 +664,9 @@ document.addEventListener('DOMContentLoaded', function () {
         nodeClearBtn.addEventListener('click', function () {
             if (!nodeSelect.value) {
                 return;
+            }
+            if (typeof fillNodeSelectCategoryList === 'function') {
+                fillNodeSelectCategoryList(nodeSelect);
             }
             nodeSelect.value = '';
             nodeSelect.dispatchEvent(new Event('change', { bubbles: true }));

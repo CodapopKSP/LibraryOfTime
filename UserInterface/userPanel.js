@@ -60,27 +60,26 @@ function findNodeDataById(nodeId) {
 }
 
 function setFloatingPanelAddSelectsEnabled(enabled) {
-    document.querySelectorAll('.add-node-select').forEach(function (el) {
+    document.querySelectorAll('#floating-box-node-container .site-node-picker-trigger').forEach(function (el) {
+        el.disabled = !enabled;
+    });
+    document.querySelectorAll('#floating-box-node-container .site-node-picker-value').forEach(function (el) {
         el.disabled = !enabled;
     });
 }
 
-function populateFloatingPanelNodeSelectIfNeeded(selectEl) {
-    if (selectEl.dataset.prepared === '1') {
-        return;
-    }
-    fillNodeSelectCategoryList(selectEl);
-    selectEl.dataset.prepared = '1';
-}
-
-/** Sync select: category browser when slot empty, or full node list for that node’s category when filled. */
+/** Sync hidden value + label: category browser when slot empty, or full node list for that node’s category when filled. */
 function syncFloatingPanelAddSelectForSection(panelSection) {
     if (!panelSection) {
         return;
     }
-    const selectEl = panelSection.querySelector('.add-node-select');
+    const root = panelSection.querySelector('.site-node-picker');
+    const selectEl = root && root.querySelector('.site-node-picker-value');
     if (!selectEl || selectEl.dataset.prepared !== '1') {
         return;
+    }
+    if (typeof closeSiteNodePickerForRoot === 'function') {
+        closeSiteNodePickerForRoot(root);
     }
     const gridItem = panelSection.querySelector('.grid-item');
     const contentEl = gridItem && gridItem.querySelector('.node .content');
@@ -91,16 +90,47 @@ function syncFloatingPanelAddSelectForSection(panelSection) {
         const item = findNodeDataById(nodeId);
         if (item && item.type && typeof fillNodeSelectNodesForCategory === 'function') {
             fillNodeSelectNodesForCategory(selectEl, item.type, nodeId);
+            if (typeof refreshSiteNodePickerLabelForRoot === 'function') {
+                refreshSiteNodePickerLabelForRoot(root);
+            }
             return;
         }
     }
     fillNodeSelectCategoryList(selectEl);
     selectEl.value = '';
+    if (typeof refreshSiteNodePickerLabelForRoot === 'function') {
+        refreshSiteNodePickerLabelForRoot(root);
+    }
 }
 
 function wireFloatingPanelNodeSelects() {
-    document.querySelectorAll('.add-node-select').forEach(function (selectEl) {
-        populateFloatingPanelNodeSelectIfNeeded(selectEl);
+    document.querySelectorAll('#floating-box-node-container .site-node-picker').forEach(function (root) {
+        const selectEl = root.querySelector('.site-node-picker-value');
+        if (!selectEl) {
+            return;
+        }
+        if (selectEl.dataset.prepared !== '1') {
+            fillNodeSelectCategoryList(selectEl);
+            selectEl.dataset.prepared = '1';
+        }
+        if (typeof initSiteNodePicker === 'function') {
+            initSiteNodePicker(root, {
+                getInitialBrowse: function () {
+                    const section = root.closest('.panel-section');
+                    const gridItem = section && section.querySelector('.grid-item');
+                    const contentEl = gridItem && gridItem.querySelector('.node .content');
+                    const suf = '-node';
+                    if (contentEl && contentEl.id && contentEl.id.endsWith(suf)) {
+                        const nid = contentEl.id.slice(0, -suf.length);
+                        const item = findNodeDataById(nid);
+                        if (item && item.type) {
+                            return { view: 'nodes', categoryType: item.type };
+                        }
+                    }
+                    return { view: 'categories', categoryType: null };
+                }
+            });
+        }
         selectEl.addEventListener('change', function () {
             const interpreted = siteNodeSelectInterpretChange(selectEl);
             if (interpreted.action === 'navigate' || interpreted.action === 'empty') {

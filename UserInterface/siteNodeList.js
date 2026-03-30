@@ -110,28 +110,11 @@ function getNodesInCategory(categoryType) {
 }
 
 /**
- * True when we should auto-reopen the native picker after replacing options (category / Back).
- * On touch UIs, calling showPicker from a rAF after the change event fights the system menu: the
- * sheet closes, reopens, or dismisses on the next tap, so drill-down feels like two taps and it is
- * gone, or tapping a category only closes. Desktop keeps the helper so the next list appears
- * without an extra click.
- */
-function shouldAutoReopenNodeSelectPicker() {
-    if (typeof window.matchMedia !== 'function') {
-        return true;
-    }
-    return !window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-}
-
-/**
  * After the user picks a category or Back, reopen the native picker when supported so the new list
  * appears without an extra tap. Not used after rebuilding the list when a node is chosen (avoids
- * reopening right after selection). Skipped on typical touch devices — see shouldAutoReopenNodeSelectPicker.
+ * reopening right after selection).
  */
 function tryReopenNodeSelectPicker(selectEl) {
-    if (!shouldAutoReopenNodeSelectPicker()) {
-        return;
-    }
     if (typeof selectEl.showPicker !== 'function') {
         return;
     }
