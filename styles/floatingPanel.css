@@ -138,30 +138,11 @@
 }
 
 /*
- * Node picker (button + custom list): shared trigger look for floating-panel slots and calendar modal.
- * Layout for the calendar-only trigger lives in calendarView.css.
+ * Recessed strip <select>: shared look for floating-panel “Add” slots and the calendar modal dropdown.
+ * Layout for the calendar-only control (width, radius, Mac Chrome) lives in calendarView.css.
  */
-.site-node-picker {
-    position: relative;
-    flex: 1 1 auto;
-    min-width: 0;
-    align-self: stretch;
-}
-
-.site-node-picker-value {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    border: 0 !important;
-    pointer-events: none;
-}
-
-.add-node-select-trigger,
-.calendar-view-node-select-trigger {
+.add-node-select,
+.calendar-view-node-select {
     height: 2.5vh;
     margin: 0;
     box-sizing: border-box;
@@ -172,62 +153,14 @@
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.22);
     cursor: pointer;
     font-family: inherit;
-    appearance: none;
-    -webkit-appearance: none;
 }
 
-.add-node-select-trigger {
+.add-node-select {
     padding: 0 1.75em 0 0.4vh;
     border-radius: 0;
     align-self: stretch;
-    width: 100%;
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.site-node-picker-dropdown {
-    /* position/top/left/z-index set in JS (fixed) so the list escapes overflow:hidden on #floating-panel */
-    max-height: min(40vh, 280px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    background: var(--ui-accent-bg);
-    border: 1px solid var(--ui-border-warm);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    margin: 0;
-    padding: 0.1vh 0;
-}
-
-.site-node-picker-row {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 0.4vh 0.6vh;
-    margin: 0;
-    border: none;
-    border-bottom: 1px solid var(--ui-border);
-    background: var(--ui-accent-bg);
-    color: var(--ui-text-muted);
-    font: inherit;
-    font-size: 1.2vh;
-    cursor: pointer;
-    box-sizing: border-box;
-}
-
-.site-node-picker-row:last-child {
-    border-bottom: none;
-}
-
-.site-node-picker-row:hover,
-.site-node-picker-row:focus {
-    background: var(--ui-elevated-bg);
-    outline: none;
-}
-
-.site-node-picker-row-back {
-    font-weight: 600;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .remove-node-button,
@@ -256,7 +189,7 @@
     font-variant-emoji: text;
 }
 
-.mac-chrome-only .add-node-select-trigger {
+.mac-chrome-only .add-node-select {
     font-size: 2vh;
 }
 
@@ -265,8 +198,8 @@
     font-size: 1.85vh;
 }
 
-.add-node-select-trigger:hover:not(:disabled),
-.calendar-view-node-select-trigger:hover:not(:disabled) {
+.add-node-select:hover:not(:disabled),
+.calendar-view-node-select:hover:not(:disabled) {
     filter: brightness(1.06);
 }
 
@@ -275,8 +208,8 @@
     background-color: var(--ui-elevated-bg);
 }
 
-.add-node-select-trigger:disabled,
-.calendar-view-node-select-trigger:disabled,
+.add-node-select:disabled,
+.calendar-view-node-select:disabled,
 .remove-node-button:disabled,
 .select-node-button:disabled {
     opacity: 0.35;

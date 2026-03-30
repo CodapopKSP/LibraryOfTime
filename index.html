@@ -198,11 +198,7 @@
             <div id="floating-box-node-container">
                 <div class="panel-section">
                     <div class="section-controls">
-                        <div class="site-node-picker" data-site-node-picker>
-                            <button type="button" class="site-node-picker-trigger add-node-select-trigger" aria-label="Add calendar to this slot" aria-haspopup="listbox" aria-expanded="false"></button>
-                            <div class="site-node-picker-dropdown" hidden role="listbox"></div>
-                            <select class="site-node-picker-value" aria-hidden="true" tabindex="-1"></select>
-                        </div>
+                        <select class="add-node-select" aria-label="Add calendar to this slot"></select>
                         <button type="button" class="remove-node-button" aria-label="Remove">×&#xFE0E;</button>
                         <button type="button" class="select-node-button" title="Select this node" aria-label="Select this node" disabled>◎&#xFE0E;</button>
                     </div>
@@ -210,11 +206,7 @@
                 </div>
                 <div class="panel-section">
                     <div class="section-controls">
-                        <div class="site-node-picker" data-site-node-picker>
-                            <button type="button" class="site-node-picker-trigger add-node-select-trigger" aria-label="Add calendar to this slot" aria-haspopup="listbox" aria-expanded="false"></button>
-                            <div class="site-node-picker-dropdown" hidden role="listbox"></div>
-                            <select class="site-node-picker-value" aria-hidden="true" tabindex="-1"></select>
-                        </div>
+                        <select class="add-node-select" aria-label="Add calendar to this slot"></select>
                         <button type="button" class="remove-node-button" aria-label="Remove">×&#xFE0E;</button>
                         <button type="button" class="select-node-button" title="Select this node" aria-label="Select this node" disabled>◎&#xFE0E;</button>
                     </div>
@@ -222,11 +214,7 @@
                 </div>
                 <div class="panel-section">
                     <div class="section-controls">
-                        <div class="site-node-picker" data-site-node-picker>
-                            <button type="button" class="site-node-picker-trigger add-node-select-trigger" aria-label="Add calendar to this slot" aria-haspopup="listbox" aria-expanded="false"></button>
-                            <div class="site-node-picker-dropdown" hidden role="listbox"></div>
-                            <select class="site-node-picker-value" aria-hidden="true" tabindex="-1"></select>
-                        </div>
+                        <select class="add-node-select" aria-label="Add calendar to this slot"></select>
                         <button type="button" class="remove-node-button" aria-label="Remove">×&#xFE0E;</button>
                         <button type="button" class="select-node-button" title="Select this node" aria-label="Select this node" disabled>◎&#xFE0E;</button>
                     </div>
@@ -234,11 +222,7 @@
                 </div>
                 <div class="panel-section">
                     <div class="section-controls">
-                        <div class="site-node-picker" data-site-node-picker>
-                            <button type="button" class="site-node-picker-trigger add-node-select-trigger" aria-label="Add calendar to this slot" aria-haspopup="listbox" aria-expanded="false"></button>
-                            <div class="site-node-picker-dropdown" hidden role="listbox"></div>
-                            <select class="site-node-picker-value" aria-hidden="true" tabindex="-1"></select>
-                        </div>
+                        <select class="add-node-select" aria-label="Add calendar to this slot"></select>
                         <button type="button" class="remove-node-button" aria-label="Remove">×&#xFE0E;</button>
                         <button type="button" class="select-node-button" title="Select this node" aria-label="Select this node" disabled>◎&#xFE0E;</button>
                     </div>
@@ -292,11 +276,7 @@
                         <button id="calendar-view-next" type="button" aria-label="Next month">›</button>
                     </div>
                     <div class="calendar-view-node-select-row">
-                        <div class="site-node-picker calendar-view-node-picker" id="calendar-view-node-picker-wrap">
-                            <button type="button" id="calendar-view-node-select-btn" class="site-node-picker-trigger calendar-view-node-select-trigger" aria-label="Timekeeping system for calendar" aria-haspopup="listbox" aria-expanded="false"></button>
-                            <div class="site-node-picker-dropdown" hidden role="listbox"></div>
-                            <select id="calendar-view-node-select" class="site-node-picker-value calendar-view-node-select-hidden" aria-hidden="true" tabindex="-1"></select>
-                        </div>
+                        <select id="calendar-view-node-select" class="calendar-view-node-select" aria-label="Timekeeping system for calendar"></select>
                         <button type="button" id="calendar-view-node-clear" class="remove-node-button" aria-label="Clear calendar system selection" disabled>&times;&#xFE0E;</button>
                     </div>
                 </div>
@@ -341,7 +321,6 @@
     
     <script src="utilities.js"></script>
     <script src="UserInterface/siteNodeList.js"></script>
-    <script src="UserInterface/siteNodePicker.js"></script>
     <script src="UserInterface/descriptionPanel.js"></script>
     <script src="UserInterface/nodeDraw.js"></script>
     <script src="UserInterface/calendarView.js"></script>

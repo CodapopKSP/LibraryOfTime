@@ -39,11 +39,63 @@ const NODE_SELECT_BROWSE = '__browse__';
 const NODE_SELECT_ALL_TYPE = '__all__';
 
 /**
- * Internal placeholder after drilling into a category when no node is chosen yet (a hidden option,
- * not listed in the dropdown). Must not be a real node id — if we pre-selected the first node
- * instead, choosing it would not fire a change event because the value would be unchanged.
+ * When the user drills into a category (node list) but has not committed a node yet, we store the
+ * category type here. If sync or the browser resets the &lt;select&gt; back to the category list
+ * before the next open, ensureNodeSelectDrillBeforeOpen rebuilds the node list on the next
+ * tap/focus (common on mobile when the native sheet closes awkwardly).
  */
-const NODE_SELECT_PICK_NODE = '__pick__';
+const _nodeSelectDrillDraft = new WeakMap();
+
+function setNodeSelectDrillDraft(selectEl, categoryType) {
+    _nodeSelectDrillDraft.set(selectEl, categoryType);
+}
+
+function clearNodeSelectDrillDraft(selectEl) {
+    _nodeSelectDrillDraft.delete(selectEl);
+}
+
+function getNodeSelectDrillDraft(selectEl) {
+    return _nodeSelectDrillDraft.get(selectEl);
+}
+
+function isNodeSelectShowingNodeList(selectEl) {
+    const opts = selectEl.options;
+    return opts.length > 0 && opts[0].value === NODE_SELECT_BACK;
+}
+
+/**
+ * Call on pointerdown/focus before the native picker opens. If we have a drill draft but the
+ * options were replaced with the category list (e.g. sync), rebuild the node list so the second
+ * tap shows the right sheet.
+ */
+function ensureNodeSelectDrillBeforeOpen(selectEl) {
+    if (!selectEl) {
+        return;
+    }
+    const draft = getNodeSelectDrillDraft(selectEl);
+    if (draft === undefined) {
+        return;
+    }
+    if (isNodeSelectShowingNodeList(selectEl)) {
+        return;
+    }
+    fillNodeSelectNodesForCategory(selectEl, draft, null);
+}
+
+/**
+ * Idempotent: wires pointerdown + focus once per select.
+ */
+function wireNodeSelectDrillRestore(selectEl) {
+    if (!selectEl || selectEl.dataset.nodeSelectDrillRestoreWired === '1') {
+        return;
+    }
+    selectEl.dataset.nodeSelectDrillRestoreWired = '1';
+    function onRestore() {
+        ensureNodeSelectDrillBeforeOpen(selectEl);
+    }
+    selectEl.addEventListener('pointerdown', onRestore);
+    selectEl.addEventListener('focus', onRestore);
+}
 
 /**
  * Every node on the main grid (same set as nodeData), sorted by display name.
@@ -153,8 +205,8 @@ function fillNodeSelectCategoryList(selectEl) {
 
 /**
  * Second level: "← Back" first, then nodes (must not pre-select Back).
- * When drilling in without a chosen node, a hidden placeholder value is selected (not the first
- * node) so choosing any node — including the first alphabetically — still fires a change event.
+ * When drilling in without a chosen node, the first node in the list is selected so Back still fires
+ * a change event when chosen; pick another node if you need a different one.
  * @param {string} [selectedNodeId] If set and in this category, that node is selected.
  */
 function fillNodeSelectNodesForCategory(selectEl, categoryType, selectedNodeId) {
@@ -167,14 +219,6 @@ function fillNodeSelectNodesForCategory(selectEl, categoryType, selectedNodeId) 
     backOpt.textContent = '\u2190 Back';
     selectEl.appendChild(backOpt);
 
-    if (!hasSelection && items.length) {
-        const pickOpt = document.createElement('option');
-        pickOpt.value = NODE_SELECT_PICK_NODE;
-        pickOpt.hidden = true;
-        pickOpt.textContent = '\u200b';
-        selectEl.appendChild(pickOpt);
-    }
-
     for (let i = 0; i < items.length; i++) {
         const opt = document.createElement('option');
         opt.value = items[i].id;
@@ -185,7 +229,7 @@ function fillNodeSelectNodesForCategory(selectEl, categoryType, selectedNodeId) 
     if (hasSelection) {
         selectEl.value = selectedNodeId;
     } else if (items.length) {
-        selectEl.value = NODE_SELECT_PICK_NODE;
+        selectEl.value = items[0].id;
     } else {
         selectEl.value = NODE_SELECT_BACK;
     }
@@ -198,6 +242,7 @@ function fillNodeSelectNodesForCategory(selectEl, categoryType, selectedNodeId) 
 function siteNodeSelectInterpretChange(selectEl) {
     const v = selectEl.value;
     if (v === NODE_SELECT_BROWSE || v === NODE_SELECT_BACK) {
+        clearNodeSelectDrillDraft(selectEl);
         fillNodeSelectCategoryList(selectEl);
         selectEl.value = '';
         tryReopenNodeSelectPicker(selectEl);
@@ -206,14 +251,14 @@ function siteNodeSelectInterpretChange(selectEl) {
     if (v.indexOf(NODE_SELECT_TYPE_PREFIX) === 0) {
         const categoryType = v.substring(NODE_SELECT_TYPE_PREFIX.length);
         fillNodeSelectNodesForCategory(selectEl, categoryType, null);
+        setNodeSelectDrillDraft(selectEl, categoryType);
         tryReopenNodeSelectPicker(selectEl);
         return { action: 'navigate' };
     }
-    if (v === NODE_SELECT_PICK_NODE) {
-        return { action: 'navigate' };
-    }
     if (!v) {
+        clearNodeSelectDrillDraft(selectEl);
         return { action: 'empty' };
     }
+    clearNodeSelectDrillDraft(selectEl);
     return { action: 'node', nodeId: v };
 }

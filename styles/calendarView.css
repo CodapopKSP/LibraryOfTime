@@ -111,21 +111,18 @@
 }
 
 /*
- * Calendar modal node picker: wrapper takes the old <select> flex slot; trigger fills it.
+ * Calendar modal dropdown: overrides on top of floatingPanel.css “recessed strip” rules
+ * (same base + hover/disabled as .add-node-select). All calendar-specific tweaks stay here.
  */
-.calendar-view-node-picker {
+.calendar-view-node-select {
     flex: 0 1 33%;
     max-width: 33%;
     min-width: 0;
-}
-
-.calendar-view-node-select-trigger {
-    width: 100%;
     padding: 0 1.75em 0 0.35vh;
     border-radius: 0;
 }
 
-.mac-chrome-only .calendar-view-node-select-trigger {
+.mac-chrome-only .calendar-view-node-select {
     font-size: 2vh;
     min-height: 3vh;
     height: auto;

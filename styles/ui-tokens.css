@@ -70,8 +70,8 @@
  */
 select#calendar-type,
 select#timezone,
-.add-node-select-trigger,
-.calendar-view-node-select-trigger {
+.add-node-select,
+.calendar-view-node-select {
     -webkit-appearance: none;
     appearance: none;
     border-radius: 0;
