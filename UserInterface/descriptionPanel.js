@@ -489,8 +489,11 @@ function handleEpochClick(epoch) {
         // Extract the first line (the date)
         let dateString = targetRaw.split('\n')[0].trim();
 
-        // Convert to JS Date object
-        let target = new Date(dateString);
+        // Parse toUTCString line without new Date(str) — years 0001–0099 map to 1901–1999 in ES
+        let target = parseDateFromUTCStringLine(dateString);
+        if (!target) {
+            target = new Date(dateString);
+        }
 
         // Apply timezone offset
         target.setTime(target.getTime() + (timezoneOffset * 1000 * 60));
@@ -510,8 +513,11 @@ function handleEpochClick(epoch) {
         // Extract the first line (the date)
         let dateString = targetRaw.split('\n')[0].trim();
 
-        // Convert to JS Date object
-        let target = new Date(dateString);
+        // Parse toUTCString line without new Date(str) — years 0001–0099 map to 1901–1999 in ES
+        let target = parseDateFromUTCStringLine(dateString);
+        if (!target) {
+            target = new Date(dateString);
+        }
 
         // Apply timezone offset
         target.setTime(target.getTime() + (timezoneOffset * 1000 * 60));

@@ -263,16 +263,16 @@ function getAstronomicalEventsForMonth(year, month) {
             var solarStr = getNextSolarLunarEclipse(eclipseRef, attempt);
             if (solarStr) {
                 var firstLine = solarStr.split('\n')[0];
-                var eclipseDate = new Date(firstLine);
-                if (!isNaN(eclipseDate.getTime()) && eclipseDate.getUTCFullYear() === year && eclipseDate.getUTCMonth() === month - 1) {
+                var eclipseDate = parseDateFromUTCStringLine(firstLine);
+                if (eclipseDate && eclipseDate.getUTCFullYear() === year && eclipseDate.getUTCMonth() === month - 1) {
                     addEvent(eclipseDate.getUTCDate(), 'solar-eclipse');
                 }
             }
             var lunarStr = getNextSolarLunarEclipse(eclipseRef, attempt + 0.5);
             if (lunarStr) {
                 var lunarFirst = lunarStr.split('\n')[0];
-                var lunarDate = new Date(lunarFirst);
-                if (!isNaN(lunarDate.getTime()) && lunarDate.getUTCFullYear() === year && lunarDate.getUTCMonth() === month - 1) {
+                var lunarDate = parseDateFromUTCStringLine(lunarFirst);
+                if (lunarDate && lunarDate.getUTCFullYear() === year && lunarDate.getUTCMonth() === month - 1) {
                     addEvent(lunarDate.getUTCDate(), 'lunar-eclipse');
                 }
             }

@@ -110,6 +110,28 @@ function createAdjustedDateTime({currentDateTime=null, timezone='UTC+00:00', yea
     return fixedDate;
 }
 
+/**
+ * Parses RFC 1123 UTC strings from Date.prototype.toUTCString() (e.g. first line of getNextSolarLunarEclipse output).
+ * Do not use new Date(string): ECMAScript maps years 0001–0099 in these strings to 1901–1999 (e.g. "Apr 0050" → April 1950).
+ */
+function parseDateFromUTCStringLine(line) {
+    const monthAbbr = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
+    const match = String(line).match(/^[\w]+,\s+(\d{1,2})\s+(\w{3})\s+(-?\d+)\s+(\d{2}):(\d{2}):(\d{2})\s+GMT$/);
+    if (!match) return null;
+    const day = parseInt(match[1], 10);
+    const monthNum = monthAbbr[match[2]];
+    if (!monthNum) return null;
+    const y = parseInt(match[3], 10);
+    return createAdjustedDateTime({
+        year: y,
+        month: monthNum,
+        day: day,
+        hour: parseInt(match[4], 10),
+        minute: parseInt(match[5], 10),
+        second: parseInt(match[6], 10)
+    });
+}
+
 // Adds years to a date (mutates the original and returns it)
 // To get a new object instead, clone first: let newDate = addYear(new Date(date), years)
 function addYear(date, years, createNew=false) {
