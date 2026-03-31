@@ -1150,3 +1150,122 @@ function getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset) {
     const output = `${SCAday} ${SCAmonth} A.S. ${toRomanNumerals(yearSCA)}\n${SCAweek}`;
     return { output, day: SCAday, month: SCAmonth, year: yearSCA, dayOfWeek: SCAweek };
 }
+
+// --- Mandaean ---
+// Fixed 365-day year: twelve 30-day months, then five intercalary days (ࡐࡀࡅࡅࡀࡍࡀࡉࡉࡀ) after month 8, then months 9–12.
+// Calendar days start at sunrise; regional offset matches Babylonian (UTC+03:00).
+// Anchor: 18 July 2019 CE at sunrise = year 481343 AA, month 1 (ࡃࡀࡅࡋࡀ), day 1.
+const MANDAEAN_TZ = 'UTC+03:00';
+const MANDAEAN_ANCHOR_AA = 481343;
+const MANDAEAN_MONTHS = [
+    'ࡃࡀࡅࡋࡀ',
+    'ࡍࡅࡍࡀ',
+    'ࡏࡌࡁࡓࡀ',
+    'ࡕࡀࡅࡓࡀ',
+    'ࡑࡉࡋࡌࡉࡀ',
+    'ࡎࡀࡓࡈࡀࡍࡀ',
+    'ࡀࡓࡉࡀ',
+    'ࡔࡅࡌࡁࡅࡋࡕࡀ',
+    'ࡒࡀࡉࡍࡀ',
+    'ࡀࡓࡒࡁࡀ',
+    'ࡄࡉࡈࡉࡀ',
+    'ࡂࡀࡃࡉࡀ'
+];
+const MANDAEAN_PARWANAYA = 'ࡐࡀࡅࡅࡀࡍࡀࡉࡉࡀ';
+// Weekdays from Sunday (index 0), aligned with getWeekdayAtTime / getUTCDay.
+const MANDAEAN_WEEK = [
+    'Habšaba',
+    'Trin Habšaba',
+    'Tlata Habšaba',
+    'Arba Habšaba',
+    'Hamša Habšaba',
+    'Yuma ḏ-Rahatia',
+    'Yuma ḏ-Šafta'
+];
+// Four quarters of three 30-day months each (not tied to solar seasons). Parwanaya is grouped with giṭa (between months 8 and 9).
+const MANDAEAN_SEASONS = ['sitwa', 'abhar', 'giṭa', 'paiz'];
+
+// Anno Adam (AA) is divided into four 480,000-year spans (216k + 156k + 100k + 8k). Years after the 480,000th have no epoch label.
+// The first two epochs are too early for the usual Library of Time timeline; names are documented here only:
+//   Epoch of Adam and Hawa - First 216k years
+//   Epoch of Ram and Rud - Next 156k years
+// Epoch of Šurbai and Šarhabʿil - Next 100k years
+// Epoch of Noah and Nuraita - Final 8k years
+// (No label for AA years after the 480,000th year.)
+const MANDAEAN_EPOCH_SURBAI = 'Epoch of Šurbai and Šarhabʿil';
+const MANDAEAN_EPOCH_NOAH = 'Epoch of Noah and Nuraita';
+const MANDAEAN_AA_EPOCH_END_ADAM = 216000;
+const MANDAEAN_AA_EPOCH_END_RAM = 372000;
+const MANDAEAN_AA_EPOCH_END_SURBAI = 472000;
+const MANDAEAN_AA_EPOCH_END_NOAH = 480000;
+
+function getMandaeanAaEpochName(aaYear) {
+    if (aaYear <= MANDAEAN_AA_EPOCH_END_ADAM) {
+        return 'Epoch of Adam and Hawa';
+    }
+    if (aaYear <= MANDAEAN_AA_EPOCH_END_RAM) {
+        return 'Epoch of Ram and Rud';
+    }
+    if (aaYear <= MANDAEAN_AA_EPOCH_END_SURBAI) {
+        return MANDAEAN_EPOCH_SURBAI;
+    }
+    if (aaYear <= MANDAEAN_AA_EPOCH_END_NOAH) {
+        return MANDAEAN_EPOCH_NOAH;
+    }
+    return null;
+}
+
+function getMandaeanSeason(monthIndex, isParwanaya) {
+    if (isParwanaya) {
+        return MANDAEAN_SEASONS[2];
+    }
+    if (monthIndex <= 2) {
+        return MANDAEAN_SEASONS[0];
+    }
+    if (monthIndex <= 5) {
+        return MANDAEAN_SEASONS[1];
+    }
+    if (monthIndex <= 8) {
+        return MANDAEAN_SEASONS[2];
+    }
+    return MANDAEAN_SEASONS[3];
+}
+
+function getMandaeanDate(currentDateTime, _timezoneOffset) {
+    const epoch = createAdjustedDateTime({ timezone: MANDAEAN_TZ, year: 2019, month: 7, day: 18, hour: 'SUNRISE' });
+    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, epoch));
+    const aaYear = MANDAEAN_ANCHOR_AA + Math.floor(daysSinceEpoch / 365);
+    const dayOfYear = ((daysSinceEpoch % 365) + 365) % 365 + 1;
+    const dayOfWeek = getWeekdayAtTime(currentDateTime, { hour: 'SUNRISE' }, MANDAEAN_TZ);
+    const LRM = '\u200E';
+
+    let day;
+    let monthLabel;
+    let monthIndex = null;
+    const other = {};
+
+    if (dayOfYear <= 240) {
+        monthIndex = Math.floor((dayOfYear - 1) / 30);
+        day = ((dayOfYear - 1) % 30) + 1;
+        monthLabel = MANDAEAN_MONTHS[monthIndex];
+    } else if (dayOfYear <= 245) {
+        day = dayOfYear - 240;
+        monthLabel = MANDAEAN_PARWANAYA;
+        other.parwanaya = true;
+    } else {
+        const d2 = dayOfYear - 245;
+        monthIndex = 8 + Math.floor((d2 - 1) / 30);
+        day = ((d2 - 1) % 30) + 1;
+        monthLabel = MANDAEAN_MONTHS[monthIndex];
+    }
+
+    const season = getMandaeanSeason(monthIndex, Boolean(other.parwanaya));
+    other.season = season;
+
+    const aaEpochName = getMandaeanAaEpochName(aaYear);
+    other.aaEpoch = aaEpochName;
+
+    const dateAndWeekAndSeason = `${LRM}${day} ${monthLabel} ${LRM}${aaYear} AA\n${MANDAEAN_WEEK[dayOfWeek]}\n${season}`;
+    const output = aaEpochName == null ? dateAndWeekAndSeason : `${dateAndWeekAndSeason}\n${aaEpochName}`;
+    return { output, day, month: monthIndex, year: aaYear, dayOfWeek, other };
+}

@@ -126,6 +126,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('solar-hijri-node', out(getSolarHijriDate(currentDateTime, springEquinox)));
     setTimeValue('qadimi-node', out(getQadimiDate(currentDateTime)));
     setTimeValue('egyptian-civil-node', out(getEgyptianDate(currentDateTime)));
+    setTimeValue('mandaean-node', out(getMandaeanDate(currentDateTime)));
     setTimeValue('iso-week-date-node', out(getISOWeekDate(currentDateTime, timezoneOffset)));
     setTimeValue('haab-node', out(getHaabDate(currentDateTime)));
     setTimeValue('anno-lucis-node', out(getAnnoLucisDate(currentDateTime, timezoneOffset)));

@@ -14,7 +14,8 @@ function runCalendarDevTests() {
         // testEgyptianCivilCalendar,
         // testSolarHijriCalendar,
         // testUmmAlQuraCalendar,
-        testShireCalendar,
+        //testShireCalendar,
+        //testMandaeanCalendar,
     ];
 
     const failedCount = testFunctions.reduce((sum, fn) => sum + fn(), 0);

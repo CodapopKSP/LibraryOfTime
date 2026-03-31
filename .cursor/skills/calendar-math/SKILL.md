@@ -23,6 +23,7 @@ Follow this end-to-end workflow for each calendar or timekeeping feature:
      - Reference epochs or **anchor dates** (e.g. "date X = year Y month 1 day 1"), typically in **Gregorian + local timezone**. Use only these and the rules the user actually stated — do **not** add rules they did not give (e.g. do not add "year starts at first new moon after equinox" if the spec only gives anchor dates and a Metonic rule).
      - Cycle lengths (days per month, leap rules, eras, intercalations, etc.).
    - For lunisolar calendars defined by **explicit anchor dates and a fixed cycle** (e.g. Metonic), use the `anchor-based-lunisolar` skill.
+   - If you add or edit **month/weekday reference tables** in `Docs/src/`, follow **`add-calendar-system`** (subsection *Reference tables in `#### Info`*): header rows, days per month, Latin transliteration beside non-Latin names, and Gregorian alignment notes only when a stable mapping exists.
 
 2. **Design the data and API surface**
    - Treat the following as a single **Calendar API layer**:
@@ -59,6 +60,7 @@ Follow this end-to-end workflow for each calendar or timekeeping feature:
 5. **Integrate with the UI**
    - Wire the new calendar into the site using existing patterns:
      - **Do not edit** `Content/nodeData.js` directly; it is procedurally generated from the mdBook in `Docs/`. Instead, update the relevant source docs when explicitly requested, and rely on the build process to regenerate it.
+     - **`UserInterface/calendarView.js`:** register the node in `buildNodeValueGetters` (key = node `id` from nodeData, without `-node`). Without this, Calendar View shows empty cells when that system is selected. See **`add-calendar-system`** Step 4b.
      - When necessary, adjust rendering or interaction behavior in `nodeDraw.js` and `descriptionPanel.js` so that the new system appears correctly in the Library of Time UI without breaking existing calendars.
 
 6. **Design and implement tests**
@@ -83,5 +85,5 @@ When the user asks to one-shot an entire calendar implementation, ensure the pla
 - [ ] Concrete function signatures and where they live in the codebase.
 - [ ] Implementation of forward and inverse conversions.
 - [ ] Tests added or updated under `Tests/` with round-trip checks and edge cases.
-- [ ] UI data wiring so the calendar shows up and is navigable in the Library of Time.
+- [ ] UI data wiring so the calendar shows up and is navigable in the Library of Time (including `calendarView.js` if Calendar View should show per-day values; see `add-calendar-system` Step 4b).
 

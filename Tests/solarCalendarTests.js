@@ -349,6 +349,19 @@ function testSCACalendar() {
     ]);
 }
 
+function testMandaeanCalendar() {
+    // LRM (\u200E) before day and year keeps day–month–year order stable with Mandaic script.
+    return runSolarTests("Mandaean Calendar", getMandaeanDate, [
+        ["2026-3-31, 12:00:00", "UTC+00:00", "\u200E14 ࡒࡀࡉࡍࡀ \u200E481349 AA\nArba Habšaba\ngiṭa"],
+        ["2019-7-18, 10:00:00", "UTC+00:00", "\u200E1 ࡃࡀࡅࡋࡀ \u200E481343 AA\nYuma ḏ-Rahatia\nsitwa"],
+        ["2019-7-18, 02:00:00", "UTC+00:00", "\u200E30 ࡂࡀࡃࡉࡀ \u200E481342 AA\nHamša Habšaba\npaiz"],
+        ["2020-3-16, 12:00:00", "UTC+00:00", "\u200E3 ࡐࡀࡅࡅࡀࡍࡀࡉࡉࡀ \u200E481343 AA\nTlata Habšaba\ngiṭa"],
+        ["678-06-08, 06:00:00", "UTC+03:00", "\u200E1 ࡃࡀࡅࡋࡀ \u200E480001 AA\nHabšaba\nsitwa"],
+        ["678-6-8, 05:00:00", "UTC+03:00", "\u200E30 ࡂࡀࡃࡉࡀ \u200E480000 AA\nYuma ḏ-Šafta\npaiz\nEpoch of Noah and Nuraita"],
+        ["2024-3-13, 06:00:00", "UTC+03:00", "\u200E1 ࡐࡀࡅࡅࡀࡍࡀࡉࡉࡀ \u200E481347 AA\nHamša Habšaba\ngiṭa"],
+    ]);
+}
+
 // Run all tests.
 function runSolarCalendarTests() {
     const testFunctions = [
@@ -379,6 +392,7 @@ function runSolarCalendarTests() {
         testIcelandicCalendar,
         testSakaSamvatCalendar,
         testSCACalendar,
+        testMandaeanCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

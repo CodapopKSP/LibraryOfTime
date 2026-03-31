@@ -42,11 +42,21 @@ Each step below is required unless explicitly skipped by the user.
    - **Epoch** (a short line; can be “To be determined.” for new systems).
    - **Confidence** (brief note on how confident we are; can be “To be determined.”).
    - **Overview** (stub section).
-   - **Info** (stub section).
+   - **Info** (stub section or reference tables — see below).
    - **Accuracy** (stub section).
    - **Source** (stub section).
    - Keep all sections present even if their bodies are just short placeholder sentences, and add **no detailed content** unless the user explicitly requested text (respect the project’s `Docs/` rule).
 3. Ensure the new file is referenced in `Docs/src/SUMMARY.md` under the right section, so `buildNodeData.js` will include it.
+
+### Reference tables in `#### Info` (months, weekdays, alignment)
+
+When adding **month names**, **weekday names**, or similar reference material:
+
+- Use **markdown tables** with a **header row** (required for mdBook and `buildNodeData.js` table conversion).
+- **Months:** Include month order/number, **days per month** (or an explicit rule when lengths vary), and **names**. If names are given in a **non-Latin script**, include a **Latin transliteration** column (or Latin-letter names) beside the native script so readers can parse the table without the script.
+- **Weekdays:** Include order (e.g. Sunday first) and names; state in the header if the week **starts on a different day** than Sunday.
+- **Approximate Gregorian alignment:** Add a column, footnote row, or small separate table **only when** the calendar maps in a stable, documentable way to Gregorian months or seasons. When there is **no** meaningful fixed mapping (e.g. a **drifting** 365-day solar year, or a lunar/lunisolar calendar unrelated to Gregorian months), use a one-row table or single cell with **Not applicable** (or an em dash)—**do not** invent long explanatory prose unless the user explicitly asks for body copy.
+- If the user asks for **tables only** (no narrative), keep **`#### Overview`**, **`#### Accuracy`**, and **`#### Source`** as `To be determined.` (or equivalent stubs) and put **only tables** under **`#### Info`**.
 
 ---
 
@@ -104,6 +114,19 @@ Each step below is required unless explicitly skipped by the user.
 
 ---
 
+## Step 4b: Wire Calendar View (required for per-day grid display)
+
+The main grid and `nodeUpdate.js` are not enough for the **Calendar View** side panel: it maintains its own map of node id → getter. If you skip this step, selecting the new system in Calendar View shows **no per-day output** and **no month-based cell shading**, because `getNodeValueForDay` looks up `getters[nodeId]` and gets `undefined`.
+
+1. Open `UserInterface/calendarView.js` and find `buildNodeValueGetters`.
+2. Add a property whose **key** is the node’s **`id` from `Content/nodeData.js`** (e.g. `'mandaean'`, `'saka-samvat'`). This is the short id **without** the `-node` suffix used in `setTimeValue`.
+3. Set the value to a function that calls your main API function with the `Date` passed in (same pattern as neighbors), for example:
+   - `'mandaean': function (dt) { return typeof getMandaeanDate === 'function' ? getMandaeanDate(dt) : ''; }`
+4. Match the **arity** your function expects: most solar entries use `(dt)` only; some use `(dt, offset)`—mirror an existing calendar in the same API file if unsure.
+5. **Month shading:** `getNodeValueForDay` builds `monthKey` from `raw.month` and `raw.year` when the getter returns an object with `month != null`. If your calendar returns `month: null` for intercalary or special days, those cells may not get a tint (same as other systems).
+
+---
+
 ## Step 5: Add tests and hook into the dev test runner
 
 1. Choose the correct test file under `Tests/`:
@@ -133,5 +156,6 @@ Before considering a new calendar/time system “hooked up”, confirm:
 - [ ] `Content/nodeData.js` has been regenerated (via `build.sh` or `buildNodeData.js`), and the node id is known.
 - [ ] A main implementation function exists in the correct `CalendarAPI/...` file, following existing patterns and conventions.
 - [ ] `nodeUpdate.js` calls `setTimeValue` for this node id using the main function.
+- [ ] **`calendarView.js`:** `buildNodeValueGetters` includes an entry for the node’s short `id` (so Calendar View cells and month shading work when that system is selected).
 - [ ] Tests exist in the appropriate `Tests/*.js` file and are wired into that file’s runner.
 

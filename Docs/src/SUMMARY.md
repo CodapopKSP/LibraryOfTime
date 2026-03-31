@@ -134,6 +134,8 @@
   
   - [Saka Samvat (IST)](SolarCalendars/SakaSamvat.md)
 
+  - [Mandaean](SolarCalendars/Mandaean.md)
+
 - [Other Calendars](OtherCalendars/OtherCalendars.md)
   
   - [Maya Long Count (CST)](OtherCalendars/MayaLongCount.md)

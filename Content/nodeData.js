@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 123
+// Total nodes: 124
 
 /*
 Node Data is a collection of data for each node.
@@ -889,6 +889,18 @@ const solarCalendarsData = [
         info: `<table class="table-very-very-long"><tr><th>Months</th><th>Days</th></tr><tr><td>Chaitra</td><td>30 or 31</td></tr><tr><td>Vaishakha</td><td>31</td></tr><tr><td>Jyestha</td><td>31</td></tr><tr><td>Ashadha</td><td>31</td></tr><tr><td>Sravana</td><td>31</td></tr><tr><td>Bhadra</td><td>31</td></tr><tr><td>Asvina</td><td>30</td></tr><tr><td>Kartika</td><td>30</td></tr><tr><td>Agrahayana</td><td>30</td></tr><tr><td>Pausha</td><td>30</td></tr><tr><td>Magha</td><td>30</td></tr><tr><td>Phalguna</td><td>30</td></tr></table>`,
         accuracy: `As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.`,
         source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Indian_national_calendar">Wikipedia article</a>, but there are some additional details found <a href="https://archive.org/details/IndianCalendricSystem-SK-Chatterjee/page/n25/mode/2up">here</a>.`
+    },
+
+    {
+        name: `Mandaean`,
+        id: `mandaean`,
+        type: `Solar Calendar`,
+        epoch: `8th June 678 CE +9:00:00`,
+        confidence: `Exact`,
+        overview: `The Mandaean calendar is a calculated solar calendar used by the Mandaean culture. It has 12 months of 30 days plus a 5-day holiday known as Parwanaya that occurs after the 8th month. Thus, it is exactly 365 days with no intercalation, resulting in a drift from the solar year of roughly one day every 4 years.\n\nYears are denoted with "AA", meaning "After [the creation of] Adam", occurring on 15 February 479003 BCE. Four epochs covered the first 480000 years of the Mandaean calendar, ending with the 8000-year Epoch of Noah and Nuraita which concluded on 8th June 678 CE.\n\nDays begin at sunset in Iraq, the ancestral home of the Mandaean people. Four seasons are also included in the calendar, each encompassing three calendar months, though due to the drift of the calendar from the solar year these seasons have little relation to their seasonal counterparts.`,
+        info: `So many years have passed since the Mandaean epoch that it is calculated to have drifted over 317 years by 2000 CE. Since the end of the Epoch of Noah and Nuraita in 480001 AA in 678 CE until 2000 CE, this calendar has drifted 321 days.\n\n<table class="table-very-very-long"><tr><th>#</th><th>Days</th><th>Mandaic</th><th>Latin transliteration</th></tr><tr><td>1</td><td>30</td><td>ࡃࡀࡅࡋࡀ</td><td>Dawlā</td></tr><tr><td>2</td><td>30</td><td>ࡍࡅࡍࡀ</td><td>Nunā</td></tr><tr><td>3</td><td>30</td><td>ࡏࡌࡁࡓࡀ</td><td>Embərā</td></tr><tr><td>4</td><td>30</td><td>ࡕࡀࡅࡓࡀ</td><td>Tawrā</td></tr><tr><td>5</td><td>30</td><td>ࡑࡉࡋࡌࡉࡀ</td><td>Şelmi</td></tr><tr><td>6</td><td>30</td><td>ࡎࡀࡓࡈࡀࡍࡀ</td><td>Şarṭānā</td></tr><tr><td>7</td><td>30</td><td>ࡀࡓࡉࡀ</td><td>Aryā</td></tr><tr><td>8</td><td>30</td><td>ࡔࡅࡌࡁࡅࡋࡕࡀ</td><td>Šomboltā</td></tr><tr><td>—</td><td>5</td><td>ࡐࡀࡅࡅࡀࡍࡀࡉࡉࡀ</td><td>Parwanaya</td></tr><tr><td>9</td><td>30</td><td>ࡒࡀࡉࡍࡀ</td><td>Qaynā</td></tr><tr><td>10</td><td>30</td><td>ࡀࡓࡒࡁࡀ</td><td>Arqəwā</td></tr><tr><td>11</td><td>30</td><td>ࡄࡉࡈࡉࡀ</td><td>Heṭyā</td></tr><tr><td>12</td><td>30</td><td>ࡂࡀࡃࡉࡀ</td><td>Gadyā</td></tr></table>\n<table class="table-very-very-long"><tr><th>Day</th><th>Name</th></tr><tr><td>Sunday</td><td>Habšaba</td></tr><tr><td>Monday</td><td>Trin Habšaba</td></tr><tr><td>Tuesday</td><td>Tlata Habšaba</td></tr><tr><td>Wednesday</td><td>Arba Habšaba</td></tr><tr><td>Thursday</td><td>Hamša Habšaba</td></tr><tr><td>Friday</td><td>Yuma ḏ-Rahatia</td></tr><tr><td>Saturday</td><td>Yuma ḏ-Šafta</td></tr></table>\n<table class="table-very-very-long"><tr><th>Season</th><th>Months</th><th>Includes</th></tr><tr><td>sitwa</td><td>1–3</td><td>Dawlā, Nunā, Embərā</td></tr><tr><td>abhar</td><td>4–6</td><td>Tawrā, Şelmi, Şarṭānā</td></tr><tr><td>giṭa</td><td>7–9</td><td>Aryā, Šomboltā; Parwanaya (5 days); Qaynā</td></tr><tr><td>paiz</td><td>10–12</td><td>Arqəwā, Heṭyā, Gadyā</td></tr></table>`,
+        accuracy: `Since this calendar is a simple formula with a known epoch, this calculation is exactly accurate. However, the epoch of 15 February 479003 BCE in the description of this calendar is calculated and not part of official sources.`,
+        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Mandaean_calendar">Wikipedia article</a>.`
     }
 ];
 
