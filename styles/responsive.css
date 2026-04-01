@@ -90,18 +90,17 @@
         display: contents;
     }
 
-    /* Sticky date + time controls below the header */
+    /* Sticky shell only — chrome lives on .input-main-row so the step panel is not on the same grey block */
     .site-right-column > .input-box-wrapper {
         position: sticky;
         top: var(--layout-site-header-height);
         z-index: 7990;
         width: 100%;
         margin: 0;
-        background-color: var(--ui-elevated-bg);
-        border: 0.2vh solid var(--ui-border);
-        border-top: none;
+        background-color: transparent;
+        border: none;
         box-sizing: border-box;
-        box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.25);
+        box-shadow: none;
     }
 
     /* Main content: masonry; vw widths — 3 cols on tablet/iPad, 2 on phone */
@@ -207,7 +206,7 @@
 
     .input-box-wrapper {
         width: 100%;
-        padding: 0.5rem 0.5rem 0.55rem;
+        padding: 0;
         box-sizing: border-box;
         min-height: 0;
     }
@@ -221,6 +220,12 @@
         gap: 0.45rem;
         width: 100%;
         min-height: 0;
+        padding: 0.5rem 0.5rem 0.55rem;
+        box-sizing: border-box;
+        background-color: var(--ui-elevated-bg);
+        border: none;
+        border-bottom: 0.2vh solid var(--ui-border);
+        box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.25);
     }
 
     .input-row-pickers {
@@ -238,6 +243,11 @@
         gap: 0.35rem;
         width: 100%;
         min-width: 0;
+    }
+
+    .date-picker-button.date-picker-lead-button {
+        display: flex;
+        flex-shrink: 0;
     }
 
     .date-picker-actions {
@@ -309,8 +319,93 @@
         font-size: 0.85rem;
     }
 
+    /* Y/M/D/H/M/S: flush under the date strip; ~94% width; roomy touch targets.
+       Center the row so the arrow stacks sit in the middle of the panel (not edge-pinned). */
     .input-step-controls {
-        display: none !important;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        align-content: flex-start;
+        gap: clamp(0.1rem, 1.2vw, 0.32rem);
+        position: relative;
+        bottom: auto;
+        width: min(94%, calc(100% - 2 * max(0.35rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px))));
+        max-height: 0;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0;
+        overflow: hidden;
+        opacity: 1;
+        pointer-events: none;
+        box-sizing: border-box;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    /* One continuous block: strip bottom border moves to the increment panel edge */
+    .input-box-wrapper.input-step-panel-open .input-main-row {
+        border-bottom: none;
+    }
+
+    /* Open/close use the same keyframes; close runs with animation-direction: reverse (see dateSelector.js). */
+    .input-box-wrapper.input-step-panel-open:not(.input-step-panel-closing) .input-step-controls {
+        animation: inputStepPanelReveal 0.28s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+    }
+
+    .input-box-wrapper.input-step-panel-open.input-step-panel-closing .input-step-controls {
+        animation: inputStepPanelReveal 0.18s linear reverse forwards;
+    }
+
+    .input-step-controls .step-group {
+        gap: 0.24rem;
+        flex-shrink: 0;
+        font-size: clamp(0.85rem, 3.2vw, 1rem);
+    }
+
+    .input-step-controls .step-arrows {
+        gap: 0.10rem;
+    }
+
+    .input-step-controls .step-label {
+        min-width: 1rem;
+        font-size: clamp(0.8rem, 3vw, 0.95rem);
+    }
+
+    .input-step-controls .step-button {
+        min-width: 2.05rem;
+        width: auto;
+        min-height: 1.75rem;
+        height: auto;
+        padding: 0.48rem 0.48rem;
+        font-size: clamp(0.78rem, 3vw, 0.95rem);
+        border-radius: 0.38rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .input-step-controls {
+            animation: none !important;
+        }
+
+        .input-box-wrapper.input-step-panel-open .input-step-controls {
+            max-height: min(65vh, 28rem);
+            opacity: 1;
+            pointer-events: auto;
+            margin-bottom: 0.5rem;
+            padding: 0.7rem 0.4rem 0.8rem;
+            overflow-x: visible;
+            overflow-y: visible;
+            background-color: var(--ui-elevated-bg);
+            border: 0.2vh solid var(--ui-border);
+            border-radius: 0 0 0.7rem 0.7rem;
+            box-shadow:
+                0 0.2rem 0.45rem rgba(0, 0, 0, 0.22),
+                0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+        }
     }
 
     .description-button-wrapper {
@@ -582,6 +677,36 @@
 
     .mac-chrome-only .nodeinfo-confidence .tooltiptext {
         visibility: hidden;
+    }
+}
+
+/* Mobile step panel: shared keyframes so reverse animation matches extend (see .input-step-controls rules above). */
+@keyframes inputStepPanelReveal {
+    from {
+        max-height: 0;
+        margin-bottom: 0;
+        padding: 0;
+        overflow: hidden;
+        pointer-events: none;
+        border: none;
+        background-color: transparent;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    to {
+        max-height: min(65vh, 28rem);
+        margin-bottom: 0.5rem;
+        padding: 0.7rem 0.4rem 0.8rem;
+        overflow-x: visible;
+        overflow-y: visible;
+        pointer-events: auto;
+        background-color: var(--ui-elevated-bg);
+        border: 0.2vh solid var(--ui-border);
+        border-radius: 0 0 0.7rem 0.7rem;
+        box-shadow:
+            0 0.2rem 0.45rem rgba(0, 0, 0, 0.22),
+            0 0 0 1px rgba(255, 255, 255, 0.04) inset;
     }
 }
 

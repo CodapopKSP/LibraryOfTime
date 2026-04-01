@@ -70,6 +70,7 @@
                         <select id="timezone"></select>
                     </div>
                     <div class="input-row input-row-datetime">
+                        <button type="button" class="date-picker-button date-picker-lead-button" id="date-input-lead-button" aria-controls="input-step-controls" aria-expanded="false" aria-label="Show date increment controls"><b><span class="date-picker-icon">▼&#xFE0E;</span></b></button>
                         <div class="datetime-split-fields" role="group" aria-label="Date and time">
                             <span class="input-format-tooltip-wrap">
                                 <input type="text" id="date-input-date" placeholder="yyyy-mm-dd" aria-label="Date" aria-describedby="date-format-hint" autocomplete="off">
@@ -87,7 +88,7 @@
                     </div>
                 </div>
                 <div id="input-date-tooltip" class="calendar-custom-tooltip" role="tooltip" aria-live="polite" aria-hidden="true"></div>
-                <div class="input-step-controls">
+                <div class="input-step-controls" id="input-step-controls" role="region" aria-label="Adjust date and time by unit">
                     <div class="step-group">
                         <span class="step-label">Y</span>
                         <div class="step-arrows">

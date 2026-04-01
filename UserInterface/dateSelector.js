@@ -89,6 +89,96 @@ if (typeof document !== 'undefined') {
     document.getElementById('change-date-button')?.addEventListener('click', () => changeDateTime());
 }
 
+function syncInputStepPanelAria() {
+    const wrap = document.querySelector('.input-box-wrapper[data-ui="date-selector"]');
+    const panel = document.getElementById('input-step-controls');
+    const btn = document.getElementById('date-input-lead-button');
+    if (!wrap || !panel || !btn || typeof window === 'undefined') {
+        return;
+    }
+    const mobile = window.matchMedia('(max-width: 1024px)').matches;
+    if (mobile) {
+        const open = wrap.classList.contains('input-step-panel-open');
+        panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Hide date increment controls' : 'Show date increment controls');
+        const iconSpan = btn.querySelector('.date-picker-icon');
+        if (iconSpan) {
+            iconSpan.textContent = open ? '\u25B2\uFE0E' : '\u25BC\uFE0E';
+        }
+    } else {
+        panel.removeAttribute('aria-hidden');
+        btn.removeAttribute('aria-expanded');
+        btn.setAttribute('aria-label', 'Focus date field');
+    }
+}
+
+if (typeof document !== 'undefined') {
+    document.getElementById('date-input-lead-button')?.addEventListener('click', () => {
+        if (typeof window !== 'undefined' && window.matchMedia('(max-width: 1024px)').matches) {
+            const wrap = document.querySelector('.input-box-wrapper[data-ui="date-selector"]');
+            const panel = document.getElementById('input-step-controls');
+            if (!wrap || !panel) {
+                return;
+            }
+            if (wrap.classList.contains('input-step-panel-closing')) {
+                return;
+            }
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            /** Same @keyframes may not restart on class re-add; clear inline animation then let CSS apply again. */
+            function restartPanelAnimation() {
+                if (reducedMotion) {
+                    return;
+                }
+                panel.style.animation = 'none';
+                void panel.offsetWidth;
+                panel.style.animation = '';
+            }
+
+            if (wrap.classList.contains('input-step-panel-open')) {
+                if (reducedMotion) {
+                    wrap.classList.remove('input-step-panel-open', 'input-step-panel-closing');
+                    syncInputStepPanelAria();
+                } else {
+                    wrap.classList.add('input-step-panel-closing');
+                    restartPanelAnimation();
+                    panel.addEventListener(
+                        'animationend',
+                        function onInputStepPanelClose(e) {
+                            if (e.target !== panel || e.animationName !== 'inputStepPanelReveal') {
+                                return;
+                            }
+                            panel.removeEventListener('animationend', onInputStepPanelClose);
+                            wrap.classList.remove('input-step-panel-open', 'input-step-panel-closing');
+                            syncInputStepPanelAria();
+                        },
+                        { once: true }
+                    );
+                }
+            } else {
+                wrap.classList.remove('input-step-panel-closing');
+                restartPanelAnimation();
+                wrap.classList.add('input-step-panel-open');
+                syncInputStepPanelAria();
+            }
+        } else {
+            getDateInputDateEl()?.focus();
+        }
+    });
+    function initInputStepPanelAria() {
+        syncInputStepPanelAria();
+    }
+    if (typeof window !== 'undefined') {
+        window.addEventListener('resize', syncInputStepPanelAria);
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initInputStepPanelAria);
+    } else {
+        initInputStepPanelAria();
+    }
+}
+
 if (typeof document !== 'undefined') {
     document.getElementById('reset-date-button')?.addEventListener('click', () => {
         setDatePickerTime('');

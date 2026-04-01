@@ -45,11 +45,20 @@
     gap: 0.4vh;
 }
 
+.date-picker-lead-button {
+    flex-shrink: 0;
+}
+
+/* Must beat .date-picker-button { display: flex } so the lead control is hidden on desktop. */
+.date-picker-button.date-picker-lead-button {
+    display: none;
+}
+
 .datetime-split-fields {
     display: flex;
     flex-direction: row;
     align-items: center;
-    flex: 0 1 auto;
+    flex: 1 1 auto;
     min-width: 0;
     gap: 0.45vh;
 }
@@ -64,11 +73,11 @@
 
 /* Percent caps apply to the row segment (same as when inputs were direct flex children). */
 .datetime-split-fields > .input-format-tooltip-wrap:first-child {
-    max-width: 55%;
+    max-width: 52%;
 }
 
 .datetime-split-fields > .input-format-tooltip-wrap:last-child {
-    max-width: 45%;
+    max-width: 42%;
 }
 
 .input-format-tooltip {
@@ -174,12 +183,12 @@
 }
 
 #date-input-date {
-    width: 12ch;
+    width: 10ch;
     max-width: 100%;
 }
 
 #date-input-time {
-    width: 10ch;
+    width: 8ch;
     max-width: 100%;
 }
 
