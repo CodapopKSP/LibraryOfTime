@@ -10,17 +10,9 @@
 document.getElementById('desktop-home-button').addEventListener('click', homeButton);
 document.getElementById('title-button').addEventListener('click', titleButtonClick);
 
-const mobileDescriptionClear = document.getElementById('mobile-description-clear');
-const mobileDescriptionHide = document.getElementById('mobile-description-hide');
-if (mobileDescriptionClear) {
-    mobileDescriptionClear.addEventListener('click', mobileDescriptionClearClick);
-}
-if (mobileDescriptionHide) {
-    mobileDescriptionHide.addEventListener('click', function () {
-        if (typeof window.closeMobileDescriptionSheet === 'function') {
-            window.closeMobileDescriptionSheet();
-        }
-    });
+const mobileDescriptionDismiss = document.getElementById('mobile-description-dismiss');
+if (mobileDescriptionDismiss) {
+    mobileDescriptionDismiss.addEventListener('click', mobileDescriptionDismissClick);
 }
 
 // Attach event listeners to all header buttons
@@ -182,16 +174,46 @@ function createTitleElement(name) {
 /** Closes any open mobile epoch “Go to Date” popover (listeners + DOM). */
 let dismissActiveEpochTooltip = null;
 
+/**
+ * Collapses all whitespace (including newlines) so epoch strings from the panel
+ * or docs parse the same as a single-line "1 January 1950 CE +10:00:00" form.
+ */
+function normalizeEpochStringForParsing(epochStr) {
+    return String(epochStr).replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Renders calendar epochs as "1 January 1950 CE" on one line and "+10:00:00" on the next
+ * when a timezone offset is present. Other values (e.g. "Midnight", "Unknown") unchanged.
+ */
+function formatEpochDisplayForPanel(epoch) {
+    if (epoch == null || typeof epoch !== 'string') return epoch;
+    const singleLine = normalizeEpochStringForParsing(epoch);
+    // Allow optional comma between era and offset (e.g. "544 BCE, +17:00:00" in nodeData)
+    const m = singleLine.match(/^(.+?(?:BCE|CE))[\s,]*([+-]\s*\d{1,2}:\d{2}:\d{2})\s*$/);
+    if (!m) return singleLine;
+    const tzDisplay = m[2].replace(/\s+/g, '');
+    return `${m[1]}\n${tzDisplay}`;
+}
+
 function createEpochElement(item) {
     const epochElement = document.createElement('div');
     epochElement.innerHTML = `
         <div class="epoch-block-wrap">
             <table class="table-epoch">
                 <tr><th><b>Epoch</b></th></tr>
-                <tr><td class="clickable-epoch">${item.epoch}</td></tr>
+                <tr><td class="clickable-epoch">
+                    <span class="epoch-value-text"></span>
+                    <span class="epoch-external-wrap" aria-hidden="true"></span>
+                </td></tr>
             </table>
         </div>`;
     epochElement.classList.add('nodeinfo-epoch');
+
+    const valueEl = epochElement.querySelector('.epoch-value-text');
+    if (valueEl) {
+        valueEl.textContent = formatEpochDisplayForPanel(item.epoch);
+    }
 
     const epochDateElement = epochElement.querySelector('.clickable-epoch');
 
@@ -549,6 +571,8 @@ function formatDateTime(dateString) {
     let formattedDate;
     let formattedTime = '00:00:00';
 
+    dateString = normalizeEpochStringForParsing(dateString);
+
     // Handle BCE/CE
     let era = '';
     if (dateString.includes('BCE')) {
@@ -649,7 +673,7 @@ function fillHomeDescriptionPanelContent() {
     changeActiveHeaderTab('header-button-1', 0);
 }
 
-/** Site introduction (About / Mission / …) without clearing the selected node — used on mobile from Info → Introduction. */
+/** Site introduction (About / Mission / …) without clearing the selected node — used on mobile from the About toolbar and title tap. */
 function showHomeIntroductionInDescriptionPanel() {
     clearDescriptionPanel();
     fillHomeDescriptionPanelContent();
@@ -673,7 +697,7 @@ function titleButtonClick() {
     }
 }
 
-function mobileDescriptionClearClick() {
+function mobileDescriptionDismissClick() {
     if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
         clearMobileDescriptionAndSelection();
     } else {

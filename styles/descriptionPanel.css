@@ -86,6 +86,56 @@
     min-width: 0;
 }
 
+.nodeinfo-epoch td.clickable-epoch {
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Icon is out of flow; text stays centered like a plain table cell (see tables.css th, td). */
+.nodeinfo-epoch .epoch-value-text {
+    display: inline;
+    white-space: pre-line;
+}
+
+.nodeinfo-epoch .epoch-external-wrap {
+    position: absolute;
+    top: 0.3em;
+    right: 0.3em;
+    line-height: 0;
+    pointer-events: none;
+    color: #bda47d;
+    /* Local asset (offline); actions/release.py inlines as data URI for single-file builds */
+    --epoch-open-icon: url("../Content/epoch-open-in-new.svg");
+}
+
+/* Open-in-new glyph: shape from SVG file (mask); color from .epoch-external-wrap */
+.nodeinfo-epoch .epoch-external-wrap::after {
+    content: "";
+    display: block;
+    width: 0.85em;
+    height: 0.85em;
+    opacity: 0.85;
+    background-color: currentColor;
+    -webkit-mask-image: var(--epoch-open-icon);
+    mask-image: var(--epoch-open-icon);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
+.nodeinfo-epoch td.clickable-epoch.hovering {
+    background-color: var(--ui-elevated-bg);
+    z-index: 1;
+}
+
+.nodeinfo-epoch td.clickable-epoch.hovering .epoch-external-wrap::after {
+    opacity: 1;
+}
+
 /* Mobile: appended to document.body so it isn’t clipped by the description sheet. */
 .epoch-action-tooltip {
     position: fixed;
@@ -131,6 +181,11 @@
     flex-shrink: 0;
     font-size: 2vh;
     font-family: var(--ui-font-heading);
+}
+
+/* Epoch and Confidence are separate tables; global th/td borders would stack into a double line here. */
+.nodeinfo-confidence .table-confidence th {
+    border-top: none;
 }
 
 .nodeinfo-confidence .tooltiptext {
@@ -252,12 +307,6 @@
     padding-bottom: calc(1rem + 0.35em);
     white-space: pre-wrap;
     text-align: justify;
-}
-
-.clickable-epoch.hovering {
-    background-color: rgb(60, 60, 60);
-    cursor: pointer;
-    z-index: 100;
 }
 
 .nodeinfo-info,

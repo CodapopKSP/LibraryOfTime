@@ -134,7 +134,25 @@ def parse_styles(style_links):
         path = f'../{styles_path}'
         with open(path, 'r', encoding='utf-8') as file:
             all_contents += '\n' + file.read()
-    return all_contents
+    return inline_content_svg_urls_in_css(all_contents)
+
+
+def inline_content_svg_urls_in_css(css_text):
+    """Replace url(../Content/*.svg) with data URIs so inlined <style> still resolves offline."""
+    pattern = r'url\((["\']?)(\.\./Content/[^"\')]+\.svg)\1\)'
+
+    def repl(match):
+        rel = match.group(2).replace("/", os.sep)
+        file_path = os.path.normpath(os.path.join(os.path.dirname(__file__), rel))
+        if not os.path.isfile(file_path):
+            print(f"Warning: SVG not found for CSS inline: {file_path}")
+            return match.group(0)
+        with open(file_path, "rb") as f:
+            raw = f.read()
+        b64 = base64.b64encode(raw).decode("ascii")
+        return f'url("data:image/svg+xml;base64,{b64}")'
+
+    return re.sub(pattern, repl, css_text)
 
 # Returns a string containing the Base64 conversion of a favicon image
 def parse_favicon(favicon):

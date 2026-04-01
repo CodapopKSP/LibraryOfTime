@@ -66,7 +66,7 @@ function hasSelectedDescriptionNode() {
     return selectedNode != null && selectedNodeData != null;
 }
 
-/** Rebuilds the description panel from the current selection (e.g. after viewing Introduction on mobile). */
+/** Rebuilds the description panel from the current selection (e.g. after viewing site intro on mobile). */
 function ensureDescriptionShowsSelectedNode() {
     if (!selectedNode || !selectedNodeData) {
         return;

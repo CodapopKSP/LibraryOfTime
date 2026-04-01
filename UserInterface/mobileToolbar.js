@@ -44,15 +44,7 @@
     }
 
     function syncMobileDescriptionUi() {
-        const descBtn = document.getElementById("mobile-tool-description");
-        if (!descBtn) {
-            return;
-        }
-        const hasNode =
-            typeof window.hasSelectedDescriptionNode === "function" &&
-            window.hasSelectedDescriptionNode();
-        descBtn.disabled = !hasNode;
-        descBtn.setAttribute("aria-disabled", hasNode ? "false" : "true");
+        /* About is always enabled; reserved for future mobile description UI sync if needed. */
     }
 
     window.syncMobileDescriptionUi = syncMobileDescriptionUi;
@@ -115,41 +107,32 @@
     }
 
     function wireToolbar() {
-        const descBtn = document.getElementById("mobile-tool-description");
+        const aboutBtn = document.getElementById("mobile-tool-about");
         const calBtn = document.getElementById("mobile-tool-calendar");
         const panelBtn = document.getElementById("mobile-tool-panel");
         const infoBtn = document.getElementById("mobile-tool-info");
         const { backdrop } = getElements();
 
-        if (descBtn) {
-            descBtn.addEventListener("click", function () {
+        if (aboutBtn) {
+            aboutBtn.addEventListener("click", function () {
                 if (!isMobileLayout()) {
                     return;
                 }
-                if (descBtn.disabled) {
-                    return;
-                }
+                closeInfoSheet();
                 const pw = document.querySelector(".page-wrapper");
                 const sheetOpen = pw && pw.classList.contains("mobile-sheet-open");
                 const showingIntro =
                     sheetOpen &&
                     document.querySelector("#description-body .homepage") !== null;
 
-                if (
-                    typeof window.ensureDescriptionShowsSelectedNode === "function" &&
-                    window.hasSelectedDescriptionNode &&
-                    window.hasSelectedDescriptionNode()
-                ) {
-                    window.ensureDescriptionShowsSelectedNode();
-                }
-
-                if (!sheetOpen) {
-                    openDescriptionSheetInternal();
-                } else if (showingIntro) {
-                    /* Was on Introduction; keep sheet open and show the selected node above. */
-                } else {
+                if (sheetOpen && showingIntro) {
                     closeMobileToolSheets();
+                    return;
                 }
+                if (typeof window.showHomeIntroductionInDescriptionPanel === "function") {
+                    window.showHomeIntroductionInDescriptionPanel();
+                }
+                openDescriptionSheetInternal();
             });
         }
 
@@ -203,7 +186,6 @@
 
         const glossaryBtn = document.getElementById("mobile-info-glossary");
         const makingBtn = document.getElementById("mobile-info-making");
-        const introBtn = document.getElementById("mobile-info-introduction");
 
         if (glossaryBtn) {
             glossaryBtn.addEventListener("click", function () {
@@ -224,16 +206,6 @@
                 if (m) {
                     m.click();
                 }
-            });
-        }
-
-        if (introBtn) {
-            introBtn.addEventListener("click", function () {
-                closeInfoSheet();
-                if (typeof window.showHomeIntroductionInDescriptionPanel === "function") {
-                    window.showHomeIntroductionInDescriptionPanel();
-                }
-                openDescriptionSheetInternal();
             });
         }
 

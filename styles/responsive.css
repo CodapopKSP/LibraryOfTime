@@ -340,11 +340,6 @@
         font-size: clamp(0.8rem, 3.2vw, 1rem);
     }
 
-    /* Epoch: tap opens a small popover with “Go to Date” (see descriptionPanel.js). */
-    .nodeinfo-epoch .clickable-epoch {
-        cursor: pointer;
-    }
-
     .desktop-home-button {
         display: none !important;
     }
@@ -366,7 +361,8 @@
     }
 
     .mobile-description-actions-btn {
-        flex: 1 1 50%;
+        flex: 1 1 100%;
+        max-width: 100%;
         min-height: 2.75rem;
         padding: 0.45rem 0.5rem;
         font-size: clamp(0.85rem, 3.2vw, 1rem);
@@ -378,30 +374,6 @@
         font-family: inherit;
         appearance: none;
         -webkit-appearance: none;
-    }
-
-    /* Home / welcome tabs: only Hide. After a node is selected, Clear appears (same flag as desktop Home). */
-    #mobile-description-clear {
-        display: none;
-    }
-
-    #desktop-home-button.home-button-visible + .mobile-description-actions #mobile-description-clear {
-        display: block;
-    }
-
-    /* Introduction (About / Mission / …): Clear hidden; Dismiss only, full width. */
-    .site-right-column .description-wrapper:has(#description-body .homepage) #mobile-description-clear {
-        display: none !important;
-    }
-
-    .site-right-column .description-wrapper:has(#description-body .homepage) #mobile-description-hide {
-        flex: 1 1 100%;
-        max-width: 100%;
-    }
-
-    #desktop-home-button:not(.home-button-visible) + .mobile-description-actions #mobile-description-hide {
-        flex: 1 1 100%;
-        max-width: 100%;
     }
 
     .mobile-description-actions-btn:active {
@@ -459,13 +431,13 @@
         pointer-events: none;
     }
 
-    /* No node selected: hide tab strip until a node is chosen or Introduction is opened from Info */
+    /* No node selected: hide tab strip until a node is chosen or About opens the site intro */
     .site-right-column .description-wrapper:has(#description-body:empty) .description-button-wrapper {
         display: none;
     }
 
     /* Highlight which bottom tool is currently open (matches description tab “active” tone) */
-    body.mobile-ui-description-open #mobile-tool-description,
+    body.mobile-ui-description-open #mobile-tool-about,
     body.mobile-ui-calendar-open #mobile-tool-calendar,
     body.mobile-ui-info-open #mobile-tool-info,
     body.floating-panel-open #mobile-tool-panel {
