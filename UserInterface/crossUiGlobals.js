@@ -9,6 +9,7 @@
         }
     }
     expose('refreshCalendarViewIfOpen', refreshCalendarViewIfOpen);
+    expose('syncCalendarViewDisplayFromMainSelection', syncCalendarViewDisplayFromMainSelection);
     expose('populateNodeDescriptionAndSelection', populateNodeDescriptionAndSelection);
     expose('hasSelectedDescriptionNode', hasSelectedDescriptionNode);
     expose('ensureDescriptionShowsSelectedNode', ensureDescriptionShowsSelectedNode);

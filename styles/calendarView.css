@@ -95,7 +95,7 @@
     gap: 0.35vh;
 }
 
-/* Same pattern as floating panel .section-controls: narrow select + × */
+/* Same pattern as floating panel .section-controls: select + × + ◎ */
 .calendar-view-node-select-row {
     display: flex;
     flex-direction: row;

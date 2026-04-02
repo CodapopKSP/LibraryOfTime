@@ -3,8 +3,10 @@
     |   Calendar View     |
     |=====================|
     Opens a basic Gregorian calendar of the current month.
-    When a timekeeping node is selected, each day cell shows that system's
-    date/output at midnight (in the selected timezone) for that Gregorian day.
+    The system shown in the grid (month shading and per-day values) uses
+    _calendarViewDisplayNodeId, updated by this modal’s dropdown, opening the
+    modal while a node is selected, or the Select (◎) button — not by browsing
+    the grid or Home (see calendarViewBootstrapDisplayFromMainIfNeeded).
 */
 
 const MONTH_NAMES = [
@@ -331,14 +333,33 @@ function getShadeForMonthKey(monthKey, monthKeyToIndex) {
     return CALENDAR_MONTH_SHADES[idx];
 }
 
-function syncCalendarViewNodeClearButton() {
-    var sel = document.getElementById('calendar-view-node-select');
-    var clearBtn = document.getElementById('calendar-view-node-clear');
-    if (!sel || !clearBtn) {
-        return;
+/**
+ * Which calendar/timekeeping system the calendar modal draws (month shading and cell values).
+ * Independent of the main grid/description selection (selectedNodeData).
+ */
+var _calendarViewDisplayNodeId = null;
+
+function syncCalendarViewDisplayFromMainSelection(nodeId) {
+    _calendarViewDisplayNodeId = nodeId || null;
+}
+
+function getCalendarViewDisplayNodeData() {
+    if (!_calendarViewDisplayNodeId || typeof window.findNodeDataById !== 'function') {
+        return null;
     }
-    var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(sel.value) : null;
-    clearBtn.disabled = !item;
+    return window.findNodeDataById(_calendarViewDisplayNodeId);
+}
+
+function syncCalendarViewNodeSelectRowButtons() {
+    var clearBtn = document.getElementById('calendar-view-node-clear');
+    var selectBtn = document.getElementById('calendar-view-node-select-btn');
+    var item = getCalendarViewDisplayNodeData();
+    if (clearBtn) {
+        clearBtn.disabled = !item;
+    }
+    if (selectBtn) {
+        selectBtn.disabled = !item;
+    }
 }
 
 /**
@@ -354,7 +375,7 @@ function populateCalendarViewNodeSelect() {
         fillNodeSelectCategoryList(sel);
     }
     sel.dataset.prepared = '1';
-    syncCalendarViewNodeClearButton();
+    syncCalendarViewNodeSelectRowButtons();
     if (typeof mountMobileSiteNodePicker === 'function') {
         mountMobileSiteNodePicker(sel);
     }
@@ -368,7 +389,7 @@ function syncCalendarViewNodeSelect() {
     if (!sel || sel.dataset.prepared !== '1') {
         return;
     }
-    var id = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData.id : '';
+    var id = _calendarViewDisplayNodeId || '';
     var item = id && typeof window.findNodeDataById === 'function' ? window.findNodeDataById(id) : null;
     if (item && item.type && typeof fillNodeSelectNodesForCategory === 'function') {
         fillNodeSelectNodesForCategory(sel, item.type, id);
@@ -379,7 +400,7 @@ function syncCalendarViewNodeSelect() {
         fillNodeSelectCategoryList(sel);
         sel.value = '';
     }
-    syncCalendarViewNodeClearButton();
+    syncCalendarViewNodeSelectRowButtons();
     if (typeof syncMobileSiteNodePickerTrigger === 'function') {
         syncMobileSiteNodePickerTrigger(sel);
     }
@@ -392,6 +413,17 @@ function refreshCalendarViewIfOpen() {
     }
     renderCalendarView(_calendarViewYear, _calendarViewMonth);
     syncCalendarViewNodeSelect();
+}
+
+/**
+ * When the modal opens: if a node is selected in the main grid/description, show that system
+ * in the calendar. If not (e.g. user went Home), keep the previous calendar-only choice.
+ * Browsing nodes or Home does not change _calendarViewDisplayNodeId — only this, the dropdown, or Select.
+ */
+function calendarViewBootstrapDisplayFromMainIfNeeded() {
+    if (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) {
+        syncCalendarViewDisplayFromMainSelection(selectedNodeData.id);
+    }
 }
 
 function buildCalendarHTML(year, month, selectedNodeData) {
@@ -497,7 +529,7 @@ function renderCalendarView(year, month) {
     if (!titleEl || !gridEl) return;
     var title = MONTH_NAMES[month - 1] + ' ' + year;
     titleEl.textContent = title;
-    var selectedData = (typeof selectedNodeData !== 'undefined' && selectedNodeData && selectedNodeData.id) ? selectedNodeData : null;
+    var selectedData = getCalendarViewDisplayNodeData();
     gridEl.innerHTML = buildCalendarHTML(year, month, selectedData);
     if (!_calendarTooltipsInitialized) {
         setupCalendarTooltips();
@@ -573,6 +605,7 @@ function openCalendarView() {
     if (Number.isNaN(year)) year = new Date().getFullYear();
     if (Number.isNaN(month) || month < 1 || month > 12) month = new Date().getMonth() + 1;
 
+    calendarViewBootstrapDisplayFromMainIfNeeded();
     setCalendarViewMonth(year, month);
     syncCalendarViewNodeSelect();
     document.getElementById('calendar-view-modal').style.display = 'block';
@@ -624,21 +657,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 interpreted = !raw ? { action: 'empty' } : { action: 'node', nodeId: raw };
             }
             if (interpreted.action === 'navigate') {
-                syncCalendarViewNodeClearButton();
+                syncCalendarViewNodeSelectRowButtons();
                 if (typeof syncMobileSiteNodePickerTrigger === 'function') {
                     syncMobileSiteNodePickerTrigger(nodeSelect);
                 }
                 return;
             }
             if (interpreted.action === 'empty') {
-                if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
-                    if (typeof clearMobileDescriptionAndSelection === 'function') {
-                        clearMobileDescriptionAndSelection();
-                    }
-                } else if (typeof homeButton === 'function') {
-                    homeButton();
-                }
-                syncCalendarViewNodeClearButton();
+                _calendarViewDisplayNodeId = null;
+                renderCalendarView(_calendarViewYear, _calendarViewMonth);
+                syncCalendarViewNodeSelect();
                 if (typeof syncMobileSiteNodePickerTrigger === 'function') {
                     syncMobileSiteNodePickerTrigger(nodeSelect);
                 }
@@ -649,12 +677,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 renderCalendarView(_calendarViewYear, _calendarViewMonth);
                 syncCalendarViewNodeSelect();
             } else {
-                var content = document.getElementById(item.id + '-node');
-                if (typeof window.populateNodeDescriptionAndSelection === 'function') {
-                    window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: false });
+                _calendarViewDisplayNodeId = interpreted.nodeId;
+                renderCalendarView(_calendarViewYear, _calendarViewMonth);
+                syncCalendarViewNodeSelectRowButtons();
+                if (typeof syncMobileSiteNodePickerTrigger === 'function') {
+                    syncMobileSiteNodePickerTrigger(nodeSelect);
                 }
             }
-            syncCalendarViewNodeClearButton();
+        });
+    }
+    var nodeSelectBtn = document.getElementById('calendar-view-node-select-btn');
+    if (nodeSelectBtn) {
+        nodeSelectBtn.addEventListener('click', function () {
+            if (nodeSelectBtn.disabled) {
+                return;
+            }
+            var id = _calendarViewDisplayNodeId;
+            if (!id) {
+                return;
+            }
+            var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(id) : null;
+            if (!item) {
+                return;
+            }
+            var mainContent = document.getElementById(item.id + '-node');
+            if (!mainContent) {
+                return;
+            }
+            if (typeof window.populateNodeDescriptionAndSelection === 'function') {
+                window.populateNodeDescriptionAndSelection(mainContent, item, { openMobileSheet: true });
+            }
         });
     }
     if (nodeClearBtn && nodeSelect) {
