@@ -271,10 +271,40 @@ function adjustDatePickerField(unit, step) {
     changeDateTime(newValue);
 }
 
+const STEP_BUTTON_TAP_FLASH_MS = 200;
+
+function flashStepButtonTap(button) {
+    if (!button || button.disabled) {
+        return;
+    }
+    if (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+    button.classList.add('step-button--tap-active');
+    if (button._stepButtonTapTimer != null) {
+        clearTimeout(button._stepButtonTapTimer);
+    }
+    button._stepButtonTapTimer = setTimeout(() => {
+        button.classList.remove('step-button--tap-active');
+        button._stepButtonTapTimer = null;
+    }, STEP_BUTTON_TAP_FLASH_MS);
+}
+
 // Wire up desktop-only step buttons
 if (typeof document !== 'undefined') {
     const stepButtons = document.querySelectorAll('.step-button');
     stepButtons.forEach((button) => {
+        button.addEventListener('pointerdown', (e) => {
+            if (e.button !== 0) {
+                return;
+            }
+            flashStepButtonTap(button);
+        });
+        button.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                flashStepButtonTap(button);
+            }
+        });
         button.addEventListener('click', () => {
             const unit = button.getAttribute('data-unit');
             const step = parseInt(button.getAttribute('data-step') || '0', 10);

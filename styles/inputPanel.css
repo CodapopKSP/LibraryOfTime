@@ -156,6 +156,11 @@
     cursor: pointer;
 }
 
+.step-button:hover:not(:disabled),
+.step-button.step-button--tap-active {
+    filter: brightness(1.1);
+}
+
 #date-input-date,
 #date-input-time {
     flex: 0 1 auto;
