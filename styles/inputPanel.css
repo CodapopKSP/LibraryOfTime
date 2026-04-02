@@ -192,6 +192,28 @@
     max-width: 100%;
 }
 
+/* Wide viewports: no increment button; let date/time fields use comfortable widths (mobile overrides in responsive.css). */
+@media (min-width: 1025px) {
+    .input-main-row {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    .datetime-split-fields > .input-format-tooltip-wrap:first-child,
+    .datetime-split-fields > .input-format-tooltip-wrap:last-child {
+        max-width: none;
+    }
+
+    #date-input-date {
+        width: 13ch;
+    }
+
+    #date-input-time {
+        width: 10ch;
+    }
+}
+
 .mac-chrome-only #date-input-date,
 .mac-chrome-only #date-input-time {
     font-size: 2vh;
@@ -232,6 +254,19 @@
     background: var(--ui-accent-bg);
     /* iOS: avoid emoji/color glyph for arrow symbols so color matches muted UI text */
     font-variant-emoji: text;
+}
+
+/* Lead button only: SVG chevron (Unicode triangles vary by font/OS); open state = rotate via CSS. */
+#date-input-lead-button .date-picker-icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.input-box-wrapper.input-step-panel-open #date-input-lead-button .date-picker-lead-icon-svg {
+    transform: rotate(180deg);
+    transform-origin: center;
 }
 
 .mac-chrome-only .date-picker-icon {

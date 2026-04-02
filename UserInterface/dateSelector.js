@@ -102,10 +102,6 @@ function syncInputStepPanelAria() {
         panel.setAttribute('aria-hidden', open ? 'false' : 'true');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         btn.setAttribute('aria-label', open ? 'Hide date increment controls' : 'Show date increment controls');
-        const iconSpan = btn.querySelector('.date-picker-icon');
-        if (iconSpan) {
-            iconSpan.textContent = open ? '\u25B2\uFE0E' : '\u25BC\uFE0E';
-        }
     } else {
         panel.removeAttribute('aria-hidden');
         btn.removeAttribute('aria-expanded');

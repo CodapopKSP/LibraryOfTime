@@ -287,7 +287,17 @@
         width: 100%;
         min-width: 0;
         max-width: none;
+        box-sizing: border-box;
         height: 2.25rem;
+        min-height: 2.25rem;
+        max-height: 2.25rem;
+        margin: 0;
+        padding: 0 0.45rem;
+        line-height: 1.2;
+        -webkit-appearance: none;
+        appearance: none;
+        border: 1px solid var(--ui-border-warm);
+        border-radius: 0;
         font-size: clamp(0.9rem, 3.6vw, 1.05rem);
     }
 
@@ -317,6 +327,7 @@
         height: 2.25rem;
         margin: 0;
         font-size: 0.85rem;
+        border-radius: 0.55rem;
     }
 
     /* Y/M/D/H/M/S: flush under the date strip; ~94% width; roomy touch targets.
@@ -345,11 +356,6 @@
         border: none;
         background: transparent;
         box-shadow: none;
-    }
-
-    /* One continuous block: strip bottom border moves to the increment panel edge */
-    .input-box-wrapper.input-step-panel-open .input-main-row {
-        border-bottom: none;
     }
 
     /* Open/close use the same keyframes; close runs with animation-direction: reverse (see dateSelector.js). */
@@ -395,12 +401,16 @@
             max-height: min(65vh, 28rem);
             opacity: 1;
             pointer-events: auto;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0;
             padding: 0.7rem 0.4rem 0.8rem;
             overflow-x: visible;
             overflow-y: visible;
             background-color: var(--ui-elevated-bg);
-            border: 0.2vh solid var(--ui-border);
+            /* No top border: .input-main-row keeps border-bottom as the full-width divider. */
+            border-top: none;
+            border-left: 0.2vh solid var(--ui-border);
+            border-right: 0.2vh solid var(--ui-border);
+            border-bottom: 0.2vh solid var(--ui-border);
             border-radius: 0 0 0.7rem 0.7rem;
             box-shadow:
                 0 0.2rem 0.45rem rgba(0, 0, 0, 0.22),
@@ -503,8 +513,8 @@
         flex: 1 1 0;
         min-width: 0;
         padding: 0.35rem 0.2rem;
-        font-size: clamp(0.6rem, 2.5vw, 0.72rem);
-        line-height: 1.15;
+        font-size: clamp(0.8rem, 3.2vw, 0.95rem);
+        line-height: 1.2;
         text-align: center;
         color: var(--ui-text-muted);
         background-color: var(--ui-accent-bg);
@@ -696,13 +706,17 @@
 
     to {
         max-height: min(65vh, 28rem);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0;
         padding: 0.7rem 0.4rem 0.8rem;
         overflow-x: visible;
         overflow-y: visible;
         pointer-events: auto;
-        background-color: var(--ui-elevated-bg);
-        border: 0.2vh solid var(--ui-border);
+        background-color: var(--ui-elevated-bg2);
+        /* No top border: .input-main-row keeps border-bottom as the full-width divider. */
+        border-top: none;
+        border-left: 0.2vh solid var(--ui-border);
+        border-right: 0.2vh solid var(--ui-border);
+        border-bottom: 0.2vh solid var(--ui-border);
         border-radius: 0 0 0.7rem 0.7rem;
         box-shadow:
             0 0.2rem 0.45rem rgba(0, 0, 0, 0.22),
