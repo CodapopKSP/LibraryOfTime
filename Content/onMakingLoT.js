@@ -2,7 +2,8 @@
 const modalContent = {
     title: "On Making the Library of Time",
     text: [
-        `<p>
+        `<h3>Digital Archaeology</h3>
+        <p>
         This website, comprised of calendar information and a calculator to display the date in multiple calendars, is not a new idea. Many have built similar tools in the past, albeit at a much smaller scale, typically consisting of only 3 or 4 calendars. 
         </p>`,
 
@@ -14,7 +15,8 @@ const modalContent = {
         Thus, I have dubbed these phenomena <strong>Temporal Rosetta Stones</strong>, as well as referring to the discovery and study of them as <strong>Digital Archaeology</strong>.
         </p>`,
 
-        `<p>
+        `<h3>The Fate of Temporal Rosetta Stones</h3>
+        <p>
         Temporal Rosetta Stones all seem to have come from a similar time in the history of the internet, when one-off websites were made for specific purposes rather than the general-purpose websites that we have today. These sites, built with simple HTML sporting plain text on colored backgrounds, genuinely feel ancient. 
         </p>`,
 
@@ -43,11 +45,13 @@ const modalContent = {
             </div>
         </div>`,
 
-        `<p>
-        My studies have also brought me to the writings of Jean Meeus, who is the author of <strong>Astronomical Algorithms</strong>, a compilation of some of the most incredible math equations for calculating the times and positions of celestial phenomena. He is the principal astronomer for hobbyists, and his work is unmatched to this day among amateurs despite being from 1991. 
+        `<h3>The Work of Jean Meeus</h3>
+        <p>
+        My studies have also brought me to the writings of Jean Meeus, who is the author of <strong>Astronomical Algorithms</strong>, a compilation of some of the most incredible math equations for calculating the times and positions of celestial phenomena with high precision. He is the principal astronomer for hobbyists, and his work is unmatched to this day among amateurs despite being from 1991. 
         </p>`,
 
-        `<p>
+        `<h3>The Imperfection of Cycles</h3>
+        <p>
         Calendars are ultimately just approximations of the kind of work that Meeus did, though usually packaged up for human consumption. It's no surprise that the earliest calendars were all lunar calendars; the moon was the first physical clock floating in the sky above prehistoric humans, with phases to show the passage of time rather than hands and numbers. 
         </p>`,
 
@@ -59,8 +63,9 @@ const modalContent = {
         Yet because the universe is not arranged in perfect geometry, the years, months, and days can never line up in any reasonable way. Thus, calendars grew out of sync with what they were originally measuring, and their maintainers had to enact more and more complex techniques to keep everything aligned as best as possible. 
         </p>`,
 
-        `<p>
-        Regarding the Library of Time, this website may never be finished, simply due to the fact that there are just too many calendars, cycles, and exceptions to be documented in my lifetime. For that reason, I constrained this website to being written in simple HTML and JavaScript, without a backend, so that it can be downloaded as a single file and run by anyone. 
+        `<h3>The Future of the Library of Time</h3>
+        <p>
+        The Library of Time may never be finished, simply due to the fact that there are just too many calendars, cycles, and exceptions to be documented in my lifetime. For that reason, I constrained this website to being written in simple HTML and JavaScript, without a backend, so that it can be downloaded as a single file and run and worked on by anyone. 
         </p>`,
 
         `<p>
