@@ -75,6 +75,22 @@
     background-color: rgb(60, 60, 60);
 }
 
+.floating-panel-description {
+    margin: 0;
+    padding: 0.4vh 0.55vh 0.45vh;
+    flex-shrink: 0;
+    font-family: var(--ui-font-body);
+    font-size: 1.3vh;
+    line-height: 1.35;
+    color: var(--ui-text-dark-grey);
+    box-sizing: border-box;
+}
+
+.mac-chrome-only .floating-panel-description {
+    font-size: 1.35vh;
+    padding: 0.45vh 0.6vh 0.5vh;
+}
+
 /* 2×2: row height = tallest cell in that row; cells stretch to match (default grid align-items: stretch) */
 #floating-box-node-container {
     display: grid;

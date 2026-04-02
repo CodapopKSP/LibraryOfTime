@@ -225,7 +225,8 @@ function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
 
     // Computing Times
     setTimeValue('julian-day-number-node', getJulianDayNumber(currentDateTime));
-    setTimeValue('iso-8601-node', currentDateTime.toISOString());
+    const iso8601 = currentDateTime.toISOString();
+    setTimeValue('iso-8601-node', iso8601.replace('T', '\nT'));
     setTimeValue('mars-sol-date-node', getMarsSolDate(currentDateTime).toFixed(5));
 
     // Pop Culture

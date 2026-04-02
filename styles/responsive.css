@@ -145,7 +145,7 @@
     }
 
     .container-name {
-        font-size: clamp(0.75rem, 3vw, 0.95rem);
+        font-size: clamp(0.9rem, 3vw, 0.95rem);
     }
 
     /* Card width inside each masonry column (not the .container column width) */
@@ -153,6 +153,8 @@
         width: 95%;
         max-width: 95%;
         margin: 0.25rem auto;
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
         display: block;
         box-sizing: border-box;
     }
@@ -627,6 +629,11 @@
     }
 
     /* Panel: 2×2 slots (four items); main node grid uses 3 cols on tablet separately */
+    .floating-panel-description {
+        font-size: clamp(0.8rem, 3vw, 0.9rem);
+        padding-inline: 0.35rem;
+    }
+
     #floating-box-node-container {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 0.5rem;
@@ -678,11 +685,14 @@
     .nodeinfo-confidence .tooltiptext {
         width: min(82vw, 26rem);
         max-width: min(82vw, 26rem);
+        max-height: 42vh;
         left: 50%;
         transform: translateX(-50%);
         padding: 0.75rem 0.95rem;
         font-size: clamp(0.68rem, 3vw, 0.78rem);
         line-height: 1.32;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .mac-chrome-only .nodeinfo-confidence .tooltiptext {
