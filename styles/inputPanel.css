@@ -325,15 +325,16 @@
 }
 
 .mac-chrome-only .step-group {
-    font-size: 1.5vh;
+    font-size: 1.6vh;
 }
 
 .mac-chrome-only .step-label {
-    font-size: 1.5vh;
+    font-size: 1.8vh;
     min-width: 3vh;
 }
 
 .mac-chrome-only .step-button {
     height: 2.2vh;
     width: 3vh;
+    margin: 0.1vh;
 }

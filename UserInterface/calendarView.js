@@ -80,7 +80,7 @@ function buildNodeValueGetters(tzOffset) {
         'sothic-cycle': function (dt) { return typeof getSothicCycle === 'function' ? getSothicCycle(dt) : ''; },
         'olympiad': function (dt) { return typeof getOlympiad === 'function' ? getOlympiad(dt) : ''; },
         'pawukon': function (dt) { return typeof getPawukonCalendarDate === 'function' ? getPawukonCalendarDate(dt) : ''; },
-        'togys': function (dt) { return typeof getTogysDate === 'function' ? getTogysDate(dt) : ''; },
+        'togys-esebi': function (dt) { return typeof getTogysDate === 'function' ? getTogysDate(dt) : ''; },
         'julian-period': function (dt) { return typeof getJulianPeriod === 'function' ? getJulianPeriod(dt) : ''; },
         'rata-die': function (dt) { return typeof getRataDie === 'function' ? getRataDie(dt) : ''; },
         'lilian-date': function (dt) { return typeof getLilianDate === 'function' ? getLilianDate(dt) : ''; },
@@ -339,15 +339,68 @@ function getShadeForMonthKey(monthKey, monthKeyToIndex) {
  */
 var _calendarViewDisplayNodeId = null;
 
+function normalizeCalendarViewNodeId(nodeId) {
+    if (!nodeId) return null;
+    var id = String(nodeId);
+    if (id.endsWith('-node')) {
+        id = id.slice(0, -5);
+    }
+    if (id === 'togys') {
+        return 'togys-esebi';
+    }
+    return id;
+}
+
 function syncCalendarViewDisplayFromMainSelection(nodeId) {
-    _calendarViewDisplayNodeId = nodeId || null;
+    _calendarViewDisplayNodeId = normalizeCalendarViewNodeId(nodeId);
+}
+
+function findCalendarNodeDataById(nodeId) {
+    var id = normalizeCalendarViewNodeId(nodeId);
+    if (!id) return null;
+    if (typeof window.findNodeDataById === 'function') {
+        return window.findNodeDataById(id);
+    }
+    if (typeof nodeDataArrays === 'undefined' || !nodeDataArrays) {
+        return null;
+    }
+    for (var i = 0; i < nodeDataArrays.length; i++) {
+        var arr = nodeDataArrays[i];
+        for (var j = 0; j < arr.length; j++) {
+            if (arr[j] && arr[j].id === id) {
+                return arr[j];
+            }
+        }
+    }
+    return null;
 }
 
 function getCalendarViewDisplayNodeData() {
-    if (!_calendarViewDisplayNodeId || typeof window.findNodeDataById !== 'function') {
+    if (!_calendarViewDisplayNodeId) {
         return null;
     }
-    return window.findNodeDataById(_calendarViewDisplayNodeId);
+    return findCalendarNodeDataById(_calendarViewDisplayNodeId);
+}
+
+function tryResolveCalendarViewNodeDataFromSelectValue() {
+    var sel = document.getElementById('calendar-view-node-select');
+    if (!sel) return null;
+    var raw = sel.value || '';
+    if (!raw) return null;
+    if (typeof window.SiteNodeListConstants === 'object' && window.SiteNodeListConstants) {
+        var c = window.SiteNodeListConstants;
+        if ((c.TYPE_PREFIX && raw.indexOf(c.TYPE_PREFIX) === 0) || raw === c.BACK || raw === c.BROWSE || raw === c.DRILL) {
+            return null;
+        }
+    } else if (raw.indexOf('category:') === 0 || raw === '__back__' || raw === '__browse__' || raw === '__drill__') {
+        return null;
+    }
+    var id = normalizeCalendarViewNodeId(raw);
+    var item = findCalendarNodeDataById(id);
+    if (item) {
+        _calendarViewDisplayNodeId = id;
+    }
+    return item;
 }
 
 function syncCalendarViewNodeSelectRowButtons() {
@@ -389,8 +442,8 @@ function syncCalendarViewNodeSelect() {
     if (!sel || sel.dataset.prepared !== '1') {
         return;
     }
-    var id = _calendarViewDisplayNodeId || '';
-    var item = id && typeof window.findNodeDataById === 'function' ? window.findNodeDataById(id) : null;
+    var id = normalizeCalendarViewNodeId(_calendarViewDisplayNodeId) || '';
+    var item = id ? findCalendarNodeDataById(id) : null;
     if (item && item.type && typeof fillNodeSelectNodesForCategory === 'function') {
         fillNodeSelectNodesForCategory(sel, item.type, id);
         if (typeof clearNodeSelectDrillDraft === 'function') {
@@ -530,6 +583,9 @@ function renderCalendarView(year, month) {
     var title = MONTH_NAMES[month - 1] + ' ' + year;
     titleEl.textContent = title;
     var selectedData = getCalendarViewDisplayNodeData();
+    if (!selectedData) {
+        selectedData = tryResolveCalendarViewNodeDataFromSelectValue();
+    }
     gridEl.innerHTML = buildCalendarHTML(year, month, selectedData);
     if (!_calendarTooltipsInitialized) {
         setupCalendarTooltips();
@@ -672,12 +728,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 return;
             }
-            var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(interpreted.nodeId) : null;
+            var normalizedNodeId = normalizeCalendarViewNodeId(interpreted.nodeId);
+            var item = findCalendarNodeDataById(normalizedNodeId);
             if (!item) {
                 renderCalendarView(_calendarViewYear, _calendarViewMonth);
                 syncCalendarViewNodeSelect();
             } else {
-                _calendarViewDisplayNodeId = interpreted.nodeId;
+                _calendarViewDisplayNodeId = normalizedNodeId;
                 renderCalendarView(_calendarViewYear, _calendarViewMonth);
                 syncCalendarViewNodeSelectRowButtons();
                 if (typeof syncMobileSiteNodePickerTrigger === 'function') {
@@ -696,7 +753,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!id) {
                 return;
             }
-            var item = typeof window.findNodeDataById === 'function' ? window.findNodeDataById(id) : null;
+            var item = findCalendarNodeDataById(id);
             if (!item) {
                 return;
             }

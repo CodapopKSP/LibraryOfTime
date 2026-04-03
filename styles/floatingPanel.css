@@ -87,7 +87,7 @@
 }
 
 .mac-chrome-only .floating-panel-description {
-    font-size: 1.35vh;
+    font-size: 1.6vh;
     padding: 0.45vh 0.6vh 0.5vh;
 }
 
@@ -207,11 +207,15 @@
 
 .mac-chrome-only .add-node-select {
     font-size: 2vh;
+    min-height: 3.125vh;
 }
 
 .mac-chrome-only .remove-node-button,
 .mac-chrome-only .select-node-button {
-    font-size: 1.85vh;
+    font-size: 1.6vh;
+    width: 3.125vh;
+    height: 3.125vh;
+    min-width: 3.125vh;
 }
 
 .add-node-select:hover:not(:disabled),

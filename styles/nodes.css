@@ -14,6 +14,11 @@
     font-family: var(--ui-font-heading);
 }
 
+.mac-chrome-only .node {
+    width: 20.5vh;
+    max-width: 20.5vh;
+}
+
 .standard-time > .node > .content {
     border: 0.2vh solid #bbbbbb;
 }

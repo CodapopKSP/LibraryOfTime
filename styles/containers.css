@@ -20,9 +20,11 @@
 .mac-chrome-only .container {
     font-size: 1.6vh;
     /* Masonry column width: ~1vh wider than --layout-node-width (ui-tokens mac-chrome) */
-    width: 23vh;
+    width: 22vh;
     max-width: 23vh;
     padding-top: 0.65vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
 }
 
 .container-name {
