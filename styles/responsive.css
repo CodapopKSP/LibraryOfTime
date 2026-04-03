@@ -747,6 +747,14 @@
     .node {
         width: 19vh;
     }
+    .mac-chrome-only .container {
+        width: 26vh;
+        max-width: 26vh;
+    }
+    .mac-chrome-only .node {
+        width: 25vh;
+        max-width: 25vh;
+    }
 }
 
 /*
@@ -761,5 +769,13 @@
     }
     .node {
         width: 18vh;
+    }
+    .mac-chrome-only .container {
+        width: 25vh;
+        max-width: 25vh;
+    }
+    .mac-chrome-only .node {
+        width: 24vh;
+        max-width: 24vh;
     }
 }

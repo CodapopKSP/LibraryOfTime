@@ -8,7 +8,7 @@ const modalContent = {
         </p>`,
 
         `<p>
-        But much like how the Rosetta Stone allowed linguists to decode ancient Egyptian hieroglyphs by having the same passage also written in Ancient Greek and Demotic, these earlier websites have given me tools to help me calibrate unknown calendars to known ones. 
+        But much like how the <a href="https://en.wikipedia.org/wiki/Rosetta_Stone" target="_blank" rel="noopener noreferrer">Rosetta Stone</a> allowed linguists to decode ancient Egyptian hieroglyphs by having the same passage also written in Ancient Greek and Demotic, these earlier websites have given me tools to help me calibrate unknown calendars to known ones. 
         </p>`,
 
         `<p>
@@ -47,7 +47,7 @@ const modalContent = {
 
         `<h3>The Work of Jean Meeus</h3>
         <p>
-        My studies have also brought me to the writings of Jean Meeus, who is the author of <strong>Astronomical Algorithms</strong>, a compilation of some of the most incredible math equations for calculating the times and positions of celestial phenomena with high precision. He is the principal astronomer for hobbyists, and his work is unmatched to this day among amateurs despite being from 1991. 
+        My studies have also brought me to the writings of <a href="https://en.wikipedia.org/wiki/Jean_Meeus" target="_blank" rel="noopener noreferrer">Jean Meeus</a>, who is the author of <strong>Astronomical Algorithms</strong>, a compilation of some of the most incredible math equations for calculating the times and positions of celestial phenomena with high precision. He is the principal astronomer for hobbyists, and his work is unmatched to this day among amateurs despite being from 1991. 
         </p>`,
 
         `<h3>The Imperfection of Cycles</h3>
@@ -60,7 +60,7 @@ const modalContent = {
         </p>`,
 
         `<p>
-        Yet because the universe is not arranged in perfect geometry, the years, months, and days can never line up in any reasonable way. Thus, calendars grew out of sync with what they were originally measuring, and their maintainers had to enact more and more complex techniques to keep everything aligned as best as possible. 
+        Yet because the universe is not arranged in perfect geometry, the years, months, and days can never line up in any reasonable way. Thus, calendars grew out of sync with what they were originally measuring, and their maintainers had to enact more and more complex techniques to keep everything aligned as best as possible. The different variations of these rules versus what they were originally measuring is what gives us the different calendars that we have today.
         </p>`,
 
         `<h3>The Future of the Library of Time</h3>

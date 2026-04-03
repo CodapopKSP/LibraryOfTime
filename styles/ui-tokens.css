@@ -80,7 +80,8 @@ select#timezone,
 }
 
 body.mac-chrome-only {
-    --layout-node-width: 19vh;
-    --layout-node-standard-height: 8.5vh;
+    /* ~1.6vh/1.2vh .content text vs default — widen cards so copy fits like Safari */
+    --layout-node-width: 22vh;
+    --layout-node-standard-height: 9vh;
     --layout-floating-panel-controls-height: 3.6vh;
 }
