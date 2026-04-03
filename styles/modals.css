@@ -121,6 +121,19 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.modal-image-inline {
+    display: block;
+    margin: 0 auto;
+    border: none;
+    box-shadow: none;
+}
+
+.modal-image-caption {
+    display: block;
+    text-align: center;
+    margin-top: 0.6vh;
+}
+
 .modal-images-container {
     margin: 2vh 0;
 }

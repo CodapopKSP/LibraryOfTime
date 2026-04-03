@@ -9,6 +9,12 @@ const modalContent = {
 
         `<p>
         But much like how the <a href="https://en.wikipedia.org/wiki/Rosetta_Stone" target="_blank" rel="noopener noreferrer">Rosetta Stone</a> allowed linguists to decode ancient Egyptian hieroglyphs by having the same passage also written in Ancient Greek and Demotic, these earlier websites have given me tools to help me calibrate unknown calendars to known ones. 
+        </p>
+        <p>
+        <img src="Content/OnMakingLoTImages/rosettastone.webp" alt="Rosetta Stone" class="modal-image modal-image-inline">
+        <small class="modal-image-caption">
+        Source: Wikimedia Commons, "Rosetta Stone.svg" (CC0).
+        </small>
         </p>`,
 
         `<p>
@@ -31,7 +37,7 @@ const modalContent = {
             </button>
             <div class="modal-images" id="modal-images" style="display: none;">
                 <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm" target="_blank" rel="noopener noreferrer">
-                    <img src="Content/OnMakingLoTImages/darian.png" alt="Darian Calendar Screenshot" class="modal-image">
+                    <img src="Content/OnMakingLoTImages/darian.webp" alt="Darian Calendar Screenshot" class="modal-image">
                 </a>
                 <a href="http://www.leapsecond.com/java/gpsclock.htm" target="_blank" rel="noopener noreferrer">
                     <img src="Content/OnMakingLoTImages/leapsecond.png" alt="Leap Second Screenshot" class="modal-image">
@@ -48,6 +54,9 @@ const modalContent = {
         `<h3>The Work of Jean Meeus</h3>
         <p>
         My studies have also brought me to the writings of <a href="https://en.wikipedia.org/wiki/Jean_Meeus" target="_blank" rel="noopener noreferrer">Jean Meeus</a>, who is the author of <strong>Astronomical Algorithms</strong>, a compilation of some of the most incredible math equations for calculating the times and positions of celestial phenomena with high precision. He is the principal astronomer for hobbyists, and his work is unmatched to this day among amateurs despite being from 1991. 
+        </p>
+        <p>
+        <img src="Content/OnMakingLoTImages/astronomicalalgorithms.webp" alt="Astronomical Algorithms" class="modal-image modal-image-inline">
         </p>`,
 
         `<h3>The Imperfection of Cycles</h3>
@@ -60,6 +69,14 @@ const modalContent = {
         </p>`,
 
         `<p>
+        <a href="https://en.wikipedia.org/wiki/Orbit_of_the_Moon" target="_blank" rel="noopener noreferrer">
+        <img src="Content/OnMakingLoTImages/moonearthdistance.png" alt="Moon-Earth Distance" class="modal-image modal-image-inline">
+        </a>
+        <small class="modal-image-caption">
+        The Moon's distance from Earth and Moon phases in 2014 (0/0.25/0.5/0.75 = new/first quarter/full/last quarter). By Darekk2 (own work), <a href="https://commons.wikimedia.org/wiki/File:Moon-Earth_distance,_Moon_phases.gif" target="_blank" rel="noopener noreferrer">File:Moon-Earth distance, Moon phases.gif</a>, licensed <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a>. Calculations based on Jean Meeus, <i>Astronomical Algorithms</i> (1991) and <i>Astronomical Formulae for Calculators</i> (1988).
+        </small>
+        </p>
+        <p>
         Yet because the universe is not arranged in perfect geometry, the years, months, and days can never line up in any reasonable way. Thus, calendars grew out of sync with what they were originally measuring, and their maintainers had to enact more and more complex techniques to keep everything aligned as best as possible. The different variations of these rules versus what they were originally measuring is what gives us the different calendars that we have today.
         </p>`,
 
