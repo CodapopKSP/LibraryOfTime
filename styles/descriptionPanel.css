@@ -212,12 +212,12 @@
     width: 300px;
     max-width: 300px;
     padding: 15px;
-    font-size: 14px;
+    font-size: 1.2vh;
     line-height: 1.4;
 }
 
 .mac-chrome-only .nodeinfo {
-    font-size: 2.4vh;
+    font-size: 1.8vh;
     margin: 0vh;
     padding: 0vh;
 }
@@ -256,7 +256,7 @@
 
 .mac-chrome-only .header-button {
     font-size: 1.8vh;
-    height: 3vh;
+    height: 4vh;
 }
 
 .header-button.hoveringTab {

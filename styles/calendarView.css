@@ -53,8 +53,8 @@
 }
 
 .mac-chrome-only .calendar-view-top-bar {
-    min-height: 3.2vh;
-    padding: 0.45vh 0.5vh 0.45vh 1.4vh;
+    min-height: 3.25vh;
+    padding: 0.44vh 0.5vh 0.44vh 1.5vh;
 }
 
 .calendar-view-top-bar .floating-panel-close {
@@ -70,8 +70,8 @@
 }
 
 .mac-chrome-only .calendar-view-panel .calendar-view-top-bar {
-    min-height: 3.2vh;
-    padding: 0.35vh 0.5vh;
+    min-height: 3.25vh;
+    padding: 0.31vh 0.5vh;
 }
 
 .calendar-view-body-scroll {
@@ -148,8 +148,8 @@
 }
 
 .mac-chrome-only .calendar-view-node-select {
-    font-size: 2vh;
-    min-height: 3vh;
+    font-size: 1.7vh;
+    min-height: 3.125vh;
     height: auto;
 }
 
@@ -323,6 +323,65 @@
 .calendar-custom-tooltip.visible {
     opacity: 1;
     visibility: visible;
+}
+
+/* Mac Chrome: scale calendar view 25% larger than defaults throughout */
+
+.mac-chrome-only .calendar-view-panel {
+    width: 75vh;
+}
+
+.mac-chrome-only .calendar-view-body-scroll {
+    padding: 0 0.94vh 1.56vh 0.94vh;
+}
+
+.mac-chrome-only .calendar-view-nav-bar {
+    padding: 0.5vh 0.75vh;
+    gap: 0.44vh;
+}
+
+.mac-chrome-only .calendar-view-month-title {
+    font-size: 3.25vh;
+}
+
+.mac-chrome-only #calendar-view-prev,
+.mac-chrome-only #calendar-view-next {
+    height: 5vh;
+    width: 5vh;
+    padding: 0 1.25vh;
+    font-size: 2.5vh;
+    border-radius: 0.625vh;
+}
+
+.mac-chrome-only .calendar-view-cell {
+    font-size: 1.375vh;
+}
+
+.mac-chrome-only .calendar-view-day-name {
+    height: 3.125vh;
+    font-size: 1.5vh;
+}
+
+.mac-chrome-only .calendar-view-day {
+    font-size: 1.06vh;
+    padding: 0.31vh;
+}
+
+.mac-chrome-only .calendar-view-day-num {
+    font-size: 1.125vh;
+}
+
+.mac-chrome-only .calendar-view-system-value {
+    font-size: 1.25vh;
+}
+
+.mac-chrome-only .calendar-astronomy-icon {
+    font-size: 1.875vh;
+}
+
+.mac-chrome-only .calendar-custom-tooltip {
+    font-size: 1.625vh;
+    padding: 0.75vh 1.25vh;
 }
 
 /*

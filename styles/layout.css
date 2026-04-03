@@ -114,7 +114,7 @@
 }
 
 .mac-chrome-only #page-title {
-    font-size: 6vh;
+    font-size: 5vh;
 }
 
 /* Right column: date strip + description panel (desktop); mobile uses display:contents in responsive.css */

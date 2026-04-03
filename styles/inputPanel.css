@@ -219,9 +219,19 @@
     }
 }
 
+.mac-chrome-only .input-box-wrapper {
+    min-height: 11vh;
+}
+
+.mac-chrome-only .input-main-row {
+    min-height: 6vh;
+}
+
 .mac-chrome-only #date-input-date,
 .mac-chrome-only #date-input-time {
-    font-size: 2vh;
+    font-size: 1.6vh;
+    height: 3.3vh;
+    width: 12vh;
 }
 
 .date-picker-button {
@@ -246,6 +256,7 @@
 .mac-chrome-only .date-picker-button {
     font-size: 1vh;
     width: 5vh;
+    height: 3.75vh;
 }
 
 .date-picker-button b,
@@ -308,6 +319,21 @@
 
 .mac-chrome-only #timezone,
 .mac-chrome-only #calendar-type {
-    font-size: 2vh;
-    width: 8vh;
+    font-size: 1.6vh;
+    width: 12vh;
+    height: 4vh;
+}
+
+.mac-chrome-only .step-group {
+    font-size: 1.5vh;
+}
+
+.mac-chrome-only .step-label {
+    font-size: 1.5vh;
+    min-width: 3vh;
+}
+
+.mac-chrome-only .step-button {
+    height: 2.2vh;
+    width: 3vh;
 }
