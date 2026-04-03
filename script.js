@@ -136,6 +136,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Expose Masonry instance globally so other scripts can trigger relayouts
     window.msnry = msnry;
 
+    // In-app browsers (e.g. LINE, Facebook) often report a wrong width at DOMContentLoaded;
+    // Masonry then lays out as a single column. Re-run after load / next frames / delays.
+    scheduleDeferredMasonryRelayouts();
+
     // Get user's local timezone offset
     const localTimezone = getLocalTimezoneOffset();
     
@@ -231,7 +235,31 @@ function relayoutMasonry() {
         if (typeof window.msnry.option === 'function') {
             window.msnry.option({ gutter: getMainGridMasonryGutter() });
         }
+        if (typeof window.msnry.reloadItems === 'function') {
+            window.msnry.reloadItems();
+        }
         window.msnry.layout();
+    }
+}
+
+var mainGridMasonryViewportTimer;
+function scheduleDeferredMasonryRelayouts() {
+    function run() {
+        relayoutMasonry();
+    }
+    window.addEventListener('load', function () {
+        run();
+        requestAnimationFrame(function () {
+            requestAnimationFrame(run);
+        });
+        setTimeout(run, 100);
+        setTimeout(run, 400);
+    });
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function () {
+            clearTimeout(mainGridMasonryViewportTimer);
+            mainGridMasonryViewportTimer = setTimeout(relayoutMasonry, 100);
+        });
     }
 }
 
