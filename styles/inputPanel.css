@@ -227,11 +227,15 @@
     min-height: 6vh;
 }
 
-.mac-chrome-only #date-input-date,
+.mac-chrome-only #date-input-date {
+    font-size: 1.6vh;
+    height: 3.3vh;
+    width: 14vh;
+}
 .mac-chrome-only #date-input-time {
     font-size: 1.6vh;
     height: 3.3vh;
-    width: 12vh;
+    width: 10vh;
 }
 
 .date-picker-button {
@@ -287,6 +291,19 @@
 
 .mac-chrome-only .date-picker-icon {
     font-size: 20px;
+}
+
+/* Mac Chrome: fine-tune the two action glyphs so they read as equal visual weight. */
+.mac-chrome-only #change-date-button .date-picker-icon {
+    font-size: 17px;
+    display: inline-block;
+    transform: translateY(2px);
+}
+
+.mac-chrome-only #reset-date-button .date-picker-icon {
+    font-size: 23px;
+    display: inline-block;
+    transform: translateY(-2px);
 }
 
 #calendar-type {
