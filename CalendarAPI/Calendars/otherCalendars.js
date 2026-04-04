@@ -168,87 +168,247 @@ const DARIAN_GALILEAN_EUROPA_MONTH_DAYS_LEAP = [32, 32, 32, 32, 32, 32, 32, 32, 
 const DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 24];
 const DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS_LEAP = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32];
 
-function getGalileanDate(currentDateTime, body) {
-
-    // The original formula doesn't make sense to me, so I added my own
-    function isLeapYearIo(Y) {
-        if (Y === 0) {
-            return true;
-        }
-        if (Y % 1000 === 0) {
-            return true;
-        }
-        if (Y % 400 === 0) {
-            return false;
-        }
-        if (Y % 200 === 0) {
-            return true;
-        }
-        if (Y % 100 === 0) {
-            return false;
-        }
-        if (Y % 50 === 0) {
-            return true;
-        }
-        if ((Y % 10 === 2) || (Y % 10 === 4) || (Y % 10 === 7) || (Y % 10 === 9)) {
-            return false;
-        }
+function isGalileanLeapYearIo(Y) {
+    if (Y === 0) {
         return true;
     }
+    if (Y % 1000 === 0) {
+        return true;
+    }
+    if (Y % 400 === 0) {
+        return false;
+    }
+    if (Y % 200 === 0) {
+        return true;
+    }
+    if (Y % 100 === 0) {
+        return false;
+    }
+    if (Y % 50 === 0) {
+        return true;
+    }
+    if ((Y % 10 === 2) || (Y % 10 === 4) || (Y % 10 === 7) || (Y % 10 === 9)) {
+        return false;
+    }
+    return true;
+}
 
-    // The original formula doesn't make sense to me, so I added my own
-    function isLeapYearEuropa(Y) {
-        if (Y === 0) {
+function isGalileanLeapYearEuropa(Y) {
+    if (Y === 0) {
+        return true;
+    }
+    if (Y % 1000 === 0) {
+        return false;
+    }
+    if (Y % 800 === 0) {
+        return true;
+    }
+    if (Y % 400 === 0) {
+        return false;
+    }
+    if (Y % 200 === 0) {
+        return true;
+    }
+    if (Y % 50 === 0) {
+        return false;
+    }
+    if ((Y % 5 === 0) || ((Y - 2) % 5 === 0)) {
+        return true;
+    }
+    return false;
+}
+
+function isGalileanLeapYearGanymede(Y) {
+    if (Y % 40 === 0) {
+        return false;
+    }
+    if (Y % 60 === 0) {
+        return false;
+    }
+    return true;
+}
+
+function isGalileanLeapYearCallisto(Y) {
+    if (Y % 400 === 0) {
+        return true;
+    }
+    if (Y % 40 === 0) {
+        return false;
+    }
+    if ((Y - 7) % 10 === 0) {
+        return false;
+    }
+    if ((Y - 2) % 10 === 0) {
+        return false;
+    }
+    return true;
+}
+
+function isDarianGalileanLeapYearIo(Y) {
+    if (Y <= 3200) {
+        if (Y % 80 === 0) {
             return true;
         }
-        if (Y % 1000 === 0) {
+        if (Y % 40 === 0) {
             return false;
         }
+    } else if (Y <= 9600) {
+        if (Y % 1600 === 0) {
+            return true;
+        }
+        if (Y % 80 === 0) {
+            return false;
+        }
+    } else if (Y > 9600) {
         if (Y % 800 === 0) {
             return true;
         }
-        if (Y % 400 === 0) {
+        if (Y % 80 === 0) {
             return false;
         }
-        if (Y % 200 === 0) {
-            return true;
-        }
-        if (Y % 50 === 0) {
-            return false;
-        }
-        if ((Y % 5 === 0) || ((Y-2) % 5 === 0)) {
-            return true;
-        }
+    }
+    if (Y % 20 === 0) {
+        return true;
+    }
+    return false;
+}
+
+function isDarianGalileanLeapYearEuropa(Y) {
+    if (Y === 0) {
         return false;
     }
-
-    // The original formula doesn't make sense to me, so I added my own
-    function isLeapYearGanymede(Y) {
-        if (Y % 40 === 0) {
-            return false;
-        }
-        if (Y % 60 === 0) {
-            return false;
-        }
-        return true;
-    }
-
-    function isLeapYearCallisto(Y) {
-        if (Y % 400 === 0) {
+    if (Y > 8000) {
+        if (Y % 800 === 0) {
             return true;
         }
-        if (Y % 40 === 0) {
-            return false;
+    } else if (Y > 3200) {
+        if (Y % 1600 === 0) {
+            return true;
         }
-        if ((Y-7) % 10 === 0) {
-            return false;
-        }
-        if ((Y-2) % 10 === 0) {
-            return false;
-        }
+    }
+    if (Y % 200 === 0) {
+        return false;
+    }
+    if (Y % 20 === 0) {
         return true;
     }
+    if (Y % 5 === 0) {
+        return false;
+    }
+    if ((Y - 3) % 5 === 0) {
+        return false;
+    }
+    return true;
+}
 
+function isDarianGalileanLeapYearGanymede(Y) {
+    if (Y > 8400) {
+        if (Y % 800 === 0) {
+            return true;
+        }
+    } else if (Y > 3200) {
+        if (Y % 1200 === 0) {
+            return true;
+        }
+    }
+    if (Y % 400 === 0) {
+        return false;
+    }
+    if (Y % 80 === 0) {
+        return true;
+    }
+    if (Y % 20 === 0) {
+        return false;
+    }
+    if ((Y - 5) % 10 === 0) {
+        return false;
+    }
+    return true;
+}
+
+function isDarianGalileanLeapYearCallisto(Y) {
+    if (Y % 1200 === 0) {
+        return true;
+    }
+    if (Y % 400 === 0) {
+        return false;
+    }
+    if (Y % 80 === 0) {
+        return true;
+    }
+    if (Y % 40 === 0) {
+        return false;
+    }
+    if ((Y - 2) % 5 === 0) {
+        return true;
+    }
+    if (Y % 5 === 0) {
+        return true;
+    }
+    return false;
+}
+
+function getGalileanLeapYearResolver(bodyName, useDarianRules) {
+    if (useDarianRules) {
+        if (bodyName === 'Io') return isDarianGalileanLeapYearIo;
+        if (bodyName === 'Eu') return isDarianGalileanLeapYearEuropa;
+        if (bodyName === 'Gan') return isDarianGalileanLeapYearGanymede;
+        if (bodyName === 'Cal') return isDarianGalileanLeapYearCallisto;
+        return null;
+    }
+
+    if (bodyName === 'Io') return isGalileanLeapYearIo;
+    if (bodyName === 'Eu') return isGalileanLeapYearEuropa;
+    if (bodyName === 'Gan') return isGalileanLeapYearGanymede;
+    if (bodyName === 'Cal') return isGalileanLeapYearCallisto;
+    return null;
+}
+
+function getGalileanYearLength(bodyName, year, useDarianRules) {
+    const leapYearResolver = getGalileanLeapYearResolver(bodyName, useDarianRules);
+    if (!leapYearResolver) {
+        return 0;
+    }
+
+    const isLeap = leapYearResolver(year);
+    if (useDarianRules) {
+        if (bodyName === 'Io' || bodyName === 'Cal') return isLeap ? 784 : 776;
+        if (bodyName === 'Eu') return isLeap ? 776 : 768;
+        if (bodyName === 'Gan') return isLeap ? 768 : 760;
+        return 0;
+    }
+
+    if (bodyName === 'Gan') return isLeap ? 408 : 400;
+    return isLeap ? 416 : 408;
+}
+
+function getGalileanMonthDaysArray(bodyName, year, useDarianRules) {
+    const leapYearResolver = getGalileanLeapYearResolver(bodyName, useDarianRules);
+    const isLeap = leapYearResolver ? leapYearResolver(year) : false;
+
+    if (useDarianRules) {
+        if (bodyName === 'Io' || bodyName === 'Cal') {
+            return isLeap ? DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS;
+        }
+        if (bodyName === 'Eu') {
+            return isLeap ? DARIAN_GALILEAN_EUROPA_MONTH_DAYS_LEAP : DARIAN_GALILEAN_EUROPA_MONTH_DAYS;
+        }
+        if (bodyName === 'Gan') {
+            return isLeap ? DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS_LEAP : DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS;
+        }
+        return '';
+    }
+
+    if (bodyName === 'Gan') {
+        return isLeap ? GALILEAN_GANYMEDE_MONTH_DAYS_LEAP : GALILEAN_GANYMEDE_MONTH_DAYS_SHORT;
+    }
+    if (bodyName === 'Io' || bodyName === 'Eu' || bodyName === 'Cal') {
+        return isLeap ? GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : GALILEAN_IO_CALLISTO_MONTH_DAYS;
+    }
+    return '';
+}
+
+function getGalileanDate(currentDateTime, body) {
     const epochConfig = GALILEAN_EPOCHS[body];
     const epoch = createAdjustedDateTime(epochConfig);
     const circad = GALILEAN_CIRCAD_HOURS[body];
@@ -260,18 +420,7 @@ function getGalileanDate(currentDateTime, body) {
     let year = 2002; // starting year after the epoch
     let daysInYear = 0;
     while (true) {
-        if (body === 'Io') {
-            daysInYear = isLeapYearIo(year) ? 416 : 408;
-        }
-        if (body === 'Eu') {
-            daysInYear = isLeapYearEuropa(year) ? 416 : 408;
-        }
-        if (body === 'Gan') {
-            daysInYear = isLeapYearGanymede(year) ? 408 : 400;
-        }
-        if (body === 'Cal') {
-            daysInYear = isLeapYearCallisto(year) ? 416 : 408;
-        }
+        daysInYear = getGalileanYearLength(body, year, false);
         if (daysSince < daysInYear) {
             break;
         }
@@ -284,20 +433,7 @@ function getGalileanDate(currentDateTime, body) {
     }
 
     let remainingDays = daysSince;
-    let daysInMonthsArray = '';
-
-    if (body === 'Io') {
-        daysInMonthsArray = isLeapYearIo(year) ? GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : GALILEAN_IO_CALLISTO_MONTH_DAYS;
-    }
-    if (body === 'Eu') {
-        daysInMonthsArray = isLeapYearEuropa(year) ? GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : GALILEAN_IO_CALLISTO_MONTH_DAYS;
-    }
-    if (body === 'Gan') {
-        daysInMonthsArray = isLeapYearGanymede(year) ? GALILEAN_GANYMEDE_MONTH_DAYS_LEAP : GALILEAN_GANYMEDE_MONTH_DAYS_SHORT;
-    }
-    if (body === 'Cal') {
-        daysInMonthsArray = isLeapYearCallisto(year) ? GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : GALILEAN_IO_CALLISTO_MONTH_DAYS;
-    }
+    const daysInMonthsArray = getGalileanMonthDaysArray(body, year, false);
 
     let month = 0;
     while (remainingDays >= daysInMonthsArray[month]) {
@@ -314,110 +450,6 @@ function getGalileanDate(currentDateTime, body) {
 }
 
 function getDarianGalileanDate(currentDateTime, body) {
-    function isLeapYearIo(Y) {
-        if (Y <= 3200) {
-            if (Y % 80 === 0) {
-                return true;
-            }
-            if (Y % 40 === 0) {
-                return false;
-            }
-        } else if (Y <= 9600) {
-            if (Y % 1600 === 0) {
-                return true;
-            }
-            if (Y % 80 === 0) {
-                return false;
-            }
-        } else if (Y > 9600) {
-            if (Y % 800 === 0) {
-                return true;
-            }
-            if (Y % 80 === 0) {
-                return false;
-            }
-        }
-        if (Y % 20 === 0) {
-            return true;
-        }
-        return false;
-    }
-
-    function isLeapYearEuropa(Y) {
-        if (Y === 0) {
-            return false;
-        }
-        if (Y > 8000) {
-            if (Y % 800 === 0) {
-                return true;
-            }
-        } else if (Y > 3200) {
-            if (Y % 1600 === 0) {
-                return true;
-            }
-        }
-        if (Y % 200 === 0) {
-            return false;
-        }
-        if (Y % 20 === 0) {
-            return true;
-        }
-        if (Y % 5 === 0) {
-            return false;
-        }
-        if ((Y-3) % 5 === 0) {
-            return false;
-        }
-        return true;
-    }
-
-    function isLeapYearGanymede(Y) {
-        if (Y > 8400) {
-            if (Y % 800 === 0) {
-                return true;
-            }
-        } else if (Y > 3200) {
-            if (Y % 1200 === 0) {
-                return true;
-            }
-        }
-        if (Y % 400 === 0) {
-            return false;
-        }
-        if (Y % 80 === 0) {
-            return true;
-        }
-        if (Y % 20 === 0) {
-            return false;
-        }
-        if ((Y-5) % 10 === 0) {
-            return false;
-        }
-        return true;
-    }
-
-    function isLeapYearCallisto(Y) {
-        if (Y % 1200 === 0) {
-            return true;
-        }
-        if (Y % 400 === 0) {
-            return false;
-        }
-        if (Y % 80 === 0) {
-            return true;
-        }
-        if (Y % 40 === 0) {
-            return false;
-        }
-        if ((Y-2) % 5 === 0) {
-            return true;
-        }
-        if (Y % 5 === 0) {
-            return true;
-        }
-        return false;
-    }
-
     const epoch = createAdjustedDateTime(DARIAN_GALILEAN_EPOCHS[body]);
     const circad = GALILEAN_CIRCAD_HOURS[body];
     const dayMilliseconds = circad * 60 * 60 * 1000;
@@ -430,19 +462,7 @@ function getDarianGalileanDate(currentDateTime, body) {
     
     // Calculate the year and day remaining within the year
     while (true) {
-        let daysInYear = 0;
-        if (body === 'Io') {
-            daysInYear = isLeapYearIo(year) ? 784 : 776;
-        }
-        if (body === 'Eu') {
-            daysInYear = isLeapYearEuropa(year) ? 776 : 768;
-        }
-        if (body === 'Gan') {
-            daysInYear = isLeapYearGanymede(year) ? 768 : 760;
-        }
-        if (body === 'Cal') {
-            daysInYear = isLeapYearCallisto(year) ? 784 : 776;
-        }
+        const daysInYear = getGalileanYearLength(body, year, true);
         
         // Adjust for negative years and decrement properly
         if (daysSince < daysInYear) {
@@ -454,24 +474,11 @@ function getDarianGalileanDate(currentDateTime, body) {
 
     if (isNegative) {
         year--;  // Properly decrement the year if going backwards
-        daysSince = (isLeapYearIo(year) ? 784 : 776) - daysSince;
+        daysSince = getGalileanYearLength(body, year, true) - daysSince;
     }
 
     let remainingDays = daysSince;
-    let daysInMonthsArray = '';
-    
-    if (body === 'Io') {
-        daysInMonthsArray = isLeapYearIo(year) ? DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS;
-    }
-    if (body === 'Eu') {
-        daysInMonthsArray = isLeapYearEuropa(year) ? DARIAN_GALILEAN_EUROPA_MONTH_DAYS_LEAP : DARIAN_GALILEAN_EUROPA_MONTH_DAYS;
-    }
-    if (body === 'Gan') {
-        daysInMonthsArray = isLeapYearGanymede(year) ? DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS_LEAP : DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS;
-    }
-    if (body === 'Cal') {
-        daysInMonthsArray = isLeapYearCallisto(year) ? DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS;
-    }
+    const daysInMonthsArray = getGalileanMonthDaysArray(body, year, true);
 
     let month = 0;
     while (remainingDays >= daysInMonthsArray[month]) {
@@ -669,13 +676,27 @@ const PAWUKON_URIP_5 = [9, 7, 4, 8, 5];
 const PAWUKON_URIP_7 = [5, 4, 3, 7, 8, 6, 9];
 const PAWUKON_URIP_10 = [5, 2, 8, 6, 4, 7, 10, 3, 9, 1];
 
+function normalizePawukonEpoch(currentDateTime) {
+    const baseEpoch = createAdjustedDateTime(PAWUKON_RECENT_EPOCH_CONFIG);
+    if (baseEpoch.getTime() <= currentDateTime.getTime()) {
+        return baseEpoch;
+    }
+
+    const stepMilliseconds = PAWUKON_CYCLE_STEP_DAYS * 24 * 60 * 60 * 1000;
+    const millisecondsBehind = baseEpoch.getTime() - currentDateTime.getTime();
+    const cyclesToStepBack = Math.ceil(millisecondsBehind / stepMilliseconds);
+    const normalizedEpoch = createAdjustedDateTime({
+        currentDateTime: baseEpoch,
+        nullHourMinute: false,
+        nullSeconds: false,
+    });
+    addDay(normalizedEpoch, -(cyclesToStepBack * PAWUKON_CYCLE_STEP_DAYS));
+    return normalizedEpoch;
+}
+
 // Returns a formatted Pawukon calendar (WITA) date
 function getPawukonCalendarDate(currentDateTime) {
-    const stepMs = PAWUKON_CYCLE_STEP_DAYS * 24 * 60 * 60 * 1000;
-    let newEpoch = createAdjustedDateTime(PAWUKON_RECENT_EPOCH_CONFIG);
-    while (newEpoch.getTime() > currentDateTime.getTime()) {
-        newEpoch = new Date(newEpoch.getTime() - stepMs);
-    }
+    const normalizedEpoch = normalizePawukonEpoch(currentDateTime);
 
     let dayOfWeek1 = '';
     let dayOfWeek2 = '';
@@ -688,7 +709,7 @@ function getPawukonCalendarDate(currentDateTime) {
     let dayOfWeek9 = '';
     let dayOfWeek10 = '';
 
-    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, newEpoch));
+    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, normalizedEpoch));
     let daysSinceEpoch4_8 = daysSinceEpoch;
     let daysSinceEpoch9 = daysSinceEpoch-3;
 
