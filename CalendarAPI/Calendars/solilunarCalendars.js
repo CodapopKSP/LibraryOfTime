@@ -22,6 +22,15 @@ const TOGYS_YEAR_NAMES = [
 ];
 const TOGYS_ALCYONE_RA = 56.8711541667;
 const TOGYS_FIXED_YEAR_LENGTH = 365.2663;
+// Approximate synodic spans used by existing Togys rules:
+// - year-length month estimate compares starts of consecutive years
+// - in-year month index estimate compares start of year to start of month
+const TOGYS_SYNODIC_DAYS_FOR_YEAR_MONTH_COUNT = 27.3;
+const TOGYS_SYNODIC_DAYS_FOR_MONTH_INDEX = 27.5;
+// Search heuristics for discovering month/year anchors.
+const TOGYS_MONTH_START_LOOKBACK_DAYS = 35;
+const TOGYS_NEW_YEAR_SCAN_STEP_DAYS = 25;
+const TOGYS_NEW_YEAR_NEW_MOON_MAX_AGE_DAYS = 15;
 
 function getTogysDate(currentDateTime) {
     // Get start of Togys year
@@ -34,7 +43,7 @@ function getTogysDate(currentDateTime) {
     // Get leap year status
     let startOfTogysPlusOneYear = addYear(startOfTogysYear, 1, true);
     const startOfTogysNextYear = getTogysNewYear(startOfTogysPlusOneYear);
-    const monthsBetweenStartOfTogysYearAndNextYear = Math.round(differenceInDays(startOfTogysNextYear, startOfTogysYear) / 27.3);
+    const monthsBetweenStartOfTogysYearAndNextYear = Math.round(differenceInDays(startOfTogysNextYear, startOfTogysYear) / TOGYS_SYNODIC_DAYS_FOR_YEAR_MONTH_COUNT);
     const months = monthsBetweenStartOfTogysYearAndNextYear > 13 ? TOGYS_MONTH_NAMES_LEAP : TOGYS_MONTH_NAMES;
 
     // Get year name and current cycle number
@@ -47,7 +56,7 @@ function getTogysDate(currentDateTime) {
 
     // Get month and day
     const startOfTogysMonth = getTogysStartOfMonth(currentDateTime);
-    const monthsSinceStartOfTogysYear = Math.round(differenceInDays(startOfTogysMonth, startOfTogysYear) / 27.5);
+    const monthsSinceStartOfTogysYear = Math.round(differenceInDays(startOfTogysMonth, startOfTogysYear) / TOGYS_SYNODIC_DAYS_FOR_MONTH_INDEX);
     const daysSinceStartOfTogysMonth = Math.floor(differenceInDays(currentDateTime, startOfTogysMonth)) + 1;
 
     const output = `Day ${daysSinceStartOfTogysMonth} of ${months[monthsSinceStartOfTogysYear]}\nYear of the ${yearName}\nof Cycle ${currentCycle}`;
@@ -55,37 +64,35 @@ function getTogysDate(currentDateTime) {
 }
 
 function getTogysStartOfMonth(currentDateTime) {
-    let startOfMonth = getTogysDayStart(new Date(currentDateTime));
+    let startOfMonth = getTogysDayStart(currentDateTime);
 
     // Iterate through the last 35 days and find which one begins a month
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < TOGYS_MONTH_START_LOOKBACK_DAYS; i++) {
         if (isTogysStartOfMonth(startOfMonth)) {
           return startOfMonth;
         }
     
         // Step back exactly one Togys day (to the previous 19:00 UTC boundary)
-        startOfMonth.setUTCDate(startOfMonth.getUTCDate() - 1);
+        addDay(startOfMonth, -1);
     }
 }
 
 function isTogysStartOfMonth(currentDateTime) {
     // Get the range for today
     const startOfToday = getTogysDayStart(currentDateTime);
-    const startOfTomorrow = addDay(new Date(startOfToday), 1);
+    const startOfTomorrow = createAdjustedDateTime({ currentDateTime: startOfToday, nullHourMinute: false, nullSeconds: false });
+    addDay(startOfTomorrow, 1);
     
     // Get the range of lunar right ascensions for the period
     const [lunar_alpha_startOfToday] = getPositionOfTheMoon(startOfToday);
     const [lunar_alpha_startOfTomorrow] = getPositionOfTheMoon(startOfTomorrow);
 
-    return lunar_alpha_startOfToday < TOGYS_ALCYONE_RA && lunar_alpha_startOfTomorrow > TOGYS_ALCYONE_RA;
+    return lunar_alpha_startOfToday <= TOGYS_ALCYONE_RA && lunar_alpha_startOfTomorrow >= TOGYS_ALCYONE_RA;
 }
 
 function getTogysDayStart(dt) {
     // Get the date in UTC+05:00 timezone, then set to midnight
-    // First, convert to UTC+05:00 to get the correct local date
-    // We ADD the offset to convert UTC to local time representation
-    const timezoneOffset = convertUTCOffsetToMinutes(TOGYS_TZ);
-    const localTime = new Date(dt.getTime() + timezoneOffset * 60 * 1000);
+    const localTime = createFauxUTCDate(dt, TOGYS_TZ);
     
     // Extract date components from the local time
     const year = localTime.getUTCFullYear();
@@ -103,33 +110,64 @@ function getTogysNewYear(currentDateTime) {
     const marchStart = createAdjustedDateTime({year: currentYear, month: 3, day: 1});
     const juneEnd = createAdjustedDateTime({year: currentYear, month: 6, day: 30});
     
-    // Find all Togys month starts between March and June
+    // Find all Togys month starts between March and June.
+    // Deduplicate by timestamp because 25-day probing can land on the same month start repeatedly.
     const togysMonthStarts = [];
-    let currentDate = new Date(marchStart);
+    const seenMonthStarts = new Set();
+    let currentDate = createAdjustedDateTime({ currentDateTime: marchStart, nullHourMinute: false, nullSeconds: false });
     
     while (currentDate <= juneEnd) {
         const togysMonthStart = getTogysStartOfMonth(currentDate);
         if (togysMonthStart && togysMonthStart >= marchStart && togysMonthStart <= juneEnd) {
-            togysMonthStarts.push(togysMonthStart);
+            const monthStartTimestamp = togysMonthStart.getTime();
+            if (!seenMonthStarts.has(monthStartTimestamp)) {
+                seenMonthStarts.add(monthStartTimestamp);
+                togysMonthStarts.push(togysMonthStart);
+            }
         }
 
-        // Move forward by about 25 days to find next potential month start, may result in duplicates but it's ok
-        addDay(currentDate, 25);
+        // Move forward by about one synodic month to find the next potential month start.
+        addDay(currentDate, TOGYS_NEW_YEAR_SCAN_STEP_DAYS);
     }
     
+    const newMoonCache = new Map();
+    const moonRightAscensionCache = new Map();
+
+    function getCachedNewMoon(dateTime) {
+        const key = dateTime.getTime();
+        if (newMoonCache.has(key)) {
+            return newMoonCache.get(key);
+        }
+        const newMoon = getNewMoon(dateTime, 0);
+        const value = newMoon ? createAdjustedDateTime({ currentDateTime: newMoon, nullHourMinute: false, nullSeconds: false }) : null;
+        newMoonCache.set(key, value);
+        return value;
+    }
+
+    function getCachedMoonRightAscension(dateTime) {
+        const key = dateTime.getTime();
+        if (moonRightAscensionCache.has(key)) {
+            return moonRightAscensionCache.get(key);
+        }
+        const [rightAscension] = getPositionOfTheMoon(dateTime);
+        moonRightAscensionCache.set(key, rightAscension);
+        return rightAscension;
+    }
+
     // Find the last Togys month start that is less than 15 days after a new moon
     let lastValidTogysMonth = togysMonthStarts[0];
     for (const togysMonthStart of togysMonthStarts) {
 
         // Get the new moon before this Togys month start
-        let newMoonBefore = new Date(getNewMoon(togysMonthStart, 0));
+        const newMoonBefore = getCachedNewMoon(togysMonthStart);
         
         if (newMoonBefore) {
             // Calculate days between new moon and Togys month start
             const daysDifference = Math.floor(differenceInDays(togysMonthStart, newMoonBefore));
             
-            // Check if Togys month start is less than 15 days after the new moon and that the new moon happened first
-            if (daysDifference >= 0 && daysDifference < 15 && getPositionOfTheMoon(newMoonBefore)[0] < TOGYS_ALCYONE_RA) {
+            // Check if Togys month start is less than the configured max age after the new moon and that the new moon happened first
+            const moonRightAscension = getCachedMoonRightAscension(newMoonBefore);
+            if (daysDifference >= 0 && daysDifference < TOGYS_NEW_YEAR_NEW_MOON_MAX_AGE_DAYS && moonRightAscension < TOGYS_ALCYONE_RA) {
                 lastValidTogysMonth = togysMonthStart;
             }
         }

@@ -31,64 +31,79 @@ const CHINESE_LEAP_MONTH_SUFFIX = '閏';
 const VIETNAMESE_LEAP_MONTH_SUFFIX = 'Nhuận';
 const KOREAN_LEAP_MONTH_SUFFIX = '윤';
 
+function calculateLunisolarDisplayYear(gregorianYear, gregorianMonth, lunisolarMonth, yearOffset) {
+    let year = gregorianYear + yearOffset;
+    if (gregorianMonth < 4 && lunisolarMonth > 9) {
+        year -= 1;
+    }
+    return year;
+}
+
+function getLunisolarEarthlyBranchIndex(year, earthlyBranchOffset) {
+    let earthlyBranchIndex = ((year - earthlyBranchOffset) % 12 + 12) % 12;
+    if (year < 0) {
+        earthlyBranchIndex += 1;
+    }
+    return earthlyBranchIndex % 12;
+}
+
+function getLunisolarMonthString(month, leapMonth, leapMonthSuffix) {
+    return leapMonth ? month + leapMonthSuffix : month;
+}
+
 // Returns a formatted Chinese calendar CST date based on the lunisolar calculation
 function getChineseLunisolarCalendarDate(currentDateTime, country) {
     const gregorianYear = currentDateTime.getUTCFullYear();
     const gregorianMonth = currentDateTime.getUTCMonth();
-    let year = gregorianYear;
+    const COUNTRY_CONFIG = {
+        CHINA: {
+            timezone: CHINA_TZ,
+            yearOffset: CHINA_YEAR_OFFSET,
+            leapMonthSuffix: CHINESE_LEAP_MONTH_SUFFIX,
+            earthlyBranchOffset: CHINA_EARTHLY_BRANCH_OFFSET,
+            zodiacAnimals: CHINESE_ZODIAC_ANIMALS
+        },
+        VIETNAM: {
+            timezone: VIETNAM_TZ,
+            yearOffset: 0,
+            leapMonthSuffix: VIETNAMESE_LEAP_MONTH_SUFFIX,
+            earthlyBranchOffset: VIETNAM_EARTHLY_BRANCH_OFFSET,
+            zodiacAnimals: VIETNAMESE_ZODIAC_ANIMALS
+        },
+        KOREA: {
+            timezone: KOREA_TZ,
+            yearOffset: KOREA_YEAR_OFFSET,
+            leapMonthSuffix: KOREAN_LEAP_MONTH_SUFFIX,
+            earthlyBranchOffset: null,
+            zodiacAnimals: null
+        }
+    };
+
+    const config = COUNTRY_CONFIG[country];
+    if (!config) {
+        return;
+    }
+
+    const lunisolarDate = getLunisolarCalendarDate(currentDateTime, config.timezone);
+    const year = calculateLunisolarDisplayYear(gregorianYear, gregorianMonth, lunisolarDate.month, config.yearOffset);
+    const monthString = getLunisolarMonthString(lunisolarDate.month, lunisolarDate.leapMonth, config.leapMonthSuffix);
 
     if (country === 'CHINA') {
-        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, CHINA_TZ);
-        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
-            year -= 1;
-        }
-        year += CHINA_YEAR_OFFSET;
-        let earthlyBranchIndex = ((year - CHINA_EARTHLY_BRANCH_OFFSET) % 12 + 12) % 12;
-        if (year < 0) {
-            earthlyBranchIndex++;
-        }
-
-        let monthString = lunisolarDate.month;
-        if (lunisolarDate.leapMonth) {
-            monthString = monthString + CHINESE_LEAP_MONTH_SUFFIX;
-        }
-        const output = `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${CHINESE_ZODIAC_ANIMALS[earthlyBranchIndex]}`;
-        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac: CHINESE_ZODIAC_ANIMALS[earthlyBranchIndex] } };
+        const earthlyBranchIndex = getLunisolarEarthlyBranchIndex(year, config.earthlyBranchOffset);
+        const zodiac = config.zodiacAnimals[earthlyBranchIndex];
+        const output = `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${zodiac}`;
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac } };
     }
 
     if (country === 'VIETNAM') {
-        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, VIETNAM_TZ);
-        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
-            year -= 1;
-        }
-        let earthlyBranchIndex = ((year - VIETNAM_EARTHLY_BRANCH_OFFSET) % 12 + 12) % 12;
-        if (year < 0) {
-            earthlyBranchIndex++;
-        }
-        let monthString = lunisolarDate.month;
-        if (lunisolarDate.leapMonth) {
-            monthString = monthString + VIETNAMESE_LEAP_MONTH_SUFFIX;
-        }
-        const output = `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${VIETNAMESE_ZODIAC_ANIMALS[earthlyBranchIndex]}`;
-        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac: VIETNAMESE_ZODIAC_ANIMALS[earthlyBranchIndex] } };
+        const earthlyBranchIndex = getLunisolarEarthlyBranchIndex(year, config.earthlyBranchOffset);
+        const zodiac = config.zodiacAnimals[earthlyBranchIndex];
+        const output = `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${zodiac}`;
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac } };
     }
 
-    if (country === 'KOREA') {
-        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, KOREA_TZ);
-        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
-            year -= 1;
-        }
-        year += KOREA_YEAR_OFFSET;
-        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
-            year -= 1;
-        }
-        let monthString = lunisolarDate.month;
-        if (lunisolarDate.leapMonth) {
-            monthString = monthString + KOREAN_LEAP_MONTH_SUFFIX;
-        }
-        const output = `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
-        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year };
-    }
+    const output = `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
+    return { output, day: lunisolarDate.day, month: lunisolarDate.month, year };
 }
 
 const SEXAGENARY_HEAVENLY_STEMS = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
@@ -100,8 +115,8 @@ const SEXAGENARY_YEAR_OFFSET_FOR_CYCLE = 2;
 // Returns a formatted Sexagenary year CST date based on the lunisolar calculation
 function getSexagenaryYear(currentDateTime) {
     const chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'CHINA');
-    const chineseStr = (chineseDate && chineseDate.output != null) ? chineseDate.output : chineseDate;
-    const chineseYear = String(chineseStr).split('年')[0] - SEXAGENARY_YEAR_OFFSET_FOR_CYCLE;
+    const chineseCalendarYear = chineseDate && typeof chineseDate.year === 'number' ? chineseDate.year : NaN;
+    const chineseYear = chineseCalendarYear - SEXAGENARY_YEAR_OFFSET_FOR_CYCLE;
 
     const positiveYear = chineseYear < 0 ? 60 + (chineseYear % 60) : chineseYear;
     const heavenlyStemIndex = positiveYear % 10;
@@ -193,10 +208,11 @@ function getSolarTermTypeThisMonth(startOfMonthRef, timezone) {
     return 'MINOR';
 }
 
-// Returns the last New Moon before the Winter Solstice (start of month 11).
-// Possible errors if conjunction happens a few hours after solstice but before midnight.
-function getMonthEleven(winterSolstice, timezone, weirdShitAroundSolstice) {
-    let lunationOffset = weirdShitAroundSolstice ? -1 : 0;
+// Returns the local-start timestamp of month 11 (the new moon at or before winter solstice).
+// `searchPreviousLunation` exists for the boundary case where solstice/new-moon ordering is
+// ambiguous near local-day cutover; when true, seed one lunation earlier before final correction.
+function getMonthEleven(winterSolstice, timezone, searchPreviousLunation = false) {
+    let lunationOffset = searchPreviousLunation ? -1 : 0;
 
     let closestConjunction = getNewMoon(winterSolstice, lunationOffset);
     closestConjunction = createAdjustedDateTime({ currentDateTime: closestConjunction, timezone });
@@ -210,8 +226,8 @@ function getMonthEleven(winterSolstice, timezone, weirdShitAroundSolstice) {
 
 // Returns the first month in the Chinese calendar that doesn't contain a major solar term
 function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear, timezone) {
-    const constantStartingPoint = new Date(midnightStartOfMonthElevenLastYear);
-    let dateToCheck = new Date(midnightStartOfMonthElevenLastYear);
+    const constantStartingPoint = createAdjustedDateTime({ currentDateTime: midnightStartOfMonthElevenLastYear, nullHourMinute: false, nullSeconds: false });
+    let dateToCheck = createAdjustedDateTime({ currentDateTime: midnightStartOfMonthElevenLastYear, nullHourMinute: false, nullSeconds: false });
     let lunations = 0;
 
     while (true) {
@@ -309,14 +325,13 @@ function countLeapYearsInRange(low, high) {
 const BABYLON_VISIBILITY_HOURS = 24;
 
 function getMonthStartFromNewMoon(newMoonUtc, timezone) {
-    const offsetMs = convertUTCOffsetToMinutes(timezone) * 60 * 1000;
-    const localDate = new Date(newMoonUtc.getTime() + offsetMs);
+    const localDate = createFauxUTCDate(newMoonUtc, timezone);
     const y = localDate.getUTCFullYear();
     const m = localDate.getUTCMonth() + 1;
     const d = localDate.getUTCDate();
     let candidateSunset = createAdjustedDateTime({ timezone: timezone, year: y, month: m, day: d, hour: 'SUNSET' });
     if (newMoonUtc.getTime() > candidateSunset.getTime()) {
-        const nextDay = new Date(candidateSunset.getTime());
+        const nextDay = createAdjustedDateTime({ currentDateTime: candidateSunset, nullHourMinute: false, nullSeconds: false });
         addDay(nextDay, 1);
         candidateSunset = createAdjustedDateTime({ currentDateTime: nextDay, timezone: timezone, hour: 'SUNSET' });
     }
@@ -324,7 +339,7 @@ function getMonthStartFromNewMoon(newMoonUtc, timezone) {
     if (hoursBeforeCandidate >= BABYLON_VISIBILITY_HOURS) {
         return candidateSunset;
     }
-    const dayAfter = new Date(candidateSunset.getTime());
+    const dayAfter = createAdjustedDateTime({ currentDateTime: candidateSunset, nullHourMinute: false, nullSeconds: false });
     addDay(dayAfter, 1);
     return createAdjustedDateTime({ currentDateTime: dayAfter, timezone: timezone, hour: 'SUNSET' });
 }
@@ -343,7 +358,8 @@ function getBabylonianYearStart(babylonYear, timezone) {
         totalMonths = yearsFromAnchor * 12 - countLeapYearsInRange(babylonYear, BABYLON_ANCHOR_YEAR);
     }
     const approxMs = epoch.getTime() + totalMonths * MEAN_SYNODIC_MS;
-    const approxDate = new Date(approxMs);
+    const approxDate = createAdjustedDateTime({ currentDateTime: epoch, nullHourMinute: false, nullSeconds: false });
+    approxDate.setTime(approxMs);
     const newMoon = getMoonPhase(approxDate, 0);
     return getMonthStartFromNewMoon(newMoon, timezone);
 }
@@ -390,7 +406,7 @@ function getBabylonianLunisolarCalendar(currentDateTime) {
     const numMonths = isLeap ? 13 : 12;
     for (let i = 0; i < numMonths; i++) {
         const monthStart = getMonthStartFromNewMoon(newMoonRef, tz);
-        monthStarts.push(new Date(monthStart.getTime()));
+        monthStarts.push(createAdjustedDateTime({ currentDateTime: monthStart, nullHourMinute: false, nullSeconds: false }));
         const nextNewMoon = getNewMoon(newMoonRef, 1);
         newMoonRef = nextNewMoon || getMoonPhase(newMoonRef, 1);
     }
