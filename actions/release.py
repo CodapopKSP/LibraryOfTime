@@ -62,6 +62,8 @@ def main():
         for seo_link in seo_links:
             soup.head.append(seo_link)
 
+        inline_content_images_in_html(soup)
+
         # Copy images to output directory for Vercel deployment
         copy_images_to_output()
         
@@ -153,6 +155,23 @@ def inline_content_svg_urls_in_css(css_text):
         return f'url("data:image/svg+xml;base64,{b64}")'
 
     return re.sub(pattern, repl, css_text)
+
+
+def inline_content_images_in_html(soup):
+    """Replace <img src="Content/..."> with data URIs so the minified single-file build works offline."""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    for img in soup.find_all('img'):
+        src = img.get('src')
+        if not src or not src.startswith('Content/'):
+            continue
+        path = os.path.normpath(os.path.join(script_dir, '..', src))
+        data_uri = image_to_data_uri(path)
+        if data_uri:
+            img['src'] = data_uri
+            print(f"Inlined HTML img: {src}")
+        else:
+            print(f"Warning: could not inline HTML img {src} (missing or too large)")
+
 
 # Returns a string containing the Base64 conversion of a favicon image
 def parse_favicon(favicon):

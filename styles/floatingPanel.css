@@ -316,7 +316,8 @@
     background-color: var(--ui-elevated-bg);
 }
 
-#calendar-view-button {
+#calendar-view-button,
+#map-view-button {
     padding: 0.8vh 1.5vh;
     background-color: var(--ui-accent-bg);
     color: var(--ui-text-muted);
@@ -336,14 +337,16 @@
     transition: background-color 0.2s ease;
 }
 
-#calendar-view-button:hover {
+#calendar-view-button:hover,
+#map-view-button:hover {
     background-color: var(--ui-elevated-bg);
 }
 
 .mac-chrome-only #floating-panel-toggle-button,
 .mac-chrome-only #glossary-button,
 .mac-chrome-only #on-making-LoT-button,
-.mac-chrome-only #calendar-view-button {
+.mac-chrome-only #calendar-view-button,
+.mac-chrome-only #map-view-button {
     font-size: 1.8vh;
 }
 

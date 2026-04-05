@@ -643,6 +643,11 @@ function setCalendarViewMonth(year, month) {
 }
 
 function openCalendarView() {
+    var mapModal = document.getElementById('map-view-modal');
+    if (mapModal && mapModal.style.display === 'block') {
+        mapModal.style.display = 'none';
+        document.body.classList.remove('mobile-ui-map-open');
+    }
     var dateStr = typeof getDatePickerTime === 'function' ? getDatePickerTime() : '';
     var year, month;
     if (dateStr) {

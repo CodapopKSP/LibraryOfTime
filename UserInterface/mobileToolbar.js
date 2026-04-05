@@ -109,6 +109,7 @@
     function wireToolbar() {
         const aboutBtn = document.getElementById("mobile-tool-about");
         const calBtn = document.getElementById("mobile-tool-calendar");
+        const mapBtn = document.getElementById("mobile-tool-map");
         const panelBtn = document.getElementById("mobile-tool-panel");
         const infoBtn = document.getElementById("mobile-tool-info");
         const { backdrop } = getElements();
@@ -144,6 +145,20 @@
                 closeMobileToolSheets();
                 closeInfoSheet();
                 const mainBtn = document.getElementById("calendar-view-button");
+                if (mainBtn) {
+                    mainBtn.click();
+                }
+            });
+        }
+
+        if (mapBtn) {
+            mapBtn.addEventListener("click", function () {
+                if (!isMobileLayout()) {
+                    return;
+                }
+                closeMobileToolSheets();
+                closeInfoSheet();
+                const mainBtn = document.getElementById("map-view-button");
                 if (mainBtn) {
                     mainBtn.click();
                 }

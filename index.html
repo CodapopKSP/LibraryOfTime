@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="styles/modals.css">
     <link rel="stylesheet" href="styles/responsive.css">
     <link rel="stylesheet" href="styles/calendarView.css">
+    <link rel="stylesheet" href="styles/mapView.css">
     <!-- Favicon -->
 	<link rel="icon" type="image/png" sizes="32x32" href="Content/favicon.png">
 
@@ -45,6 +46,7 @@
             </div>
             <div class="header-right">
                 <button id="calendar-view-button" type="button">Calendar View</button>
+                <button id="map-view-button" type="button">Map View</button>
                 <button id="floating-panel-toggle-button" type="button">Show/Hide Panel</button>
             </div>
         </header>
@@ -239,6 +241,7 @@
         <nav class="mobile-toolbar" id="mobile-toolbar" aria-label="Site tools">
             <button type="button" id="mobile-tool-about" class="mobile-tool-btn">About</button>
             <button type="button" id="mobile-tool-calendar" class="mobile-tool-btn">Calendar</button>
+            <button type="button" id="mobile-tool-map" class="mobile-tool-btn">Map</button>
             <button type="button" id="mobile-tool-panel" class="mobile-tool-btn">Panel</button>
             <button type="button" id="mobile-tool-info" class="mobile-tool-btn">Info</button>
         </nav>
@@ -288,6 +291,18 @@
             </div>
         </div>
 
+        <!-- Map view (overlay + panel — same pattern as Calendar View) -->
+        <div id="map-view-modal" class="map-view-overlay">
+            <div class="map-view-panel">
+                <div class="map-view-top-bar">
+                    <button type="button" class="floating-panel-close" id="map-view-modal-close" aria-label="Close">&times;&#xFE0E;</button>
+                </div>
+                <div class="map-view-body-scroll">
+                    <img class="map-view-world-img" src="Content/WorldMap.webp" alt="World map" decoding="async">
+                </div>
+            </div>
+        </div>
+
         <!-- Modal for Glossary -->
         <div id="glossary-modal" class="modal">
             <div class="modal-content modal-content--scroll-body">
@@ -326,6 +341,7 @@
     <script src="UserInterface/descriptionPanel.js"></script>
     <script src="UserInterface/nodeDraw.js"></script>
     <script src="UserInterface/calendarView.js"></script>
+    <script src="UserInterface/mapView.js"></script>
     <script src="UserInterface/userPanel.js"></script>
     <script src="UserInterface/crossUiGlobals.js"></script>
     <script src="UserInterface/dateSelector.js"></script>

@@ -546,6 +546,7 @@
     /* Highlight which bottom tool is currently open (matches description tab “active” tone) */
     body.mobile-ui-description-open #mobile-tool-about,
     body.mobile-ui-calendar-open #mobile-tool-calendar,
+    body.mobile-ui-map-open #mobile-tool-map,
     body.mobile-ui-info-open #mobile-tool-info,
     body.floating-panel-open #mobile-tool-panel {
         background-color: var(--ui-elevated-bg);
