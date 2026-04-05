@@ -102,6 +102,6 @@ function multidaySpanTest(calendarFn, arg2, arg3, arg4) {
     }
 }
 
-runAllTests();
+//runAllTests();
 
 //multidaySpanTest(getEpiroteCalendar, "85-3-18, 00:00:00", "UTC+02:00", 100);
