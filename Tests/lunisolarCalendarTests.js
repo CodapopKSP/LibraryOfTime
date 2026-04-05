@@ -72,11 +72,40 @@ function runGetMoladTishriTest(calendarName, getCalendarFunction, testCases) {
     return failedTestCount;
 }
 
+function runLunisolarDisplayYearTests(testCases) {
+    let failedTestCount = 0;
+    let testCount = 0;
+
+    for (const [gregorianYear, gregorianMonth, lunisolarMonth, yearOffset, expectedYear] of testCases) {
+        testCount++;
+        const actualYear = calculateLunisolarDisplayYear(gregorianYear, gregorianMonth, lunisolarMonth, yearOffset);
+        if (actualYear !== expectedYear) {
+            console.error(`Lunisolar Display Year: Test ${testCount} failed.`);
+            console.error('Expected:', expectedYear);
+            console.error('Received:', actualYear);
+            failedTestCount++;
+        }
+    }
+
+    return failedTestCount;
+}
+
 function testGetSolarTermTypeThisMonth() {
     return runSingleParameterTests("Solar Term Type This Month", getSolarTermTypeThisMonth, [
         ["2025-5-27, 00:00:00", "UTC+08:00", "MAJOR"],
         ["2025-2-28, 00:00:00", "UTC+08:00", "MAJOR"],
         ["2025-7-25, 00:00:00", "UTC+08:00", "MINOR"],
+    ]);
+}
+
+function testCalculateLunisolarDisplayYear() {
+    return runLunisolarDisplayYearTests([
+        // Early Gregorian month and late lunisolar month: apply exactly one boundary decrement.
+        [2025, 1, 11, 2333, 4357],
+        [2025, 1, 10, 2698, 4722],
+        // Outside boundary condition: no decrement.
+        [2025, 5, 10, 2333, 4358],
+        [2025, 1, 5, 0, 2025],
     ]);
 }
 
@@ -216,6 +245,7 @@ function runLunisolarCalendarTests() {
     generateAllNewMoons(currentDateTime);
     generateAllSolsticesEquinoxes(currentDateTime);
     const testFunctions = [
+        testCalculateLunisolarDisplayYear,
         testGetSolarTermTypeThisMonth,
         testGetMonthEleven,
         testCalculateFirstMonthWithoutMajorSolarTerm,

@@ -16,92 +16,94 @@ function isMetonicCycleLeapYear(year) {
 //|     Chinese Calendar Derivatives     |
 //|--------------------------------------|
 
-const CHINA_TZ = 'UTC+08:00';
-const VIETNAM_TZ = 'UTC+07:00';
-const KOREA_TZ = 'UTC+09:00';
-const CHINA_YEAR_OFFSET = 2698;
-const KOREA_YEAR_OFFSET = 2333;
-const CHINA_EARTHLY_BRANCH_OFFSET = 2;
-const VIETNAM_EARTHLY_BRANCH_OFFSET = 4;
 
 const CHINESE_ZODIAC_ANIMALS = ['Rat (鼠)', 'Ox (牛)', 'Tiger (虎)', 'Rabbit (兔)', 'Dragon (龍)', 'Snake (蛇)', 'Horse (馬)', 'Goat (羊)', 'Monkey (猴)', 'Rooster (雞)', 'Dog (狗)', 'Pig (豬)'];
 const VIETNAMESE_ZODIAC_ANIMALS = ['Rat (𤝞)', 'Water Buffalo (𤛠)', 'Tiger (𧲫)', 'Cat (猫)', 'Dragon (龍)', 'Snake (𧋻)', 'Horse (馭)', 'Goat (羝)', 'Monkey (𤠳)', 'Rooster (𪂮)', 'Dog (㹥)', 'Pig (㺧)'];
 
-const CHINESE_LEAP_MONTH_SUFFIX = '閏';
-const VIETNAMESE_LEAP_MONTH_SUFFIX = 'Nhuận';
-const KOREAN_LEAP_MONTH_SUFFIX = '윤';
+function calculateLunisolarDisplayYear(gregorianYear, gregorianMonth, lunisolarMonth, yearOffset) {
+    let year = gregorianYear + yearOffset;
+    if (gregorianMonth < 4 && lunisolarMonth > 9) {
+        year -= 1;
+    }
+    return year;
+}
+
+function getLunisolarEarthlyBranchIndex(year, earthlyBranchOffset) {
+    let earthlyBranchIndex = ((year - earthlyBranchOffset) % 12 + 12) % 12;
+    if (year < 0) {
+        earthlyBranchIndex += 1;
+    }
+    return earthlyBranchIndex % 12;
+}
+
+function getLunisolarMonthString(month, leapMonth, leapMonthSuffix) {
+    return leapMonth ? month + leapMonthSuffix : month;
+}
 
 // Returns a formatted Chinese calendar CST date based on the lunisolar calculation
 function getChineseLunisolarCalendarDate(currentDateTime, country) {
     const gregorianYear = currentDateTime.getUTCFullYear();
     const gregorianMonth = currentDateTime.getUTCMonth();
-    let year = gregorianYear;
+    const COUNTRY_CONFIG = {
+        CHINA: {
+            timezone: 'UTC+08:00',
+            yearOffset: 2698,
+            leapMonthSuffix: '閏',
+            earthlyBranchOffset: 2,
+            zodiacAnimals: CHINESE_ZODIAC_ANIMALS
+        },
+        VIETNAM: {
+            timezone: 'UTC+07:00',
+            yearOffset: 0,
+            leapMonthSuffix: 'Nhuận',
+            earthlyBranchOffset: 4,
+            zodiacAnimals: VIETNAMESE_ZODIAC_ANIMALS
+        },
+        KOREA: {
+            timezone: 'UTC+09:00',
+            yearOffset: 2333,
+            leapMonthSuffix: '윤',
+            earthlyBranchOffset: null,
+            zodiacAnimals: null
+        }
+    };
+
+    const config = COUNTRY_CONFIG[country];
+    if (!config) {
+        return;
+    }
+
+    const lunisolarDate = getLunisolarCalendarDate(currentDateTime, config.timezone);
+    const year = calculateLunisolarDisplayYear(gregorianYear, gregorianMonth, lunisolarDate.month, config.yearOffset);
+    const monthString = getLunisolarMonthString(lunisolarDate.month, lunisolarDate.leapMonth, config.leapMonthSuffix);
 
     if (country === 'CHINA') {
-        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, CHINA_TZ);
-        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
-            year -= 1;
-        }
-        year += CHINA_YEAR_OFFSET;
-        let earthlyBranchIndex = ((year - CHINA_EARTHLY_BRANCH_OFFSET) % 12 + 12) % 12;
-        if (year < 0) {
-            earthlyBranchIndex++;
-        }
-
-        let monthString = lunisolarDate.month;
-        if (lunisolarDate.leapMonth) {
-            monthString = monthString + CHINESE_LEAP_MONTH_SUFFIX;
-        }
-        const output = `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${CHINESE_ZODIAC_ANIMALS[earthlyBranchIndex]}`;
-        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac: CHINESE_ZODIAC_ANIMALS[earthlyBranchIndex] } };
+        const earthlyBranchIndex = getLunisolarEarthlyBranchIndex(year, config.earthlyBranchOffset);
+        const zodiac = config.zodiacAnimals[earthlyBranchIndex];
+        const output = `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${zodiac}`;
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac } };
     }
 
     if (country === 'VIETNAM') {
-        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, VIETNAM_TZ);
-        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
-            year -= 1;
-        }
-        let earthlyBranchIndex = ((year - VIETNAM_EARTHLY_BRANCH_OFFSET) % 12 + 12) % 12;
-        if (year < 0) {
-            earthlyBranchIndex++;
-        }
-        let monthString = lunisolarDate.month;
-        if (lunisolarDate.leapMonth) {
-            monthString = monthString + VIETNAMESE_LEAP_MONTH_SUFFIX;
-        }
-        const output = `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${VIETNAMESE_ZODIAC_ANIMALS[earthlyBranchIndex]}`;
-        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac: VIETNAMESE_ZODIAC_ANIMALS[earthlyBranchIndex] } };
+        const earthlyBranchIndex = getLunisolarEarthlyBranchIndex(year, config.earthlyBranchOffset);
+        const zodiac = config.zodiacAnimals[earthlyBranchIndex];
+        const output = `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${zodiac}`;
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac } };
     }
 
-    if (country === 'KOREA') {
-        const lunisolarDate = getLunisolarCalendarDate(currentDateTime, KOREA_TZ);
-        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
-            year -= 1;
-        }
-        year += KOREA_YEAR_OFFSET;
-        if (gregorianMonth < 4 && lunisolarDate.month > 9) {
-            year -= 1;
-        }
-        let monthString = lunisolarDate.month;
-        if (lunisolarDate.leapMonth) {
-            monthString = monthString + KOREAN_LEAP_MONTH_SUFFIX;
-        }
-        const output = `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
-        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year };
-    }
+    const output = `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
+    return { output, day: lunisolarDate.day, month: lunisolarDate.month, year };
 }
 
 const SEXAGENARY_HEAVENLY_STEMS = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
 const SEXAGENARY_EARTHLY_BRANCHES = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 const SEXAGENARY_HEAVENLY_STEMS_ENGLISH = ['Jia', 'Yi', 'Bing', 'Ding', 'Wu', 'Ji', 'Geng', 'Xin', 'Ren', 'Gui'];
 const SEXAGENARY_EARTHLY_BRANCHES_ENGLISH = ['Zi', 'Chou', 'Yin', 'Mao', 'Chen', 'Si', 'Wu', 'Wei', 'Shen', 'You', 'Xu', 'Hai'];
-const SEXAGENARY_YEAR_OFFSET_FOR_CYCLE = 2;
-
 // Returns a formatted Sexagenary year CST date based on the lunisolar calculation
 function getSexagenaryYear(currentDateTime) {
     const chineseDate = getChineseLunisolarCalendarDate(currentDateTime, 'CHINA');
-    const chineseStr = (chineseDate && chineseDate.output != null) ? chineseDate.output : chineseDate;
-    const chineseYear = String(chineseStr).split('年')[0] - SEXAGENARY_YEAR_OFFSET_FOR_CYCLE;
+    const chineseCalendarYear = chineseDate && typeof chineseDate.year === 'number' ? chineseDate.year : NaN;
+    const chineseYear = chineseCalendarYear - 2;
 
     const positiveYear = chineseYear < 0 ? 60 + (chineseYear % 60) : chineseYear;
     const heavenlyStemIndex = positiveYear % 10;
@@ -120,8 +122,6 @@ function getSexagenaryYear(currentDateTime) {
 //|--------------------------|
 //|     Chinese Calendar     |
 //|--------------------------|
-
-const CHINESE_MEAN_SYNODIC_DAYS = 29.53;
 
 function getLunisolarCalendarDate(currentDateTime, timezone) {
     const lastWinterSolstice = getSolsticeEquinox(currentDateTime, 'WINTER', 0);
@@ -142,10 +142,10 @@ function getLunisolarCalendarDate(currentDateTime, timezone) {
     const startOfMonthEleven = getMonthEleven(lastWinterSolstice, timezone);
 
     const daysBetweenEleventhMonths = differenceInDays(startOfMonthElevenNextYear, startOfMonthEleven);
-    const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / CHINESE_MEAN_SYNODIC_DAYS);
+    const lunationsBetweenEleventhMonths = Math.round(daysBetweenEleventhMonths / 29.53);
     const daysBetweenStartOfMonthAndMonthEleven = differenceInDays(startOfThisMonth, startOfMonthEleven);
 
-    let currentMonth = Math.round(daysBetweenStartOfMonthAndMonthEleven / CHINESE_MEAN_SYNODIC_DAYS) - 1;
+    let currentMonth = Math.round(daysBetweenStartOfMonthAndMonthEleven / 29.53) - 1;
     const currentDay = Math.floor(differenceInDays(currentDateTime, startOfThisMonth)) + 1;
 
     let isLeapMonth = false;
@@ -193,10 +193,11 @@ function getSolarTermTypeThisMonth(startOfMonthRef, timezone) {
     return 'MINOR';
 }
 
-// Returns the last New Moon before the Winter Solstice (start of month 11).
-// Possible errors if conjunction happens a few hours after solstice but before midnight.
-function getMonthEleven(winterSolstice, timezone, weirdShitAroundSolstice) {
-    let lunationOffset = weirdShitAroundSolstice ? -1 : 0;
+// Returns the local-start timestamp of month 11 (the new moon at or before winter solstice).
+// `searchPreviousLunation` exists for the boundary case where solstice/new-moon ordering is
+// ambiguous near local-day cutover; when true, seed one lunation earlier before final correction.
+function getMonthEleven(winterSolstice, timezone, searchPreviousLunation = false) {
+    let lunationOffset = searchPreviousLunation ? -1 : 0;
 
     let closestConjunction = getNewMoon(winterSolstice, lunationOffset);
     closestConjunction = createAdjustedDateTime({ currentDateTime: closestConjunction, timezone });
@@ -210,8 +211,8 @@ function getMonthEleven(winterSolstice, timezone, weirdShitAroundSolstice) {
 
 // Returns the first month in the Chinese calendar that doesn't contain a major solar term
 function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear, timezone) {
-    const constantStartingPoint = new Date(midnightStartOfMonthElevenLastYear);
-    let dateToCheck = new Date(midnightStartOfMonthElevenLastYear);
+    const constantStartingPoint = createAdjustedDateTime({ currentDateTime: midnightStartOfMonthElevenLastYear, nullHourMinute: false, nullSeconds: false });
+    let dateToCheck = createAdjustedDateTime({ currentDateTime: midnightStartOfMonthElevenLastYear, nullHourMinute: false, nullSeconds: false });
     let lunations = 0;
 
     while (true) {
@@ -245,10 +246,8 @@ function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLast
 
 const BABYLON_TZ = 'UTC+03:00';
 const BABYLON_ANCHOR_YEAR = -74;
-const MEAN_SYNODIC_DAY = 29.530588853;
-const MEAN_SYNODIC_MS = MEAN_SYNODIC_DAY * 24 * 60 * 60 * 1000;
+const MEAN_SYNODIC_MS = 29.530588853 * 24 * 60 * 60 * 1000;
 const MAX_YEAR_ITERATIONS = 500;
-const MONTHS_PER_METONIC_CYCLE = 12.368421053;
 
 const BABYLON_MONTH_NAMES = [
     '𒌚𒁈', '𒌚𒄞', '𒌚𒋞', '𒌚𒋗', '𒌚𒉈', '𒌚𒆥',
@@ -306,25 +305,23 @@ function countLeapYearsInRange(low, high) {
 }
 
 // Two-step rule: (1) choose candidate sunset; (2) require new moon ≥ 24 h before that sunset, else next sunset.
-const BABYLON_VISIBILITY_HOURS = 24;
 
 function getMonthStartFromNewMoon(newMoonUtc, timezone) {
-    const offsetMs = convertUTCOffsetToMinutes(timezone) * 60 * 1000;
-    const localDate = new Date(newMoonUtc.getTime() + offsetMs);
+    const localDate = createFauxUTCDate(newMoonUtc, timezone);
     const y = localDate.getUTCFullYear();
     const m = localDate.getUTCMonth() + 1;
     const d = localDate.getUTCDate();
     let candidateSunset = createAdjustedDateTime({ timezone: timezone, year: y, month: m, day: d, hour: 'SUNSET' });
     if (newMoonUtc.getTime() > candidateSunset.getTime()) {
-        const nextDay = new Date(candidateSunset.getTime());
+        const nextDay = createAdjustedDateTime({ currentDateTime: candidateSunset, nullHourMinute: false, nullSeconds: false });
         addDay(nextDay, 1);
         candidateSunset = createAdjustedDateTime({ currentDateTime: nextDay, timezone: timezone, hour: 'SUNSET' });
     }
     const hoursBeforeCandidate = (candidateSunset.getTime() - newMoonUtc.getTime()) / (60 * 60 * 1000);
-    if (hoursBeforeCandidate >= BABYLON_VISIBILITY_HOURS) {
+    if (hoursBeforeCandidate >= 24) {
         return candidateSunset;
     }
-    const dayAfter = new Date(candidateSunset.getTime());
+    const dayAfter = createAdjustedDateTime({ currentDateTime: candidateSunset, nullHourMinute: false, nullSeconds: false });
     addDay(dayAfter, 1);
     return createAdjustedDateTime({ currentDateTime: dayAfter, timezone: timezone, hour: 'SUNSET' });
 }
@@ -343,7 +340,8 @@ function getBabylonianYearStart(babylonYear, timezone) {
         totalMonths = yearsFromAnchor * 12 - countLeapYearsInRange(babylonYear, BABYLON_ANCHOR_YEAR);
     }
     const approxMs = epoch.getTime() + totalMonths * MEAN_SYNODIC_MS;
-    const approxDate = new Date(approxMs);
+    const approxDate = createAdjustedDateTime({ currentDateTime: epoch, nullHourMinute: false, nullSeconds: false });
+    approxDate.setTime(approxMs);
     const newMoon = getMoonPhase(approxDate, 0);
     return getMonthStartFromNewMoon(newMoon, timezone);
 }
@@ -354,7 +352,7 @@ function getBabylonianLunisolarCalendar(currentDateTime) {
     // wrong local sunset, causing epoch-aligned instants like 15:00 UTC to fall before monthStarts[0].
     const tz = BABYLON_TZ;
     const epoch = createAdjustedDateTime({ timezone: BABYLON_TZ, year: -385, month: 4, day: 15, hour: 'SUNSET' });
-    const approxYears = Math.floor((currentDateTime.getTime() - epoch.getTime()) / (MEAN_SYNODIC_MS * MONTHS_PER_METONIC_CYCLE));
+    const approxYears = Math.floor((currentDateTime.getTime() - epoch.getTime()) / (MEAN_SYNODIC_MS * 12.368421053));
     let babylonYear = BABYLON_ANCHOR_YEAR + approxYears;
 
     let yearStart;
@@ -390,7 +388,7 @@ function getBabylonianLunisolarCalendar(currentDateTime) {
     const numMonths = isLeap ? 13 : 12;
     for (let i = 0; i < numMonths; i++) {
         const monthStart = getMonthStartFromNewMoon(newMoonRef, tz);
-        monthStarts.push(new Date(monthStart.getTime()));
+        monthStarts.push(createAdjustedDateTime({ currentDateTime: monthStart, nullHourMinute: false, nullSeconds: false }));
         const nextNewMoon = getNewMoon(newMoonRef, 1);
         newMoonRef = nextNewMoon || getMoonPhase(newMoonRef, 1);
     }
@@ -431,7 +429,6 @@ function getBabylonianLunisolarCalendar(currentDateTime) {
 //|-------------------------|
 
 const JERUSALEM_TZ = 'UTC+02:00';
-const JERUSALEM_UTC_HOUR_DAY_START = 16;
 
 const HEBREW_MONTH_DAYS_DEFICIENT = [30, 29, 29, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29];
 const HEBREW_MONTH_DAYS_REGULAR = [30, 29, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29];
@@ -452,7 +449,7 @@ const HEBREW_WEEKDAY_NAMES = [
 // Returns a formatted Hebrew calendar IST date
 function calculateHebrewCalendar(currentDateTime) {
     let startOfToday = createAdjustedDateTime({ currentDateTime, timezone: JERUSALEM_TZ, hour: 'SUNSET' });
-    if (currentDateTime.getUTCHours() < JERUSALEM_UTC_HOUR_DAY_START) {
+    if (currentDateTime.getUTCHours() < 16) {
         addDay(startOfToday, -1);
     }
 
@@ -600,56 +597,6 @@ const EPIROTE_MONTHS_LEAP = [
     'ΑΠΕΛΛΑΙΟΣ'
 ];
 
-// Full / hollow month pattern over 47 months, repeating 5 times per Metonic cycle (47 * 5 = 235 months)
-// "true"  = full (30 days)
-// "false" = hollow (29 days) with a skipped *label* inside the month according to EPIROTE_MONTH_PATTERN_SKIP.
-const EPIROTE_MONTH_PATTERN_FULL = [
-    //  1: Skip 1,  2: Full
-    false, true,
-    //  3: Skip 5,  4: Full
-    false, true,
-    //  5: Skip 9,  6: Full
-    false, true,
-    //  7: Skip 13, 8: Full
-    false, true,
-    //  9: Skip 17, 10: Full
-    false, true,
-    // 11: Skip 21, 12: Full
-    false, true,
-    // 13: Skip 26, 14: Full
-    false, true,
-    // 15: Skip 30, 16: Full, 17: Full
-    false, true, true,
-    // 18: Skip 4,  19: Full
-    false, true,
-    // 20: Skip 8,  21: Full
-    false, true,
-    // 22: Skip 12, 23: Full
-    false, true,
-    // 24: Skip 16, 25: Full
-    false, true,
-    // 26: Skip 20, 27: Full
-    false, true,
-    // 28: Skip 24, 29: Full
-    false, true,
-    // 30: Skip 28, 31: Full, 32: Full
-    false, true, true,
-    // 33: Skip 2,  34: Full
-    false, true,
-    // 35: Skip 6,  36: Full
-    false, true,
-    // 37: Skip 11, 38: Full
-    false, true,
-    // 39: Skip 15, 40: Full
-    false, true,
-    // 41: Skip 19, 42: Full
-    false, true,
-    // 43: Skip 23, 44: Full
-    false, true,
-    // 45: Skip 27, 46: Full, 47: Full
-    false, true, true
-];
-
 // For each hollow month in the pattern, record the skipped *day label* (1–30).
 // For full months, the skip label is 0.
 const EPIROTE_MONTH_PATTERN_SKIP = [
@@ -699,18 +646,17 @@ const EPIROTE_MONTH_PATTERN_SKIP = [
     27, 0, 0
 ];
 
-const EPIROTE_PATTERN_LENGTH = EPIROTE_MONTH_PATTERN_FULL.length; // 47
+const EPIROTE_PATTERN_LENGTH = EPIROTE_MONTH_PATTERN_SKIP.length; // 47
 
 // Precompute month lengths (29 or 30 days) and the total days in one 47‑month pattern and one 19‑year cycle.
 const EPIROTE_MONTH_PATTERN_LENGTHS = [];
 let EPIROTE_DAYS_PER_PATTERN = 0;
 for (let i = 0; i < EPIROTE_PATTERN_LENGTH; i++) {
-    const days = EPIROTE_MONTH_PATTERN_FULL[i] ? 30 : 29;
+    const days = EPIROTE_MONTH_PATTERN_SKIP[i] === 0 ? 30 : 29;
     EPIROTE_MONTH_PATTERN_LENGTHS.push(days);
     EPIROTE_DAYS_PER_PATTERN += days;
 }
 
-const EPIROTE_MONTHS_PER_CYCLE = 235; // 19-year Metonic: 12*19 + 7 leap months
 const EPIROTE_DAYS_PER_CYCLE = EPIROTE_DAYS_PER_PATTERN * 5; // 47 * 5 = 235 months
 
 function getEpiroteAnchorDate() {
@@ -780,7 +726,7 @@ function getEpiroteCalendar(currentDateTime) {
     let dayOfMonthIndex = 0;          // 0‑based index within that month (physical day count)
     let patternIndexForMonth = 0;     // index into the 47‑month pattern
 
-    for (let m = 0; m < EPIROTE_MONTHS_PER_CYCLE; m++) {
+    for (let m = 0; m < 235; m++) {
         const patternIndex = m % EPIROTE_PATTERN_LENGTH;
         const monthLength = EPIROTE_MONTH_PATTERN_LENGTHS[patternIndex];
 
@@ -801,10 +747,10 @@ function getEpiroteCalendar(currentDateTime) {
     const epiroteYear = cyclesCompleted * 19 + yearInCycle;
 
     // Day-of-month label counting from 1 with an internal skipped label for hollow months.
-    const isFullMonth = EPIROTE_MONTH_PATTERN_FULL[patternIndexForMonth];
+    const skipLabel = EPIROTE_MONTH_PATTERN_SKIP[patternIndexForMonth];
+    const isFullMonth = skipLabel === 0;
     let dayOfMonth = dayOfMonthIndex + 1;
     if (!isFullMonth) {
-        const skipLabel = EPIROTE_MONTH_PATTERN_SKIP[patternIndexForMonth];
         if (skipLabel > 0 && dayOfMonth >= skipLabel) {
             dayOfMonth += 1;
         }

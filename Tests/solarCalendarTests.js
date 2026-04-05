@@ -233,6 +233,8 @@ function testEgyptianCivilCalendar() {
     return runSolarTests("Egyptian Civil Calendar", getEgyptianDate, [
         ["-2781-6-26, 22:00:00", "UTC+00:00", "I Akhet 1 (0)"],
         ["-2781-6-26, 21:00:00", "UTC+00:00", "Nephthys (-1)"],
+        ["-2781-10-23, 22:00:00", "UTC+00:00", "IV Akhet 30 (0)"],
+        ["-2781-10-24, 22:00:00", "UTC+00:00", "I Peret 1 (0)"],
         ["-3500-6-18, 00:00:00", "UTC+02:00", "III Peret 3 (-720)"],
         ["500-7-22, 00:00:00", "UTC+02:00", "IV Akhet 2 (3283)"],
     ]);

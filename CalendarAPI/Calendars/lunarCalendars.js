@@ -33,8 +33,16 @@ const HIJRI_WEEKDAY_NAMES = [
 const MECCA_TZ = 'UTC+03:00';
 const HIJRI_LUNATION_OFFSET = 9;
 const HIJRI_EPOCH_YEAR = 1420;
-const MECCA_UTC_HOUR_CUTOFF_FOR_NEXT_DAY = 15;
 const MAX_NEW_MOON_ATTEMPTS = 3;
+
+// Convert a new-moon instant to the local sunset civil boundary for a lunar month start.
+function convertNewMoonToSunsetBoundary(newMoon, timezone) {
+    const boundary = createAdjustedDateTime({ currentDateTime: newMoon, timezone, hour: 'SUNSET' });
+    if (newMoon > boundary) {
+        addDay(boundary, 1);
+    }
+    return boundary;
+}
 
 // Returns a formatted Hijri calendar AST date
 function getUmmalQuraDate(currentDateTime) {
@@ -56,7 +64,7 @@ function getUmmalQuraDate(currentDateTime) {
     const dayOfWeek = getWeekdayAtTime(currentDateTime, { hour: 'SUNSET' }, MECCA_TZ);
 
     const output = day + ' ' + monthName + ' ' + displayYear + ' ' + yearSuffix + '\n' + HIJRI_WEEKDAY_NAMES[dayOfWeek];
-    return { output, day, month: monthName, year: displayYear, dayOfWeek };
+    return { output, day, month: monthIndex, year: displayYear, dayOfWeek, other: { monthName, yearSuffix } };
 }
 
 function calculateIslamicMonthAndYear(lunationSince2000) {
@@ -72,20 +80,12 @@ function calculateIslamicMonthAndYear(lunationSince2000) {
 
 // Find the sunset that occurred after the last New Moon happened in Mecca
 function timeOfSunsetAfterLastNewMoon(currentDateTime) {
-    function adjustToSunsetDate(newMoon) {
-        const adjusted = createAdjustedDateTime({ currentDateTime: newMoon, timezone: MECCA_TZ, hour: 'SUNSET' });
-        if (newMoon.getUTCHours() > MECCA_UTC_HOUR_CUTOFF_FOR_NEXT_DAY) {
-            addDay(adjusted, 1);
-        }
-        return adjusted;
-    }
-
     let lunationOffset = 0;
     let lastSunset;
 
     for (let attempt = 0; attempt < MAX_NEW_MOON_ATTEMPTS; attempt++) {
         const newMoon = getNewMoon(currentDateTime, lunationOffset);
-        lastSunset = adjustToSunsetDate(newMoon);
+        lastSunset = convertNewMoonToSunsetBoundary(newMoon, MECCA_TZ);
         if (currentDateTime >= lastSunset) {
             return lastSunset;
         }

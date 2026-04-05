@@ -20,7 +20,7 @@ const INVARIABLE_MONTH_DAYS = [1, 30, 30, 31, 30, 30, 31, 30, 30, 31, 30, 30, 31
 const INVARIABLE_MONTH_NAMES_LEAP = ['New Years Day', 'January', 'February', 'March', 'April', 'May', 'June', 'Leap Day', 'July', 'August', 'September', 'October', 'November', 'December'];
 const INVARIABLE_MONTH_NAMES = ['New Years Day', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
+function getFixedCalendarDate(currentDateTime_, timezoneOffset, config) {
     const currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
     const year = currentDateTime.getUTCFullYear();
     const startOfYear = createAdjustedDateTime({ year, month: 1, day: 1 });
@@ -30,35 +30,50 @@ function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
 
     const leapYear = (endOfYear - startOfYear) > 365 * 86400000;
 
-    let invariableMonth = '';
-    let invariableDate = '';
-    let invariableWeek = '\n';
+    let calendarMonth = '';
+    let calendarDate = '';
+    let calendarWeek = '\n';
 
-    const monthDaysArr = leapYear ? INVARIABLE_MONTH_DAYS_LEAP : INVARIABLE_MONTH_DAYS;
-    const monthNamesArr = leapYear ? INVARIABLE_MONTH_NAMES_LEAP : INVARIABLE_MONTH_NAMES;
+    const monthDaysArr = leapYear ? config.monthDaysLeap : config.monthDays;
+    const monthNamesArr = leapYear ? config.monthNamesLeap : config.monthNames;
 
     for (let i = 0; i < monthDaysArr.length; i++) {
         daysRemaining -= monthDaysArr[i];
         if (daysRemaining <= 0) {
-            invariableMonth = monthNamesArr[i];
-            invariableDate = (daysRemaining + monthDaysArr[i]) + ' ';
+            calendarMonth = monthNamesArr[i];
+            calendarDate = (daysRemaining + monthDaysArr[i]) + ' ';
             break;
         }
     }
 
     if (leapYear) {
-        invariableWeek += weekNames[(daysSinceStartOfYear >= 184 ? daysSinceStartOfYear - 2 : daysSinceStartOfYear - 1) % 7];
+        calendarWeek += weekNames[(daysSinceStartOfYear >= config.leapWeekBoundaryDay ? daysSinceStartOfYear - config.leapWeekOffsetAfterBoundary : daysSinceStartOfYear - config.leapWeekOffsetBeforeBoundary) % 7];
     } else {
-        invariableWeek += weekNames[(daysSinceStartOfYear - 1) % 7];
+        calendarWeek += weekNames[(daysSinceStartOfYear - config.nonLeapWeekOffset) % 7];
     }
 
-    if (invariableMonth === 'New Years Day' || invariableMonth === 'Leap Day') {
-        invariableDate = '';
-        invariableWeek = '';
+    if (calendarMonth === config.specialDayName || calendarMonth === config.specialLeapDayName) {
+        calendarDate = '';
+        calendarWeek = '';
     }
 
-    const output = `${invariableDate}${invariableMonth} ${year} CE${invariableWeek}`;
-    return { output, day: invariableDate, month: invariableMonth, year, dayOfWeek: invariableWeek };
+    const output = `${calendarDate}${calendarMonth} ${year} CE${calendarWeek}`;
+    return { output, day: calendarDate, month: calendarMonth, year, dayOfWeek: calendarWeek };
+}
+
+function getInvariableCalendarDate(currentDateTime_, timezoneOffset) {
+    return getFixedCalendarDate(currentDateTime_, timezoneOffset, {
+        monthDaysLeap: INVARIABLE_MONTH_DAYS_LEAP,
+        monthDays: INVARIABLE_MONTH_DAYS,
+        monthNamesLeap: INVARIABLE_MONTH_NAMES_LEAP,
+        monthNames: INVARIABLE_MONTH_NAMES,
+        specialDayName: 'New Years Day',
+        specialLeapDayName: 'Leap Day',
+        leapWeekBoundaryDay: 184,
+        leapWeekOffsetBeforeBoundary: 1,
+        leapWeekOffsetAfterBoundary: 2,
+        nonLeapWeekOffset: 1,
+    });
 }
 
 // --- World Calendar ---
@@ -68,44 +83,18 @@ const WORLD_MONTH_NAMES_LEAP = ['World\'s Day', 'January', 'February', 'March', 
 const WORLD_MONTH_NAMES = ['World\'s Day', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function getWorldCalendarDate(currentDateTime_, timezoneOffset) {
-    const currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
-    const year = currentDateTime.getUTCFullYear();
-    const startOfYear = createAdjustedDateTime({ year, month: 1, day: 1 });
-    const endOfYear = addYear(startOfYear, 1, true);
-    const daysSinceStartOfYear = Math.trunc(differenceInDays(currentDateTime, startOfYear)) + 1;
-    let daysRemaining = daysSinceStartOfYear;
-
-    const leapYear = (endOfYear - startOfYear) > 365 * 86400000;
-
-    let invariableMonth = '';
-    let invariableDate = '';
-    let invariableWeek = '\n';
-
-    const monthDaysArr = leapYear ? WORLD_MONTH_DAYS_LEAP : WORLD_MONTH_DAYS;
-    const monthNamesArr = leapYear ? WORLD_MONTH_NAMES_LEAP : WORLD_MONTH_NAMES;
-
-    for (let i = 0; i < monthDaysArr.length; i++) {
-        daysRemaining -= monthDaysArr[i];
-        if (daysRemaining <= 0) {
-            invariableMonth = monthNamesArr[i];
-            invariableDate = (daysRemaining + monthDaysArr[i]) + ' ';
-            break;
-        }
-    }
-
-    if (leapYear) {
-        invariableWeek += weekNames[(daysSinceStartOfYear >= 184 ? daysSinceStartOfYear - 3 : daysSinceStartOfYear - 2) % 7];
-    } else {
-        invariableWeek += weekNames[(daysSinceStartOfYear - 2) % 7];
-    }
-
-    if (invariableMonth === 'World\'s Day' || invariableMonth === 'Leapyear Day') {
-        invariableDate = '';
-        invariableWeek = '';
-    }
-
-    const output = `${invariableDate}${invariableMonth} ${year} CE${invariableWeek}`;
-    return { output, day: invariableDate, month: invariableMonth, year, dayOfWeek: invariableWeek };
+    return getFixedCalendarDate(currentDateTime_, timezoneOffset, {
+        monthDaysLeap: WORLD_MONTH_DAYS_LEAP,
+        monthDays: WORLD_MONTH_DAYS,
+        monthNamesLeap: WORLD_MONTH_NAMES_LEAP,
+        monthNames: WORLD_MONTH_NAMES,
+        specialDayName: 'World\'s Day',
+        specialLeapDayName: 'Leapyear Day',
+        leapWeekBoundaryDay: 184,
+        leapWeekOffsetBeforeBoundary: 2,
+        leapWeekOffsetAfterBoundary: 3,
+        nonLeapWeekOffset: 2,
+    });
 }
 
 // --- Symmetry454 / Symmetry010 ---
@@ -118,6 +107,29 @@ const SYMMETRY_DAYS_PER_LEAP_YEAR = 371;
 
 function isSymmetryLeapYear(year) {
     return ((52 * year) + 146) % 293 < 52;
+}
+
+function getSymmetryYearLength(year) {
+    return isSymmetryLeapYear(year) ? SYMMETRY_DAYS_PER_LEAP_YEAR : SYMMETRY_DAYS_PER_YEAR;
+}
+
+function resolveSymmetry010YearAndDayIndex(daysSinceEpoch) {
+    let symmetryYear = 1;
+    let dayIndex = daysSinceEpoch;
+
+    if (dayIndex >= 0) {
+        while (dayIndex >= getSymmetryYearLength(symmetryYear)) {
+            dayIndex -= getSymmetryYearLength(symmetryYear);
+            symmetryYear++;
+        }
+    } else {
+        while (dayIndex < 0) {
+            symmetryYear--;
+            dayIndex += getSymmetryYearLength(symmetryYear);
+        }
+    }
+
+    return { symmetryYear, dayIndex };
 }
 
 function getSymmetry454Date(currentDateTime_, timezoneOffset) {
@@ -161,29 +173,10 @@ function getSymmetry010Date(currentDateTime_, timezoneOffset) {
     const epoch = createAdjustedDateTime({ year: 1, month: 1, day: 1 });
 
     let daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, epoch));
-    let symmetryYear = 1;
-    let isLeapYear = false;
-
-    if (daysSinceEpoch > 0) {
-        while (daysSinceEpoch > (isLeapYear ? SYMMETRY_DAYS_PER_LEAP_YEAR : SYMMETRY_DAYS_PER_YEAR)) {
-            daysSinceEpoch -= (isLeapYear ? SYMMETRY_DAYS_PER_LEAP_YEAR : SYMMETRY_DAYS_PER_YEAR);
-            symmetryYear++;
-            isLeapYear = isSymmetryLeapYear(symmetryYear);
-        }
-    } else if (daysSinceEpoch < 0) {
-        symmetryYear = 0;
-        let yearLength = SYMMETRY_DAYS_PER_YEAR;
-        while (daysSinceEpoch < 0) {
-            isLeapYear = isSymmetryLeapYear(symmetryYear);
-            yearLength = isLeapYear ? SYMMETRY_DAYS_PER_LEAP_YEAR : SYMMETRY_DAYS_PER_YEAR;
-            daysSinceEpoch += yearLength;
-            symmetryYear--;
-        }
-        if (daysSinceEpoch >= yearLength) {
-            daysSinceEpoch -= yearLength;
-            symmetryYear++;
-        }
-    }
+    const resolved = resolveSymmetry010YearAndDayIndex(daysSinceEpoch);
+    let symmetryYear = resolved.symmetryYear;
+    daysSinceEpoch = resolved.dayIndex;
+    const isLeapYear = isSymmetryLeapYear(symmetryYear);
 
     let symmetryMonth = 0;
     while (daysSinceEpoch >= SYMMETRY010_MONTH_DAYS[symmetryMonth]) {

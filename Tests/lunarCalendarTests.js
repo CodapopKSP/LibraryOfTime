@@ -66,12 +66,42 @@ function runCalculateIslamicMonthAndYearTests(testCases) {
     return failedTestCount;
 }
 
+function runGetUmmalQuraReturnShapeTests(testCases) {
+    let failedTestCount = 0;
+    let testCount = 0;
+
+    for (const [inputDate, timezone, expectedMonthIndex, expectedMonthName] of testCases) {
+        testCount++;
+
+        const testedDate = parseInputDate(inputDate, timezone);
+        const result = getUmmalQuraDate(testedDate);
+        const actualMonthIndex = result.month;
+        const actualMonthName = result.other && result.other.monthName;
+
+        if (actualMonthIndex !== expectedMonthIndex || actualMonthName !== expectedMonthName) {
+            console.error(`Umm al-Qura return shape: Test ${testCount} failed.`);
+            console.error('Expected month index:', expectedMonthIndex, 'month name:', expectedMonthName);
+            console.error('Received month index:', actualMonthIndex, 'month name:', actualMonthName);
+            failedTestCount++;
+        }
+    }
+
+    return failedTestCount;
+}
+
 function testGetUmmalQuraDate() {
     return runGetUmmalQuraDateTests([
         ["2024-6-14, 18:00:00", "UTC+03:00", "9 Dhū al-Ḥijjah 1445 AH\nYawm as-Sabt"],
         ["2024-6-14, 18:00:00", "UTC+00:00", "9 Dhū al-Ḥijjah 1445 AH\nYawm as-Sabt"],
         ["2024-6-14, 10:00:00", "UTC+03:00", "8 Dhū al-Ḥijjah 1445 AH\nYawm al-Jumu'ah"],
         ["2024-7-6, 18:00:00", "UTC+03:00", "1 al-Muḥarram 1446 AH\nYawm al-Ahad"],
+    ]);
+}
+
+function testGetUmmalQuraReturnShape() {
+    return runGetUmmalQuraReturnShapeTests([
+        ["2024-6-14, 18:00:00", "UTC+03:00", 11, "Dhū al-Ḥijjah"],
+        ["2024-7-6, 18:00:00", "UTC+03:00", 0, "al-Muḥarram"],
     ]);
 }
 
@@ -99,6 +129,7 @@ function runLunarCalendarTests() {
         testTimeOfSunsetAfterLastNewMoon,
         testCalculateIslamicMonthAndYear,
         testGetUmmalQuraDate,
+        testGetUmmalQuraReturnShape,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

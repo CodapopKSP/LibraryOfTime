@@ -8,6 +8,20 @@ function pad(num, size) {
     return ('000' + num).slice(-size);
 }
 
+function decomposeElapsedHours(totalHours, hoursPerDay, minutesPerHour, secondsPerMinute) {
+    const hoursWithinDay = totalHours % hoursPerDay;
+    const day = Math.floor(totalHours / hoursPerDay) + 1;
+    const hour = Math.floor(hoursWithinDay);
+    const minutesWithinHour = (hoursWithinDay - hour) * minutesPerHour;
+    const minute = Math.floor(minutesWithinHour);
+    const second = Math.floor((minutesWithinHour - minute) * secondsPerMinute);
+    return { day, hour, minute, second };
+}
+
+function formatClockTime(hours, minutes, seconds) {
+    return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
+}
+
 const MC_MS_PER_TICK = 50;
 const MC_TICKS_PER_HOUR = 1000;
 const MC_HOURS_PER_DAY = 24;
@@ -20,13 +34,9 @@ function getMinecraftTime(currentDateTime_, timezoneOffset) {
 
     const millisecondsSinceMidnight = currentDateTime - midnight;
     const minecraftTime = Math.floor(millisecondsSinceMidnight / MC_MS_PER_TICK);
-    const hoursSinceMidnight = Math.floor(minecraftTime / MC_TICKS_PER_HOUR);
-    const day = Math.floor(hoursSinceMidnight / MC_HOURS_PER_DAY) + 1;
-    const hours = hoursSinceMidnight % MC_HOURS_PER_DAY;
-    const minutes = Math.floor((minecraftTime % MC_TICKS_PER_HOUR) * MC_MINUTES_PER_TICK);
-    const seconds = Math.floor(((minecraftTime % MC_TICKS_PER_HOUR) * MC_MINUTES_PER_TICK - minutes) * MC_SECONDS_PER_MINUTE);
-
-    return 'Day: ' + day + ' | ' + pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
+    const minecraftHours = minecraftTime / MC_TICKS_PER_HOUR;
+    const decomposed = decomposeElapsedHours(minecraftHours, MC_HOURS_PER_DAY, MC_SECONDS_PER_MINUTE, MC_SECONDS_PER_MINUTE);
+    return 'Day: ' + decomposed.day + ' | ' + formatClockTime(decomposed.hour, decomposed.minute, decomposed.second);
 }
 
 const INCEPTION_MS_PER_DAY = 86400000;
@@ -42,15 +52,8 @@ function getInceptionDreamTime(currentDateTime_, timezoneOffset) {
     const ms = currentDateTime - midnight;
     const dreamDays = (ms / INCEPTION_MS_PER_DAY) * INCEPTION_DREAM_DAYS_PER_REAL_DAY;
     const totalDreamHours = dreamDays * INCEPTION_HOURS_PER_DAY;
-    const totalDreamMinutes = totalDreamHours * INCEPTION_MINUTES_PER_HOUR;
-    const totalDreamSeconds = totalDreamMinutes * INCEPTION_SECONDS_PER_MINUTE;
-
-    const day = Math.floor(totalDreamHours / INCEPTION_HOURS_PER_DAY) + 1;
-    const hours = Math.floor(totalDreamHours) % INCEPTION_HOURS_PER_DAY;
-    const minutes = Math.floor(totalDreamMinutes) % INCEPTION_MINUTES_PER_HOUR;
-    const seconds = Math.floor(totalDreamSeconds) % INCEPTION_SECONDS_PER_MINUTE;
-
-    return `Day: ${day} | ${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`;
+    const decomposed = decomposeElapsedHours(totalDreamHours, INCEPTION_HOURS_PER_DAY, INCEPTION_MINUTES_PER_HOUR, INCEPTION_SECONDS_PER_MINUTE);
+    return `Day: ${decomposed.day} | ${formatClockTime(decomposed.hour, decomposed.minute, decomposed.second)}`;
 }
 
 const TERMINA_REAL_SECONDS_PER_HOUR = 150;
@@ -71,11 +74,11 @@ function getTerminaTime(currentDateTime_, timezoneOffset) {
 
     const totalRealSecondsSinceEpoch = (currentDateTime - sixAMToday) / 1000;
     const totalHoursSinceEpoch = totalRealSecondsSinceEpoch / TERMINA_REAL_SECONDS_PER_HOUR;
-    const daysSinceEpoch = totalHoursSinceEpoch / TERMINA_HOURS_PER_DAY;
-    const currentDay = Math.floor(daysSinceEpoch % TERMINA_DAYS_PER_CYCLE) + 1;
-    let currentHour = Math.floor(totalHoursSinceEpoch % TERMINA_HOURS_PER_DAY);
-    const currentMinute = Math.floor(((totalHoursSinceEpoch % TERMINA_HOURS_PER_DAY) - currentHour) * TERMINA_MINUTES_PER_HOUR);
-    const currentSecond = Math.floor((((totalHoursSinceEpoch % TERMINA_HOURS_PER_DAY) - currentHour) * TERMINA_MINUTES_PER_HOUR - currentMinute) * 60);
+    const decomposed = decomposeElapsedHours(totalHoursSinceEpoch, TERMINA_HOURS_PER_DAY, TERMINA_MINUTES_PER_HOUR, 60);
+    const currentDay = ((decomposed.day - 1) % TERMINA_DAYS_PER_CYCLE) + 1;
+    let currentHour = decomposed.hour;
+    const currentMinute = decomposed.minute;
+    const currentSecond = decomposed.second;
 
     const remainingHours = TERMINA_HOURS_PER_CYCLE - (currentHour + (currentDay - 1) * TERMINA_HOURS_PER_DAY);
     const remainingHoursMessage = remainingHours === 1 ? remainingHours + ' Hour Remains' : remainingHours + ' Hours Remain';
@@ -93,7 +96,7 @@ function getTerminaTime(currentDateTime_, timezoneOffset) {
         currentHour = TERMINA_HOURS_IN_12_FORMAT;
     }
 
-    return pad(currentHour, 2) + ':' + pad(currentMinute, 2) + ':' + pad(currentSecond, 2) + '\n' + dayName + '\n' + remainingHoursMessage;
+    return formatClockTime(currentHour, currentMinute, currentSecond) + '\n' + dayName + '\n' + remainingHoursMessage;
 }
 
 const STAR_DATE_EPOCH_YEAR = 2265;
@@ -135,25 +138,9 @@ const TAMRIELIC_WEEK = [
 
 function getTamrielicDate(currentDateTime, timezoneOffset) {
     const gregorianDate = getGregorianDateTime(currentDateTime, timezoneOffset);
-    const tamrielicDate = gregorianDate.date;
-    const day = tamrielicDate.split(' ')[0];
-    let month = tamrielicDate.split(' ')[1];
-    let week = tamrielicDate.split('\n')[1];
-
-    for (let i = 0; i < TAMRIELIC_MONTHS.length; i++) {
-        if (month === monthNames[i]) {
-            month = i;
-            break;
-        }
-    }
-
-    for (let i = 0; i < TAMRIELIC_WEEK.length; i++) {
-        if (week === weekNames[i]) {
-            week = (i + 6) % 7;
-            break;
-        }
-    }
-
+    const day = gregorianDate.day;
+    const month = gregorianDate.month;
+    const week = (gregorianDate.dayOfWeek + 6) % 7;
     return day + ' ' + TAMRIELIC_MONTHS[month] + '\n' + TAMRIELIC_WEEK[week];
 }
 
