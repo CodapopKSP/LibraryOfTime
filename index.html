@@ -294,13 +294,22 @@
         <!-- Map view (overlay + panel — same pattern as Calendar View) -->
         <div id="map-view-modal" class="map-view-overlay">
             <div class="map-view-panel">
-                <div class="map-view-top-bar">
+                <div class="map-view-top-bar map-view-top-bar--with-controls">
+                    <button type="button" class="map-view-reset-btn" id="map-view-reset" title="Reset pan and zoom" aria-label="Reset pan and zoom">Reset view</button>
                     <button type="button" class="floating-panel-close" id="map-view-modal-close" aria-label="Close">&times;&#xFE0E;</button>
                 </div>
                 <div class="map-view-body-scroll">
-                    <img class="map-view-world-img" src="Content/WorldMap.webp" alt="World map" decoding="async">
+                    <div class="map-view-pan-viewport" id="map-view-pan-viewport">
+                        <div class="map-view-pan-layer" id="map-view-pan-layer">
+                            <div class="map-view-map-wrap">
+                                <img class="map-view-world-img" src="Content/WorldMap.webp" alt="World map" decoding="async" draggable="false">
+                            </div>
+                        </div>
+                        <div id="map-view-markers" class="map-view-markers"></div>
+                    </div>
                 </div>
             </div>
+            <div id="map-view-node-tooltip" class="map-view-node-tooltip" role="tooltip" aria-hidden="true"></div>
         </div>
 
         <!-- Modal for Glossary -->
@@ -341,6 +350,7 @@
     <script src="UserInterface/descriptionPanel.js"></script>
     <script src="UserInterface/nodeDraw.js"></script>
     <script src="UserInterface/calendarView.js"></script>
+    <script src="UserInterface/calendarMapPlacements.js"></script>
     <script src="UserInterface/mapView.js"></script>
     <script src="UserInterface/userPanel.js"></script>
     <script src="UserInterface/crossUiGlobals.js"></script>

@@ -26,7 +26,9 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
     width: min(96vw, 140vh);
     max-width: 96vw;
-    max-height: 88vh;
+    /* Height follows the fitted map (see sizeMapViewportHeightToFit in mapView.js); cap for tiny windows */
+    height: auto;
+    max-height: min(92vh, calc(100vh - 2rem));
     overflow: hidden;
     position: relative;
     display: flex;
@@ -48,6 +50,31 @@
     cursor: default;
 }
 
+.map-view-top-bar--with-controls {
+    justify-content: space-between;
+}
+
+.map-view-reset-btn {
+    padding: 0.35vh 0.9vh;
+    font-size: 1.1vh;
+    line-height: 1.2;
+    color: var(--ui-text-muted);
+    background-color: var(--ui-elevated-bg2);
+    border: 1px solid var(--ui-border);
+    border-radius: 0.25vh;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.map-view-reset-btn:hover {
+    background-color: var(--ui-elevated-bg);
+}
+
+.mac-chrome-only .map-view-reset-btn {
+    font-size: 1.65vh;
+    padding: 0.44vh 1.1vh;
+}
+
 .mac-chrome-only .map-view-top-bar {
     min-height: 3.25vh;
     padding: 0.44vh 0.5vh 0.44vh 1.5vh;
@@ -58,30 +85,137 @@
 }
 
 .map-view-body-scroll {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: auto;
-    padding: 0.75vh 1vh 1.25vh;
+    flex: 0 0 auto;
+    overflow: hidden;
+    padding: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: flex-start;
 }
 
+.map-view-pan-viewport {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 0;
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.map-view-pan-viewport.map-view-pan-viewport--dragging {
+    cursor: grabbing;
+}
+
+.map-view-pan-layer {
+    display: block;
+    width: max-content;
+    min-width: 0;
+    box-sizing: border-box;
+    transform-origin: 0 0;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.map-view-map-wrap {
+    position: relative;
+    display: block;
+    width: max-content;
+    max-width: none;
+}
+
+/* Intrinsic bitmap size; zoom/pan math in JS scales to fit the viewport at minimum zoom */
 .map-view-world-img {
     display: block;
-    max-width: 100%;
+    width: auto;
     height: auto;
+    max-width: none;
+    -webkit-user-drag: none;
+}
+
+/* Overlay: markers live outside the scaled layer so dots stay constant screen size (JS positions in px). */
+.map-view-markers {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.map-view-marker-btn {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    transform: translate(-50%, -50%);
+}
+
+.map-view-marker-dot {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #d32f2f;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+
+.map-view-marker-btn:hover .map-view-marker-dot,
+.map-view-marker-btn:focus-visible .map-view-marker-dot {
+    background-color: #ff5252;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95);
+}
+
+/* Cloned grid node preview (fixed; outside panel overflow) */
+.map-view-node-tooltip {
+    position: fixed;
+    left: 0;
+    top: 0;
+    max-width: min(22rem, 92vw);
+    max-height: min(50vh, 24rem);
+    overflow: auto;
+    padding: 0.5rem;
+    background: var(--ui-deep-accent-bg);
+    border: 1px solid var(--ui-border);
+    border-radius: 0.35rem;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+    z-index: 10100;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.map-view-node-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.map-view-node-tooltip .container {
+    width: auto;
+    min-width: 12rem;
+}
+
+.map-view-node-tooltip .node {
+    margin: 0;
 }
 
 @media (max-width: 1024px) {
     .map-view-panel {
         width: min(96vw, 100%);
-        max-height: min(88vh, calc(100dvh - 3rem));
-    }
-
-    .map-view-body-scroll {
-        padding: 0.5rem 0.65rem 1rem;
+        max-height: min(92vh, calc(100dvh - 2.5rem));
     }
 }
