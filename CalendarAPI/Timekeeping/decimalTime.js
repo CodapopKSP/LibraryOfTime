@@ -7,17 +7,17 @@
 const REVOLUTIONARY_HOURS_PER_DAY = 10;
 const REVOLUTIONARY_MINUTES_PER_HOUR = 100;
 const REVOLUTIONARY_SECONDS_PER_MINUTE = 100;
-const REVOLUTIONARY_HOUR_PRECISION = 10;
-const REVOLUTIONARY_MINUTE_PRECISION = 1000;
-const REVOLUTIONARY_SECOND_PRECISION = 100000;
+const REVOLUTIONARY_SECONDS_PER_HOUR = REVOLUTIONARY_MINUTES_PER_HOUR * REVOLUTIONARY_SECONDS_PER_MINUTE;
+const REVOLUTIONARY_SECONDS_PER_DAY = REVOLUTIONARY_HOURS_PER_DAY * REVOLUTIONARY_SECONDS_PER_HOUR;
 const REVOLUTIONARY_PAD_LENGTH = 2;
 
 function getRevolutionaryTime(currentDateTime_, timezoneOffset) {
-    const currentDateTime = new Date(currentDateTime_.getTime());
-    const dayFraction = calculateDay(currentDateTime, timezoneOffset);
-    const decimalHour = Math.trunc(dayFraction * REVOLUTIONARY_HOUR_PRECISION);
-    const decimalMinute = Math.trunc(dayFraction * REVOLUTIONARY_MINUTE_PRECISION) - (decimalHour * REVOLUTIONARY_MINUTES_PER_HOUR);
-    const decimalSecond = Math.trunc(dayFraction * REVOLUTIONARY_SECOND_PRECISION) - (decimalHour * REVOLUTIONARY_MINUTES_PER_HOUR * REVOLUTIONARY_MINUTES_PER_HOUR) - (decimalMinute * REVOLUTIONARY_SECONDS_PER_MINUTE);
+    const dayFraction = calculateDay(currentDateTime_, timezoneOffset);
+    const totalDecimalSeconds = Math.trunc(dayFraction * REVOLUTIONARY_SECONDS_PER_DAY);
+    const decimalHour = Math.trunc(totalDecimalSeconds / REVOLUTIONARY_SECONDS_PER_HOUR);
+    const remainingSecondsAfterHours = totalDecimalSeconds - (decimalHour * REVOLUTIONARY_SECONDS_PER_HOUR);
+    const decimalMinute = Math.trunc(remainingSecondsAfterHours / REVOLUTIONARY_SECONDS_PER_MINUTE);
+    const decimalSecond = remainingSecondsAfterHours - (decimalMinute * REVOLUTIONARY_SECONDS_PER_MINUTE);
 
     const hourStr = decimalHour.toString().padStart(REVOLUTIONARY_PAD_LENGTH, '0');
     const minuteStr = decimalMinute.toString().padStart(REVOLUTIONARY_PAD_LENGTH, '0');
@@ -41,25 +41,22 @@ function convertToSwatchBeats(currentDateTime) {
     return swatchBeats.toFixed(SWATCH_DECIMAL_PLACES);
 }
 
-const HEX_TIME_FRACTION_BASE = 65536;
+const DAY_FRACTION_16_BIT_SCALE = 65536;
 const HEX_TIME_DIGIT_COUNT = 4;
 const HEX_RADIX = 16;
 
 function getHexadecimalTime(currentDateTime_, timezoneOffset) {
-    const currentDateTime = new Date(currentDateTime_.getTime());
-    const dayFraction = calculateDay(currentDateTime, timezoneOffset);
-    const hexadecimalFraction = Math.trunc(dayFraction * HEX_TIME_FRACTION_BASE).toString(HEX_RADIX).toUpperCase().padStart(HEX_TIME_DIGIT_COUNT, '0');
+    const dayFraction = calculateDay(currentDateTime_, timezoneOffset);
+    const hexadecimalFraction = Math.trunc(dayFraction * DAY_FRACTION_16_BIT_SCALE).toString(HEX_RADIX).toUpperCase().padStart(HEX_TIME_DIGIT_COUNT, '0');
     return "." + hexadecimalFraction;
 }
 
-const BINARY_TIME_FRACTION_BASE = 65536;
 const BINARY_TIME_BIT_COUNT = 16;
 const BINARY_RADIX = 2;
 
 function getBinaryTime(currentDateTime_, timezoneOffset) {
-    const currentDateTime = new Date(currentDateTime_.getTime());
-    const dayFraction = calculateDay(currentDateTime, timezoneOffset);
-    const binaryCount = Math.trunc(dayFraction * BINARY_TIME_FRACTION_BASE).toString(BINARY_RADIX).padStart(BINARY_TIME_BIT_COUNT, '0');
+    const dayFraction = calculateDay(currentDateTime_, timezoneOffset);
+    const binaryCount = Math.trunc(dayFraction * DAY_FRACTION_16_BIT_SCALE).toString(BINARY_RADIX).padStart(BINARY_TIME_BIT_COUNT, '0');
     return binaryCount;
 }
 

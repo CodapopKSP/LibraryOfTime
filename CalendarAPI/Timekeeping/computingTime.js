@@ -21,51 +21,75 @@ function getCurrentFiletime(currentDateTime) {
 }
 
 const GPS_EPOCH = { year: 1980, month: 1, day: 6 };
+let gpsLeapSecondTimestampsCache = null;
+let taiLeapSecondTimestampsCache = null;
+
+function initializeLeapSecondTimestampCaches() {
+    if (gpsLeapSecondTimestampsCache === null) {
+        gpsLeapSecondTimestampsCache = GPSleapSeconds.map((leapSecond) => Date.parse(leapSecond));
+    }
+    if (taiLeapSecondTimestampsCache === null) {
+        taiLeapSecondTimestampsCache = TAIleapSeconds.map((leapSecond) => Date.parse(leapSecond));
+    }
+}
 
 function getGPSTime(currentDateTime) {
+    initializeLeapSecondTimestampCaches();
     const gpsEpoch = createAdjustedDateTime(GPS_EPOCH);
+    const currentTimestamp = currentDateTime.getTime();
 
     let gpsTime = Math.floor((currentDateTime - gpsEpoch) / UNIX_MS_PER_SECOND);
-
-    let leapSecondsCount = 0;
-    GPSleapSeconds.forEach(leapSecond => {
-        if (new Date(leapSecond).getTime() <= currentDateTime) {
-            leapSecondsCount++;
-        }
-    });
-
-    gpsTime += leapSecondsCount;
+    gpsTime += countElapsedLeapSeconds(currentTimestamp, gpsLeapSecondTimestampsCache);
 
     return gpsTime;
 }
 
 const TAI_INITIAL_LEAP_SECONDS = 10;
 
-function getTAI(currentDateTime) {
-    const taiDateTime = new Date(currentDateTime);
-
+function countElapsedLeapSeconds(targetTimestamp, leapSecondTimestamps) {
     let leapSecondsCount = 0;
-    TAIleapSeconds.forEach(leapSecond => {
-        if (new Date(leapSecond).getTime() <= currentDateTime) {
+    leapSecondTimestamps.forEach((leapSecondTimestamp) => {
+        if (leapSecondTimestamp <= targetTimestamp) {
             leapSecondsCount++;
         }
     });
-    taiDateTime.setSeconds(taiDateTime.getSeconds() + (TAI_INITIAL_LEAP_SECONDS + leapSecondsCount));
-    return taiDateTime;
+    return leapSecondsCount;
+}
+
+function getTAIOffsetSeconds(currentDateTime) {
+    initializeLeapSecondTimestampCaches();
+    return TAI_INITIAL_LEAP_SECONDS + countElapsedLeapSeconds(currentDateTime.getTime(), taiLeapSecondTimestampsCache);
+}
+
+function getTAI(currentDateTime) {
+    const taiOffsetSeconds = getTAIOffsetSeconds(currentDateTime);
+    const taiTimestamp = currentDateTime.getTime() + (taiOffsetSeconds * UNIX_MS_PER_SECOND);
+    return new Date(taiTimestamp);
+}
+
+function shiftDateByDeltaT(currentDateTime, directionSign) {
+    const deltaT = getDeltaT(currentDateTime);
+    const shiftedTimestamp = currentDateTime.getTime() + (directionSign * deltaT * UNIX_MS_PER_SECOND);
+    return new Date(shiftedTimestamp);
+}
+
+function convertUTToTT(currentDateTime) {
+    return shiftDateByDeltaT(currentDateTime, 1);
+}
+
+function convertTTToUT(currentDateTime) {
+    return shiftDateByDeltaT(currentDateTime, -1);
 }
 
 function getTT(currentDateTime) {
-    const TT = new Date(currentDateTime);
-    TT.setSeconds(currentDateTime.getSeconds() + getDeltaT(currentDateTime));
-    return TT;
+    return convertUTToTT(currentDateTime);
 }
 
 const LORANC_OFFSET_FROM_TAI_SECONDS = 10;
 
 function getLORANC(currentDateTime) {
     const taiDateTime = getTAI(currentDateTime);
-    taiDateTime.setSeconds(taiDateTime.getSeconds() - LORANC_OFFSET_FROM_TAI_SECONDS);
-    return taiDateTime;
+    return new Date(taiDateTime.getTime() - (LORANC_OFFSET_FROM_TAI_SECONDS * UNIX_MS_PER_SECOND));
 }
 
 const JDN_MONTH_THRESHOLD = 3;
@@ -108,10 +132,8 @@ function getJulianDayNumber(currentDateTime) {
 }
 
 function getJulianEphemerisDay(currentDateTime) {
-    const deltaTime = getDeltaT(currentDateTime);
-    const currentDateTime_TT = new Date(currentDateTime);
-    currentDateTime_TT.setTime(currentDateTime_TT.getTime() - deltaTime);
-    return getJulianDayNumber(currentDateTime_TT);
+    const currentDateTimeTT = convertUTToTT(currentDateTime);
+    return getJulianDayNumber(currentDateTimeTT);
 }
 
 const RATA_DIE_EPOCH_OFFSET = 1721424.5;
@@ -141,20 +163,12 @@ function getJulianPeriod(currentDateTime_) {
     return yearInCycle + " (Cycle: " + cycle + ")";
 }
 
-const DYNAMICAL_MS_PER_SECOND = 1000;
-
 function getDynamicalTimeForward(currentDateTime) {
-    const secondsAhead = getDeltaT(currentDateTime);
-    const dynamicalTimestamp = currentDateTime.getTime() + (secondsAhead * DYNAMICAL_MS_PER_SECOND);
-    const dynamicalDateTime = new Date(dynamicalTimestamp);
-    return dynamicalDateTime.toISOString();
+    return convertUTToTT(currentDateTime).toISOString();
 }
 
 function getDynamicalTimeBackward(currentDateTime) {
-    const secondsAhead = getDeltaT(currentDateTime);
-    const dynamicalTimestamp = currentDateTime.getTime() - (secondsAhead * DYNAMICAL_MS_PER_SECOND);
-    const dynamicalDateTime = new Date(dynamicalTimestamp);
-    return dynamicalDateTime.toISOString();
+    return convertTTToUT(currentDateTime).toISOString();
 }
 
 const DELTAT_YEAR_BOUND_BEFORE_500 = -500;
