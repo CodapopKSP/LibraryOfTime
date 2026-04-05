@@ -101,10 +101,10 @@ function testGetSolarTermTypeThisMonth() {
 function testCalculateLunisolarDisplayYear() {
     return runLunisolarDisplayYearTests([
         // Early Gregorian month and late lunisolar month: apply exactly one boundary decrement.
-        [2025, 1, 11, KOREA_YEAR_OFFSET, 4357],
-        [2025, 1, 10, CHINA_YEAR_OFFSET, 4722],
+        [2025, 1, 11, 2333, 4357],
+        [2025, 1, 10, 2698, 4722],
         // Outside boundary condition: no decrement.
-        [2025, 5, 10, KOREA_YEAR_OFFSET, 4358],
+        [2025, 5, 10, 2333, 4358],
         [2025, 1, 5, 0, 2025],
     ]);
 }
