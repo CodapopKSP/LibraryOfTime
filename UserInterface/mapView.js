@@ -6,7 +6,7 @@
     Overlay with the world map image (Content/WorldMap.webp) and calendar markers
     from UserInterface/calendarMapPlacements.js (resolved x/y from city coordinates).
     Markers show cloned grid nodes in tooltips layered over the map image (bottom-left of the pan viewport, inset from its left and bottom edges),
-    with a polyline connector (30° from horizontal toward the tooltip — up if the tooltip is above the marker, else down — then horizontal or vertical to the top-right corner). Only one tooltip is visible: a hover preview replaces a clicked (pinned) tooltip until unhover, then the pin returns; narrow: tap to pin, tap elsewhere to dismiss.
+    with a polyline connector (30° from horizontal toward the tooltip — up if the tooltip is above the marker, else down — then horizontal or vertical to a point just inside the top-right corner). Only one tooltip is visible: a hover preview replaces a clicked (pinned) tooltip until unhover, then the pin returns; narrow: tap to pin, tap elsewhere to dismiss.
     Clicking a cloned node in the tooltip closes Map View and selects that calendar in the main grid (description panel).
     Markers at the same normalized position (within a tiny float epsilon) share one dot
     and combined tooltip; nearby but distinct positions each get their own dot. Each
@@ -953,6 +953,12 @@
      * depending on tooltip position (see buildMapTooltipConnectorPoints).
      */
     var MAP_TOOLTIP_CONNECTOR_ANGLE_DEG = 30;
+    /**
+     * How far inside the tooltip’s outer top-right corner the connector ends (px left and down).
+     * For “one line width” from the corner, set this equal to `.map-view-tooltip-connector-line`’s
+     * `stroke-width` in styles/mapView.css (change both together if you thicken the line).
+     */
+    var MAP_TOOLTIP_CONNECTOR_CORNER_INSET_PX = 1;
 
     /** Clear inline placement so CSS/JS can set position. */
     function clearMapTooltipInlinePosition(tip) {
@@ -987,13 +993,22 @@
 
     /**
      * Polyline: marker → 30° from horizontal (up if tooltip top is above the marker, else down) until the
-     * first hit on the top edge (y = tr.top) or right edge (x = tr.right), then to the top-right corner.
+     * first hit on the top edge (y = tr.top) or right edge (x = tr.right), then to a point just inside the top-right corner.
      * @param {DOMRect} tr Tooltip getBoundingClientRect()
      * @returns {string} SVG points attribute
      */
     function buildMapTooltipConnectorPoints(mx, my, tr) {
         var tTop = tr.top;
         var xRight = tr.right;
+        var w = tr.width;
+        var h = tr.height;
+        var inset = Math.min(
+            MAP_TOOLTIP_CONNECTOR_CORNER_INSET_PX,
+            Math.max(0, w - 2),
+            Math.max(0, h - 2)
+        );
+        var ax = xRight - inset;
+        var ay = tTop + inset;
         var angleRad = (MAP_TOOLTIP_CONNECTOR_ANGLE_DEG * Math.PI) / 180;
         var cosA = Math.cos(angleRad);
         var sinA = Math.sin(angleRad);
@@ -1032,20 +1047,20 @@
             var t = best.t;
             if (best.mode === 'v') {
                 var yElbow = my + t * useDy;
-                return mx + ',' + my + ' ' + xRight + ',' + yElbow + ' ' + xRight + ',' + tTop;
+                return mx + ',' + my + ' ' + xRight + ',' + yElbow + ' ' + ax + ',' + ay;
             }
             var xElbow = mx + t * useDx;
-            return mx + ',' + my + ' ' + xElbow + ',' + tTop + ' ' + xRight + ',' + tTop;
+            return mx + ',' + my + ' ' + xElbow + ',' + tTop + ' ' + ax + ',' + ay;
         }
 
         if (Math.abs(mx - xRight) < alignEps && Math.abs(my - tTop) < alignEps) {
-            return mx + ',' + my + ' ' + xRight + ',' + tTop;
+            return mx + ',' + my + ' ' + ax + ',' + ay;
         }
         if (Math.abs(mx - xRight) < alignEps) {
-            return mx + ',' + my + ' ' + xRight + ',' + tTop;
+            return mx + ',' + my + ' ' + ax + ',' + ay;
         }
         if (Math.abs(my - tTop) < alignEps) {
-            return mx + ',' + my + ' ' + xRight + ',' + tTop;
+            return mx + ',' + my + ' ' + ax + ',' + ay;
         }
 
         var result = buildFromCandidates(dx, dy);
@@ -1054,7 +1069,7 @@
             result = buildFromCandidates(dx, dy);
         }
         if (result === null) {
-            return mx + ',' + my + ' ' + xRight + ',' + tTop;
+            return mx + ',' + my + ' ' + ax + ',' + ay;
         }
         return result;
     }
@@ -1082,7 +1097,7 @@
     }
 
     /**
-     * Orthogonal elbow: 30° up or down from marker, then horizontal or vertical into the tooltip top-right corner.
+     * Orthogonal elbow: 30° up or down from marker, then horizontal or vertical into the tooltip near the top-right corner.
      * Hover layer wins when both are visible.
      */
     function syncMapTooltipConnector() {

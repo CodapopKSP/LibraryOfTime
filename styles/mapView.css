@@ -328,6 +328,7 @@
 
 .map-view-tooltip-connector-line {
     stroke: #000000;
+    /* Dial-in: MAP_TOOLTIP_CONNECTOR_CORNER_INSET_PX in UserInterface/mapView.js should match for “one stroke inside” the corner. */
     stroke-width: 2;
     stroke-linecap: round;
     /* Miter reads cleanly into the square top-right tooltip corner */

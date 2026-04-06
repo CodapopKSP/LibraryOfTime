@@ -26,7 +26,7 @@
         'addis-ababa': { x: 0.58, y: 0.44, label: 'Addis Ababa, Ethiopia' },
         bangkok: { x: 0.7445, y: 0.4155, label: 'Bangkok, Thailand' },
         pyongyang: { x: 0.793, y: 0.26, label: 'Pyongyang, North Korea' },
-        constantinople: { x: 0.546, y: 0.248, label: 'Constantinople, Turkey' },
+        constantinople: { x: 0.546, y: 0.248, label: 'Istanbul, Turkey' },
         florence: { x: 0.501, y: 0.23105, label: 'Florence, Italy' },
         pisa: { x: 0.499, y: 0.232, label: 'Pisa, Italy' },
         venice: { x: 0.5038, y: 0.2229, label: 'Venice, Italy' },
@@ -49,11 +49,11 @@
         athens: { x: 0.534, y: 0.267, label: 'Athens, Greece' },
         mecca: { x: 0.578, y: 0.369, label: 'Mecca, Saudi Arabia' },
         astana: { x: 0.646, y: 0.187, label: 'Astana, Kazakhstan' },
-        'murray-hill-nj': { x: 0.285, y: 0.25, label: 'Murray Hill, New Jersey, USA' },
+        'murray-hill-nj': { x: 0.285, y: 0.25, label: 'Murray Hill, NJ, USA' },
         'washington-dc': { x: 0.2755, y: 0.265, label: 'Washington, D.C., USA' },
-        'san-francisco': { x: 0.16, y: 0.27, label: 'San Francisco, USA' },
+        'san-francisco': { x: 0.16, y: 0.27, label: 'San Francisco, CA, USA' },
         geneva: { x: 0.4885, y: 0.22, label: 'Geneva, Switzerland' },
-        'cambridge-ma': { x: 0.295, y: 0.24, label: 'Cambridge, Massachusetts, USA' },
+        'cambridge-ma': { x: 0.295, y: 0.24, label: 'Cambridge, MA, USA' },
         'biel-bienne': { x: 0.492, y: 0.215, label: 'Biel/Bienne, Switzerland' },
     };
 
