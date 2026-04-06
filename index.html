@@ -300,16 +300,21 @@
                 </div>
                 <div class="map-view-body-scroll">
                     <div class="map-view-pan-viewport" id="map-view-pan-viewport">
-                        <div class="map-view-pan-layer" id="map-view-pan-layer">
-                            <div class="map-view-map-wrap">
-                                <img class="map-view-world-img" src="Content/WorldMap.webp" alt="World map" decoding="async" draggable="false">
+                        <div id="map-view-zoom-root" class="map-view-zoom-root">
+                            <div class="map-view-pan-layer" id="map-view-pan-layer">
+                                <div class="map-view-map-wrap">
+                                    <img class="map-view-world-img" src="Content/WorldMap.webp" alt="World map" decoding="async" draggable="false">
+                                </div>
+                            </div>
+                            <div id="map-view-markers" class="map-view-markers">
+                                <div id="map-view-markers-sizer" class="map-view-markers-sizer"></div>
                             </div>
                         </div>
-                        <div id="map-view-markers" class="map-view-markers"></div>
                     </div>
                 </div>
             </div>
             <div id="map-view-node-tooltip" class="map-view-node-tooltip" role="tooltip" aria-hidden="true"></div>
+            <div id="map-view-hover-tooltip" class="map-view-node-tooltip map-view-hover-tooltip" role="tooltip" aria-hidden="true"></div>
         </div>
 
         <!-- Modal for Glossary -->

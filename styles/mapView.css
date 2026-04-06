@@ -26,7 +26,7 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
     width: min(96vw, 140vh);
     max-width: 96vw;
-    /* Height follows the fitted map (see sizeMapViewportHeightToFit in mapView.js); cap for tiny windows */
+    /* Desktop: height follows the fitted map (sizeMapViewportHeightToFit). Mobile: map viewport is 50dvh in CSS. */
     height: auto;
     max-height: min(92vh, calc(100vh - 2rem));
     overflow: hidden;
@@ -111,13 +111,19 @@
     cursor: grabbing;
 }
 
+/* One transform for map + markers (Chromium composites cheaper than two sibling transforms). */
+.map-view-zoom-root {
+    position: relative;
+    display: inline-block;
+    transform-origin: 0 0;
+    vertical-align: top;
+}
+
 .map-view-pan-layer {
     display: block;
     width: max-content;
     min-width: 0;
     box-sizing: border-box;
-    transform-origin: 0 0;
-    will-change: transform;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -138,7 +144,7 @@
     -webkit-user-drag: none;
 }
 
-/* Overlay: markers live outside the scaled layer so dots stay constant screen size (JS positions in px). */
+/* Overlay: markers use the same translate+scale as the map; --map-inv-scale keeps icons near constant screen size. */
 .map-view-markers {
     position: absolute;
     left: 0;
@@ -149,35 +155,159 @@
     z-index: 2;
 }
 
+.map-view-markers-sizer {
+    position: relative;
+    width: 0;
+    height: 0;
+    --map-inv-scale: 1;
+}
+
 .map-view-marker-btn {
+    box-sizing: border-box;
     position: absolute;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    align-content: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    gap: 0;
+    /* At most two ~18px glyphs per row → a tight 2-column cluster instead of a long strip */
+    max-width: 40px; /* two overlapping glyphs + padding (icons use negative margin) */
+    width: fit-content;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
     margin: 0;
-    padding: 0;
+    padding: 2px;
     border: none;
     background: transparent;
     cursor: pointer;
     pointer-events: auto;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(var(--map-inv-scale, 1));
 }
 
-.map-view-marker-dot {
+/*
+ * Fill/icon color = container text (styles/containers.css).
+ * --map-node-border = node card border (styles/nodes.css), used as a crisp outline around the glyph.
+ */
+.map-view-type-icon {
+    --map-node-border: #888888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+.map-view-marker-btn .map-view-type-icon {
+    margin: -4px;
+    position: relative;
+}
+
+/*
+ * Outline: targets get .map-view-marker-icon-outline in mapView.js (tagMapIconOutlineTargets).
+ * CSS [fill="currentColor"] does not match SVG from innerHTML in many browsers (value → currentcolor).
+ */
+.map-view-marker-btn .map-view-marker-icon-outline {
+    stroke: var(--map-node-border);
+    stroke-width: 5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    paint-order: stroke fill;
+    vector-effect: non-scaling-stroke;
+}
+
+.map-view-type-icon-svg {
     display: block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #d32f2f;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9);
+    overflow: visible;
 }
 
-.map-view-marker-btn:hover .map-view-marker-dot,
-.map-view-marker-btn:focus-visible .map-view-marker-dot {
-    background-color: #ff5252;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95);
+.map-view-type-icon--standard-time {
+    color: rgb(224, 224, 224);
+    --map-node-border: #bbbbbb;
+}
+
+.map-view-type-icon--computing-time {
+    color: #c4e4ff;
+    --map-node-border: #696d9f;
+}
+
+.map-view-type-icon--solar-calendars {
+    color: #ffe4c4;
+    --map-node-border: #966a6a;
+}
+
+/* Solar: stronger strokes for legibility on the map (icon box size unchanged). */
+.map-view-marker-btn .map-view-type-icon--solar-calendars .map-view-marker-icon-outline {
+    stroke-width: 9;
+}
+
+.map-view-marker-btn:hover .map-view-type-icon--solar-calendars .map-view-marker-icon-outline,
+.map-view-marker-btn:focus-visible .map-view-type-icon--solar-calendars .map-view-marker-icon-outline {
+    stroke-width: 8;
+}
+
+.map-view-type-icon--solar-calendars svg path[fill="none"] {
+    stroke-width: 3;
+}
+
+.map-view-type-icon--lunisolar-calendars {
+    color: #c4ffe4;
+    --map-node-border: #6f986a;
+}
+
+.map-view-type-icon--decimal-time {
+    color: rgb(232, 196, 255);
+    --map-node-border: #896a98;
+}
+
+.map-view-type-icon--other-time {
+    color: rgb(203, 255, 196);
+    --map-node-border: #98866a;
+}
+
+.map-view-type-icon--lunar-calendars {
+    color: rgb(196, 212, 255);
+    --map-node-border: #7c6a98;
+}
+
+.map-view-type-icon--solilunar-calendars {
+    color: var(--ui-text-muted);
+    --map-node-border: #986a6a;
+}
+
+.map-view-type-icon--proposed-calendars {
+    color: rgb(191, 255, 252);
+    --map-node-border: #876a96;
+}
+
+.map-view-type-icon--other-calendars {
+    color: rgb(220, 255, 191);
+    --map-node-border: #716a96;
+}
+
+.map-view-type-icon--astronomical-data {
+    color: rgb(252, 255, 196);
+    --map-node-border: #6a9698;
+}
+
+.map-view-type-icon--pop-culture {
+    color: rgb(228, 196, 255);
+    --map-node-border: #95986a;
+}
+
+.map-view-type-icon--politics {
+    color: rgb(196, 215, 255);
+    --map-node-border: #986a6a;
+}
+
+.map-view-type-icon--unknown {
+    color: var(--ui-text-muted);
+    --map-node-border: #888888;
+}
+
+.map-view-marker-btn:hover .map-view-marker-icon-outline,
+.map-view-marker-btn:focus-visible .map-view-marker-icon-outline {
+    stroke-width: 6;
 }
 
 /* Cloned grid node preview (fixed; outside panel overflow) */
@@ -204,9 +334,18 @@
     visibility: visible;
 }
 
+/* Second layer: hover preview while a clicked (pinned) tooltip stays open underneath */
+.map-view-hover-tooltip {
+    z-index: 10101;
+}
+
 .map-view-node-tooltip .container {
     width: auto;
     min-width: 12rem;
+}
+
+.map-view-node-tooltip .container + .container {
+    margin-top: 0.75rem;
 }
 
 .map-view-node-tooltip .node {
@@ -217,5 +356,12 @@
     .map-view-panel {
         width: min(96vw, 100%);
         max-height: min(92vh, calc(100dvh - 2.5rem));
+    }
+
+    /* Tall viewport: min zoom letterboxes (often top/bottom) until the user zooms; sizeMapViewportHeightToFit skips inline height */
+    .map-view-pan-viewport {
+        flex-shrink: 0;
+        height: 50vh;
+        height: 50dvh;
     }
 }
