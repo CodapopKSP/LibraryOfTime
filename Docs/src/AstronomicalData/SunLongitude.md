@@ -1,8 +1,8 @@
 # Longitude of the Sun
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Northward Equinox | High       |
+| Northward Equinox | High |
 
 #### Overview
 

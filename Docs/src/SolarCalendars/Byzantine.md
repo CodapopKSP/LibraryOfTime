@@ -1,8 +1,8 @@
 # Byzantine (TRT)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 18 July 5508 BCE +21:00:00  | High       |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 18 July 5508 BCE +21:00:00  | High       | Constantinople |
 
 #### Overview
 

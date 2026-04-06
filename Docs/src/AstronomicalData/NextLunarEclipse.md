@@ -1,8 +1,8 @@
 # Next Lunar Eclipse
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Next Lunar Eclipse | High       |
+| Next Lunar Eclipse | High |
 
 #### Overview
 

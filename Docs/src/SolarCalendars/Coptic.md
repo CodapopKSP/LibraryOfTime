@@ -1,8 +1,8 @@
 # Coptic (EET)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 28 August 284 CE +22:00:00  | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 28 August 284 CE +22:00:00  | Exact      | Alexandria |
 
 #### Overview
 

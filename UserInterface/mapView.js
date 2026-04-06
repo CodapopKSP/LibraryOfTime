@@ -4,9 +4,10 @@
     |====================|
 
     Overlay with the world map image (Content/WorldMap.webp) and calendar markers
-    from UserInterface/calendarMapPlacements.js. Markers show cloned grid nodes in
-    pinned and hover tooltips (desktop: hover uses a second layer above the clicked pin; narrow: tap to pin, tap elsewhere to dismiss).
-    They do not select the node or change the description.
+    from UserInterface/calendarMapPlacements.js (resolved x/y from city coordinates).
+    Markers show cloned grid nodes in tooltips layered over the map image (bottom-left of the pan viewport, inset from its left and bottom edges),
+    with a polyline connector (30° from horizontal toward the tooltip — up if the tooltip is above the marker, else down — then horizontal or vertical to the top-right corner). Only one tooltip is visible: a hover preview replaces a clicked (pinned) tooltip until unhover, then the pin returns; narrow: tap to pin, tap elsewhere to dismiss.
+    Clicking a cloned node in the tooltip closes Map View and selects that calendar in the main grid (description panel).
     Markers at the same normalized position (within a tiny float epsilon) share one dot
     and combined tooltip; nearby but distinct positions each get their own dot. Each
     distinct node category shows a small type icon in that category’s container font color.
@@ -205,10 +206,17 @@
     var _mapPinchRaf = 0;
     var _mapPinchPendingMx = 0;
     var _mapPinchPendingMy = 0;
+    /**
+     * After a map pan (pointer drag with movement), the following click can still fire on the viewport
+     * and would otherwise unpinned the tooltip; skip that one backdrop dismiss (see modal click handler).
+     */
+    var _mapSkipNextTooltipDismissFromPan = false;
     /** True after marker click: pinned tooltip stays until outside click or hideMapNodeTooltip. */
     var _mapTooltipPinned = false;
     /** Button element last used for pinned tooltip (desktop: skip duplicate hover layer on same marker). */
     var _mapPinnedMarkerBtn = null;
+    /** Marker button for the hover tooltip layer (connector line target when hover is visible). */
+    var _mapHoverMarkerBtn = null;
 
     function applyMapPanZoomTransform() {
         var t = 'translate(' + _mapPanTx + 'px,' + _mapPanTy + 'px) scale(' + _mapScale + ')';
@@ -220,6 +228,7 @@
         if (_mapMarkersSizer) {
             _mapMarkersSizer.style.setProperty('--map-inv-scale', String(1 / _mapScale));
         }
+        syncMapTooltipConnector();
     }
 
     /**
@@ -583,6 +592,10 @@
             if (e.target.closest && e.target.closest('.map-view-marker-btn')) {
                 return;
             }
+            /* Tooltips sit inside the pan viewport; preventDefault here suppresses the click on cloned nodes. */
+            if (e.target.closest && e.target.closest('#map-view-node-tooltip, #map-view-hover-tooltip')) {
+                return;
+            }
             if (e.button !== 0) {
                 return;
             }
@@ -619,6 +632,11 @@
         function endPointerDrag(e) {
             if (!_mapPointerDrag || e.pointerId !== _mapPointerDrag.pointerId) {
                 return;
+            }
+            var pdx = e.clientX - _mapPointerDrag.startX;
+            var pdy = e.clientY - _mapPointerDrag.startY;
+            if (Math.hypot(pdx, pdy) >= MAP_PAN_DRAG_THRESHOLD_PX) {
+                _mapSkipNextTooltipDismissFromPan = true;
             }
             _mapPointerDrag = null;
             cancelPendingMapDragPan();
@@ -739,6 +757,7 @@
     }
 
     function hideMapNodeTooltip() {
+        _mapSkipNextTooltipDismissFromPan = false;
         _mapTooltipPinned = false;
         _mapPinnedMarkerBtn = null;
         hidePinnedMapTooltip();
@@ -759,6 +778,32 @@
         }
         hideMapNodeTooltip();
         setMobileMapToolbarActive(false);
+    }
+
+    /**
+     * Tooltip clones carry `data-map-node-id` on each row wrapper; resolve the real grid cell and select it.
+     */
+    function selectNodeFromMapTooltipAndClose(nodeId) {
+        if (!nodeId || typeof window.findNodeDataById !== 'function') {
+            return;
+        }
+        var item = window.findNodeDataById(nodeId);
+        var content = getGridContentForNodeId(nodeId);
+        if (!item || !content) {
+            return;
+        }
+        closeMapView();
+        if (typeof window.populateNodeDescriptionAndSelection === 'function') {
+            window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: true });
+        }
+        var nodeCard = content.closest('.node');
+        if (nodeCard && typeof nodeCard.scrollIntoView === 'function') {
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    nodeCard.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
+                });
+            });
+        }
     }
 
     function getGridContentForNodeId(nodeId) {
@@ -836,11 +881,43 @@
         return clusters;
     }
 
+    /**
+     * Human-readable place name for map tooltips (from calendarMapPlacements city data).
+     * @param {Array<{ id?: string }>} items Node data items for one marker cluster
+     * @returns {string}
+     */
+    function getMapTooltipCityLabel(items) {
+        if (!items || !items.length) {
+            return '';
+        }
+        var nodeCity = window.calendarMapNodeCity;
+        var cities = window.calendarMapCityCoordinates;
+        if (!nodeCity || !cities) {
+            return '';
+        }
+        var key = nodeCity[items[0].id];
+        if (!key) {
+            return '';
+        }
+        var entry = cities[key];
+        if (!entry || typeof entry.label !== 'string' || !entry.label.trim()) {
+            return '';
+        }
+        return entry.label.trim();
+    }
+
     function fillMapTooltipFromItems(tip, items) {
         if (!tip || !items || !items.length) {
             return 0;
         }
         tip.textContent = '';
+        var cityLabel = getMapTooltipCityLabel(items);
+        if (cityLabel) {
+            var labelEl = document.createElement('div');
+            labelEl.className = 'map-view-tooltip-city-label';
+            labelEl.textContent = cityLabel;
+            tip.appendChild(labelEl);
+        }
         var k;
         var added = 0;
         for (k = 0; k < items.length; k++) {
@@ -853,6 +930,7 @@
             var sectionEl = nodeEl.closest('.container');
             var wrap = document.createElement('div');
             wrap.className = sectionEl ? sectionEl.className : 'container';
+            wrap.setAttribute('data-map-node-id', item.id);
 
             var clone = nodeEl.cloneNode(true);
             stripIdsFromSubtree(clone);
@@ -860,15 +938,198 @@
             tip.appendChild(wrap);
             added++;
         }
-        return added;
+        return added + (cityLabel ? 1 : 0);
     }
 
-    function positionTooltipNearMarkerButton(tip, btn) {
-        var rect = btn.getBoundingClientRect();
-        var cx = rect.left + rect.width / 2;
-        tip.style.left = cx + 'px';
-        tip.style.top = rect.bottom + 6 + 'px';
-        tip.style.transform = 'translateX(-50%)';
+    /** Movement (px) past which pointer-up after pan is treated as a drag, not a tap (for tooltip dismiss). */
+    var MAP_PAN_DRAG_THRESHOLD_PX = 6;
+    /**
+     * First segment from marker: |angle from horizontal| = this (degrees); opens up or down from the marker
+     * depending on tooltip position (see buildMapTooltipConnectorPoints).
+     */
+    var MAP_TOOLTIP_CONNECTOR_ANGLE_DEG = 30;
+
+    /** Clear inline placement so CSS/JS can set position. */
+    function clearMapTooltipInlinePosition(tip) {
+        if (!tip) {
+            return;
+        }
+        tip.style.left = '';
+        tip.style.top = '';
+        tip.style.right = '';
+        tip.style.bottom = '';
+        tip.style.transform = '';
+        tip.style.maxHeight = '';
+    }
+
+    /**
+     * Tooltip placement is CSS (absolute, bottom-left in #map-view-pan-viewport). Clears stray inline styles before connector sync.
+     */
+    function positionMapTooltipBottomLeft(tip) {
+        clearMapTooltipInlinePosition(tip);
+    }
+
+    function positionVisibleMapTooltips() {
+        var h = document.getElementById('map-view-hover-tooltip');
+        var p = document.getElementById('map-view-node-tooltip');
+        if (h && h.classList.contains('visible')) {
+            positionMapTooltipBottomLeft(h);
+        }
+        if (p && p.classList.contains('visible')) {
+            positionMapTooltipBottomLeft(p);
+        }
+    }
+
+    /**
+     * Polyline: marker → 30° from horizontal (up if tooltip top is above the marker, else down) until the
+     * first hit on the top edge (y = tr.top) or right edge (x = tr.right), then to the top-right corner.
+     * @param {DOMRect} tr Tooltip getBoundingClientRect()
+     * @returns {string} SVG points attribute
+     */
+    function buildMapTooltipConnectorPoints(mx, my, tr) {
+        var tTop = tr.top;
+        var xRight = tr.right;
+        var angleRad = (MAP_TOOLTIP_CONNECTOR_ANGLE_DEG * Math.PI) / 180;
+        var cosA = Math.cos(angleRad);
+        var sinA = Math.sin(angleRad);
+        // Tooltip top above marker center → slant up (−y); else slant down (+y).
+        var dy = tTop < my ? -sinA : sinA;
+        var alignEps = 0.75;
+        // First segment toward +x until the marker passes the tooltip’s right edge, then toward −x (not at horizontal center).
+        var dx = mx <= xRight ? cosA : -cosA;
+
+        function buildFromCandidates(useDx, useDy) {
+            var candidates = [];
+            var tV;
+            var tH;
+            if (Math.abs(useDx) > 1e-9) {
+                tV = (xRight - mx) / useDx;
+                if (tV > 0) {
+                    candidates.push({ t: tV, mode: 'v' });
+                }
+            }
+            if (Math.abs(useDy) > 1e-9) {
+                tH = (tTop - my) / useDy;
+                if (tH > 0) {
+                    candidates.push({ t: tH, mode: 'h' });
+                }
+            }
+            if (candidates.length === 0) {
+                return null;
+            }
+            var best = candidates[0];
+            var ci;
+            for (ci = 1; ci < candidates.length; ci++) {
+                if (candidates[ci].t < best.t) {
+                    best = candidates[ci];
+                }
+            }
+            var t = best.t;
+            if (best.mode === 'v') {
+                var yElbow = my + t * useDy;
+                return mx + ',' + my + ' ' + xRight + ',' + yElbow + ' ' + xRight + ',' + tTop;
+            }
+            var xElbow = mx + t * useDx;
+            return mx + ',' + my + ' ' + xElbow + ',' + tTop + ' ' + xRight + ',' + tTop;
+        }
+
+        if (Math.abs(mx - xRight) < alignEps && Math.abs(my - tTop) < alignEps) {
+            return mx + ',' + my + ' ' + xRight + ',' + tTop;
+        }
+        if (Math.abs(mx - xRight) < alignEps) {
+            return mx + ',' + my + ' ' + xRight + ',' + tTop;
+        }
+        if (Math.abs(my - tTop) < alignEps) {
+            return mx + ',' + my + ' ' + xRight + ',' + tTop;
+        }
+
+        var result = buildFromCandidates(dx, dy);
+        if (result === null) {
+            dx = -dx;
+            result = buildFromCandidates(dx, dy);
+        }
+        if (result === null) {
+            return mx + ',' + my + ' ' + xRight + ',' + tTop;
+        }
+        return result;
+    }
+
+    /**
+     * Connector polyline is authored in viewport coordinates; subtract pan viewport origin for SVG local space.
+     * (Do not use svg.getBoundingClientRect while the SVG is display:none — it returns a 0×0 rect and breaks the line.)
+     */
+    function translateMapConnectorPointsToSvgLocal(screenPoints, panViewport) {
+        if (!screenPoints) {
+            return screenPoints;
+        }
+        var sr = panViewport && panViewport.getBoundingClientRect ? panViewport.getBoundingClientRect() : { left: 0, top: 0 };
+        var parts = screenPoints.trim().split(/\s+/);
+        var out = [];
+        var i;
+        for (i = 0; i < parts.length; i++) {
+            if (!parts[i]) {
+                continue;
+            }
+            var xy = parts[i].split(',');
+            out.push(parseFloat(xy[0], 10) - sr.left + ',' + (parseFloat(xy[1], 10) - sr.top));
+        }
+        return out.join(' ');
+    }
+
+    /**
+     * Orthogonal elbow: 30° up or down from marker, then horizontal or vertical into the tooltip top-right corner.
+     * Hover layer wins when both are visible.
+     */
+    function syncMapTooltipConnector() {
+        var modal = document.getElementById('map-view-modal');
+        if (!modal || modal.style.display !== 'block') {
+            var svgHidden = document.getElementById('map-view-tooltip-connector');
+            if (svgHidden) {
+                svgHidden.style.display = 'none';
+            }
+            return;
+        }
+        var svg = document.getElementById('map-view-tooltip-connector');
+        var poly = svg && svg.querySelector('.map-view-tooltip-connector-line');
+        if (!svg || !poly) {
+            return;
+        }
+        var hoverTip = document.getElementById('map-view-hover-tooltip');
+        var pinTip = document.getElementById('map-view-node-tooltip');
+        var tip = null;
+        var btn = null;
+        if (hoverTip && hoverTip.classList.contains('visible')) {
+            tip = hoverTip;
+            btn = _mapHoverMarkerBtn;
+        } else if (pinTip && pinTip.classList.contains('visible')) {
+            tip = pinTip;
+            btn = _mapPinnedMarkerBtn;
+        }
+        if (!tip || !btn) {
+            svg.style.display = 'none';
+            return;
+        }
+        var panVp = document.getElementById('map-view-pan-viewport');
+        svg.style.display = 'block';
+        positionVisibleMapTooltips();
+        var br = btn.getBoundingClientRect();
+        var mx = br.left + br.width / 2;
+        var my = br.top + br.height / 2;
+        var tr = tip.getBoundingClientRect();
+        var screenPts = buildMapTooltipConnectorPoints(mx, my, tr);
+        var w = panVp ? panVp.clientWidth : svg.clientWidth;
+        var h = panVp ? panVp.clientHeight : svg.clientHeight;
+        if (w > 0 && h > 0) {
+            svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+            svg.setAttribute('preserveAspectRatio', 'none');
+        }
+        poly.setAttribute('points', translateMapConnectorPointsToSvgLocal(screenPts, panVp));
+    }
+
+    function scheduleMapTooltipConnectorSync() {
+        requestAnimationFrame(function () {
+            syncMapTooltipConnector();
+        });
     }
 
     function showPinnedMapTooltip(btn, items) {
@@ -880,9 +1141,10 @@
         if (added === 0) {
             return;
         }
+        clearMapTooltipInlinePosition(tip);
         tip.setAttribute('aria-hidden', 'false');
-        positionTooltipNearMarkerButton(tip, btn);
         tip.classList.add('visible');
+        scheduleMapTooltipConnectorSync();
     }
 
     function showHoverMapTooltip(btn, items) {
@@ -890,16 +1152,34 @@
         if (!tip) {
             return;
         }
+        var pinTip = null;
+        if (_mapTooltipPinned && _mapPinnedMarkerBtn) {
+            pinTip = document.getElementById('map-view-node-tooltip');
+            if (pinTip) {
+                pinTip.classList.remove('visible');
+                pinTip.setAttribute('aria-hidden', 'true');
+            }
+        }
         var added = fillMapTooltipFromItems(tip, items);
         if (added === 0) {
+            if (pinTip && _mapTooltipPinned && _mapPinnedMarkerBtn) {
+                pinTip.classList.add('visible');
+                pinTip.setAttribute('aria-hidden', 'false');
+            }
             return;
         }
+        _mapHoverMarkerBtn = btn;
+        clearMapTooltipInlinePosition(tip);
         tip.setAttribute('aria-hidden', 'false');
-        positionTooltipNearMarkerButton(tip, btn);
         tip.classList.add('visible');
+        scheduleMapTooltipConnectorSync();
     }
 
-    function hideHoverMapTooltip() {
+    /**
+     * @param {{ skipRestorePin?: boolean }} [opt] If true (e.g. marker click to pin), do not re-show the pinned tooltip — the caller replaces pin content.
+     */
+    function hideHoverMapTooltip(opt) {
+        var skipRestorePin = opt && opt.skipRestorePin;
         var tip = document.getElementById('map-view-hover-tooltip');
         if (!tip) {
             return;
@@ -907,6 +1187,15 @@
         tip.classList.remove('visible');
         tip.setAttribute('aria-hidden', 'true');
         tip.textContent = '';
+        _mapHoverMarkerBtn = null;
+        if (!skipRestorePin && _mapTooltipPinned && _mapPinnedMarkerBtn) {
+            var pinTip = document.getElementById('map-view-node-tooltip');
+            if (pinTip) {
+                pinTip.classList.add('visible');
+                pinTip.setAttribute('aria-hidden', 'false');
+            }
+        }
+        syncMapTooltipConnector();
     }
 
     function hidePinnedMapTooltip() {
@@ -917,6 +1206,7 @@
         tip.classList.remove('visible');
         tip.setAttribute('aria-hidden', 'true');
         tip.textContent = '';
+        syncMapTooltipConnector();
     }
 
     function wireMapMarkers() {
@@ -1031,7 +1321,7 @@
             });
 
             btn.addEventListener('click', function () {
-                hideHoverMapTooltip();
+                hideHoverMapTooltip({ skipRestorePin: true });
                 _mapTooltipPinned = true;
                 _mapPinnedMarkerBtn = btn;
                 showPinnedMapTooltip(btn, items);
@@ -1065,6 +1355,27 @@
         }
 
         if (modal) {
+            modal.addEventListener(
+                'click',
+                function (event) {
+                    var raw = event.target;
+                    var el = raw && raw.nodeType === 1 ? raw : raw && raw.parentElement;
+                    if (!el || !el.closest) {
+                        return;
+                    }
+                    var wrap = el.closest(
+                        '#map-view-node-tooltip [data-map-node-id], #map-view-hover-tooltip [data-map-node-id]'
+                    );
+                    if (wrap) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        event.stopImmediatePropagation();
+                        var nodeId = wrap.getAttribute('data-map-node-id');
+                        selectNodeFromMapTooltipAndClose(nodeId);
+                    }
+                },
+                true
+            );
             modal.addEventListener('click', function (event) {
                 if (event.target === modal) {
                     closeMapView();
@@ -1075,7 +1386,13 @@
                         !event.target.closest('#map-view-node-tooltip') &&
                         !event.target.closest('#map-view-hover-tooltip')
                     ) {
+                        if (_mapSkipNextTooltipDismissFromPan) {
+                            _mapSkipNextTooltipDismissFromPan = false;
+                            return;
+                        }
                         hideMapNodeTooltip();
+                    } else {
+                        _mapSkipNextTooltipDismissFromPan = false;
                     }
                 }
             });

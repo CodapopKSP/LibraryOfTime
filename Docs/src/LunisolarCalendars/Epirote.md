@@ -1,8 +1,8 @@
 # Epirote (EET)
 
-| Epoch             | Confidence      |
-| ----------------- | --------------- |
-| 20 August 204 BCE + 16:00:00 | High |
+| Epoch             | Confidence | Associated with |
+| ----------------- | --------------- | --------------- |
+| 20 August 204 BCE + 16:00:00 | High | Epirus |
 
 #### Overview
 

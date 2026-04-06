@@ -1,8 +1,8 @@
 # TT
 
-| Epoch          | Confidence |
+| Epoch | Confidence |
 | -------------- | ---------- |
-| 1 January 1902 | High       |
+| 1 January 1902 | High |
 
 #### Overview
 

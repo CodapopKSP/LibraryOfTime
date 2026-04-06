@@ -1,8 +1,8 @@
 # Callisto Meridian Time
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 28 December 2001 +12:27:23 | High       |
+| 28 December 2001 +12:27:23 | High |
 
 #### Overview
 

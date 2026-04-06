@@ -1,8 +1,8 @@
 # Century
 
-| Epoch         | Confidence |
+| Epoch | Confidence |
 | ------------- | ---------- |
-| Every Century | Exact      |
+| Every Century | Exact |
 
 #### Overview
 

@@ -1,8 +1,8 @@
 # Julian (UTC)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 30 December 0 BCE +00:00:00 | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 30 December 0 BCE +00:00:00 | Exact      | Rome |
 
 #### Overview
 

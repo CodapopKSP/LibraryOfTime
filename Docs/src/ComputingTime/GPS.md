@@ -1,8 +1,8 @@
 # GPS
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 6 January 1980 CE | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 6 January 1980 CE | Exact      | Washington, D.C. |
 
 ### Overview
 

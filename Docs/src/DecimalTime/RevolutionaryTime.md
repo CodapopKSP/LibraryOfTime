@@ -1,8 +1,8 @@
 # French Revolutionary
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| Midnight          | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| Midnight          | Exact      | Paris |
 
 #### Overview
 

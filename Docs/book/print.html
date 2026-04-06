@@ -200,8 +200,8 @@
 <pre><code class="language-js">currentDateTime.toTimeString();
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="utc"><a class="header" href="#utc">UTC</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>Midnight (UTC)</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>Midnight (UTC)</td><td>Exact</td><td>Paris</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-1"><a class="header" href="#overview-1">Overview</a></h4>
@@ -444,8 +444,8 @@ const startNextMillennium = createDateWithFixedYear(startYear + 10, 0, 1);
 <div style="break-before: page; page-break-before: always;"></div><h1 id="computing-time"><a class="header" href="#computing-time">Computing Time</a></h1>
 <p>Computing Time is a collection of clocks and calendars that aren't typically used by any culture as a primary means of telling time. Instead, they are often converted into more colloquial forms of timekeeping.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="unix"><a class="header" href="#unix">Unix</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>1 January 1970 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>1 January 1970 CE</td><td>Exact</td><td>Murray Hill, New Jersey</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-11"><a class="header" href="#overview-11">Overview</a></h4>
@@ -464,8 +464,8 @@ const startNextMillennium = createDateWithFixedYear(startYear + 10, 0, 1);
 </code></pre>
 <p>This will also automatically skip leap seconds.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="gps"><a class="header" href="#gps">GPS</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>6 January 1980 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>6 January 1980 CE</td><td>Exact</td><td>Washington, D.C.</td></tr>
 </tbody></table>
 </div>
 <h3 id="overview-12"><a class="header" href="#overview-12">Overview</a></h3>
@@ -518,8 +518,8 @@ GPSleapSeconds.forEach(leapSecond =&gt; {
 gpsTime += leapSecondsCount;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tai"><a class="header" href="#tai">TAI</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>31 December 1971 CE, +23:59:50</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>31 December 1971 CE, +23:59:50</td><td>Exact</td><td>Paris</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-13"><a class="header" href="#overview-13">Overview</a></h4>
@@ -592,8 +592,8 @@ gpsTime += leapSecondsCount;
 <pre><code class="language-js">TT.setSeconds(currentDateTime.getSeconds() + getDeltaT(currentDateTime));
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="loran-c"><a class="header" href="#loran-c">LORAN-C</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>1 January 1958 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>1 January 1958 CE</td><td>Exact</td><td>Washington, D.C.</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-15"><a class="header" href="#overview-15">Overview</a></h4>
@@ -605,8 +605,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-15"><a class="header" href="#source-15">Source</a></h4>
 <p>Much of the information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="filetime"><a class="header" href="#filetime">FILETIME</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>1 January 1601 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>1 January 1601 CE</td><td>Exact</td><td>San Francisco</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-16"><a class="header" href="#overview-16">Overview</a></h4>
@@ -684,8 +684,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-21"><a class="header" href="#source-21">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Ordinal_date">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="iso-8601"><a class="header" href="#iso-8601">ISO 8601</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>1 January 1 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>1 January 1 CE</td><td>Exact</td><td>Geneva</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-22"><a class="header" href="#overview-22">Overview</a></h4>
@@ -758,8 +758,8 @@ gpsTime += leapSecondsCount;
 <p>This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.</p>
 <p>It can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="kali-ahargaṅa-ist"><a class="header" href="#kali-ahargaṅa-ist">Kali Ahargaṅa (IST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>23 January 3101 BCE +18:30:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>23 January 3101 BCE +18:30:00</td><td>Exact</td><td>Ujjain</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-27"><a class="header" href="#overview-27">Overview</a></h4>
@@ -827,8 +827,8 @@ gpsTime += leapSecondsCount;
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
 <p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hebrew-lunation-number"><a class="header" href="#hebrew-lunation-number">Hebrew Lunation Number</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>6 September 3760 BCE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>6 September 3760 BCE</td><td>Exact</td><td>Jerusalem</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-31"><a class="header" href="#overview-31">Overview</a></h4>
@@ -843,8 +843,8 @@ gpsTime += leapSecondsCount;
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
 <p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="islamic-lunation-number"><a class="header" href="#islamic-lunation-number">Islamic Lunation Number</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>18 July 622 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>18 July 622 CE</td><td>Exact</td><td>Mecca</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-32"><a class="header" href="#overview-32">Overview</a></h4>
@@ -859,8 +859,8 @@ gpsTime += leapSecondsCount;
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
 <p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="thai-lunation-number"><a class="header" href="#thai-lunation-number">Thai Lunation Number</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>22 March 638 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>22 March 638 CE</td><td>Exact</td><td>Bangkok</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-33"><a class="header" href="#overview-33">Overview</a></h4>
@@ -875,8 +875,8 @@ gpsTime += leapSecondsCount;
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
 <p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="nabonassar-lunation-number"><a class="header" href="#nabonassar-lunation-number">Nabonassar Lunation Number</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>12 February 746 BCE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>12 February 746 BCE</td><td>Exact</td><td>Babylon</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-34"><a class="header" href="#overview-34">Overview</a></h4>
@@ -890,8 +890,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-34"><a class="header" href="#source-34">Source</a></h4>
 <p>This lunation number was calibrated using <a href="https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm">this converter</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="spreadsheet-now"><a class="header" href="#spreadsheet-now">Spreadsheet =NOW()</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>30 December 1899 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>30 December 1899 CE</td><td>Exact</td><td>Cambridge, Massachusetts</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-35"><a class="header" href="#overview-35">Overview</a></h4>
@@ -907,8 +907,8 @@ gpsTime += leapSecondsCount;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="solar-calendars"><a class="header" href="#solar-calendars">Solar Calendars</a></h1>
 <p>Solar calendars are based on the Earth's revolution around the Sun, typically using the tropical year as their reference. These calendars often drift from their starting positions due to the lack of divisibility of the tropical year, by as many as 5 days per year but typically less than 1 day every 4 years. Some solar calendars are locked to a solstice or equinox and do not drift with regards to the equinoxes, though the equinoxes themselves have drift.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="gregorian"><a class="header" href="#gregorian">Gregorian</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>1 January 1 CE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>1 January 1 CE</td><td>Exact</td><td>Rome</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-36"><a class="header" href="#overview-36">Overview</a></h4>
@@ -938,8 +938,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-36"><a class="header" href="#source-36">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="julian-utc"><a class="header" href="#julian-utc">Julian (UTC)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>30 December 0 BCE +00:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>30 December 0 BCE +00:00:00</td><td>Exact</td><td>Rome</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-37"><a class="header" href="#overview-37">Overview</a></h4>
@@ -998,8 +998,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-38"><a class="header" href="#source-38">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Astronomical_year_numbering">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="french-republican-cet"><a class="header" href="#french-republican-cet">French Republican (CET)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>22 September 1792 CE, +1:00:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>22 September 1792 CE, +1:00:00</td><td>High</td><td>Paris</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-39"><a class="header" href="#overview-39">Overview</a></h4>
@@ -1029,8 +1029,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-39"><a class="header" href="#source-39">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/French_Republican_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="era-fascista-cet"><a class="header" href="#era-fascista-cet">Era Fascista (CET)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>28 October 1922 CE +23:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>28 October 1922 CE +23:00:00</td><td>Exact</td><td>Rome</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-40"><a class="header" href="#overview-40">Overview</a></h4>
@@ -1043,8 +1043,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-40"><a class="header" href="#source-40">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Era_Fascista">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="coptic-eet"><a class="header" href="#coptic-eet">Coptic (EET)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>28 August 284 CE +22:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>28 August 284 CE +22:00:00</td><td>Exact</td><td>Alexandria</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-41"><a class="header" href="#overview-41">Overview</a></h4>
@@ -1075,8 +1075,8 @@ gpsTime += leapSecondsCount;
 <p>Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Coptic_calendar">Wikipedia article</a>.</p>
 <p>This calendar has been calibrated using the calendar found <a href="https://www.copticbook.net/daily.php?m=9&amp;d=25&amp;mode=1&amp;itemnum=1">here</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="geez-eat"><a class="header" href="#geez-eat">Ge'ez (EAT)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>26 August 8 CE +21:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>26 August 8 CE +21:00:00</td><td>Exact</td><td>Addis Ababa</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-42"><a class="header" href="#overview-42">Overview</a></h4>
@@ -1106,8 +1106,8 @@ gpsTime += leapSecondsCount;
 <p>Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Ethiopian_calendar">Wikipedia article</a>.</p>
 <p>This calendar has been calibrated using the calendar found <a href="https://www.ethcalendar.com/">here</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="minguo-cst"><a class="header" href="#minguo-cst">Minguo (CST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>31 December 1911 CE, +16:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>31 December 1911 CE, +16:00:00</td><td>Exact</td><td>Taipei</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-43"><a class="header" href="#overview-43">Overview</a></h4>
@@ -1120,8 +1120,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-43"><a class="header" href="#source-43">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Republic_of_China_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="thai-thb"><a class="header" href="#thai-thb">Thai (THB)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>31 December 544 BCE, +17:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>31 December 544 BCE, +17:00:00</td><td>Exact</td><td>Bangkok</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-44"><a class="header" href="#overview-44">Overview</a></h4>
@@ -1147,8 +1147,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-44"><a class="header" href="#source-44">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Thai_solar_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="juche-kst"><a class="header" href="#juche-kst">Juche (KST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>31 December 1911 CE, +15:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>31 December 1911 CE, +15:00:00</td><td>Exact</td><td>Pyongyang</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-45"><a class="header" href="#overview-45">Overview</a></h4>
@@ -1160,8 +1160,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-45"><a class="header" href="#source-45">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Juche_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="byzantine-trt"><a class="header" href="#byzantine-trt">Byzantine (TRT)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>18 July 5508 BCE +21:00:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>18 July 5508 BCE +21:00:00</td><td>High</td><td>Constantinople</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-46"><a class="header" href="#overview-46">Overview</a></h4>
@@ -1188,8 +1188,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-46"><a class="header" href="#source-46">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Byzantine_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="florentine-cet"><a class="header" href="#florentine-cet">Florentine (CET)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>22 March 1 CE, +17:00:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>22 March 1 CE, +17:00:00</td><td>High</td><td>Florence</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-47"><a class="header" href="#overview-47">Overview</a></h4>
@@ -1218,8 +1218,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-47"><a class="header" href="#source-47">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Florentine_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pisan-cet"><a class="header" href="#pisan-cet">Pisan (CET)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>22 March 0 BCE, +23:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>22 March 0 BCE, +23:00:00</td><td>Exact</td><td>Pisa</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-48"><a class="header" href="#overview-48">Overview</a></h4>
@@ -1247,8 +1247,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-48"><a class="header" href="#source-48">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Pisan_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="venetian-cet"><a class="header" href="#venetian-cet">Venetian (CET)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>26 February 1 CE, +23:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>26 February 1 CE, +23:00:00</td><td>Exact</td><td>Venice</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-49"><a class="header" href="#overview-49">Overview</a></h4>
@@ -1275,8 +1275,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-49"><a class="header" href="#source-49">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/More_veneto">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="baháʼí-irst"><a class="header" href="#baháʼí-irst">Baháʼí (IRST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>19 March 1844 CE +14:30:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>19 March 1844 CE +14:30:00</td><td>High</td><td>Tehran</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-50"><a class="header" href="#overview-50">Overview</a></h4>
@@ -1397,8 +1397,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-53"><a class="header" href="#source-53">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Society_for_Creative_Anachronism">Wikipedia article</a> as well as the <a href="https://www.sca.org/sca-calendar-reckoning-dates-in-the-society/">SCA website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="solar-hijri-irst"><a class="header" href="#solar-hijri-irst">Solar Hijri (IRST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>21 March 622, +20:30:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>21 March 622, +20:30:00</td><td>High</td><td>Tehran</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-54"><a class="header" href="#overview-54">Overview</a></h4>
@@ -1428,8 +1428,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-54"><a class="header" href="#source-54">Source</a></h4>
 <p>Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Solar_Hijri_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="qadimi-irst"><a class="header" href="#qadimi-irst">Qadimi (IRST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>19 June 632, +2:30:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>19 June 632, +2:30:00</td><td>High</td><td>Yazd</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-55"><a class="header" href="#overview-55">Overview</a></h4>
@@ -1476,8 +1476,8 @@ gpsTime += leapSecondsCount;
 <p>Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia article</a>.</p>
 <p>This calendar can be calibrated using the calculator at <a href="http://www.zcserv.com/calendar/">this site</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="egyptian-civil-eet"><a class="header" href="#egyptian-civil-eet">Egyptian Civil (EET)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>26 June 2781 BCE +22:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>26 June 2781 BCE +22:00:00</td><td>Exact</td><td>Cairo</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-56"><a class="header" href="#overview-56">Overview</a></h4>
@@ -1530,8 +1530,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-57"><a class="header" href="#source-57">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/ISO_week_date">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="haab-cst"><a class="header" href="#haab-cst">Haab (CST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>Unknown</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>Unknown</td><td>Exact</td><td>Chichén Itzá</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-58"><a class="header" href="#overview-58">Overview</a></h4>
@@ -1558,8 +1558,8 @@ gpsTime += leapSecondsCount;
 <p>Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Maya_calendar">Wikipedia article</a>.</p>
 <p>The <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter, though it is broken for dates before the Long Count epoch.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="anno-lucis"><a class="header" href="#anno-lucis">Anno Lucis</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>1 January 3999 BCE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>1 January 3999 BCE</td><td>Exact</td><td>London</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-59"><a class="header" href="#overview-59">Overview</a></h4>
@@ -1571,8 +1571,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-59"><a class="header" href="#source-59">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Anno_Lucis">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tabot-est"><a class="header" href="#tabot-est">Tabot (EST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>2 November 1930</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>2 November 1930</td><td>Exact</td><td>Kingston, Jamaica</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-60"><a class="header" href="#overview-60">Overview</a></h4>
@@ -1600,8 +1600,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-60"><a class="header" href="#source-60">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Tabot_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="icelandic-utc"><a class="header" href="#icelandic-utc">Icelandic (UTC)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>Unknown</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>Unknown</td><td>High</td><td>Reykjavik</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-61"><a class="header" href="#overview-61">Overview</a></h4>
@@ -1632,8 +1632,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-61"><a class="header" href="#source-61">Source</a></h4>
 <p>All of the information for this calendar came from <a href="https://www2.math.uu.se/~svantejs/papers/calendars/iceland.pdf">this paper</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="saka-samvat-ist"><a class="header" href="#saka-samvat-ist">Saka Samvat (IST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>21 March 78 CE, +18:30:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>21 March 78 CE, +18:30:00</td><td>Exact</td><td>Ujjain</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-62"><a class="header" href="#overview-62">Overview</a></h4>
@@ -1662,8 +1662,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-62"><a class="header" href="#source-62">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Indian_national_calendar">Wikipedia article</a>, but there are some additional details found <a href="https://archive.org/details/IndianCalendricSystem-SK-Chatterjee/page/n25/mode/2up">here</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mandaean"><a class="header" href="#mandaean">Mandaean</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>8th June 678 CE +9:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>8th June 678 CE +9:00:00</td><td>Exact</td><td>Nasiriyah</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-63"><a class="header" href="#overview-63">Overview</a></h4>
@@ -1710,8 +1710,8 @@ gpsTime += leapSecondsCount;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="other-calendars"><a class="header" href="#other-calendars">Other Calendars</a></h1>
 <p>Other calendars include specialized, ancient, and unique timekeeping systems that don't fit into the standard solar, lunar, or lunisolar categories. These include Maya calendars, space-based calendars for other planets and moons, and various cultural and historical calendar systems.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="maya-long-count-cst"><a class="header" href="#maya-long-count-cst">Maya Long Count (CST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>11 August 3113 BCE +06:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>11 August 3113 BCE +06:00:00</td><td>Exact</td><td>Chichén Itzá</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-64"><a class="header" href="#overview-64">Overview</a></h4>
@@ -1735,8 +1735,8 @@ gpsTime += leapSecondsCount;
 <p>Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar">Wikipedia article</a>.</p>
 <p>The <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter, though it is broken for dates before the epoch.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tzolkin-cst"><a class="header" href="#tzolkin-cst">Tzolkin (CST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>Unknown</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>Unknown</td><td>Exact</td><td>Chichén Itzá</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-65"><a class="header" href="#overview-65">Overview</a></h4>
@@ -1764,8 +1764,8 @@ gpsTime += leapSecondsCount;
 <p>Much of the information on this calendar can be found at its <a href="https://en.wikipedia.org/wiki/Maya_calendar">Wikipedia article</a>.</p>
 <p>The <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter, though it is broken for dates before the Long Count epoch.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lord-of-the-night--y-cst"><a class="header" href="#lord-of-the-night--y-cst">Lord of the Night | Y (CST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>Unknown</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>Unknown</td><td>Exact</td><td>Chichén Itzá</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-66"><a class="header" href="#overview-66">Overview</a></h4>
@@ -2189,8 +2189,8 @@ gpsTime += leapSecondsCount;
 <p>This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.</p>
 <p>It can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="yuga-cycle-ist"><a class="header" href="#yuga-cycle-ist">Yuga Cycle (IST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>3,891,102 BCE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>3,891,102 BCE</td><td>Exact</td><td>Ujjain</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-77"><a class="header" href="#overview-77">Overview</a></h4>
@@ -2224,8 +2224,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-77"><a class="header" href="#source-77">Source</a></h4>
 <p>All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Yuga_cycle">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sothic-cycle"><a class="header" href="#sothic-cycle">Sothic Cycle</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>27 June 2781 BCE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>27 June 2781 BCE</td><td>Exact</td><td>Cairo</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-78"><a class="header" href="#overview-78">Overview</a></h4>
@@ -2250,8 +2250,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-78"><a class="header" href="#source-78">Source</a></h4>
 <p>All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Sothic_cycle">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="olympiad"><a class="header" href="#olympiad">Olympiad</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>24 July 775 BCE</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>24 July 775 BCE</td><td>Exact</td><td>Athens</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-79"><a class="header" href="#overview-79">Overview</a></h4>
@@ -2264,8 +2264,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-79"><a class="header" href="#source-79">Source</a></h4>
 <p>All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Olympiad">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pawukon-wita"><a class="header" href="#pawukon-wita">Pawukon (WITA)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>Unknown</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>Unknown</td><td>Exact</td><td>Bali</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-80"><a class="header" href="#overview-80">Overview</a></h4>
@@ -2310,8 +2310,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-80"><a class="header" href="#source-80">Source</a></h4>
 <p>All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Pawukon_calendar">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sexagenary-year-cst"><a class="header" href="#sexagenary-year-cst">Sexagenary Year (CST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>19 January 2696 BCE +16:00:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>19 January 2696 BCE +16:00:00</td><td>High</td><td>Beijing</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-81"><a class="header" href="#overview-81">Overview</a></h4>
@@ -2499,8 +2499,8 @@ gpsTime += leapSecondsCount;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lunisolar-calendars"><a class="header" href="#lunisolar-calendars">Lunisolar Calendars</a></h1>
 <p>Lunisolar calendars combine both lunar and solar elements to track time. They use lunar months (based on moon phases) but add intercalary months to keep the calendar synchronized with the solar year. This ensures that seasonal events occur at roughly the same time each year.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="chinese-cst"><a class="header" href="#chinese-cst">Chinese (CST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>30 January 2697 BCE +16:00:00</td><td>Medium</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>30 January 2697 BCE +16:00:00</td><td>Medium</td><td>Beijing</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-93"><a class="header" href="#overview-93">Overview</a></h4>
@@ -2516,8 +2516,8 @@ gpsTime += leapSecondsCount;
 <p>This equation was based off of the steps found <a href="https://ytliu0.github.io/ChineseCalendar/rules.html">here</a>.</p>
 <p>General information was taken from the <a href="https://en.wikipedia.org/wiki/Chinese_calendar">Wikipedia article</a> for this calendar.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="Đại-lịch-ict"><a class="header" href="#Đại-lịch-ict">Đại lịch (ICT)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>9 February 1 CE +17:00:00</td><td>Low</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>9 February 1 CE +17:00:00</td><td>Low</td><td>Hanoi</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-94"><a class="header" href="#overview-94">Overview</a></h4>
@@ -2532,8 +2532,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-94"><a class="header" href="#source-94">Source</a></h4>
 <p>Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Vietnamese_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dangun-kst"><a class="header" href="#dangun-kst">Dangun (KST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>15 February 2332 BCE +15:00:00</td><td>Medium</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>15 February 2332 BCE +15:00:00</td><td>Medium</td><td>Seoul</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-95"><a class="header" href="#overview-95">Overview</a></h4>
@@ -2546,8 +2546,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-95"><a class="header" href="#source-95">Source</a></h4>
 <p>Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Korean_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hebrew-ist"><a class="header" href="#hebrew-ist">Hebrew (IST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>6 September 3760 BCE +16:00:00</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>6 September 3760 BCE +16:00:00</td><td>Exact</td><td>Jerusalem</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-96"><a class="header" href="#overview-96">Overview</a></h4>
@@ -2564,8 +2564,8 @@ gpsTime += leapSecondsCount;
 <p>Dates can be checked for calibration <a href="https://www.chabad.org/calendar/view/month.htm">here</a>.</p>
 <p>Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Hebrew_calendar">Wikipedia article</a> for this calendar.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="babylonian-ast"><a class="header" href="#babylonian-ast">Babylonian (AST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>29 March 310 BCE +15:00:00</td><td>Medium</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>29 March 310 BCE +15:00:00</td><td>Medium</td><td>Babylon</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-97"><a class="header" href="#overview-97">Overview</a></h4>
@@ -2608,8 +2608,8 @@ gpsTime += leapSecondsCount;
 <p>Much of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Babylonian_calendar">Wikipedia article</a>.</p>
 <p>The calendar can be calibrated using <a href="https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm">this converter</a> which is sourced from <a href="https://webspace.science.uu.nl/~gent0113/babylon/downloads/babylonian_chronology_pd_1971.dat">this table of dates</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="epirote-eet"><a class="header" href="#epirote-eet">Epirote (EET)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>20 August 204 BCE + 16:00:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>20 August 204 BCE + 16:00:00</td><td>High</td><td>Epirus</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-98"><a class="header" href="#overview-98">Overview</a></h4>
@@ -2675,8 +2675,8 @@ gpsTime += leapSecondsCount;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lunar-calendars"><a class="header" href="#lunar-calendars">Lunar Calendars</a></h1>
 <p>Lunar calendars are based primarily on the phases of the moon, with months corresponding to lunar cycles. Unlike lunisolar calendars, they do not attempt to synchronize with the solar year, so dates drift through the seasons over time.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="umm-al-qura-ast"><a class="header" href="#umm-al-qura-ast">Umm al-Qura (AST)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>17 July 622 CE, +15:00:00</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>17 July 622 CE, +15:00:00</td><td>High</td><td>Mecca</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-99"><a class="header" href="#overview-99">Overview</a></h4>
@@ -2694,8 +2694,8 @@ gpsTime += leapSecondsCount;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="solilunar-calendars"><a class="header" href="#solilunar-calendars">Solilunar Calendars</a></h1>
 <p>Solilunar calendars are a unique type that combines solar and lunar elements as their base units. However, unlike lunisolar calendars, solilunar calendars use the solar year as the main unit, with months being determined secondary based on the moon's sidereal month.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="togys-esebi-kzt"><a class="header" href="#togys-esebi-kzt">Togys Esebi (KZT)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>30 April 3669 BCE +19:00:00</td><td>Medium</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>30 April 3669 BCE +19:00:00</td><td>Medium</td><td>Astana</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-100"><a class="header" href="#overview-100">Overview</a></h4>
@@ -2964,8 +2964,8 @@ gpsTime += leapSecondsCount;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="decimal-time"><a class="header" href="#decimal-time">Decimal Time</a></h1>
 <p>Decimal time systems use base-10 divisions instead of the traditional base-60 (hours/minutes/seconds) or base-12/24 (hours) systems. These systems aim to simplify time calculations by using decimal arithmetic throughout.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="french-revolutionary"><a class="header" href="#french-revolutionary">French Revolutionary</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>Midnight</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>Midnight</td><td>Exact</td><td>Paris</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-107"><a class="header" href="#overview-107">Overview</a></h4>
@@ -2978,8 +2978,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-107"><a class="header" href="#source-107">Source</a></h4>
 <p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="beat-bmt"><a class="header" href="#beat-bmt">.beat (BMT)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>Midnight (BMT)</td><td>Exact</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>Midnight (BMT)</td><td>Exact</td><td>Biel/Bienne, Switzerland</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-108"><a class="header" href="#overview-108">Overview</a></h4>
@@ -3164,8 +3164,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-118"><a class="header" href="#source-118">Source</a></h4>
 <p>This calculation was sourced from <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Majora%27s_Mask">The Legend of Zelda: Majora's Mask</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="stardate"><a class="header" href="#stardate">Stardate</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>25 April 2265</td><td>Low</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>25 April 2265</td><td>Low</td><td>San Francisco</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-119"><a class="header" href="#overview-119">Overview</a></h4>
@@ -3209,8 +3209,8 @@ gpsTime += leapSecondsCount;
 <h4 id="source-121"><a class="header" href="#source-121">Source</a></h4>
 <p>This calculation was sourced from <a href="https://warhammer40k.fandom.com/wiki/Imperial_Dating_System#Original_System">the Warhammer 40k Fandom Wiki</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="shire-utc"><a class="header" href="#shire-utc">Shire (UTC)</a></h1>
-<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>15 December 523 CE</td><td>High</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
+<tr><td>15 December 523 CE</td><td>High</td><td>London</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview-122"><a class="header" href="#overview-122">Overview</a></h4>

@@ -1,8 +1,8 @@
 # Invariable
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 1 January 1 CE | Exact       |
+| 1 January 1 CE | Exact |
 
 #### Overview
 

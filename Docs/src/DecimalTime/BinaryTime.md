@@ -1,8 +1,8 @@
 # Binary (16 bit)
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Midnight          | Exact      |
+| Midnight | Exact |
 
 #### Overview
 

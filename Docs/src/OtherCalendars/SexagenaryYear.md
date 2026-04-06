@@ -1,8 +1,8 @@
 # Sexagenary Year (CST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 19 January 2696 BCE +16:00:00 | High       |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 19 January 2696 BCE +16:00:00 | High       | Beijing |
 
 #### Overview
 

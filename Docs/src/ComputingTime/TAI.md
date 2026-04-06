@@ -1,8 +1,8 @@
 # TAI
 
-| Epoch                          | Confidence |
-| ------------------------------ | ---------- |
-| 31 December 1971 CE, +23:59:50 | Exact      |
+| Epoch                          | Confidence | Associated with |
+| ------------------------------ | ---------- | --------------- |
+| 31 December 1971 CE, +23:59:50 | Exact      | Paris |
 
 #### Overview
 

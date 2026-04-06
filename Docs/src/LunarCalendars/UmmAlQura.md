@@ -1,8 +1,8 @@
 # Umm al-Qura (AST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 17 July 622 CE, +15:00:00 | High       |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 17 July 622 CE, +15:00:00 | High       | Mecca |
 
 #### Overview
 

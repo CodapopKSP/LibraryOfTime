@@ -1,8 +1,8 @@
 # Galilean (Ganymede)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 1 January 2002 +11:08:29     | Medium     |
+| 1 January 2002 +11:08:29 | Medium |
 
 #### Overview
 

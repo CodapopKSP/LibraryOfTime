@@ -1,8 +1,8 @@
 # Southward Equinox
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Southward Equinox | High       |
+| Southward Equinox | High |
 
 #### Overview
 

@@ -1,8 +1,8 @@
 # Southern Solstice
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Southern Solstice | High       |
+| Southern Solstice | High |
 
 #### Overview
 

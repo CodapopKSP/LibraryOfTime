@@ -1,8 +1,8 @@
 # Dangun (KST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 15 February 2332 BCE +15:00:00 | Medium       |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 15 February 2332 BCE +15:00:00 | Medium       | Seoul |
 
 #### Overview
 

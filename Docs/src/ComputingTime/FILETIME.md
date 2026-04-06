@@ -1,8 +1,8 @@
 # FILETIME
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 1 January 1601 CE | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1601 CE | Exact      | San Francisco |
 
 #### Overview
 

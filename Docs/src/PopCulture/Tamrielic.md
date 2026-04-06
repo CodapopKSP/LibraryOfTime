@@ -1,8 +1,8 @@
 # Tamrielic
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Unknown           | Exact      |
+| Unknown | Exact |
 
 #### Overview
 

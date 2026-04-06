@@ -1,8 +1,8 @@
 # Discordian
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 1 January 1165 BCE | Exact     |
+| 1 January 1165 BCE | Exact |
 
 #### Overview
 

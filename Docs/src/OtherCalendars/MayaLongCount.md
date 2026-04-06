@@ -1,8 +1,8 @@
 # Maya Long Count (CST)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 11 August 3113 BCE +06:00:00 | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 11 August 3113 BCE +06:00:00 | Exact      | Chichén Itzá |
 
 #### Overview
 

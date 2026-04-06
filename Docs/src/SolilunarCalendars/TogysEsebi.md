@@ -1,8 +1,8 @@
 # Togys Esebi (KZT)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 30 April 3669 BCE +19:00:00 | Medium       |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 30 April 3669 BCE +19:00:00 | Medium       | Astana |
 
 #### Overview
 

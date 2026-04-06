@@ -1,8 +1,8 @@
 # Imperial Dating System
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 1 January 0 BCE   | Exact      |
+| 1 January 0 BCE | Exact |
 
 #### Overview
 

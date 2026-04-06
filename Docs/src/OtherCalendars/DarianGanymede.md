@@ -1,8 +1,8 @@
 # Darian (Ganymede)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 11 March 1609 +09:52:12     | High       |
+| 11 March 1609 +09:52:12 | High |
 
 #### Overview
 

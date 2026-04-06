@@ -1,8 +1,8 @@
 # Mandaean
 
-| Epoch | Confidence |
-| ----- | ---------- |
-| 8th June 678 CE +9:00:00 | Exact |
+| Epoch | Confidence | Associated with |
+| ----- | ---------- | --------------- |
+| 8th June 678 CE +9:00:00 | Exact | Nasiriyah |
 
 #### Overview
 

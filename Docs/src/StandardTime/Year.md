@@ -1,8 +1,8 @@
 # Year
 
-| Epoch      | Confidence |
+| Epoch | Confidence |
 | ---------- | ---------- |
-| Every Year | Exact      |
+| Every Year | Exact |
 
 #### Overview
 

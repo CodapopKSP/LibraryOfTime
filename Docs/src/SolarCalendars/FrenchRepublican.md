@@ -1,8 +1,8 @@
 # French Republican (CET)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 22 September 1792 CE, +1:00:00 | High      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 22 September 1792 CE, +1:00:00 | High      | Paris |
 
 #### Overview
 

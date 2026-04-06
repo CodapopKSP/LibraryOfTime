@@ -1,8 +1,8 @@
 # Unix
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 1 January 1970 CE | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1970 CE | Exact      | Murray Hill, New Jersey |
 
 #### Overview
 

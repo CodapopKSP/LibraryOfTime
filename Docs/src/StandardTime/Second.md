@@ -1,8 +1,8 @@
 # Second
 
-| Epoch        | Confidence |
+| Epoch | Confidence |
 | ------------ | ---------- |
-| Every Second | Exact      |
+| Every Second | Exact |
 
 #### Overview
 

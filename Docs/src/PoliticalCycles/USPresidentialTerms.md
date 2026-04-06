@@ -1,8 +1,8 @@
 # US Presidential Terms
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 20 January 1789 CE +16:00:00 |    High    |
+| 20 January 1789 CE +16:00:00 | High |
 
 #### Overview
 

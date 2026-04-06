@@ -85,13 +85,14 @@ function parseMarkdownFile(filePath, directory) {
         }
     }
     
-    // Extract epoch and confidence from table
+    // Extract epoch, confidence, and optional "Associated with" from table
     let epoch = '';
     let confidence = '';
-    
+    let associatedWith = '';
+
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i].trim();
-        
+
         // Look for table header with Epoch
         if (line.includes('Epoch') && line.includes('Confidence') && line.startsWith('|')) {
             // Found header, next non-separator line should be data
@@ -103,10 +104,12 @@ function parseMarkdownFile(filePath, directory) {
                 }
                 // Parse data row
                 if (dataLine.startsWith('|')) {
-                    const cells = dataLine.split('|').map(cell => cell.trim()).filter(cell => cell);
+                    const parts = dataLine.split('|').map((cell) => cell.trim());
+                    const cells = parts.slice(1, parts.length - 1);
                     if (cells.length >= 2) {
                         epoch = cells[0] || '';
                         confidence = cells[1] || '';
+                        associatedWith = cells.length >= 3 ? (cells[2] || '') : '';
                     }
                 }
                 break;
@@ -211,6 +214,7 @@ function parseMarkdownFile(filePath, directory) {
         type: type,
         epoch: epoch,
         confidence: confidence,
+        associatedWith: associatedWith,
         overview: overview,
         info: info,
         accuracy: accuracy,
@@ -469,6 +473,7 @@ function formatNodeData(nodeData) {
         type: \`${nodeData.type}\`,
         epoch: \`${nodeData.epoch}\`,
         confidence: \`${nodeData.confidence}\`,
+        associatedWith: \`${nodeData.associatedWith}\`,
         overview: \`${escapeForTemplate(overview)}\`,
         info: \`${escapeForTemplate(info)}\`,
         accuracy: \`${escapeForTemplate(accuracy)}\`,
@@ -673,6 +678,7 @@ Node Data is a collection of data for each node.
     type:           The type of calendar/time.
     epoch:          The starting epoch of the calendar/time.
     confidence:     A measure of how confident I am in the node's accuracy.
+    associatedWith: Optional place or region associated with the node (from docs table).
     overview:       The text that appears in the overview tab.
     info:           The text that appears in the info tab.
     accuracy:       The text that appears in the accuracy tab.

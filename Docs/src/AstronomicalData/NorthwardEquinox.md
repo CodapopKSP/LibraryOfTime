@@ -1,8 +1,8 @@
 # Northward Equinox
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Northward Equinox | High       |
+| Northward Equinox | High |
 
 #### Overview
 

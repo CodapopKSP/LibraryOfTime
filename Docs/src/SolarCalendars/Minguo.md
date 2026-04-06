@@ -1,8 +1,8 @@
 # Minguo (CST)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 31 December 1911 CE, +16:00:00 | Exact     |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 31 December 1911 CE, +16:00:00 | Exact     | Taipei |
 
 #### Overview
 

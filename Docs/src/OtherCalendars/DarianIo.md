@@ -1,8 +1,8 @@
 # Darian (Io)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 13 March 1609 +05:29:26     | High       |
+| 13 March 1609 +05:29:26 | High |
 
 #### Overview
 

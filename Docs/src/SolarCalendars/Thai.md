@@ -1,8 +1,8 @@
 # Thai (THB)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 31 December 544 BCE, +17:00:00 | Exact     |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 31 December 544 BCE, +17:00:00 | Exact     | Bangkok |
 
 #### Overview
 

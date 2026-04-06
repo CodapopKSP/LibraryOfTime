@@ -1,8 +1,8 @@
 # LORAN-C
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 1 January 1958 CE | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1958 CE | Exact      | Washington, D.C. |
 
 #### Overview
 

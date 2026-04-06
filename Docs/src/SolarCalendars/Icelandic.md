@@ -1,8 +1,8 @@
 # Icelandic (UTC)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| Unknown            | High       |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| Unknown            | High       | Reykjavik |
 
 #### Overview
 

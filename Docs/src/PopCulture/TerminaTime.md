@@ -1,8 +1,8 @@
 # Termina Time
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 6:00:00           | Exact       |
+| 6:00:00 | Exact |
 
 #### Overview
 

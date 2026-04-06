@@ -1,8 +1,8 @@
 # Tzolkin (CST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| Unknown           | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| Unknown           | Exact      | Chichén Itzá |
 
 #### Overview
 

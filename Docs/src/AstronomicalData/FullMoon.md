@@ -1,8 +1,8 @@
 # This Month's Full Moon
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Full Moon          | High       |
+| Full Moon | High |
 
 #### Overview
 

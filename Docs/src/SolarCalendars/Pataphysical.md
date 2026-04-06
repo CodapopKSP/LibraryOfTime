@@ -1,8 +1,8 @@
 # Pataphysical
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 8 September 1873 CE | Exact     |
+| 8 September 1873 CE | Exact |
 
 #### Overview
 

@@ -1,8 +1,8 @@
 # Ordinal Date
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 1 January 2000 CE | Exact      |
+| 1 January 2000 CE | Exact |
 
 #### Overview
 

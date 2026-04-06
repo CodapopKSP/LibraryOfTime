@@ -1,8 +1,8 @@
 # Galilean (Callisto)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 28 December 2001 +12:27:23  | Medium     |
+| 28 December 2001 +12:27:23 | Medium |
 
 #### Overview
 

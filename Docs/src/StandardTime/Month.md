@@ -1,8 +1,8 @@
 # Month
 
-| Epoch       | Confidence |
+| Epoch | Confidence |
 | ----------- | ---------- |
-| Every Month | Exact      |
+| Every Month | Exact |
 
 #### Overview
 

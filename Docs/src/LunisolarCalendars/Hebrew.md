@@ -1,8 +1,8 @@
 # Hebrew (IST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 6 September 3760 BCE +16:00:00 | Exact       |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 6 September 3760 BCE +16:00:00 | Exact       | Jerusalem |
 
 #### Overview
 

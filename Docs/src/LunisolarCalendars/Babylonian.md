@@ -1,8 +1,8 @@
 # Babylonian (AST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 29 March 310 BCE +15:00:00 | Medium |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 29 March 310 BCE +15:00:00 | Medium | Babylon |
 
 #### Overview
 

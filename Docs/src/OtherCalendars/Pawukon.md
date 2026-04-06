@@ -1,8 +1,8 @@
 # Pawukon (WITA)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| Unknown           | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| Unknown           | Exact      | Bali |
 
 #### Overview
 

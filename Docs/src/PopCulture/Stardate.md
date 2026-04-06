@@ -1,8 +1,8 @@
 # Stardate
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 25 April 2265     | Low       |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 25 April 2265     | Low       | San Francisco |
 
 #### Overview
 

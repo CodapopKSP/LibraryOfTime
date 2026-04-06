@@ -1,8 +1,8 @@
 # Galilean (Europa)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 2 January 2002 +17:12:57     | Medium     |
+| 2 January 2002 +17:12:57 | Medium |
 
 #### Overview
 

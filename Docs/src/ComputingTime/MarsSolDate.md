@@ -1,8 +1,8 @@
 # Mars Sol Date
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 29 December 1873 CE +12:04:11 | High       |
+| 29 December 1873 CE +12:04:11 | High |
 
 #### Overview
 

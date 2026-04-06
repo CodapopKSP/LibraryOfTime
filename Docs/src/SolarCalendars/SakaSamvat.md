@@ -1,8 +1,8 @@
 # Saka Samvat (IST)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 21 March 78 CE, +18:30:00    | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 21 March 78 CE, +18:30:00    | Exact      | Ujjain |
 
 #### Overview
 

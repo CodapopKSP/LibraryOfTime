@@ -1,8 +1,8 @@
 # Galilean (Io)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 31 December 2001 +16:07:45   | Medium     |
+| 31 December 2001 +16:07:45 | Medium |
 
 #### Overview
 

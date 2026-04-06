@@ -1,8 +1,8 @@
 # Astronomical (UTC)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 30 December 0 BCE +00:00:00 | Exact      |
+| 30 December 0 BCE +00:00:00 | Exact |
 
 #### Overview
 

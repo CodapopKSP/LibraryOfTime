@@ -1,8 +1,8 @@
 # Io Meridian Time
 
-| Epoch                      | Confidence |
+| Epoch | Confidence |
 | -------------------------- | ---------- |
-| 31 December 2001 +16:07:45 | High       |
+| 31 December 2001 +16:07:45 | High |
 
 #### Overview
 

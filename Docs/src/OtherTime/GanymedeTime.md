@@ -1,8 +1,8 @@
 # Ganymede Meridian Time
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 1 January 2002 +11:08:29 | High       |
+| 1 January 2002 +11:08:29 | High |
 
 #### Overview
 

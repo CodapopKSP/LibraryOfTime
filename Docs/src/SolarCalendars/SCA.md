@@ -1,8 +1,8 @@
 # SCA
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 1 May 1966 CE     | Exact      |
+| 1 May 1966 CE | Exact |
 
 #### Overview
 

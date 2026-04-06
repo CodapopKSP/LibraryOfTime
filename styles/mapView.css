@@ -105,6 +105,8 @@
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
+    /* Inset for tooltip from map edges (left, bottom, and symmetric max-height cap). */
+    --map-tooltip-inset: 8px;
 }
 
 .map-view-pan-viewport.map-view-pan-viewport--dragging {
@@ -174,10 +176,11 @@
     /* At most two ~18px glyphs per row → a tight 2-column cluster instead of a long strip */
     max-width: 40px; /* two overlapping glyphs + padding (icons use negative margin) */
     width: fit-content;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
+    /* ~16px glyphs: keep hit target close to visual size so nearby markers don’t steal hover */
+    min-width: 1.75rem;
+    min-height: 1.75rem;
     margin: 0;
-    padding: 2px;
+    padding: 0;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -310,21 +313,58 @@
     stroke-width: 6;
 }
 
-/* Cloned grid node preview (fixed; outside panel overflow) */
-.map-view-node-tooltip {
-    position: fixed;
+/* Line from marker to tooltip; lives inside pan viewport under tooltips (points are translated to SVG space in mapView.js). */
+.map-view-tooltip-connector {
+    display: none;
+    position: absolute;
     left: 0;
     top: 0;
-    max-width: min(22rem, 92vw);
-    max-height: min(50vh, 24rem);
-    overflow: auto;
-    padding: 0.5rem;
-    background: var(--ui-deep-accent-bg);
-    border: 1px solid var(--ui-border);
-    border-radius: 0.35rem;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+    width: 100%;
+    height: 100%;
+    overflow: visible;
     pointer-events: none;
-    z-index: 10100;
+    z-index: 5;
+}
+
+.map-view-tooltip-connector-line {
+    stroke: #000000;
+    stroke-width: 2;
+    stroke-linecap: round;
+    /* Miter reads cleanly into the square top-right tooltip corner */
+    stroke-linejoin: miter;
+}
+
+/* Cloned grid node preview — absolutely positioned over the map, bottom-left of pan viewport (sibling of zoom root, not transformed by pan/zoom). */
+.map-view-node-tooltip {
+    position: absolute;
+    left: var(--map-tooltip-inset);
+    right: auto;
+    bottom: var(--map-tooltip-inset);
+    top: auto;
+    box-sizing: border-box;
+    max-width: min(24rem, calc(100% - 2 * var(--map-tooltip-inset)));
+    max-height: calc(100% - 2 * var(--map-tooltip-inset));
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    /* Inner padding (placement vs map edges is set in JS). */
+    padding: 0.85vh 1.05vh 1.05vh 1.05vh;
+    background: var(--ui-deep-accent-bg);
+    background: linear-gradient(
+        165deg,
+        color-mix(in srgb, var(--ui-elevated-bg) 88%, #0a0a0a) 0%,
+        var(--ui-deep-accent-bg) 100%
+    );
+    border: 1px solid var(--ui-border);
+    border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.25),
+        0 18px 40px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 10;
     opacity: 0;
     visibility: hidden;
 }
@@ -332,24 +372,147 @@
 .map-view-node-tooltip.visible {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
-/* Second layer: hover preview while a clicked (pinned) tooltip stays open underneath */
+/* Separate element for hover preview; only one of pin/hover is visible (JS hides pin while hover shows). */
 .map-view-hover-tooltip {
-    z-index: 10101;
+    z-index: 11;
 }
 
+/* Location title — same scale as .container-name on the main grid */
+.map-view-node-tooltip .map-view-tooltip-city-label {
+    flex-shrink: 0;
+    font-family: var(--ui-font-body);
+    font-weight: 600;
+    font-size: 1.6vh;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.35;
+    margin: 0 0 0.65vh;
+    padding-bottom: 0.55vh;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(245, 245, 245, 0.95);
+}
+
+.mac-chrome-only .map-view-node-tooltip .map-view-tooltip-city-label {
+    font-size: 1.9vh;
+}
+
+/* Stack full-width rows; drop masonry vh widths and outer “card in card” chrome */
 .map-view-node-tooltip .container {
-    width: auto;
-    min-width: 12rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    align-content: stretch;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    /* Same base size as main-grid .container */
+    font-size: 1.3vh;
+    padding: 0.55vh 0.75vh 0.65vh;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+}
+
+.mac-chrome-only .map-view-node-tooltip .container {
+    font-size: 1.6vh;
+    width: 100%;
+    max-width: 100%;
 }
 
 .map-view-node-tooltip .container + .container {
-    margin-top: 0.75rem;
+    margin-top: 0.65vh;
+}
+
+/* Tooltip rows open the main grid selection when clicked (see mapView.js). */
+.map-view-node-tooltip [data-map-node-id] {
+    cursor: pointer;
 }
 
 .map-view-node-tooltip .node {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     margin: 0;
+}
+
+/* Calendar name — matches .node label styling (heading family, inherits container font-size) */
+.map-view-node-tooltip .node > label {
+    display: block;
+    font-family: var(--ui-font-heading);
+    font-size: inherit;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0 0 0.25vh;
+    padding: 0;
+    letter-spacing: 0.02em;
+    opacity: 0.92;
+}
+
+/* Single value surface — same body size as main-grid .content; border colors match styles/nodes.css per section */
+.map-view-node-tooltip .container > .node > .content {
+    margin-top: 0.25vh;
+    padding: 0.65vh 0.75vh;
+    font-size: 1.2vh;
+    line-height: 1.45;
+    font-family: var(--ui-font-body);
+    border-radius: 6px;
+    border-width: 1px;
+    border-style: solid;
+    background: rgba(0, 0, 0, 0.42);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+}
+
+.map-view-node-tooltip .standard-time > .node > .content {
+    border-color: #bbbbbb;
+}
+.map-view-node-tooltip .computing-time > .node > .content {
+    border-color: #696d9f;
+}
+.map-view-node-tooltip .solar-calendars > .node > .content {
+    border-color: #966a6a;
+}
+.map-view-node-tooltip .lunisolar-calendars > .node > .content {
+    border-color: #6f986a;
+}
+.map-view-node-tooltip .decimal-time > .node > .content {
+    border-color: #896a98;
+}
+.map-view-node-tooltip .other-time > .node > .content {
+    border-color: #98866a;
+}
+.map-view-node-tooltip .lunar-calendars > .node > .content {
+    border-color: #7c6a98;
+}
+.map-view-node-tooltip .solilunar-calendars > .node > .content {
+    border-color: #986a6a;
+}
+.map-view-node-tooltip .proposed-calendars > .node > .content {
+    border-color: #876a96;
+}
+.map-view-node-tooltip .other-calendars > .node > .content {
+    border-color: #716a96;
+}
+.map-view-node-tooltip .astronomical-data > .node > .content {
+    border-color: #6a9698;
+}
+.map-view-node-tooltip .pop-culture > .node > .content {
+    border-color: #95986a;
+}
+.map-view-node-tooltip .politics > .node > .content {
+    border-color: #986a6a;
+}
+
+.mac-chrome-only .map-view-node-tooltip .container > .node > .content {
+    font-size: 1.4vh;
 }
 
 @media (max-width: 1024px) {
@@ -363,5 +526,12 @@
         flex-shrink: 0;
         height: 50vh;
         height: 50dvh;
+    }
+
+    /* Larger tap targets on narrow viewports (desktop map uses smaller min size to reduce hover overlap). */
+    .map-view-marker-btn {
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        padding: 2px;
     }
 }

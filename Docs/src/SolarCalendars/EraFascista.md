@@ -1,8 +1,8 @@
 # Era Fascista (CET)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 28 October 1922 CE +23:00:00 | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 28 October 1922 CE +23:00:00 | Exact      | Rome |
 
 #### Overview
 

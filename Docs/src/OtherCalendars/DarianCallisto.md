@@ -1,8 +1,8 @@
 # Darian (Callisto)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 17 March 1609 +20:57:24     | High       |
+| 17 March 1609 +20:57:24 | High |
 
 #### Overview
 

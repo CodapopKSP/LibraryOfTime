@@ -1,8 +1,8 @@
 # Gregorian
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 1 January 1 CE    | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1 CE    | Exact      | Rome |
 
 #### Overview
 

@@ -1,6 +1,6 @@
 # Goldstine Lunation Number
 
-| Epoch              | Confidence |
+| Epoch | Confidence |
 | ------------------ | ---------- |
 | 11 January 1000 BCE | Exact |
 

@@ -1,8 +1,8 @@
 # Florentine (CET)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 22 March 1 CE, +17:00:00    | High       |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 22 March 1 CE, +17:00:00    | High       | Florence |
 
 #### Overview
 

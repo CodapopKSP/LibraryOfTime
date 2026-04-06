@@ -1,8 +1,8 @@
 # ΔT
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 1 January 1901 CE | High       |
+| 1 January 1901 CE | High |
 
 #### Overview
 

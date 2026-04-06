@@ -1,8 +1,8 @@
 # Darian (Europa)
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 12 March 1609 +01:19:41     | High       |
+| 12 March 1609 +01:19:41 | High |
 
 #### Overview
 

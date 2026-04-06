@@ -1,8 +1,8 @@
 # Baháʼí (IRST)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 19 March 1844 CE +14:30:00  | High       |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 19 March 1844 CE +14:30:00  | High       | Tehran |
 
 #### Overview
 

@@ -1,8 +1,8 @@
 # Julian Sol Number
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 11 March 1609 CE, +18:40:06 | High       |
+| 11 March 1609 CE, +18:40:06 | High |
 
 #### Overview
 

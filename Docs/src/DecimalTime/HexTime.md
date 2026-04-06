@@ -1,8 +1,8 @@
 # Hexadecimal
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Midnight          | Exact      |
+| Midnight | Exact |
 
 #### Overview
 

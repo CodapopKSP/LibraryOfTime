@@ -1,8 +1,8 @@
 # Kali Ahargaṅa (IST)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 23 January 3101 BCE +18:30:00 | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 23 January 3101 BCE +18:30:00 | Exact      | Ujjain |
 
 #### Overview
 

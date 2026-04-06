@@ -1,8 +1,8 @@
 # Tabot (EST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 2 November 1930   | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 2 November 1930   | Exact      | Kingston, Jamaica |
 
 #### Overview
 

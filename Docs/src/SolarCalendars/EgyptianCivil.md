@@ -1,8 +1,8 @@
 # Egyptian Civil (EET)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 26 June 2781 BCE +22:00:00   | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 26 June 2781 BCE +22:00:00   | Exact      | Cairo |
 
 #### Overview
 

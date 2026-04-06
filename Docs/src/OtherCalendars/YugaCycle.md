@@ -1,8 +1,8 @@
 # Yuga Cycle (IST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 3,891,102 BCE     | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 3,891,102 BCE     | Exact      | Ujjain |
 
 #### Overview
 

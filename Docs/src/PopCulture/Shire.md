@@ -1,8 +1,8 @@
 # Shire (UTC)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 15 December 523 CE  | High       |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 15 December 523 CE  | High       | London |
 
 #### Overview
 

@@ -1,8 +1,8 @@
 # .beat (BMT)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| Midnight (BMT)    | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| Midnight (BMT)    | Exact      | Biel/Bienne, Switzerland |
 
 #### Overview
 

@@ -1,8 +1,8 @@
 # Pisan (CET)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 22 March 0 BCE, +23:00:00   | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 22 March 0 BCE, +23:00:00   | Exact      | Pisa |
 
 #### Overview
 

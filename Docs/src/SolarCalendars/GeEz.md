@@ -1,8 +1,8 @@
 # Ge'ez (EAT)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 26 August 8 CE +21:00:00     | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 26 August 8 CE +21:00:00     | Exact      | Addis Ababa |
 
 #### Overview
 

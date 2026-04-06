@@ -1,8 +1,8 @@
 # This Month's Last Quarter Moon
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Last Quarter Moon  | High       |
+| Last Quarter Moon | High |
 
 #### Overview
 

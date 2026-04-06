@@ -1,8 +1,8 @@
 # Qadimi (IRST)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 19 June 632, +2:30:00        | High       |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 19 June 632, +2:30:00        | High       | Yazd |
 
 #### Overview
 

@@ -1,8 +1,8 @@
 # Julian Day Number
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 24 November 4713 BCE, +12:00:00 | Exact      |
+| 24 November 4713 BCE, +12:00:00 | Exact |
 
 #### Overview
 

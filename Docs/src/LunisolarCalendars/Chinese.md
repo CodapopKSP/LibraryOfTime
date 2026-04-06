@@ -1,8 +1,8 @@
 # Chinese (CST)
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 30 January 2697 BCE +16:00:00 | Medium      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 30 January 2697 BCE +16:00:00 | Medium      | Beijing |
 
 #### Overview
 

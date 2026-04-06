@@ -1,8 +1,8 @@
 # Dream Time
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Midnight          | Exact       |
+| Midnight | Exact |
 
 #### Overview
 

@@ -1,8 +1,8 @@
 # Europa Meridian Time
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 2 January 2002 +17:12:57 | High       |
+| 2 January 2002 +17:12:57 | High |
 
 #### Overview
 

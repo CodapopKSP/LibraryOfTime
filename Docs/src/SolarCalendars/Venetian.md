@@ -1,8 +1,8 @@
 # Venetian (CET)
 
-| Epoch                        | Confidence |
-| ---------------------------- | ---------- |
-| 26 February 1 CE, +23:00:00 | Exact      |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 26 February 1 CE, +23:00:00 | Exact      | Venice |
 
 #### Overview
 

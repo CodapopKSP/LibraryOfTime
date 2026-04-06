@@ -1,8 +1,8 @@
 # Julian Period
 
-| Epoch                        | Confidence |
+| Epoch | Confidence |
 | ---------------------------- | ---------- |
-| 24 November 4713 BCE, +12:00:00 | High      |
+| 24 November 4713 BCE, +12:00:00 | High |
 
 #### Overview
 

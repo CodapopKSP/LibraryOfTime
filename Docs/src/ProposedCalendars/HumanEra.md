@@ -1,8 +1,8 @@
 # Human Era
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| 1 January 9999 BCE | Exact       |
+| 1 January 9999 BCE | Exact |
 
 #### Overview
 

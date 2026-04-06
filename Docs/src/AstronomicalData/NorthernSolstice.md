@@ -1,8 +1,8 @@
 # Northern Solstice
 
-| Epoch             | Confidence |
+| Epoch | Confidence |
 | ----------------- | ---------- |
-| Northern Solstice | High       |
+| Northern Solstice | High |
 
 #### Overview
 

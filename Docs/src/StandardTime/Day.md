@@ -1,8 +1,8 @@
 # Day
 
-| Epoch     | Confidence |
+| Epoch | Confidence |
 | --------- | ---------- |
-| Every Day | Exact      |
+| Every Day | Exact |
 
 #### Overview
 

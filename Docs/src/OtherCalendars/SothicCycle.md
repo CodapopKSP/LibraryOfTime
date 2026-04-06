@@ -1,8 +1,8 @@
 # Sothic Cycle
 
-| Epoch             | Confidence |
-| ----------------- | ---------- |
-| 27 June 2781 BCE  | Exact      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 27 June 2781 BCE  | Exact      | Cairo |
 
 #### Overview
 
