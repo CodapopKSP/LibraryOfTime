@@ -93,6 +93,7 @@ When adding **month names**, **weekday names**, or similar reference material:
 5. **Upgrading stubs later**:
    - When the user asks to “implement”, “fill out”, or otherwise replace a stubbed main function (for example, a Babylonian lunisolar calendar stub that currently returns `"TODO: implement …"`), treat that request as **explicit permission** to change the function’s behavior.
    - In that case, overwrite the stub in place, keeping the same public signature where possible, and apply `calendar-math` and `calendar-conventions` (anchor dates, timezone handling, helpers, etc.) for the real implementation.
+   - **Do not invent display fields:** Only include components in `output` and in return-object fields (`year`, `month`, etc.) that the user or docs specified. If no calendar year label was requested, keep `year: null` and do not append a year to the main display string.
 
 ---
 

@@ -1195,3 +1195,45 @@ function getMandaeanDate(currentDateTime, _timezoneOffset) {
     const output = aaEpochName == null ? dateAndWeekAndSeason : `${dateAndWeekAndSeason}\n${aaEpochName}`;
     return { output, day, month: monthIndex, year: aaYear, dayOfWeek, other };
 }
+
+// --- Igbo (solar; WAT) ---
+// Thirteen months of four-day weeks (Eke → Orie → Afo → Nkwo), seven weeks per month
+// (28 days), plus one extra day at the end of the thirteenth month (365-day year).
+// Epoch: 18 February 2012, 00:00 WAT, was Ọnwa Mbụ day 1 and Nkwo (Library convention).
+// Weekday uses a continuous count from that instant (not day-of-Igbo-year), so the four-day
+// cycle does not reset at Igbo New Year.
+const IGBO_TZ = 'UTC+01:00';
+const IGBO_YEAR_DAYS = 365;
+const IGBO_MONTH_DAYS = 28;
+const IGBO_DAYS_FIRST_TWELVE_MONTHS = 12 * IGBO_MONTH_DAYS;
+const IGBO_EPOCH_YEAR = 2012; // Gregorian date of year start; no calendar year label in output unless specified.
+const IGBO_FIRST_DAY_OF_YEAR_WEEKDAY = 3; // Nkwo (0 = Eke, 1 = Orie, 2 = Afo, 3 = Nkwo)
+const IGBO_MONTHS = [
+    'Ọnwa Mbụ', 'Ọnwa Abụọ', 'Ọnwa Ife Eke', 'Ọnwa Anọ', 'Ọnwa Agwụ',
+    'Ọnwa Ifejiọkụ', 'Ọnwa Alọm Chi', 'Ọnwa Ilọ Mmụọ', 'Ọnwa Ana',
+    'Ọnwa Okike', 'Ọnwa Ajana', 'Ọnwa Ede Ajana', 'Ọnwa Ụzọ Alụsị'
+];
+const IGBO_WEEK = ['Eke', 'Orie', 'Afo', 'Nkwo'];
+
+function getIgboDate(currentDateTime, _timezoneOffset) {
+    const epoch = createAdjustedDateTime({ timezone: IGBO_TZ, year: IGBO_EPOCH_YEAR, month: 2, day: 18, hour: 'MIDNIGHT' });
+    const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, epoch));
+    const yearOffset = Math.floor(daysSinceEpoch / IGBO_YEAR_DAYS);
+    const doy0 = daysSinceEpoch - yearOffset * IGBO_YEAR_DAYS;
+
+    let monthIndex0;
+    let day;
+    if (doy0 < IGBO_DAYS_FIRST_TWELVE_MONTHS) {
+        monthIndex0 = Math.floor(doy0 / IGBO_MONTH_DAYS);
+        day = (doy0 % IGBO_MONTH_DAYS) + 1;
+    } else {
+        monthIndex0 = 12;
+        day = doy0 - IGBO_DAYS_FIRST_TWELVE_MONTHS + 1;
+    }
+
+    const monthName = IGBO_MONTHS[monthIndex0];
+    const igboWeekdayIndex = ((IGBO_FIRST_DAY_OF_YEAR_WEEKDAY + daysSinceEpoch) % 4 + 4) % 4;
+    const weekdayName = IGBO_WEEK[igboWeekdayIndex];
+    const output = `${day} ${monthName}\n${weekdayName}`;
+    return { output, day, month: monthIndex0, year: null, dayOfWeek: igboWeekdayIndex, other: {} };
+}

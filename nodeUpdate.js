@@ -129,6 +129,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('qadimi-node', out(getQadimiDate(currentDateTime)));
     setTimeValue('egyptian-civil-node', out(getEgyptianDate(currentDateTime)));
     setTimeValue('mandaean-node', out(getMandaeanDate(currentDateTime)));
+    setTimeValue('igbo-node', out(getIgboDate(currentDateTime, timezoneOffset)));
     setTimeValue('iso-week-date-node', out(getISOWeekDate(currentDateTime, timezoneOffset)));
     setTimeValue('haab-node', out(getHaabDate(currentDateTime)));
     setTimeValue('anno-lucis-node', out(getAnnoLucisDate(currentDateTime, timezoneOffset)));

@@ -14,7 +14,11 @@ Use this skill whenever you:
 
 ## Core date/time conventions
 
-1. **Year numbering and BCE**
+1. **Display and return shape vs. user intent**
+   - Many main functions return `{ output, day, month, year, dayOfWeek, other }`. **Populate only what the specification or user request describes.** If they did not ask for a calendar year label, keep `year: null` and omit a year from `output` (do not infer CE counts, “proleptic year numbers,” or similar unless asked).
+   - Internal math may still use anchor Gregorian years for epoch math; that does not require exposing a year in the UI string or in `year`.
+
+2. **Year numbering and BCE**
    - The project uses **Gregorian proleptic dates with a real year 0**.
    - That means:
      - `... 2 BCE, 1 BCE, 1 CE ...` becomes `... -2, -1, 1 ...` (year 0 sits between 1 BCE and 1 CE).
@@ -22,7 +26,7 @@ Use this skill whenever you:
        - Example: “385 BCE” → `-385`, not `-384`.
    - When a user gives a BCE year in prose (e.g. “sunset on 15 April 385 BCE, UTC+3”), **use that numeric year directly with a leading minus** and do not shift it by ±1.
 
-2. **Prefer `createAdjustedDateTime` over raw `Date` construction**
+3. **Prefer `createAdjustedDateTime` over raw `Date` construction**
    - Use `createAdjustedDateTime` for any logic that depends on:
      - Specific years, months, days in historical ranges.
      - Non-UTC local timezones (e.g., Egyptian calendars in Egypt’s local time).
@@ -32,21 +36,21 @@ Use this skill whenever you:
      - Months are 0–11 instead of 1–12.
      - Timezone handling is implicit and easy to get wrong.
 
-2. **Always think in terms of an explicit epoch / anchor date**
+4. **Always think in terms of an explicit epoch / anchor date**
    - For each system, define a clear **anchor Gregorian date in the appropriate local timezone** (not an abstract JDN by default).
    - Implement conversions as offsets from that anchor:
      - Calendar date → days/seconds offset from anchor → Gregorian in local time.
      - Gregorian in local time → offset from anchor → calendar date.
    - Keep epochs and anchor choices documented near the code that uses them.
 
-3. **Timezone handling**
+5. **Timezone handling**
    - Use UTC-style offset strings like `UTC+02:00` and convert them with `convertUTCOffsetToMinutes`.
    - When you need a “local” view of a moment in a given timezone:
      - Start from a UTC-based `Date`.
      - Use `createAdjustedDateTime` or `createFauxUTCDate` with the appropriate offset.
    - Avoid relying on the host environment’s local timezone.
 
-4. **Day-boundary logic**
+6. **Day-boundary logic**
    - When a calendar defines the “start of day” as something other than local midnight (e.g., sunrise or sunset):
      - Use `getWeekdayAtTime(currentDateTime, afterTime, timezone)` with hour enums (`SUNRISE`, `SUNSET`, etc.) to compute the **effective weekday index only** (0–6).
      - Compute the **day count and calendar date** separately using anchor dates and `differenceInDays`, as in the existing Coptic, Ethiopian, Baháʼí, Solar Hijri, Qadimi, and Hebrew implementations.

@@ -12,7 +12,7 @@ It features 12 months of 30 days, plus a period of 5 days at the end of each yea
 
 Years are denoted with 'Y.Z.' for the 'Yazdegerdi era', a count of years since the accession of the last Sassanid ruler, Yazdegerd III, but there have been several epochs used in the past.
 
-Compared to the Gregorian calendar, the Qadimi calendar drifts by about 1 day every 3 years.
+Compared to the Gregorian calendar, the Qadimi calendar drifts by about 1 day every 4 years.
 
 #### Info
 

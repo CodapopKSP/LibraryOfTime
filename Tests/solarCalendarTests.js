@@ -351,6 +351,16 @@ function testSCACalendar() {
     ]);
 }
 
+function testIgboCalendar() {
+    return runSolarTests("Igbo Calendar", getIgboDate, [
+        ["2026-4-7, 12:00:00", "UTC+01:00", "25 Ọnwa Abụọ\nOrie"],
+        ["2012-2-17, 12:00:00", "UTC+01:00", "29 Ọnwa Ụzọ Alụsị\nAfo"],
+        ["2012-2-18, 00:00:00", "UTC+01:00", "1 Ọnwa Mbụ\nNkwo"],
+        ["2013-2-16, 12:00:00", "UTC+01:00", "29 Ọnwa Ụzọ Alụsị\nNkwo"],
+        ["2013-2-17, 00:00:00", "UTC+01:00", "1 Ọnwa Mbụ\nEke"],
+    ]);
+}
+
 function testMandaeanCalendar() {
     // LRM (\u200E) before day and year keeps day–month–year order stable with Mandaic script.
     return runSolarTests("Mandaean Calendar", getMandaeanDate, [
@@ -395,6 +405,7 @@ function runSolarCalendarTests() {
         testSakaSamvatCalendar,
         testSCACalendar,
         testMandaeanCalendar,
+        testIgboCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

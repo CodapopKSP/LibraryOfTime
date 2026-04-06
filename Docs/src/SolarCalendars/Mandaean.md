@@ -1,4 +1,4 @@
-# Mandaean
+# Mandaean (AST)
 
 | Epoch | Confidence | Associated with |
 | ----- | ---------- | --------------- |

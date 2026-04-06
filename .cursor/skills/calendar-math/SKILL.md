@@ -33,6 +33,7 @@ Follow this end-to-end workflow for each calendar or timekeeping feature:
    - Decide how this calendar will:
      - Represent dates internally (e.g., year/month/day, cycle indices).
      - Convert to and from a stable baseline such as an **anchor Gregorian date in the appropriate local timezone**, or other existing Library of Time primitives.
+   - **User-specified output only:** Put in the formatted `output` string and in structured fields (`year`, `month`, `day`, `other`, etc.) only what the user or project docs explicitly asked for. Do **not** add era labels, year numbers, or other metadata because other calendars include them or because it “seems useful.” If a stub returns `year: null` and the user did not request a year label, keep `year: null` and omit the year from `output`.
    - Keep the API consistent with existing patterns in this layer (e.g., functions like `toGregorian`, `fromGregorian`, `isLeapYear`).
    - When choosing an algorithmic pattern (e.g., anchor-epoch, equinox-based, JDN-based, or cycle-based), refer to the `calendar-patterns` skill for concrete examples from the existing codebase.
 

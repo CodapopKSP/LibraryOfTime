@@ -134,7 +134,9 @@
   
   - [Saka Samvat (IST)](SolarCalendars/SakaSamvat.md)
 
-  - [Mandaean](SolarCalendars/Mandaean.md)
+  - [Mandaean (AST)](SolarCalendars/Mandaean.md)
+
+  - [Igbo (WAT)](SolarCalendars/Igbo.md)
 
 - [Other Calendars](OtherCalendars/OtherCalendars.md)
   

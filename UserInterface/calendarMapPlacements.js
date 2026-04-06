@@ -55,6 +55,7 @@
         geneva: { x: 0.4885, y: 0.22, label: 'Geneva, Switzerland' },
         'cambridge-ma': { x: 0.295, y: 0.24, label: 'Cambridge, MA, USA' },
         'biel-bienne': { x: 0.492, y: 0.215, label: 'Biel/Bienne, Switzerland' },
+        onitsha: { x: 0.489, y: 0.465, label: 'Onitsha, Nigeria' },
     };
 
     /**
@@ -80,6 +81,7 @@
         qadimi: 'yazd',
         'egyptian-civil': 'cairo',
         mandaean: 'nasiriyah',
+        igbo: 'onitsha',
         haab: 'chichen-itza',
         'anno-lucis': 'london',
         tabot: 'kingston-jamaica',

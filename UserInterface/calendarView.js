@@ -47,6 +47,7 @@ function buildNodeValueGetters(tzOffset) {
         'solar-hijri': function (dt) { var seq = typeof getSolsticeEquinox === 'function' ? getSolsticeEquinox(dt, 'SPRING') : null; return typeof getSolarHijriDate === 'function' && seq ? getSolarHijriDate(dt, seq) : ''; },
         'qadimi': function (dt) { return typeof getQadimiDate === 'function' ? getQadimiDate(dt) : ''; },
         'mandaean': function (dt) { return typeof getMandaeanDate === 'function' ? getMandaeanDate(dt) : ''; },
+        'igbo': function (dt) { return typeof getIgboDate === 'function' ? getIgboDate(dt, offset) : ''; },
         'egyptian-civil': function (dt) { return typeof getEgyptianDate === 'function' ? getEgyptianDate(dt) : ''; },
         'iso-week-date': function (dt) { return typeof getISOWeekDate === 'function' ? getISOWeekDate(dt, offset) : ''; },
         'haab': function (dt) { return typeof getHaabDate === 'function' ? getHaabDate(dt) : ''; },
