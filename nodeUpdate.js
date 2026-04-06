@@ -81,8 +81,10 @@ function setTimeValue(type, value) {
         originalNode.textContent = value;
     }
 
-    // Update cloned nodes, if any
-    const clonedNodes = document.querySelectorAll(`.grid-item .${type}`);
+    // Update cloned nodes (floating panel + map view tooltips), if any
+    const clonedNodes = document.querySelectorAll(
+        `.grid-item .${type}, #map-view-node-tooltip .${type}, #map-view-hover-tooltip .${type}`
+    );
     clonedNodes.forEach(clonedNode => {
         clonedNode.textContent = value;
     });

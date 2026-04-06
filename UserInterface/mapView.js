@@ -934,6 +934,11 @@
 
             var clone = nodeEl.cloneNode(true);
             stripIdsFromSubtree(clone);
+            var clonedContent = clone.querySelector('.content');
+            if (clonedContent) {
+                clonedContent.classList.add(item.id + '-node');
+                clonedContent.classList.remove('hover', 'active', 'clicking');
+            }
             wrap.appendChild(clone);
             tip.appendChild(wrap);
             added++;
