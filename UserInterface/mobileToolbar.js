@@ -44,7 +44,9 @@
     }
 
     function syncMobileDescriptionUi() {
-        /* About is always enabled; reserved for future mobile description UI sync if needed. */
+        if (typeof window.syncDescriptionPanelPrimaryActions === "function") {
+            window.syncDescriptionPanelPrimaryActions();
+        }
     }
 
     window.syncMobileDescriptionUi = syncMobileDescriptionUi;
@@ -253,7 +255,12 @@
                     "mobile-ui-calendar-open"
                 );
             } else {
-                setTimeout(relayoutNodes, 100);
+                setTimeout(function () {
+                    relayoutNodes();
+                    if (typeof window.syncDescriptionPanelPrimaryActions === "function") {
+                        window.syncDescriptionPanelPrimaryActions();
+                    }
+                }, 100);
             }
         }
         if (typeof mql.addEventListener === "function") {

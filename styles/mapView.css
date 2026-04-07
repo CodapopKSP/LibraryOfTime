@@ -51,17 +51,27 @@
 }
 
 .map-view-top-bar--with-controls {
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .map-view-reset-btn {
-    padding: 0.35vh 0.9vh;
-    font-size: 1.1vh;
-    line-height: 1.2;
+    position: absolute;
+    z-index: 16;
+    top: 0.9rem;
+    left: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    /* Match .map-view-type-filter-btn height (30px icon + vertical padding + borders; see MAP_FILTER_BAR_ICON_PX). */
+    min-height: calc(30px + 0.52rem + 2px);
+    padding: 0.26rem 0.65rem;
+    font-size: 0.86rem;
+    line-height: 1.1;
     color: var(--ui-text-muted);
-    background-color: var(--ui-elevated-bg2);
+    background-color: color-mix(in srgb, var(--ui-elevated-bg2) 88%, #000 12%);
     border: 1px solid var(--ui-border);
-    border-radius: 0.25vh;
+    border-radius: 0.45rem;
     cursor: pointer;
     font-family: inherit;
 }
@@ -70,9 +80,26 @@
     background-color: var(--ui-elevated-bg);
 }
 
+/* Mac Chrome: UI text runs larger — keep these controls slightly tighter than default. */
 .mac-chrome-only .map-view-reset-btn {
-    font-size: 1.65vh;
-    padding: 0.44vh 1.1vh;
+    font-size: 0.82rem;
+    min-height: calc(26px + 0.4rem + 2px);
+    padding: 0.2rem 0.55rem;
+}
+
+.mac-chrome-only .map-view-type-filters {
+    gap: 0.4rem;
+}
+
+.mac-chrome-only .map-view-type-filter-btn {
+    min-width: 2rem;
+    min-height: 2rem;
+    padding: 0.2rem;
+}
+
+.mac-chrome-only .map-view-type-filter-btn .map-view-type-icon-svg {
+    width: 26px !important;
+    height: 26px !important;
 }
 
 .mac-chrome-only .map-view-top-bar {
@@ -82,6 +109,69 @@
 
 .map-view-top-bar .floating-panel-close {
     flex-shrink: 0;
+}
+
+.map-view-type-filters {
+    position: absolute;
+    z-index: 16;
+    top: 0.9rem;
+    right: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    max-width: min(56vw, 44rem);
+    pointer-events: auto;
+}
+
+.map-view-type-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0.26rem;
+    margin: 0;
+    border: 1px solid var(--ui-border);
+    border-radius: 0.45rem;
+    background-color: color-mix(in srgb, var(--ui-elevated-bg2) 88%, #000 12%);
+    cursor: pointer;
+    font-family: inherit;
+    line-height: 0;
+}
+
+.map-view-type-filter-btn:hover {
+    background-color: var(--ui-elevated-bg);
+}
+
+.map-view-type-filter-btn:focus-visible {
+    outline: 2px solid var(--ui-text-muted, currentColor);
+    outline-offset: 2px;
+}
+
+.map-view-type-filter-btn--on {
+    opacity: 1;
+    filter: none;
+}
+
+.map-view-type-filter-btn--off {
+    opacity: 0.42;
+    filter: grayscale(1);
+}
+
+/* Keep icon outlines visible on in-map type filter buttons (same treatment as marker icons). */
+.map-view-type-filter-btn .map-view-marker-icon-outline {
+    stroke: var(--map-node-border, rgba(0, 0, 0, 0.45));
+    stroke-width: 4;
+    paint-order: stroke fill;
+    vector-effect: non-scaling-stroke;
+}
+
+.map-view-type-filter-btn:hover .map-view-marker-icon-outline,
+.map-view-type-filter-btn:focus-visible .map-view-marker-icon-outline {
+    stroke: color-mix(in srgb, var(--map-node-border, rgba(0, 0, 0, 0.45)) 70%, #ffffff 30%);
 }
 
 .map-view-body-scroll {
@@ -107,6 +197,13 @@
     -webkit-user-select: none;
     /* Inset for tooltip from map edges (left, bottom, and symmetric max-height cap). */
     --map-tooltip-inset: 8px;
+    /* Fixed tooltip width (long lines wrap); tuned per breakpoint — adjust here or in media / .mac-chrome-only. */
+    --map-tooltip-width: 20rem;
+}
+
+.mac-chrome-only .map-view-pan-viewport {
+    /* Slightly wider than default desktop so bumped Mac Chrome type sizes stay comfortable. */
+    --map-tooltip-width: 15rem;
 }
 
 .map-view-pan-viewport.map-view-pan-viewport--dragging {
@@ -343,10 +440,13 @@
     bottom: var(--map-tooltip-inset);
     top: auto;
     box-sizing: border-box;
-    max-width: min(24rem, calc(100% - 2 * var(--map-tooltip-inset)));
+    width: min(var(--map-tooltip-width), calc(100% - 2 * var(--map-tooltip-inset)));
+    max-width: min(var(--map-tooltip-width), calc(100% - 2 * var(--map-tooltip-inset)));
     max-height: calc(100% - 2 * var(--map-tooltip-inset));
     overflow-x: hidden;
     overflow-y: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     /* Inner padding (placement vs map edges is set in JS). */
@@ -394,6 +494,8 @@
     padding-bottom: 0.55vh;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(245, 245, 245, 0.95);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .mac-chrome-only .map-view-node-tooltip .map-view-tooltip-city-label {
@@ -454,6 +556,12 @@
     padding: 0;
     letter-spacing: 0.02em;
     opacity: 0.92;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.mac-chrome-only .map-view-node-tooltip .node > label {
+    font-weight: 500;
 }
 
 /* Single value surface — same body size as main-grid .content; border colors match styles/nodes.css per section */
@@ -470,6 +578,8 @@
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .map-view-node-tooltip .standard-time > .node > .content {
@@ -525,8 +635,13 @@
     /* Tall viewport: min zoom letterboxes (often top/bottom) until the user zooms; sizeMapViewportHeightToFit skips inline height */
     .map-view-pan-viewport {
         flex-shrink: 0;
-        height: 50vh;
-        height: 50dvh;
+        height: 75vh;
+        height: 75dvh;
+        --map-tooltip-width: 15rem;
+    }
+
+    .mac-chrome-only .map-view-pan-viewport {
+        --map-tooltip-width: 16rem;
     }
 
     /* Larger tap targets on narrow viewports (desktop map uses smaller min size to reduce hover overlap). */
@@ -534,5 +649,65 @@
         min-width: 2.75rem;
         min-height: 2.75rem;
         padding: 2px;
+    }
+
+    .map-view-type-filters {
+        left: 0.65rem;
+        right: 0.65rem;
+        top: 0.65rem;
+        max-width: none;
+        display: grid;
+        grid-template-columns: repeat(9, minmax(0, 1fr));
+        gap: 0.12rem;
+        align-items: start;
+        overflow: hidden;
+    }
+
+    .map-view-reset-btn {
+        top: auto;
+        left: auto;
+        right: 0.65rem;
+        bottom: 0.65rem;
+        min-height: 2.55rem;
+        padding: 0.29rem 0.75rem;
+    }
+
+    .mac-chrome-only .map-view-reset-btn {
+        min-height: 2.35rem;
+        padding: 0.24rem 0.6rem;
+        font-size: 0.82rem;
+    }
+
+    .map-view-type-filter-btn {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        min-width: 0;
+        min-height: 0;
+        padding: 0.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .map-view-type-filter-btn .map-view-type-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Shrink icons to fit the row — JS sets fixed px; override so nine buttons fit with no scroll. */
+    .map-view-type-filter-btn .map-view-type-icon-svg {
+        width: 72% !important;
+        height: 72% !important;
+        max-width: 100%;
+        aspect-ratio: 1 / 1;
+    }
+
+    .mac-chrome-only .map-view-type-filter-btn .map-view-type-icon-svg {
+        width: 64% !important;
+        height: 64% !important;
     }
 }

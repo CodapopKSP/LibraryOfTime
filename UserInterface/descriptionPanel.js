@@ -6,13 +6,23 @@
     This is a collection of functions for drawing and handling the Description Panel.
 */
 
-// Add event listeners for home button and title button
+// Add event listeners for desktop description actions and title button
 document.getElementById('desktop-home-button').addEventListener('click', homeButton);
+document.getElementById('desktop-calendar-button').addEventListener('click', openSelectedNodeInCalendarView);
+document.getElementById('desktop-map-button').addEventListener('click', openSelectedNodeInMapView);
 document.getElementById('title-button').addEventListener('click', titleButtonClick);
 
 const mobileDescriptionDismiss = document.getElementById('mobile-description-dismiss');
 if (mobileDescriptionDismiss) {
     mobileDescriptionDismiss.addEventListener('click', mobileDescriptionDismissClick);
+}
+const mobileDescriptionCalendar = document.getElementById('mobile-description-calendar');
+if (mobileDescriptionCalendar) {
+    mobileDescriptionCalendar.addEventListener('click', openSelectedNodeInCalendarView);
+}
+const mobileDescriptionMap = document.getElementById('mobile-description-map');
+if (mobileDescriptionMap) {
+    mobileDescriptionMap.addEventListener('click', openSelectedNodeInMapView);
 }
 
 // Attach event listeners to all header buttons
@@ -54,15 +64,87 @@ function addHeaderTabHoverEffect() {
 }
 
 function addHomeButtonHoverEffect() {
-    const desktopHomeButton = document.getElementById('desktop-home-button');
+    const desktopButtons = document.querySelectorAll('#desktop-home-button, #desktop-calendar-button, #desktop-map-button');
+    desktopButtons.forEach((button) => {
+        button.addEventListener('mouseenter', () => {
+            button.classList.add('hoveringHome');
+        });
+        button.addEventListener('mouseleave', () => {
+            button.classList.remove('hoveringHome');
+        });
+    });
+}
 
-    // Add hover event listeners for desktop home button
-    desktopHomeButton.addEventListener('mouseenter', () => {
-        desktopHomeButton.classList.add('hoveringHome');
-    });
-    desktopHomeButton.addEventListener('mouseleave', () => {
-        desktopHomeButton.classList.remove('hoveringHome');
-    });
+function getDesktopDescriptionActions() {
+    return document.getElementById('desktop-description-actions');
+}
+
+function isNodeShownOnMap(item) {
+    if (!item || !item.id) {
+        return false;
+    }
+    const associatedWith = typeof item.associatedWith === 'string' ? item.associatedWith.trim() : '';
+    if (!associatedWith) {
+        return false;
+    }
+    const placements = window.calendarMapPlacements;
+    return !!(placements && placements[item.id]);
+}
+
+/**
+ * Desktop: map button visibility + 2/3-column row. Mobile: Calendar/Map only when a grid node is selected; Map only if on map.
+ * @param {object|null|undefined} item Pass null after clearing selection; omit to use current `selectedNodeData`.
+ */
+function syncDescriptionPanelPrimaryActions(item) {
+    if (item === undefined && typeof selectedNodeData !== 'undefined') {
+        item = selectedNodeData;
+    }
+    const actionsWrap = getDesktopDescriptionActions();
+    const mapButton = document.getElementById('desktop-map-button');
+    if (actionsWrap && mapButton) {
+        const showMap = !!(item && isNodeShownOnMap(item));
+        mapButton.hidden = !showMap;
+        mapButton.setAttribute('aria-hidden', showMap ? 'false' : 'true');
+        actionsWrap.classList.toggle('desktop-description-actions--two-buttons', !!(item && !showMap));
+    }
+    const mobileWrap = document.getElementById('mobile-description-actions');
+    const mobileCal = document.getElementById('mobile-description-calendar');
+    const mobileMap = document.getElementById('mobile-description-map');
+    if (mobileWrap && mobileCal && mobileMap) {
+        const hasNode = !!(item && item.id);
+        const showMap = hasNode && isNodeShownOnMap(item);
+        mobileCal.hidden = !hasNode;
+        mobileCal.setAttribute('aria-hidden', hasNode ? 'false' : 'true');
+        mobileMap.hidden = !showMap;
+        mobileMap.setAttribute('aria-hidden', showMap ? 'false' : 'true');
+        mobileWrap.classList.toggle('mobile-description-actions--two-buttons', hasNode && !showMap);
+    }
+}
+
+window.syncDescriptionPanelPrimaryActions = syncDescriptionPanelPrimaryActions;
+
+function openSelectedNodeInCalendarView() {
+    if (typeof selectedNodeData === 'undefined' || !selectedNodeData || !selectedNodeData.id) {
+        return;
+    }
+    if (typeof syncCalendarViewDisplayFromMainSelection === 'function') {
+        syncCalendarViewDisplayFromMainSelection(selectedNodeData.id);
+    }
+    if (typeof openCalendarView === 'function') {
+        openCalendarView();
+    }
+}
+
+function openSelectedNodeInMapView() {
+    if (typeof selectedNodeData === 'undefined' || !selectedNodeData || !selectedNodeData.id) {
+        return;
+    }
+    if (!isNodeShownOnMap(selectedNodeData)) {
+        return;
+    }
+    if (typeof window.openMapViewForNodeId === 'function') {
+        window.openMapViewForNodeId(selectedNodeData.id, { resetPanZoom: true });
+    }
 }
 
 // Create descriptions for Home Page tabs
@@ -677,9 +759,9 @@ function fillHomeDescriptionPanelContent() {
 function showHomeIntroductionInDescriptionPanel() {
     clearDescriptionPanel();
     fillHomeDescriptionPanelContent();
-    const desktopHomeButton = document.getElementById('desktop-home-button');
-    if (typeof window.hasSelectedDescriptionNode !== 'function' || !window.hasSelectedDescriptionNode()) {
-        desktopHomeButton.classList.remove('home-button-visible');
+    const desktopActions = getDesktopDescriptionActions();
+    if (desktopActions && (typeof window.hasSelectedDescriptionNode !== 'function' || !window.hasSelectedDescriptionNode())) {
+        desktopActions.classList.remove('home-button-visible');
     }
     if (typeof window.syncMobileDescriptionUi === 'function') {
         window.syncMobileDescriptionUi();
@@ -709,20 +791,27 @@ function mobileDescriptionDismissClick() {
 function clearMobileDescriptionAndSelection() {
     clearDescriptionPanel();
     clearSelectedNode();
-    const desktopHomeButton = document.getElementById('desktop-home-button');
-    if (desktopHomeButton) {
-        desktopHomeButton.classList.remove('home-button-visible');
+    const desktopActions = getDesktopDescriptionActions();
+    if (desktopActions) {
+        desktopActions.classList.remove('home-button-visible');
     }
     if (typeof window.closeMobileDescriptionSheet === 'function') {
         window.closeMobileDescriptionSheet();
+    }
+    syncDescriptionPanelPrimaryActions(null);
+    if (typeof window.onMobileDescriptionDismissed === 'function') {
+        window.onMobileDescriptionDismissed();
     }
 }
 
 function homeButton() {
     clearDescriptionPanel();
     clearSelectedNode();
-    const desktopHomeButton = document.getElementById('desktop-home-button');
-    desktopHomeButton.classList.remove('home-button-visible');
+    const desktopActions = getDesktopDescriptionActions();
+    if (desktopActions) {
+        desktopActions.classList.remove('home-button-visible');
+    }
+    syncDescriptionPanelPrimaryActions(null);
     fillHomeDescriptionPanelContent();
 }
 

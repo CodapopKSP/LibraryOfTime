@@ -83,12 +83,31 @@
         'Politics': 'politics'
     };
 
+    /**
+     * Toolbar order for Map View type filters (section key + nodeData `type` string for the shared map icon glyph).
+     * @type {Array<{ section: string, type: string, title: string }>}
+     */
+    /** Toolbar: only these types get filter toggles; other sections stay always visible on the map. */
+    var MAP_FILTER_SPECS = [
+        { section: 'standard-time', type: 'Standard Time', title: 'Standard time' },
+        { section: 'computing-time', type: 'Computing Time', title: 'Computing time' },
+        { section: 'decimal-time', type: 'Decimal Time', title: 'Decimal time' },
+        { section: 'solar-calendars', type: 'Solar Calendar', title: 'Solar calendars' },
+        { section: 'lunisolar-calendars', type: 'Lunisolar Calendar', title: 'Lunisolar calendars' },
+        { section: 'lunar-calendars', type: 'Lunar Calendar', title: 'Lunar calendars' },
+        { section: 'solilunar-calendars', type: 'Solilunar Calendar', title: 'Solilunar calendars' },
+        { section: 'other-calendars', type: 'Other Calendar', title: 'Other calendars' },
+        { section: 'pop-culture', type: 'Pop Culture', title: 'Pop culture' }
+    ];
+
     /** Crescent moon only — Lunar, Lunisolar, and Solilunar map markers share this glyph (section color differs via CSS). */
     var MAP_MOON_CRESCENT_PATH =
         '<path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>';
 
     /** Raster size for inline map icons (viewBox stays 0 0 24 24). ~50% larger than original 12px. */
     var MAP_ICON_RENDER_SIZE_PX = 16;
+    /** Larger icons for in-map type filter toggles. */
+    var MAP_FILTER_BAR_ICON_PX = 30;
 
     /** Filled dot — Standard / Computing / Decimal / Other Time share this shape; section color differs via CSS. */
     var MAP_TIME_DOT_SVG = '<circle cx="12" cy="12" r="6.5" fill="currentColor"/>';
@@ -165,15 +184,16 @@
         }
     }
 
-    function appendMapTypeIcon(btn, nodeType) {
+    function appendMapTypeIcon(btn, nodeType, iconSizePx) {
+        var px = typeof iconSizePx === 'number' ? iconSizePx : MAP_ICON_RENDER_SIZE_PX;
         var wrap = document.createElement('span');
         wrap.className = 'map-view-type-icon ' + getMapIconClassForNodeType(nodeType);
         wrap.setAttribute('aria-hidden', 'true');
         var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('class', 'map-view-type-icon-svg');
         svg.setAttribute('viewBox', '0 0 24 24');
-        svg.setAttribute('width', String(MAP_ICON_RENDER_SIZE_PX));
-        svg.setAttribute('height', String(MAP_ICON_RENDER_SIZE_PX));
+        svg.setAttribute('width', String(px));
+        svg.setAttribute('height', String(px));
         svg.setAttribute('focusable', 'false');
         svg.innerHTML = getMapIconSvgInnerForNodeType(nodeType);
         tagMapIconOutlineTargets(svg);
@@ -217,6 +237,23 @@
     var _mapPinnedMarkerBtn = null;
     /** Marker button for the hover tooltip layer (connector line target when hover is visible). */
     var _mapHoverMarkerBtn = null;
+    /** Full placement list before type filtering (same order as first collect). */
+    var _mapAllMarkerEntries = null;
+    /** Section key → visible on map; omitted keys treated as visible until toggled off. */
+    var _mapTypeFilterVisible = {};
+    /** True only after opening a node from map on mobile; dismiss should return to map. */
+    var _mapReturnAfterMobileDescriptionDismiss = false;
+    /** Node ids currently pinned in tooltip (sorted); null when nothing pinned. */
+    var _mapPinnedNodeIds = null;
+    /** Last map state captured on close. */
+    var _mapSavedViewState = {
+        hasView: false,
+        scale: 1,
+        panTx: 0,
+        panTy: 0,
+        typeFilterVisible: {},
+        selectedNodeIds: []
+    };
 
     function applyMapPanZoomTransform() {
         var t = 'translate(' + _mapPanTx + 'px,' + _mapPanTy + 'px) scale(' + _mapScale + ')';
@@ -592,6 +629,14 @@
             if (e.target.closest && e.target.closest('.map-view-marker-btn')) {
                 return;
             }
+            /* In-map type filters should receive normal click/tap events (not start a pan drag). */
+            if (e.target.closest && e.target.closest('.map-view-type-filter-btn, #map-view-type-filters')) {
+                return;
+            }
+            /* In-map reset control should behave like a normal button. */
+            if (e.target.closest && e.target.closest('#map-view-reset')) {
+                return;
+            }
             /* Tooltips sit inside the pan viewport; preventDefault here suppresses the click on cloned nodes. */
             if (e.target.closest && e.target.closest('#map-view-node-tooltip, #map-view-hover-tooltip')) {
                 return;
@@ -742,24 +787,120 @@
 
     function openMapView() {
         closeOtherOverlay();
-        hideMapNodeTooltip();
         var modal = document.getElementById('map-view-modal');
         if (modal) {
             modal.style.display = 'block';
         }
-        resetMapPanZoom();
         requestAnimationFrame(function () {
             requestAnimationFrame(function () {
                 onMapViewportOrContentChanged();
+                restoreSavedMapViewState();
             });
         });
         setMobileMapToolbarActive(true);
+    }
+
+    function findMapMarkerButtonForNodeId(nodeId) {
+        if (!nodeId) {
+            return null;
+        }
+        var markerBtns = document.querySelectorAll('#map-view-markers-sizer .map-view-marker-btn');
+        var i;
+        for (i = 0; i < markerBtns.length; i++) {
+            var rawIds = markerBtns[i].getAttribute('data-map-item-ids') || '';
+            if (!rawIds) {
+                continue;
+            }
+            var ids = rawIds.split('|');
+            if (ids.indexOf(String(nodeId)) !== -1) {
+                return markerBtns[i];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Sorted list of node ids sharing the map marker with this node (cluster key), or null if not on map.
+     * @param {string} nodeId
+     * @returns {string[] | null}
+     */
+    function getSortedMapClusterIdsForNodeId(nodeId) {
+        if (!nodeId) {
+            return null;
+        }
+        var btn = findMapMarkerButtonForNodeId(nodeId);
+        if (!btn) {
+            return null;
+        }
+        var rawIds = btn.getAttribute('data-map-item-ids') || '';
+        var ids = rawIds ? rawIds.split('|') : [];
+        if (!ids.length) {
+            return null;
+        }
+        ids.sort();
+        return ids;
+    }
+
+    function savedMapSelectionMatchesCluster(nodeId) {
+        var targetIds = getSortedMapClusterIdsForNodeId(nodeId);
+        if (!targetIds) {
+            return false;
+        }
+        var saved = _mapSavedViewState && _mapSavedViewState.selectedNodeIds ? _mapSavedViewState.selectedNodeIds.slice() : [];
+        saved.sort();
+        return saved.length === targetIds.length && saved.join('|') === targetIds.join('|');
+    }
+
+    function showPinnedMapTooltipForNodeId(nodeId) {
+        var btn = findMapMarkerButtonForNodeId(nodeId);
+        if (!btn || typeof window.findNodeDataById !== 'function') {
+            return;
+        }
+        var rawIds = btn.getAttribute('data-map-item-ids') || '';
+        var ids = rawIds ? rawIds.split('|') : [];
+        var items = [];
+        var i;
+        for (i = 0; i < ids.length; i++) {
+            var item = window.findNodeDataById(ids[i]);
+            if (item) {
+                items.push(item);
+            }
+        }
+        if (!items.length) {
+            return;
+        }
+        hideHoverMapTooltip({ skipRestorePin: true });
+        _mapTooltipPinned = true;
+        _mapPinnedMarkerBtn = btn;
+        _mapPinnedNodeIds = ids.slice().sort();
+        showPinnedMapTooltip(btn, items);
+    }
+
+    function openMapViewForNodeId(nodeId, options) {
+        var opts = options || {};
+        openMapView();
+        // If the user is re-opening the map for the same marker cluster as last time, only restore
+        // saved pan/zoom/filters/pin — do not reset view or overwrite state on the next close.
+        if (savedMapSelectionMatchesCluster(nodeId)) {
+            return;
+        }
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                if (opts.resetPanZoom !== false) {
+                    resetMapPanZoom();
+                }
+                resetMapTypeFiltersToVisible();
+                hideMapNodeTooltip();
+                showPinnedMapTooltipForNodeId(nodeId);
+            });
+        });
     }
 
     function hideMapNodeTooltip() {
         _mapSkipNextTooltipDismissFromPan = false;
         _mapTooltipPinned = false;
         _mapPinnedMarkerBtn = null;
+        _mapPinnedNodeIds = null;
         hidePinnedMapTooltip();
         hideHoverMapTooltip();
     }
@@ -776,6 +917,7 @@
         if (modal) {
             modal.style.display = 'none';
         }
+        saveCurrentMapViewState();
         hideMapNodeTooltip();
         setMobileMapToolbarActive(false);
     }
@@ -793,6 +935,7 @@
             return;
         }
         closeMapView();
+        _mapReturnAfterMobileDescriptionDismiss = isMobileLayout();
         if (typeof window.populateNodeDescriptionAndSelection === 'function') {
             window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: true });
         }
@@ -825,6 +968,59 @@
         var dx = ax - bx;
         var dy = ay - by;
         return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function getSectionKeyForNodeType(nodeType) {
+        if (!nodeType) {
+            return 'unknown';
+        }
+        return NODE_TYPE_TO_SECTION_CLASS[nodeType] || 'unknown';
+    }
+
+    function ensureMapTypeFilterVisibilityDefaults() {
+        var i;
+        for (i = 0; i < MAP_FILTER_SPECS.length; i++) {
+            var sec = MAP_FILTER_SPECS[i].section;
+            if (_mapTypeFilterVisible[sec] === undefined) {
+                _mapTypeFilterVisible[sec] = true;
+            }
+        }
+    }
+
+    function collectMapMarkerEntries() {
+        var placements = window.calendarMapPlacements;
+        var entries = [];
+        if (!placements || typeof window.findNodeDataById !== 'function') {
+            return entries;
+        }
+        Object.keys(placements).forEach(function (nodeId) {
+            var pos = placements[nodeId];
+            if (!pos || typeof pos.x !== 'number' || typeof pos.y !== 'number') {
+                return;
+            }
+            var item = window.findNodeDataById(nodeId);
+            if (!item) {
+                return;
+            }
+            entries.push({ nodeId: nodeId, pos: pos, item: item });
+        });
+        entries.sort(function (a, b) {
+            return a.nodeId < b.nodeId ? -1 : a.nodeId > b.nodeId ? 1 : 0;
+        });
+        return entries;
+    }
+
+    function filterMapEntriesByVisibleTypes(entries) {
+        var out = [];
+        var i;
+        for (i = 0; i < entries.length; i++) {
+            var e = entries[i];
+            var key = getSectionKeyForNodeType(e.item.type);
+            if (_mapTypeFilterVisible[key] !== false) {
+                out.push(e);
+            }
+        }
+        return out;
     }
 
     /**
@@ -879,6 +1075,290 @@
             }
         }
         return clusters;
+    }
+
+    function syncMapTypeFilterButton(host, section) {
+        if (!host) {
+            return;
+        }
+        var btn = host.querySelector('[data-map-filter-section="' + section + '"]');
+        if (!btn) {
+            return;
+        }
+        var visible = _mapTypeFilterVisible[section] !== false;
+        btn.classList.toggle('map-view-type-filter-btn--on', visible);
+        btn.classList.toggle('map-view-type-filter-btn--off', !visible);
+        btn.setAttribute('aria-pressed', visible ? 'true' : 'false');
+        var title = section;
+        var k;
+        for (k = 0; k < MAP_FILTER_SPECS.length; k++) {
+            if (MAP_FILTER_SPECS[k].section === section) {
+                title = MAP_FILTER_SPECS[k].title;
+                break;
+            }
+        }
+        if (visible) {
+            btn.setAttribute('title', title + ' on map — click to hide');
+            btn.setAttribute('aria-label', 'Hide ' + title + ' from map');
+        } else {
+            btn.setAttribute('title', title + ' hidden — click to show');
+            btn.setAttribute('aria-label', 'Show ' + title + ' on map');
+        }
+    }
+
+    function renderMapMarkerButtonsFromEntries(entries) {
+        ensureMapMarkerLayerRefs();
+        var sizer = _mapMarkersSizer;
+        var placements = window.calendarMapPlacements;
+        if (!sizer || !placements || typeof window.findNodeDataById !== 'function') {
+            return;
+        }
+        if (!entries || !entries.length) {
+            sizer.textContent = '';
+            return;
+        }
+
+        sizer.textContent = '';
+
+        var filtered = filterMapEntriesByVisibleTypes(entries);
+        var clusters = clusterMapMarkerEntries(filtered);
+
+        clusters.forEach(function (cluster) {
+            cluster.sort(function (a, b) {
+                var na = a.item.name || a.nodeId;
+                var nb = b.item.name || b.nodeId;
+                return na < nb ? -1 : na > nb ? 1 : 0;
+            });
+
+            var items = [];
+            var sumX = 0;
+            var sumY = 0;
+            var c;
+            for (c = 0; c < cluster.length; c++) {
+                items.push(cluster[c].item);
+                sumX += cluster[c].pos.x;
+                sumY += cluster[c].pos.y;
+            }
+            var cx = sumX / cluster.length;
+            var cy = sumY / cluster.length;
+
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'map-view-marker-btn';
+            btn.setAttribute('data-map-norm-x', String(cx));
+            btn.setAttribute('data-map-norm-y', String(cy));
+            btn.style.left = cx * 100 + '%';
+            btn.style.top = cy * 100 + '%';
+
+            var labelNames = [];
+            for (c = 0; c < items.length; c++) {
+                labelNames.push(items[c].name || items[c].id);
+            }
+            var markerItemIds = [];
+            for (c = 0; c < items.length; c++) {
+                if (items[c] && items[c].id) {
+                    markerItemIds.push(items[c].id);
+                }
+            }
+            markerItemIds.sort();
+            var ariaLabel = labelNames.join(', ') + ' — preview';
+            btn.setAttribute('aria-label', ariaLabel);
+            btn.setAttribute('data-map-item-ids', markerItemIds.join('|'));
+
+            var seenTypes = {};
+            var typesOrdered = [];
+            for (c = 0; c < cluster.length; c++) {
+                var nt = cluster[c].item.type;
+                if (!nt || seenTypes[nt]) {
+                    continue;
+                }
+                seenTypes[nt] = true;
+                typesOrdered.push(nt);
+            }
+            if (typesOrdered.length === 0) {
+                appendMapTypeIcon(btn, '');
+            } else {
+                for (var ti = 0; ti < typesOrdered.length; ti++) {
+                    appendMapTypeIcon(btn, typesOrdered[ti]);
+                }
+            }
+
+            btn.addEventListener('mouseenter', function () {
+                if (!isMobileLayout()) {
+                    if (_mapTooltipPinned && _mapPinnedMarkerBtn === btn) {
+                        return;
+                    }
+                    showHoverMapTooltip(btn, items);
+                }
+            });
+
+            btn.addEventListener('mouseleave', function () {
+                if (!isMobileLayout()) {
+                    hideHoverMapTooltip();
+                }
+            });
+
+            btn.addEventListener('focus', function () {
+                if (!isMobileLayout()) {
+                    if (_mapTooltipPinned && _mapPinnedMarkerBtn === btn) {
+                        return;
+                    }
+                    showHoverMapTooltip(btn, items);
+                }
+            });
+
+            btn.addEventListener('blur', function () {
+                if (!isMobileLayout()) {
+                    hideHoverMapTooltip();
+                }
+            });
+
+            btn.addEventListener('click', function () {
+                hideHoverMapTooltip({ skipRestorePin: true });
+                _mapTooltipPinned = true;
+                _mapPinnedMarkerBtn = btn;
+                _mapPinnedNodeIds = markerItemIds.slice();
+                showPinnedMapTooltip(btn, items);
+            });
+
+            sizer.appendChild(btn);
+        });
+    }
+
+    function wireMapTypeFilterBar() {
+        var host = document.getElementById('map-view-type-filters');
+        if (!host) {
+            return;
+        }
+        ensureMapTypeFilterVisibilityDefaults();
+        host.textContent = '';
+        var i;
+        for (i = 0; i < MAP_FILTER_SPECS.length; i++) {
+            (function (spec) {
+                var fb = document.createElement('button');
+                fb.type = 'button';
+                fb.className = 'map-view-type-filter-btn map-view-type-filter-btn--on';
+                fb.setAttribute('data-map-filter-section', spec.section);
+                fb.setAttribute('aria-pressed', 'true');
+                fb.setAttribute('title', spec.title + ' on map — click to hide');
+                fb.setAttribute('aria-label', 'Hide ' + spec.title + ' from map');
+                appendMapTypeIcon(fb, spec.type, MAP_FILTER_BAR_ICON_PX);
+                fb.addEventListener('click', function () {
+                    var on = _mapTypeFilterVisible[spec.section] !== false;
+                    _mapTypeFilterVisible[spec.section] = !on;
+                    hideMapNodeTooltip();
+                    renderMapMarkerButtonsFromEntries(_mapAllMarkerEntries || []);
+                    syncMapTypeFilterButton(host, spec.section);
+                });
+                host.appendChild(fb);
+            })(MAP_FILTER_SPECS[i]);
+        }
+    }
+
+    function resetMapTypeFiltersToVisible() {
+        var host = document.getElementById('map-view-type-filters');
+        var i;
+        ensureMapTypeFilterVisibilityDefaults();
+        for (i = 0; i < MAP_FILTER_SPECS.length; i++) {
+            _mapTypeFilterVisible[MAP_FILTER_SPECS[i].section] = true;
+            if (host) {
+                syncMapTypeFilterButton(host, MAP_FILTER_SPECS[i].section);
+            }
+        }
+        hideMapNodeTooltip();
+        renderMapMarkerButtonsFromEntries(_mapAllMarkerEntries || []);
+    }
+
+    function saveCurrentMapViewState() {
+        var i;
+        var vis = {};
+        ensureMapTypeFilterVisibilityDefaults();
+        for (i = 0; i < MAP_FILTER_SPECS.length; i++) {
+            var sec = MAP_FILTER_SPECS[i].section;
+            vis[sec] = _mapTypeFilterVisible[sec] !== false;
+        }
+        _mapSavedViewState = {
+            hasView: true,
+            scale: _mapScale,
+            panTx: _mapPanTx,
+            panTy: _mapPanTy,
+            typeFilterVisible: vis,
+            selectedNodeIds: _mapPinnedNodeIds ? _mapPinnedNodeIds.slice() : []
+        };
+    }
+
+    function syncAllMapTypeFilterButtons() {
+        var host = document.getElementById('map-view-type-filters');
+        var i;
+        if (!host) {
+            return;
+        }
+        for (i = 0; i < MAP_FILTER_SPECS.length; i++) {
+            syncMapTypeFilterButton(host, MAP_FILTER_SPECS[i].section);
+        }
+    }
+
+    function restorePinnedMapSelection(ids) {
+        var safeIds = ids && ids.length ? ids.slice() : [];
+        safeIds.sort();
+        if (!safeIds.length) {
+            return;
+        }
+        var i;
+        var items = [];
+        for (i = 0; i < safeIds.length; i++) {
+            var item = window.findNodeDataById ? window.findNodeDataById(safeIds[i]) : null;
+            if (!item) {
+                return;
+            }
+            items.push(item);
+        }
+        var key = safeIds.join('|');
+        var markerBtns = document.querySelectorAll('#map-view-markers-sizer .map-view-marker-btn');
+        var btn = null;
+        for (i = 0; i < markerBtns.length; i++) {
+            if (markerBtns[i].getAttribute('data-map-item-ids') === key) {
+                btn = markerBtns[i];
+                break;
+            }
+        }
+        if (!btn) {
+            return;
+        }
+        hideHoverMapTooltip({ skipRestorePin: true });
+        _mapTooltipPinned = true;
+        _mapPinnedMarkerBtn = btn;
+        _mapPinnedNodeIds = safeIds;
+        showPinnedMapTooltip(btn, items);
+    }
+
+    function restoreSavedMapViewState() {
+        var state = _mapSavedViewState;
+        var savedVisible;
+        var i;
+        ensureMapTypeFilterVisibilityDefaults();
+        savedVisible = state && state.typeFilterVisible ? state.typeFilterVisible : {};
+        for (i = 0; i < MAP_FILTER_SPECS.length; i++) {
+            var sec = MAP_FILTER_SPECS[i].section;
+            if (Object.prototype.hasOwnProperty.call(savedVisible, sec)) {
+                _mapTypeFilterVisible[sec] = savedVisible[sec] !== false;
+            } else {
+                _mapTypeFilterVisible[sec] = true;
+            }
+        }
+
+        if (state && state.hasView) {
+            _mapScale = clampMapScale(state.scale);
+            _mapPanTx = state.panTx;
+            _mapPanTy = state.panTy;
+            clampMapPan();
+        } else {
+            resetMapPanZoom();
+        }
+
+        renderMapMarkerButtonsFromEntries(_mapAllMarkerEntries || []);
+        syncAllMapTypeFilterButtons();
+        restorePinnedMapSelection(state && state.selectedNodeIds ? state.selectedNodeIds : []);
     }
 
     /**
@@ -1230,125 +1710,9 @@
     }
 
     function wireMapMarkers() {
-        ensureMapMarkerLayerRefs();
-        var sizer = _mapMarkersSizer;
-        var placements = window.calendarMapPlacements;
-        if (!sizer || !placements || typeof window.findNodeDataById !== 'function') {
-            return;
-        }
-
-        sizer.textContent = '';
-
-        var entries = [];
-        Object.keys(placements).forEach(function (nodeId) {
-            var pos = placements[nodeId];
-            if (!pos || typeof pos.x !== 'number' || typeof pos.y !== 'number') {
-                return;
-            }
-            var item = window.findNodeDataById(nodeId);
-            if (!item) {
-                return;
-            }
-            entries.push({ nodeId: nodeId, pos: pos, item: item });
-        });
-
-        entries.sort(function (a, b) {
-            return a.nodeId < b.nodeId ? -1 : a.nodeId > b.nodeId ? 1 : 0;
-        });
-
-        var clusters = clusterMapMarkerEntries(entries);
-
-        clusters.forEach(function (cluster) {
-            cluster.sort(function (a, b) {
-                var na = a.item.name || a.nodeId;
-                var nb = b.item.name || b.nodeId;
-                return na < nb ? -1 : na > nb ? 1 : 0;
-            });
-
-            var items = [];
-            var sumX = 0;
-            var sumY = 0;
-            var c;
-            for (c = 0; c < cluster.length; c++) {
-                items.push(cluster[c].item);
-                sumX += cluster[c].pos.x;
-                sumY += cluster[c].pos.y;
-            }
-            var cx = sumX / cluster.length;
-            var cy = sumY / cluster.length;
-
-            var btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'map-view-marker-btn';
-            btn.setAttribute('data-map-norm-x', String(cx));
-            btn.setAttribute('data-map-norm-y', String(cy));
-            btn.style.left = cx * 100 + '%';
-            btn.style.top = cy * 100 + '%';
-
-            var labelNames = [];
-            for (c = 0; c < items.length; c++) {
-                labelNames.push(items[c].name || items[c].id);
-            }
-            var ariaLabel = labelNames.join(', ') + ' — preview';
-            btn.setAttribute('aria-label', ariaLabel);
-
-            var seenTypes = {};
-            var typesOrdered = [];
-            for (c = 0; c < cluster.length; c++) {
-                var nt = cluster[c].item.type;
-                if (!nt || seenTypes[nt]) {
-                    continue;
-                }
-                seenTypes[nt] = true;
-                typesOrdered.push(nt);
-            }
-            if (typesOrdered.length === 0) {
-                appendMapTypeIcon(btn, '');
-            } else {
-                for (var ti = 0; ti < typesOrdered.length; ti++) {
-                    appendMapTypeIcon(btn, typesOrdered[ti]);
-                }
-            }
-
-            btn.addEventListener('mouseenter', function () {
-                if (!isMobileLayout()) {
-                    if (_mapTooltipPinned && _mapPinnedMarkerBtn === btn) {
-                        return;
-                    }
-                    showHoverMapTooltip(btn, items);
-                }
-            });
-
-            btn.addEventListener('mouseleave', function () {
-                if (!isMobileLayout()) {
-                    hideHoverMapTooltip();
-                }
-            });
-
-            btn.addEventListener('focus', function () {
-                if (!isMobileLayout()) {
-                    if (_mapTooltipPinned && _mapPinnedMarkerBtn === btn) {
-                        return;
-                    }
-                    showHoverMapTooltip(btn, items);
-                }
-            });
-
-            btn.addEventListener('blur', function () {
-                if (!isMobileLayout()) {
-                    hideHoverMapTooltip();
-                }
-            });
-
-            btn.addEventListener('click', function () {
-                hideHoverMapTooltip({ skipRestorePin: true });
-                _mapTooltipPinned = true;
-                _mapPinnedMarkerBtn = btn;
-                showPinnedMapTooltip(btn, items);
-            });
-
-            sizer.appendChild(btn);
-        });
+        ensureMapTypeFilterVisibilityDefaults();
+        _mapAllMarkerEntries = collectMapMarkerEntries();
+        renderMapMarkerButtonsFromEntries(_mapAllMarkerEntries);
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -1358,17 +1722,30 @@
 
         wireMapPanZoom();
         wireMapMarkers();
+        wireMapTypeFilterBar();
 
         var resetBtn = document.getElementById('map-view-reset');
         if (resetBtn) {
             resetBtn.addEventListener('click', function () {
                 resetMapPanZoom();
+                resetMapTypeFiltersToVisible();
             });
         }
 
         if (btn) {
             btn.addEventListener('click', openMapView);
         }
+
+        window.openMapViewForNodeId = openMapViewForNodeId;
+
+        window.onMobileDescriptionDismissed = function () {
+            if (!_mapReturnAfterMobileDescriptionDismiss || !isMobileLayout()) {
+                _mapReturnAfterMobileDescriptionDismiss = false;
+                return;
+            }
+            _mapReturnAfterMobileDescriptionDismiss = false;
+            openMapView();
+        };
 
         if (headerCloseBtn) {
             headerCloseBtn.addEventListener('click', closeMapView);

@@ -447,6 +447,7 @@
         font-size: clamp(0.8rem, 3.2vw, 1rem);
     }
 
+    .desktop-description-actions,
     .desktop-home-button {
         display: none !important;
     }
@@ -468,8 +469,8 @@
     }
 
     .mobile-description-actions-btn {
-        flex: 1 1 100%;
-        max-width: 100%;
+        flex: 1 1 0;
+        min-width: 0;
         min-height: 2.75rem;
         padding: 0.45rem 0.5rem;
         font-size: clamp(0.85rem, 3.2vw, 1rem);

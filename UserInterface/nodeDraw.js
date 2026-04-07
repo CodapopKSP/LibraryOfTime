@@ -42,7 +42,13 @@ function populateNodeDescriptionAndSelection(content, item, options) {
     selectedNode = content || null;
     selectedNodeData = item;
 
-    document.getElementById('desktop-home-button').classList.add('home-button-visible');
+    var desktopActions = document.getElementById('desktop-description-actions');
+    if (desktopActions) {
+        desktopActions.classList.add('home-button-visible');
+    }
+    if (typeof syncDescriptionPanelPrimaryActions === 'function') {
+        syncDescriptionPanelPrimaryActions(item);
+    }
     changeActiveHeaderTab('header-button-1', 0);
 
     if (content) {

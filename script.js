@@ -282,9 +282,9 @@ function formatTimezoneForURL(timezone) {
 // Display the initial Description Panel (desktop: home intro; narrow viewports: cleared here, then mobileToolbar opens the introduction sheet every load including refresh — sessionStorage is not used because it survives refresh in the same tab)
 if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
     clearDescriptionPanel();
-    const homeBtnEl = document.getElementById('desktop-home-button');
-    if (homeBtnEl) {
-        homeBtnEl.classList.remove('home-button-visible');
+    const desktopActionsEl = document.getElementById('desktop-description-actions');
+    if (desktopActionsEl) {
+        desktopActionsEl.classList.remove('home-button-visible');
     }
 } else {
     homeButton();
