@@ -108,9 +108,9 @@
         position: relative;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 102%;
         max-width: none;
-        margin: 0;
+        margin: 0 auto;
         padding-top: 0.65rem;
         padding-bottom: 10rem;
         padding-left: max(var(--mobile-node-edge), env(safe-area-inset-left));
