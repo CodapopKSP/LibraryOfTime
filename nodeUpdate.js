@@ -209,13 +209,13 @@ function updatePopCultureCalendars(currentDateTime, timezoneOffset) {
 // Update clocks that change every millisecond
 function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
 
-    // Decimal Time
+    // Alternative Time
     setTimeValue('french-revolutionary-node', getRevolutionaryTime(currentDateTime, timezoneOffset));
     setTimeValue('beat-node', convertToSwatchBeats(currentDateTime));
     setTimeValue('hexadecimal-node', getHexadecimalTime(currentDateTime, timezoneOffset));
     setTimeValue('binary-16-bit-node', getBinaryTime(currentDateTime, timezoneOffset));
 
-    // Other Time
+    // Extraterrestrial Time
     setTimeValue('coordinated-mars-time-node', getMTC(currentDateTime));
     setTimeValue('io-meridian-time-node', getIoPrimeMeridianTime(currentDateTime));
     setTimeValue('europa-meridian-time-node', getEuropaPrimeMeridianTime(currentDateTime));
@@ -231,6 +231,9 @@ function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
     const iso8601 = currentDateTime.toISOString();
     setTimeValue('iso-8601-node', iso8601.replace('T', '\nT'));
     setTimeValue('mars-sol-date-node', getMarsSolDate(currentDateTime).toFixed(5));
+    setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
+    setTimeValue('chromewebkit-node', getChromeTimestampMicroseconds(currentDateTime));
+    setTimeValue('net-datetime-ticks-node', getDotNetDateTimeTicks(currentDateTime));
 
     // Pop Culture
     setTimeValue('minecraft-time-node', getMinecraftTime(currentDateTime, timezoneOffset));
@@ -262,8 +265,16 @@ function updateClocks_Slow(currentDateTime, timezoneOffset) {
 
     // Computing Times
     setTimeValue('unix-node', getUnixTime(currentDateTime));
-    setTimeValue('filetime-node', getCurrentFiletime(currentDateTime));
+    setTimeValue('unix-hex-node', getUnixTimeHex(currentDateTime));
+    
+    
+    setTimeValue('cocoa-core-data-node', getCocoaCoreDataSeconds(currentDateTime));
+    setTimeValue('mac-hfs-node', getMacHfsPlusSeconds(currentDateTime));
+    setTimeValue('ntp-node', getNtpTimestampSeconds(currentDateTime));
+    setTimeValue('dos-fatfat32-node', getDosFatTimestamp(currentDateTime, timezoneOffset));
+    setTimeValue('sas-4gl-node', getSas4glDatetime(currentDateTime));
     setTimeValue('gps-node', getGPSTime(currentDateTime));
+    setTimeValue('gps-week-number-node', getGpsWeekNumberAndSecondsOfWeek(currentDateTime));
     setTimeValue('tai-node', getTAI(currentDateTime).toISOString().slice(0, -5));
     setTimeValue('tt-node', getTT(currentDateTime).toISOString().slice(0, -5));
     setTimeValue('loran-c-node', getLORANC(currentDateTime).toISOString().slice(0, -5));

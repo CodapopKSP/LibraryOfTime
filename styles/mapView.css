@@ -355,12 +355,12 @@
     --map-node-border: #6f986a;
 }
 
-.map-view-type-icon--decimal-time {
+.map-view-type-icon--alternative-time {
     color: rgb(232, 196, 255);
     --map-node-border: #896a98;
 }
 
-.map-view-type-icon--other-time {
+.map-view-type-icon--extraterrestrial-time {
     color: rgb(203, 255, 196);
     --map-node-border: #98866a;
 }
@@ -594,10 +594,10 @@
 .map-view-node-tooltip .lunisolar-calendars > .node > .content {
     border-color: #6f986a;
 }
-.map-view-node-tooltip .decimal-time > .node > .content {
+.map-view-node-tooltip .alternative-time > .node > .content {
     border-color: #896a98;
 }
-.map-view-node-tooltip .other-time > .node > .content {
+.map-view-node-tooltip .extraterrestrial-time > .node > .content {
     border-color: #98866a;
 }
 .map-view-node-tooltip .lunar-calendars > .node > .content {

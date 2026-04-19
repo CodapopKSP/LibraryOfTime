@@ -36,7 +36,7 @@ Each step below is required unless explicitly skipped by the user.
    - Lunisolar calendar → `Docs/src/LunisolarCalendars/`
    - Solilunar calendar → `Docs/src/SolilunarCalendars/`
    - Proposed calendar → `Docs/src/ProposedCalendars/`
-   - Other calendars / time systems → `Docs/src/OtherCalendars/`, `Docs/src/OtherTime/`, etc.
+   - Other calendars / time systems → `Docs/src/OtherCalendars/`, `Docs/src/OtherTime/` (Extraterrestrial Time grid section), etc.
 2. Create a **new markdown file** that follows the standard header layout used by existing entries in that section. For calendar/time-system nodes, this means including (in order):
    - **Title** (top-level heading with the system’s name).
    - **Epoch** (a short line; can be “To be determined.” for new systems).

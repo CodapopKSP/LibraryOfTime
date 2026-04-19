@@ -1,3 +1,3 @@
-# Other Time
+# Extraterrestrial Time
 
-Other time systems include various alternative approaches to timekeeping, such as time systems for other planets, moons, or unique measurement methods that don't fit into traditional categories.
+Extraterrestrial time systems are clocks defined for other worlds—Mars coordinated time and prime meridian times on Jupiter’s Galilean moons—rather than Earth civil time.

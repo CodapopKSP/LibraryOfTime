@@ -13,8 +13,8 @@ const path = require('path');
 const directoryToType = {
     'StandardTime': 'Standard Time',
     'ComputingTime': 'Computing Time',
-    'DecimalTime': 'Decimal Time',
-    'OtherTime': 'Other Time',
+    'DecimalTime': 'Alternative Time',
+    'OtherTime': 'Extraterrestrial Time',
     'SolarCalendars': 'Solar Calendar',
     'LunisolarCalendars': 'Lunisolar Calendar',
     'LunarCalendars': 'Lunar Calendar',
@@ -485,8 +485,8 @@ function formatNodeData(nodeData) {
 const typeToVariableName = {
     'Standard Time': 'standardTimeData',
     'Computing Time': 'computingTimeData',
-    'Decimal Time': 'decimalTimeData',
-    'Other Time': 'otherTimeData',
+    'Alternative Time': 'decimalTimeData',
+    'Extraterrestrial Time': 'otherTimeData',
     'Solar Calendar': 'solarCalendarsData',
     'Lunisolar Calendar': 'lunisolarCalendarsData',
     'Lunar Calendar': 'lunarCalendarsData',
@@ -641,8 +641,8 @@ function build() {
     const typeOrder = [
         'Standard Time',
         'Computing Time',
-        'Decimal Time',
-        'Other Time',
+        'Alternative Time',
+        'Extraterrestrial Time',
         'Solar Calendar',
         'Lunisolar Calendar',
         'Lunar Calendar',

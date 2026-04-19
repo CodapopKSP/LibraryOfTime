@@ -46,6 +46,13 @@ function testGPSTime() {
     ]);
 }
 
+function testGpsWeekNumberAndSecondsOfWeek() {
+    return runComputingTests("GPS Week Number", getGpsWeekNumberAndSecondsOfWeek, [
+        ["1980-1-6, 00:00:00", "UTC+00:00", "0 0"],
+        ["1999-1-1, 00:00:00", "UTC+00:00", "990 432013"],
+    ]);
+}
+
 function testTAI() {
     return runComputingTests("TAI", getTAI, [
         ["1971-12-31, 23:59:50", "UTC+00:00", "Sat, 01 Jan 1972 00:00:00 GMT"],
@@ -67,6 +74,69 @@ function testFILETIME() {
         ["1601-1-1, 00:00:00", "UTC+00:00", 0],
         ["1998-12-31, 23:59:58", "UTC+00:00", 125596223980000000],
         ["1999-1-1, 00:00:00", "UTC+00:00", 125596224000000000],
+    ]);
+}
+
+function testDotNetDateTimeTicks() {
+    return runComputingTests(".NET DateTime Ticks", getDotNetDateTimeTicks, [
+        ["1-1-1, 00:00:00", "UTC+00:00", 0],
+        ["1999-1-1, 00:00:00", "UTC+00:00", 630507456000000000],
+    ]);
+}
+
+function testChromeTimestampMicroseconds() {
+    return runComputingTests("Chrome", getChromeTimestampMicroseconds, [
+        ["1601-1-1, 00:00:00", "UTC+00:00", 0],
+        ["1999-1-1, 00:00:00", "UTC+00:00", 12559622400000000],
+    ]);
+}
+
+function testUnixTimeHex() {
+    return runComputingTests("Unix Hex", getUnixTimeHex, [
+        ["1970-1-1, 00:00:00", "UTC+00:00", "0"],
+        ["1999-1-1, 00:00:00", "UTC+00:00", "368C1000"],
+        ["1960-1-1, 00:00:00", "UTC+00:00", "-12CFF780"],
+    ]);
+}
+
+function testCocoaCoreDataSeconds() {
+    return runComputingTests("Cocoa Core Data", getCocoaCoreDataSeconds, [
+        ["2001-1-1, 00:00:00", "UTC+00:00", 0],
+        ["1970-1-1, 00:00:00", "UTC+00:00", -978307200],
+    ]);
+}
+
+function testMacHfsPlusSeconds() {
+    return runComputingTests("Mac HFS+", getMacHfsPlusSeconds, [
+        ["1904-1-1, 00:00:00", "UTC+00:00", 0],
+        ["1970-1-1, 00:00:00", "UTC+00:00", 2082844800],
+        ["2040-2-6, 06:28:15", "UTC+00:00", 4294967295],
+        ["2040-2-6, 06:28:16", "UTC+00:00", 0],
+        ["2040-2-6, 06:28:17", "UTC+00:00", 1],
+    ]);
+}
+
+function testNtpTimestampSeconds() {
+    return runComputingTests("NTP", getNtpTimestampSeconds, [
+        ["1900-1-1, 00:00:00", "UTC+00:00", "0\n0"],
+        ["1970-1-1, 00:00:00", "UTC+00:00", "2208988800\n83AA7E80"],
+        ["1899-12-31, 23:59:59", "UTC+00:00", "4294967295\nFFFFFFFF"],
+        ["2036-2-7, 06:28:15", "UTC+00:00", "4294967295\nFFFFFFFF"],
+        ["2036-2-7, 06:28:16", "UTC+00:00", "0\n0"],
+        ["2036-2-7, 06:28:17", "UTC+00:00", "1\n1"],
+    ]);
+}
+
+function testDosFatTimestamp() {
+    return runComputingTests("DOS FAT", getDosFatTimestamp, [
+        ["2026-4-18, 17:19:28", "UTC+00:00", "0x5C928A6E\n0x6E8A925C"],
+    ]);
+}
+
+function testSas4glDatetime() {
+    return runComputingTests("SAS 4GL", getSas4glDatetime, [
+        ["1960-1-1, 00:00:00", "UTC+00:00", "0\n0"],
+        ["1970-1-1, 00:00:00", "UTC+00:00", "315619200\n3653"],
     ]);
 }
 
@@ -161,9 +231,18 @@ function runComputingTimeTests() {
     const testFunctions = [
         testUnixTime,
         testGPSTime,
+        testGpsWeekNumberAndSecondsOfWeek,
         testTAI,
         testLORANC,
         testFILETIME,
+        testDotNetDateTimeTicks,
+        testChromeTimestampMicroseconds,
+        testUnixTimeHex,
+        testCocoaCoreDataSeconds,
+        testMacHfsPlusSeconds,
+        testNtpTimestampSeconds,
+        testDosFatTimestamp,
+        testSas4glDatetime,
         testJDN,
         testRataDie,
         testJulianPeriod,

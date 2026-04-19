@@ -35,11 +35,11 @@
     border: 0.2vh solid #6f986a;
 }
 
-.decimal-time > .node > .content {
+.alternative-time > .node > .content {
     border: 0.2vh solid #896a98;
 }
 
-.other-time > .node > .content {
+.extraterrestrial-time > .node > .content {
     border: 0.2vh solid #98866a;
 }
 

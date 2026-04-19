@@ -1,8 +1,8 @@
 //|----------------------|
-//|     Decimal Time     |
+//|   Alternative Time   |
 //|----------------------|
 
-// A set of functions for calculating times in the Decimal Time category.
+// A set of functions for calculating times in the Alternative Time grid section.
 
 function getRevolutionaryTime(currentDateTime_, timezoneOffset) {
     const dayFraction = calculateDay(currentDateTime_, timezoneOffset);

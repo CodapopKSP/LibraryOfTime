@@ -71,8 +71,8 @@
         'Solar Calendar': 'solar-calendars',
         'Computing Time': 'computing-time',
         'Standard Time': 'standard-time',
-        'Decimal Time': 'decimal-time',
-        'Other Time': 'other-time',
+        'Alternative Time': 'alternative-time',
+        'Extraterrestrial Time': 'extraterrestrial-time',
         'Lunisolar Calendar': 'lunisolar-calendars',
         'Lunar Calendar': 'lunar-calendars',
         'Solilunar Calendar': 'solilunar-calendars',
@@ -91,7 +91,7 @@
     var MAP_FILTER_SPECS = [
         { section: 'standard-time', type: 'Standard Time', title: 'Standard time' },
         { section: 'computing-time', type: 'Computing Time', title: 'Computing time' },
-        { section: 'decimal-time', type: 'Decimal Time', title: 'Decimal time' },
+        { section: 'alternative-time', type: 'Alternative Time', title: 'Alternative time' },
         { section: 'solar-calendars', type: 'Solar Calendar', title: 'Solar calendars' },
         { section: 'lunisolar-calendars', type: 'Lunisolar Calendar', title: 'Lunisolar calendars' },
         { section: 'lunar-calendars', type: 'Lunar Calendar', title: 'Lunar calendars' },
@@ -109,7 +109,7 @@
     /** Larger icons for in-map type filter toggles. */
     var MAP_FILTER_BAR_ICON_PX = 30;
 
-    /** Filled dot — Standard / Computing / Decimal / Other Time share this shape; section color differs via CSS. */
+    /** Filled dot — Standard / Computing / Alternative / Extraterrestrial Time share this shape; section color differs via CSS. */
     var MAP_TIME_DOT_SVG = '<circle cx="12" cy="12" r="6.5" fill="currentColor"/>';
 
     /**
@@ -130,8 +130,8 @@
             '<path fill="currentColor" d="M12 5.5L19 12l-7 6.5-7-6.5z"/>',
         'Standard Time': MAP_TIME_DOT_SVG,
         'Computing Time': MAP_TIME_DOT_SVG,
-        'Decimal Time': MAP_TIME_DOT_SVG,
-        'Other Time': MAP_TIME_DOT_SVG,
+        'Alternative Time': MAP_TIME_DOT_SVG,
+        'Extraterrestrial Time': MAP_TIME_DOT_SVG,
         'Astronomical Data':
             '<path fill="currentColor" d="M12 3l1.2 3.6L17 8l-3.6 1.2L12 13l-1.2-3.6L7 8l3.6-1.2L12 3z"/>' +
             '<circle cx="12" cy="17" r="2.8" fill="currentColor" fill-opacity="0.55" stroke="currentColor" stroke-width="1.2"/>',

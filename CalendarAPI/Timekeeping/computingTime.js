@@ -22,8 +22,111 @@ const FILETIME_TICKS_PER_SECOND = 10000000;
 
 function getCurrentFiletime(currentDateTime) {
     const jan1601 = createAdjustedDateTime(FILETIME_EPOCH);
-    const filetime = Math.floor((currentDateTime.getTime() - jan1601.getTime()) / COMPUTING_MS_PER_SECOND) * FILETIME_TICKS_PER_SECOND;
-    return filetime;
+    const msSinceEpoch = currentDateTime.getTime() - jan1601.getTime();
+    const wholeSeconds = Math.floor(msSinceEpoch / COMPUTING_MS_PER_SECOND);
+    const remainderMs = msSinceEpoch - wholeSeconds * COMPUTING_MS_PER_SECOND;
+    return wholeSeconds * FILETIME_TICKS_PER_SECOND
+        + Math.floor((remainderMs * FILETIME_TICKS_PER_SECOND) / COMPUTING_MS_PER_SECOND);
+}
+
+const DOTNET_TICKS_EPOCH = { year: 1, month: 1, day: 1 };
+
+function getDotNetDateTimeTicks(currentDateTime) {
+    const epoch = createAdjustedDateTime(DOTNET_TICKS_EPOCH);
+    const msSinceEpoch = currentDateTime.getTime() - epoch.getTime();
+    const wholeSeconds = Math.floor(msSinceEpoch / COMPUTING_MS_PER_SECOND);
+    const remainderMs = msSinceEpoch - wholeSeconds * COMPUTING_MS_PER_SECOND;
+    return wholeSeconds * FILETIME_TICKS_PER_SECOND
+        + Math.floor((remainderMs * FILETIME_TICKS_PER_SECOND) / COMPUTING_MS_PER_SECOND);
+}
+
+const CHROME_MICROSECONDS_PER_SECOND = 1000000;
+
+function getChromeTimestampMicroseconds(currentDateTime) {
+    const jan1601 = createAdjustedDateTime(FILETIME_EPOCH);
+    const msSinceEpoch = currentDateTime.getTime() - jan1601.getTime();
+    const wholeSeconds = Math.floor(msSinceEpoch / COMPUTING_MS_PER_SECOND);
+    const remainderMs = msSinceEpoch - wholeSeconds * COMPUTING_MS_PER_SECOND;
+    return wholeSeconds * CHROME_MICROSECONDS_PER_SECOND
+        + Math.floor((remainderMs * CHROME_MICROSECONDS_PER_SECOND) / COMPUTING_MS_PER_SECOND);
+}
+
+function getUnixTimeHex(currentDateTime) {
+    const unix = getUnixTime(currentDateTime);
+    if (unix < 0) {
+        return '-' + (-unix).toString(16).toUpperCase();
+    }
+    return unix.toString(16).toUpperCase();
+}
+
+const COCOA_NS_DATE_EPOCH = { year: 2001, month: 1, day: 1 };
+
+function getCocoaCoreDataSeconds(currentDateTime) {
+    const epoch = createAdjustedDateTime(COCOA_NS_DATE_EPOCH);
+    return Math.floor((currentDateTime.getTime() - epoch.getTime()) / COMPUTING_MS_PER_SECOND);
+}
+
+const MAC_HFS_PLUS_EPOCH = { year: 1904, month: 1, day: 1 };
+
+/** Unsigned 32-bit seconds since 1904-01-01; values above 4294967295 wrap to 0. */
+function macHfsPlusSecondsRollover(secondsSinceEpoch) {
+    return secondsSinceEpoch >>> 0;
+}
+
+function getMacHfsPlusSeconds(currentDateTime) {
+    const epoch = createAdjustedDateTime(MAC_HFS_PLUS_EPOCH);
+    const seconds = Math.floor((currentDateTime.getTime() - epoch.getTime()) / COMPUTING_MS_PER_SECOND);
+    return macHfsPlusSecondsRollover(seconds);
+}
+
+const NTP_TIMESTAMP_EPOCH = { year: 1900, month: 1, day: 1 };
+
+/** Unsigned 32-bit seconds since 1900-01-01; values above 4294967295 wrap to 0. */
+function ntpTimestampSecondsRollover(secondsSinceEpoch) {
+    return secondsSinceEpoch >>> 0;
+}
+
+function getNtpTimestampSeconds(currentDateTime) {
+    const epoch = createAdjustedDateTime(NTP_TIMESTAMP_EPOCH);
+    const seconds = Math.floor((currentDateTime.getTime() - epoch.getTime()) / COMPUTING_MS_PER_SECOND);
+    const rolled = ntpTimestampSecondsRollover(seconds);
+    const hex = rolled.toString(16).toUpperCase();
+    return rolled + '\n' + hex;
+}
+
+const DOS_FAT_YEAR_BIAS = 1980;
+const DOS_FAT_SECOND_MAX = 58;
+const DOS_FAT_HEX_WIDTH = 8;
+
+function dosFatPackedToHexLittleBigEndian(packed) {
+    const u = packed >>> 0;
+    const bigEndianAsUint32 = ((u & 0xFF) << 24) | ((u & 0xFF00) << 8) | ((u >>> 8) & 0xFF00) | ((u >>> 24) & 0xFF);
+    const hexLe = '0x' + u.toString(16).toUpperCase().padStart(DOS_FAT_HEX_WIDTH, '0');
+    const hexBe = '0x' + (bigEndianAsUint32 >>> 0).toString(16).toUpperCase().padStart(DOS_FAT_HEX_WIDTH, '0');
+    return hexLe + '\n' + hexBe;
+}
+
+function getDosFatTimestamp(currentDateTime, timezoneOffsetMinutes) {
+    const local = createFauxUTCDate(currentDateTime, timezoneOffsetMinutes);
+    const y = local.getUTCFullYear();
+    const m = local.getUTCMonth() + 1;
+    const d = local.getUTCDate();
+    const hour = local.getUTCHours();
+    const minute = local.getUTCMinutes();
+    const second = Math.min(local.getUTCSeconds(), DOS_FAT_SECOND_MAX);
+    const dateWord = ((y - DOS_FAT_YEAR_BIAS) << 9) | (m << 5) | d;
+    const timeWord = (hour << 11) | (minute << 5) | Math.floor(second / 2);
+    const packed = ((dateWord & 0xFFFF) << 16) | (timeWord & 0xFFFF);
+    return dosFatPackedToHexLittleBigEndian(packed);
+}
+
+const SAS_4GL_EPOCH = { year: 1960, month: 1, day: 1 };
+
+function getSas4glDatetime(currentDateTime) {
+    const epoch = createAdjustedDateTime(SAS_4GL_EPOCH);
+    const seconds = Math.floor((currentDateTime.getTime() - epoch.getTime()) / COMPUTING_MS_PER_SECOND);
+    const days = Math.floor(seconds / COMPUTING_SECONDS_PER_DAY);
+    return String(seconds) + '\n' + days;
 }
 
 const GPS_EPOCH = { year: 1980, month: 1, day: 6 };
@@ -48,6 +151,15 @@ function getGPSTime(currentDateTime) {
     gpsTime += countElapsedLeapSeconds(currentTimestamp, gpsLeapSecondTimestampsCache);
 
     return gpsTime;
+}
+
+const GPS_SECONDS_PER_WEEK = 7 * COMPUTING_SECONDS_PER_DAY;
+
+function getGpsWeekNumberAndSecondsOfWeek(currentDateTime) {
+    const gpsSeconds = getGPSTime(currentDateTime);
+    const week = Math.floor(gpsSeconds / GPS_SECONDS_PER_WEEK);
+    const secondsInWeek = gpsSeconds % GPS_SECONDS_PER_WEEK;
+    return week + ' ' + secondsInWeek;
 }
 
 const TAI_INITIAL_LEAP_SECONDS = 10;

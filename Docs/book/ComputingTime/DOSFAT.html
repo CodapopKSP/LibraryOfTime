@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>TAI - Library of Time: Complete Documentation</title>
+        <title>DOS FAT - Library of Time: Complete Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -175,72 +175,41 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="tai"><a class="header" href="#tai">TAI</a></h1>
+                        <h1 id="dos-fatfat32"><a class="header" href="#dos-fatfat32">DOS FAT/FAT32</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
-<tr><td>31 December 1971 CE, +23:59:50</td><td>Exact</td><td>Paris</td></tr>
+<tr><td>1 January 1980 CE</td><td>Exact</td><td>Redmond, WA</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview"><a class="header" href="#overview">Overview</a></h4>
-<p>International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth's geoid. It is the basis for UTC but deviates from UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.</p>
+<p>DOS FAT timestamps are used in the FAT filesystem.</p>
+<p>It is a hexadecimal representation of different numbers that add onto each other. The first two digits (after 0x) represent the number of years since the epoch, though the second digit also increments when the third digit rolls over. The forth digit represents the current day of the month, and the third digit represents the current month (starting with 2), though it increments on the first day of the month and when the month digit rolls over (on the 16th day).</p>
+<p>The fifth and sixth digits represent the hours since midnight, though the sixth digit also increments when the seventh digit, representing minutes, rolls over. The seventh digit also increments when the eighth digit rolls over, which represents double seconds, incrementing once every two seconds.</p>
+<p>It can also be written in reverse byte order (big-endian vs the standard little-endian). This means that the resulting number will have the first four and the last four digits swapped, as well as the two pairs of digits within them.</p>
 <h4 id="info"><a class="header" href="#info">Info</a></h4>
-<p>Ironically, the clock displayed here is derived from UTC even though it is itself the basis for UTC.</p>
+<div class="table-wrapper"><table><thead><tr><th>Date or time</th><th>Packed value</th></tr></thead><tbody>
+<tr><td>1 January 1980 CE</td><td>0x00210000</td></tr>
+<tr><td>1 February 1980 CE</td><td>0x00410000</td></tr>
+<tr><td>1 December 1980 CE</td><td>0x01810000</td></tr>
+<tr><td>1 January at midnight</td><td>0xXX210000</td></tr>
+<tr><td>1 January at noon</td><td>0xXX216000</td></tr>
+<tr><td>2 January at midnight</td><td>0xXX220000</td></tr>
+</tbody></table>
+</div>
 <h4 id="accuracy"><a class="header" href="#accuracy">Accuracy</a></h4>
-<p>This clock is considered to be perfectly accurate, as it's a simple calculation from UTC. However, this only applies to dates after the Unix epoch of 1 January 1970. Prior to that, leap seconds aren't taken into account in this calculation.</p>
+<p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source"><a class="header" href="#source">Source</a></h4>
-<p>Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">Wikipedia article</a>.</p>
-<p>Some information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.</p>
+<p>This calculation came from <a href="https://www.epochconverter.com/fat">this converter</a>.</p>
 <hr />
-<h3 id="calculation"><a class="header" href="#calculation">Calculation</a></h3>
-<p>Calculating TAI is typically done using sensitive instruments rather than programmatically. However, an approximation that is good enough for an 'Exact' confidence classification on this site can be calculated by adding up the number of leap seconds that have passed plus 10 seconds.</p>
-<pre><code class="language-js">const TAIleapSeconds = [
-    "1972-06-30T23:59:59Z",
-    "1972-12-31T23:59:59Z",
-    "1973-12-31T23:59:59Z",
-    "1974-12-31T23:59:59Z",
-    "1975-12-31T23:59:59Z",
-    "1976-12-31T23:59:59Z",
-    "1977-12-31T23:59:59Z",
-    "1978-12-31T23:59:59Z",
-    "1979-12-31T23:59:59Z",
-    "1981-06-30T23:59:59Z",
-    "1982-06-30T23:59:59Z",
-    "1983-06-30T23:59:59Z",
-    "1985-06-30T23:59:59Z",
-    "1987-12-31T23:59:59Z",
-    "1989-12-31T23:59:59Z",
-    "1990-12-31T23:59:59Z",
-    "1992-06-30T23:59:59Z",
-    "1993-06-30T23:59:59Z",
-    "1994-06-30T23:59:59Z",
-    "1995-12-31T23:59:59Z",
-    "1997-06-30T23:59:59Z",
-    "1998-12-31T23:59:59Z",
-    "2005-12-31T23:59:59Z",
-    "2008-12-31T23:59:59Z",
-    "2012-06-30T23:59:59Z",
-    "2015-06-30T23:59:59Z",
-    "2016-12-31T23:59:59Z"
-];
-</code></pre>
-<pre><code class="language-js">let leapSecondsCount = 0;
-    TAIleapSeconds.forEach(leapSecond =&gt; {
-        if (new Date(leapSecond).getTime() &lt;= currentDateTime) {
-            leapSecondsCount++;
-        }
-    });
-    // Add accumulated leap seconds plus the initial 10
-    taiDateTime.setSeconds(taiDateTime.getSeconds() + (10 + leapSecondsCount));
-</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../ComputingTime/GPSWeekNumber.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../ComputingTime/NTP.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../ComputingTime/TT.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../ComputingTime/SAS4GL.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -250,11 +219,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../ComputingTime/GPSWeekNumber.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../ComputingTime/NTP.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../ComputingTime/TT.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../ComputingTime/SAS4GL.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

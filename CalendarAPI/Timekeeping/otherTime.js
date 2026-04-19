@@ -1,8 +1,8 @@
-//|--------------------|
-//|     Other Time     |
-//|--------------------|
+//|---------------------------|
+//|  Extraterrestrial Time    |
+//|---------------------------|
 
-// A set of functions for calculating times in the Other Time category.
+// A set of functions for calculating times in the Extraterrestrial Time grid section.
 
 const OTHER_TIME_HOURS_PER_DAY = 24;
 const OTHER_TIME_MINUTES_PER_HOUR = 60;

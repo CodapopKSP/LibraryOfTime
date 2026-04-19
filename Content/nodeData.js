@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 125
+// Total nodes: 134
 
 /*
 Node Data is a collection of data for each node.
@@ -192,6 +192,19 @@ const computingTimeData = [
     },
 
     {
+        name: `GPS Week Number`,
+        id: `gps-week-number`,
+        type: `Computing Time`,
+        epoch: `6 January 1980 CE`,
+        confidence: `Exact`,
+        associatedWith: `Washington, D.C.`,
+        overview: `The GPS Week Number is an alternative way to express the GPS timestamp. The first number is the number of weeks since the epoch, and the second number is the number of seconds in the current week.`,
+        info: ``,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/gps">this converter</a>.`
+    },
+
+    {
         name: `TAI`,
         id: `tai`,
         type: `Computing Time`,
@@ -236,11 +249,115 @@ const computingTimeData = [
         type: `Computing Time`,
         epoch: `1 January 1601 CE`,
         confidence: `Exact`,
-        associatedWith: `San Francisco`,
-        overview: `FILETIME is the timing method found on Windows filesystems. It is a simple count of number of nanoseconds since midnight on January 1st, 1601.`,
-        info: `Most systems use Unix or a similar epoch. FILETIME is unique in its choice of the year 1601.`,
-        accuracy: `FILETIME is accurate to the microsecond, but it does not count nanoseconds.`,
+        associatedWith: `Redmond, WA`,
+        overview: `FILETIME is the timing method found on Windows filesystems. It is a simple count of number of 100-nanosecond intervals since midnight on January 1st, 1601.`,
+        info: `The particular date of 1 January 1601 was chosen because it is the start of a new 400-year Gregorian leap year cycle.`,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count 100-nanosecond intervals, instead updating on the site's global 20ms update cycle.`,
         source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/System_time">Wikipedia article</a>.`
+    },
+
+    {
+        name: `.NET DateTime Ticks`,
+        id: `net-datetime-ticks`,
+        type: `Computing Time`,
+        epoch: `1 January 0001 CE, 00:00:00 UTC`,
+        confidence: `Exact`,
+        associatedWith: `Redmond, WA`,
+        overview: `.NET DateTime Ticks is a count of the number of 100-nanosecond intervals since 1 January 1 CE.`,
+        info: ``,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count 100-nanosecond intervals, instead updating on the site's global 20ms update cycle.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/dotnet">this converter</a>.`
+    },
+
+    {
+        name: `Chrome/WebKit`,
+        id: `chromewebkit`,
+        type: `Computing Time`,
+        epoch: `1 January 1601 CE, 00:00:00 UTC`,
+        confidence: `Exact`,
+        associatedWith: `Redmond, WA`,
+        overview: `The Chrome/WebKit timestamp is used by browsers based on Chromium, such as Google Chrome.\n\nIt represents the number of microseconds since 1 January 1601 CE.`,
+        info: `The particular date of 1 January 1601 was chosen because it is the start of a new 400-year Gregorian leap year cycle.`,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count microseconds, instead updating on the site's global 20ms update cycle.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/webkit">this converter</a>.`
+    },
+
+    {
+        name: `Unix Hex`,
+        id: `unix-hex`,
+        type: `Computing Time`,
+        epoch: `1 January 1970 CE`,
+        confidence: `Exact`,
+        associatedWith: ``,
+        overview: `The Unix Hex timestamp is the hexadecimal representation of the Unix timestamp.`,
+        info: ``,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/hex">this converter</a>.`
+    },
+
+    {
+        name: `Cocoa Core Data`,
+        id: `cocoa-core-data`,
+        type: `Computing Time`,
+        epoch: `1 January 2001 CE, 00:00:00 UTC`,
+        confidence: `Exact`,
+        associatedWith: `Cupertino, CA`,
+        overview: `The Cocoa Core Data timestamp is used in iOS and OS X applications. It is also refered to as Mac absolute time.\n\nIt counts the number of seconds since 1 January 2001 CE.`,
+        info: ``,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/coredata">this converter</a>.`
+    },
+
+    {
+        name: `Mac HFS+`,
+        id: `mac-hfs`,
+        type: `Computing Time`,
+        epoch: `1 January 1904 CE, 00:00:00 UTC`,
+        confidence: `Exact`,
+        associatedWith: `Cupertino, CA`,
+        overview: `The Mac HFS+ timestamp was a system used in Apple devices and has since been replaces with the Cocoa Core Data timestamp.`,
+        info: `The Mac HFS+ can only store 32-bit numbers and will roll over back to 0 on 6 February 2040 at 6:28:16 UTC+0.`,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/mac">this converter</a>.`
+    },
+
+    {
+        name: `NTP`,
+        id: `ntp`,
+        type: `Computing Time`,
+        epoch: `1 January 1900 CE, 00:00:00 UTC`,
+        confidence: `Exact`,
+        associatedWith: `Newark, DE`,
+        overview: `The Network Time Protocol timestamp is a count of the number of seconds since 1 January 1900 CE. It can be displayed in both decimal and hexadecimal.`,
+        info: `NTP can only store 32-bit numbers and will roll over back to 0 on 7 February 2036 at 6:28:16 UTC+0, also known as the Year 2036 Problem.`,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/ntp">this converter</a>.`
+    },
+
+    {
+        name: `DOS FAT/FAT32`,
+        id: `dos-fatfat32`,
+        type: `Computing Time`,
+        epoch: `1 January 1980 CE`,
+        confidence: `Exact`,
+        associatedWith: `Redmond, WA`,
+        overview: `DOS FAT timestamps are used in the FAT filesystem.\n\nIt is a hexadecimal representation of different numbers that add onto each other. The first two digits (after 0x) represent the number of years since the epoch, though the second digit also increments when the third digit rolls over. The forth digit represents the current day of the month, and the third digit represents the current month (starting with 2), though it increments on the first day of the month and when the month digit rolls over (on the 16th day).\n\nThe fifth and sixth digits represent the hours since midnight, though the sixth digit also increments when the seventh digit, representing minutes, rolls over. The seventh digit also increments when the eighth digit rolls over, which represents double seconds, incrementing once every two seconds.\n\nIt can also be written in reverse byte order (big-endian vs the standard little-endian). This means that the resulting number will have the first four and the last four digits swapped, as well as the two pairs of digits within them.`,
+        info: `<table class="table-very-very-long"><tr><th>Date or time</th><th>Packed value</th></tr><tr><td>1 January 1980 CE</td><td>0x00210000</td></tr><tr><td>1 February 1980 CE</td><td>0x00410000</td></tr><tr><td>1 December 1980 CE</td><td>0x01810000</td></tr><tr><td>1 January at midnight</td><td>0xXX210000</td></tr><tr><td>1 January at noon</td><td>0xXX216000</td></tr><tr><td>2 January at midnight</td><td>0xXX220000</td></tr></table>`,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/fat">this converter</a>.`
+    },
+
+    {
+        name: `SAS 4GL`,
+        id: `sas-4gl`,
+        type: `Computing Time`,
+        epoch: `1 January 1960 CE, 00:00:00 UTC`,
+        confidence: `Exact`,
+        associatedWith: `Cary, NC`,
+        overview: `The Statistical Analysis System 4GL timestamp has two forms. One represents the number of seconds since 1 January 1960 CE, and the other represents the number of days since the same epoch.`,
+        info: ``,
+        accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
+        source: `This calculation came from <a href="https://www.epochconverter.com/sas">this converter</a>.`
     },
 
     {
@@ -495,7 +612,7 @@ const decimalTimeData = [
     {
         name: `French Revolutionary`,
         id: `french-revolutionary`,
-        type: `Decimal Time`,
+        type: `Alternative Time`,
         epoch: `Midnight`,
         confidence: `Exact`,
         associatedWith: `Paris`,
@@ -508,7 +625,7 @@ const decimalTimeData = [
     {
         name: `.beat (BMT)`,
         id: `beat`,
-        type: `Decimal Time`,
+        type: `Alternative Time`,
         epoch: `Midnight (BMT)`,
         confidence: `Exact`,
         associatedWith: `Biel/Bienne, Switzerland`,
@@ -521,7 +638,7 @@ const decimalTimeData = [
     {
         name: `Hexadecimal`,
         id: `hexadecimal`,
-        type: `Decimal Time`,
+        type: `Alternative Time`,
         epoch: `Midnight`,
         confidence: `Exact`,
         associatedWith: ``,
@@ -534,7 +651,7 @@ const decimalTimeData = [
     {
         name: `Binary (16 bit)`,
         id: `binary-16-bit`,
-        type: `Decimal Time`,
+        type: `Alternative Time`,
         epoch: `Midnight`,
         confidence: `Exact`,
         associatedWith: ``,
@@ -549,7 +666,7 @@ const otherTimeData = [
     {
         name: `Coordinated Mars Time`,
         id: `coordinated-mars-time`,
-        type: `Other Time`,
+        type: `Extraterrestrial Time`,
         epoch: `29 December 1873 CE +12:04:11`,
         confidence: `High`,
         associatedWith: ``,
@@ -562,7 +679,7 @@ const otherTimeData = [
     {
         name: `Io Meridian Time`,
         id: `io-meridian-time`,
-        type: `Other Time`,
+        type: `Extraterrestrial Time`,
         epoch: `31 December 2001 +16:07:45`,
         confidence: `High`,
         associatedWith: ``,
@@ -575,7 +692,7 @@ const otherTimeData = [
     {
         name: `Europa Meridian Time`,
         id: `europa-meridian-time`,
-        type: `Other Time`,
+        type: `Extraterrestrial Time`,
         epoch: `2 January 2002 +17:12:57`,
         confidence: `High`,
         associatedWith: ``,
@@ -588,7 +705,7 @@ const otherTimeData = [
     {
         name: `Ganymede Meridian Time`,
         id: `ganymede-meridian-time`,
-        type: `Other Time`,
+        type: `Extraterrestrial Time`,
         epoch: `1 January 2002 +11:08:29`,
         confidence: `High`,
         associatedWith: ``,
@@ -601,7 +718,7 @@ const otherTimeData = [
     {
         name: `Callisto Meridian Time`,
         id: `callisto-meridian-time`,
-        type: `Other Time`,
+        type: `Extraterrestrial Time`,
         epoch: `28 December 2001 +12:27:23`,
         confidence: `High`,
         associatedWith: ``,

@@ -1,3 +1,3 @@
-# Decimal Time
+# Alternative Time
 
-Decimal time systems use base-10 divisions instead of the traditional base-60 (hours/minutes/seconds) or base-12/24 (hours) systems. These systems aim to simplify time calculations by using decimal arithmetic throughout.
+Alternative time systems depart from conventional civil time. They include decimal divisions (base-10 instead of base-60 hours and minutes), fractional-day schemes such as .beat time, and other encodings like hexadecimal or binary clocks.
