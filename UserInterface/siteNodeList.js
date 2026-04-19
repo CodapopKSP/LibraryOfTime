@@ -16,6 +16,7 @@ const SITE_NODE_CATEGORY_LABELS = {
     'Standard Time': 'Standard Time',
     'Alternative Time': 'Alternative Time',
     'Extraterrestrial Time': 'Extraterrestrial Time',
+    'Extraterrestrial Calendar': 'Extraterrestrial Calendars',
     'Lunisolar Calendar': 'Lunisolar Calendars',
     'Lunar Calendar': 'Lunar Calendars',
     'Solilunar Calendar': 'Solilunar Calendars',

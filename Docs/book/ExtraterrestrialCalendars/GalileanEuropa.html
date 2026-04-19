@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Ganymede Meridian Time - Library of Time: Complete Documentation</title>
+        <title>Galilean (Europa) - Library of Time: Complete Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -175,38 +175,52 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ganymede-meridian-time"><a class="header" href="#ganymede-meridian-time">Ganymede Meridian Time</a></h1>
+                        <h1 id="galilean-europa"><a class="header" href="#galilean-europa">Galilean (Europa)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>1 January 2002 +11:08:29</td><td>High</td></tr>
+<tr><td>2 January 2002 +17:12:57</td><td>Medium</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview"><a class="header" href="#overview">Overview</a></h4>
-<p>Ganymede Meridian Time is a measure of time passed since midnight on the prime meridian of Ganymede, moon of Jupiter.</p>
-<p>It features a similar 24-hour clock to Earth time, but the units are about 11.5% shorter. One Ganymede solar day is about eight Earth days, so the day is further broken up into eight circads of 21 hours each.</p>
-<p>Ganymede is tidally locked with Jupiter, meaning one side of the moon always faces the planet and the other side always faces away. The prime meridian is determined to be the meridian on the moon's surface that is facing directly at Jupiter.</p>
-<p>Midnight is thus the time when the moon is directly between Jupiter and the sun, though this is only used as an epoch for the beginning of the first circad in each solar day. The fifth circad happens when the moon is on the opposite side of Jupiter from the sun.</p>
-<p>Ganymede Meridian Time is a name that was chosen for this website and might not be accurate.</p>
+<p>The Galilean calendars are calculated calendars created by Thomas Gangale for use on the four Galilean moons of Jupiter---Io, Europa, Ganymede, and Callisto. They are intended to loosely align with the Earth-based Gregorian calendar, roughly sharing an epoch and most month names.</p>
+<p>The inner three moons are in a 2:4:8 Laplace resonance, and thus their orbits and solar days are in nearly exact ratios. As the solar day of Io, the inner-most moon, is over 42 hours, its day is broken into two units of time called 'circads' that are ~21 hours each and act as calendar days. The remaining moons have their orbits broken up into similar-sized circads: 4 for Europa, 8 for Ganymede, and 19 for Callisto.</p>
+<p>The calendars all share circads, months, and weeks of 8 circads, though they drift in and out of phase with each other depending on intercalation. There are 13 months, with the 'extra' month of Mercedonius added between the February and March analogs. Generally months have 32 circads, but Ganymede's Junius is only 24 circads, as well as the month of December for all moons in non-leap years. The months are also prefixed with a shorthand name of the moon.</p>
 <h4 id="info"><a class="header" href="#info">Info</a></h4>
-<p>Ganymede is in a 2/4/8 Laplace resonance with Io and Europa, so their solar days are equally comprised of 2/4/8 circads, though the length of their circads are very slightly different. The circad of Ganymede is 21.49916 Earth hours long, which is then broken into 24 Ganymede hours.</p>
-<table class="table-short"><tr><td>GMT</td><td>Standard Time</td></tr><tr><td>GMT Second</td><td>0.8957983 Seconds</td></tr><tr><td>GMT Minute</td><td>53.7479 Seconds</td></tr><tr><td>GMT Hour</td><td>53.7479 Minutes</td></tr></table>
-<table class="table-short"><tr><td>Moon</td><td>Circad Length</td><td>Circads Per Orbit</td></tr><tr><td>Io</td><td>21.23833 Hours</td><td>2</td></tr><tr><td>Europa</td><td>21.32456 Hours</td><td>4</td></tr><tr><td>Ganymede</td><td>21.49916 Hours</td><td>8</td></tr><tr><td>Callisto</td><td>21.16238 Hours</td><td>19</td></tr></table>
-<p>As the orbit of Ganymede is not very inclined, midnight on Circad 1 is also roughly the time of a total solar eclipse on Jupiter.</p>
+<p>All four of the Galilean calendars use roughly the same epoch, within a week, as the Gregorian calendar, each of which corresponds with their Meridian Time.</p>
+<p>The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.</p>
+<div class="table-wrapper"><table><thead><tr><th>Europa Month</th><th>Circads</th></tr></thead><tbody>
+<tr><td>Eu Januarius</td><td>32</td></tr>
+<tr><td>Eu Februarius</td><td>32</td></tr>
+<tr><td>Eu Mercedonius</td><td>32</td></tr>
+<tr><td>Eu Martius</td><td>32</td></tr>
+<tr><td>Eu Aprilis</td><td>32</td></tr>
+<tr><td>Eu Maius</td><td>32</td></tr>
+<tr><td>Eu Junius</td><td>32</td></tr>
+<tr><td>Eu Julius</td><td>32</td></tr>
+<tr><td>Eu Augustus</td><td>32</td></tr>
+<tr><td>Eu September</td><td>32</td></tr>
+<tr><td>Eu October</td><td>32</td></tr>
+<tr><td>Eu November</td><td>32</td></tr>
+<tr><td>Eu December</td><td>24-32</td></tr>
+</tbody></table>
+</div>
 <h4 id="accuracy"><a class="header" href="#accuracy">Accuracy</a></h4>
-<p>The accuracy of this timekeeping system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.</p>
+<p>The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.</p>
 <p>The epoch is noted to account for the time it takes light to travel from Jupiter.</p>
-<p>The name of this timekeeping system is my own creation, as Mr. Gangale did not give it a name himself.</p>
+<p>I was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.</p>
+<p>The name of this calendar was only implied in the original text but never explicitly stated.</p>
 <h4 id="source"><a class="header" href="#source">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.</p>
+<p>This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.</p>
+<p>It can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../OtherTime/EuropaTime.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../ExtraterrestrialCalendars/GalileanIo.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../OtherTime/CallistoTime.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../ExtraterrestrialCalendars/GalileanGanymede.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -216,11 +230,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../OtherTime/EuropaTime.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../ExtraterrestrialCalendars/GalileanIo.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../OtherTime/CallistoTime.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../ExtraterrestrialCalendars/GalileanGanymede.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

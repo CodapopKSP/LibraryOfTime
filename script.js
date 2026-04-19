@@ -78,6 +78,7 @@ const parentElements = {
     'Standard Time': document.querySelector('.standard-time'),
     'Alternative Time': document.querySelector('.alternative-time'),
     'Extraterrestrial Time': document.querySelector('.extraterrestrial-time'),
+    'Extraterrestrial Calendar': document.querySelector('.extraterrestrial-calendars'),
     'Lunisolar Calendar': document.querySelector('.lunisolar-calendars'),
     'Lunar Calendar': document.querySelector('.lunar-calendars'),
     'Solilunar Calendar': document.querySelector('.solilunar-calendars'),

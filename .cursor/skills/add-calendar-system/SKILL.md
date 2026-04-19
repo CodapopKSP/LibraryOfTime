@@ -36,7 +36,7 @@ Each step below is required unless explicitly skipped by the user.
    - Lunisolar calendar → `Docs/src/LunisolarCalendars/`
    - Solilunar calendar → `Docs/src/SolilunarCalendars/`
    - Proposed calendar → `Docs/src/ProposedCalendars/`
-   - Other calendars / time systems → `Docs/src/OtherCalendars/`, `Docs/src/OtherTime/` (Extraterrestrial Time grid section), etc.
+   - Other calendars / time systems → `Docs/src/OtherCalendars/`, `Docs/src/ExtraterrestrialCalendars/` (Darian / Galilean), `Docs/src/ExtraterrestrialTime/` (Extraterrestrial Time grid section), etc.
 2. Create a **new markdown file** that follows the standard header layout used by existing entries in that section. For calendar/time-system nodes, this means including (in order):
    - **Title** (top-level heading with the system’s name).
    - **Epoch** (a short line; can be “To be determined.” for new systems).
@@ -105,7 +105,7 @@ When adding **month names**, **weekday names**, or similar reference material:
    - Other calendars (Galilean, Darian, cycles, etc.) → `updateOtherCalendars(currentDateTime)`
    - Proposed calendars → `updateProposedCalendars(currentDateTime, timezoneOffset)`
    - Pop culture calendars → `updatePopCultureCalendars(currentDateTime, timezoneOffset)`
-   - Timekeeping / clocks / decimal time → `updateClocks_Fast` or `updateClocks_Slow` depending on update frequency.
+   - Timekeeping / clocks / Alternative Time systems → `updateClocks_Fast` or `updateClocks_Slow` depending on update frequency.
 2. Add a new `setTimeValue` call within the appropriate wrapper:
    - First argument: the node id from `Content/nodeData.js` (e.g., `'solar-hijri-node'`).
    - Second argument: the result of your main function (e.g., `getSolarHijriDate(currentDateTime, springEquinox)`).

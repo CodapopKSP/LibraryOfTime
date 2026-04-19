@@ -31,6 +31,9 @@
 .container-name {
     font-size: 1.6vh;
     padding-bottom: 0.5vh;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .mac-chrome-only .container-name {
@@ -86,6 +89,11 @@
 .extraterrestrial-time {
     background-color: rgb(54, 50, 50);
     color: rgb(203, 255, 196);
+}
+
+.extraterrestrial-calendars {
+    background-color: rgb(50, 54, 52);
+    color: rgb(196, 236, 255);
 }
 
 .astronomical-data {

@@ -53,7 +53,7 @@ Follow this end-to-end workflow for each calendar or timekeeping feature:
 4. **Place the implementation**
    - Put core logic in the appropriate part of the Calendar API layer:
      - `CalendarAPI/Calendars/*` for calendar systems and their primary date-conversion functions.
-     - `CalendarAPI/Timekeeping/*` for non-calendar timekeeping systems (e.g., clocks, decimal time) that are still treated like first-class calendar APIs.
+     - `CalendarAPI/Timekeeping/*` for non-calendar timekeeping systems (e.g., clocks, Alternative Time systems) that are still treated like first-class calendar APIs.
      - `CalendarAPI/Other/*` for additional time-related systems and data organized separately from the main calendar and clock modules but used in the same way.
    - Keep **all code in vanilla JS** with no external libraries.
    - Avoid changing public APIs of unrelated calendars unless the user explicitly requested a refactor.

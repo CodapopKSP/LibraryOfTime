@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Coordinated Mars Time - Library of Time: Complete Documentation</title>
+        <title>Binary Time - Library of Time: Complete Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -175,31 +175,29 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="coordinated-mars-time"><a class="header" href="#coordinated-mars-time">Coordinated Mars Time</a></h1>
+                        <h1 id="binary-16-bit"><a class="header" href="#binary-16-bit">Binary (16 bit)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>29 December 1873 CE +12:04:11</td><td>High</td></tr>
+<tr><td>Midnight</td><td>Exact</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview"><a class="header" href="#overview">Overview</a></h4>
-<p>Coordinated Mars Time, also called MTC as well as Airy Mean Time (AMT), is a proposed clock for use on Mars which has gained some level of mainstream traction in the scientific community. It is intended to be a Martian analog to Earth's UTC.</p>
-<p>The time is displayed as hours, minutes, and seconds since midnight on Mars at the location of the Airy-0 crater. The clock is the same as clocks on Earth, with 24 hours and 60 minutes in an hour, though each unit is slightly longer due to the length of the sol being 39 minutes and 35 seconds longer than the day.</p>
+<p>Binary time is the binary representation of the day divided into 2^16 (65,536) equal parts, with all 0s being midnight and a 1 followed by 15 zeros being exactly half the day (noon). The smallest unit of resolution is 675/512 seconds, or about 1.318 seconds.</p>
 <h4 id="info"><a class="header" href="#info">Info</a></h4>
-<p>This clock uses the Mars Sol Date for the calculation determining where midnight begins.</p>
-<table class="table-short"><tr><td>MTC</td><td>Standard Time</td></tr><tr><td>MTC Second</td><td>1.02749125 Seconds</td></tr><tr><td>MTC Minute</td><td>61.649475 Seconds</td></tr><tr><td>MTC Hour</td><td>61.649475 Minutes</td></tr></table>
+<table class="table-long"><tr><th>Decimal</th><th>Binary</th></tr><tr><td>0</td><td>0000000000000000</td></tr><tr><td>1</td><td>0000000000000001</td></tr><tr><td>2</td><td>0000000000000010</td></tr><tr><td>3</td><td>0000000000000011</td></tr><tr><td>4</td><td>0000000000000100</td></tr><tr><td>5</td><td>0000000000000101</td></tr><tr><td>6</td><td>0000000000000110</td></tr><tr><td>7</td><td>0000000000000111</td></tr><tr><td>8</td><td>0000000000001000</td></tr><tr><td>9</td><td>0000000000001001</td></tr><tr><td>10</td><td>0000000000001010</td></tr><tr><td>11</td><td>0000000000001011</td></tr><tr><td>12</td><td>0000000000001100</td></tr><tr><td>13</td><td>0000000000001101</td></tr><tr><td>14</td><td>0000000000001110</td></tr><tr><td>15</td><td>0000000000001111</td></tr></table>
 <h4 id="accuracy"><a class="header" href="#accuracy">Accuracy</a></h4>
-<p>This clock should be reasonably accurate, though it might be off by a few minutes or seconds due to Terrestrial Time.</p>
+<p>As this is a simple mathematical calculation, this clock is exactly accurate.</p>
 <h4 id="source"><a class="header" href="#source">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Coordinated_Mars_Time">Wikipedia article</a>.</p>
+<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Binary_time">Wikipedia article</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../OtherTime/OtherTime.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../AlternativeTime/HexTime.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../OtherTime/IoTime.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../ExtraterrestrialTime/ExtraterrestrialTime.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -209,11 +207,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../OtherTime/OtherTime.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../AlternativeTime/HexTime.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../OtherTime/IoTime.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../ExtraterrestrialTime/ExtraterrestrialTime.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -265,17 +265,33 @@ function normalizeEpochStringForParsing(epochStr) {
 }
 
 /**
- * Renders calendar epochs as "1 January 1950 CE" on one line and "+10:00:00" on the next
- * when a timezone offset is present. Other values (e.g. "Midnight", "Unknown") unchanged.
+ * Renders calendar epochs on two lines when a parseable tail follows the calendar date:
+ * - Era + UTC offset: "1 January 1950 CE" / "+10:00:00" (optional comma after era)
+ * - Era + wall time (no leading +): "12 March 1609 CE" / "18:40:06"
+ * - Year + signed offset (no era): "31 December 2001" / "+16:07:45"
+ * Other values (e.g. "Midnight", "Unknown") unchanged.
  */
 function formatEpochDisplayForPanel(epoch) {
     if (epoch == null || typeof epoch !== 'string') return epoch;
     const singleLine = normalizeEpochStringForParsing(epoch);
-    // Allow optional comma between era and offset (e.g. "544 BCE, +17:00:00" in nodeData)
-    const m = singleLine.match(/^(.+?(?:BCE|CE))[\s,]*([+-]\s*\d{1,2}:\d{2}:\d{2})\s*$/);
-    if (!m) return singleLine;
-    const tzDisplay = m[2].replace(/\s+/g, '');
-    return `${m[1]}\n${tzDisplay}`;
+    // Era + signed offset (e.g. "544 BCE, +17:00:00")
+    const eraTz = singleLine.match(/^(.+?(?:BCE|CE))[\s,]*([+-]\s*\d{1,2}:\d{2}:\d{2})\s*$/);
+    if (eraTz) {
+        const tzDisplay = eraTz[2].replace(/\s+/g, '');
+        return `${eraTz[1]}\n${tzDisplay}`;
+    }
+    // Era + clock time without leading + (e.g. "12 March 1609 CE, 18:40:06")
+    const eraClock = singleLine.match(/^(.+?(?:BCE|CE))[\s,]*(\d{1,2}:\d{2}(?::\d{2})?)\s*$/);
+    if (eraClock) {
+        return `${eraClock[1]}\n${eraClock[2]}`;
+    }
+    // Date + signed offset, no era (e.g. Darian/Galilean: "13 March 1609 +05:29:26")
+    const dateOffset = singleLine.match(/^(.+?)\s+([+-]\s*\d{1,2}:\d{2}:\d{2})\s*$/);
+    if (dateOffset) {
+        const off = dateOffset[2].replace(/\s+/g, '');
+        return `${dateOffset[1]}\n${off}`;
+    }
+    return singleLine;
 }
 
 function createEpochElement(item) {

@@ -2,7 +2,7 @@
 //|     Other Calendars     |
 //|-------------------------|
 
-// A set of functions for calculating dates in the Other Calendars category.
+// A set of functions for calculating dates in the Other Calendars and Extraterrestrial Calendars grid sections (implementation file is shared).
 
 // --- Maya calendar constants ---
 const MAYAN_TZ = 'UTC-06:00';

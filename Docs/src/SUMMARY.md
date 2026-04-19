@@ -164,26 +164,6 @@
   
   - [Lord of the Night | Y (CST)](OtherCalendars/LordOfTheNight.md)
   
-  - [Darian (Mars)](OtherCalendars/DarianMars.md)
-  
-  - [Galilean (Io)](OtherCalendars/GalileanIo.md)
-  
-  - [Galilean (Europa)](OtherCalendars/GalileanEuropa.md)
-  
-  - [Galilean (Ganymede)](OtherCalendars/GalileanGanymede.md)
-  
-  - [Galilean (Callisto)](OtherCalendars/GalileanCallisto.md)
-  
-  - [Darian (Io)](OtherCalendars/DarianIo.md)
-  
-  - [Darian (Europa)](OtherCalendars/DarianEuropa.md)
-  
-  - [Darian (Ganymede)](OtherCalendars/DarianGanymede.md)
-  
-  - [Darian (Callisto)](OtherCalendars/DarianCallisto.md)
-  
-  - [Darian (Titan)](OtherCalendars/DarianTitan.md)
-  
   - [Yuga Cycle (IST)](OtherCalendars/YugaCycle.md)
   
   - [Sothic Cycle](OtherCalendars/SothicCycle.md)
@@ -254,27 +234,49 @@
   
   - [Positivist](ProposedCalendars/Positivist.md)
 
-- [Alternative Time](DecimalTime/DecimalTime.md)
+- [Alternative Time](AlternativeTime/AlternativeTime.md)
   
-  - [Revolutionary Time](DecimalTime/RevolutionaryTime.md)
+  - [Revolutionary Time](AlternativeTime/RevolutionaryTime.md)
   
-  - [.beat Time](DecimalTime/BeatTime.md)
+  - [.beat Time](AlternativeTime/BeatTime.md)
   
-  - [Hexadecimal Time](DecimalTime/HexTime.md)
+  - [Hexadecimal Time](AlternativeTime/HexTime.md)
   
-  - [Binary Time](DecimalTime/BinaryTime.md)
+  - [Binary Time](AlternativeTime/BinaryTime.md)
 
-- [Extraterrestrial Time](OtherTime/OtherTime.md)
+- [Extraterrestrial Time](ExtraterrestrialTime/ExtraterrestrialTime.md)
   
-  - [Coordinated Mars Time](OtherTime/MarsTime.md)
+  - [Coordinated Mars Time](ExtraterrestrialTime/MarsTime.md)
   
-  - [Io Meridian Time](OtherTime/IoTime.md)
+  - [Io Meridian Time](ExtraterrestrialTime/IoTime.md)
   
-  - [Europa Meridian Time](OtherTime/EuropaTime.md)
+  - [Europa Meridian Time](ExtraterrestrialTime/EuropaTime.md)
   
-  - [Ganymede Meridian Time](OtherTime/GanymedeTime.md)
+  - [Ganymede Meridian Time](ExtraterrestrialTime/GanymedeTime.md)
   
-  - [Callisto Meridian Time](OtherTime/CallistoTime.md)
+  - [Callisto Meridian Time](ExtraterrestrialTime/CallistoTime.md)
+
+- [Extraterrestrial Calendars](ExtraterrestrialCalendars/ExtraterrestrialCalendars.md)
+  
+  - [Darian (Mars)](ExtraterrestrialCalendars/DarianMars.md)
+  
+  - [Galilean (Io)](ExtraterrestrialCalendars/GalileanIo.md)
+  
+  - [Galilean (Europa)](ExtraterrestrialCalendars/GalileanEuropa.md)
+  
+  - [Galilean (Ganymede)](ExtraterrestrialCalendars/GalileanGanymede.md)
+  
+  - [Galilean (Callisto)](ExtraterrestrialCalendars/GalileanCallisto.md)
+  
+  - [Darian (Io)](ExtraterrestrialCalendars/DarianIo.md)
+  
+  - [Darian (Europa)](ExtraterrestrialCalendars/DarianEuropa.md)
+  
+  - [Darian (Ganymede)](ExtraterrestrialCalendars/DarianGanymede.md)
+  
+  - [Darian (Callisto)](ExtraterrestrialCalendars/DarianCallisto.md)
+  
+  - [Darian (Titan)](ExtraterrestrialCalendars/DarianTitan.md)
 
 - [Pop Culture](PopCulture/PopCulture.md)
   

@@ -43,6 +43,10 @@
     border: 0.2vh solid #98866a;
 }
 
+.extraterrestrial-calendars > .node > .content {
+    border: 0.2vh solid #6a8f98;
+}
+
 .lunar-calendars > .node > .content {
     border: 0.2vh solid #7c6a98;
 }

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Galilean (Io) - Library of Time: Complete Documentation</title>
+        <title>Coordinated Mars Time - Library of Time: Complete Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -175,52 +175,31 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="galilean-io"><a class="header" href="#galilean-io">Galilean (Io)</a></h1>
+                        <h1 id="coordinated-mars-time"><a class="header" href="#coordinated-mars-time">Coordinated Mars Time</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
-<tr><td>31 December 2001 +16:07:45</td><td>Medium</td></tr>
+<tr><td>29 December 1873 CE +12:04:11</td><td>High</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview"><a class="header" href="#overview">Overview</a></h4>
-<p>The Galilean calendars are calculated calendars created by Thomas Gangale for use on the four Galilean moons of Jupiter---Io, Europa, Ganymede, and Callisto. They are intended to loosely align with the Earth-based Gregorian calendar, roughly sharing an epoch and most month names.</p>
-<p>The inner three moons are in a 2:4:8 Laplace resonance, and thus their orbits and solar days are in nearly exact ratios. As the solar day of Io, the inner-most moon, is over 42 hours, its day is broken into two units of time called 'circads' that are ~21 hours each and act as calendar days. The remaining moons have their orbits broken up into similar-sized circads: 4 for Europa, 8 for Ganymede, and 19 for Callisto.</p>
-<p>The calendars all share circads, months, and weeks of 8 circads, though they drift in and out of phase with each other depending on intercalation. There are 13 months, with the 'extra' month of Mercedonius added between the February and March analogs. Generally months have 32 circads, but Ganymede's Junius is only 24 circads, as well as the month of December for all moons in non-leap years. The months are also prefixed with a shorthand name of the moon.</p>
+<p>Coordinated Mars Time, also called MTC as well as Airy Mean Time (AMT), is a proposed clock for use on Mars which has gained some level of mainstream traction in the scientific community. It is intended to be a Martian analog to Earth's UTC.</p>
+<p>The time is displayed as hours, minutes, and seconds since midnight on Mars at the location of the Airy-0 crater. The clock is the same as clocks on Earth, with 24 hours and 60 minutes in an hour, though each unit is slightly longer due to the length of the sol being 39 minutes and 35 seconds longer than the day.</p>
 <h4 id="info"><a class="header" href="#info">Info</a></h4>
-<p>All four of the Galilean calendars use roughly the same epoch, within a week, as the Gregorian calendar, each of which corresponds with their Meridian Time.</p>
-<p>The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.</p>
-<div class="table-wrapper"><table><thead><tr><th>Io Month</th><th>Circads</th></tr></thead><tbody>
-<tr><td>Io Januarius</td><td>32</td></tr>
-<tr><td>Io Februarius</td><td>32</td></tr>
-<tr><td>Io Mercedonius</td><td>32</td></tr>
-<tr><td>Io Martius</td><td>32</td></tr>
-<tr><td>Io Aprilis</td><td>32</td></tr>
-<tr><td>Io Maius</td><td>32</td></tr>
-<tr><td>Io Junius</td><td>32</td></tr>
-<tr><td>Io Julius</td><td>32</td></tr>
-<tr><td>Io Augustus</td><td>32</td></tr>
-<tr><td>Io September</td><td>32</td></tr>
-<tr><td>Io October</td><td>32</td></tr>
-<tr><td>Io November</td><td>32</td></tr>
-<tr><td>Io December</td><td>24-32</td></tr>
-</tbody></table>
-</div>
+<p>This clock uses the Mars Sol Date for the calculation determining where midnight begins.</p>
+<table class="table-short"><tr><td>MTC</td><td>Standard Time</td></tr><tr><td>MTC Second</td><td>1.02749125 Seconds</td></tr><tr><td>MTC Minute</td><td>61.649475 Seconds</td></tr><tr><td>MTC Hour</td><td>61.649475 Minutes</td></tr></table>
 <h4 id="accuracy"><a class="header" href="#accuracy">Accuracy</a></h4>
-<p>The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.</p>
-<p>The epoch is noted to account for the time it takes light to travel from Jupiter.</p>
-<p>I was unable to properly understand the intercalary system employed by Mr. Gangale, so I introduced my own while attempting to match his intent as closely as possible.</p>
-<p>The name of this calendar was only implied in the original text but never explicitly stated.</p>
+<p>This clock should be reasonably accurate, though it might be off by a few minutes or seconds due to Terrestrial Time.</p>
 <h4 id="source"><a class="header" href="#source">Source</a></h4>
-<p>This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_jupiter/jupiter.htm">this website</a>.</p>
-<p>It can be somewhat calibrated using <a href="https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html">this model</a> if you know what you're doing.</p>
+<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Coordinated_Mars_Time">Wikipedia article</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../OtherCalendars/DarianMars.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../ExtraterrestrialTime/ExtraterrestrialTime.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../OtherCalendars/GalileanEuropa.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../ExtraterrestrialTime/IoTime.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -230,11 +209,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../OtherCalendars/DarianMars.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../ExtraterrestrialTime/ExtraterrestrialTime.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../OtherCalendars/GalileanEuropa.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../ExtraterrestrialTime/IoTime.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

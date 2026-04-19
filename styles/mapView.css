@@ -365,6 +365,11 @@
     --map-node-border: #98866a;
 }
 
+.map-view-type-icon--extraterrestrial-calendars {
+    color: rgb(196, 236, 255);
+    --map-node-border: #6a8f98;
+}
+
 .map-view-type-icon--lunar-calendars {
     color: rgb(196, 212, 255);
     --map-node-border: #7c6a98;
@@ -599,6 +604,9 @@
 }
 .map-view-node-tooltip .extraterrestrial-time > .node > .content {
     border-color: #98866a;
+}
+.map-view-node-tooltip .extraterrestrial-calendars > .node > .content {
+    border-color: #6a8f98;
 }
 .map-view-node-tooltip .lunar-calendars > .node > .content {
     border-color: #7c6a98;

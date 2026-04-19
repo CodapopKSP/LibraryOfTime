@@ -73,6 +73,7 @@
         'Standard Time': 'standard-time',
         'Alternative Time': 'alternative-time',
         'Extraterrestrial Time': 'extraterrestrial-time',
+        'Extraterrestrial Calendar': 'extraterrestrial-calendars',
         'Lunisolar Calendar': 'lunisolar-calendars',
         'Lunar Calendar': 'lunar-calendars',
         'Solilunar Calendar': 'solilunar-calendars',
@@ -97,6 +98,7 @@
         { section: 'lunar-calendars', type: 'Lunar Calendar', title: 'Lunar calendars' },
         { section: 'solilunar-calendars', type: 'Solilunar Calendar', title: 'Solilunar calendars' },
         { section: 'other-calendars', type: 'Other Calendar', title: 'Other calendars' },
+        { section: 'extraterrestrial-calendars', type: 'Extraterrestrial Calendar', title: 'Extraterrestrial calendars' },
         { section: 'pop-culture', type: 'Pop Culture', title: 'Pop culture' }
     ];
 
@@ -127,6 +129,8 @@
             '<rect x="6.5" y="5" width="11" height="14" rx="1.2" fill="currentColor" fill-opacity="0.38" stroke="currentColor" stroke-width="1.5"/>' +
             '<path fill="none" stroke="currentColor" stroke-width="1.45" d="M6.5 9h11M11 5V3M15 5V3"/>',
         'Other Calendar':
+            '<path fill="currentColor" d="M12 5.5L19 12l-7 6.5-7-6.5z"/>',
+        'Extraterrestrial Calendar':
             '<path fill="currentColor" d="M12 5.5L19 12l-7 6.5-7-6.5z"/>',
         'Standard Time': MAP_TIME_DOT_SVG,
         'Computing Time': MAP_TIME_DOT_SVG,
