@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 134
+// Total nodes: 136
 
 /*
 Node Data is a collection of data for each node.
@@ -659,6 +659,32 @@ const alternativeTimeData = [
         info: `<table class="table-long"><tr><th>Decimal</th><th>Binary</th></tr><tr><td>0</td><td>0000000000000000</td></tr><tr><td>1</td><td>0000000000000001</td></tr><tr><td>2</td><td>0000000000000010</td></tr><tr><td>3</td><td>0000000000000011</td></tr><tr><td>4</td><td>0000000000000100</td></tr><tr><td>5</td><td>0000000000000101</td></tr><tr><td>6</td><td>0000000000000110</td></tr><tr><td>7</td><td>0000000000000111</td></tr><tr><td>8</td><td>0000000000001000</td></tr><tr><td>9</td><td>0000000000001001</td></tr><tr><td>10</td><td>0000000000001010</td></tr><tr><td>11</td><td>0000000000001011</td></tr><tr><td>12</td><td>0000000000001100</td></tr><tr><td>13</td><td>0000000000001101</td></tr><tr><td>14</td><td>0000000000001110</td></tr><tr><td>15</td><td>0000000000001111</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
         source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Binary_time">Wikipedia article</a>.`
+    },
+
+    {
+        name: `Babylonian Time`,
+        id: `babylonian-time`,
+        type: `Alternative Time`,
+        epoch: `Sunrise`,
+        confidence: `High`,
+        associatedWith: `Babylon`,
+        overview: `Babylonian timekeeping was the timekeeping system used in ancient Babylon. It is the basis for standard timekeeping in modern times.\n\nIt divides each day into 12 watches, each two hours long and beginning at sunrise. Each watch is further divided into 30 geš, which are about 4 minutes each.\n\nSome sources further divided the geš into grains, though they rarely agree, providing numbers such as 60 and 72 grains per geš.`,
+        info: `<table class="table-very-very-long"><tr><th>Unit</th><th>Duration</th></tr><tr><td>Watch</td><td>2 hours</td></tr><tr><td>Geš</td><td>4 minutes</td></tr></table>`,
+        accuracy: `This calculation is based on the solar day and is very accurate, but it approximates sunset as 6:00am local time.`,
+        source: `Much of this clock was sourced from this <a href="https://en.wikipedia.org/wiki/Ancient_Mesopotamian_units_of_measurement">Wikipedia article</a> as well as <a href="https://en.wikipedia.org/wiki/Babylonian_calendar">this one</a>.`
+    },
+
+    {
+        name: `Helek`,
+        id: `helek`,
+        type: `Alternative Time`,
+        epoch: `Every Hour`,
+        confidence: `Exact`,
+        associatedWith: `Jerusalem`,
+        overview: `The Helek is a unit used in Hebrew timekeeping. It divides the standard hour into 1080 parts.\n\nIt is said to be derived from the Babylonian Grain, a similarly-sized unit of time.`,
+        info: `<table class="table-very-very-long"><tr><th>Helek</th><th>Seconds</th><th>Minutes</th></tr><tr><td>1</td><td>3 1/3</td><td>1/18</td></tr></table>`,
+        accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
+        source: `All of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Helek">Wikipedia article</a>/`
     }
 ];
 

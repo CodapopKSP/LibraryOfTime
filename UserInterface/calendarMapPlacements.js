@@ -143,6 +143,8 @@
 
         'french-revolutionary': 'paris',
         beat: 'biel-bienne',
+        'babylonian-time': 'babylon',
+        helek: 'jerusalem',
 
         stardate: 'san-francisco',
         shire: 'london',

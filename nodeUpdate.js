@@ -214,6 +214,8 @@ function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
     setTimeValue('beat-node', convertToSwatchBeats(currentDateTime));
     setTimeValue('hexadecimal-node', getHexadecimalTime(currentDateTime, timezoneOffset));
     setTimeValue('binary-16-bit-node', getBinaryTime(currentDateTime, timezoneOffset));
+    setTimeValue('babylonian-time-node', getBabylonianTime(currentDateTime, timezoneOffset));
+    setTimeValue('helek-node', getHelek(currentDateTime, timezoneOffset));
 
     // Extraterrestrial Time
     setTimeValue('coordinated-mars-time-node', getMTC(currentDateTime));

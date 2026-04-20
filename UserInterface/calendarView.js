@@ -111,6 +111,8 @@ function buildNodeValueGetters(tzOffset) {
         'beat': function (dt) { return typeof convertToSwatchBeats === 'function' ? convertToSwatchBeats(dt) : ''; },
         'hexadecimal': function (dt) { return typeof getHexadecimalTime === 'function' ? getHexadecimalTime(dt, offset) : ''; },
         'binary-16-bit': function (dt) { return typeof getBinaryTime === 'function' ? getBinaryTime(dt, offset) : ''; },
+        'babylonian-time': function (dt) { return typeof getBabylonianTime === 'function' ? getBabylonianTime(dt, offset) : ''; },
+        'helek': function (dt) { return typeof getHelek === 'function' ? getHelek(dt, offset) : ''; },
         'coordinated-mars-time': function (dt) { return typeof getMTC === 'function' ? getMTC(dt) : ''; },
         'io-meridian-time': function (dt) { return typeof getIoPrimeMeridianTime === 'function' ? getIoPrimeMeridianTime(dt) : ''; },
         'europa-meridian-time': function (dt) { return typeof getEuropaPrimeMeridianTime === 'function' ? getEuropaPrimeMeridianTime(dt) : ''; },

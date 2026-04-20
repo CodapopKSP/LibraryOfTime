@@ -447,6 +447,16 @@ function handleEpochClick(epoch) {
         epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
+    // Sunrise
+    if (epoch==='Sunrise') {
+        timePicked = getDatePickerTimezone();
+        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
+        const hours = '06';
+        const minutes = '00';
+        const seconds = '00';
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+    }
+
     // .beat (BMT)
     if (epoch==='Midnight (BMT)') {
         timePicked = 'UTC+00:00';

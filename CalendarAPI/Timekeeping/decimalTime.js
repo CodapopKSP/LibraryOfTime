@@ -39,6 +39,24 @@ function getBinaryTime(currentDateTime_, timezoneOffset) {
     return binaryCount;
 }
 
+function getBabylonianTime(currentDateTime_, timezoneOffset) {
+    const ROLLOVER_EPSILON = 1e-10;
+    const dayFraction = calculateDay(currentDateTime_, timezoneOffset);
+    const sunriseOffset = 0.25; // 06:00 local fraction of day
+    const sunriseDayFraction = (dayFraction - sunriseOffset + 1) % 1;
+    const totalGesPerDay = 12 * 30;
+    const totalGes = Math.floor((sunriseDayFraction * totalGesPerDay) + ROLLOVER_EPSILON) % totalGesPerDay;
+    const watch = Math.floor(totalGes / 30);
+    const ges = totalGes % 30;
+
+    return 'Watch: ' + watch + ' | Geš: ' + ges;
+}
+
+function getHelek(currentDateTime_, timezoneOffset) {
+    const hourFraction = calculateHour(currentDateTime_, timezoneOffset);
+    return Math.floor(hourFraction * 1080).toString();
+}
+
 function get6DigitHexadecimalTime(dayFraction) {
     const hexadecimalFraction = Math.trunc(dayFraction * 16777215).toString(16).toUpperCase().padStart(6, '0');
     return hexadecimalFraction;

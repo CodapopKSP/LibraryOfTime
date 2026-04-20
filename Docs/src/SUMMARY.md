@@ -244,6 +244,10 @@
   
   - [Binary Time](AlternativeTime/BinaryTime.md)
 
+  - [Babylonian Time](AlternativeTime/BabylonianTime.md)
+
+  - [Helek](AlternativeTime/Helek.md)
+
 - [Extraterrestrial Time](ExtraterrestrialTime/ExtraterrestrialTime.md)
   
   - [Coordinated Mars Time](ExtraterrestrialTime/MarsTime.md)
