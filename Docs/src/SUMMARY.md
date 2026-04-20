@@ -248,6 +248,8 @@
 
   - [Helek](AlternativeTime/Helek.md)
 
+  - [Thai Time](AlternativeTime/ThaiTime.md)
+
 - [Extraterrestrial Time](ExtraterrestrialTime/ExtraterrestrialTime.md)
   
   - [Coordinated Mars Time](ExtraterrestrialTime/MarsTime.md)

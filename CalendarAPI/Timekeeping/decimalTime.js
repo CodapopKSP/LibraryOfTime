@@ -57,6 +57,17 @@ function getHelek(currentDateTime_, timezoneOffset) {
     return Math.floor(hourFraction * 1080).toString();
 }
 
+function getThaiTime(currentDateTime_, timezoneOffset) {
+    const ROLLOVER_EPSILON = 1e-10;
+    const dayFraction = calculateDay(currentDateTime_, timezoneOffset);
+    const totalHours = Math.floor((dayFraction * 24) + ROLLOVER_EPSILON) % 24;
+    const sectionWords = ['ตี', 'โมงเช้า', 'บ่าย', 'ทุ่ม'];
+    const shiftedHours = (totalHours + 23) % 24; // Start 6-hour sections at 01:00
+    const sectionIndex = Math.floor(shiftedHours / 6);
+    const hourIndex = (shiftedHours % 6) + 1;
+    return hourIndex + sectionWords[sectionIndex];
+}
+
 function get6DigitHexadecimalTime(dayFraction) {
     const hexadecimalFraction = Math.trunc(dayFraction * 16777215).toString(16).toUpperCase().padStart(6, '0');
     return hexadecimalFraction;

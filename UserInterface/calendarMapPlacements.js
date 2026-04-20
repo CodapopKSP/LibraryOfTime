@@ -145,6 +145,7 @@
         beat: 'biel-bienne',
         'babylonian-time': 'babylon',
         helek: 'jerusalem',
+        'thai-time': 'bangkok',
 
         stardate: 'san-francisco',
         shire: 'london',

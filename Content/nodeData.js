@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 136
+// Total nodes: 137
 
 /*
 Node Data is a collection of data for each node.
@@ -685,6 +685,19 @@ const alternativeTimeData = [
         info: `<table class="table-very-very-long"><tr><th>Helek</th><th>Seconds</th><th>Minutes</th></tr><tr><td>1</td><td>3 1/3</td><td>1/18</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
         source: `All of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Helek">Wikipedia article</a>/`
+    },
+
+    {
+        name: `Thai Time`,
+        id: `thai-time`,
+        type: `Alternative Time`,
+        epoch: `1:00:00`,
+        confidence: `Exact`,
+        associatedWith: `Bangkok`,
+        overview: `Thai time is a clock used in Thailand that divides the day into four six-hour sections: ตี, โมงเช้า, บ่าย, and ทุ่ม.\n\nHours are referred to by the current hour (1-6) of the current section.`,
+        info: `<table class="table-very-very-long"><tr><th>Section</th><th>Label</th><th>Hours</th></tr><tr><td>1</td><td>ตี</td><td>01:00-06:59</td></tr><tr><td>2</td><td>โมงเช้า</td><td>07:00-12:59</td></tr><tr><td>3</td><td>บ่าย</td><td>13:00-18:59</td></tr><tr><td>4</td><td>ทุ่ม</td><td>19:00-00:59</td></tr></table>`,
+        accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
+        source: `All of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand">Wikipedia article</a>.`
     }
 ];
 
