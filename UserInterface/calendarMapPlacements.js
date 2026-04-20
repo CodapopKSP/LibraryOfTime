@@ -60,6 +60,12 @@
         'cambridge-ma': { x: 0.295, y: 0.24, label: 'Cambridge, MA, USA' },
         'biel-bienne': { x: 0.492, y: 0.215, label: 'Biel/Bienne, Switzerland' },
         onitsha: { x: 0.489, y: 0.465, label: 'Onitsha, Nigeria' },
+        mars: { x: 0.963, y: 0.896, label: 'Mars' },
+        io: { x: 0.941, y: 0.956, label: 'Io' },
+        europa: { x: 0.922, y: 0.956, label: 'Europa' },
+        ganymede: { x: 0.899, y: 0.956, label: 'Ganymede' },
+        callisto: { x: 0.874, y: 0.956, label: 'Callisto' },
+        titan: { x: 0.941, y: 0.896, label: 'Titan' },
     };
 
     /**
@@ -140,6 +146,24 @@
 
         stardate: 'san-francisco',
         shire: 'london',
+
+        'coordinated-mars-time': 'mars',
+        'darian-mars': 'mars',
+        'io-meridian-time': 'io',
+        'galilean-io': 'io',
+        'darian-io': 'io',
+        'europa-meridian-time': 'europa',
+        'galilean-europa': 'europa',
+        'darian-europa': 'europa',
+        'ganymede-meridian-time': 'ganymede',
+        'galilean-ganymede': 'ganymede',
+        'darian-ganymede': 'ganymede',
+        'callisto-meridian-time': 'callisto',
+        'galilean-callisto': 'callisto',
+        'darian-callisto': 'callisto',
+        'darian-titan': 'titan',
+
+        'us-presidential-terms': 'washington-dc',
     };
 
     /** @type {Object<string, { x: number, y: number }>} */

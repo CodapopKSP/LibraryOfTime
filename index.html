@@ -319,6 +319,34 @@
                             <div id="map-view-markers" class="map-view-markers">
                                 <div id="map-view-markers-sizer" class="map-view-markers-sizer"></div>
                             </div>
+                            <div class="map-view-orbit-deco" aria-hidden="true">
+                                <svg class="map-view-orbit-deco-svg" viewBox="0 0 450 60" focusable="false">
+                                    <!-- Lines from each moon to Jupiter and Saturn -->
+                                    <line class="map-view-orbit-deco-link" x1="20" y1="0" x2="110" y2="0" />
+                                    <line class="map-view-orbit-deco-link" x1="110" y1="0" x2="190" y2="0" />
+                                    <line class="map-view-orbit-deco-link" x1="190" y1="0" x2="262" y2="0" />
+                                    <line class="map-view-orbit-deco-link" x1="260" y1="0" x2="342" y2="0" />
+                                    <line class="map-view-orbit-deco-link" x1="180" y1="-110" x2="260" y2="-110" />
+                                    <!-- Bodies (on top of lines): Callisto, Ganymede, Europa, Io, Jupiter, Saturn, Mars, Titan -->
+                                    <circle class="map-view-orbit-deco-callisto" cx="20" cy="0" r="8" />
+                                    <circle class="map-view-orbit-deco-ganymede" cx="110" cy="0" r="9" />
+                                    <circle class="map-view-orbit-deco-europa" cx="190" cy="0" r="8" />
+                                    <circle class="map-view-orbit-deco-io" cx="260" cy="0" r="7" />
+                                    <circle class="map-view-orbit-deco-jupiter" cx="340" cy="0" r="30" />
+                                    <ellipse class="map-view-orbit-deco-saturn-ring" cx="180" cy="-110" rx="40" ry="15" />
+                                    <circle class="map-view-orbit-deco-saturn" cx="180" cy="-110" r="28" />
+                                    <text class="map-view-orbit-deco-label" x="340" y="-60" text-anchor="middle">Mars</text>
+                                    <circle class="map-view-orbit-deco-mars" cx="340" cy="-110" r="7" />
+                                    <text class="map-view-orbit-deco-label" x="260" y="-60" text-anchor="middle">Titan</text>
+                                    <circle class="map-view-orbit-deco-titan" cx="260" cy="-110" r="6" />
+                                    <text class="map-view-orbit-deco-label" x="20" y="50" text-anchor="middle">Callisto</text>
+                                    <text class="map-view-orbit-deco-label" x="110" y="50" text-anchor="middle">Ganymede</text>
+                                    <text class="map-view-orbit-deco-label" x="190" y="50" text-anchor="middle">Europa</text>
+                                    <text class="map-view-orbit-deco-label" x="260" y="50" text-anchor="middle">Io</text>
+                                    <text class="map-view-orbit-deco-label" x="340" y="50" text-anchor="middle">Jupiter</text>
+                                    <text class="map-view-orbit-deco-label" x="180" y="-60" text-anchor="middle">Saturn</text>
+                                </svg>
+                            </div>
                         </div>
                         <svg id="map-view-tooltip-connector" class="map-view-tooltip-connector" aria-hidden="true" focusable="false">
                             <polyline class="map-view-tooltip-connector-line" fill="none" points="" />

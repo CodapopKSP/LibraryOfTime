@@ -210,6 +210,97 @@
     cursor: grabbing;
 }
 
+/* Mars + Galilean moons + Jupiter + Saturn: inside #map-view-zoom-root so pan/zoom transform applies. */
+.map-view-zoom-root > .map-view-orbit-deco {
+    position: absolute;
+    z-index: 1;
+    right: 12px;
+    bottom: 10px;
+    /* Width in map pixel space (scales with the map image). */
+    width: 240px;
+    max-width: min(240px, 42%);
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    opacity: 0.9;
+}
+
+.map-view-orbit-deco-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    vertical-align: top;
+    overflow: visible;
+}
+
+.map-view-orbit-deco-link {
+    stroke: color-mix(in srgb, var(--ui-text-muted, #aaa) 55%, var(--ui-border) 45%);
+    stroke-width: 1.15;
+    stroke-linecap: round;
+}
+
+.map-view-orbit-deco-label {
+    font-family: var(--ui-font-body, system-ui, sans-serif);
+    font-size: 1vh;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    fill: rgb(48, 47, 47);
+}
+
+.map-view-orbit-deco-callisto {
+    fill: #6a5a4a;
+    stroke: color-mix(in srgb, var(--ui-border) 70%, #222 30%);
+    stroke-width: 0.5;
+}
+
+.map-view-orbit-deco-ganymede {
+    fill: #8a8580;
+    stroke: color-mix(in srgb, var(--ui-border) 65%, #1a1a1a 35%);
+    stroke-width: 0.5;
+}
+
+.map-view-orbit-deco-europa {
+    fill: #c9d4dc;
+    stroke: color-mix(in srgb, #6a8a9a 50%, var(--ui-border) 50%);
+    stroke-width: 0.5;
+}
+
+.map-view-orbit-deco-io {
+    fill: #c9a85a;
+    stroke: color-mix(in srgb, #8a6a20 40%, var(--ui-border) 60%);
+    stroke-width: 0.5;
+}
+
+.map-view-orbit-deco-jupiter {
+    fill: #c4a06a;
+    stroke: color-mix(in srgb, #a67c52 55%, #2a1810 45%);
+    stroke-width: 0.6;
+}
+
+.map-view-orbit-deco-saturn-ring {
+    fill: none;
+    stroke: color-mix(in srgb, #bda27a 60%, #5c462e 40%);
+    stroke-width: 1.2;
+}
+
+.map-view-orbit-deco-saturn {
+    fill: #cdb27b;
+    stroke: color-mix(in srgb, #8f6f43 50%, #2a1b10 50%);
+    stroke-width: 0.6;
+}
+
+.map-view-orbit-deco-mars {
+    fill: #c05840;
+    stroke: color-mix(in srgb, #6a2018 50%, #2a1010 50%);
+    stroke-width: 0.5;
+}
+
+.map-view-orbit-deco-titan {
+    fill: #d6a95f;
+    stroke: color-mix(in srgb, #8a5d24 55%, #2b1f15 45%);
+    stroke-width: 0.5;
+}
+
 /* One transform for map + markers (Chromium composites cheaper than two sibling transforms). */
 .map-view-zoom-root {
     position: relative;
