@@ -484,6 +484,16 @@ function handleEpochClick(epoch) {
         epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
     }
 
+    // Thai Time
+    if (epoch==='1:00:00') {
+        timePicked = getDatePickerTimezone();
+        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
+        const hours = '1';
+        const minutes = '00';
+        const seconds = '00';
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+    }
+
     // Maya Calendars and any others
     if (epoch==='Unknown') {
         return;
