@@ -311,12 +311,12 @@ function escapeHtml(text) {
 /** Light background tints for calendar month shading (on dark base). Six distinct hues so no color repeats within any six-month span. */
 
 var CALENDAR_MONTH_SHADES = [
-    'rgba(67, 92, 141, 0.2)',
-    'rgba(98, 61, 122, 0.2)',
-    'rgba(43, 99, 88, 0.2)',
-    'rgba(107, 78, 39, 0.2)',
-    'rgba(110, 55, 77, 0.2)',
-    'rgba(71, 102, 50, 0.2)'
+    'rgba(54, 86, 148, 0.2)',
+    'rgba(97, 50, 129, 0.2)',
+    'rgba(35, 114, 98, 0.2)',
+    'rgba(116, 79, 32, 0.2)',
+    'rgba(116, 40, 70, 0.2)',
+    'rgba(68, 112, 39, 0.2)'
 ];
 
 function hashMonthKey(s) {
