@@ -79,6 +79,96 @@ function getDesktopDescriptionActions() {
     return document.getElementById('desktop-description-actions');
 }
 
+function focusDescriptionPanelForSelection() {
+    const firstTabButton = document.getElementById('header-button-1');
+    if (!firstTabButton) {
+        return;
+    }
+    try {
+        firstTabButton.focus({ preventScroll: true });
+    } catch (e) {
+        firstTabButton.focus();
+    }
+}
+
+function getDescriptionPanelFocusableElements() {
+    const wrapper = document.querySelector('.description-wrapper');
+    if (!wrapper) {
+        return [];
+    }
+    const focusables = wrapper.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    return Array.from(focusables).filter(function (el) {
+        if (el.disabled) {
+            return false;
+        }
+        if (el.hidden) {
+            return false;
+        }
+        if (el.getAttribute('aria-hidden') === 'true') {
+            return false;
+        }
+        return true;
+    });
+}
+
+function ensureDescriptionExitSentinel() {
+    const wrapper = document.querySelector('.description-wrapper');
+    if (!wrapper) {
+        return null;
+    }
+    let sentinel = document.getElementById('description-tab-exit-sentinel');
+    if (sentinel) {
+        return sentinel;
+    }
+    sentinel = document.createElement('button');
+    sentinel.id = 'description-tab-exit-sentinel';
+    sentinel.type = 'button';
+    sentinel.className = 'description-tab-exit-sentinel';
+    sentinel.setAttribute('aria-label', 'Continue to next node');
+    sentinel.style.position = 'absolute';
+    sentinel.style.left = '-9999px';
+    sentinel.style.width = '1px';
+    sentinel.style.height = '1px';
+    sentinel.style.overflow = 'hidden';
+    sentinel.style.padding = '0';
+    sentinel.style.border = '0';
+    sentinel.style.opacity = '0';
+    sentinel.addEventListener('focus', function () {
+        if (typeof window.focusNextNodeAfterSelected === 'function' && window.focusNextNodeAfterSelected()) {
+            return;
+        }
+    });
+    wrapper.appendChild(sentinel);
+    return sentinel;
+}
+
+function wireDescriptionPanelTabAdvance() {
+    const wrapper = document.querySelector('.description-wrapper');
+    if (!wrapper || wrapper.dataset.tabAdvanceWired === '1') {
+        return;
+    }
+    wrapper.dataset.tabAdvanceWired = '1';
+    ensureDescriptionExitSentinel();
+    wrapper.addEventListener('keydown', function (event) {
+        if (event.key !== 'Tab' || event.shiftKey) {
+            return;
+        }
+        const focusables = getDescriptionPanelFocusableElements();
+        if (!focusables.length) {
+            return;
+        }
+        const last = focusables[focusables.length - 1];
+        if (document.activeElement !== last) {
+            return;
+        }
+        if (typeof window.focusNextNodeAfterSelected === 'function' && window.focusNextNodeAfterSelected()) {
+            event.preventDefault();
+        }
+    }, true);
+}
+
 function isNodeShownOnMap(item) {
     if (!item || !item.id) {
         return false;
@@ -921,3 +1011,7 @@ if (expandButton && pageWrapper && descriptionWrapper) {
         }, 350); // Increased to account for 0.3s transition
     });
 }
+
+wireDescriptionPanelTabAdvance();
+
+window.focusDescriptionPanelForSelection = focusDescriptionPanelForSelection;

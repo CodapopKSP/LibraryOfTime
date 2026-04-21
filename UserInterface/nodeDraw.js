@@ -55,6 +55,11 @@ function populateNodeDescriptionAndSelection(content, item, options) {
         content.classList.add('active');
     }
 
+    const isCoarsePointer = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+    if (typeof window.focusDescriptionPanelForSelection === 'function' && !isCoarsePointer) {
+        window.focusDescriptionPanelForSelection();
+    }
+
     if (openMobileSheet && typeof window.openMobileDescriptionSheet === 'function') {
         window.openMobileDescriptionSheet();
     }
@@ -119,14 +124,32 @@ function createNode_(item) {
 
     // Create the label
     const label = document.createElement('label');
+    label.classList.add('node-title-focusable');
     label.textContent = item.name;
+    label.tabIndex = 0;
+    label.setAttribute('role', 'heading');
+    label.setAttribute('aria-level', '3');
+    label.setAttribute('aria-label', item.name);
     node.appendChild(label);
 
     // Create the content
     const content = document.createElement('div');
     content.id = `${item.id}-node`;
     content.classList.add('content');
+    content.tabIndex = 0;
+    content.dataset.nodeName = item.name || item.id || 'Calendar node';
+    content.setAttribute('aria-label', content.dataset.nodeName + ': loading');
     node.appendChild(content);
+
+    function activateNodeFromKeyboard(event) {
+        if (event.key !== 'Enter' && event.key !== ' ') {
+            return;
+        }
+        event.preventDefault();
+        handleNodeClick(content, item);
+    }
+    label.addEventListener('keydown', activateNodeFromKeyboard);
+    content.addEventListener('keydown', activateNodeFromKeyboard);
 
     // Handle left-click (selection)
     node.addEventListener('click', (event) => {
@@ -224,4 +247,33 @@ function clearSelectedNode() {
         window.syncMobileDescriptionUi();
     }
 }
+
+function focusNextNodeAfterSelected() {
+    if (!selectedNode || !selectedNode.closest) {
+        return false;
+    }
+    const selectedCard = selectedNode.closest('.node');
+    if (!selectedCard) {
+        return false;
+    }
+    const cards = Array.from(document.querySelectorAll('.node'));
+    const index = cards.indexOf(selectedCard);
+    if (index === -1 || index >= cards.length - 1) {
+        return false;
+    }
+    const nextCard = cards[index + 1];
+    const nextTitle = nextCard.querySelector('.node-title-focusable');
+    if (nextTitle && typeof nextTitle.focus === 'function') {
+        nextTitle.focus();
+        return true;
+    }
+    const nextContent = nextCard.querySelector('.content');
+    if (nextContent && typeof nextContent.focus === 'function') {
+        nextContent.focus();
+        return true;
+    }
+    return false;
+}
+
+window.focusNextNodeAfterSelected = focusNextNodeAfterSelected;
 

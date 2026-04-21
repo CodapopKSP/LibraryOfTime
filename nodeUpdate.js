@@ -79,6 +79,12 @@ function setTimeValue(type, value) {
     const originalNode = document.getElementById(type);
     if (originalNode) {
         originalNode.textContent = value;
+        const nodeName = originalNode.dataset.nodeName || '';
+        if (nodeName) {
+            originalNode.setAttribute('aria-label', nodeName + ': ' + value);
+        } else {
+            originalNode.setAttribute('aria-label', value);
+        }
     }
 
     // Update cloned nodes (floating panel + map view tooltips), if any

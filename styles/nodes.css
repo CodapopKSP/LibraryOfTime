@@ -32,6 +32,12 @@
     letter-spacing: 0.02em;
 }
 
+.node > label.node-title-focusable:focus-visible,
+.node > .content:focus-visible {
+    outline: 2px solid var(--ui-focus-ring, #d9d9d9);
+    outline-offset: 2px;
+}
+
 .mac-chrome-only .node > label {
     font-weight: 500;
 }
@@ -118,7 +124,7 @@
 }
 
 .node .content.active {
-    background-color: rgba(255, 255, 255, 0.12);
+    background-color: rgb(44, 44, 44);
     border-color: rgb(150, 150, 150);
 }
 
