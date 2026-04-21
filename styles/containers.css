@@ -9,11 +9,12 @@
     flex-direction: column;
     align-items: center;
     font-size: 1.3vh;
-    border: 0.2vh solid var(--ui-border);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
     margin: 0 1vh 1vh 0vh;
     width: 17vh;
     max-width: 17vh;
-    padding-top: 0.4vh;
+    padding: 0.55vh 0.75vh 0.65vh;
     box-sizing: border-box;
 }
 
@@ -22,10 +23,7 @@
     /* Masonry column width: ~1vh wider than --layout-node-width (ui-tokens mac-chrome) */
     width: 22vh;
     max-width: 23vh;
-    padding-top: 0.65vh;
-    padding-bottom: 0.2vh;
-    padding-left: 1vh;
-    padding-right: 1vh;
+    padding: 0.55vh 0.75vh 0.65vh;
 }
 
 .container-name {

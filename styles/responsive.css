@@ -150,11 +150,13 @@
 
     /* Card width inside each masonry column (not the .container column width) */
     .node-wrapper .node {
-        width: 95%;
-        max-width: 95%;
-        margin: 0.25rem auto;
-        padding-left: 0.1rem;
-        padding-right: 0.1rem;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 0.25rem auto;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
         display: block;
         box-sizing: border-box;
     }
@@ -181,8 +183,8 @@
         height: auto;
         margin: 0;
         padding: 0;
-        border: 0.2vh solid var(--ui-border);
-        border-radius: 0.65rem;
+        border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+        border-radius: 10px;
         /* Above floating panel (9055), below bottom toolbar (9100) */
         z-index: 9070;
         overflow: hidden;
@@ -226,7 +228,7 @@
         box-sizing: border-box;
         background-color: var(--ui-elevated-bg);
         border: none;
-        border-bottom: 0.2vh solid var(--ui-border);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.25);
     }
 
@@ -410,10 +412,10 @@
             background-color: var(--ui-elevated-bg);
             /* No top border: .input-main-row keeps border-bottom as the full-width divider. */
             border-top: none;
-            border-left: 0.2vh solid var(--ui-border);
-            border-right: 0.2vh solid var(--ui-border);
-            border-bottom: 0.2vh solid var(--ui-border);
-            border-radius: 0 0 0.7rem 0.7rem;
+            border-left: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+            border-right: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+            border-bottom: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+            border-radius: 0 0 10px 10px;
             box-shadow:
                 0 0.2rem 0.45rem rgba(0, 0, 0, 0.22),
                 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
@@ -422,7 +424,8 @@
 
     .description-button-wrapper {
         min-height: auto;
-        padding: 0;
+        padding: 0.4rem 0.5rem 0.35rem;
+        gap: 0.3rem;
         width: 100%;
         align-self: stretch;
         justify-content: flex-start;
@@ -462,7 +465,7 @@
         box-sizing: border-box;
         padding: 0.5rem 0.65rem 0.65rem;
         margin-top: auto;
-        border-top: 0.2vh solid var(--ui-border-muted);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
         background-color: var(--ui-elevated-bg);
         /* No upward outer shadow: it reads like a scroll fade over the body even when content doesn’t scroll. */
         box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
@@ -476,8 +479,8 @@
         font-size: clamp(0.85rem, 3.2vw, 1rem);
         color: var(--ui-text-muted);
         background-color: var(--ui-accent-bg);
-        border: 1px solid var(--ui-border);
-        border-radius: 0.4rem;
+        border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+        border-radius: 6px;
         cursor: pointer;
         font-family: inherit;
         appearance: none;
@@ -726,10 +729,10 @@
         background-color: var(--ui-elevated-bg2);
         /* No top border: .input-main-row keeps border-bottom as the full-width divider. */
         border-top: none;
-        border-left: 0.2vh solid var(--ui-border);
-        border-right: 0.2vh solid var(--ui-border);
-        border-bottom: 0.2vh solid var(--ui-border);
-        border-radius: 0 0 0.7rem 0.7rem;
+        border-left: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+        border-right: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+        border-bottom: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+        border-radius: 0 0 10px 10px;
         box-shadow:
             0 0.2rem 0.45rem rgba(0, 0, 0, 0.22),
             0 0 0 1px rgba(255, 255, 255, 0.04) inset;

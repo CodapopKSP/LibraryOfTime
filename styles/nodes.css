@@ -8,7 +8,9 @@
     margin: 0.5vh;
     width: var(--layout-node-width);
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     box-sizing: border-box;
     max-width: var(--layout-node-width);
     font-family: var(--ui-font-heading);
@@ -19,72 +21,92 @@
     max-width: 20.5vh;
 }
 
+.node > label {
+    display: block;
+    font-family: var(--ui-font-heading);
+    font-size: inherit;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 0 0 0.25vh;
+    padding: 0;
+    letter-spacing: 0.02em;
+}
+
+.mac-chrome-only .node > label {
+    font-weight: 500;
+}
+
 .standard-time > .node > .content {
-    border: 0.2vh solid #bbbbbb;
+    border-color: #bbbbbb;
 }
 
 .computing-time > .node > .content {
-    border: 0.2vh solid #696d9f;
+    border-color: #696d9f;
 }
 
 .solar-calendars > .node > .content {
-    border: 0.2vh solid #966a6a;
+    border-color: #966a6a;
 }
 
 .lunisolar-calendars > .node > .content {
-    border: 0.2vh solid #6f986a;
+    border-color: #6f986a;
 }
 
 .alternative-time > .node > .content {
-    border: 0.2vh solid #896a98;
+    border-color: #896a98;
 }
 
 .extraterrestrial-time > .node > .content {
-    border: 0.2vh solid #98866a;
+    border-color: #98866a;
 }
 
 .extraterrestrial-calendars > .node > .content {
-    border: 0.2vh solid #6a8f98;
+    border-color: #6a8f98;
 }
 
 .lunar-calendars > .node > .content {
-    border: 0.2vh solid #7c6a98;
+    border-color: #7c6a98;
 }
 
 .solilunar-calendars > .node > .content {
-    border: 0.2vh solid #986a6a;
+    border-color: #986a6a;
 }
 
 .proposed-calendars > .node > .content {
-    border: 0.2vh solid #876a96;
+    border-color: #876a96;
 }
 
 .other-calendars > .node > .content {
-    border: 0.2vh solid #716a96;
+    border-color: #716a96;
 }
 
 .astronomical-data > .node > .content {
-    border: 0.2vh solid #6a9698;
+    border-color: #6a9698;
 }
 
 .pop-culture > .node > .content {
-    border: 0.2vh solid #95986a;
+    border-color: #95986a;
 }
 
 .politics > .node > .content {
-    border: 0.2vh solid #986a6a;
+    border-color: #986a6a;
 }
 
 .content {
-    border-width: 0.25vh;
-    padding: 0.7vh;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 6px;
+    padding: 0.65vh 0.75vh;
     font-size: 1.2vh;
     font-family: var(--ui-font-body);
-    margin-top: 0.6vh;
-    background-color: rgb(47, 47, 47);
+    margin-top: 0.25vh;
+    line-height: 1.45;
+    background: rgb(34, 34, 34);
     white-space: pre-wrap;
     /* Border + padding included in width so nodes don’t exceed --layout-node-width */
     box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
 }
 
 .mac-chrome-only .content {
@@ -96,7 +118,7 @@
 }
 
 .node .content.active {
-    background-color: rgb(60, 60, 60);
+    background-color: rgba(255, 255, 255, 0.12);
     border-color: rgb(150, 150, 150);
 }
 

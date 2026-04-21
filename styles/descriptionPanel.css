@@ -48,11 +48,13 @@
 
 .nodeinfo-title {
     font-size: 2.8vh;
-    font-weight: bold;
+    font-weight: 700;
     padding-top: 1vh;
     padding-bottom: 0.5vh;
     flex-shrink: 0;
     font-family: var(--ui-font-heading);
+    color: rgba(245, 245, 245, 0.95);
+    letter-spacing: 0.02em;
 }
 
 .nodeinfo-title:after {
@@ -62,8 +64,8 @@
     top: 5.4vh;
     transform: translateX(-50%);
     width: 70%;
-    height: 0.3vh;
-    background-color: var(--ui-text-muted);
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.12);
 }
 
 .nodeinfo-epoch {
@@ -142,8 +144,8 @@
     z-index: 9095;
     padding: 0.4rem;
     background-color: var(--ui-deep-accent-bg);
-    border: 1px solid var(--ui-border);
-    border-radius: 0.4rem;
+    border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+    border-radius: 8px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
     box-sizing: border-box;
 }
@@ -159,9 +161,9 @@
     padding: 0.45rem 0.65rem;
     font-size: clamp(0.75rem, 2.5vw, 0.9rem);
     color: var(--ui-text-muted);
-    background-color: var(--ui-accent-bg);
-    border: 1px solid var(--ui-border);
-    border-radius: 0.35rem;
+    background-color: color-mix(in srgb, var(--ui-elevated-bg2) 88%, #000 12%);
+    border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+    border-radius: 6px;
     cursor: pointer;
     font-family: inherit;
     appearance: none;
@@ -190,11 +192,18 @@
 
 .nodeinfo-confidence .tooltiptext {
     visibility: hidden;
-    background-color: var(--ui-deep-accent-bg);
+    background: linear-gradient(
+        165deg,
+        color-mix(in srgb, var(--ui-elevated-bg) 88%, #0a0a0a) 0%,
+        var(--ui-deep-accent-bg) 100%
+    );
     color: #fff;
     text-align: left;
-    border-radius: 6px;
-    border: 2px solid var(--ui-border);
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.25),
+        0 12px 28px rgba(0, 0, 0, 0.45);
     padding: 20px;
     position: absolute;
     z-index: 1000;
@@ -240,7 +249,6 @@
     font-size: 1.2vh;
     color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
-    /* Flat 1px border — Chrome’s native button uses outset/inset borders unless appearance is reset */
     border: 1px solid var(--ui-border);
     flex: 1 0 auto;
     box-shadow: none;
@@ -260,7 +268,7 @@
 }
 
 .header-button.hoveringTab {
-    background: var(--ui-elevated-bg);
+    background-color: var(--ui-elevated-bg);
 }
 
 .header-button.activeTab {
@@ -335,7 +343,7 @@
     width: 28vw;
     margin: 2vh auto 2vh;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0;
+    gap: 0.4rem;
 }
 
 .desktop-description-actions.home-button-visible {
@@ -360,16 +368,6 @@
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
-}
-
-.desktop-description-actions .desktop-home-button:first-child {
-    border-top-left-radius: 0.5vh;
-    border-bottom-left-radius: 0.5vh;
-}
-
-.desktop-description-actions .desktop-home-button:last-child {
-    border-top-right-radius: 0.5vh;
-    border-bottom-right-radius: 0.5vh;
 }
 
 .desktop-description-actions .desktop-home-button + .desktop-home-button {

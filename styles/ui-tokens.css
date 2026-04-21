@@ -46,7 +46,7 @@
     /* Full-screen dim: modals, calendar view, mobile sheet backdrop, touch node-picker sheet — set to any solid color with alpha, e.g. rgba(0,0,0,0.55) or color-mix(in srgb, #000 55%, transparent) */
     --ui-scrim: rgba(0, 0, 0, 0.65);
 
-    --layout-description-input-border: 0.3vh solid var(--ui-border-muted);
+    --layout-description-input-border: 1px solid var(--ui-border);
 
     /* Typography — site header & modal titles; default UI; node card body */
     --ui-font-heading: Georgia, "Times New Roman", Times, serif;

@@ -134,7 +134,11 @@
     margin-left: var(--layout-description-panel-margin-inline-start);
     margin-bottom: 0;
     background-color: var(--ui-elevated-bg);
-    border: 0.2vh solid var(--ui-border);
+    border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
+    border-radius: 10px;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.25),
+        0 14px 36px rgba(0, 0, 0, 0.45);
     overflow: hidden;
 }
 
@@ -172,7 +176,7 @@
 /* Full-width rule above the Home button (compact); toggled when a calendar node is open.
    Use 0.2vh to match .description-wrapper border; 0.3vh looked heavy next to the panel edge. */
 #description-body.has-home-footer {
-    border-bottom: 0.2vh solid var(--ui-border);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .node-wrapper {
