@@ -944,7 +944,7 @@
             window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: true });
         }
         var nodeCard = content.closest('.node');
-        if (nodeCard && typeof nodeCard.scrollIntoView === 'function') {
+        if (!isMobileLayout() && nodeCard && typeof nodeCard.scrollIntoView === 'function') {
             requestAnimationFrame(function () {
                 requestAnimationFrame(function () {
                     nodeCard.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
