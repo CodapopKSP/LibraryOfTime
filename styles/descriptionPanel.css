@@ -64,8 +64,8 @@
     top: 5.4vh;
     transform: translateX(-50%);
     width: 70%;
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.12);
+    height: 2px;
+    background-color: var(--ui-text-muted);
 }
 
 .nodeinfo-epoch {
@@ -142,12 +142,13 @@
 .epoch-action-tooltip {
     position: fixed;
     z-index: 9095;
-    padding: 0.4rem;
+    padding: 0;
     background-color: var(--ui-deep-accent-bg);
     border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
     border-radius: 8px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .epoch-action-tooltip[hidden] {
@@ -156,23 +157,39 @@
 
 .epoch-tooltip-go-btn {
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.45rem 0.65rem;
+    width: 100%;
+    padding: 0.5rem 0.7rem;
     font-size: clamp(0.75rem, 2.5vw, 0.9rem);
     color: var(--ui-text-muted);
-    background-color: color-mix(in srgb, var(--ui-elevated-bg2) 88%, #000 12%);
-    border: 1px solid color-mix(in srgb, var(--ui-border) 70%, #3a3a3a);
-    border-radius: 6px;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
     cursor: pointer;
     font-family: inherit;
     appearance: none;
     -webkit-appearance: none;
-    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.15;
 }
 
 .epoch-tooltip-go-btn:active {
-    background-color: var(--ui-hover-accent);
+    background-color: color-mix(in srgb, var(--ui-hover-accent) 80%, transparent);
+}
+
+.epoch-tooltip-go-line {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.epoch-tooltip-go-icon {
+    margin-left: 0.25em;
+    font-size: 1.15em;
+    line-height: 1;
+    font-variant-emoji: text;
 }
 
 .nodeinfo-confidence {
@@ -343,7 +360,7 @@
     width: 28vw;
     margin: 2vh auto 2vh;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.4rem;
+    gap: 0;
 }
 
 .desktop-description-actions.home-button-visible {
@@ -372,6 +389,21 @@
 
 .desktop-description-actions .desktop-home-button + .desktop-home-button {
     border-left: 0;
+}
+
+#desktop-home-button {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+#desktop-map-button {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.desktop-description-actions.desktop-description-actions--two-buttons #desktop-calendar-button {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .mobile-description-actions {

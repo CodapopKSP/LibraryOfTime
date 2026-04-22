@@ -173,10 +173,6 @@ function isNodeShownOnMap(item) {
     if (!item || !item.id) {
         return false;
     }
-    const associatedWith = typeof item.associatedWith === 'string' ? item.associatedWith.trim() : '';
-    if (!associatedWith) {
-        return false;
-    }
     const placements = window.calendarMapPlacements;
     return !!(placements && placements[item.id]);
 }
@@ -413,7 +409,20 @@ function createEpochElement(item) {
     const goBtn = document.createElement('button');
     goBtn.type = 'button';
     goBtn.className = 'epoch-tooltip-go-btn';
-    goBtn.textContent = 'Go to Date';
+    goBtn.setAttribute('aria-label', 'Go to Date');
+    const goLine1 = document.createElement('span');
+    goLine1.className = 'epoch-tooltip-go-line';
+    goLine1.textContent = 'Go to';
+    const goLine2 = document.createElement('span');
+    goLine2.className = 'epoch-tooltip-go-line';
+    goLine2.textContent = 'Date ';
+    const goIcon = document.createElement('span');
+    goIcon.className = 'epoch-tooltip-go-icon';
+    goIcon.setAttribute('aria-hidden', 'true');
+    goIcon.innerHTML = '&#x21A9;&#xFE0E;';
+    goLine2.appendChild(goIcon);
+    goBtn.appendChild(goLine1);
+    goBtn.appendChild(goLine2);
     tooltip.appendChild(goBtn);
 
     const goToEpochDate = function () {
@@ -427,14 +436,16 @@ function createEpochElement(item) {
     function updateTooltipPosition() {
         const rect = epochDateElement.getBoundingClientRect();
         const pad = 8;
+        const gap = 6;
         const tw = tooltip.offsetWidth;
         const th = tooltip.offsetHeight;
-        let left = rect.left + rect.width / 2 - tw / 2;
-        left = Math.max(pad, Math.min(left, window.innerWidth - tw - pad));
-        let top = rect.bottom + 6;
-        if (top + th > window.innerHeight - pad) {
-            top = rect.top - th - 6;
+        let left = rect.right + gap;
+        // If there's not enough room on the right, flip to the left side.
+        if (left + tw > window.innerWidth - pad) {
+            left = rect.left - tw - gap;
         }
+        left = Math.max(pad, Math.min(left, window.innerWidth - tw - pad));
+        let top = rect.top + rect.height / 2 - th / 2;
         top = Math.max(pad, Math.min(top, window.innerHeight - th - pad));
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
