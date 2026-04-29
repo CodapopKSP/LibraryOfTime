@@ -700,6 +700,30 @@
         -webkit-overflow-scrolling: touch;
     }
 
+    .nodeinfo-confidence .clickable-confidence {
+        display: block;
+        width: 100%;
+        padding: 0.1rem 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        text-align: inherit;
+        cursor: pointer;
+        pointer-events: auto;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .nodeinfo-confidence:hover .tooltiptext {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .nodeinfo-confidence.confidence-tooltip-open .tooltiptext {
+        visibility: visible;
+        opacity: 0.95;
+    }
+
     .mac-chrome-only .nodeinfo-confidence .tooltiptext {
         visibility: hidden;
     }

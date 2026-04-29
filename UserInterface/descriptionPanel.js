@@ -341,6 +341,8 @@ function createTitleElement(name) {
 
 /** Closes any open mobile epoch “Go to Date” popover (listeners + DOM). */
 let dismissActiveEpochTooltip = null;
+/** Closes any open mobile confidence tooltip. */
+let dismissActiveConfidenceTooltip = null;
 
 /**
  * Collapses all whitespace (including newlines) so epoch strings from the panel
@@ -851,7 +853,13 @@ function createConfidenceElement(item) {
 
     confidenceElement.innerHTML = `
         <table class="table-confidence">
-            <tr><th><b>Confidence: ${item.confidence}</b></th></tr>
+            <tr>
+                <th>
+                    <button type="button" class="clickable-confidence" aria-label="Open confidence criteria">
+                        <b>Confidence: ${item.confidence}</b>
+                    </button>
+                </th>
+            </tr>
         </table>
         <div class="tooltiptext">
             <div style="font-family: var(--ui-font-body); font-weight: bold; font-size: 16px; margin-bottom: 8px;">
@@ -862,6 +870,114 @@ function createConfidenceElement(item) {
             ${generalNote}
         </div>
     `;
+
+    const confidenceTrigger = confidenceElement.querySelector('.clickable-confidence');
+    const confidenceTooltip = confidenceElement.querySelector('.tooltiptext');
+
+    function isMobileDescriptionLayout() {
+        return window.matchMedia('(max-width: 1024px)').matches;
+    }
+
+    function hideConfidenceTooltip() {
+        if (!confidenceElement.classList.contains('confidence-tooltip-open')) {
+            return;
+        }
+        confidenceElement.classList.remove('confidence-tooltip-open');
+        document.removeEventListener('click', onOutsideClick, true);
+        document.removeEventListener('keydown', onEscape, true);
+        window.removeEventListener('scroll', onScrollClose, true);
+        window.removeEventListener('resize', onResizeClose);
+        if (dismissActiveConfidenceTooltip === hideConfidenceTooltip) {
+            dismissActiveConfidenceTooltip = null;
+        }
+    }
+
+    function showConfidenceTooltip() {
+        if (dismissActiveConfidenceTooltip) {
+            dismissActiveConfidenceTooltip();
+        }
+        confidenceElement.classList.add('confidence-tooltip-open');
+        setTimeout(() => {
+            document.addEventListener('click', onOutsideClick, true);
+            document.addEventListener('keydown', onEscape, true);
+        }, 0);
+        window.addEventListener('scroll', onScrollClose, true);
+        window.addEventListener('resize', onResizeClose);
+        dismissActiveConfidenceTooltip = hideConfidenceTooltip;
+    }
+
+    function onOutsideClick(e) {
+        if (!confidenceElement.classList.contains('confidence-tooltip-open')) {
+            return;
+        }
+        if (confidenceTooltip.contains(e.target) || confidenceTrigger.contains(e.target)) {
+            return;
+        }
+        hideConfidenceTooltip();
+    }
+
+    function onEscape(e) {
+        if (e.key === 'Escape') {
+            hideConfidenceTooltip();
+        }
+    }
+
+    function onScrollClose() {
+        hideConfidenceTooltip();
+    }
+
+    function onResizeClose() {
+        if (!isMobileDescriptionLayout()) {
+            hideConfidenceTooltip();
+        }
+    }
+
+    function toggleConfidenceTooltip() {
+        if (confidenceElement.classList.contains('confidence-tooltip-open')) {
+            hideConfidenceTooltip();
+        } else {
+            showConfidenceTooltip();
+        }
+    }
+
+    if (confidenceTrigger) {
+        confidenceTrigger.addEventListener('click', function (e) {
+            if (!isMobileDescriptionLayout()) {
+                return;
+            }
+            e.stopPropagation();
+            toggleConfidenceTooltip();
+        });
+
+        confidenceTrigger.addEventListener('mouseenter', function () {
+            if (isMobileDescriptionLayout()) {
+                return;
+            }
+            confidenceElement.classList.add('confidence-tooltip-desktop-open');
+        });
+
+        confidenceTrigger.addEventListener('mouseleave', function () {
+            if (isMobileDescriptionLayout()) {
+                return;
+            }
+            confidenceElement.classList.remove('confidence-tooltip-desktop-open');
+        });
+    }
+
+    if (confidenceTooltip) {
+        confidenceTooltip.addEventListener('mouseenter', function () {
+            if (isMobileDescriptionLayout()) {
+                return;
+            }
+            confidenceElement.classList.add('confidence-tooltip-desktop-open');
+        });
+        confidenceTooltip.addEventListener('mouseleave', function () {
+            if (isMobileDescriptionLayout()) {
+                return;
+            }
+            confidenceElement.classList.remove('confidence-tooltip-desktop-open');
+        });
+    }
 
     return confidenceElement;
 }
@@ -962,6 +1078,9 @@ function updateHeaderTabTitles(labels) {
 function clearDescriptionPanel() {
     if (dismissActiveEpochTooltip) {
         dismissActiveEpochTooltip();
+    }
+    if (dismissActiveConfidenceTooltip) {
+        dismissActiveConfidenceTooltip();
     }
     document.querySelectorAll('.epoch-action-tooltip').forEach(el => el.remove());
     const nodeinfos = document.querySelectorAll('.nodeinfo');
