@@ -88,6 +88,23 @@ function testPawukon() {
     ]);
 }
 
+function testGalacticTickDay() {
+    return runOtherCalendarSingleParamTests("Galactic Tick Day", getGalacticTickDay, [
+        ["1608-10-2, 00:00:00", "UTC+00:00", "0th"],
+        ["2016-9-29, 23:00:00", "UTC+00:00", "235th"],
+        ["2018-6-26, 23:00:00", "UTC+00:00", "236th"],
+        ["2020-3-21, 23:00:00", "UTC+00:00", "237th"],
+        ["2021-12-15, 23:00:00", "UTC+00:00", "238th"],
+        ["2023-9-10, 23:00:00", "UTC+00:00", "239th"],
+        ["2025-6-5, 23:00:00", "UTC+00:00", "240th"],
+        ["2027-3-1, 23:00:00", "UTC+00:00", "241st"],
+        ["2028-11-24, 23:00:00", "UTC+00:00", "242nd"],
+        ["2030-8-20, 23:00:00", "UTC+00:00", "243rd"],
+        ["1608-10-1, 23:00:00", "UTC+00:00", "-1st"],
+        ["1610-6-28, 23:00:00", "UTC+00:00", "1st"],
+    ]);
+}
+
 // Run all tests.
 function runOtherCalendarTests() {
     const testFunctions = [
@@ -98,6 +115,7 @@ function runOtherCalendarTests() {
         testSothicCycle,
         testOlympiad,
         testPawukon,
+        testGalacticTickDay,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

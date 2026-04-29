@@ -81,6 +81,7 @@ function buildNodeValueGetters(tzOffset) {
         'sothic-cycle': function (dt) { return typeof getSothicCycle === 'function' ? getSothicCycle(dt) : ''; },
         'olympiad': function (dt) { return typeof getOlympiad === 'function' ? getOlympiad(dt) : ''; },
         'pawukon': function (dt) { return typeof getPawukonCalendarDate === 'function' ? getPawukonCalendarDate(dt) : ''; },
+        'galactic-tick-day': function (dt) { return typeof getGalacticTickDay === 'function' ? getGalacticTickDay(dt) : ''; },
         'togys-esebi': function (dt) { return typeof getTogysDate === 'function' ? getTogysDate(dt) : ''; },
         'julian-period': function (dt) { return typeof getJulianPeriod === 'function' ? getJulianPeriod(dt) : ''; },
         'rata-die': function (dt) { return typeof getRataDie === 'function' ? getRataDie(dt) : ''; },

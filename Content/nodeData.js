@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 137
+// Total nodes: 138
 
 /*
 Node Data is a collection of data for each node.
@@ -1572,6 +1572,19 @@ const otherCalendars = [
         info: `<table class="table-long"><tr><th>10 Heavenly Stems</th><th>12 Earthly Branches</th></tr><tr><td>甲 (Jia)</td><td>子 (Zi)</td></tr><tr><td>乙 (Yi)</td><td>丑 (Chou)</td></tr><tr><td>丙 (Bing)</td><td>寅 (Yin)</td></tr><tr><td>丁 (Ding)</td><td>卯 (Mao)</td></tr><tr><td>戊 (Wu)</td><td>辰 (Chen)</td></tr><tr><td>己 (Ji)</td><td>巳 (Si)</td></tr><tr><td>庚 (Geng)</td><td>午 (Wu)</td></tr><tr><td>辛 (Xin)</td><td>未 (Wei)</td></tr><tr><td>壬 (Ren)</td><td>申 (Shen)</td></tr><tr><td>癸 (Gui)</td><td>酉 (You)</td></tr><tr><td></td><td>戌 (Xu)</td></tr><tr><td></td><td>亥 (Hai)</td></tr></table>`,
         accuracy: `This calendar system should be very accurate. It may be off by a few days at the start of a given year, or rarely an entire month, due to the inaccuracies from the Chinese lunisolar calendar calculations. However, it corrects itself by the next new moon.`,
         source: `Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Sexagenary_cycle">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.`
+    },
+
+    {
+        name: `Galactic Tick Day`,
+        id: `galactic-tick-day`,
+        type: `Other Calendar`,
+        epoch: `2 October 1608 CE`,
+        confidence: `Low`,
+        associatedWith: `San Francisco, CA`,
+        overview: `The Galactic Tick number represents the time it takes the Solar System to travel one centi-arcsecond around the Milky Way galaxy.\n\nCompleting one orbit of the Milky Way galaxy, known as a galactic year, takes about 225 million years. A Galactic Tick is about 0.00000077 percent of a galactic year (1 divided by 360 x 60 x 60 x 100), taking roughly 1.736111111 years.\n\nThe first Galactic Tick began on 2 October 1608 CE, the date that Hans Lippershey filed the patent for the telescope.`,
+        info: `The Galactic Tick is 634.114583293 days long.\n\n<table class="table-very-very-long"><tr><th>GTD number</th><th>Date</th><th>Ref</th></tr><tr><td>0th</td><td>2 October 1608</td><td>[10]</td></tr><tr><td>235th</td><td>29 September 2016</td><td>[10]</td></tr><tr><td>236th</td><td>26 June 2018</td><td>[10]</td></tr><tr><td>237th</td><td>21 March 2020</td><td>[10]</td></tr><tr><td>238th</td><td>15 December 2021</td><td>[10]</td></tr><tr><td>239th</td><td>10 September 2023</td><td>[10]</td></tr><tr><td>240th</td><td>5 June 2025</td><td>[10]</td></tr><tr><td>241st</td><td>1 March 2027</td><td>[10]</td></tr><tr><td>242nd</td><td>24 November 2028</td><td>[10]</td></tr><tr><td>243rd</td><td>20 August 2030</td><td>[10]</td></tr></table>`,
+        accuracy: `Since this is a pop science unit of time, it was not calculated with high precision, and in fact there were significant math errors in the calculations available on public sources, which state that the Galactic Tick is 633.7 days. The same sources also state the epoch of 2 October 1608 CE as the 1st tick as well as 29 September 2016 CE as the 235th tick. These dates are all impossible given the math provided.\n\nThere are 235 ticks between the epoch and the tick of 2016, which means 2016 should be the 236th tick. In order for 29 September 2016 CE to be the 235th tick and preserve the already-celebrated holidays, then 2 October 1608 CE must be the date of the 0th tick.\n\nOn top of that, the two values given for the length of the tick are very different, with 1.7361 years being rounded significantly, and 633.7 days assumes a year length of 365 days. Using that value, the 235th (or 236th) tick should have been calculated to take place in June of 2016. Neither does lengthening the tick to match the Gregorian calendar year length of 365.2425 days achieve a date of 29 September. It is only when the tick length is further extended to be based off a Julian calendar year length of 365.25 days does the 235th tick occur on 29 September 2016 CE.\n\nIn this calculation, these math errors have all been patched except for the use of the Julian calendar year length. This preserves all past holiday celebrations.`,
+        source: `All of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Galactic_Tick_Day">Wikipedia article</a>.`
     }
 ];
 

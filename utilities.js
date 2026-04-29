@@ -157,6 +157,22 @@ function differenceInDays(date1, date2) {
     return (date1 - date2) / day;
 }
 
+// Converts an integer to its ordinal string form (supports 0 and negatives)
+function toOrdinalNumber(num) {
+    const absolute = Math.abs(num);
+    const tens = absolute % 100;
+    let suffix = 'th';
+
+    if (tens < 11 || tens > 13) {
+        const ones = absolute % 10;
+        if (ones === 1) suffix = 'st';
+        if (ones === 2) suffix = 'nd';
+        if (ones === 3) suffix = 'rd';
+    }
+
+    return String(num) + suffix;
+}
+
 // Takes a date and returns a weekday assuming the day changes after a specified time rather than UTC 00:00
 // Useful for calculating calendars that change day after sunrise or sunset
 function getWeekdayAtTime(currentDateTime, afterTime, timezone='UTC+00:00') {

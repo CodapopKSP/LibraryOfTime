@@ -772,3 +772,12 @@ function getPawukonCalendarDate(currentDateTime) {
     const output = `${dayOfWeek1}${dayOfWeek2} ${dayOfWeek3} ${dayOfWeek4} ${dayOfWeek5} ${dayOfWeek6} ${dayOfWeek7} ${dayOfWeek8} ${dayOfWeek9} ${dayOfWeek10}\nWeek Name: ${weekName}`;
     return { output, other: { weekName } };
 }
+
+// --- Galactic Tick Day ---
+function getGalacticTickDay(currentDateTime) {
+    const tickEpoch = createAdjustedDateTime({ timezone: 'UTC+00:00', year: 1608, month: 10, day: 2 });
+    const daysSinceEpoch = differenceInDays(currentDateTime, tickEpoch);
+    const tickNumber = Math.floor(daysSinceEpoch / 634.114583293);
+    const output = toOrdinalNumber(tickNumber);
+    return { output, other: { tick: tickNumber } };
+}

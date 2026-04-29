@@ -174,6 +174,8 @@
 
   - [Sexagenary Year (CST)](OtherCalendars/SexagenaryYear.md)
 
+  - [Galactic Tick Day](OtherCalendars/GalacticTickDay.md)
+
 - [Astronomical Data](AstronomicalData/AstronomicalData.md)
   
   - [Northward Equinox](AstronomicalData/NorthwardEquinox.md)

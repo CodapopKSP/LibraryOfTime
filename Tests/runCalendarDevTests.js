@@ -17,6 +17,7 @@ function runCalendarDevTests() {
         //testShireCalendar,
         //testMandaeanCalendar,
         //testIgboCalendar,
+        // testGalacticTickDay,
     ];
 
     const failedCount = testFunctions.reduce((sum, fn) => sum + fn(), 0);
