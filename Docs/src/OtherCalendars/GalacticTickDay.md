@@ -1,4 +1,4 @@
-# Galactic Tick Day
+# Galactic Tick
 
 | Epoch             | Confidence        | Associated with |
 | ----------------- | ----------------- | --------------- |
@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Galactic Tick number represents the time it takes the Solar System to travel one centi-arcsecond around the Milky Way galaxy.
+The Galactic Tick represents the time it takes the Solar System to travel one centi-arcsecond around the Milky Way galaxy.
 
 Completing one orbit of the Milky Way galaxy, known as a galactic year, takes about 225 million years. A Galactic Tick is about 0.00000077 percent of a galactic year (1 divided by 360 x 60 x 60 x 100), taking roughly 1.736111111 years.
 
@@ -16,18 +16,18 @@ The first Galactic Tick began on 2 October 1608 CE, the date that Hans Lippershe
 
 The Galactic Tick is 634.114583293 days long.
 
-| GTD number | Date | Ref |
-| ---------- | ---- | --- |
-| 0th | 2 October 1608 | [10] |
-| 235th | 29 September 2016 | [10] |
-| 236th | 26 June 2018 | [10] |
-| 237th | 21 March 2020 | [10] |
-| 238th | 15 December 2021 | [10] |
-| 239th | 10 September 2023 | [10] |
-| 240th | 5 June 2025 | [10] |
-| 241st | 1 March 2027 | [10] |
-| 242nd | 24 November 2028 | [10] |
-| 243rd | 20 August 2030 | [10] |
+| Tick | Date |
+| ---------- | ---- |
+| 0th | 2 October 1608 |
+| 235th | 29 September 2016 |
+| 236th | 26 June 2018 |
+| 237th | 21 March 2020 |
+| 238th | 15 December 2021 |
+| 239th | 10 September 2023 |
+| 240th | 5 June 2025 |
+| 241st | 1 March 2027 |
+| 242nd | 24 November 2028 |
+| 243rd | 20 August 2030 |
 
 #### Accuracy
 

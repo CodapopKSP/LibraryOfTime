@@ -173,7 +173,7 @@ function updateOtherCalendars(currentDateTime) {
     setTimeValue('sothic-cycle-node', out(getSothicCycle(currentDateTime)));
     setTimeValue('olympiad-node', out(getOlympiad(currentDateTime)));
     setTimeValue('pawukon-node', out(getPawukonCalendarDate(currentDateTime)));
-    setTimeValue('galactic-tick-day-node', out(getGalacticTickDay(currentDateTime)));
+    setTimeValue('galactic-tick-node', out(getGalacticTickDay(currentDateTime)));
     setTimeValue('togys-esebi-node', out(getTogysDate(currentDateTime)));
     setTimeValue('sexagenary-year-node', out(getSexagenaryYear(currentDateTime)));
 }
