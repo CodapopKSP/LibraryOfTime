@@ -34,6 +34,20 @@ function testHumanEraCalendar() {
     ]);
 }
 
+function testMPSLCCalendar() {
+    return runCalendarTests("MPSLC Calendar", getMPSLCDate, [
+        ["-4145-4-8, 00:00:00", "UTC+00:00", "000-01-01-01 MP\nAristarchus"],
+        ["-4145-4-7, 00:00:00", "UTC+00:00", "-001-60-13-31 MP\nMeton"],
+        ["-4713-11-24, 00:00:00", "UTC+00:00", "-010-33-09-21 MP\nIbrahim"],
+        ["-4713-12-03, 00:00:00", "UTC+00:00", "-010-33-10-01 MP\nJulius"],
+        ["1899-12-29, 00:00:00", "UTC+00:00", "100-45-10-28 MP\nJulius"],
+        ["1900-1-1, 00:00:00", "UTC+00:00", "100-45-11-01 MP\nKhayyam"],
+        ["1900-1-5, 00:00:00", "UTC+00:00", "100-45-11-05 MP\nKhayyam"],
+        ["2100-10-3, 00:00:00", "UTC+00:00", "104-06-08-01 MP\nHypatia"],
+        ["2100-10-7, 00:00:00", "UTC+00:00", "104-06-08-05 MP\nHypatia"],
+    ]);
+}
+
 function testInvariableCalendar() {
     return runCalendarTests("Invariable Calendar", getInvariableCalendarDate, [
         ["1990-1-1, 00:00:00", "UTC+08:00", "New Years Day 1990 CE"],
@@ -88,6 +102,7 @@ function testPositivistCalendar() {
 function runProposedCalendarTests() {
     const testFunctions = [
         testHumanEraCalendar,
+        testMPSLCCalendar,
         testInvariableCalendar,
         testWorldCalendar,
         testSymmetry454Calendar,

@@ -200,6 +200,7 @@ function updateComputingTimes(currentDateTime, timezoneOffset) {
 
 function updateProposedCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('human-era-node', out(getHumanEra(currentDateTime, timezoneOffset)));
+    setTimeValue('mpslc-node', out(getMPSLCDate(currentDateTime, timezoneOffset)));
     setTimeValue('invariable-node', out(getInvariableCalendarDate(currentDateTime, timezoneOffset)));
     setTimeValue('the-world-calendar-node', out(getWorldCalendarDate(currentDateTime, timezoneOffset)));
     setTimeValue('symmetry454-node', out(getSymmetry454Date(currentDateTime, timezoneOffset)));

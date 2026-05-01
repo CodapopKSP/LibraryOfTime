@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Alternative Time - Library of Time: Complete Documentation</title>
+        <title>MPSLC - Library of Time: Complete Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -175,18 +175,62 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="alternative-time"><a class="header" href="#alternative-time">Alternative Time</a></h1>
-<p>Alternative time systems depart from conventional civil time. They include decimal divisions (base-10 instead of base-60 hours and minutes), fractional-day schemes such as .beat time, and other encodings like hexadecimal or binary clocks.</p>
+                        <h1 id="mpslc"><a class="header" href="#mpslc">MPSLC</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
+<tr><td>8 April 4145 BCE</td><td>Exact</td></tr>
+</tbody></table>
+</div>
+<h4 id="overview"><a class="header" href="#overview">Overview</a></h4>
+<p>The Meyer-Palmen Solilunar Calendar (MPSLC), despite being named a "solilunar" calendar, is a calculated lunisolar calendar based on the definitions settled upon in this website.</p>
+<p>It features 12 regular months of 29 or 30 days plus a leap month at the end of the year that takes place every 2-3 years and can be either 30 or 31 days. Months begin at or near the date of the New Moon, with an epoch of 8 April 4145 BCE.</p>
+<p>Dates are written as a sequence of four numbers separated by hyphens, in the format [cycle]-[year]-[month]-[day] followed by "MP" for the name of the calandar. Months also have standard names.</p>
+<h4 id="info"><a class="header" href="#info">Info</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Month</th><th>Name</th><th>Days</th></tr></thead><tbody>
+<tr><td>1</td><td>Aristarchus</td><td>29</td></tr>
+<tr><td>2</td><td>Bruno</td><td>30</td></tr>
+<tr><td>3</td><td>Copernicus</td><td>29</td></tr>
+<tr><td>4</td><td>Dee</td><td>30</td></tr>
+<tr><td>5</td><td>Eratosthenes</td><td>29</td></tr>
+<tr><td>6</td><td>Flamsteed</td><td>30</td></tr>
+<tr><td>7</td><td>Galileo</td><td>29</td></tr>
+<tr><td>8</td><td>Hypatia</td><td>30</td></tr>
+<tr><td>9</td><td>Ibrahim</td><td>29</td></tr>
+<tr><td>10</td><td>Julius</td><td>30</td></tr>
+<tr><td>11</td><td>Khayyam</td><td>29</td></tr>
+<tr><td>12</td><td>Lilius</td><td>30</td></tr>
+<tr><td>13 (leap)</td><td>Meton</td><td>30/31</td></tr>
+</tbody></table>
+</div>
+<p>Leap years and leap-month length follow two simple steps:</p>
+<ol>
+<li>
+<p>Compute the running year number:</p>
+<p><code>n = 60 * cycle + year</code></p>
+</li>
+<li>
+<p>Decide the year type:</p>
+<ul>
+<li>The year is <strong>long</strong> (has a Meton month) when <code>(n * 2519) mod 6840 &lt; 2519</code>.</li>
+<li>If the year is long, Meton has <strong>31 days</strong> when <code>(floor((n * 2519) / 6840) * 1328) mod 2519 &lt; 1328</code>.</li>
+<li>Otherwise, Meton has <strong>30 days</strong>.</li>
+</ul>
+</li>
+</ol>
+<h4 id="accuracy"><a class="header" href="#accuracy">Accuracy</a></h4>
+<p>This calculation, despite being difficult to calculate mentally, is straightforward and exactly accurate. Furthermore, the calendar itself is remarkably accurate over the course of several thousand years.</p>
+<p>The name of the calendar suggests it is a solilunar calendar, which is likely due to shifting definitions of the words 'lunisolar' and 'solilunar'. Based on the definitions used in this site, it is actually a lunisolar calendar.</p>
+<h4 id="source"><a class="header" href="#source">Source</a></h4>
+<p>All of the information on this calendar came from <a href="https://www.hermetic.ch/cal_stud/nlsc/nlsc.htm">this website</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../ProposedCalendars/MPSLC.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../ProposedCalendars/Positivist.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../AlternativeTime/RevolutionaryTime.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../AlternativeTime/AlternativeTime.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -196,11 +240,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../ProposedCalendars/MPSLC.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../ProposedCalendars/Positivist.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../AlternativeTime/RevolutionaryTime.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../AlternativeTime/AlternativeTime.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

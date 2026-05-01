@@ -100,6 +100,7 @@ function buildNodeValueGetters(tzOffset) {
         'thai-lunation-number': function (dt) { return typeof getThaiLunationNumber === 'function' ? getThaiLunationNumber(lunationNum(dt)) : ''; },
         'nabonassar-lunation-number': function (dt) { return typeof getNabonassarLunationNumber === 'function' ? getNabonassarLunationNumber(lunationNum(dt)) : ''; },
         'human-era': function (dt) { return typeof getHumanEra === 'function' ? getHumanEra(dt, offset) : ''; },
+        'mpslc': function (dt) { return typeof getMPSLCDate === 'function' ? getMPSLCDate(dt, offset) : ''; },
         'invariable': function (dt) { return typeof getInvariableCalendarDate === 'function' ? getInvariableCalendarDate(dt, offset) : ''; },
         'the-world-calendar': function (dt) { return typeof getWorldCalendarDate === 'function' ? getWorldCalendarDate(dt, offset) : ''; },
         'symmetry454': function (dt) { return typeof getSymmetry454Date === 'function' ? getSymmetry454Date(dt, offset) : ''; },

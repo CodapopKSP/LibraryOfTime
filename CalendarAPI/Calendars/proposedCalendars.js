@@ -14,6 +14,94 @@ function getHumanEra(currentDateTime_, timezoneOffset) {
     return { output, day, month, year, dayOfWeek };
 }
 
+const MPSLC_YEAR_CYCLE = 60;
+const MPSLC_Y = 6840;
+const MPSLC_L = 2519;
+const MPSLC_M = 1328;
+const MPSLC_MONTH_NAMES = [
+    'Aristarchus',
+    'Bruno',
+    'Copernicus',
+    'Dee',
+    'Eratosthenes',
+    'Flamsteed',
+    'Galileo',
+    'Hypatia',
+    'Ibrahim',
+    'Julius',
+    'Khayyam',
+    'Lilius',
+    'Meton',
+];
+const MPSLC_MONTH_DAYS_COMMON = [29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30];
+
+function mpslcMod(value, modulus) {
+    return ((value % modulus) + modulus) % modulus;
+}
+
+function mpslcIsLongYear(serialYear) {
+    return mpslcMod(serialYear * MPSLC_L, MPSLC_Y) < MPSLC_L;
+}
+
+function mpslcHasMeton31Days(serialYear) {
+    if (!mpslcIsLongYear(serialYear)) return false;
+    const quotient = Math.floor((serialYear * MPSLC_L) / MPSLC_Y);
+    return mpslcMod(quotient * MPSLC_M, MPSLC_L) < MPSLC_M;
+}
+
+function mpslcGetYearLength(serialYear) {
+    if (!mpslcIsLongYear(serialYear)) return 354;
+    return mpslcHasMeton31Days(serialYear) ? 385 : 384;
+}
+
+function getMPSLCDate(currentDateTime_, timezoneOffset) {
+    const currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
+    const epoch = createAdjustedDateTime({ year: -4145, month: 4, day: 8 });
+    let daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, epoch));
+
+    // serialYear 1 = cycle 0, year 1
+    let serialYear = 1;
+    if (daysSinceEpoch >= 0) {
+        while (daysSinceEpoch >= mpslcGetYearLength(serialYear)) {
+            daysSinceEpoch -= mpslcGetYearLength(serialYear);
+            serialYear++;
+        }
+    } else {
+        while (daysSinceEpoch < 0) {
+            serialYear--;
+            daysSinceEpoch += mpslcGetYearLength(serialYear);
+        }
+    }
+
+    const monthDays = MPSLC_MONTH_DAYS_COMMON.slice();
+    if (mpslcIsLongYear(serialYear)) {
+        monthDays.push(mpslcHasMeton31Days(serialYear) ? 31 : 30);
+    }
+
+    let monthIndex = 0;
+    while (daysSinceEpoch >= monthDays[monthIndex]) {
+        daysSinceEpoch -= monthDays[monthIndex];
+        monthIndex++;
+    }
+
+    const day = daysSinceEpoch + 1;
+    const yearIndex = mpslcMod(serialYear - 1, MPSLC_YEAR_CYCLE);
+    const year = yearIndex + 1;
+    const cycle = Math.floor((serialYear - 1 - yearIndex) / MPSLC_YEAR_CYCLE);
+    const month = monthIndex + 1;
+    const monthName = MPSLC_MONTH_NAMES[monthIndex];
+    const dayOfWeek = currentDateTime.getUTCDay();
+
+    const cycleAbsString = String(Math.abs(cycle)).padStart(3, '0');
+    const cycleString = cycle < 0 ? `-${cycleAbsString}` : cycleAbsString;
+    const yearString = String(year).padStart(2, '0');
+    const monthString = String(month).padStart(2, '0');
+    const dayString = String(day).padStart(2, '0');
+
+    const output = `${cycleString}-${yearString}-${monthString}-${dayString} MP\n${monthName}`;
+    return { output, day, month, year: `${cycleString}-${yearString}`, dayOfWeek, other: { cycle, monthName } };
+}
+
 // --- Invariable Calendar ---
 const INVARIABLE_MONTH_DAYS_LEAP = [1, 30, 30, 31, 30, 30, 31, 1, 30, 30, 31, 30, 30, 31];
 const INVARIABLE_MONTH_DAYS = [1, 30, 30, 31, 30, 30, 31, 30, 30, 31, 30, 30, 31];

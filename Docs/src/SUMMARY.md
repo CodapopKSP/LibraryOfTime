@@ -236,6 +236,8 @@
   
   - [Positivist](ProposedCalendars/Positivist.md)
 
+  - [MPSLC](ProposedCalendars/MPSLC.md)
+
 - [Alternative Time](AlternativeTime/AlternativeTime.md)
   
   - [Revolutionary Time](AlternativeTime/RevolutionaryTime.md)
