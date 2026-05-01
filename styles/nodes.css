@@ -79,7 +79,7 @@
 }
 
 .proposed-calendars > .node > .content {
-    border-color: #876a96;
+    border-color: #966a77;
 }
 
 .other-calendars > .node > .content {
@@ -87,7 +87,7 @@
 }
 
 .astronomical-data > .node > .content {
-    border-color: #6a9698;
+    border-color: #98936a;
 }
 
 .pop-culture > .node > .content {
@@ -95,7 +95,7 @@
 }
 
 .politics > .node > .content {
-    border-color: #986a6a;
+    border-color: #bbbbbb;
 }
 
 .content {

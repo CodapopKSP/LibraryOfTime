@@ -60,8 +60,8 @@
 }
 
 .lunar-calendars{
-    background-color: rgb(50, 50, 54);
-    color: rgb(196, 212, 255);
+    background-color: rgb(53, 50, 53);
+    color: rgb(205, 196, 255);
 }
 
 .solilunar-calendars{
@@ -75,7 +75,7 @@
 }
 
 .other-calendars {
-    background-color: rgb(50, 50, 54);
+    background-color: rgb(54, 50, 50);
     color: rgb(220, 255, 191);
 }
 
@@ -86,11 +86,11 @@
 
 .extraterrestrial-time {
     background-color: rgb(54, 50, 50);
-    color: rgb(203, 255, 196);
+    color: rgb(255, 241, 196);
 }
 
 .extraterrestrial-calendars {
-    background-color: rgb(50, 54, 52);
+    background-color: rgb(50, 53, 53);
     color: rgb(196, 236, 255);
 }
 
@@ -105,6 +105,6 @@
 }
 
 .politics {
-    background-color: rgb(52, 52, 52);
-    color: rgb(196, 215, 255);
+    background-color: rgb(50, 50, 54);
+    color: rgb(224, 224, 224);
 }
