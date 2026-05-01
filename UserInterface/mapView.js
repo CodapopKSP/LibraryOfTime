@@ -93,6 +93,7 @@
         { section: 'standard-time', type: 'Standard Time', title: 'Standard time' },
         { section: 'computing-time', type: 'Computing Time', title: 'Computing time' },
         { section: 'alternative-time', type: 'Alternative Time', title: 'Alternative time' },
+        { section: 'extraterrestrial-time', type: 'Extraterrestrial Time', title: 'Extraterrestrial time' },
         { section: 'solar-calendars', type: 'Solar Calendar', title: 'Solar calendars' },
         { section: 'lunisolar-calendars', type: 'Lunisolar Calendar', title: 'Lunisolar calendars' },
         { section: 'lunar-calendars', type: 'Lunar Calendar', title: 'Lunar calendars' },

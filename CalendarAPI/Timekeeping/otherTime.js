@@ -80,10 +80,16 @@ function getCallistoPrimeMeridianTime(currentDateTime) {
     return formatPrimeMeridianTime(currentDateTime, CALLISTO_EPOCH, CALLISTO_CIRCAD_HOURS, CALLISTO_CIRCAD_CYCLE);
 }
 
-const TITAN_EPOCH = { year: 1609, month: 3, day: 15, hour: 18, minute: 37, second: 32 };
+// Same circad length and epoch as Darian Titan / Julian Circad Number (DARIAN_TITAN_EPOCH_CONFIG in otherCalendars.js) so meridian time matches calendar circad boundaries.
+const TITAN_MERIDIAN_EPOCH = { year: 1609, month: 3, day: 15, hour: 18, minute: 37, second: 32 };
 const TITAN_CIRCAD_EARTH_DAYS = 0.998068439;
 const TITAN_CIRCAD_CYCLE = 16;
 
 function getTitanPrimeMeridianTime(currentDateTime) {
-    return formatPrimeMeridianTime(currentDateTime, TITAN_EPOCH, TITAN_CIRCAD_EARTH_DAYS * OTHER_TIME_HOURS_PER_DAY, TITAN_CIRCAD_CYCLE);
+    return formatPrimeMeridianTime(
+        currentDateTime,
+        TITAN_MERIDIAN_EPOCH,
+        TITAN_CIRCAD_EARTH_DAYS * OTHER_TIME_HOURS_PER_DAY,
+        TITAN_CIRCAD_CYCLE
+    );
 }

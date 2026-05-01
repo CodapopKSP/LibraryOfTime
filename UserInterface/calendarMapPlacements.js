@@ -164,6 +164,7 @@
         'callisto-meridian-time': 'callisto',
         'galilean-callisto': 'callisto',
         'darian-callisto': 'callisto',
+        'titan-meridian-time': 'titan',
         'darian-titan': 'titan',
 
         'us-presidential-terms': 'washington-dc',
