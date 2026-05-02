@@ -254,6 +254,8 @@
 
   - [Thai Time](AlternativeTime/ThaiTime.md)
 
+  - [Zoroastrian](AlternativeTime/Zoroastrian.md)
+
 - [Extraterrestrial Time](ExtraterrestrialTime/ExtraterrestrialTime.md)
   
   - [Coordinated Mars Time](ExtraterrestrialTime/MarsTime.md)

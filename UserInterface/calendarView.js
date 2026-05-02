@@ -116,6 +116,7 @@ function buildNodeValueGetters(tzOffset) {
         'babylonian-time': function (dt) { return typeof getBabylonianTime === 'function' ? getBabylonianTime(dt, offset) : ''; },
         'helek': function (dt) { return typeof getHelek === 'function' ? getHelek(dt, offset) : ''; },
         'thai-time': function (dt) { return typeof getThaiTime === 'function' ? getThaiTime(dt, offset) : ''; },
+        'zoroastrian': function (dt) { return typeof getZoroastrianGahTime === 'function' ? getZoroastrianGahTime(dt, offset) : ''; },
         'coordinated-mars-time': function (dt) { return typeof getMTC === 'function' ? getMTC(dt) : ''; },
         'io-meridian-time': function (dt) { return typeof getIoPrimeMeridianTime === 'function' ? getIoPrimeMeridianTime(dt) : ''; },
         'europa-meridian-time': function (dt) { return typeof getEuropaPrimeMeridianTime === 'function' ? getEuropaPrimeMeridianTime(dt) : ''; },

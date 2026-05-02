@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 140
+// Total nodes: 141
 
 /*
 Node Data is a collection of data for each node.
@@ -698,6 +698,19 @@ const alternativeTimeData = [
         info: `<table class="table-very-very-long"><tr><th>Section</th><th>Label</th><th>Hours</th></tr><tr><td>1</td><td>ตี</td><td>01:00-06:59</td></tr><tr><td>2</td><td>โมงเช้า</td><td>07:00-12:59</td></tr><tr><td>3</td><td>บ่าย</td><td>13:00-18:59</td></tr><tr><td>4</td><td>ทุ่ม</td><td>19:00-00:59</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
         source: `All of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand">Wikipedia article</a>.`
+    },
+
+    {
+        name: `Zoroastrian`,
+        id: `zoroastrian`,
+        type: `Alternative Time`,
+        epoch: `Sunrise`,
+        confidence: `High`,
+        associatedWith: `Yazd`,
+        overview: `Zoroastrian time is the timekeeping system traditionally used by the Zoroastrian religion in Iran. It breaks the day down into five "watches". Beginning at sunset until noon is the watch of Hawan, followed by Rapithwin until 3pm, Uzerin until sunset, Aiwisruthrem from sunset to midnight, and Ushahin until sunrise.\n\nIn medieval times, the first watch of Hawan may have gone until 3pm, excluding Rapithwin.`,
+        info: `<table class="table-very-very-long"><tr><th>Gāh</th><th>Hours</th></tr><tr><td>Hawan</td><td>06:00–11:59</td></tr><tr><td>Rapithwin</td><td>12:00–14:59</td></tr><tr><td>Uzerin</td><td>15:00–17:59</td></tr><tr><td>Aiwisruthrem</td><td>18:00–23:59</td></tr><tr><td>Ushahin</td><td>00:00–05:59</td></tr></table>`,
+        accuracy: `This is a simple calculation and is exactly accurate, though it assumes sunrise and sunset happen at 6am and 6pm respectively.`,
+        source: `All of the information in this clock comes from this <a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia page</a>.`
     }
 ];
 

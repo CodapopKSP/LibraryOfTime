@@ -13,6 +13,7 @@ function runAllTests() {
     runSolilunarCalendarTests();
     runProposedCalendarTests();
     runComputingTimeTests();
+    runAlternativeTimeTests();
     runOtherCalendarTests();
     runPopCultureCalendarTests();
 }

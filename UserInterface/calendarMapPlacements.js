@@ -146,6 +146,7 @@
         'babylonian-time': 'babylon',
         helek: 'jerusalem',
         'thai-time': 'bangkok',
+        zoroastrian: 'yazd',
 
         stardate: 'san-francisco',
         shire: 'london',

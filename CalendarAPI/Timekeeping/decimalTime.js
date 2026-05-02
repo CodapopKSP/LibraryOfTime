@@ -68,6 +68,23 @@ function getThaiTime(currentDateTime_, timezoneOffset) {
     return hourIndex + sectionWords[sectionIndex];
 }
 
+// Five gāhā (day divisions) with fixed sunrise at 06:00 and sunset at 18:00 in the observer timezone.
+function getZoroastrianGahTime(currentDateTime_, timezoneOffset) {
+    const ROLLOVER_EPSILON = 1e-10;
+    const dayFraction = calculateDay(currentDateTime_, timezoneOffset);
+    const f = (dayFraction + ROLLOVER_EPSILON) % 1;
+    const names = ['Ushahin', 'Hawan', 'Rapithwin', 'Uzerin', 'Aiwisruthrem'];
+    const starts = [0, 0.25, 0.5, 0.625, 0.75];
+    let idx = 0;
+    for (let i = starts.length - 1; i >= 0; i--) {
+        if (f >= starts[i]) {
+            idx = i;
+            break;
+        }
+    }
+    return names[idx];
+}
+
 function get6DigitHexadecimalTime(dayFraction) {
     const hexadecimalFraction = Math.trunc(dayFraction * 16777215).toString(16).toUpperCase().padStart(6, '0');
     return hexadecimalFraction;
