@@ -1240,10 +1240,10 @@ function getIgboDate(currentDateTime, _timezoneOffset) {
 
 // --- Chinese solar terms (jiéqì): 15° steps from 315° ecliptic longitude ---
 const SOLAR_TERM_SEASONS = [
-    'Spring', 'Spring', 'Spring', 'Spring', 'Spring', 'Spring',
-    'Summer', 'Summer', 'Summer', 'Summer', 'Summer', 'Summer',
-    'Autumn', 'Autumn', 'Autumn', 'Autumn', 'Autumn', 'Autumn',
-    'Winter', 'Winter', 'Winter', 'Winter', 'Winter', 'Winter',
+    'Spring (春)', 'Spring (春)', 'Spring (春)', 'Spring (春)', 'Spring (春)', 'Spring (春)',
+    'Summer (夏)', 'Summer (夏)', 'Summer (夏)', 'Summer (夏)', 'Summer (夏)', 'Summer (夏)',
+    'Autumn (秋)', 'Autumn (秋)', 'Autumn (秋)', 'Autumn (秋)', 'Autumn (秋)', 'Autumn (秋)',
+    'Winter (冬)', 'Winter (冬)', 'Winter (冬)', 'Winter (冬)', 'Winter (冬)', 'Winter (冬)',
 ];
 
 const SOLAR_TERM_ZODIAC_EN = [
@@ -1294,5 +1294,66 @@ function getSolarTermCalendar(currentDateTime) {
     return {
         output,
         other: { index, longitude: lon, season, zodiacEn, zodiacCn, nameCn, type },
+    };
+}
+
+// --- Japanese sekki / 72 kō: 5° steps from 315° (Risshun), same sun longitude as Solar Term ---
+const JAPANESE_72_MICROSEASONS = [
+    '東風解凍', '黄鶯睍睆', '魚上氷', '土脈潤起', '霞始靆', '草木萌動',
+    '蟄虫啓戸', '桃始笑', '菜虫化蝶', '雀始巣', '櫻始開', '雷乃発声',
+    '玄鳥至', '鴻雁北', '虹始見', '葭始生', '霜止出苗', '牡丹華',
+    '蛙始鳴', '蚯蚓出', '竹笋生', '蚕起食桑', '紅花栄', '麦秋至',
+    '蟷螂生', '腐草為螢', '梅子黄', '乃東枯', '菖蒲華', '半夏生',
+    '温風至', '蓮始開', '鷹乃学習', '桐始結花', '土潤溽暑', '大雨時行',
+    '涼風至', '寒蝉鳴', '蒙霧升降', '綿柎開', '天地始粛', '禾乃登',
+    '草露白', '鶺鴒鳴', '玄鳥去', '雷乃収声', '蟄虫坏戸', '水始涸',
+    '鴻雁来', '菊花開', '蟋蟀在戸', '霜始降', '霎時施', '楓蔦黄',
+    '山茶始開', '地始凍', '金盞香', '虹蔵不見', '朔風払葉', '橘始黄',
+    '閉塞成冬', '熊蟄穴', '鱖魚群', '乃東生', '麋角解', '雪下出麦',
+    '芹乃栄', '水泉動', '雉始雊', '款冬華', '水沢腹堅', '鶏始乳',
+];
+
+const JAPANESE_SOLAR_SEKKI_JA = [
+    '立春', '雨水', '啓蟄', '春分', '清明', '穀雨',
+    '立夏', '小満', '芒種', '夏至', '小暑', '大暑',
+    '立秋', '処暑', '白露', '秋分', '寒露', '霜降',
+    '立冬', '小雪', '大雪', '冬至', '小寒', '大寒',
+];
+
+// Romaji + kanji for the "Season" line (one of 24 sekki; each covers three kō).
+const JAPANESE_SOLAR_SEKKI_DISPLAY = [
+    'Risshun (立春)', 'Usui (雨水)', 'Keichitsu (啓蟄)', 'Shunbun (春分)', 'Seimei (清明)', 'Kokuu (穀雨)',
+    'Rikka (立夏)', 'Shōman (小満)', 'Bōshu (芒種)', 'Geshi (夏至)', 'Shōsho (小暑)', 'Taishō (大暑)',
+    'Risshū (立秋)', 'Shosho (処暑)', 'Hakuro (白露)', 'Shūbun (秋分)', 'Kanro (寒露)', 'Sōkō (霜降)',
+    'Rittō (立冬)', 'Shōsetsu (小雪)', 'Taisetsu (大雪)', 'Tōji (冬至)', 'Shōkan (小寒)', 'Daikan (大寒)',
+];
+
+function japaneseSolarTermMicroseasonIndexFromLongitude(lon) {
+    lon = ((lon % 360) + 360) % 360;
+    let x = lon - 315;
+    if (x < 0) {
+        x += 360;
+    }
+    return Math.min(72, Math.floor(x / 5) + 1);
+}
+
+function getJapaneseSolarTermCalendar(currentDateTime) {
+    const lon = getLongitudeOfSun(currentDateTime);
+    const lonNorm = ((lon % 360) + 360) % 360;
+    const koNum = japaneseSolarTermMicroseasonIndexFromLongitude(lonNorm);
+    const koName = JAPANESE_72_MICROSEASONS[koNum - 1];
+    const sekkiIndex = Math.floor((koNum - 1) / 3);
+    const sekkiJa = JAPANESE_SOLAR_SEKKI_JA[sekkiIndex];
+    const seasonLabel = JAPANESE_SOLAR_SEKKI_DISPLAY[sekkiIndex];
+    const output = `Season: ${seasonLabel}\nMicroseason: ${koNum} | ${koName}`;
+    return {
+        output,
+        other: {
+            longitude: lonNorm,
+            microseasonNumber: koNum,
+            microseasonName: koName,
+            sekki: sekkiJa,
+            season: seasonLabel,
+        },
     };
 }

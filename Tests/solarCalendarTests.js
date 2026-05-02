@@ -369,6 +369,14 @@ function testSolarTermCalendar() {
     ]);
 }
 
+function testJapaneseSolarTermCalendar() {
+    return runSolarTests('Japanese Solar Term', getJapaneseSolarTermCalendar, [
+        ['2050-9-22, 19:28:00', 'UTC+00:00', 'Season: Shūbun (秋分)\nMicroseason: 雷乃収声 46'],
+        ['2001-3-25, 12:00:00', 'UTC+00:00', 'Season: Shunbun (春分)\nMicroseason: 雀始巣 10'],
+        ['2020-2-4, 12:00:00', 'UTC+00:00', 'Season: Risshun (立春)\nMicroseason: 東風解凍 1'],
+    ]);
+}
+
 function testMandaeanCalendar() {
     // LRM (\u200E) before day and year keeps day–month–year order stable with Mandaic script.
     return runSolarTests("Mandaean Calendar", getMandaeanDate, [
@@ -415,6 +423,7 @@ function runSolarCalendarTests() {
         testMandaeanCalendar,
         testIgboCalendar,
         testSolarTermCalendar,
+        testJapaneseSolarTermCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

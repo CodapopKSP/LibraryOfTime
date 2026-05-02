@@ -1,4 +1,4 @@
-# Solar Term
+# Chinese Solar Term
 
 | Epoch | Confidence | Associated with |
 | ----------------- | ---------- | --------------- |
@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Solar Term is a traditional Chinese method of telling time. It uses the Longitude of the Sun to determine the seasons and months based on moments when the sun's longitude relative to the equinoxes is multiples of 15 (minor) and 30 (major) degrees.
+The Solar Term is an observational solar calendar used in China and its surrounding area. It uses the Longitude of the Sun to determine the seasons and months based on moments when the sun's longitude relative to the equinoxes is multiples of 15 (minor) and 30 (major) degrees.
 
 Months are named after the 12 signs of the Chinese Zodiac and are split into a minor solar term, which happens at the beginning of the month, and a major solar term, which happens in the middle. Each term is given a name that is associated with an environmental phenomenon that occurs around that time.
 
@@ -16,7 +16,7 @@ Solar terms are also used to determine when the leap month should occur in the C
 
 #### Info
 
-| ° | Season | Zodiac | Name | Type |
+| ° | Season | Month | Name | Type |
 | --- | --- | --- | --- | --- |
 | 315 | Spring | Tiger (寅) | 立春 (Lìchūn) | minor |
 | 330 | Spring | Tiger (寅) | 雨水 (Yǔshuǐ) | major |

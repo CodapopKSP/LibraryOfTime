@@ -57,6 +57,7 @@ function buildNodeValueGetters(tzOffset) {
         'saka-samvat': function (dt) { return typeof getSakaSamvatDate === 'function' ? getSakaSamvatDate(dt) : ''; },
         'sca': function (dt) { return typeof getSocietyForCreativeAnachronismDate === 'function' ? getSocietyForCreativeAnachronismDate(dt, offset) : ''; },
         'solar-term': function (dt) { return typeof getSolarTermCalendar === 'function' ? getSolarTermCalendar(dt) : ''; },
+        'japanese-solar-term': function (dt) { return typeof getJapaneseSolarTermCalendar === 'function' ? getJapaneseSolarTermCalendar(dt) : ''; },
         'chinese': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'CHINA') : ''; },
         'sexagenary-year': function (dt) { return typeof getSexagenaryYear === 'function' ? getSexagenaryYear(dt) : ''; },
         'dai-lich': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'VIETNAM') : ''; },

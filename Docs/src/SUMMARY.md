@@ -158,6 +158,8 @@
 
   - [Solar Term (UTC)](SolarCalendars/SolarTerm.md)
 
+  - [Japanese Solar Term (UTC)](SolarCalendars/JapaneseSolarTerm.md)
+
 - [Other Calendars](OtherCalendars/OtherCalendars.md)
   
   - [Maya Long Count (CST)](OtherCalendars/MayaLongCount.md)
