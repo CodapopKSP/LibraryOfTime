@@ -1237,3 +1237,62 @@ function getIgboDate(currentDateTime, _timezoneOffset) {
     const output = `${day} ${monthName}\n${weekdayName}`;
     return { output, day, month: monthIndex0, year: null, dayOfWeek: igboWeekdayIndex, other: {} };
 }
+
+// --- Chinese solar terms (jiéqì): 15° steps from 315° ecliptic longitude ---
+const SOLAR_TERM_SEASONS = [
+    'Spring', 'Spring', 'Spring', 'Spring', 'Spring', 'Spring',
+    'Summer', 'Summer', 'Summer', 'Summer', 'Summer', 'Summer',
+    'Autumn', 'Autumn', 'Autumn', 'Autumn', 'Autumn', 'Autumn',
+    'Winter', 'Winter', 'Winter', 'Winter', 'Winter', 'Winter',
+];
+
+const SOLAR_TERM_ZODIAC_EN = [
+    'Tiger', 'Tiger', 'Rabbit', 'Rabbit', 'Dragon', 'Dragon',
+    'Snake', 'Snake', 'Horse', 'Horse', 'Goat', 'Goat',
+    'Monkey', 'Monkey', 'Rooster', 'Rooster', 'Dog', 'Dog',
+    'Pig', 'Pig', 'Rat', 'Rat', 'Ox', 'Ox',
+];
+
+const SOLAR_TERM_ZODIAC_CN = [
+    '虎', '虎', '兔', '兔', '龙', '龙',
+    '蛇', '蛇', '马', '马', '羊', '羊',
+    '猴', '猴', '鸡', '鸡', '狗', '狗',
+    '猪', '猪', '鼠', '鼠', '牛', '牛',
+];
+
+const SOLAR_TERM_NAMES_CN = [
+    '立春', '雨水', '惊蛰', '春分', '清明', '谷雨',
+    '立夏', '小满', '芒种', '夏至', '小暑', '大暑',
+    '立秋', '处暑', '白露', '秋分', '寒露', '霜降',
+    '立冬', '小雪', '大雪', '冬至', '小寒', '大寒',
+];
+
+function solarTermStartLongitude(index) {
+    return (315 + index * 15) % 360;
+}
+
+function solarTermTypeFromStartLongitude(startLon) {
+    const lon = ((startLon % 360) + 360) % 360;
+    return (lon % 30 === 0) ? 'Major' : 'Minor';
+}
+
+function getSolarTermCalendar(currentDateTime) {
+    let lon = getLongitudeOfSun(currentDateTime);
+    lon = ((lon % 360) + 360) % 360;
+    let x = lon - 315;
+    if (x < 0) {
+        x += 360;
+    }
+    const index = Math.min(23, Math.floor(x / 15));
+    const season = SOLAR_TERM_SEASONS[index];
+    const zodiacEn = SOLAR_TERM_ZODIAC_EN[index];
+    const zodiacCn = SOLAR_TERM_ZODIAC_CN[index];
+    const nameCn = SOLAR_TERM_NAMES_CN[index];
+    const startLon = solarTermStartLongitude(index);
+    const type = solarTermTypeFromStartLongitude(startLon);
+    const output = `Season: ${season}\nZodiac: ${zodiacEn} (${zodiacCn})\nName: ${nameCn}\nType: ${type}`;
+    return {
+        output,
+        other: { index, longitude: lon, season, zodiacEn, zodiacCn, nameCn, type },
+    };
+}

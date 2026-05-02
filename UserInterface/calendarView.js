@@ -56,6 +56,7 @@ function buildNodeValueGetters(tzOffset) {
         'icelandic': function (dt) { return typeof getIcelandicDate === 'function' ? getIcelandicDate(dt) : ''; },
         'saka-samvat': function (dt) { return typeof getSakaSamvatDate === 'function' ? getSakaSamvatDate(dt) : ''; },
         'sca': function (dt) { return typeof getSocietyForCreativeAnachronismDate === 'function' ? getSocietyForCreativeAnachronismDate(dt, offset) : ''; },
+        'solar-term': function (dt) { return typeof getSolarTermCalendar === 'function' ? getSolarTermCalendar(dt) : ''; },
         'chinese': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'CHINA') : ''; },
         'sexagenary-year': function (dt) { return typeof getSexagenaryYear === 'function' ? getSexagenaryYear(dt) : ''; },
         'dai-lich': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'VIETNAM') : ''; },

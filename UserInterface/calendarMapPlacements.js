@@ -92,6 +92,7 @@
         'egyptian-civil': 'cairo',
         mandaean: 'nasiriyah',
         igbo: 'onitsha',
+        'solar-term': 'beijing',
         haab: 'chichen-itza',
         'anno-lucis': 'london',
         tabot: 'kingston-jamaica',

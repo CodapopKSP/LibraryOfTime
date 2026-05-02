@@ -143,6 +143,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('icelandic-node', out(getIcelandicDate(currentDateTime)));
     setTimeValue('saka-samvat-node', out(getSakaSamvatDate(currentDateTime)));
     setTimeValue('sca-node', out(getSocietyForCreativeAnachronismDate(currentDateTime, timezoneOffset)));
+    setTimeValue('solar-term-node', out(getSolarTermCalendar(currentDateTime)));
 }
 
 function updateLunisolarCalendars(currentDateTime) {

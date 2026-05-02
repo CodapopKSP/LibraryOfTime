@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 141
+// Total nodes: 142
 
 /*
 Node Data is a collection of data for each node.
@@ -1302,6 +1302,19 @@ const solarCalendarsData = [
         info: `Since this calendar is 365 days with no intercalation, it drifts relative to the equinoxes by about 1 day every 4 years.\n\n<table class="table-very-very-long"><tr><th>#</th><th>Days</th><th>Name</th><th>Approximate Gregorian alignment</th></tr><tr><td>1</td><td>28</td><td>Ọnwa Mbụ</td><td>February–March</td></tr><tr><td>2</td><td>28</td><td>Ọnwa Abụọ</td><td>March–April</td></tr><tr><td>3</td><td>28</td><td>Ọnwa Ife Eke</td><td>April–May</td></tr><tr><td>4</td><td>28</td><td>Ọnwa Anọ</td><td>May–June</td></tr><tr><td>5</td><td>28</td><td>Ọnwa Agwụ</td><td>June–July</td></tr><tr><td>6</td><td>28</td><td>Ọnwa Ifejiọkụ</td><td>July–August</td></tr><tr><td>7</td><td>28</td><td>Ọnwa Alọm Chi</td><td>August–early September</td></tr><tr><td>8</td><td>28</td><td>Ọnwa Ilọ Mmụọ</td><td>Late September</td></tr><tr><td>9</td><td>28</td><td>Ọnwa Ana</td><td>October</td></tr><tr><td>10</td><td>28</td><td>Ọnwa Okike</td><td>Early November</td></tr><tr><td>11</td><td>28</td><td>Ọnwa Ajana</td><td>Late November</td></tr><tr><td>12</td><td>28</td><td>Ọnwa Ede Ajana</td><td>Late November–December</td></tr><tr><td>13</td><td>29</td><td>Ọnwa Ụzọ Alụsị</td><td>January–early February</td></tr></table>\n<table class="table-very-very-long"><tr><th>#</th><th>Weekday</th></tr><tr><td>1</td><td>Eke</td></tr><tr><td>2</td><td>Orie</td></tr><tr><td>3</td><td>Afo</td></tr><tr><td>4</td><td>Nkwo</td></tr></table>`,
         accuracy: `Since this calendar is pracrticed by many different people and has no central authority, it is likely that it only matches some groups' interpretation of the calendar.\n\nI was unable to find any specific point at which the day starts, but it seems any time before or up to sunrise is acceptable.\n\nWikipedia noted that 10 March 2012 marked the year-counting festival and noted that it was the 1013th year based on the "lunar calendar", though the source is dead. I was unable to verify anything related to this claim and have decided not to use it.`,
         source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Igbo_calendar">Wikipedia article</a>.`
+    },
+
+    {
+        name: `Solar Term`,
+        id: `solar-term`,
+        type: `Solar Calendar`,
+        epoch: `Unknown`,
+        confidence: `High`,
+        associatedWith: `Beijing`,
+        overview: `The Solar Term is a traditional Chinese method of telling time. It uses the Longitude of the Sun to determine the seasons, months, and leap months based on moments when the sun's longitude relative to the equinoxes is multiples of 15 (minor) and 30 (major) degrees..`,
+        info: `<table class="table-very-very-long"><tr><th>°</th><th>Season</th><th>Zodiac</th><th>Name</th><th>Type</th></tr><tr><td>315</td><td>Spring</td><td>Tiger (寅)</td><td>立春 (Lìchūn)</td><td>minor</td></tr><tr><td>330</td><td>Spring</td><td>Tiger (寅)</td><td>雨水 (Yǔshuǐ)</td><td>major</td></tr><tr><td>345</td><td>Spring</td><td>Rabbit (卯)</td><td>惊蛰 (Jīngzhé)</td><td>minor</td></tr><tr><td>0</td><td>Spring</td><td>Rabbit (卯)</td><td>春分 (Chūnfēn)</td><td>major</td></tr><tr><td>15</td><td>Spring</td><td>Dragon (辰)</td><td>清明 (Qīngmíng)</td><td>minor</td></tr><tr><td>30</td><td>Spring</td><td>Dragon (辰)</td><td>谷雨 (Gǔyǔ)</td><td>major</td></tr><tr><td>45</td><td>Summer</td><td>Snake (巳)</td><td>立夏 (Lìxià)</td><td>minor</td></tr><tr><td>60</td><td>Summer</td><td>Snake (巳)</td><td>小满 (Xiǎomǎn)</td><td>major</td></tr><tr><td>75</td><td>Summer</td><td>Horse (午)</td><td>芒种 (Mángzhòng)</td><td>minor</td></tr><tr><td>90</td><td>Summer</td><td>Horse (午)</td><td>夏至 (Xiàzhì)</td><td>major</td></tr><tr><td>105</td><td>Summer</td><td>Goat (未)</td><td>小暑 (Xiǎoshǔ)</td><td>minor</td></tr><tr><td>120</td><td>Summer</td><td>Goat (未)</td><td>大暑 (Dàshǔ)</td><td>major</td></tr><tr><td>135</td><td>Autumn</td><td>Monkey (申)</td><td>立秋 (Lìqiū)</td><td>minor</td></tr><tr><td>150</td><td>Autumn</td><td>Monkey (申)</td><td>处暑 (Chǔshǔ)</td><td>major</td></tr><tr><td>165</td><td>Autumn</td><td>Rooster (酉)</td><td>白露 (Báilù)</td><td>minor</td></tr><tr><td>180</td><td>Autumn</td><td>Rooster (酉)</td><td>秋分 (Qiūfēn)</td><td>major</td></tr><tr><td>195</td><td>Autumn</td><td>Dog (戌)</td><td>寒露 (Hánlù)</td><td>minor</td></tr><tr><td>210</td><td>Autumn</td><td>Dog (戌)</td><td>霜降 (Shuāngjiàng)</td><td>major</td></tr><tr><td>225</td><td>Winter</td><td>Pig (亥)</td><td>立冬 (Lìdōng)</td><td>minor</td></tr><tr><td>240</td><td>Winter</td><td>Pig (亥)</td><td>小雪 (Xiǎoxuě)</td><td>major</td></tr><tr><td>255</td><td>Winter</td><td>Rat (子)</td><td>大雪 (Dàxuě)</td><td>minor</td></tr><tr><td>270</td><td>Winter</td><td>Rat (子)</td><td>冬至 (Dōngzhì)</td><td>major</td></tr><tr><td>285</td><td>Winter</td><td>Ox (丑)</td><td>小寒 (Xiǎohán)</td><td>minor</td></tr><tr><td>300</td><td>Winter</td><td>Ox (丑)</td><td>大寒 (Dàhán)</td><td>major</td></tr></table>`,
+        accuracy: ``,
+        source: ``
     }
 ];
 

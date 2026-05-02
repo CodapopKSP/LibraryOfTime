@@ -156,6 +156,8 @@
 
   - [Igbo (WAT)](SolarCalendars/Igbo.md)
 
+  - [Solar Term (UTC)](SolarCalendars/SolarTerm.md)
+
 - [Other Calendars](OtherCalendars/OtherCalendars.md)
   
   - [Maya Long Count (CST)](OtherCalendars/MayaLongCount.md)
