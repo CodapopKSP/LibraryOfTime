@@ -20,18 +20,18 @@ Solar terms are also used to determine when the leap month should occur in the C
 | --- | --- | --- | --- | --- |
 | 315 | Spring | Tiger (寅) | 立春 (Lìchūn) | minor |
 | 330 | Spring | Tiger (寅) | 雨水 (Yǔshuǐ) | major |
-| 345 | Spring | Rabbit (卯) | 惊蛰 (Jīngzhé) | minor |
+| 345 | Spring | Rabbit (卯) | 驚蟄 (Jīngzhé) | minor |
 | 0 | Spring | Rabbit (卯) | 春分 (Chūnfēn) | major |
 | 15 | Spring | Dragon (辰) | 清明 (Qīngmíng) | minor |
-| 30 | Spring | Dragon (辰) | 谷雨 (Gǔyǔ) | major |
+| 30 | Spring | Dragon (辰) | 穀雨 (Gǔyǔ) | major |
 | 45 | Summer | Snake (巳) | 立夏 (Lìxià) | minor |
-| 60 | Summer | Snake (巳) | 小满 (Xiǎomǎn) | major |
-| 75 | Summer | Horse (午) | 芒种 (Mángzhòng) | minor |
+| 60 | Summer | Snake (巳) | 小滿 (Xiǎomǎn) | major |
+| 75 | Summer | Horse (午) | 芒種 (Mángzhòng) | minor |
 | 90 | Summer | Horse (午) | 夏至 (Xiàzhì) | major |
 | 105 | Summer | Goat (未) | 小暑 (Xiǎoshǔ) | minor |
 | 120 | Summer | Goat (未) | 大暑 (Dàshǔ) | major |
 | 135 | Autumn | Monkey (申) | 立秋 (Lìqiū) | minor |
-| 150 | Autumn | Monkey (申) | 处暑 (Chǔshǔ) | major |
+| 150 | Autumn | Monkey (申) | 處暑 (Chǔshǔ) | major |
 | 165 | Autumn | Rooster (酉) | 白露 (Báilù) | minor |
 | 180 | Autumn | Rooster (酉) | 秋分 (Qiūfēn) | major |
 | 195 | Autumn | Dog (戌) | 寒露 (Hánlù) | minor |

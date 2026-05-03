@@ -363,7 +363,7 @@ function testIgboCalendar() {
 
 function testSolarTermCalendar() {
     return runSolarTests('Solar Term', getSolarTermCalendar, [
-        ['2050-9-22, 19:28:00', 'UTC+00:00', 'Season: Autumn\nZodiac: Rooster (鸡)\nName: 秋分\nType: Major'],
+        ['2050-9-22, 19:28:00', 'UTC+00:00', 'Season: Autumn\nZodiac: Rooster (雞)\nName: 秋分\nType: Major'],
         ['2001-3-25, 12:00:00', 'UTC+00:00', 'Season: Spring\nZodiac: Rabbit (兔)\nName: 春分\nType: Major'],
         ['2020-2-4, 12:00:00', 'UTC+00:00', 'Season: Spring\nZodiac: Tiger (虎)\nName: 立春\nType: Minor'],
     ]);
