@@ -158,6 +158,7 @@ function updateLunisolarCalendars(currentDateTime) {
 }
 
 function updateOtherCalendars(currentDateTime) {
+    setTimeValue('japanese-node', out(getJapaneseLunisolarCalendarDate(currentDateTime)));
     setTimeValue('maya-long-count-node', out(getCurrentMayaLongCount(currentDateTime)));
     setTimeValue('tzolkin-node', out(getTzolkinDate(currentDateTime)));
     setTimeValue('lord-of-the-night-y-node', out(getLordOfTheNight(currentDateTime)));

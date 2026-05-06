@@ -65,7 +65,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
             leapMonthSuffix: '윤',
             earthlyBranchOffset: null,
             zodiacAnimals: null
-        }
+        },
     };
 
     const config = COUNTRY_CONFIG[country];

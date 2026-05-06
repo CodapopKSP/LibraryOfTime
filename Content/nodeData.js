@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 143
+// Total nodes: 144
 
 /*
 Node Data is a collection of data for each node.
@@ -338,11 +338,11 @@ const computingTimeData = [
         name: `DOS FAT/FAT32`,
         id: `dos-fatfat32`,
         type: `Computing Time`,
-        epoch: `1 January 1980 CE`,
+        epoch: `Local civil time; MS-DOS date field counts years from 1980 CE`,
         confidence: `Exact`,
         associatedWith: `Redmond, WA`,
-        overview: `DOS FAT timestamps are used in the FAT filesystem.\n\nIt is a hexadecimal representation of different numbers that add onto each other. The first two digits (after 0x) represent the number of years since the epoch, though the second digit also increments when the third digit rolls over. The forth digit represents the current day of the month, and the third digit represents the current month (starting with 2), though it increments on the first day of the month and when the month digit rolls over (on the 16th day).\n\nThe fifth and sixth digits represent the hours since midnight, though the sixth digit also increments when the seventh digit, representing minutes, rolls over. The seventh digit also increments when the eighth digit rolls over, which represents double seconds, incrementing once every two seconds.\n\nIt can also be written in reverse byte order (big-endian vs the standard little-endian). This means that the resulting number will have the first four and the last four digits swapped, as well as the two pairs of digits within them.`,
-        info: `<table class="table-very-very-long"><tr><th>Date or time</th><th>Packed value</th></tr><tr><td>1 January 1980 CE</td><td>0x00210000</td></tr><tr><td>1 February 1980 CE</td><td>0x00410000</td></tr><tr><td>1 December 1980 CE</td><td>0x01810000</td></tr><tr><td>1 January at midnight</td><td>0xXX210000</td></tr><tr><td>1 January at noon</td><td>0xXX216000</td></tr><tr><td>2 January at midnight</td><td>0xXX220000</td></tr></table>`,
+        overview: `DOS FAT timestamps are used in the FAT filesystem.`,
+        info: ``,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
         source: `This calculation came from <a href="https://www.epochconverter.com/fat">this converter</a>.`
     },
@@ -1637,6 +1637,19 @@ const otherCalendars = [
         info: `<table class="table-long"><tr><th>10 Heavenly Stems</th><th>12 Earthly Branches</th></tr><tr><td>甲 (Jia)</td><td>子 (Zi)</td></tr><tr><td>乙 (Yi)</td><td>丑 (Chou)</td></tr><tr><td>丙 (Bing)</td><td>寅 (Yin)</td></tr><tr><td>丁 (Ding)</td><td>卯 (Mao)</td></tr><tr><td>戊 (Wu)</td><td>辰 (Chen)</td></tr><tr><td>己 (Ji)</td><td>巳 (Si)</td></tr><tr><td>庚 (Geng)</td><td>午 (Wu)</td></tr><tr><td>辛 (Xin)</td><td>未 (Wei)</td></tr><tr><td>壬 (Ren)</td><td>申 (Shen)</td></tr><tr><td>癸 (Gui)</td><td>酉 (You)</td></tr><tr><td></td><td>戌 (Xu)</td></tr><tr><td></td><td>亥 (Hai)</td></tr></table>`,
         accuracy: `This calendar system should be very accurate. It may be off by a few days at the start of a given year, or rarely an entire month, due to the inaccuracies from the Chinese lunisolar calendar calculations. However, it corrects itself by the next new moon.`,
         source: `Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Sexagenary_cycle">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.`
+    },
+
+    {
+        name: `Japanese (JST)`,
+        id: `japanese`,
+        type: `Other Calendar`,
+        epoch: `To be determined.`,
+        confidence: `To be determined.`,
+        associatedWith: `Kyoto`,
+        overview: `To be determined.`,
+        info: `To be determined.`,
+        accuracy: `To be determined.`,
+        source: `To be determined.`
     },
 
     {

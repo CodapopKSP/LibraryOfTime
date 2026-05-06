@@ -116,6 +116,7 @@
         'sothic-cycle': 'cairo',
         olympiad: 'athens',
         'sexagenary-year': 'beijing',
+        japanese: 'kyoto',
 
         'umm-al-qura': 'mecca',
 

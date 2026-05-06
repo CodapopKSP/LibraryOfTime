@@ -178,6 +178,8 @@
 
   - [Sexagenary Year (CST)](OtherCalendars/SexagenaryYear.md)
 
+  - [Japanese (JST)](OtherCalendars/Japanese.md)
+
   - [Galactic Tick Day](OtherCalendars/GalacticTickDay.md)
 
 - [Astronomical Data](AstronomicalData/AstronomicalData.md)

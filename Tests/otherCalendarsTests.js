@@ -88,6 +88,22 @@ function testPawukon() {
     ]);
 }
 
+function testJapaneseLunisolarCalendar() {
+    const currentDateTime = createAdjustedDateTime({ year: 2025, month: 4, day: 8, hour: 18, minute: 20, second: 46 });
+    setGregJulianDifference(calculateGregorianJulianDifference(currentDateTime));
+    generateAllNewMoons(currentDateTime);
+    generateAllSolsticesEquinoxes(currentDateTime);
+    return runOtherCalendarSingleParamTests('Japanese Lunisolar', getJapaneseLunisolarCalendarDate, [
+        ['2025-12-1, 00:00:00', 'UTC+09:00', '令和7年12月1日\n神武紀元2685年\n日干支 甲辰'],
+        ['2019-5-1, 00:00:00', 'UTC+09:00', '令和元年5月1日\n神武紀元2679年\n日干支 戊戌'],
+        ['2020-5-1, 00:00:00', 'UTC+09:00', '令和2年5月1日\n神武紀元2680年\n日干支 甲辰'],
+        ['1873-1-1, 00:00:00', 'UTC+09:00', '明治6年1月1日\n神武紀元2533年\n日干支 癸丑'],
+        // Lunar New Year 645 CE (JST): Jinmu 1305 per 西暦+660 anchored to lunisolar year before 1873 reform
+        ['645-2-5, 12:00:00', 'UTC+09:00', '3343年1月1日\n神武紀元1305年\n日干支 庚午'],
+        ['2019-1-27, 00:00:00', 'UTC+09:00', '平成31年1月27日\n神武紀元2679年\n日干支 甲子'],
+    ]);
+}
+
 function testGalacticTickDay() {
     return runOtherCalendarSingleParamTests("Galactic Tick Day", getGalacticTickDay, [
         ["1608-10-2, 00:00:00", "UTC+00:00", "0th"],
@@ -115,6 +131,7 @@ function runOtherCalendarTests() {
         testSothicCycle,
         testOlympiad,
         testPawukon,
+        testJapaneseLunisolarCalendar,
         testGalacticTickDay,
     ];
 

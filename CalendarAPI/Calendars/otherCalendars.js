@@ -781,3 +781,405 @@ function getGalacticTickDay(currentDateTime) {
     const output = toOrdinalNumber(tickNumber);
     return { output, other: { tick: tickNumber } };
 }
+
+const JAPANESE_ERA_DATA = [
+    { name: 'Taihō', japanese: '大宝', startYear: 701, startDate: '701-05-03' },
+    { name: 'Keiun', japanese: '慶雲', startYear: 704, startDate: '704-06-16' },
+    { name: 'Wadō', japanese: '和銅', startYear: 708, startDate: '708-02-07' },
+    { name: 'Reiki', japanese: '霊亀', startYear: 715, startDate: '715-10-03' },
+    { name: 'Yōrō', japanese: '養老', startYear: 717, startDate: '717-12-24' },
+    { name: 'Jinki', japanese: '神亀', startYear: 724, startDate: '724-03-03' },
+    { name: 'Tenpyō', japanese: '天平', startYear: 729, startDate: '729-09-02' },
+    { name: 'Tenpyō-kanpō', japanese: '天平感宝', startYear: 749, startDate: '749-05-04' },
+    { name: 'Tenpyō-shōhō', japanese: '天平勝宝', startYear: 749, startDate: '749-08-19' },
+    { name: 'Tenpyō-hōji', japanese: '天平宝字', startYear: 757, startDate: '757-09-06' },
+    { name: 'Tenpyō-jingo', japanese: '天平神護', startYear: 765, startDate: '765-02-01' },
+    { name: 'Jingo-keiun', japanese: '神護景雲', startYear: 767, startDate: '767-09-13' },
+    { name: 'Hōki', japanese: '宝亀', startYear: 770, startDate: '770-10-23' },
+    { name: 'Ten\'ō', japanese: '天応', startYear: 781, startDate: '781-01-30' },
+    { name: 'Enryaku', japanese: '延暦', startYear: 782, startDate: '782-09-30' },
+    { name: 'Daidō', japanese: '大同', startYear: 806, startDate: '806-06-08' },
+    { name: 'Kōnin', japanese: '弘仁', startYear: 810, startDate: '810-10-20' },
+    { name: 'Tenchō', japanese: '天長', startYear: 824, startDate: '824-02-08' },
+    { name: 'Jōwa', japanese: '承和', startYear: 834, startDate: '834-02-14' },
+    { name: 'Kashō', japanese: '嘉祥', startYear: 848, startDate: '848-07-16' },
+    { name: 'Ninju', japanese: '仁寿', startYear: 851, startDate: '851-06-01' },
+    { name: 'Saikō', japanese: '斉衡', startYear: 854, startDate: '854-12-23' },
+    { name: 'Ten\'an', japanese: '天安', startYear: 857, startDate: '857-03-20' },
+    { name: 'Jōgan', japanese: '貞観', startYear: 859, startDate: '859-05-20' },
+    { name: 'Gangyō', japanese: '元慶', startYear: 877, startDate: '877-06-01' },
+    { name: 'Ninna', japanese: '仁和', startYear: 885, startDate: '885-03-11' },
+    { name: 'Kanpyō', japanese: '寛平', startYear: 889, startDate: '889-05-30' },
+    { name: 'Shōtai', japanese: '昌泰', startYear: 898, startDate: '898-05-20' },
+    { name: 'Engi', japanese: '延喜', startYear: 901, startDate: '901-08-31' },
+    { name: 'Enchō', japanese: '延長', startYear: 923, startDate: '923-05-29' },
+    { name: 'Jōhei', japanese: '承平', startYear: 931, startDate: '931-05-16' },
+    { name: 'Tengyō', japanese: '天慶', startYear: 938, startDate: '938-06-22' },
+    { name: 'Tenryaku', japanese: '天暦', startYear: 947, startDate: '947-05-15' },
+    { name: 'Tentoku', japanese: '天徳', startYear: 957, startDate: '957-11-21' },
+    { name: 'Ōwa', japanese: '応和', startYear: 961, startDate: '961-03-05' },
+    { name: 'Kōhō', japanese: '康保', startYear: 964, startDate: '964-08-19' },
+    { name: 'Anna', japanese: '安和', startYear: 968, startDate: '968-09-08' },
+    { name: 'Tenroku', japanese: '天禄', startYear: 970, startDate: '970-05-03' },
+    { name: 'Ten\'en', japanese: '天延', startYear: 974, startDate: '974-01-16' },
+    { name: 'Jōgen', japanese: '貞元', startYear: 976, startDate: '976-08-11' },
+    { name: 'Tengen', japanese: '天元', startYear: 978, startDate: '978-12-31' },
+    { name: 'Eikan', japanese: '永観', startYear: 983, startDate: '983-05-29' },
+    { name: 'Kanna', japanese: '寛和', startYear: 985, startDate: '985-05-19' },
+    { name: 'Eien', japanese: '永延', startYear: 987, startDate: '987-05-05' },
+    { name: 'Eiso', japanese: '永祚', startYear: 989, startDate: '989-09-10' },
+    { name: 'Shōryaku', japanese: '正暦', startYear: 990, startDate: '990-11-26' },
+    { name: 'Chōtoku', japanese: '長徳', startYear: 995, startDate: '995-03-25' },
+    { name: 'Chōhō', japanese: '長保', startYear: 999, startDate: '999-02-01' },
+    { name: 'Kankō', japanese: '寛弘', startYear: 1004, startDate: '1004-08-08' },
+    { name: 'Chōwa', japanese: '長和', startYear: 1012, startDate: '1012-01-01' },
+    { name: 'Kannin', japanese: '寛仁', startYear: 1017, startDate: '1017-05-21' },
+    { name: 'Jian', japanese: '治安', startYear: 1021, startDate: '1021-03-17' },
+    { name: 'Manju', japanese: '万寿', startYear: 1024, startDate: '1024-08-19' },
+    { name: 'Chōgen', japanese: '長元', startYear: 1028, startDate: '1028-08-18' },
+    { name: 'Chōryaku', japanese: '長暦', startYear: 1037, startDate: '1037-05-09' },
+    { name: 'Chōkyū', japanese: '長久', startYear: 1040, startDate: '1040-12-16' },
+    { name: 'Kantoku', japanese: '寛徳', startYear: 1044, startDate: '1044-12-16' },
+    { name: 'Eishō', japanese: '永承', startYear: 1046, startDate: '1046-05-22' },
+    { name: 'Tengi', japanese: '天喜', startYear: 1053, startDate: '1053-02-02' },
+    { name: 'Kōhei', japanese: '康平', startYear: 1058, startDate: '1058-09-19' },
+    { name: 'Jiryaku', japanese: '治暦', startYear: 1065, startDate: '1065-09-04' },
+    { name: 'Enkyū', japanese: '延久', startYear: 1069, startDate: '1069-05-06' },
+    { name: 'Jōhō', japanese: '承保', startYear: 1074, startDate: '1074-09-16' },
+    { name: 'Jōryaku', japanese: '承暦', startYear: 1077, startDate: '1077-12-05' },
+    { name: 'Eihō', japanese: '永保', startYear: 1081, startDate: '1081-03-22' },
+    { name: 'Ōtoku', japanese: '応徳', startYear: 1084, startDate: '1084-03-15' },
+    { name: 'Kanji', japanese: '寛治', startYear: 1087, startDate: '1087-05-11' },
+    { name: 'Kahō', japanese: '嘉保', startYear: 1094, startDate: '1095-01-23' },
+    { name: 'Eichō', japanese: '永長', startYear: 1096, startDate: '1097-01-03' },
+    { name: 'Jōtoku', japanese: '承徳', startYear: 1097, startDate: '1097-12-27' },
+    { name: 'Kōwa', japanese: '康和', startYear: 1099, startDate: '1099-09-15' },
+    { name: 'Chōji', japanese: '長治', startYear: 1104, startDate: '1104-03-08' },
+    { name: 'Kajō', japanese: '嘉承', startYear: 1106, startDate: '1106-05-13' },
+    { name: 'Tennin', japanese: '天仁', startYear: 1108, startDate: '1108-09-09' },
+    { name: 'Ten\'ei', japanese: '天永', startYear: 1110, startDate: '1110-07-31' },
+    { name: 'Eikyū', japanese: '永久', startYear: 1113, startDate: '1113-08-25' },
+    { name: 'Gen\'ei', japanese: '元永', startYear: 1118, startDate: '1118-04-25' },
+    { name: 'Hōan', japanese: '保安', startYear: 1120, startDate: '1120-05-09' },
+    { name: 'Tenji', japanese: '天治', startYear: 1124, startDate: '1124-05-18' },
+    { name: 'Daiji', japanese: '大治', startYear: 1126, startDate: '1126-02-15' },
+    { name: 'Tenshō', japanese: '天承', startYear: 1131, startDate: '1131-02-28' },
+    { name: 'Chōshō', japanese: '長承', startYear: 1132, startDate: '1132-09-21' },
+    { name: 'Hōen', japanese: '保延', startYear: 1135, startDate: '1135-06-10' },
+    { name: 'Eiji', japanese: '永治', startYear: 1141, startDate: '1141-08-13' },
+    { name: 'Kōji', japanese: '康治', startYear: 1142, startDate: '1142-05-25' },
+    { name: 'Ten\'yō', japanese: '天養', startYear: 1144, startDate: '1144-03-28' },
+    { name: 'Kyūan', japanese: '久安', startYear: 1145, startDate: '1145-08-12' },
+    { name: 'Ninpei', japanese: '仁平', startYear: 1151, startDate: '1151-02-14' },
+    { name: 'Kyūju', japanese: '久寿', startYear: 1154, startDate: '1154-12-04' },
+    { name: 'Hōgen', japanese: '保元', startYear: 1156, startDate: '1156-05-18' },
+    { name: 'Heiji', japanese: '平治', startYear: 1159, startDate: '1159-05-09' },
+    { name: 'Eiryaku', japanese: '永暦', startYear: 1160, startDate: '1160-02-18' },
+    { name: 'Ōhō', japanese: '応保', startYear: 1161, startDate: '1161-09-24' },
+    { name: 'Chōkan', japanese: '長寛', startYear: 1163, startDate: '1163-05-04' },
+    { name: 'Eiman', japanese: '永万', startYear: 1165, startDate: '1165-07-14' },
+    { name: 'Nin\'an', japanese: '仁安', startYear: 1166, startDate: '1166-09-23' },
+    { name: 'Kaō', japanese: '嘉応', startYear: 1169, startDate: '1169-05-06' },
+    { name: 'Jōan', japanese: '承安', startYear: 1171, startDate: '1171-05-27' },
+    { name: 'Angen', japanese: '安元', startYear: 1175, startDate: '1175-08-16' },
+    { name: 'Jishō', japanese: '治承', startYear: 1177, startDate: '1177-08-29' },
+    { name: 'Yōwa', japanese: '養和', startYear: 1181, startDate: '1181-08-25' },
+    { name: 'Juei', japanese: '寿永', startYear: 1182, startDate: '1182-06-29' },
+    { name: 'Juei', japanese: '寿永', startYear: 1183, startDate: '1183-01-01' },
+    { name: 'Genryaku', japanese: '元暦', startYear: 1184, startDate: '1184-05-27' },
+    { name: 'Bunji', japanese: '文治', startYear: 1185, startDate: '1185-09-09' },
+    { name: 'Kenkyū', japanese: '建久', startYear: 1190, startDate: '1190-05-16' },
+    { name: 'Shōji', japanese: '正治', startYear: 1199, startDate: '1199-05-23' },
+    { name: 'Kennin', japanese: '建仁', startYear: 1201, startDate: '1201-03-19' },
+    { name: 'Genkyū', japanese: '元久', startYear: 1204, startDate: '1204-03-23' },
+    { name: 'Ken\'ei', japanese: '建永', startYear: 1206, startDate: '1206-06-05' },
+    { name: 'Jōgen', japanese: '承元', startYear: 1207, startDate: '1207-11-16' },
+    { name: 'Kenryaku', japanese: '建暦', startYear: 1211, startDate: '1211-04-23' },
+    { name: 'Kempo', japanese: '建保', startYear: 1213, startDate: '1214-01-18' },
+    { name: 'Jōkyū', japanese: '承久', startYear: 1219, startDate: '1219-05-27' },
+    { name: 'Jōō', japanese: '貞応', startYear: 1222, startDate: '1222-05-25' },
+    { name: 'Gennin', japanese: '元仁', startYear: 1224, startDate: '1224-12-31' },
+    { name: 'Karoku', japanese: '嘉禄', startYear: 1225, startDate: '1225-05-28' },
+    { name: 'Antei', japanese: '安貞', startYear: 1227, startDate: '1228-01-18' },
+    { name: 'Kangi', japanese: '寛喜', startYear: 1229, startDate: '1229-03-31' },
+    { name: 'Jōei', japanese: '貞永', startYear: 1232, startDate: '1232-04-23' },
+    { name: 'Tenpuku', japanese: '天福', startYear: 1233, startDate: '1233-05-25' },
+    { name: 'Bunryaku', japanese: '文暦', startYear: 1234, startDate: '1234-11-27' },
+    { name: 'Katei', japanese: '嘉禎', startYear: 1235, startDate: '1235-11-01' },
+    { name: 'Ryakunin', japanese: '暦仁', startYear: 1238, startDate: '1238-12-30' },
+    { name: 'En\'ō', japanese: '延応', startYear: 1239, startDate: '1239-03-13' },
+    { name: 'Ninji', japanese: '仁治', startYear: 1240, startDate: '1240-08-05' },
+    { name: 'Kangen', japanese: '寛元', startYear: 1243, startDate: '1243-03-18' },
+    { name: 'Hōji', japanese: '宝治', startYear: 1247, startDate: '1247-04-05' },
+    { name: 'Kenchō', japanese: '建長', startYear: 1249, startDate: '1249-05-02' },
+    { name: 'Kōgen', japanese: '康元', startYear: 1256, startDate: '1256-10-24' },
+    { name: 'Shōka', japanese: '正嘉', startYear: 1257, startDate: '1257-03-31' },
+    { name: 'Shōgen', japanese: '正元', startYear: 1259, startDate: '1259-04-20' },
+    { name: 'Bun\'ō', japanese: '文応', startYear: 1260, startDate: '1260-05-24' },
+    { name: 'Kōchō', japanese: '弘長', startYear: 1261, startDate: '1261-03-22' },
+    { name: 'Bun\'ei', japanese: '文永', startYear: 1264, startDate: '1264-03-27' },
+    { name: 'Kenji', japanese: '建治', startYear: 1275, startDate: '1275-05-22' },
+    { name: 'Kōan', japanese: '弘安', startYear: 1278, startDate: '1278-03-23' },
+    { name: 'Shōō', japanese: '正応', startYear: 1288, startDate: '1288-05-29' },
+    { name: 'Einin', japanese: '永仁', startYear: 1293, startDate: '1293-09-06' },
+    { name: 'Shōan', japanese: '正安', startYear: 1299, startDate: '1299-05-25' },
+    { name: 'Kengen', japanese: '乾元', startYear: 1302, startDate: '1302-12-10' },
+    { name: 'Kagen', japanese: '嘉元', startYear: 1303, startDate: '1303-09-16' },
+    { name: 'Tokuji', japanese: '徳治', startYear: 1306, startDate: '1307-01-18' },
+    { name: 'Enkyō', japanese: '延慶', startYear: 1308, startDate: '1308-11-22' },
+    { name: 'Ōchō', japanese: '応長', startYear: 1311, startDate: '1311-05-17' },
+    { name: 'Shōwa', japanese: '正和', startYear: 1312, startDate: '1312-04-27' },
+    { name: 'Bunpō', japanese: '文保', startYear: 1317, startDate: '1317-03-16' },
+    { name: 'Gen\'ō', japanese: '元応', startYear: 1319, startDate: '1319-05-18' },
+    { name: 'Genkō', japanese: '元亨', startYear: 1321, startDate: '1321-03-22' },
+    { name: 'Shōchū', japanese: '正中', startYear: 1324, startDate: '1324-12-25' },
+    { name: 'Karyaku', japanese: '嘉暦', startYear: 1326, startDate: '1326-05-28' },
+    { name: 'Gentoku', japanese: '元徳', startYear: 1329, startDate: '1329-09-22' },
+    { name: 'Genkō', japanese: '元弘', startYear: 1331, startDate: '1331-09-11' },
+    { name: 'Shōkyō', japanese: '正慶', startYear: 1332, startDate: '1332-05-23' },
+    { name: 'Kenmu', japanese: '建武', startYear: 1334, startDate: '1334-03-05' },
+    { name: 'Engen', japanese: '延元', startYear: 1336, startDate: '1336-04-11' },
+    { name: 'Kenmu', japanese: '建武', startYear: 1336, startDate: '1336-01-01' },
+    { name: 'Ryakuō', japanese: '暦応', startYear: 1338, startDate: '1338-10-11' },
+    { name: 'Kōkoku', japanese: '興国', startYear: 1340, startDate: '1340-05-25' },
+    { name: 'Kōei', japanese: '康永', startYear: 1342, startDate: '1342-06-01' },
+    { name: 'Jōwa', japanese: '貞和', startYear: 1345, startDate: '1345-11-15' },
+    { name: 'Shōhei', japanese: '正平', startYear: 1347, startDate: '1347-01-20' },
+    { name: 'Kannō', japanese: '観応', startYear: 1350, startDate: '1350-04-04' },
+    { name: 'Bunna', japanese: '文和', startYear: 1352, startDate: '1352-11-04' },
+    { name: 'Enbun', japanese: '延文', startYear: 1356, startDate: '1356-04-29' },
+    { name: 'Kōan', japanese: '康安', startYear: 1361, startDate: '1361-05-04' },
+    { name: 'Jōji', japanese: '貞治', startYear: 1362, startDate: '1362-10-11' },
+    { name: 'Ōan', japanese: '応安', startYear: 1368, startDate: '1368-03-07' },
+    { name: 'Kentoku', japanese: '建徳', startYear: 1370, startDate: '1370-08-16' },
+    { name: 'Bunchū', japanese: '文中', startYear: 1372, startDate: '1372-05-04' },
+    { name: 'Eiwa', japanese: '永和', startYear: 1375, startDate: '1375-03-29' },
+    { name: 'Tenju', japanese: '天授', startYear: 1375, startDate: '1375-06-26' },
+    { name: 'Kōryaku', japanese: '康暦', startYear: 1379, startDate: '1379-04-09' },
+    { name: 'Eitoku', japanese: '永徳', startYear: 1381, startDate: '1381-03-20' },
+    { name: 'Kōwa', japanese: '弘和', startYear: 1381, startDate: '1381-03-06' },
+    { name: 'Genchū', japanese: '元中', startYear: 1384, startDate: '1384-05-18' },
+    { name: 'Shitoku', japanese: '至徳', startYear: 1384, startDate: '1384-03-19' },
+    { name: 'Kakei', japanese: '嘉慶', startYear: 1387, startDate: '1387-10-05' },
+    { name: 'Kōō', japanese: '康応', startYear: 1389, startDate: '1389-03-07' },
+    { name: 'Meitoku', japanese: '明徳', startYear: 1390, startDate: '1390-04-12' },
+    { name: 'Ōei', japanese: '応永', startYear: 1394, startDate: '1394-08-02' },
+    { name: 'Shōchō', japanese: '正長', startYear: 1428, startDate: '1428-06-10' },
+    { name: 'Eikyō', japanese: '永享', startYear: 1429, startDate: '1429-10-03' },
+    { name: 'Kakitsu', japanese: '嘉吉', startYear: 1441, startDate: '1441-03-10' },
+    { name: 'Bun\'an', japanese: '文安', startYear: 1444, startDate: '1444-02-23' },
+    { name: 'Hōtoku', japanese: '宝徳', startYear: 1449, startDate: '1449-08-16' },
+    { name: 'Kyōtoku', japanese: '享徳', startYear: 1452, startDate: '1452-08-10' },
+    { name: 'Kōshō', japanese: '康正', startYear: 1455, startDate: '1455-09-06' },
+    { name: 'Chōroku', japanese: '長禄', startYear: 1457, startDate: '1457-10-16' },
+    { name: 'Kanshō', japanese: '寛正', startYear: 1460, startDate: '1461-02-01' },
+    { name: 'Bunshō', japanese: '文正', startYear: 1466, startDate: '1466-03-14' },
+    { name: 'Ōnin', japanese: '応仁', startYear: 1467, startDate: '1467-04-09' },
+    { name: 'Bunmei', japanese: '文明', startYear: 1469, startDate: '1469-06-08' },
+    { name: 'Chōkyō', japanese: '長享', startYear: 1487, startDate: '1487-08-09' },
+    { name: 'Entoku', japanese: '延徳', startYear: 1489, startDate: '1489-09-16' },
+    { name: 'Meiō', japanese: '明応', startYear: 1492, startDate: '1492-08-12' },
+    { name: 'Bunki', japanese: '文亀', startYear: 1501, startDate: '1501-03-18' },
+    { name: 'Eishō', japanese: '永正', startYear: 1504, startDate: '1504-03-16' },
+    { name: 'Daiei', japanese: '大永', startYear: 1521, startDate: '1521-09-23' },
+    { name: 'Kyōroku', japanese: '享禄', startYear: 1528, startDate: '1528-09-03' },
+    { name: 'Tenbun', japanese: '天文', startYear: 1532, startDate: '1532-08-29' },
+    { name: 'Kōji', japanese: '弘治', startYear: 1555, startDate: '1555-11-07' },
+    { name: 'Eiroku', japanese: '永禄', startYear: 1558, startDate: '1558-03-18' },
+    { name: 'Genki', japanese: '元亀', startYear: 1570, startDate: '1570-05-27' },
+    { name: 'Tenshō', japanese: '天正', startYear: 1573, startDate: '1573-08-25' },
+    { name: 'Bunroku', japanese: '文禄', startYear: 1592, startDate: '1593-01-10' },
+    { name: 'Keichō', japanese: '慶長', startYear: 1596, startDate: '1596-12-16' },
+    { name: 'Genna', japanese: '元和', startYear: 1615, startDate: '1615-09-05' },
+    { name: 'Kan\'ei', japanese: '寛永', startYear: 1624, startDate: '1624-04-17' },
+    { name: 'Shōhō', japanese: '正保', startYear: 1645, startDate: '1645-01-13' },
+    { name: 'Keian', japanese: '慶安', startYear: 1648, startDate: '1648-04-07' },
+    { name: 'Jōō', japanese: '承応', startYear: 1652, startDate: '1652-10-20' },
+    { name: 'Meireki', japanese: '明暦', startYear: 1655, startDate: '1655-05-18' },
+    { name: 'Manji', japanese: '万治', startYear: 1658, startDate: '1658-08-21' },
+    { name: 'Kanbun', japanese: '寛文', startYear: 1661, startDate: '1661-05-23' },
+    { name: 'Enpō', japanese: '延宝', startYear: 1673, startDate: '1673-10-30' },
+    { name: 'Tenna', japanese: '天和', startYear: 1681, startDate: '1681-11-09' },
+    { name: 'Jōkyō', japanese: '貞享', startYear: 1684, startDate: '1684-04-05' },
+    { name: 'Genroku', japanese: '元禄', startYear: 1688, startDate: '1688-10-23' },
+    { name: 'Hōei', japanese: '宝永', startYear: 1704, startDate: '1704-04-16' },
+    { name: 'Shōtoku', japanese: '正徳', startYear: 1711, startDate: '1711-06-11' },
+    { name: 'Kyōhō', japanese: '享保', startYear: 1716, startDate: '1716-08-09' },
+    { name: 'Genbun', japanese: '元文', startYear: 1736, startDate: '1736-06-07' },
+    { name: 'Kanpō', japanese: '寛保', startYear: 1741, startDate: '1741-04-12' },
+    { name: 'Enkyō', japanese: '延享', startYear: 1744, startDate: '1744-04-03' },
+    { name: 'Kan\'en', japanese: '寛延', startYear: 1748, startDate: '1748-08-05' },
+    { name: 'Hōreki', japanese: '宝暦', startYear: 1751, startDate: '1751-12-14' },
+    { name: 'Meiwa', japanese: '明和', startYear: 1764, startDate: '1764-06-30' },
+    { name: 'An\'ei', japanese: '安永', startYear: 1772, startDate: '1772-12-10' },
+    { name: 'Tenmei', japanese: '天明', startYear: 1781, startDate: '1781-04-25' },
+    { name: 'Kansei', japanese: '寛政', startYear: 1789, startDate: '1789-02-19' },
+    { name: 'Kyōwa', japanese: '享和', startYear: 1801, startDate: '1801-03-19' },
+    { name: 'Bunka', japanese: '文化', startYear: 1804, startDate: '1804-03-22' },
+    { name: 'Bunsei', japanese: '文政', startYear: 1818, startDate: '1818-05-26' },
+    { name: 'Tenpō', japanese: '天保', startYear: 1830, startDate: '1831-01-23' },
+    { name: 'Kōka', japanese: '弘化', startYear: 1844, startDate: '1845-01-09' },
+    { name: 'Kaei', japanese: '嘉永', startYear: 1848, startDate: '1848-04-01' },
+    { name: 'Ansei', japanese: '安政', startYear: 1854, startDate: '1855-01-15' },
+    { name: 'Man\'en', japanese: '万延', startYear: 1860, startDate: '1860-04-08' },
+    { name: 'Bunkyū', japanese: '文久', startYear: 1861, startDate: '1861-03-29' },
+    { name: 'Genji', japanese: '元治', startYear: 1864, startDate: '1864-03-27' },
+    { name: 'Keiō', japanese: '慶応', startYear: 1865, startDate: '1865-05-01' },
+    { name: 'Meiji', japanese: '明治', startYear: 1868, startDate: '1868-10-23' },
+    { name: 'Taishō', japanese: '大正', startYear: 1912, startDate: '1912-07-30' },
+    { name: 'Shōwa', japanese: '昭和', startYear: 1926, startDate: '1926-12-25' },
+    { name: 'Heisei', japanese: '平成', startYear: 1989, startDate: '1989-01-08' },
+    { name: 'Reiwa', japanese: '令和', startYear: 2019, startDate: '2019-05-01' },
+];
+
+function getJapaneseEraForDate(currentDateTime) {
+    let era = null;
+    for (const eraData of JAPANESE_ERA_DATA) {
+        const [yearString, monthString, dayString] = eraData.startDate.split('-');
+        const startDateTime = createAdjustedDateTime({
+            timezone: 'UTC+09:00',
+            year: Number(yearString),
+            month: Number(monthString),
+            day: Number(dayString),
+            hour: 'MIDNIGHT'
+        });
+
+        if (currentDateTime >= startDateTime) {
+            era = eraData;
+        } else {
+            break;
+        }
+    }
+
+    if (!era) {
+        return null;
+    }
+
+    const japaneseLocalDate = createFauxUTCDate(currentDateTime, 'UTC+09:00');
+    const eraYear = japaneseLocalDate.getUTCFullYear() - era.startYear + 1;
+
+    return {
+        name: era.name,
+        japanese: era.japanese,
+        year: eraYear
+    };
+}
+
+/** First year of a nengō is written 元年, not 1年. */
+function formatJapaneseEraYearInOutput(era) {
+    if (era.year === 1) {
+        return `${era.japanese}元年`;
+    }
+    return `${era.japanese}${era.year}年`;
+}
+
+/**
+ * Jimmu / Kōki year (神武紀元): 660 + the civil year that has begun for Japan.
+ * Calibrated so lunar New Year in Gregorian 645 CE is year 1305 (see Meiji-era formula 西暦+660).
+ * Before 1873-01-01 JST that base year follows the lunisolar year (via calculateLunisolarDisplayYear + 0 offset);
+ * on and after the Gregorian reform it follows the Gregorian calendar year in JST.
+ */
+/** Sexagenary day (日干支) in JST civil days (midnight boundary). Anchored: 2019-01-27 JST = 甲子. */
+function getJapaneseSexagenaryDayLabel(currentDateTime) {
+    const tz = 'UTC+09:00';
+    const anchor = createAdjustedDateTime({
+        timezone: tz,
+        year: 2019,
+        month: 1,
+        day: 27,
+        hour: 'MIDNIGHT'
+    });
+    const jstWall = createFauxUTCDate(currentDateTime, tz);
+    const dayStart = createAdjustedDateTime({
+        timezone: tz,
+        year: jstWall.getUTCFullYear(),
+        month: jstWall.getUTCMonth() + 1,
+        day: jstWall.getUTCDate(),
+        hour: 'MIDNIGHT'
+    });
+    const delta = Math.round(differenceInDays(dayStart, anchor));
+    const index = ((delta % 60) + 60) % 60;
+    return SEXAGENARY_HEAVENLY_STEMS[index % 10] + SEXAGENARY_EARTHLY_BRANCHES[index % 12];
+}
+
+function appendJimmuEraAndDayEtoLines(primaryLine, jinmuYear, dayEto) {
+    return `${primaryLine}\n神武紀元${jinmuYear}年\n日干支 ${dayEto}`;
+}
+
+
+//|-----------------------------------|
+//|     Japanese Lunisolar (JST)      |
+//|-----------------------------------|
+// Uses the same lunisolar rules as the Chinese-style calendar in lunisolarCalendars.js
+// (JST midnight boundaries), with nengō-era year labels in the output string.
+// From 1873-01-01 (Japan civil date, JST) the state calendar is Gregorian; this function
+// switches to Gregorian month/day on and after that date.
+
+function japaneseJstCivilDateIsOnOrAfterGregorianReform(jstDate) {
+    const y = jstDate.getUTCFullYear();
+    const m = jstDate.getUTCMonth() + 1;
+    const d = jstDate.getUTCDate();
+    if (y > 1873) {
+        return true;
+    }
+    if (y < 1873) {
+        return false;
+    }
+    return m > 1 || d >= 1;
+}
+
+function getJapaneseLunisolarCalendarDate(currentDateTime) {
+    const timezone = 'UTC+09:00';
+    const dayEto = getJapaneseSexagenaryDayLabel(currentDateTime);
+    const jstDate = createFauxUTCDate(currentDateTime, timezone);
+    if (japaneseJstCivilDateIsOnOrAfterGregorianReform(jstDate)) {
+        const gDay = jstDate.getUTCDate();
+        const gMonth = jstDate.getUTCMonth() + 1;
+        const gYear = jstDate.getUTCFullYear();
+        const era = getJapaneseEraForDate(currentDateTime);
+        const rest = `${gMonth}月${gDay}日`;
+        const jinmuYear = gYear + 660;
+        const primaryLine = era
+            ? `${formatJapaneseEraYearInOutput(era)}${rest}`
+            : `${gYear}年${rest}`;
+        const output = appendJimmuEraAndDayEtoLines(primaryLine, jinmuYear, dayEto);
+        return {
+            output,
+            day: gDay,
+            month: gMonth,
+            year: gYear,
+            dayOfWeek: undefined,
+            other: { era, jinmuYear, sexagenaryDay: dayEto }
+        };
+    }
+
+    const yearOffset = 2698;
+    const leapMonthSuffix = '閏';
+    const gregorianYear = currentDateTime.getUTCFullYear();
+    const gregorianMonth = currentDateTime.getUTCMonth();
+    const lunisolarDate = getLunisolarCalendarDate(currentDateTime, timezone);
+    const year = calculateLunisolarDisplayYear(gregorianYear, gregorianMonth, lunisolarDate.month, yearOffset);
+    const monthString = getLunisolarMonthString(lunisolarDate.month, lunisolarDate.leapMonth, leapMonthSuffix);
+    const era = getJapaneseEraForDate(currentDateTime);
+    const rest = `${monthString}月${lunisolarDate.day}日`;
+    const jstForJimmu = createFauxUTCDate(currentDateTime, timezone);
+    const jinmuYear =
+        calculateLunisolarDisplayYear(
+            jstForJimmu.getUTCFullYear(),
+            jstForJimmu.getUTCMonth(),
+            lunisolarDate.month,
+            0
+        ) + 660;
+    const primaryLine = era
+        ? `${formatJapaneseEraYearInOutput(era)}${rest}`
+        : `${year}年${rest}`;
+    const output = appendJimmuEraAndDayEtoLines(primaryLine, jinmuYear, dayEto);
+    return {
+        output,
+        day: lunisolarDate.day,
+        month: lunisolarDate.month,
+        year,
+        dayOfWeek: undefined,
+        other: { era, jinmuYear, sexagenaryDay: dayEto }
+    };
+}

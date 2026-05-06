@@ -60,6 +60,7 @@ function buildNodeValueGetters(tzOffset) {
         'japanese-solar-term': function (dt) { return typeof getJapaneseSolarTermCalendar === 'function' ? getJapaneseSolarTermCalendar(dt) : ''; },
         'chinese': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'CHINA') : ''; },
         'sexagenary-year': function (dt) { return typeof getSexagenaryYear === 'function' ? getSexagenaryYear(dt) : ''; },
+        'japanese': function (dt) { return typeof getJapaneseLunisolarCalendarDate === 'function' ? getJapaneseLunisolarCalendarDate(dt) : ''; },
         'dai-lich': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'VIETNAM') : ''; },
         'dangun': function (dt) { return typeof getChineseLunisolarCalendarDate === 'function' ? getChineseLunisolarCalendarDate(dt, 'KOREA') : ''; },
         'babylonian': function (dt) { return typeof getBabylonianLunisolarCalendar === 'function' ? getBabylonianLunisolarCalendar(dt) : ''; },
