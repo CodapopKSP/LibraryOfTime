@@ -93,7 +93,7 @@
         'egyptian-civil': 'cairo',
         mandaean: 'nasiriyah',
         igbo: 'onitsha',
-        'solar-term': 'beijing',
+        'chinese-solar-term': 'beijing',
         'japanese-solar-term': 'kyoto',
         haab: 'chichen-itza',
         'anno-lucis': 'london',
