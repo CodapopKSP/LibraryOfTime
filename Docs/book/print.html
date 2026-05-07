@@ -2210,7 +2210,11 @@ gpsTime += leapSecondsCount;
 </tbody></table>
 </div>
 <h4 id="overview-84"><a class="header" href="#overview-84">Overview</a></h4>
-<p>To be determined.</p>
+<p>The Japanese calendar has a long and storied history. It was originally a calculated lunisolar calendar based off of the Chinese calendar and went through several rule revisions. It changed to a Gregorian-based calendar on 1 January 1873 CE.</p>
+<p>Prior to 1873, it featured 12 months of 29 or 30 days that began at or around the calculated New Moon, with a 13th intercalary month added based on the solar term rules of the Chinese calendar; if a lunar month does not have a major solar term, then it is repeated.</p>
+<p>Years are denoted in two different ways. Starting with Emperor Taihō in 701 CE, the unbroken chain of the regnal year takes priority and changes with each new emperor. The day of the coronation of the new emperor is the start date of the first year of that emperor's reign and is an incomplete year denoted with "元". After the next lunar or solar new year, the first complete year of the new emperor is labeled as the second regnal year.</p>
+<p>Years can also be denoted with the Jinmu Era, written as "神武紀元", counting the years since the ascension of the legendary first emperor of Japan.</p>
+<p>Each day also follows the sexegenary cycle, a cycle of 60 day names identical to the Sexagenary Year.</p>
 <h4 id="info-84"><a class="header" href="#info-84">Info</a></h4>
 <div class="table-wrapper"><table><thead><tr><th>Era</th><th>Kanji</th><th>Gregorian Date</th></tr></thead><tbody>
 <tr><td>Taihō</td><td>大宝</td><td>701-05-07</td></tr>
@@ -2446,9 +2450,13 @@ gpsTime += leapSecondsCount;
 </tbody></table>
 </div>
 <h4 id="accuracy-84"><a class="header" href="#accuracy-84">Accuracy</a></h4>
-<p>To be determined.</p>
+<p>The Japanese calendar is full of rule changes which greatly reduce the accuracy of this calculation, as I was unable to find the specific rules used throughout its history.</p>
+<p>The <a href="https://eco.mtk.nao.ac.jp/cgi-bin/koyomi/caldb_en.cgi">National Astronomical Observatory of Japan (NAOJ)</a> maintains a searchable table of ephemeris dates of the Japanese calendar throughout history. The dates in this calculation are frequently off by a day or two (Note: the NOAJ uses Julian dates rather than Gregorian).</p>
+<p>Regnal dates before 701 CE are not included since their coverage isn't clear.</p>
+<p>After 1873 CE, this calculation is exactly accurate, at least until the ascension of the next emperor requires updating this site.</p>
 <h4 id="source-84"><a class="header" href="#source-84">Source</a></h4>
-<p>To be determined.</p>
+<p>Much of the information in this calendar came from its <a href="https://en.wikipedia.org/wiki/Japanese_calendar">Wikipedia page</a>.</p>
+<p>The <a href="https://eco.mtk.nao.ac.jp/cgi-bin/koyomi/caldb_en.cgi">National Astronomical Observatory of Japan (NAOJ)</a> maintains a searchable table of ephemeris dates of the Japanese calendar throughout history and can be used for calibration or comparison.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="galactic-tick"><a class="header" href="#galactic-tick">Galactic Tick</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>2 October 1608 CE</td><td>Low</td><td>San Francisco, CA</td></tr>
