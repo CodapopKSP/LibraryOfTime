@@ -177,24 +177,12 @@
                     <main>
                         <h1 id="dos-fatfat32"><a class="header" href="#dos-fatfat32">DOS FAT/FAT32</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
-<tr><td>1 January 1980 CE</td><td>Exact</td><td>Redmond, WA</td></tr>
+<tr><td>Local civil time; MS-DOS date field counts years from 1980 CE</td><td>Exact</td><td>Redmond, WA</td></tr>
 </tbody></table>
 </div>
 <h4 id="overview"><a class="header" href="#overview">Overview</a></h4>
 <p>DOS FAT timestamps are used in the FAT filesystem.</p>
-<p>It is a hexadecimal representation of different numbers that add onto each other. The first two digits (after 0x) represent the number of years since the epoch, though the second digit also increments when the third digit rolls over. The forth digit represents the current day of the month, and the third digit represents the current month (starting with 2), though it increments on the first day of the month and when the month digit rolls over (on the 16th day).</p>
-<p>The fifth and sixth digits represent the hours since midnight, though the sixth digit also increments when the seventh digit, representing minutes, rolls over. The seventh digit also increments when the eighth digit rolls over, which represents double seconds, incrementing once every two seconds.</p>
-<p>It can also be written in reverse byte order (big-endian vs the standard little-endian). This means that the resulting number will have the first four and the last four digits swapped, as well as the two pairs of digits within them.</p>
 <h4 id="info"><a class="header" href="#info">Info</a></h4>
-<div class="table-wrapper"><table><thead><tr><th>Date or time</th><th>Packed value</th></tr></thead><tbody>
-<tr><td>1 January 1980 CE</td><td>0x00210000</td></tr>
-<tr><td>1 February 1980 CE</td><td>0x00410000</td></tr>
-<tr><td>1 December 1980 CE</td><td>0x01810000</td></tr>
-<tr><td>1 January at midnight</td><td>0xXX210000</td></tr>
-<tr><td>1 January at noon</td><td>0xXX216000</td></tr>
-<tr><td>2 January at midnight</td><td>0xXX220000</td></tr>
-</tbody></table>
-</div>
 <h4 id="accuracy"><a class="header" href="#accuracy">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source"><a class="header" href="#source">Source</a></h4>

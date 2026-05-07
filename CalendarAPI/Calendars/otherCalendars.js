@@ -1032,10 +1032,66 @@ const JAPANESE_ERA_DATA = [
     { name: 'Reiwa', japanese: '令和', startYear: 2019, startDate: '2019-05-01' },
 ];
 
+function julianToGregorianYmd(year, month, day) {
+    const a = Math.floor((14 - month) / 12);
+    const y2 = year + 4800 - a;
+    const m2 = month + 12 * a - 3;
+    const julianDayNumber =
+        day +
+        Math.floor((153 * m2 + 2) / 5) +
+        365 * y2 +
+        Math.floor(y2 / 4) -
+        32083;
+
+    const b = julianDayNumber + 32044;
+    const c = Math.floor((4 * b + 3) / 146097);
+    const d = b - Math.floor((146097 * c) / 4);
+    const e = Math.floor((4 * d + 3) / 1461);
+    const f = d - Math.floor((1461 * e) / 4);
+    const g = Math.floor((5 * f + 2) / 153);
+
+    const gregorianDay = f - Math.floor((153 * g + 2) / 5) + 1;
+    const gregorianMonth = g + 3 - 12 * Math.floor(g / 10);
+    const gregorianYear = 100 * c + e - 4800 + Math.floor(g / 10);
+
+    return { year: gregorianYear, month: gregorianMonth, day: gregorianDay };
+}
+
+function dateIsBeforeGregorianReform(year, month, day) {
+    return (
+        year < 1582 ||
+        (year === 1582 && (month < 10 || (month === 10 && day < 15)))
+    );
+}
+
+function formatYmd(year, month, day) {
+    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+function convertJapaneseEraStartDateToGregorianDateString(startDate) {
+    const [yearString, monthString, dayString] = startDate.split('-');
+    let year = Number(yearString);
+    let month = Number(monthString);
+    let day = Number(dayString);
+
+    if (dateIsBeforeGregorianReform(year, month, day)) {
+        const gregorian = julianToGregorianYmd(year, month, day);
+        year = gregorian.year;
+        month = gregorian.month;
+        day = gregorian.day;
+    }
+    return formatYmd(year, month, day);
+}
+
+const JAPANESE_ERA_DATA_GREGORIAN = JAPANESE_ERA_DATA.map((eraData) => ({
+    ...eraData,
+    gregorianStartDate: convertJapaneseEraStartDateToGregorianDateString(eraData.startDate)
+}));
+
 function getJapaneseEraForDate(currentDateTime) {
     let era = null;
-    for (const eraData of JAPANESE_ERA_DATA) {
-        const [yearString, monthString, dayString] = eraData.startDate.split('-');
+    for (const eraData of JAPANESE_ERA_DATA_GREGORIAN) {
+        const [yearString, monthString, dayString] = eraData.gregorianStartDate.split('-');
         const startDateTime = createAdjustedDateTime({
             timezone: 'UTC+09:00',
             year: Number(yearString),
@@ -1056,7 +1112,9 @@ function getJapaneseEraForDate(currentDateTime) {
     }
 
     const japaneseLocalDate = createFauxUTCDate(currentDateTime, 'UTC+09:00');
-    const eraYear = japaneseLocalDate.getUTCFullYear() - era.startYear + 1;
+    const [startYearString] = era.gregorianStartDate.split('-');
+    const eraGregorianStartYear = Number(startYearString);
+    const eraYear = japaneseLocalDate.getUTCFullYear() - eraGregorianStartYear + 1;
 
     return {
         name: era.name,
@@ -1102,8 +1160,11 @@ function getJapaneseSexagenaryDayLabel(currentDateTime) {
     return SEXAGENARY_HEAVENLY_STEMS[index % 10] + SEXAGENARY_EARTHLY_BRANCHES[index % 12];
 }
 
-function appendJimmuEraAndDayEtoLines(primaryLine, jinmuYear, dayEto) {
-    return `${primaryLine}\n神武紀元${jinmuYear}年\n日干支 ${dayEto}`;
+function formatJapaneseCalendarOutput(primaryLine, dayEto, jinmuYear, era) {
+    if (!era) {
+        return `${primaryLine}\n${dayEto}`;
+    }
+    return `${primaryLine}\n神武紀元${jinmuYear}年\n${dayEto}`;
 }
 
 
@@ -1130,9 +1191,11 @@ function japaneseJstCivilDateIsOnOrAfterGregorianReform(jstDate) {
 
 function getJapaneseLunisolarCalendarDate(currentDateTime) {
     const timezone = 'UTC+09:00';
-    const dayEto = getJapaneseSexagenaryDayLabel(currentDateTime);
     const jstDate = createFauxUTCDate(currentDateTime, timezone);
-    if (japaneseJstCivilDateIsOnOrAfterGregorianReform(jstDate)) {
+    const isGregorianPhase = japaneseJstCivilDateIsOnOrAfterGregorianReform(jstDate);
+    const dayEto = getJapaneseSexagenaryDayLabel(currentDateTime);
+
+    if (isGregorianPhase) {
         const gDay = jstDate.getUTCDate();
         const gMonth = jstDate.getUTCMonth() + 1;
         const gYear = jstDate.getUTCFullYear();
@@ -1141,8 +1204,8 @@ function getJapaneseLunisolarCalendarDate(currentDateTime) {
         const jinmuYear = gYear + 660;
         const primaryLine = era
             ? `${formatJapaneseEraYearInOutput(era)}${rest}`
-            : `${gYear}年${rest}`;
-        const output = appendJimmuEraAndDayEtoLines(primaryLine, jinmuYear, dayEto);
+            : `${jinmuYear}年${rest}`;
+        const output = formatJapaneseCalendarOutput(primaryLine, dayEto, jinmuYear, era);
         return {
             output,
             day: gDay,
@@ -1172,8 +1235,8 @@ function getJapaneseLunisolarCalendarDate(currentDateTime) {
         ) + 660;
     const primaryLine = era
         ? `${formatJapaneseEraYearInOutput(era)}${rest}`
-        : `${year}年${rest}`;
-    const output = appendJimmuEraAndDayEtoLines(primaryLine, jinmuYear, dayEto);
+        : `${jinmuYear}年${rest}`;
+    const output = formatJapaneseCalendarOutput(primaryLine, dayEto, jinmuYear, era);
     return {
         output,
         day: lunisolarDate.day,

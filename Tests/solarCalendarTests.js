@@ -363,17 +363,17 @@ function testIgboCalendar() {
 
 function testSolarTermCalendar() {
     return runSolarTests('Solar Term', getSolarTermCalendar, [
-        ['2050-9-22, 19:28:00', 'UTC+00:00', 'Season: Autumn\nZodiac: Rooster (雞)\nName: 秋分\nType: Major'],
-        ['2001-3-25, 12:00:00', 'UTC+00:00', 'Season: Spring\nZodiac: Rabbit (兔)\nName: 春分\nType: Major'],
-        ['2020-2-4, 12:00:00', 'UTC+00:00', 'Season: Spring\nZodiac: Tiger (虎)\nName: 立春\nType: Minor'],
+        ['2050-9-22, 19:28:00', 'UTC+00:00', 'Season: Autumn (秋)\nZodiac: Rooster (雞)\nName: 秋分\nType: Major'],
+        ['2001-3-25, 12:00:00', 'UTC+00:00', 'Season: Spring (春)\nZodiac: Rabbit (兔)\nName: 春分\nType: Major'],
+        ['2020-2-4, 12:00:00', 'UTC+00:00', 'Season: Spring (春)\nZodiac: Tiger (虎)\nName: 立春\nType: Minor'],
     ]);
 }
 
 function testJapaneseSolarTermCalendar() {
     return runSolarTests('Japanese Solar Term', getJapaneseSolarTermCalendar, [
-        ['2050-9-22, 19:28:00', 'UTC+00:00', 'Season: Shūbun (秋分)\nMicroseason: 雷乃収声 46'],
-        ['2001-3-25, 12:00:00', 'UTC+00:00', 'Season: Shunbun (春分)\nMicroseason: 雀始巣 10'],
-        ['2020-2-4, 12:00:00', 'UTC+00:00', 'Season: Risshun (立春)\nMicroseason: 東風解凍 1'],
+        ['2050-9-22, 19:28:00', 'UTC+00:00', 'Season: Shūbun (秋分)\nMicroseason: 46 | 雷乃収声'],
+        ['2001-3-25, 12:00:00', 'UTC+00:00', 'Season: Shunbun (春分)\nMicroseason: 10 | 雀始巣'],
+        ['2020-2-4, 12:00:00', 'UTC+00:00', 'Season: Risshun (立春)\nMicroseason: 1 | 東風解凍'],
     ]);
 }
 
