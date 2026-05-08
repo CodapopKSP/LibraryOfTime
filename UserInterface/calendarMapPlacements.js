@@ -100,6 +100,7 @@
         tabot: 'kingston-jamaica',
         icelandic: 'reykjavik',
         'saka-samvat': 'ujjain',
+        sca: 'san-francisco',
 
         chinese: 'beijing',
         'dai-lich': 'hanoi',

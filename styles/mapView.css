@@ -423,7 +423,7 @@
 }
 
 .map-view-type-icon--chronology {
-    color: #c4e4ff;
+    color: #ffe4c4;
     --map-node-border: #696d9f;
 }
 
@@ -690,7 +690,7 @@
     border-color: #696d9f;
 }
 .map-view-node-tooltip .chronology > .node > .content {
-    border-color: #696d9f;
+    border-color: #9a7b56;
 }
 .map-view-node-tooltip .solar-calendars > .node > .content {
     border-color: #966a6a;

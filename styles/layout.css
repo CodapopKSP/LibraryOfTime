@@ -83,31 +83,9 @@
     padding: 0 0.5vh;
 }
 
-.invisible-title-button {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: min(52vw, 28rem);
-    height: auto;
-    min-height: 4vh;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 2;
-}
-
-.invisible-title-button:hover {
-    background-color: rgba(85, 85, 85, 0.1);
-    border-radius: 4px;
-}
-
 #page-title {
     position: relative;
     z-index: 1;
-    cursor: pointer;
-    transition: color 0.2s ease;
     /* Was min(..., 2rem), which capped the title at ~32px on most desktops */
     font-size: 5vh;
     text-align: center;

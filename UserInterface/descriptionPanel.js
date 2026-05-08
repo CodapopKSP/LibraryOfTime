@@ -10,7 +10,6 @@
 document.getElementById('desktop-home-button').addEventListener('click', homeButton);
 document.getElementById('desktop-calendar-button').addEventListener('click', openSelectedNodeInCalendarView);
 document.getElementById('desktop-map-button').addEventListener('click', openSelectedNodeInMapView);
-document.getElementById('title-button').addEventListener('click', titleButtonClick);
 
 const mobileDescriptionDismiss = document.getElementById('mobile-description-dismiss');
 if (mobileDescriptionDismiss) {
@@ -1018,17 +1017,6 @@ function showHomeIntroductionInDescriptionPanel() {
     }
     if (typeof window.syncMobileDescriptionUi === 'function') {
         window.syncMobileDescriptionUi();
-    }
-}
-
-function titleButtonClick() {
-    if (window.matchMedia && window.matchMedia('(max-width: 1024px)').matches) {
-        showHomeIntroductionInDescriptionPanel();
-        if (typeof window.openMobileDescriptionSheet === 'function') {
-            window.openMobileDescriptionSheet();
-        }
-    } else {
-        homeButton();
     }
 }
 
