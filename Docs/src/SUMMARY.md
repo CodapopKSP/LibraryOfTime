@@ -154,6 +154,8 @@
 
   - [Mandaean (AST)](SolarCalendars/Mandaean.md)
 
+  - [Nakaiy (MVT)](SolarCalendars/Nakaiy.md)
+
   - [Igbo (WAT)](SolarCalendars/Igbo.md)
 
   - [Solar Term (UTC)](SolarCalendars/SolarTerm.md)

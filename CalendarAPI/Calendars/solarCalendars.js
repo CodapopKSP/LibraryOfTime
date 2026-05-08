@@ -1238,6 +1238,76 @@ function getIgboDate(currentDateTime, _timezoneOffset) {
     return { output, day, month: monthIndex0, year: null, dayOfWeek: igboWeekdayIndex, other: {} };
 }
 
+// --- Nakaiy ---
+// Fixed Gregorian date ranges used in Maldives traditional seasonal calendar.
+// Year cycle runs from Dec 10 through Dec 9.
+const NAKAIY_TZ = 'UTC+05:00';
+const NAKAIY_PERIODS = [
+    { startMonth: 12, startDay: 10, name: 'Mula', season: 'Iruvaa' },
+    { startMonth: 12, startDay: 23, name: 'Furahalha', season: 'Iruvaa' },
+    { startMonth: 1, startDay: 6, name: 'Uthurahalha', season: 'Iruvaa' },
+    { startMonth: 1, startDay: 19, name: 'Huvan', season: 'Iruvaa' },
+    { startMonth: 2, startDay: 1, name: 'Dhinasha', season: 'Iruvaa' },
+    { startMonth: 2, startDay: 14, name: 'Hiyaviha', season: 'Iruvaa' },
+    { startMonth: 2, startDay: 27, name: 'Furabadhuruva', season: 'Iruvaa' },
+    { startMonth: 3, startDay: 12, name: 'Fasbadhuruva', season: 'Iruvaa' },
+    { startMonth: 3, startDay: 26, name: 'Reyva', season: 'Iruvaa' },
+    { startMonth: 4, startDay: 8, name: 'Assidha', season: 'Hulhangu' },
+    { startMonth: 4, startDay: 22, name: 'Burunu', season: 'Hulhangu' },
+    { startMonth: 5, startDay: 6, name: 'Kethi', season: 'Hulhangu' },
+    { startMonth: 5, startDay: 20, name: 'Roanu', season: 'Hulhangu' },
+    { startMonth: 6, startDay: 3, name: 'Miyahela', season: 'Hulhangu' },
+    { startMonth: 6, startDay: 17, name: 'Adha', season: 'Hulhangu' },
+    { startMonth: 7, startDay: 1, name: 'Funoas', season: 'Hulhangu' },
+    { startMonth: 7, startDay: 15, name: 'Fus', season: 'Hulhangu' },
+    { startMonth: 7, startDay: 29, name: 'Ahuliha', season: 'Hulhangu' },
+    { startMonth: 8, startDay: 11, name: 'Maa', season: 'Hulhangu' },
+    { startMonth: 8, startDay: 24, name: 'Fura', season: 'Hulhangu' },
+    { startMonth: 9, startDay: 7, name: 'Uthura', season: 'Hulhangu' },
+    { startMonth: 9, startDay: 21, name: 'Atha', season: 'Hulhangu' },
+    { startMonth: 10, startDay: 4, name: 'Hitha', season: 'Hulhangu' },
+    { startMonth: 10, startDay: 18, name: 'Hey', season: 'Hulhangu' },
+    { startMonth: 11, startDay: 1, name: 'Viha', season: 'Hulhangu' },
+    { startMonth: 11, startDay: 14, name: 'Nora', season: 'Hulhangu' },
+    { startMonth: 11, startDay: 27, name: 'Dosha', season: 'Hulhangu' }
+];
+
+function getNakaiyStartDate(cycleStartYear, startMonth, startDay) {
+    const year = startMonth === 12 ? cycleStartYear : cycleStartYear + 1;
+    return createAdjustedDateTime({ timezone: NAKAIY_TZ, year, month: startMonth, day: startDay });
+}
+
+function getNakaiyDate(currentDateTime, _timezoneOffset) {
+    const todayLocal = createFauxUTCDate(currentDateTime, NAKAIY_TZ);
+    const startOfToday = createAdjustedDateTime({ currentDateTime: todayLocal });
+
+    let cycleStartYear = startOfToday.getUTCFullYear();
+    let cycleStart = createAdjustedDateTime({ timezone: NAKAIY_TZ, year: cycleStartYear, month: 12, day: 10 });
+    if (startOfToday < cycleStart) {
+        cycleStartYear -= 1;
+        cycleStart = createAdjustedDateTime({ timezone: NAKAIY_TZ, year: cycleStartYear, month: 12, day: 10 });
+    }
+
+    for (let i = 0; i < NAKAIY_PERIODS.length; i++) {
+        const period = NAKAIY_PERIODS[i];
+        const currentStart = getNakaiyStartDate(cycleStartYear, period.startMonth, period.startDay);
+        const nextPeriod = i === NAKAIY_PERIODS.length - 1
+            ? { startMonth: 12, startDay: 10 }
+            : NAKAIY_PERIODS[i + 1];
+        const nextStart = getNakaiyStartDate(cycleStartYear, nextPeriod.startMonth, nextPeriod.startDay);
+
+        if (startOfToday >= currentStart && startOfToday < nextStart) {
+            const day = Math.floor(differenceInDays(startOfToday, currentStart)) + 1;
+            const output = `${period.name} (${day})\n${period.season}`;
+            return { output, day, month: i, year: null, other: { season: period.season } };
+        }
+    }
+
+    // Defensive fallback; should never be reached.
+    const fallback = NAKAIY_PERIODS[0];
+    return { output: `${fallback.name} 1\n${fallback.season}`, day: 1, month: 0, year: null, other: { season: fallback.season } };
+}
+
 // --- Chinese solar terms (jiéqì): 15° steps from 315° ecliptic longitude ---
 const SOLAR_TERM_SEASONS = [
     'Spring (春)', 'Spring (春)', 'Spring (春)', 'Spring (春)', 'Spring (春)', 'Spring (春)',

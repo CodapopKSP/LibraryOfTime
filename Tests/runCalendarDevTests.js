@@ -16,6 +16,7 @@ function runCalendarDevTests() {
         // testUmmAlQuraCalendar,
         //testShireCalendar,
         //testMandaeanCalendar,
+        //testNakaiyCalendar,
         //testIgboCalendar,
         // testGalacticTickDay,
         // testMPSLCCalendar,

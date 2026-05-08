@@ -390,6 +390,16 @@ function testMandaeanCalendar() {
     ]);
 }
 
+function testNakaiyCalendar() {
+    return runSolarTests("Nakaiy Calendar", getNakaiyDate, [
+        ["2025-12-9, 23:59:00", "UTC+05:00", "Dosha 13\nHulhangu"],
+        ["2025-12-10, 00:00:00", "UTC+05:00", "Mula 1\nIruvaa"],
+        ["2026-3-26, 12:00:00", "UTC+05:00", "Reyva 1\nIruvaa"],
+        ["2026-4-8, 00:00:00", "UTC+05:00", "Assidha 1\nHulhangu"],
+        ["2026-11-30, 12:00:00", "UTC+05:00", "Dosha 4\nHulhangu"],
+    ]);
+}
+
 // Run all tests.
 function runSolarCalendarTests() {
     const testFunctions = [
@@ -421,6 +431,7 @@ function runSolarCalendarTests() {
         testSakaSamvatCalendar,
         testSCACalendar,
         testMandaeanCalendar,
+        testNakaiyCalendar,
         testIgboCalendar,
         testSolarTermCalendar,
         testJapaneseSolarTermCalendar,

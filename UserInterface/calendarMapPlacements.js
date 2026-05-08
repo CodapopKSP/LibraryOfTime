@@ -67,6 +67,7 @@
         ganymede: { x: 0.899, y: 0.956, label: 'Ganymede' },
         callisto: { x: 0.874, y: 0.956, label: 'Callisto' },
         titan: { x: 0.941, y: 0.896, label: 'Titan' },
+        male: { x: 0.675, y: 0.474, label: 'Malé, Maldives' },
     };
 
     /**
@@ -101,6 +102,7 @@
         icelandic: 'reykjavik',
         'saka-samvat': 'ujjain',
         sca: 'san-francisco',
+        nakaiy: 'male',
 
         chinese: 'beijing',
         'dai-lich': 'hanoi',
