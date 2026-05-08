@@ -44,9 +44,14 @@
     color: rgb(224, 224, 224);
 }
 
-.computing-time {
+.machine-time {
     background-color: rgb(50, 50, 54);
     color: #c4e4ffff;
+}
+
+.chronology {
+    background-color: rgb(52, 52, 52);
+    color: #ffe4c4ff
 }
 
 .solar-calendars{

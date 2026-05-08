@@ -12,10 +12,11 @@
  */
 const SITE_NODE_CATEGORY_LABELS = {
     'Solar Calendar': 'Solar Calendars',
-    'Computing Time': 'Computing Time',
+    'Machine Time': 'Machine Time',
+    'Chronology': 'Chronology',
     'Standard Time': 'Standard Time',
-    'Alternative Time': 'Alternative Time',
-    'Extraterrestrial Time': 'Extraterrestrial Time',
+    'Alternative Time': 'Alternative Clocks',
+    'Extraterrestrial Time': 'Extraterrestrial Clocks',
     'Extraterrestrial Calendar': 'Extraterrestrial Calendars',
     'Lunisolar Calendar': 'Lunisolar Calendars',
     'Lunar Calendar': 'Lunar Calendars',

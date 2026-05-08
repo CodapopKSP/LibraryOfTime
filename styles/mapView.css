@@ -417,7 +417,12 @@
     --map-node-border: #bbbbbb;
 }
 
-.map-view-type-icon--computing-time {
+.map-view-type-icon--machine-time {
+    color: #c4e4ff;
+    --map-node-border: #696d9f;
+}
+
+.map-view-type-icon--chronology {
     color: #c4e4ff;
     --map-node-border: #696d9f;
 }
@@ -681,7 +686,10 @@
 .map-view-node-tooltip .standard-time > .node > .content {
     border-color: #bbbbbb;
 }
-.map-view-node-tooltip .computing-time > .node > .content {
+.map-view-node-tooltip .machine-time > .node > .content {
+    border-color: #696d9f;
+}
+.map-view-node-tooltip .chronology > .node > .content {
     border-color: #696d9f;
 }
 .map-view-node-tooltip .solar-calendars > .node > .content {

@@ -46,7 +46,11 @@
     border-color: #bbbbbb;
 }
 
-.computing-time > .node > .content {
+.machine-time > .node > .content {
+    border-color: #696d9f;
+}
+
+.chronology > .node > .content {
     border-color: #696d9f;
 }
 

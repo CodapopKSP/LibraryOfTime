@@ -71,10 +71,58 @@ function getCalendarTypeFromURL(urlCalendarType) {
     return urlCalendarType;
 }
 
+const chronologyComputingNodeIds = new Set([
+    'julian-day-number',
+    'julian-period',
+    'rata-die',
+    'lilian-date',
+    'ordinal-date',
+    'julian-sol-number',
+    'julian-circad-number',
+    'kali-ahargana',
+    'deltat',
+    'mars-sol-date',
+    'lunation-number',
+    'brown-lunation-number',
+    'goldstine-lunation-number',
+    'hebrew-lunation-number',
+    'islamic-lunation-number',
+    'thai-lunation-number',
+    'nabonassar-lunation-number'
+]);
+
+function splitComputingTypeIntoMachineTimeAndChronology() {
+    const computingType = 'Computing Time';
+    const machineType = 'Machine Time';
+    const chronologyType = 'Chronology';
+    const computingArrayIndex = nodeDataArrays.findIndex(function (arr) {
+        return Array.isArray(arr) && arr.length > 0 && arr[0].type === computingType;
+    });
+    if (computingArrayIndex === -1) {
+        return;
+    }
+    const computingItems = nodeDataArrays[computingArrayIndex];
+    const machineTimeItems = [];
+    const chronologyItems = [];
+    computingItems.forEach(function (item) {
+        const isChronology = chronologyComputingNodeIds.has(item.id);
+        item.type = isChronology ? chronologyType : machineType;
+        if (isChronology) {
+            chronologyItems.push(item);
+        } else {
+            machineTimeItems.push(item);
+        }
+    });
+    nodeDataArrays.splice(computingArrayIndex, 1, machineTimeItems, chronologyItems);
+}
+
+splitComputingTypeIntoMachineTimeAndChronology();
+
 // Node parent elements
 const parentElements = {
     'Solar Calendar': document.querySelector('.solar-calendars'),
-    'Computing Time': document.querySelector('.computing-time'),
+    'Machine Time': document.querySelector('.machine-time'),
+    'Chronology': document.querySelector('.chronology'),
     'Standard Time': document.querySelector('.standard-time'),
     'Alternative Time': document.querySelector('.alternative-time'),
     'Extraterrestrial Time': document.querySelector('.extraterrestrial-time'),

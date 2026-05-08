@@ -69,7 +69,8 @@
      */
     var NODE_TYPE_TO_SECTION_CLASS = {
         'Solar Calendar': 'solar-calendars',
-        'Computing Time': 'computing-time',
+        'Machine Time': 'machine-time',
+        'Chronology': 'chronology',
         'Standard Time': 'standard-time',
         'Alternative Time': 'alternative-time',
         'Extraterrestrial Time': 'extraterrestrial-time',
@@ -91,9 +92,10 @@
     /** Toolbar: only these types get filter toggles; other sections stay always visible on the map. */
     var MAP_FILTER_SPECS = [
         { section: 'standard-time', type: 'Standard Time', title: 'Standard time' },
-        { section: 'computing-time', type: 'Computing Time', title: 'Computing time' },
-        { section: 'alternative-time', type: 'Alternative Time', title: 'Alternative time' },
-        { section: 'extraterrestrial-time', type: 'Extraterrestrial Time', title: 'Extraterrestrial time' },
+        { section: 'machine-time', type: 'Machine Time', title: 'Machine time' },
+        { section: 'chronology', type: 'Chronology', title: 'Chronology' },
+        { section: 'alternative-time', type: 'Alternative Time', title: 'Alternative clocks' },
+        { section: 'extraterrestrial-time', type: 'Extraterrestrial Time', title: 'Extraterrestrial clocks' },
         { section: 'solar-calendars', type: 'Solar Calendar', title: 'Solar calendars' },
         { section: 'lunisolar-calendars', type: 'Lunisolar Calendar', title: 'Lunisolar calendars' },
         { section: 'lunar-calendars', type: 'Lunar Calendar', title: 'Lunar calendars' },
@@ -112,7 +114,7 @@
     /** Larger icons for in-map type filter toggles. */
     var MAP_FILTER_BAR_ICON_PX = 30;
 
-    /** Filled dot — Standard / Computing / Alternative / Extraterrestrial Time share this shape; section color differs via CSS. */
+    /** Filled dot — Standard / Machine / Chronology / Alternative / Extraterrestrial time share this shape; section color differs via CSS. */
     var MAP_TIME_DOT_SVG = '<circle cx="12" cy="12" r="6.5" fill="currentColor"/>';
 
     /**
@@ -134,7 +136,8 @@
         'Extraterrestrial Calendar':
             '<path fill="currentColor" d="M12 5.5L19 12l-7 6.5-7-6.5z"/>',
         'Standard Time': MAP_TIME_DOT_SVG,
-        'Computing Time': MAP_TIME_DOT_SVG,
+        'Machine Time': MAP_TIME_DOT_SVG,
+        'Chronology': MAP_TIME_DOT_SVG,
         'Alternative Time': MAP_TIME_DOT_SVG,
         'Extraterrestrial Time': MAP_TIME_DOT_SVG,
         'Astronomical Data':
