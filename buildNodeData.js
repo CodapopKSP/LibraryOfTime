@@ -131,8 +131,8 @@ function parseMarkdownFile(filePath, directory) {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         
-        // Check for section headers
-        if (line.startsWith('#### Overview')) {
+        // Check for section headers (support both ### and ####)
+        if (/^#{3,4}\s+Overview\b/.test(line)) {
             if (currentSection && sectionContent.length > 0) {
                 const content = sectionContent.join('\n').trim();
                 if (currentSection === 'overview') overview = content;
@@ -143,7 +143,7 @@ function parseMarkdownFile(filePath, directory) {
             currentSection = 'overview';
             sectionContent = [];
             continue;
-        } else if (line.startsWith('#### Info')) {
+        } else if (/^#{3,4}\s+Info\b/.test(line)) {
             if (currentSection && sectionContent.length > 0) {
                 const content = sectionContent.join('\n').trim();
                 if (currentSection === 'overview') overview = content;
@@ -154,7 +154,7 @@ function parseMarkdownFile(filePath, directory) {
             currentSection = 'info';
             sectionContent = [];
             continue;
-        } else if (line.startsWith('#### Accuracy')) {
+        } else if (/^#{3,4}\s+Accuracy\b/.test(line)) {
             if (currentSection && sectionContent.length > 0) {
                 const content = sectionContent.join('\n').trim();
                 if (currentSection === 'overview') overview = content;
@@ -165,7 +165,7 @@ function parseMarkdownFile(filePath, directory) {
             currentSection = 'accuracy';
             sectionContent = [];
             continue;
-        } else if (line.startsWith('#### Source')) {
+        } else if (/^#{3,4}\s+Source\b/.test(line)) {
             if (currentSection && sectionContent.length > 0) {
                 const content = sectionContent.join('\n').trim();
                 if (currentSection === 'overview') overview = content;

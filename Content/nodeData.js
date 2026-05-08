@@ -185,10 +185,10 @@ const computingTimeData = [
         epoch: `6 January 1980 CE`,
         confidence: `Exact`,
         associatedWith: `Washington, D.C.`,
-        overview: ``,
-        info: ``,
-        accuracy: ``,
-        source: ``
+        overview: `GPS time is the standard by which all GPS satellites and GPS-enabled devices coordinate their positions. It is a simple count of seconds from midnight on January 6th, 1980.\n\nWhen converted into the Gregorian calendar, it drifts ahead by a second every now and then as it does not follow leap seconds found in other timekeeping standards.`,
+        info: `GPS became available to the public in 2000 CE.`,
+        accuracy: `This clock is considered to be perfectly accurate, as it's a simple calculation from Unix.`,
+        source: `Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping">Wikipedia article</a>.\n\nSome information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.`
     },
 
     {
@@ -445,9 +445,9 @@ const computingTimeData = [
         epoch: `1 January 1901 CE`,
         confidence: `High`,
         associatedWith: ``,
-        overview: `ΔT is an approximation of the difference in time between Terrestrial Time and UTC due to various factors that affect Earth's rotation, such as gravitational effects from other planets, earthquakes, and tidal forces. The two systems match around the year 1880 and deviate further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.`,
+        overview: `ΔT is an approximation of the difference in time between Terrestrial Time and UTC due to various factors that affect Earth's rotation, such as gravitational effects from other planets, earthquakes, and tidal forces.\n\nThe two systems match around the year 1880 and deviate further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.`,
         info: `The exact length of the day is slowly changing on the order of a few seconds per year. This rate is not constant, though it can be estimated.`,
-        accuracy: `ΔT is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculations or due to a misunderstanding in some of the steps. However, they are very close, within a few seconds for any given output.\n\nThe epoch for this value is not an epoch but rather a moment where ΔT is close to zero.`,
+        accuracy: `ΔT is itself an approximation, so the results here can only be as good as that approximation.\n\nThe epoch for this value is not an epoch but rather a moment where ΔT is close to zero.`,
         source: `This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.`
     },
 

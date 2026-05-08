@@ -469,7 +469,8 @@ const startNextMillennium = createDateWithFixedYear(startYear + 10, 0, 1);
 </tbody></table>
 </div>
 <h3 id="overview-12"><a class="header" href="#overview-12">Overview</a></h3>
-<p>GPS time is the standard by which all GPS satellites and GPS-enabled devices coordinate their positions. It is a simple count of seconds from midnight on January 6th, 1980. When converted into the Gregorian calendar, it drifts ahead by a second every now and then as it does not follow leap seconds found in other timekeeping standards.</p>
+<p>GPS time is the standard by which all GPS satellites and GPS-enabled devices coordinate their positions. It is a simple count of seconds from midnight on January 6th, 1980.</p>
+<p>When converted into the Gregorian calendar, it drifts ahead by a second every now and then as it does not follow leap seconds found in other timekeeping standards.</p>
 <h3 id="info-12"><a class="header" href="#info-12">Info</a></h3>
 <p>GPS became available to the public in 2000 CE.</p>
 <h3 id="accuracy-12"><a class="header" href="#accuracy-12">Accuracy</a></h3>
@@ -824,11 +825,12 @@ gpsTime += leapSecondsCount;
 </tbody></table>
 </div>
 <h4 id="overview-32"><a class="header" href="#overview-32">Overview</a></h4>
-<p>ΔT is an approximation of the difference in time between Terrestrial Time and UTC due to various factors that affect Earth's rotation, such as gravitational effects from other planets, earthquakes, and tidal forces. The two systems match around the year 1880 and deviate further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.</p>
+<p>ΔT is an approximation of the difference in time between Terrestrial Time and UTC due to various factors that affect Earth's rotation, such as gravitational effects from other planets, earthquakes, and tidal forces.</p>
+<p>The two systems match around the year 1880 and deviate further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.</p>
 <h4 id="info-32"><a class="header" href="#info-32">Info</a></h4>
 <p>The exact length of the day is slowly changing on the order of a few seconds per year. This rate is not constant, though it can be estimated.</p>
 <h4 id="accuracy-32"><a class="header" href="#accuracy-32">Accuracy</a></h4>
-<p>ΔT is itself an approximation, so the results here can only be as good as that approximation. Unfortunately, there seems to be a bit of induced error on top of that, as my solutions don't exactly match those provided by Meeus. This could be due to JavaScript's base-2 calculations or due to a misunderstanding in some of the steps. However, they are very close, within a few seconds for any given output.</p>
+<p>ΔT is itself an approximation, so the results here can only be as good as that approximation.</p>
 <p>The epoch for this value is not an epoch but rather a moment where ΔT is close to zero.</p>
 <h4 id="source-32"><a class="header" href="#source-32">Source</a></h4>
 <p>This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.</p>
