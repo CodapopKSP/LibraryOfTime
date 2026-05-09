@@ -118,9 +118,27 @@ function splitComputingTypeIntoMachineTimeAndChronology() {
 
 splitComputingTypeIntoMachineTimeAndChronology();
 
+const julianDerivedSolarNodeIds = new Set([
+    'gregorian',
+    'julian',
+    'astronomical',
+    'era-fascista',
+    'minguo',
+    'thai',
+    'juche',
+    'byzantine',
+    'florentine',
+    'pisan',
+    'venetian',
+    'sca',
+    'iso-week-date',
+    'anno-lucis'
+]);
+
 // Node parent elements
 const parentElements = {
     'Solar Calendar': document.querySelector('.solar-calendars'),
+    'Solar Calendar (Julian-derived)': document.querySelector('.solar-calendars-julian-derived'),
     'Machine Time': document.querySelector('.machine-time'),
     'Chronology': document.querySelector('.chronology'),
     'Standard Time': document.querySelector('.standard-time'),
@@ -136,6 +154,13 @@ const parentElements = {
     'Pop Culture': document.querySelector('.pop-culture'),
     'Politics': document.querySelector('.politics')
 };
+
+function getParentElementForItem(item) {
+    if (item && item.type === 'Solar Calendar' && julianDerivedSolarNodeIds.has(item.id)) {
+        return parentElements['Solar Calendar (Julian-derived)'];
+    }
+    return parentElements[item.type];
+}
 
 function updateFloatingPanelSlotControls(panelSection) {
     if (!panelSection) {
@@ -159,7 +184,10 @@ function updateFloatingPanelSlotControls(panelSection) {
 // Create the node arrays
 nodeDataArrays.forEach(dataArray => {
     dataArray.forEach(item => {
-        createNode(item, parentElements);
+        const parentElement = getParentElementForItem(item);
+        if (parentElement) {
+            createNode(item, { [item.type]: parentElement });
+        }
     });
 });
 

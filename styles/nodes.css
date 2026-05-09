@@ -54,7 +54,8 @@
     border-color: #696d9f;
 }
 
-.solar-calendars > .node > .content {
+.solar-calendars > .node > .content,
+.solar-calendars-julian-derived > .node > .content {
     border-color: #966a6a;
 }
 

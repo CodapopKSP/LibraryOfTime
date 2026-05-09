@@ -54,7 +54,8 @@
     color: #ffe4c4ff
 }
 
-.solar-calendars{
+.solar-calendars,
+.solar-calendars-julian-derived{
     background-color: rgb(54, 50, 50);
     color: #ffe4c4ff
 }

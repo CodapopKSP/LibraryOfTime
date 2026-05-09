@@ -695,6 +695,9 @@
 .map-view-node-tooltip .solar-calendars > .node > .content {
     border-color: #966a6a;
 }
+.map-view-node-tooltip .solar-calendars-julian-derived > .node > .content {
+    border-color: #966a6a;
+}
 .map-view-node-tooltip .lunisolar-calendars > .node > .content {
     border-color: #6f986a;
 }
