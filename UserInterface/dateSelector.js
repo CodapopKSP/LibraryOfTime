@@ -54,9 +54,10 @@ let _datePickerTime = '';
 function getDatePickerTime() {
     // If null, return current datetime
     if (_datePickerTime == "") {
-        const now = new Date();
+        const timezone = getDatePickerTimezone();
+        const now = createFauxUTCDate(new Date(), timezone);
         const pad = n => n.toString().padStart(2, '0');
-        return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}, ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+        return `${now.getUTCFullYear()}-${pad(now.getUTCMonth() + 1)}-${pad(now.getUTCDate())}, ${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}:${pad(now.getUTCSeconds())}`;
     }
     return _datePickerTime;
 }

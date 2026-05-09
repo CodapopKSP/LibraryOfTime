@@ -237,6 +237,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         timezoneSelect.appendChild(option);
     });
+    // Keep picker state in sync with the visible dropdown from first load,
+    // so increment buttons use the selected timezone immediately.
+    setDatePickerTimezone(selectedTimezone);
 
     timezoneSelect.addEventListener('change', function () {
         const datePickerTimezone = document.getElementById('timezone').value;
