@@ -48,7 +48,7 @@ This calendar is somewhat lacking in official documentation. Most sources give G
 
 Regardless, this calculation is exactly accurate based on the available sources.
 
-The includion of the current date of the Nakaiy is not strictly present in official sources and is included here in parentheses.
+The inclusion of the current date of the Nakaiy is not strictly present in official sources and is shown here in parentheses.
 
 #### Source
 
