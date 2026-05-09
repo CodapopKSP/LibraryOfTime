@@ -138,7 +138,7 @@ const julianDerivedSolarNodeIds = new Set([
 // Node parent elements
 const parentElements = {
     'Solar Calendar': document.querySelector('.solar-calendars'),
-    'Solar Calendar (Julian-derived)': document.querySelector('.solar-calendars-julian-derived'),
+    'Solar Calendar (Gregorian/Julian-based)': document.querySelector('.solar-calendars-gregorian-julian-based'),
     'Machine Time': document.querySelector('.machine-time'),
     'Chronology': document.querySelector('.chronology'),
     'Standard Time': document.querySelector('.standard-time'),
@@ -157,7 +157,7 @@ const parentElements = {
 
 function getParentElementForItem(item) {
     if (item && item.type === 'Solar Calendar' && julianDerivedSolarNodeIds.has(item.id)) {
-        return parentElements['Solar Calendar (Julian-derived)'];
+        return parentElements['Solar Calendar (Gregorian/Julian-based)'];
     }
     return parentElements[item.type];
 }
