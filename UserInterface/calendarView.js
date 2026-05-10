@@ -38,6 +38,7 @@ function buildNodeValueGetters(tzOffset) {
         'era-fascista': function (dt) { return typeof getEraFascista === 'function' ? getEraFascista(dt) : ''; },
         'minguo': function (dt) { return typeof getMinguo === 'function' ? getMinguo(dt) : ''; },
         'thai': function (dt) { return typeof getThaiSolar === 'function' ? getThaiSolar(dt) : ''; },
+        'bengali': function (dt) { return typeof getBengaliSolarDate === 'function' ? getBengaliSolarDate(dt, offset) : ''; },
         'juche': function (dt) { return typeof getJuche === 'function' ? getJuche(dt) : ''; },
         'armenian': function (dt) { return typeof getArmenianSolarDate === 'function' ? getArmenianSolarDate(dt, offset) : ''; },
         'coptic': function (dt) { return typeof getCopticDate === 'function' ? getCopticDate(dt) : ''; },

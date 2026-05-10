@@ -805,6 +805,97 @@ function getEgyptianDate(currentDateTime) {
     return { output, day: dayOfMonth, month: currentMonthNumber, year: yearsSinceStartOfAkhet2781, other: { season: currentSeason } };
 }
 
+// --- Bengali (Bangladesh, Gregorian-synchronized) ---
+// Pohela Boishakh is 14 April in Bangladesh (UTC+06:00) from the modern civil mapping used here.
+// Month lengths follow Bangladesh rules: before the Bangla year starting April 2019 (BS 1426), use
+// the pre-2019 column (আশ্বিন 30, ফাল্গুন 30/31); from that year onward use the 2019 reform
+// (আশ্বিন 31, ফাল্গুন 29/30), still tied to the same Gregorian month boundaries.
+// Epoch: 14 April 593 CE (local) = Pohela Boishakh with BS year 0 (year numbering: BS = Gregorian year of Pohela Boishakh − 593; negative and zero allowed).
+const BENGALI_SOLAR_TZ = 'UTC+06:00';
+const BENGALI_MONTHS = [
+    'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন',
+    'কার্তিক', 'অগ্রহায়ণ', 'পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র'
+];
+const BENGALI_WEEKDAYS = [
+    'রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'
+];
+const BENGALI_SEASONS = [
+    'গ্রীষ্ম', 'বর্ষা', 'শরৎ', 'হেমন্ত', 'শীত', 'বসন্ত'
+];
+
+function banglaGregorianLeapYear(y) {
+    return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0);
+}
+
+function banglaMonthLengthsFromRules(useReform2019, falgunIsLeap) {
+    if (useReform2019) {
+        return [
+            31, 31, 31, 31, 31, 31, 30, 30, 30, 30,
+            falgunIsLeap ? 30 : 29,
+            30
+        ];
+    }
+    return [
+        31, 31, 31, 31, 31, 30, 30, 30, 30, 30,
+        falgunIsLeap ? 31 : 30,
+        30
+    ];
+}
+
+function getBengaliSolarDate(currentDateTime, _timezoneOffset) {
+    const local = createFauxUTCDate(currentDateTime, BENGALI_SOLAR_TZ);
+    const y = local.getUTCFullYear();
+    const m = local.getUTCMonth() + 1;
+    const d = local.getUTCDate();
+
+    let gyPohela = y;
+    if (m < 4 || (m === 4 && d < 14)) {
+        gyPohela = y - 1;
+    }
+
+    const bsYear = gyPohela - 593;
+
+    const useReform2019 = gyPohela >= 2019;
+    const falgunGregorianYear = gyPohela + 1;
+    const falgunIsLeap = banglaGregorianLeapYear(falgunGregorianYear);
+    const monthLengths = banglaMonthLengthsFromRules(useReform2019, falgunIsLeap);
+
+    const boishakh1 = createAdjustedDateTime({
+        timezone: BENGALI_SOLAR_TZ,
+        year: gyPohela,
+        month: 4,
+        day: 14
+    });
+    const startOfLocalDay = createAdjustedDateTime({ currentDateTime: local });
+    let dayIndex = Math.floor(differenceInDays(startOfLocalDay, boishakh1));
+    if (dayIndex < 0) {
+        dayIndex = 0;
+    }
+
+    let monthIndex = 0;
+    let dayInMonth = dayIndex + 1;
+    while (monthIndex < monthLengths.length && dayInMonth > monthLengths[monthIndex]) {
+        dayInMonth -= monthLengths[monthIndex];
+        monthIndex++;
+    }
+
+    const monthName = BENGALI_MONTHS[monthIndex];
+    const seasonName = BENGALI_SEASONS[Math.floor(monthIndex / 2)];
+    const dayOfWeek = local.getUTCDay();
+    const weekLine = BENGALI_WEEKDAYS[dayOfWeek];
+
+    const dateLine = `${dayInMonth} ${monthName}, BS ${bsYear}`;
+    const output = `${dateLine}\n${weekLine}\n${seasonName}`;
+    return {
+        output,
+        day: dayInMonth,
+        month: monthIndex,
+        year: bsYear,
+        dayOfWeek,
+        other: { season: seasonName }
+    };
+}
+
 // --- Armenian (traditional 365-day) ---
 // Twelve months of 30 days plus five intercalary days (աւելեաց). No leap years.
 // Epoch: Armenian local midnight at the start of 13 July 552 (proleptic Gregorian, UTC+04:00).

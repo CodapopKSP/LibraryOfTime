@@ -116,6 +116,8 @@
   
   - [Thai (THB)](SolarCalendars/Thai.md)
   
+  - [Bengali (BST)](SolarCalendars/Bengali.md)
+  
   - [Juche (KST)](SolarCalendars/Juche.md)
   
   - [Byzantine (TRT)](SolarCalendars/Byzantine.md)

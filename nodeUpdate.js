@@ -125,6 +125,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('era-fascista-node', out(getEraFascista(currentDateTime)));
     setTimeValue('minguo-node', out(getMinguo(currentDateTime)));
     setTimeValue('thai-node', out(getThaiSolar(currentDateTime)));
+    setTimeValue('bengali-node', out(getBengaliSolarDate(currentDateTime, timezoneOffset)));
     setTimeValue('juche-node', out(getJuche(currentDateTime)));
     setTimeValue('armenian-node', out(getArmenianSolarDate(currentDateTime, timezoneOffset)));
     setTimeValue('coptic-node', out(getCopticDate(currentDateTime)));

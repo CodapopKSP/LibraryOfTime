@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 147
+// Total nodes: 148
 
 /*
 Node Data is a collection of data for each node.
@@ -1042,6 +1042,19 @@ const solarCalendarsData = [
         info: `<table class="table-very-very-long"><tr><th>Months</th><th>English</th><th>Days</th></tr><tr><td>มกราคม</td><td>January</td><td>31</td></tr><tr><td>กุมภาพันธ์</td><td>February</td><td>28 or 29</td></tr><tr><td>มีนาคม</td><td>March</td><td>31</td></tr><tr><td>เมษายน</td><td>April</td><td>30</td></tr><tr><td>พฤษภาคม</td><td>May</td><td>31</td></tr><tr><td>มิถุนายน</td><td>June</td><td>30</td></tr><tr><td>กรกฎาคม</td><td>July</td><td>31</td></tr><tr><td>สิงหาคม</td><td>August</td><td>31</td></tr><tr><td>กันยายน</td><td>September</td><td>30</td></tr><tr><td>ตุลาคม</td><td>October</td><td>31</td></tr><tr><td>พฤศจิกายน</td><td>November</td><td>30</td></tr><tr><td>ธันวาคม</td><td>December</td><td>31</td></tr></table>`,
         accuracy: `The Thai solar calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.`,
         source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Thai_solar_calendar">Wikipedia article</a>.`
+    },
+
+    {
+        name: `Bengali (BST)`,
+        id: `bengali`,
+        type: `Solar Calendar`,
+        epoch: `13 April 593 CE, +18:00:00`,
+        confidence: `High`,
+        associatedWith: `Dhaka, Bangladesh`,
+        overview: `The Bengali calendar is a Gregorian-derived solar calendar used in Bangladesh and Eastern India.\n\nIt features 12 months of 29-31 days, with the difference arranged to account for the sun's variable speed through the zodiac. Prior to 2019, the day arrangement was slightly different. The start of the new year is always on April 14 in both rule sets.\n\nYears are denoted with "BS", meaning Bengali Sambat or Bengali Era. The precise meaning of the epoch is unclear, though it most likely celebrates the ascension of the Bengali king Shashaka.\n\nThe Bengali calendar also recognizes six season; Summer, Monsoon, Autumn, Dry, Winter, and Spring.`,
+        info: `<table class="table-very-very-long"><tr><th>Month</th><th>Days (pre-2019)</th><th>Days (2019–)</th><th>First day (2019 rules)</th><th>Season</th></tr><tr><td>বৈশাখ</td><td>31</td><td>31</td><td>14 April</td><td>গ্রীষ্ম (Summer)</td></tr><tr><td>জ্যৈষ্ঠ</td><td>31</td><td>31</td><td>15 May</td><td>গ্রীষ্ম (Summer)</td></tr><tr><td>আষাঢ়</td><td>31</td><td>31</td><td>15 June</td><td>বর্ষা (Monsoon)</td></tr><tr><td>শ্রাবণ</td><td>31</td><td>31</td><td>16 July</td><td>বর্ষা (Monsoon)</td></tr><tr><td>ভাদ্র</td><td>31</td><td>31</td><td>16 August</td><td>শরৎ (Autumn)</td></tr><tr><td>আশ্বিন</td><td>30</td><td>31</td><td>16 September</td><td>শরৎ (Autumn)</td></tr><tr><td>কার্তিক</td><td>30</td><td>30</td><td>17 October</td><td>হেমন্ত (Dry)</td></tr><tr><td>অগ্রহায়ণ</td><td>30</td><td>30</td><td>16 November</td><td>হেমন্ত (Dry)</td></tr><tr><td>পৌষ</td><td>30</td><td>30</td><td>16 December</td><td>শীত (Winter)</td></tr><tr><td>মাঘ</td><td>30</td><td>30</td><td>15 January</td><td>শীত (Winter)</td></tr><tr><td>ফাল্গুন</td><td>30/31</td><td>29/30</td><td>14 February</td><td>বসন্ত (Spring)</td></tr><tr><td>চৈত্র</td><td>30</td><td>30</td><td>15 March</td><td>বসন্ত (Spring)</td></tr></table>\n<table class="table-very-very-long"><tr><th>English</th><th>Bengali</th></tr><tr><td>Sunday</td><td>রবিবার</td></tr><tr><td>Monday</td><td>সোমবার</td></tr><tr><td>Tuesday</td><td>মঙ্গলবার</td></tr><tr><td>Wednesday</td><td>বুধবার</td></tr><tr><td>Thursday</td><td>বৃহস্পতিবার</td></tr><tr><td>Friday</td><td>শুক্রবার</td></tr><tr><td>Saturday</td><td>শনিবার</td></tr></table>`,
+        accuracy: `This calendar is intrinsically tied to the Gregorian calendar and is exactly accurate. However, it does have an alternate rule set used in India that is not present here.`,
+        source: `All of the information for this calendar came from its <a href="https://en.wikipedia.org/wiki/Bengali_calendar">Wikipedia article</a>.`
     },
 
     {

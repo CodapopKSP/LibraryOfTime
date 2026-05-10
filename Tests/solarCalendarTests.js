@@ -386,6 +386,23 @@ function testArmenianSolarCalendar() {
     ]);
 }
 
+function testBengaliSolarCalendar() {
+    return runSolarTests('Bengali (Bangladesh)', getBengaliSolarDate, [
+        ['2026-5-10, 12:00:00', 'UTC+06:00', '27 বৈশাখ, BS 1433\nরবিবার\nগ্রীষ্ম'],
+        ['2019-4-14, 12:00:00', 'UTC+06:00', '1 বৈশাখ, BS 1426\nরবিবার\nগ্রীষ্ম'],
+        ['2018-10-16, 12:00:00', 'UTC+06:00', '1 কার্তিক, BS 1425\nমঙ্গলবার\nহেমন্ত'],
+        ['2019-10-16, 12:00:00', 'UTC+06:00', '31 আশ্বিন, BS 1426\nবুধবার\nশরৎ'],
+        ['2020-2-29, 12:00:00', 'UTC+06:00', '16 ফাল্গুন, BS 1426\nশনিবার\nবসন্ত'],
+        ['2020-4-13, 12:00:00', 'UTC+06:00', '30 চৈত্র, BS 1426\nসোমবার\nবসন্ত'],
+        ['594-4-14, 12:00:00', 'UTC+06:00', '1 বৈশাখ, BS 1\nসোমবার\nগ্রীষ্ম'],
+        ['593-4-14, 12:00:00', 'UTC+06:00', '1 বৈশাখ, BS 0\nরবিবার\nগ্রীষ্ম'],
+        ['592-4-14, 12:00:00', 'UTC+06:00', '1 বৈশাখ, BS -1\nশনিবার\nগ্রীষ্ম'],
+        ['593-4-13, 12:00:00', 'UTC+06:00', '30 চৈত্র, BS -1\nশনিবার\nবসন্ত'],
+        ['1-4-14, 12:00:00', 'UTC+06:00', '1 বৈশাখ, BS -592\nশনিবার\nগ্রীষ্ম'],
+        ['0-4-14, 12:00:00', 'UTC+06:00', '1 বৈশাখ, BS -593\nশুক্রবার\nগ্রীষ্ম'],
+    ]);
+}
+
 function testMandaeanCalendar() {
     // LRM (\u200E) before day and year keeps day–month–year order stable with Mandaic script.
     return runSolarTests("Mandaean Calendar", getMandaeanDate, [
@@ -444,6 +461,7 @@ function runSolarCalendarTests() {
         testIgboCalendar,
         testSolarTermCalendar,
         testJapaneseSolarTermCalendar,
+        testBengaliSolarCalendar,
         testArmenianSolarCalendar,
     ];
 
