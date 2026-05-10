@@ -377,6 +377,15 @@ function testJapaneseSolarTermCalendar() {
     ]);
 }
 
+function testArmenianSolarCalendar() {
+    return runSolarTests('Armenian (365-day)', getArmenianSolarDate, [
+        ['2026-5-10, 12:00:00', 'UTC+04:00', '24 մարերի ԹՎ 1475\nLusnak | Կիրակի'],
+        ['552-7-13, 00:00:00', 'UTC+04:00', '1 նաւասարդ ԹՎ 1\nAreg | Հինգշաբթի'],
+        ['553-7-12, 00:00:00', 'UTC+04:00', '5 աւելեաց ԹՎ 1\nՀինգշաբթի'],
+        ['553-7-13, 00:00:00', 'UTC+04:00', '1 նաւասարդ ԹՎ 2\nAreg | Ուրբաթ'],
+    ]);
+}
+
 function testMandaeanCalendar() {
     // LRM (\u200E) before day and year keeps day–month–year order stable with Mandaic script.
     return runSolarTests("Mandaean Calendar", getMandaeanDate, [
@@ -435,6 +444,7 @@ function runSolarCalendarTests() {
         testIgboCalendar,
         testSolarTermCalendar,
         testJapaneseSolarTermCalendar,
+        testArmenianSolarCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

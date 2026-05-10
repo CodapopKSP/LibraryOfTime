@@ -152,6 +152,8 @@
   
   - [Saka Samvat (IST)](SolarCalendars/SakaSamvat.md)
 
+  - [Armenian (AMT)](SolarCalendars/Armenian.md)
+
   - [Mandaean (AST)](SolarCalendars/Mandaean.md)
 
   - [Nakaiy (MVT)](SolarCalendars/Nakaiy.md)

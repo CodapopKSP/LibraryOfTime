@@ -126,6 +126,7 @@ function updateSolarCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('minguo-node', out(getMinguo(currentDateTime)));
     setTimeValue('thai-node', out(getThaiSolar(currentDateTime)));
     setTimeValue('juche-node', out(getJuche(currentDateTime)));
+    setTimeValue('armenian-node', out(getArmenianSolarDate(currentDateTime, timezoneOffset)));
     setTimeValue('coptic-node', out(getCopticDate(currentDateTime)));
     setTimeValue('geez-node', out(getEthiopianDate(currentDateTime)));
     setTimeValue('bahai-node', out(getBahaiCalendar(currentDateTime, springEquinox)));

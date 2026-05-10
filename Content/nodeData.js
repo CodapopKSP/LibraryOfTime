@@ -4,7 +4,7 @@
 //|-------------------|
 //
 // Generated from markdown files in Docs/src
-// Total nodes: 146
+// Total nodes: 147
 
 /*
 Node Data is a collection of data for each node.
@@ -1276,6 +1276,19 @@ const solarCalendarsData = [
         info: `<table class="table-very-very-long"><tr><th>Months</th><th>Days</th></tr><tr><td>Chaitra</td><td>30 or 31</td></tr><tr><td>Vaishakha</td><td>31</td></tr><tr><td>Jyestha</td><td>31</td></tr><tr><td>Ashadha</td><td>31</td></tr><tr><td>Sravana</td><td>31</td></tr><tr><td>Bhadra</td><td>31</td></tr><tr><td>Asvina</td><td>30</td></tr><tr><td>Kartika</td><td>30</td></tr><tr><td>Agrahayana</td><td>30</td></tr><tr><td>Pausha</td><td>30</td></tr><tr><td>Magha</td><td>30</td></tr><tr><td>Phalguna</td><td>30</td></tr></table>`,
         accuracy: `As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.`,
         source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Indian_national_calendar">Wikipedia article</a>, but there are some additional details found <a href="https://archive.org/details/IndianCalendricSystem-SK-Chatterjee/page/n25/mode/2up">here</a>.`
+    },
+
+    {
+        name: `Armenian (AMT)`,
+        id: `armenian`,
+        type: `Solar Calendar`,
+        epoch: `12 July 552 CE +20:00:00`,
+        confidence: `Exact`,
+        associatedWith: `Yerevan, Armenia`,
+        overview: `The Armenian calendar is a calculated solar calendar traditionally used in Armenia.\n\nIt features 12 months of 30 days plus a short intercalary month of 5 days, աւելեաց,  for a total of 365 days. Thus, it drifts from the Gregorian calendar and shares a similar Sothic Cycle relationship with the Julian calendar as the Egpytian calendar; the two calendars drift and realign on a cycle of 1461 years, with one such realignment with the Julian calendar occurring on 24 July 2012 CE.\n\nThe 30 days of the month are also individually named.`,
+        info: `<table class="table-very-very-long"><tr><th>#</th><th>Days</th><th>Month</th><th>Transliteration</th></tr><tr><td>1</td><td>30</td><td>նաւասարդ</td><td>Nawasard</td></tr><tr><td>2</td><td>30</td><td>հոռի</td><td>Hoṙi</td></tr><tr><td>3</td><td>30</td><td>սահմի</td><td>Sahmi</td></tr><tr><td>4</td><td>30</td><td>տրէ</td><td>Trē</td></tr><tr><td>5</td><td>30</td><td>քաղոց</td><td>Kʿałocʿ</td></tr><tr><td>6</td><td>30</td><td>արաց</td><td>Aracʿ</td></tr><tr><td>7</td><td>30</td><td>մեհեկան</td><td>Mehekan</td></tr><tr><td>8</td><td>30</td><td>արեգ</td><td>Areg</td></tr><tr><td>9</td><td>30</td><td>ահեկան</td><td>Ahekan</td></tr><tr><td>10</td><td>30</td><td>մարերի</td><td>Mareri</td></tr><tr><td>11</td><td>30</td><td>մարգաց</td><td>Margacʿ</td></tr><tr><td>12</td><td>30</td><td>հրոտից</td><td>Hroticʿ</td></tr><tr><td>13</td><td>5</td><td>աւելեաց</td><td>Aweleacʿ</td></tr></table>\n<table class="table-very-very-long"><tr><th>#</th><th>Name</th><th>Armenian</th></tr><tr><td>1</td><td>Areg</td><td>Արեգ</td></tr><tr><td>2</td><td>Hrand</td><td>Հրանդ</td></tr><tr><td>3</td><td>Aram</td><td>Արամ</td></tr><tr><td>4</td><td>Margar</td><td>Մարգար</td></tr><tr><td>5</td><td>Ahrank'</td><td>Ահրանկ</td></tr><tr><td>6</td><td>Mazdeł</td><td>—</td></tr><tr><td>7</td><td>Astłik</td><td>Աստղիկ</td></tr><tr><td>8</td><td>Mihr</td><td>Միհր</td></tr><tr><td>9</td><td>Jopaber</td><td>—</td></tr><tr><td>10</td><td>Murc'</td><td>Մուրց</td></tr><tr><td>11</td><td>Erezhan</td><td>—</td></tr><tr><td>12</td><td>Ani</td><td>Անի</td></tr><tr><td>13</td><td>Parkhar</td><td>—</td></tr><tr><td>14</td><td>Vanat</td><td>Վանատ</td></tr><tr><td>15</td><td>Aramazd</td><td>Արամազդ</td></tr><tr><td>16</td><td>Mani</td><td>Մանի</td></tr><tr><td>17</td><td>Asak</td><td>Ասակ</td></tr><tr><td>18</td><td>Masis</td><td>Մասիս</td></tr><tr><td>19</td><td>Anahit</td><td>Անահիտ</td></tr><tr><td>20</td><td>Aragats</td><td>Արագած</td></tr><tr><td>21</td><td>Gorgor</td><td>—</td></tr><tr><td>22</td><td>Kordvik</td><td>—</td></tr><tr><td>23</td><td>Tsmak</td><td>Ծմակ</td></tr><tr><td>24</td><td>Lusnak</td><td>Լուսնակ</td></tr><tr><td>25</td><td>Tsrōn</td><td>—</td></tr><tr><td>26</td><td>Npat</td><td>Նպատ</td></tr><tr><td>27</td><td>Vahagn</td><td>Վահագն</td></tr><tr><td>28</td><td>Sim</td><td>Սիմ</td></tr><tr><td>29</td><td>Varag</td><td>Վարագ</td></tr><tr><td>30</td><td>Gišeravar</td><td>—</td></tr></table>\n<table class="table-very-very-long"><tr><th>Order</th><th>Weekday</th><th>Transliteration</th></tr><tr><td>1</td><td>Կիրակի</td><td>Kiraki</td></tr><tr><td>2</td><td>Երկուշաբթի</td><td>Yerkushabti</td></tr><tr><td>3</td><td>Երեքշաբթի</td><td>Yereqshabti</td></tr><tr><td>4</td><td>Չորեքշաբթի</td><td>Choreqshabti</td></tr><tr><td>5</td><td>Հինգշաբթի</td><td>Hingshabti</td></tr><tr><td>6</td><td>Ուրբաթ</td><td>Urbat</td></tr><tr><td>7</td><td>Շաբաթ</td><td>Shabat</td></tr></table>`,
+        accuracy: `As this is a simple calculation with a known epoch, this calendar is exactly accurate.`,
+        source: `All of the information for this calendar came from its <a href="https://en.wikipedia.org/wiki/Armenian_calendar">Wikipedia page</a>.`
     },
 
     {

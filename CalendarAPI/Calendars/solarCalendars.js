@@ -805,6 +805,54 @@ function getEgyptianDate(currentDateTime) {
     return { output, day: dayOfMonth, month: currentMonthNumber, year: yearsSinceStartOfAkhet2781, other: { season: currentSeason } };
 }
 
+// --- Armenian (traditional 365-day) ---
+// Twelve months of 30 days plus five intercalary days (աւելեաց). No leap years.
+// Epoch: Armenian local midnight at the start of 13 July 552 (proleptic Gregorian, UTC+04:00).
+// This anchor matches 10 May 2026 = 24 մարերի ԹՎ 1475; many sources give the era as 14 July 552 CE.
+const ARMENIAN_SOLAR_TZ = 'UTC+04:00';
+const ARMENIAN_SOLAR_MONTHS = [
+    'նաւասարդ', 'հոռի', 'սահմի', 'տրէ', 'քաղոց', 'արաց',
+    'մեհեկան', 'արեգ', 'ահեկան', 'մարերի', 'մարգաց', 'հրոտից', 'աւելեաց'
+];
+const ARMENIAN_SOLAR_MONTH_LENGTHS = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
+const ARMENIAN_SOLAR_WEEK = ['Կիրակի', 'Երկուշաբթի', 'Երեքշաբթի', 'Չորեքշաբթի', 'Հինգշաբթի', 'Ուրբաթ', 'Շաբաթ'];
+// Named days of the month (1–30) for each 30-day month; աւելեաց has no parallel list here.
+const ARMENIAN_SOLAR_DAY_NAMES = [
+    'Areg', 'Hrand', 'Aram', 'Margar', 'Ahrank\'', 'Mazdeł', 'Astłik', 'Mihr',
+    'Jopaber', 'Murc\'', 'Erezhan', 'Ani', 'Parkhar', 'Vanat', 'Aramazd', 'Mani',
+    'Asak', 'Masis', 'Anahit', 'Aragats', 'Gorgor', 'Kordvik', 'Tsmak', 'Lusnak',
+    'Tsrōn', 'Npat', 'Vahagn', 'Sim', 'Varag', 'Gišeravar'
+];
+
+function getArmenianSolarDate(currentDateTime, _timezoneOffset) {
+    const epochStart = createAdjustedDateTime({ timezone: ARMENIAN_SOLAR_TZ, year: 552, month: 7, day: 13 });
+    const armenianLocal = createFauxUTCDate(currentDateTime, ARMENIAN_SOLAR_TZ);
+    const startOfArmenianDay = createAdjustedDateTime({ currentDateTime: armenianLocal });
+    const daysSinceEpoch = Math.floor(differenceInDays(startOfArmenianDay, epochStart));
+    const calYear = Math.floor(daysSinceEpoch / 365) + 1;
+    const dayOfYear = ((daysSinceEpoch % 365) + 365) % 365;
+    let monthIndex = 0;
+    let rem = dayOfYear;
+    while (monthIndex < ARMENIAN_SOLAR_MONTH_LENGTHS.length && rem >= ARMENIAN_SOLAR_MONTH_LENGTHS[monthIndex]) {
+        rem -= ARMENIAN_SOLAR_MONTH_LENGTHS[monthIndex];
+        monthIndex++;
+    }
+    const day = rem + 1;
+    const dayOfWeek = armenianLocal.getUTCDay();
+    const monthName = ARMENIAN_SOLAR_MONTHS[monthIndex];
+    const namedDay = monthIndex < 12 ? ARMENIAN_SOLAR_DAY_NAMES[day - 1] : '';
+    const dateLine = `${day} ${monthName} ԹՎ ${calYear}`;
+    const weekLine = namedDay
+        ? `${namedDay} | ${ARMENIAN_SOLAR_WEEK[dayOfWeek]}`
+        : ARMENIAN_SOLAR_WEEK[dayOfWeek];
+    const output = `${dateLine}\n${weekLine}`;
+    const result = { output, day, month: monthIndex, year: calYear, dayOfWeek };
+    if (namedDay) {
+        result.other = { dayName: namedDay };
+    }
+    return result;
+}
+
 // Returns an ISO Week local date
 function getISOWeekDate(currentDateTime, timezoneOffset) {
     // Adjust for timezone
