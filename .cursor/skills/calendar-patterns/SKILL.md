@@ -26,7 +26,7 @@ This skill complements:
 | **Equinox/solstice-anchored year** | Year boundaries defined by solstice/equinox events (often with sunset/noon rules). | Calendars whose year starts on solar events (Baháʼí, Solar Hijri, French Republican). |
 | **Shifted day-boundary** | Day changes at sunset/sunrise or other local time, weekday computed separately. | Religious or historical calendars where day starts before/after midnight. |
 | **Timezone-localized Gregorian** | Use `createFauxUTCDate` and format directly. | Localized Gregorian derivatives (Minguo, Juche, Thai, ISO week, SCA). |
-| **JDN-based conversions** | Convert Gregorian ↔ Julian (or similar) via JDN. | Calendars that are essentially Julian-based or need robust pre‑1582 behavior. |
+| **JDN-based conversions** | Convert Gregorian ↔ Julian (or similar) via JDN. | Calendars that are essentially Julian-derived or need robust pre‑1582 behavior. |
 | **Cycle-based / exotic year models** | Years with variable length and custom month-day tables. | Planetary calendars (Darian, Galilean, Titan), complex cycles. |
 
 ---
@@ -222,7 +222,7 @@ Use this table as a quick guide:
 | Simple civil calendar with fixed months and known epoch | Anchor-epoch + day count |
 | Year begins at solstice/equinox; length varies year to year | Equinox/solstice-anchored year (+ possibly shifted day-boundary) |
 | Day starts at sunrise/sunset; weekday must respect that | Shifted day-boundary / weekday logic (Pattern 3) layered on top of 1 or 2 |
-| Gregorian-derived with new era or labels | Timezone-localized Gregorian derivatives (Pattern 4) |
+| Gregorian-based with new era or labels | Timezone-localized Gregorian derivatives (Pattern 4) |
 | Calendar historically tied to Julian/Gregorian math | JDN-based conversions (Pattern 5) |
 | Non-Earth or very unusual leap rules | Cycle-based / exotic year models (Pattern 6) |
 

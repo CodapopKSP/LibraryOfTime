@@ -55,7 +55,7 @@
 }
 
 .solar-calendars > .node > .content,
-.solar-calendars-gregorian-julian-based > .node > .content {
+.solar-calendars-gregorian-julian-derived > .node > .content {
     border-color: #966a6a;
 }
 

@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Nakaiy calendar is a Gregorian-derived solar calendar used in the Maldives. Years begin on 10 December and are divided into two seasons, Iruvaa and Hulhangu, with Iruvaa being shorter.
+The Nakaiy calendar is a Gregorian-based solar calendar used in the Maldives. Years begin on 10 December and are divided into two seasons, Iruvaa and Hulhangu, with Iruvaa being shorter.
 
 Each season is further divided into several Nakaiy, each 12 or 13 days long, which are associated with various weather and climate phenomena.
 

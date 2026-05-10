@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Japanese calendar has a long and storied history. It was originally a calculated lunisolar calendar based off of the Chinese calendar and went through several rule revisions. It changed to a Gregorian-based calendar on 1 January 1873 CE.
+The Japanese calendar has a long and storied history. It was originally a calculated lunisolar calendar based off of the Chinese calendar and went through several rule revisions. It changed to a Gregorian-derived calendar on 1 January 1873 CE.
 
 Prior to 1873, it featured 12 months of 29 or 30 days that began at or around the calculated New Moon, with a 13th intercalary month added based on the solar term rules of the Chinese calendar; if a lunar month does not have a major solar term, then it is repeated.
 

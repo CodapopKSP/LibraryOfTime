@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Human Era, also known as the Holocene Era, is a Gregorian-based calendar proposed by Cesare Emiliani in 1993 CE. It is the representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements.
+The Human Era, also known as the Holocene Era, is a Gregorian-derived calendar proposed by Cesare Emiliani in 1993 CE. It is the representation of time since the beginning of the Holocene and the Neolithic Revolution, when humans started living in fixed agricultural settlements.
 
 #### Info
 

@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Symmetry010 calendar is a Gregorian-derived calendar proposed by Irv Bromberg.
+The Symmetry010 calendar is a Gregorian-based calendar proposed by Irv Bromberg.
 
 It features the same months as the Gregorian calendar but of different lengths, following a pattern of 30/31/30 days. This allows for each quarter of every year to follow the same pattern of 13 weeks or 91 days.
 

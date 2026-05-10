@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Bengali calendar is a Gregorian-derived solar calendar used in Bangladesh and Eastern India.
+The Bengali calendar is a Gregorian-based solar calendar used in Bangladesh and Eastern India.
 
 It features 12 months of 29-31 days, with the difference arranged to account for the sun's variable speed through the zodiac. Prior to 2019, the day arrangement was slightly different. The start of the new year is always on April 14 in both rule sets.
 

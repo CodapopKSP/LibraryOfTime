@@ -21,11 +21,11 @@ const glossaryContent = {
             definition: "A specific point in time used as a reference point for a calendar system."
         },
         {
-            term: "Gregorian-based, Julian-based",
+            term: "Gregorian-derived, Julian-derived",
             definition: "Including all of the elements of the Gregorian or Julian calendar, such as the month names, leap year rules, and the number of days in each month, but with a different epoch."
         },
         {
-            term: "Gregorian-derived, Julian-derived",
+            term: "Gregorian-based, Julian-based",
             definition: "A completely separate calendar system from the Gregorian or Julian calendar, but intrinsically related to them so that they do not experience any drift and can be calculated from them."
         },
         {

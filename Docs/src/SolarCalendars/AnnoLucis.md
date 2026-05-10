@@ -6,7 +6,7 @@
 
 #### Overview
 
-Anno Lucis is a Gregorian-based year numbering system used by the Freemasons.
+Anno Lucis is a Gregorian-derived year numbering system used by the Freemasons.
 
 Years are denoted with 'AL', which stands for Anno Lucis, meaning "in the Year of Light". This refers to the proposed year of creation from the Hebrew calendar.
 

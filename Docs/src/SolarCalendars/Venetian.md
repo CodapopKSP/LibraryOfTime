@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Venetian calendar was a Julian-based calendar used in the Republic of Venice from the Middle Ages until the adoption of the Gregorian calendar in the 18th century.
+The Venetian calendar was a Julian-derived calendar used in the Republic of Venice from the Middle Ages until the adoption of the Gregorian calendar in the 18th century.
 
 It differed from the Julian calendar with years beginning on March 1st. The Venetian year runs behind the Julian calendar during the months of January and February before syncronizing for the remaining months.
 

@@ -6,7 +6,7 @@
 
 #### Overview
 
-The Florentine calendar was a Julian-based calendar used in the Republic of Florence during the Middle Ages. It differed from the Julian calendar with the new year starting on March 25th.
+The Florentine calendar was a Julian-derived calendar used in the Republic of Florence during the Middle Ages. It differed from the Julian calendar with the new year starting on March 25th.
 
 This meant that January 1st of a given year was immediately after December 31st of the same year, and March 24th of that year was followed by March 25th of the next year.
 
