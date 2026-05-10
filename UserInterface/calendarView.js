@@ -110,6 +110,7 @@ function buildNodeValueGetters(tzOffset) {
         'symmetry454': function (dt) { return typeof getSymmetry454Date === 'function' ? getSymmetry454Date(dt, offset) : ''; },
         'symmetry010': function (dt) { return typeof getSymmetry010Date === 'function' ? getSymmetry010Date(dt, offset) : ''; },
         'positivist': function (dt) { return typeof getPositivistDate === 'function' ? getPositivistDate(dt, offset) : ''; },
+        'yerm': function (dt) { return typeof getYermDate === 'function' ? getYermDate(dt, offset) : ''; },
         'tamrielic': function (dt) { return typeof getTamrielicDate === 'function' ? getTamrielicDate(dt, offset) : ''; },
         'imperial-dating-system': function (dt) { return typeof getImperialDatingSystem === 'function' ? getImperialDatingSystem(dt, offset) : ''; },
         'shire': function (dt) { return typeof getShireDate === 'function' ? getShireDate(dt, offset) : ''; },

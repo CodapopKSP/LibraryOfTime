@@ -1279,7 +1279,14 @@ function getNakaiyStartDate(cycleStartYear, startMonth, startDay) {
 
 function getNakaiyDate(currentDateTime, _timezoneOffset) {
     const todayLocal = createFauxUTCDate(currentDateTime, NAKAIY_TZ);
-    const startOfToday = createAdjustedDateTime({ currentDateTime: todayLocal });
+    // todayLocal's UTC fields are MVT wall time; midnight for comparisons must use NAKAIY_TZ
+    // like getNakaiyStartDate, not default UTC (which would shift the civil day boundary by 5 hours).
+    const startOfToday = createAdjustedDateTime({
+        timezone: NAKAIY_TZ,
+        year: todayLocal.getUTCFullYear(),
+        month: todayLocal.getUTCMonth() + 1,
+        day: todayLocal.getUTCDate(),
+    });
 
     let cycleStartYear = startOfToday.getUTCFullYear();
     let cycleStart = createAdjustedDateTime({ timezone: NAKAIY_TZ, year: cycleStartYear, month: 12, day: 10 });
@@ -1294,7 +1301,10 @@ function getNakaiyDate(currentDateTime, _timezoneOffset) {
         const nextPeriod = i === NAKAIY_PERIODS.length - 1
             ? { startMonth: 12, startDay: 10 }
             : NAKAIY_PERIODS[i + 1];
-        const nextStart = getNakaiyStartDate(cycleStartYear, nextPeriod.startMonth, nextPeriod.startDay);
+        // After Dosha the year rolls forward: next Mula is Dec 10 (cycleStartYear + 1), not Dec 10 of the cycle start year.
+        const nextStart = i === NAKAIY_PERIODS.length - 1
+            ? getNakaiyStartDate(cycleStartYear + 1, nextPeriod.startMonth, nextPeriod.startDay)
+            : getNakaiyStartDate(cycleStartYear, nextPeriod.startMonth, nextPeriod.startDay);
 
         if (startOfToday >= currentStart && startOfToday < nextStart) {
             const day = Math.floor(differenceInDays(startOfToday, currentStart)) + 1;

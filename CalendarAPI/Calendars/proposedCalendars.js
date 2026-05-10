@@ -400,3 +400,98 @@ function getPositivistDate(currentDateTime_, timezoneOffset) {
     const output = `${dayMonthString}\n${year} of the Great Crisis${dayOfWeek}${positivistDay}`;
     return { output, day, month, year, dayOfWeek, other: { positivistDay } };
 }
+
+// --- Yerm calendar (Palmen) ---
+// 52 yerms × (17, 17, 15 months) = 25101 nights per cycle; noon-to-noon "nights".
+const YERM_YERMS_PER_CYCLE = 52;
+const YERM_EPOCH_CYCLE = 21;
+const YERM_MS_PER_NIGHT = 86400000;
+const YERM_CYCLE_TOTAL_NIGHTS = 25101;
+
+function yermMonthNightCount(monthInYerm) {
+    return (monthInYerm % 2 === 1) ? 30 : 29;
+}
+
+function yermNightsInYerm(yermInCycle) {
+    const monthCount = (yermInCycle % 3 === 0) ? 15 : 17;
+    let n = 0;
+    for (let m = 1; m <= monthCount; m++) {
+        n += yermMonthNightCount(m);
+    }
+    return n;
+}
+
+const YERM_LUNAR_WEEK_NAMES = [
+    'Moonnight',
+    'Tuesnight',
+    'Wensnight',
+    'Thursnight',
+    'Frinight',
+    'Saturnight',
+    'Soonnight',
+];
+const YERM_LUNAR_ORDINALS = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
+
+function yermLunarWeekLabel(nightInMonth, monthLength) {
+    if (nightInMonth === monthLength) {
+        return 'Lastnight';
+    }
+    const r = (nightInMonth - 1) % 7;
+    const ordinalIndex = Math.floor((nightInMonth - 1 - r) / 7);
+    const ordinalWord = YERM_LUNAR_ORDINALS[ordinalIndex] || `${ordinalIndex + 1}th`;
+    return `${ordinalWord} ${YERM_LUNAR_WEEK_NAMES[r]}`;
+}
+
+function getYermDate(currentDateTime_, timezoneOffset) {
+    const currentDateTime = createFauxUTCDate(currentDateTime_, timezoneOffset);
+    const anchor = createAdjustedDateTime({
+        year: 1996,
+        month: 11,
+        day: 11,
+        hour: 12,
+        minute: 0,
+        second: 0,
+        timezone: timezoneOffset,
+    });
+    const nightOffset = Math.floor((currentDateTime.getTime() - anchor.getTime()) / YERM_MS_PER_NIGHT);
+    const cycleBlock = Math.floor(nightOffset / YERM_CYCLE_TOTAL_NIGHTS);
+    const cycle = YERM_EPOCH_CYCLE + cycleBlock;
+    const posInCycle = nightOffset - cycleBlock * YERM_CYCLE_TOTAL_NIGHTS;
+
+    let yermInCycle = 1;
+    let nightsRemain = posInCycle;
+    for (let y = 1; y <= YERM_YERMS_PER_CYCLE; y++) {
+        const yn = yermNightsInYerm(y);
+        if (nightsRemain < yn) {
+            yermInCycle = y;
+            break;
+        }
+        nightsRemain -= yn;
+    }
+
+    const maxMonth = (yermInCycle % 3 === 0) ? 15 : 17;
+    let monthInYerm = 1;
+    while (monthInYerm <= maxMonth) {
+        const mlen = yermMonthNightCount(monthInYerm);
+        if (nightsRemain < mlen) {
+            break;
+        }
+        nightsRemain -= mlen;
+        monthInYerm++;
+    }
+    const nightInMonth = nightsRemain + 1;
+    const monthLength = yermMonthNightCount(monthInYerm);
+    const lunarWeek = yermLunarWeekLabel(nightInMonth, monthLength);
+
+    const yy = String(yermInCycle).padStart(2, '0');
+    const mm = String(monthInYerm).padStart(2, '0');
+    const dd = String(nightInMonth).padStart(2, '0');
+    const output = `${cycle}-${yy}(${mm}(${dd}\n${lunarWeek}`;
+    return {
+        output,
+        day: nightInMonth,
+        month: `${yermInCycle}-${monthInYerm}`,
+        year: cycle,
+        other: { yerm: yermInCycle, monthInYerm, night: nightInMonth, cycle, lunarWeek },
+    };
+}

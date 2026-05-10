@@ -210,6 +210,7 @@ function updateProposedCalendars(currentDateTime, timezoneOffset) {
     setTimeValue('symmetry454-node', out(getSymmetry454Date(currentDateTime, timezoneOffset)));
     setTimeValue('symmetry010-node', out(getSymmetry010Date(currentDateTime, timezoneOffset)));
     setTimeValue('positivist-node', out(getPositivistDate(currentDateTime, timezoneOffset)));
+    setTimeValue('yerm-node', out(getYermDate(currentDateTime, timezoneOffset)));
 }
 
 function updatePopCultureCalendars(currentDateTime, timezoneOffset) {

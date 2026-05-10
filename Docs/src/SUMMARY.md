@@ -245,6 +245,7 @@
   - [Positivist](ProposedCalendars/Positivist.md)
 
   - [MPSLC](ProposedCalendars/MPSLC.md)
+  - [Yerm](ProposedCalendars/Yerm.md)
 
 - [Alternative Time](AlternativeTime/AlternativeTime.md)
   

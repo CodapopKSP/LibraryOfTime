@@ -98,6 +98,22 @@ function testPositivistCalendar() {
     ]);
 }
 
+function testYermCalendar() {
+    return runCalendarTests('Yerm Calendar', getYermDate, [
+        ['1996-11-11, 12:00:00', 'UTC+00:00', '21-01(01(01\nFirst Moonnight'],
+        ['1998-3-28, 12:00:00', 'UTC+00:00', '21-02(01(01\nFirst Moonnight'],
+        ['1999-8-12, 12:00:00', 'UTC+00:00', '21-03(01(01\nFirst Moonnight'],
+        ['2000-10-28, 12:00:00', 'UTC+00:00', '21-04(01(01\nFirst Moonnight'],
+        ['2002-3-14, 12:00:00', 'UTC+00:00', '21-05(01(01\nFirst Moonnight'],
+        ['2003-7-29, 12:00:00', 'UTC+00:00', '21-06(01(01\nFirst Moonnight'],
+        ['2004-10-14, 12:00:00', 'UTC+00:00', '21-07(01(01\nFirst Moonnight'],
+        ['2006-2-28, 12:00:00', 'UTC+00:00', '21-08(01(01\nFirst Moonnight'],
+        ['1996-11-20, 12:00:00', 'UTC+00:00', '21-01(01(10\nSecond Wensnight'],
+        ['1997-1-8, 12:00:00', 'UTC+00:00', '21-01(02(29\nLastnight'],
+        ['1996-12-10, 12:00:00', 'UTC+00:00', '21-01(01(30\nLastnight'],
+    ]);
+}
+
 // Run all tests.
 function runProposedCalendarTests() {
     const testFunctions = [
@@ -108,6 +124,7 @@ function runProposedCalendarTests() {
         testSymmetry454Calendar,
         testSymmetry010Calendar,
         testPositivistCalendar,
+        testYermCalendar,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);
