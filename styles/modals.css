@@ -113,6 +113,12 @@
     margin: 2vh 0;
 }
 
+/* Full-width rows so .modal-image max-width % is relative to the modal, not a shrink-wrapped link. */
+.modal-images > a {
+    display: flex;
+    justify-content: center;
+}
+
 .modal-image {
     max-width: 80%;
     height: auto;
@@ -126,6 +132,14 @@
     margin: 0 auto;
     border: none;
     box-shadow: none;
+}
+
+/* Per image: style="--modal-image-vh: 35vh" (any length; vh recommended for modals).
+   width/height attributes only set aspect ratio; these declarations set display size. */
+.modal-image.modal-image-vh {
+    height: var(--modal-image-vh, 80vh);
+    width: auto;
+    object-fit: contain;
 }
 
 .modal-image-caption {

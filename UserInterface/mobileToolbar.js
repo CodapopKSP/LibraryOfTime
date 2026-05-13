@@ -203,6 +203,7 @@
 
         const glossaryBtn = document.getElementById("mobile-info-glossary");
         const makingBtn = document.getElementById("mobile-info-making");
+        const bcBceBtn = document.getElementById("mobile-info-bc-bce");
 
         if (glossaryBtn) {
             glossaryBtn.addEventListener("click", function () {
@@ -222,6 +223,17 @@
                 const m = document.getElementById("on-making-LoT-button");
                 if (m) {
                     m.click();
+                }
+            });
+        }
+
+        if (bcBceBtn) {
+            bcBceBtn.addEventListener("click", function () {
+                closeInfoSheet();
+                closeMobileToolSheets();
+                const b = document.getElementById("bc-vs-bce-button");
+                if (b) {
+                    b.click();
                 }
             });
         }

@@ -38,6 +38,7 @@
         <header class="site-header">
             <div class="header-left">
                 <button id="on-making-LoT-button" type="button">On Making the LoT</button>
+                <button id="bc-vs-bce-button" type="button">AD/BC vs CE/BCE</button>
                 <button id="glossary-button" type="button">Glossary</button>
             </div>
             <div class="site-header-title">
@@ -263,6 +264,7 @@
             <div class="mobile-info-sheet-inner">
                 <button type="button" id="mobile-info-glossary" class="mobile-info-action">Glossary</button>
                 <button type="button" id="mobile-info-making" class="mobile-info-action">On Making the LoT</button>
+                <button type="button" id="mobile-info-bc-bce" class="mobile-info-action">AD/BC vs CE/BCE</button>
             </div>
         </div>
         
@@ -363,6 +365,20 @@
             </div>
         </div>
 
+        <!-- Modal for AD/BC vs CE/BCE -->
+        <div id="bc-vs-bce-modal" class="modal">
+            <div class="modal-content modal-content--scroll-body">
+                <div class="modal-panel-header">
+                    <h2 id="bc-bce-modal-title" class="modal-panel-title"></h2>
+                    <button type="button" class="floating-panel-close" id="bc-bce-modal-close" aria-label="Close">&times;&#xFE0E;</button>
+                </div>
+                <div class="modal-body-scroll">
+                    <div id="bc-bce-modal-text" class="modal-text"></div>
+                    <button type="button" id="bc-bce-modal-close-button" class="modal-close-button">Close</button>
+                </div>
+            </div>
+        </div>
+        
         <!-- Modal for Glossary -->
         <div id="glossary-modal" class="modal">
             <div class="modal-content modal-content--scroll-body">
@@ -380,6 +396,7 @@
     
     <script src="Content/descriptionText.js"></script>
     <script src="Content/onMakingLoT.js"></script>
+    <script src="Content/bcVsBce.js"></script>
     <script src="Content/glossary.js"></script>
     <script src="CalendarAPI/Other/astronomicalData.js"></script>
     <script src="CalendarAPI/Other/popCulture.js"></script>

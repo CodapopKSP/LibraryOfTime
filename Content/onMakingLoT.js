@@ -11,7 +11,7 @@ const modalContent = {
         But much like how the <a href="https://en.wikipedia.org/wiki/Rosetta_Stone" target="_blank" rel="noopener noreferrer">Rosetta Stone</a> allowed linguists to decode ancient Egyptian hieroglyphs by having the same passage also written in Ancient Greek and Demotic, these earlier websites have given me tools to help me calibrate unknown calendars to known ones. 
         </p>
         <p>
-        <img src="Content/OnMakingLoTImages/rosettastone.webp" alt="Rosetta Stone" class="modal-image modal-image-inline">
+        <img src="Content/OnMakingLoTImages/rosettastone.webp" width="576" height="576" alt="Rosetta Stone" class="modal-image modal-image-inline modal-image-vh" style="--modal-image-vh: 45vh;">
         <small class="modal-image-caption">
         Source: Wikimedia Commons, "Rosetta Stone.svg" (CC0).
         </small>
@@ -37,16 +37,16 @@ const modalContent = {
             </button>
             <div class="modal-images" id="modal-images" style="display: none;">
                 <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm" target="_blank" rel="noopener noreferrer">
-                    <img src="Content/OnMakingLoTImages/darian.webp" alt="Darian Calendar Screenshot" class="modal-image">
+                    <img src="Content/OnMakingLoTImages/darian.webp" width="890" height="1026" alt="Darian Calendar Screenshot" class="modal-image modal-image-vh" style="--modal-image-vh: 60vh;">
                 </a>
                 <a href="http://www.leapsecond.com/java/gpsclock.htm" target="_blank" rel="noopener noreferrer">
-                    <img src="Content/OnMakingLoTImages/leapsecond.png" alt="Leap Second Screenshot" class="modal-image">
+                    <img src="Content/OnMakingLoTImages/leapsecond.png" width="743" height="745" alt="Leap Second Screenshot" class="modal-image modal-image-vh" style="--modal-image-vh: 40vh;">
                 </a>
                 <a href="http://the-light.com/cal/converter/" target="_blank" rel="noopener noreferrer">
-                    <img src="Content/OnMakingLoTImages/hermetic.png" alt="Hermetic Calendar Screenshot" class="modal-image">
+                    <img src="Content/OnMakingLoTImages/hermetic.png" width="1350" height="893" alt="Hermetic Calendar Screenshot" class="modal-image modal-image-vh" style="--modal-image-vh: 40vh;">
                 </a>
                 <a href="https://www.fourmilab.ch/documents/calendar/" target="_blank" rel="noopener noreferrer">
-                    <img src="Content/OnMakingLoTImages/calendarconverter.png" alt="Calendar Converter Screenshot" class="modal-image">
+                    <img src="Content/OnMakingLoTImages/calendarconverter.png" width="1234" height="1429" alt="Calendar Converter Screenshot" class="modal-image modal-image-vh" style="--modal-image-vh: 60vh;">
                 </a>
             </div>
         </div>`,
@@ -56,7 +56,7 @@ const modalContent = {
         My studies have also brought me to the writings of <a href="https://en.wikipedia.org/wiki/Jean_Meeus" target="_blank" rel="noopener noreferrer">Jean Meeus</a>, who is the author of <strong>Astronomical Algorithms</strong>, a compilation of some of the most incredible math equations for calculating the times and positions of celestial phenomena with high precision. He is the principal astronomer for hobbyists, and his work is unmatched to this day among amateurs despite being from 1991. 
         </p>
         <p>
-        <img src="Content/OnMakingLoTImages/astronomicalalgorithms.webp" alt="Astronomical Algorithms" class="modal-image modal-image-inline">
+        <img src="Content/OnMakingLoTImages/astronomicalalgorithms.webp" width="329" height="500" alt="Astronomical Algorithms" class="modal-image modal-image-inline modal-image-vh" style="--modal-image-vh: 35vh;">
         </p>`,
 
         `<h3>The Imperfection of Cycles</h3>
@@ -70,7 +70,7 @@ const modalContent = {
 
         `<p>
         <a href="https://en.wikipedia.org/wiki/Orbit_of_the_Moon" target="_blank" rel="noopener noreferrer">
-        <img src="Content/OnMakingLoTImages/moonearthdistance.png" alt="Moon-Earth Distance" class="modal-image modal-image-inline">
+        <img src="Content/OnMakingLoTImages/moonearthdistance.png" width="720" height="215" alt="Moon-Earth Distance" class="modal-image modal-image-inline modal-image-vh" style="--modal-image-vh: 22vh;">
         </a>
         <small class="modal-image-caption">
         The Moon's distance from Earth and Moon phases in 2014 (0/0.25/0.5/0.75 = new/first quarter/full/last quarter). By Darekk2 (own work), <a href="https://commons.wikimedia.org/wiki/File:Moon-Earth_distance,_Moon_phases.gif" target="_blank" rel="noopener noreferrer">File:Moon-Earth distance, Moon phases.gif</a>, licensed <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a>. Calculations based on Jean Meeus, <i>Astronomical Algorithms</i> (1991) and <i>Astronomical Formulae for Calculators</i> (1988).
