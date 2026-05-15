@@ -55,4 +55,8 @@ Since this calendar is a simple formula with a known epoch, this calculation is 
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Mandaean_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Mandaean_calendar)
+
+### Primary Sources
+

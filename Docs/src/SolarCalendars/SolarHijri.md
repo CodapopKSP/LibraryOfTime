@@ -39,4 +39,8 @@ This calendar also may experience errors in its alignment with the Zodiac, as it
 
 #### Source
 
-Much of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Solar_Hijri_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Solar_Hijri_calendar)
+
+### Primary Sources
+[Iranian Chamber Society website](https://www.iranchamber.com/calendar/converter/iranian_calendar_converter.php)

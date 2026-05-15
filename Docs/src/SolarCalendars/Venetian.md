@@ -33,4 +33,8 @@ This calendar is based on the Julian calendar and is considered to be exactly ac
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/More_veneto).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/More_veneto)
+
+### Primary Sources
+[Florian website](https://caffeflorian.com/en/the-venetian-calendar-a-journey-through-history-and-tradition/)

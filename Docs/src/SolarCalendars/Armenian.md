@@ -79,4 +79,11 @@ As this is a simple calculation with a known epoch, this calendar is exactly acc
 
 #### Source
 
-All of the information for this calendar came from its [Wikipedia page](https://en.wikipedia.org/wiki/Armenian_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Armenian_calendar)
+
+### Primary Sources
+
+[Epoch Info](https://ui.adsabs.harvard.edu/scan/manifest/1974JHA.....5...91T?utm_source=chatgpt.com)
+
+[Calendar specifics](https://haytomar.com/en)

@@ -55,4 +55,8 @@ This calendar is a simple cycle of days with a known epoch and is expected to be
 
 #### Source
 
-All of the information for this timekeeping system has come from its [Wikipedia article](https://en.wikipedia.org/wiki/Pawukon_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Pawukon_calendar)
+
+### Primary Sources
+

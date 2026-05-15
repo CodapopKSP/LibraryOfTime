@@ -18,4 +18,8 @@ The Juche calendar is intrinsically based on and locked to the Gregorian calenda
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Juche_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Juche_calendar)
+
+### Primary Sources
+[Koryo Tours website](https://koryogroup.com/blog/what-year-is-it-in-north-korea-understanding-the-juche-calendar)

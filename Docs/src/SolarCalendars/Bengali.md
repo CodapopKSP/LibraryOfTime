@@ -47,4 +47,9 @@ This calendar is intrinsically tied to the Gregorian calendar and is exactly acc
 
 #### Source
 
-All of the information for this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Bengali_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Bengali_calendar)
+
+### Primary Sources
+
+This calendar can be calibrarted at [the Bengali calendar website](https://www.bengalicalendar.com/).

@@ -18,4 +18,8 @@ As this is a simple addition to the Gregorian calendar, this calculation is exac
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Anno_Lucis).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Anno_Lucis)
+
+### Primary Sources
+[Freemason website](https://www.masonic-lodge-of-education.com/anno-lucis.html)

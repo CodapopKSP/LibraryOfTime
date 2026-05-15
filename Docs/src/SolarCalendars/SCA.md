@@ -33,5 +33,9 @@ As this calendar is based off the Gregorian calendar, this calculation is exactl
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Society_for_Creative_Anachronism) as well as the [SCA website](https://www.sca.org/sca-calendar-reckoning-dates-in-the-society/).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Society_for_Creative_Anachronism)
+
+### Primary Sources
+[SCA website](https://www.sca.org/sca-calendar-reckoning-dates-in-the-society/)
 

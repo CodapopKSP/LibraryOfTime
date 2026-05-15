@@ -35,4 +35,8 @@ Historians are also somewhat unsure about how many cycles have passed, and it's 
 
 #### Source
 
-All of the information for this timekeeping system has come from its [Wikipedia article](https://en.wikipedia.org/wiki/Sothic_cycle).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Sothic_cycle)
+
+### Primary Sources
+

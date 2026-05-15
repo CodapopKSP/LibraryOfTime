@@ -52,6 +52,8 @@ The inclusion of the current date of the Nakaiy is not strictly present in offic
 
 #### Source
 
-All of the information for this calendar came from [this website](https://shaheeilyas.com/nakaiynevi/list/).
+### Common Source
+[Calendar overview](https://shaheeilyas.com/nakaiynevi/list/)
 
-[This website](https://www.maldivesfishermensassociation.org/resources/weather) appears to be more official and gives most of the same information.
+### Primary Sources
+[Maldives Fishermens Association website](https://www.maldivesfishermensassociation.org/resources/weather)

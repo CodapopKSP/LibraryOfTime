@@ -34,4 +34,8 @@ This calendar is based on the Julian calendar and is considered to be exactly ac
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Pisan_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Pisan_calendar)
+
+### Primary Sources
+[Terre di Pisa website](https://www.terredipisa.it/en/events/pisan-new-year/)

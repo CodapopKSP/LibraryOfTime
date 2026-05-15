@@ -34,4 +34,8 @@ The Pataphysical calendar is based off the Gregorian calendar and is thus exactl
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/%27Pataphysics#Pataphysical_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/%27Pataphysics#Pataphysical_calendar)
+
+### Primary Sources
+[Pataphysics website](https://www.patakosmos.com/database-open-access/Pataphysical_calendar_en.pdf)

@@ -42,4 +42,8 @@ The Yuga Cycle is ultimately based off the Gregorian calendar via the Kali Aharg
 
 #### Source
 
-All of the information for this timekeeping system has come from its [Wikipedia article](https://en.wikipedia.org/wiki/Yuga_cycle).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Yuga_cycle)
+
+### Primary Sources
+

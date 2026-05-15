@@ -39,4 +39,8 @@ The date of leap days might not be exactly aligned with the Gregorian calendar h
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Julian_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Julian_calendar)
+
+### Primary Sources
+[NASA website](https://eclipse.gsfc.nasa.gov/SEhelp/calendars.html)

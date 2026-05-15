@@ -37,5 +37,9 @@ As this calendar is intrinsically locked to the Gregorian calendar, this calcula
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Indian_national_calendar), but there are some additional details found [here](https://archive.org/details/IndianCalendricSystem-SK-Chatterjee/page/n25/mode/2up).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Indian_national_calendar)
+
+### Primary Sources
+[Indian Calendric System - SK Chatterjee, page 18](https://archive.org/details/IndianCalendricSystem-SK-Chatterjee/page/n25/mode/2up).
 

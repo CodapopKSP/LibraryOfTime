@@ -20,4 +20,8 @@ Being an ISO standard with a standard calculation, this calendar is expected to 
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/ISO_week_date).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/ISO_week_date)
+
+### Primary Sources
+[ISOWeeks website](https://isoweeks.com/)

@@ -38,4 +38,8 @@ The French Republican calendar also had some issues with rules that contracticte
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/French_Republican_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/French_Republican_calendar)
+
+### Primary Sources
+[This website](https://gefrance.com/the-french-republican-calendar/) has the full text of the legislative decrees.

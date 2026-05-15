@@ -370,6 +370,48 @@
     text-align: justify;
 }
 
+/* Source tab: markdown # headings from buildNodeData (ATX → <h1>…<h6>) */
+.nodeinfo-source h1,
+.nodeinfo-source h2,
+.nodeinfo-source h3,
+.nodeinfo-source h4,
+.nodeinfo-source h5,
+.nodeinfo-source h6 {
+    white-space: normal;
+    font-family: var(--ui-font-heading);
+    color: rgba(245, 245, 245, 0.92);
+    font-weight: 600;
+    text-align: left;
+    margin: 0 0 0.2em;
+    line-height: 1.22;
+}
+
+.nodeinfo-source :is(h1, h2, h3, h4, h5, h6):first-of-type {
+    margin-top: 0.4em;
+}
+
+.nodeinfo-source :is(h1, h2, h3, h4, h5, h6):not(:first-of-type) {
+    margin-top: 0.95em;
+}
+
+.nodeinfo-source h1,
+.nodeinfo-source h2 {
+    font-size: 2.3vh;
+}
+
+.nodeinfo-source h3 {
+    font-size: 2.1vh;
+}
+
+.nodeinfo-source h4 {
+    font-size: 1.95vh;
+}
+
+.nodeinfo-source h5,
+.nodeinfo-source h6 {
+    font-size: 1.85vh;
+}
+
 /* Desktop description actions: no layout space until a calendar node is selected. */
 .desktop-description-actions {
     display: none;

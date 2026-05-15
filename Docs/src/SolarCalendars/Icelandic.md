@@ -39,5 +39,9 @@ This calendar has a long history with several slight changes, especially regardi
 
 #### Source
 
-All of the information for this calendar came from [this paper](https://www2.math.uu.se/~svantejs/papers/calendars/iceland.pdf).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Early_Germanic_calendars)
+
+### Primary Sources
+[The Icelandic Calendar - Svante Janson](https://www2.math.uu.se/~svantejs/papers/calendars/iceland.pdf)
 

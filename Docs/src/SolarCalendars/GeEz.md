@@ -36,6 +36,9 @@ The Ge'ez calendar is intrinsically based on and locked to the Julian calendar, 
 
 #### Source
 
-Much of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Ethiopian_calendar).
+### Common Source
 
-This calendar has been calibrated using the calendar found [here](https://www.ethcalendar.com/).
+[Wikipedia article](https://en.wikipedia.org/wiki/Ethiopian_calendar)
+
+### Primary Sources
+[Ethiopian Calendar website](https://ethiopiancalendars.com/)

@@ -38,6 +38,11 @@ The Coptic calendar is intrinsically based on and locked to the Julian calendar,
 
 #### Source
 
-Much of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Coptic_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Coptic_calendar)
+
+
+### Primary Sources
+[Coptic Church website](https://www.copticchurch.net/calendar)
 
 This calendar has been calibrated using the calendar found [here](https://www.copticbook.net/daily.php?m=9&d=25&mode=1&itemnum=1).

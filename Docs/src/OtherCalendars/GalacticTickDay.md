@@ -41,4 +41,8 @@ In this calculation, these math errors have all been patched except for the use 
 
 #### Source
 
-All of the information for this timekeeping system has come from its [Wikipedia article](https://en.wikipedia.org/wiki/Galactic_Tick_Day).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Galactic_Tick_Day)
+
+### Primary Sources
+

@@ -20,4 +20,8 @@ The Minguo calendar is intrinsically based on and locked to the Gregorian calend
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Republic_of_China_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Republic_of_China_calendar)
+
+### Primary Sources
+

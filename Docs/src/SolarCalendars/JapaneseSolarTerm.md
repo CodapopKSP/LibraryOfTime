@@ -93,4 +93,8 @@ This calendar is a simple cycle, though it relies on the calculation for the Lon
 
 #### Source
 
-All of the information for this calendar came from its [Wikipedia Page](https://en.wikipedia.org/wiki/Japanese_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Japanese_calendar)
+
+### Primary Sources
+[Nippon website](https://www.nippon.com/en/features/h00124/)

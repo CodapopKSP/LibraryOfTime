@@ -33,4 +33,8 @@ The Byzantine calendar is intrinsically based on and locked to the Julian calend
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Byzantine_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Byzantine_calendar)
+
+### Primary Sources
+[Orthodox Christian website](https://orthochristian.com/97046.html)

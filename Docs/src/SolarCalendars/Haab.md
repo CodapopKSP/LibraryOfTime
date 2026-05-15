@@ -33,6 +33,8 @@ This calendar is still used today in some Maya groups, and it has been calibrate
 
 #### Source
 
-Much of the information on this calendar can be found at its [Wikipedia article](https://en.wikipedia.org/wiki/Maya_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Maya_calendar)
 
+### Primary Sources
 The [Smithsonian website](https://maya.nmai.si.edu/calendar/maya-calendar-converter) has the current day as well as a converter, though it is broken for dates before the Long Count epoch.

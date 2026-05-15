@@ -56,6 +56,10 @@ This calendar is a simple calculation based off the Gregorian calendar. However,
 
 #### Source
 
-Much of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Zoroastrian_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Zoroastrian_calendar)
+
+### Primary Sources
+[Zoroastrian website](https://zanc.org/zcal/zcal.html)
 
 This calendar can be calibrated using the calculator at [this site](http://www.zcserv.com/calendar/).

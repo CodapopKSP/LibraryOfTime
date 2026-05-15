@@ -39,4 +39,8 @@ The Gregorian calendar is exactly accurate, as it is what this entire site is ba
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Gregorian_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Gregorian_calendar)
+
+### Primary Sources
+[NASA website](https://eclipse.gsfc.nasa.gov/SEhelp/calendars.html)

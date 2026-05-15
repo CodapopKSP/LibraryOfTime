@@ -29,4 +29,9 @@ The Discordian calendar is based off the Gregorian calendar and is thus exactly 
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Discordian_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Discordian_calendar)
+
+### Primary Sources
+[Discordian website](https://www.discordianism.org/more-chaos/discordian_calendar.html)
+

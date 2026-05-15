@@ -49,8 +49,10 @@ There seems to be an issue with the stated epoch on Wikipedia being 1 day later 
 
 #### Source
 
-A lot of the information about this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar)
 
+### Primary Sources
 Dates can be referenced at the [official Baháʼí website](https://www.bahai.org/action/devotional-life/calendar).
 
 One of the people running the live chat at [Baha'is of the United States](https://www.bahai.us/events-calendar/holy-days/) was kind enough to provide me with their [50-year calendar](https://bahai-library.com/pdf/uhj/uhj_bahai_dates_172-221.pdf), which has been used to calibrate this calendar.

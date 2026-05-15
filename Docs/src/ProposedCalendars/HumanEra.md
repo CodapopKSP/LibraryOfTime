@@ -20,4 +20,8 @@ As this calendar is only a proposal, there really isn't anything to compare it t
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Holocene_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Holocene_calendar)
+
+### Primary Sources
+

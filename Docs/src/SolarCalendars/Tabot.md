@@ -35,4 +35,10 @@ As this calendar is intrinsically locked to the Gregorian calendar, this calcula
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Tabot_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Tabot_calendar)
+
+### Primary Sources
+[Tabot website](https://tabot.co.uk/tabot-calendar/)
+
+The Tabot calendar was created by Hermetic Systems and can be found [here](https://www.hermetic.ch/cal_stud/tabot.htm).

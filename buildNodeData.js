@@ -366,12 +366,38 @@ function convertMarkdownTables(text) {
     return result.join('\n');
 }
 
+// Convert ATX markdown headings (lines starting with # …) to HTML.
+// Run after tables, before links, so heading text can still contain [text](url).
+// Used for the Source tab only so other tabs keep plain # lines if any.
+function convertMarkdownHeadings(text) {
+    return text.split('\n').map(function (line) {
+        const m = line.match(/^(#{1,6})\s+(.+)$/);
+        if (!m) {
+            return line;
+        }
+        const level = m[1].length;
+        let inner = m[2].trim().replace(/\s+#+\s*$/, '').trim();
+        return '<h' + level + '>' + inner + '</h' + level + '>';
+    }).join('\n');
+}
+
+// Collapse whitespace next to <h1>…</h6> so .nodeinfo-source (pre-wrap) does not show huge gaps.
+function trimWhitespaceAroundSourceHeadings(html) {
+    return html
+        .replace(/(<\/h[1-6]>)\s+/g, '$1')
+        .replace(/\s+(<h[1-6]\b)/g, '$1');
+}
+
 // Format the node data object as JavaScript code
 function formatNodeData(nodeData) {
-    // Process each field: convert tables first, then links, then escape
-    const processField = (text) => {
+    // Process each field: convert tables first, optional headings (source tab), then links, then escape
+    const processField = (text, options) => {
+        const opts = options || {};
         // First convert markdown tables to HTML (this removes newlines from tables)
         let processed = convertMarkdownTables(text);
+        if (opts.markdownHeadings) {
+            processed = convertMarkdownHeadings(processed);
+        }
         // Then convert markdown links
         processed = convertMarkdownLinks(processed);
         return processed;
@@ -380,7 +406,8 @@ function formatNodeData(nodeData) {
     const overview = processField(nodeData.overview);
     const info = processField(nodeData.info);
     const accuracy = processField(nodeData.accuracy);
-    const source = processField(nodeData.source);
+    let source = processField(nodeData.source, { markdownHeadings: true });
+    source = trimWhitespaceAroundSourceHeadings(source);
     
     // Escape backticks, handle template literals, and convert newlines to \n
     // But preserve HTML tables (they're already single-line)

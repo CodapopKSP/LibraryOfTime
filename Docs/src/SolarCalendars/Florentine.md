@@ -36,4 +36,8 @@ The Florentine calendar is intrinsically based on and locked to the Julian calen
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Florentine_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Florentine_calendar)
+
+### Primary Sources
+[Florence website](https://www.florenceitaly.org/florentine-new-year-on-march-25th-the-tradition-that-lives-on-over-the-centuries/?lang=en)

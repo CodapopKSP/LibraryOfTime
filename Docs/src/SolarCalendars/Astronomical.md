@@ -35,4 +35,9 @@ This calendar is a simple calculation and is considered to be exactly accurate.
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Astronomical_year_numbering).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Astronomical_year_numbering)
+
+### Primary Sources
+
+Jean Meeus outlines the usage of the Astronomical calendar starting on page 59 of [Astronomical Algorithms](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n63/mode/2up).

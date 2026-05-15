@@ -31,4 +31,8 @@ The Thai solar calendar is intrinsically based on and locked to the Gregorian ca
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Thai_solar_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Thai_solar_calendar)
+
+### Primary Sources
+[Thai Healing Alliance website](https://www.thaihealingalliance.com/wp-content/uploads/The_Thai_Calendar.pdf)

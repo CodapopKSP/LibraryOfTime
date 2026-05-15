@@ -49,4 +49,8 @@ Wikipedia noted that 10 March 2012 marked the year-counting festival and noted t
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Igbo_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Igbo_calendar)
+
+### Primary Sources
+

@@ -20,4 +20,8 @@ The exact start of the Olympic games is unclear, and most sources will just say 
 
 #### Source
 
-All of the information for this timekeeping system has come from its [Wikipedia article](https://en.wikipedia.org/wiki/Olympiad).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Olympiad)
+
+### Primary Sources
+

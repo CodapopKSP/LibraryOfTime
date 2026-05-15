@@ -49,4 +49,10 @@ This calendar is a simple calculation, but it relies on the calculation for the 
 
 #### Source
 
-All of the information for this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Solar_term).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Solar_term)
+
+### Primary Sources
+[Chinese calendar calculation source](https://ytliu0.github.io/ChineseCalendar/solarTerms.html)
+
+[China Highlights website](https://www.chinahighlights.com/festivals/the-24-solar-terms.htm)

@@ -20,4 +20,9 @@ Era Fascista is intrinsically based on and locked to the Gregorian calendar, mak
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Era_Fascista).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Era_Fascista)
+
+### Primary Sources
+[Era Fascista: Dates for Genealogists](https://dn710202.ca.archive.org/0/items/era-fascistica-summary/Era%20Fascistica%20Summary.pdf)
+

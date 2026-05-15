@@ -47,6 +47,10 @@ This calendar is based on the Sothic Cycle, which is well-established to the Gre
 
 #### Source
 
-Much of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Egyptian_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Egyptian_calendar)
+
+### Primary Sources
+[Cosmology Across Cultures, 2009](https://www.aspbooks.org/publications/409/116.pdf)
 
 Month names and other general data came from [this site](https://ancientegyptonline.co.uk/calendar/).
