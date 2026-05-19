@@ -26,6 +26,10 @@ The Kali Ahargaṅa is based off the Gregorian calendar and is considered to be 
 
 #### Source
 
-Much of the information for this timekeeping system has come from its [Wikipedia article](https://en.wikipedia.org/wiki/Kali_ahargana).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Kali_ahargana)
 
-You can find another converter for this system [here](https://planetcalc.com/9166/).
+### Primary Sources
+[Vedic Astronomy blog](https://vedicastronomy.blogspot.com/2010/07/ahargana-is-defined-as-no-of-days.html)
+
+[Planet Calc website](https://planetcalc.com/9166/)

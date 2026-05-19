@@ -18,4 +18,8 @@ This timekeeping system should be perfectly accurate but the epoch will not be t
 
 #### Source
 
-This calculation was sourced from the movie [Inception](https://en.wikipedia.org/wiki/Inception_(film)).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Inception_(film)
+
+### Primary Sources
+

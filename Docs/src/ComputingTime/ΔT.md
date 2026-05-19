@@ -22,7 +22,8 @@ The epoch for this value is not an epoch but rather a moment where ΔT is close 
 
 #### Source
 
-This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.
+### Primary Sources
+This calculation was sourced from [the NASA Eclipse Web Site](https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html), which provides polynomial expressions for ΔT.
 
 ---
 

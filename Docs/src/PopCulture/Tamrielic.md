@@ -22,4 +22,8 @@ Since this calendar is a simple mapping to the Gregorian calendar, it is perfect
 
 #### Source
 
-This calculation was sourced from [The Elder Scrolls](https://en.wikipedia.org/wiki/The_Elder_Scrolls).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/The_Elder_Scrolls)
+
+### Primary Sources
+

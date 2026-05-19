@@ -18,4 +18,8 @@ This counter is rigorously-studied and exactly accurate, with the only question 
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Julian_day).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Julian_day)
+
+### Primary Sources
+[NASA JPL website](https://ssd.jpl.nasa.gov/tools/jdc/#/cd)

@@ -18,4 +18,8 @@ The Julian Period is a simple count of days, meaning it should be exactly accura
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Julian_day).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Julian_day)
+
+### Primary Sources
+[The Encyclopedia of Diderot & d'Alembert website](https://quod.lib.umich.edu/d/did/did2222.0004.168/--julian-period?rgn=main;view=fulltext;q1=Jean+Le+Rond+d+Alembert)

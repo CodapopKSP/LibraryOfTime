@@ -26,5 +26,8 @@ This is a simple calculation and is exactly accurate, though it assumes sunrise 
 
 #### Source
 
-All of the information in this clock comes from this [Wikipedia page](https://en.wikipedia.org/wiki/Zoroastrian_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Zoroastrian_calendar)
 
+### Primary Sources
+[Zoroastrian website](https://zoroastrians.net/2025/11/30/spiritual-significance-of-the-five-periods-of-the-day/)

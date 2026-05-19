@@ -22,4 +22,8 @@ The lunation number is a simple calculation of time since the epoch divided by t
 
 #### Source
 
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/New_moon)
+
+### Primary Sources
 This lunation number was calibrated using [this converter](https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm).

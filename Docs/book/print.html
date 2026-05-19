@@ -455,8 +455,11 @@ const startNextMillennium = createDateWithFixedYear(startYear + 10, 0, 1);
 <h4 id="accuracy-11"><a class="header" href="#accuracy-11">Accuracy</a></h4>
 <p>As Unix is the source of all timekeeping systems on this site, it is perfectly accurate.</p>
 <h4 id="source-11"><a class="header" href="#source-11">Source</a></h4>
+<h3 id="common-source"><a class="header" href="#common-source">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Unix_time">Wikipedia article</a></p>
+<h3 id="primary-sources"><a class="header" href="#primary-sources">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/clock">Epoch Converter website</a></p>
 <p>Unix time is the source of all other timekeeping systems on this website. It is as accurate as JavaScript's Date library and your device's system time allow.</p>
-<p>Some information for this clock came from <a href="https://en.wikipedia.org/wiki/Unix_time">this website</a>.</p>
 <hr />
 <h3 id="calculation-11"><a class="header" href="#calculation-11">Calculation</a></h3>
 <p>This clock shouldn't need to be calculated, since dateTime already provides the Unix time.</p>
@@ -476,8 +479,11 @@ const startNextMillennium = createDateWithFixedYear(startYear + 10, 0, 1);
 <h3 id="accuracy-12"><a class="header" href="#accuracy-12">Accuracy</a></h3>
 <p>This clock is considered to be perfectly accurate, as it's a simple calculation from Unix.</p>
 <h3 id="source-12"><a class="header" href="#source-12">Source</a></h3>
-<p>Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping">Wikipedia article</a>.</p>
-<p>Some information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.</p>
+<h3 id="common-source-1"><a class="header" href="#common-source-1">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping">Wikipedia article</a></p>
+<h3 id="primary-sources-1"><a class="header" href="#primary-sources-1">Primary Sources</a></h3>
+<p><a href="http://www.leapsecond.com/java/gpsclock.htm">Leap Second website</a></p>
+<p><a href="https://www.epochconverter.com/gps">Epoch Converter website</a></p>
 <hr />
 <h2 id="calculation-12"><a class="header" href="#calculation-12">Calculation</a></h2>
 <p>Calculating the current GPS time requires starting with the GPS epoch. and subtracting it from the current datetime.</p>
@@ -529,8 +535,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-13"><a class="header" href="#accuracy-13">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source-13"><a class="header" href="#source-13">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/gps">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-2"><a class="header" href="#primary-sources-2">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/gps">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tai"><a class="header" href="#tai">TAI</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>31 December 1971 CE, +23:59:50</td><td>Exact</td><td>Paris</td></tr>
@@ -543,8 +549,11 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-14"><a class="header" href="#accuracy-14">Accuracy</a></h4>
 <p>This clock is considered to be perfectly accurate, as it's a simple calculation from UTC. However, this only applies to dates after the Unix epoch of 1 January 1970. Prior to that, leap seconds aren't taken into account in this calculation.</p>
 <h4 id="source-14"><a class="header" href="#source-14">Source</a></h4>
-<p>Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">Wikipedia article</a>.</p>
-<p>Some information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.</p>
+<h3 id="common-source-2"><a class="header" href="#common-source-2">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/International_Atomic_Time">Wikipedia article</a></p>
+<h3 id="primary-sources-3"><a class="header" href="#primary-sources-3">Primary Sources</a></h3>
+<p><a href="http://www.leapsecond.com/java/gpsclock.htm">Leap Second website</a></p>
+<p><a href="https://gssc.esa.int/navipedia/index.php/Atomic_Time">ESA website</a></p>
 <hr />
 <h3 id="calculation-13"><a class="header" href="#calculation-13">Calculation</a></h3>
 <p>Calculating TAI is typically done using sensitive instruments rather than programmatically. However, an approximation that is good enough for an 'Exact' confidence classification on this site can be calculated by adding up the number of leap seconds that have passed plus 10 seconds.</p>
@@ -599,7 +608,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-15"><a class="header" href="#accuracy-15">Accuracy</a></h4>
 <p>This clock relies on the ΔT calculations, which are only approximations. On top of that, they were created in the 1990s are are certainly out of date by a few seconds.</p>
 <h4 id="source-15"><a class="header" href="#source-15">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Terrestrial_Time">Wikipedia article</a>.</p>
+<h3 id="common-source-3"><a class="header" href="#common-source-3">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Terrestrial_Time">Wikipedia article</a></p>
+<h3 id="primary-sources-4"><a class="header" href="#primary-sources-4">Primary Sources</a></h3>
+<p><a href="https://gssc.esa.int/navipedia/index.php/Atomic_Time">ESA website</a></p>
 <hr />
 <h3 id="calculation-14"><a class="header" href="#calculation-14">Calculation</a></h3>
 <p>Calculating TT simply involves adding ΔT to the current datetime.</p>
@@ -617,7 +629,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-16"><a class="header" href="#accuracy-16">Accuracy</a></h4>
 <p>It is difficult to find a current representation of LORAN-C despite it apparently still being in use. I have reconstructed this clock based off of the provided source as well as explanations of the specifics.</p>
 <h4 id="source-16"><a class="header" href="#source-16">Source</a></h4>
-<p>Much of the information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.</p>
+<h3 id="primary-sources-5"><a class="header" href="#primary-sources-5">Primary Sources</a></h3>
+<p><a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="filetime"><a class="header" href="#filetime">FILETIME</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 1601 CE</td><td>Exact</td><td>Redmond, WA</td></tr>
@@ -630,7 +643,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-17"><a class="header" href="#accuracy-17">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count 100-nanosecond intervals, instead updating on the site's global 20ms update cycle.</p>
 <h4 id="source-17"><a class="header" href="#source-17">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/System_time">Wikipedia article</a>.</p>
+<h3 id="common-source-4"><a class="header" href="#common-source-4">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/System_time">Wikipedia article</a></p>
+<h3 id="primary-sources-6"><a class="header" href="#primary-sources-6">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/ldap">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="net-datetime-ticks"><a class="header" href="#net-datetime-ticks">.NET DateTime Ticks</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 0001 CE, 00:00:00 UTC</td><td>Exact</td><td>Redmond, WA</td></tr>
@@ -642,8 +658,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-18"><a class="header" href="#accuracy-18">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count 100-nanosecond intervals, instead updating on the site's global 20ms update cycle.</p>
 <h4 id="source-18"><a class="header" href="#source-18">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/dotnet">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-7"><a class="header" href="#primary-sources-7">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/dotnet">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="chromewebkit"><a class="header" href="#chromewebkit">Chrome/WebKit</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 1601 CE, 00:00:00 UTC</td><td>Exact</td><td>Redmond, WA</td></tr>
@@ -657,8 +673,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-19"><a class="header" href="#accuracy-19">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count microseconds, instead updating on the site's global 20ms update cycle.</p>
 <h4 id="source-19"><a class="header" href="#source-19">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/webkit">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-8"><a class="header" href="#primary-sources-8">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/webkit">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="unix-hex"><a class="header" href="#unix-hex">Unix Hex</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 1970 CE</td><td>Exact</td><td>Murray Hill, New Jersey</td></tr>
@@ -670,8 +686,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-20"><a class="header" href="#accuracy-20">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source-20"><a class="header" href="#source-20">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/hex">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-9"><a class="header" href="#primary-sources-9">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/hex">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cocoa-core-data"><a class="header" href="#cocoa-core-data">Cocoa Core Data</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 2001 CE, 00:00:00 UTC</td><td>Exact</td><td>Cupertino, CA</td></tr>
@@ -684,8 +700,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-21"><a class="header" href="#accuracy-21">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source-21"><a class="header" href="#source-21">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/coredata">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-10"><a class="header" href="#primary-sources-10">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/coredata">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mac-hfs"><a class="header" href="#mac-hfs">Mac HFS+</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 1904 CE, 00:00:00 UTC</td><td>Exact</td><td>Cupertino, CA</td></tr>
@@ -698,8 +714,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-22"><a class="header" href="#accuracy-22">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source-22"><a class="header" href="#source-22">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/mac">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-11"><a class="header" href="#primary-sources-11">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/mac">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ntp"><a class="header" href="#ntp">NTP</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 1900 CE, 00:00:00 UTC</td><td>Exact</td><td>Newark, DE</td></tr>
@@ -712,8 +728,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-23"><a class="header" href="#accuracy-23">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source-23"><a class="header" href="#source-23">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/ntp">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-12"><a class="header" href="#primary-sources-12">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/ntp">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dos-fatfat32"><a class="header" href="#dos-fatfat32">DOS FAT/FAT32</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>Local civil time; MS-DOS date field counts years from 1980 CE</td><td>Exact</td><td>Redmond, WA</td></tr>
@@ -725,8 +741,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-24"><a class="header" href="#accuracy-24">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source-24"><a class="header" href="#source-24">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/fat">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-13"><a class="header" href="#primary-sources-13">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/fat">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sas-4gl"><a class="header" href="#sas-4gl">SAS 4GL</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 1960 CE, 00:00:00 UTC</td><td>Exact</td><td>Cary, NC</td></tr>
@@ -738,8 +754,8 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-25"><a class="header" href="#accuracy-25">Accuracy</a></h4>
 <p>This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.</p>
 <h4 id="source-25"><a class="header" href="#source-25">Source</a></h4>
-<p>This calculation came from <a href="https://www.epochconverter.com/sas">this converter</a>.</p>
-<hr />
+<h3 id="primary-sources-14"><a class="header" href="#primary-sources-14">Primary Sources</a></h3>
+<p><a href="https://www.epochconverter.com/sas">Epoch Converter website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="julian-day-number"><a class="header" href="#julian-day-number">Julian Day Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>24 November 4713 BCE, +12:00:00</td><td>Exact</td></tr>
@@ -752,7 +768,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-26"><a class="header" href="#accuracy-26">Accuracy</a></h4>
 <p>This counter is rigorously-studied and exactly accurate, with the only question being the addition of Terrestrial Time.</p>
 <h4 id="source-26"><a class="header" href="#source-26">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.</p>
+<h3 id="common-source-5"><a class="header" href="#common-source-5">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a></p>
+<h3 id="primary-sources-15"><a class="header" href="#primary-sources-15">Primary Sources</a></h3>
+<p><a href="https://ssd.jpl.nasa.gov/tools/jdc/#/cd">NASA JPL website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rata-die"><a class="header" href="#rata-die">Rata Die</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>1 January 1 CE</td><td>Exact</td></tr>
@@ -765,7 +784,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-27"><a class="header" href="#accuracy-27">Accuracy</a></h4>
 <p>The Rata Die is a simple count of days, meaning it is exactly accurate.</p>
 <h4 id="source-27"><a class="header" href="#source-27">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Rata_Die">Wikipedia article</a>.</p>
+<h3 id="common-source-6"><a class="header" href="#common-source-6">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Rata_Die">Wikipedia article</a></p>
+<h3 id="primary-sources-16"><a class="header" href="#primary-sources-16">Primary Sources</a></h3>
+<p><a href="https://www.hellenicaworld.com/Science/Mathematics/en/RataDie.html">Hellenica website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="julian-period"><a class="header" href="#julian-period">Julian Period</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>24 November 4713 BCE, +12:00:00</td><td>High</td></tr>
@@ -778,7 +800,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-28"><a class="header" href="#accuracy-28">Accuracy</a></h4>
 <p>The Julian Period is a simple count of days, meaning it should be exactly accurate. However, sources for this cycle aren't exactly clear if the year updates on the Julian or Astronomical calendar, so I have chosen to use the Julian Calendar. I've also taken some liberties by adding the cycle number, which is not explicitly defined in any source but is heavily implied.</p>
 <h4 id="source-28"><a class="header" href="#source-28">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.</p>
+<h3 id="common-source-7"><a class="header" href="#common-source-7">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a></p>
+<h3 id="primary-sources-17"><a class="header" href="#primary-sources-17">Primary Sources</a></h3>
+<p><a href="https://quod.lib.umich.edu/d/did/did2222.0004.168/--julian-period?rgn=main;view=fulltext;q1=Jean+Le+Rond+d+Alembert">The Encyclopedia of Diderot &amp; d'Alembert website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lilian-date"><a class="header" href="#lilian-date">Lilian Date</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>15 October 1582 CE</td><td>Exact</td></tr>
@@ -791,7 +816,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-29"><a class="header" href="#accuracy-29">Accuracy</a></h4>
 <p>The Lilian Date is a simple calculation on the Gregorian calendar, making it exactly accurate.</p>
 <h4 id="source-29"><a class="header" href="#source-29">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Lilian_date">Wikipedia article</a>.</p>
+<h3 id="common-source-8"><a class="header" href="#common-source-8">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Lilian_date">Wikipedia article</a></p>
+<h3 id="primary-sources-18"><a class="header" href="#primary-sources-18">Primary Sources</a></h3>
+<p><a href="https://www.ibm.com/docs/en/zos/2.2.0?topic=services-ceedaysconvert-date-lilian-format">IBM website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ordinal-date"><a class="header" href="#ordinal-date">Ordinal Date</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>1 January 2000 CE</td><td>Exact</td></tr>
@@ -805,7 +833,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-30"><a class="header" href="#accuracy-30">Accuracy</a></h4>
 <p>The Ordinal Date is a simple calculation on the Gregorian calendar, making it exactly accurate.</p>
 <h4 id="source-30"><a class="header" href="#source-30">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Ordinal_date">Wikipedia article</a>.</p>
+<h3 id="common-source-9"><a class="header" href="#common-source-9">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Ordinal_date">Wikipedia article</a></p>
+<h3 id="primary-sources-19"><a class="header" href="#primary-sources-19">Primary Sources</a></h3>
+<p><a href="https://landweb.modaps.eosdis.nasa.gov/help/calendar">NASA website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="iso-8601"><a class="header" href="#iso-8601">ISO 8601</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1 January 1 CE</td><td>Exact</td><td>Geneva</td></tr>
@@ -818,7 +849,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-31"><a class="header" href="#accuracy-31">Accuracy</a></h4>
 <p>ISO 8601 is derived directly from Unix time and thus is exactly accurate.</p>
 <h4 id="source-31"><a class="header" href="#source-31">Source</a></h4>
-<p>ISO 8601 is actually a supported string of JavaScript's native Date library, so there is nothing for this website to calculate. General information came from its <a href="https://en.wikipedia.org/wiki/ISO_8601">Wikipedia article</a>.</p>
+<h3 id="common-source-10"><a class="header" href="#common-source-10">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/ISO_8601">Wikipedia article</a></p>
+<h3 id="primary-sources-20"><a class="header" href="#primary-sources-20">Primary Sources</a></h3>
+<p><a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="Δt"><a class="header" href="#Δt">ΔT</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>1 January 1901 CE</td><td>High</td></tr>
@@ -833,6 +867,7 @@ gpsTime += leapSecondsCount;
 <p>ΔT is itself an approximation, so the results here can only be as good as that approximation.</p>
 <p>The epoch for this value is not an epoch but rather a moment where ΔT is close to zero.</p>
 <h4 id="source-32"><a class="header" href="#source-32">Source</a></h4>
+<h3 id="primary-sources-21"><a class="header" href="#primary-sources-21">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.</p>
 <hr />
 <h3 id="calculation-15"><a class="header" href="#calculation-15">Calculation</a></h3>
@@ -848,7 +883,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-33"><a class="header" href="#accuracy-33">Accuracy</a></h4>
 <p>This clock should be very accurate, though it relies on ΔT which ultimately is only an approximation.</p>
 <h4 id="source-33"><a class="header" href="#source-33">Source</a></h4>
-<p>All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.</p>
+<h3 id="common-source-11"><a class="header" href="#common-source-11">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a></p>
+<h3 id="primary-sources-22"><a class="header" href="#primary-sources-22">Primary Sources</a></h3>
+<p><a href="https://oregonl5.nss.org/mist/docs/Mars24J/help/notes.html">Oregon L5 Society website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="julian-sol-number"><a class="header" href="#julian-sol-number">Julian Sol Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>11 March 1609 CE, +18:40:06</td><td>High</td></tr>
@@ -863,7 +901,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-34"><a class="header" href="#accuracy-34">Accuracy</a></h4>
 <p>This clock should be very accurate, though there are some very minor inaccuracies likely stemming from the redefiniton of the epoch of the Mars Sol Day, or perhaps slight differences in calculations of ΔT.</p>
 <h4 id="source-34"><a class="header" href="#source-34">Source</a></h4>
-<p>Much of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.</p>
+<h3 id="common-source-12"><a class="header" href="#common-source-12">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a></p>
+<h3 id="primary-source"><a class="header" href="#primary-source">Primary Source</a></h3>
 <p>Dates can also be verified with <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">this website</a>, though some inaccuracies have been noted.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="julian-circad-number"><a class="header" href="#julian-circad-number">Julian Circad Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
@@ -879,6 +919,7 @@ gpsTime += leapSecondsCount;
 <p>The accuracy of this timekeeping system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.</p>
 <p>The epoch is noted to account for the time it takes light to travel from Jupiter in the Galilean calendars, but it isn't clear if it has also been accounted for in this clock.</p>
 <h4 id="source-35"><a class="header" href="#source-35">Source</a></h4>
+<h3 id="primary-sources-23"><a class="header" href="#primary-sources-23">Primary Sources</a></h3>
 <p>This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.</p>
 <p>It can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="kali-ahargaṅa-ist"><a class="header" href="#kali-ahargaṅa-ist">Kali Ahargaṅa (IST)</a></h1>
@@ -900,8 +941,11 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-36"><a class="header" href="#accuracy-36">Accuracy</a></h4>
 <p>The Kali Ahargaṅa is based off the Gregorian calendar and is considered to be very accurate compared with historical records.</p>
 <h4 id="source-36"><a class="header" href="#source-36">Source</a></h4>
-<p>Much of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Kali_ahargana">Wikipedia article</a>.</p>
-<p>You can find another converter for this system <a href="https://planetcalc.com/9166/">here</a>.</p>
+<h3 id="common-source-13"><a class="header" href="#common-source-13">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Kali_ahargana">Wikipedia article</a></p>
+<h3 id="primary-sources-24"><a class="header" href="#primary-sources-24">Primary Sources</a></h3>
+<p><a href="https://vedicastronomy.blogspot.com/2010/07/ahargana-is-defined-as-no-of-days.html">Vedic Astronomy blog</a></p>
+<p><a href="https://planetcalc.com/9166/">Planet Calc website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lunation-number"><a class="header" href="#lunation-number">Lunation Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>6 January 2000 CE +18:14:00</td><td>Exact</td></tr>
@@ -916,8 +960,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-37"><a class="header" href="#accuracy-37">Accuracy</a></h4>
 <p>The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.</p>
 <h4 id="source-37"><a class="header" href="#source-37">Source</a></h4>
+<h3 id="common-source-14"><a class="header" href="#common-source-14">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a></p>
+<h3 id="primary-sources-25"><a class="header" href="#primary-sources-25">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
-<p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="brown-lunation-number"><a class="header" href="#brown-lunation-number">Brown Lunation Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>17 January 1923 CE +15:21:00</td><td>Exact</td></tr>
@@ -932,8 +978,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-38"><a class="header" href="#accuracy-38">Accuracy</a></h4>
 <p>The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.</p>
 <h4 id="source-38"><a class="header" href="#source-38">Source</a></h4>
+<h3 id="common-source-15"><a class="header" href="#common-source-15">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a></p>
+<h3 id="primary-sources-26"><a class="header" href="#primary-sources-26">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
-<p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="goldstine-lunation-number"><a class="header" href="#goldstine-lunation-number">Goldstine Lunation Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>11 January 1000 BCE</td><td>Exact</td></tr>
@@ -948,8 +996,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-39"><a class="header" href="#accuracy-39">Accuracy</a></h4>
 <p>The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.</p>
 <h4 id="source-39"><a class="header" href="#source-39">Source</a></h4>
+<h3 id="common-source-16"><a class="header" href="#common-source-16">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a></p>
+<h3 id="primary-sources-27"><a class="header" href="#primary-sources-27">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
-<p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hebrew-lunation-number"><a class="header" href="#hebrew-lunation-number">Hebrew Lunation Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>6 September 3760 BCE</td><td>Exact</td><td>Jerusalem</td></tr>
@@ -964,8 +1014,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-40"><a class="header" href="#accuracy-40">Accuracy</a></h4>
 <p>The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.</p>
 <h4 id="source-40"><a class="header" href="#source-40">Source</a></h4>
+<h3 id="common-source-17"><a class="header" href="#common-source-17">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a></p>
+<h3 id="primary-sources-28"><a class="header" href="#primary-sources-28">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
-<p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="islamic-lunation-number"><a class="header" href="#islamic-lunation-number">Islamic Lunation Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>18 July 622 CE</td><td>Exact</td><td>Mecca</td></tr>
@@ -980,8 +1032,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-41"><a class="header" href="#accuracy-41">Accuracy</a></h4>
 <p>The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.</p>
 <h4 id="source-41"><a class="header" href="#source-41">Source</a></h4>
+<h3 id="common-source-18"><a class="header" href="#common-source-18">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a></p>
+<h3 id="primary-sources-29"><a class="header" href="#primary-sources-29">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
-<p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="thai-lunation-number"><a class="header" href="#thai-lunation-number">Thai Lunation Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>22 March 638 CE</td><td>Exact</td><td>Bangkok</td></tr>
@@ -996,8 +1050,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-42"><a class="header" href="#accuracy-42">Accuracy</a></h4>
 <p>The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.</p>
 <h4 id="source-42"><a class="header" href="#source-42">Source</a></h4>
+<h3 id="common-source-19"><a class="header" href="#common-source-19">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a></p>
+<h3 id="primary-sources-30"><a class="header" href="#primary-sources-30">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up"><em>Astronomical Algorithms</em> (1991)</a> by Jean Meeus.</p>
-<p>More information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="nabonassar-lunation-number"><a class="header" href="#nabonassar-lunation-number">Nabonassar Lunation Number</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>12 February 746 BCE</td><td>Exact</td><td>Babylon</td></tr>
@@ -1012,6 +1068,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-43"><a class="header" href="#accuracy-43">Accuracy</a></h4>
 <p>The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.</p>
 <h4 id="source-43"><a class="header" href="#source-43">Source</a></h4>
+<h3 id="common-source-20"><a class="header" href="#common-source-20">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a></p>
+<h3 id="primary-sources-31"><a class="header" href="#primary-sources-31">Primary Sources</a></h3>
 <p>This lunation number was calibrated using <a href="https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm">this converter</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="spreadsheet-now"><a class="header" href="#spreadsheet-now">Spreadsheet =NOW()</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1027,7 +1086,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-44"><a class="header" href="#accuracy-44">Accuracy</a></h4>
 <p>This calculation is a simple count based on a Gregorian date and is thus exactly accurate.</p>
 <h4 id="source-44"><a class="header" href="#source-44">Source</a></h4>
-<p>All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Year_1900_problem">Wikipedia article</a>.</p>
+<h3 id="common-source-21"><a class="header" href="#common-source-21">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Year_1900_problem">Wikipedia article</a></p>
+<h3 id="primary-sources-32"><a class="header" href="#primary-sources-32">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="solar-calendars"><a class="header" href="#solar-calendars">Solar Calendars</a></h1>
 <p>Solar calendars are based on the Earth's revolution around the Sun, typically using the tropical year as their reference. These calendars often drift from their starting positions due to the lack of divisibility of the tropical year, by as many as 5 days per year but typically less than 1 day every 4 years. Some solar calendars are locked to a solstice or equinox and do not drift with regards to the equinoxes, though the equinoxes themselves have drift.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="gregorian"><a class="header" href="#gregorian">Gregorian</a></h1>
@@ -1060,9 +1121,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-45"><a class="header" href="#accuracy-45">Accuracy</a></h4>
 <p>The Gregorian calendar is exactly accurate, as it is what this entire site is based on. However, it does drift from the solar year ever so slightly at a rate of about 1 day every 3030 years without taking axial precession into account, or 1 day every 7700 years if taken into account.</p>
 <h4 id="source-45"><a class="header" href="#source-45">Source</a></h4>
-<h3 id="common-source"><a class="header" href="#common-source">Common Source</a></h3>
+<h3 id="common-source-22"><a class="header" href="#common-source-22">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Gregorian_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources"><a class="header" href="#primary-sources">Primary Sources</a></h3>
+<h3 id="primary-sources-33"><a class="header" href="#primary-sources-33">Primary Sources</a></h3>
 <p><a href="https://eclipse.gsfc.nasa.gov/SEhelp/calendars.html">NASA website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="julian-utc"><a class="header" href="#julian-utc">Julian (UTC)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1094,9 +1155,9 @@ gpsTime += leapSecondsCount;
 <p>The Julian calendar is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections.</p>
 <p>The date of leap days might not be exactly aligned with the Gregorian calendar here, but they are accurate to the year.</p>
 <h4 id="source-46"><a class="header" href="#source-46">Source</a></h4>
-<h3 id="common-source-1"><a class="header" href="#common-source-1">Common Source</a></h3>
+<h3 id="common-source-23"><a class="header" href="#common-source-23">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Julian_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-1"><a class="header" href="#primary-sources-1">Primary Sources</a></h3>
+<h3 id="primary-sources-34"><a class="header" href="#primary-sources-34">Primary Sources</a></h3>
 <p><a href="https://eclipse.gsfc.nasa.gov/SEhelp/calendars.html">NASA website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="astronomical-utc"><a class="header" href="#astronomical-utc">Astronomical (UTC)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
@@ -1126,9 +1187,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-47"><a class="header" href="#accuracy-47">Accuracy</a></h4>
 <p>This calendar is a simple calculation and is considered to be exactly accurate.</p>
 <h4 id="source-47"><a class="header" href="#source-47">Source</a></h4>
-<h3 id="common-source-2"><a class="header" href="#common-source-2">Common Source</a></h3>
+<h3 id="common-source-24"><a class="header" href="#common-source-24">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Astronomical_year_numbering">Wikipedia article</a></p>
-<h3 id="primary-sources-2"><a class="header" href="#primary-sources-2">Primary Sources</a></h3>
+<h3 id="primary-sources-35"><a class="header" href="#primary-sources-35">Primary Sources</a></h3>
 <p>Jean Meeus outlines the usage of the Astronomical calendar starting on page 59 of <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n63/mode/2up">Astronomical Algorithms</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="french-republican-cet"><a class="header" href="#french-republican-cet">French Republican (CET)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1160,9 +1221,9 @@ gpsTime += leapSecondsCount;
 <p>This calendar depends on the accuracy of the equinox calculations, which are generally within a few minutes of accuracy and should only affect years where the equinox happens very close to midnight CET.</p>
 <p>The French Republican calendar also had some issues with rules that contracticted each other, like a 4 year leap year rule conflicting with the date of the equinox. That rule has been ignored in favor of the equinox rule.</p>
 <h4 id="source-48"><a class="header" href="#source-48">Source</a></h4>
-<h3 id="common-source-3"><a class="header" href="#common-source-3">Common Source</a></h3>
+<h3 id="common-source-25"><a class="header" href="#common-source-25">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/French_Republican_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-3"><a class="header" href="#primary-sources-3">Primary Sources</a></h3>
+<h3 id="primary-sources-36"><a class="header" href="#primary-sources-36">Primary Sources</a></h3>
 <p><a href="https://gefrance.com/the-french-republican-calendar/">This website</a> has the full text of the legislative decrees.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="era-fascista-cet"><a class="header" href="#era-fascista-cet">Era Fascista (CET)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1177,9 +1238,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-49"><a class="header" href="#accuracy-49">Accuracy</a></h4>
 <p>Era Fascista is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.</p>
 <h4 id="source-49"><a class="header" href="#source-49">Source</a></h4>
-<h3 id="common-source-4"><a class="header" href="#common-source-4">Common Source</a></h3>
+<h3 id="common-source-26"><a class="header" href="#common-source-26">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Era_Fascista">Wikipedia article</a></p>
-<h3 id="primary-sources-4"><a class="header" href="#primary-sources-4">Primary Sources</a></h3>
+<h3 id="primary-sources-37"><a class="header" href="#primary-sources-37">Primary Sources</a></h3>
 <p><a href="https://dn710202.ca.archive.org/0/items/era-fascistica-summary/Era%20Fascistica%20Summary.pdf">Era Fascista: Dates for Genealogists</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="coptic-eet"><a class="header" href="#coptic-eet">Coptic (EET)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1211,9 +1272,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-50"><a class="header" href="#accuracy-50">Accuracy</a></h4>
 <p>The Coptic calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.</p>
 <h4 id="source-50"><a class="header" href="#source-50">Source</a></h4>
-<h3 id="common-source-5"><a class="header" href="#common-source-5">Common Source</a></h3>
+<h3 id="common-source-27"><a class="header" href="#common-source-27">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Coptic_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-5"><a class="header" href="#primary-sources-5">Primary Sources</a></h3>
+<h3 id="primary-sources-38"><a class="header" href="#primary-sources-38">Primary Sources</a></h3>
 <p><a href="https://www.copticchurch.net/calendar">Coptic Church website</a></p>
 <p>This calendar has been calibrated using the calendar found <a href="https://www.copticbook.net/daily.php?m=9&amp;d=25&amp;mode=1&amp;itemnum=1">here</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="geez-eat"><a class="header" href="#geez-eat">Ge'ez (EAT)</a></h1>
@@ -1245,9 +1306,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-51"><a class="header" href="#accuracy-51">Accuracy</a></h4>
 <p>The Ge'ez calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.</p>
 <h4 id="source-51"><a class="header" href="#source-51">Source</a></h4>
-<h3 id="common-source-6"><a class="header" href="#common-source-6">Common Source</a></h3>
+<h3 id="common-source-28"><a class="header" href="#common-source-28">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Ethiopian_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-6"><a class="header" href="#primary-sources-6">Primary Sources</a></h3>
+<h3 id="primary-sources-39"><a class="header" href="#primary-sources-39">Primary Sources</a></h3>
 <p><a href="https://ethiopiancalendars.com/">Ethiopian Calendar website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="minguo-cst"><a class="header" href="#minguo-cst">Minguo (CST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1262,9 +1323,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-52"><a class="header" href="#accuracy-52">Accuracy</a></h4>
 <p>The Minguo calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.</p>
 <h4 id="source-52"><a class="header" href="#source-52">Source</a></h4>
-<h3 id="common-source-7"><a class="header" href="#common-source-7">Common Source</a></h3>
+<h3 id="common-source-29"><a class="header" href="#common-source-29">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Republic_of_China_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-7"><a class="header" href="#primary-sources-7">Primary Sources</a></h3>
+<h3 id="primary-sources-40"><a class="header" href="#primary-sources-40">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="thai-thb"><a class="header" href="#thai-thb">Thai (THB)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>31 December 544 BCE, +17:00:00</td><td>Exact</td><td>Bangkok</td></tr>
@@ -1291,9 +1352,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-53"><a class="header" href="#accuracy-53">Accuracy</a></h4>
 <p>The Thai solar calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.</p>
 <h4 id="source-53"><a class="header" href="#source-53">Source</a></h4>
-<h3 id="common-source-8"><a class="header" href="#common-source-8">Common Source</a></h3>
+<h3 id="common-source-30"><a class="header" href="#common-source-30">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Thai_solar_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-8"><a class="header" href="#primary-sources-8">Primary Sources</a></h3>
+<h3 id="primary-sources-41"><a class="header" href="#primary-sources-41">Primary Sources</a></h3>
 <p><a href="https://www.thaihealingalliance.com/wp-content/uploads/The_Thai_Calendar.pdf">Thai Healing Alliance website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bengali-bst"><a class="header" href="#bengali-bst">Bengali (BST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1333,9 +1394,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-54"><a class="header" href="#accuracy-54">Accuracy</a></h4>
 <p>This calendar is intrinsically tied to the Gregorian calendar and is exactly accurate. However, it does have an alternate rule set used in India that is not present here.</p>
 <h4 id="source-54"><a class="header" href="#source-54">Source</a></h4>
-<h3 id="common-source-9"><a class="header" href="#common-source-9">Common Source</a></h3>
+<h3 id="common-source-31"><a class="header" href="#common-source-31">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Bengali_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-9"><a class="header" href="#primary-sources-9">Primary Sources</a></h3>
+<h3 id="primary-sources-42"><a class="header" href="#primary-sources-42">Primary Sources</a></h3>
 <p>This calendar can be calibrarted at <a href="https://www.bengalicalendar.com/">the Bengali calendar website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="juche-kst"><a class="header" href="#juche-kst">Juche (KST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1349,9 +1410,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-55"><a class="header" href="#accuracy-55">Accuracy</a></h4>
 <p>The Juche calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.</p>
 <h4 id="source-55"><a class="header" href="#source-55">Source</a></h4>
-<h3 id="common-source-10"><a class="header" href="#common-source-10">Common Source</a></h3>
+<h3 id="common-source-32"><a class="header" href="#common-source-32">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Juche_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-10"><a class="header" href="#primary-sources-10">Primary Sources</a></h3>
+<h3 id="primary-sources-43"><a class="header" href="#primary-sources-43">Primary Sources</a></h3>
 <p><a href="https://koryogroup.com/blog/what-year-is-it-in-north-korea-understanding-the-juche-calendar">Koryo Tours website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="byzantine-trt"><a class="header" href="#byzantine-trt">Byzantine (TRT)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1380,9 +1441,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-56"><a class="header" href="#accuracy-56">Accuracy</a></h4>
 <p>The Byzantine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate. However, there is some confusion as to when the day actually begins, with sources seemingly contradicting each other.</p>
 <h4 id="source-56"><a class="header" href="#source-56">Source</a></h4>
-<h3 id="common-source-11"><a class="header" href="#common-source-11">Common Source</a></h3>
+<h3 id="common-source-33"><a class="header" href="#common-source-33">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Byzantine_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-11"><a class="header" href="#primary-sources-11">Primary Sources</a></h3>
+<h3 id="primary-sources-44"><a class="header" href="#primary-sources-44">Primary Sources</a></h3>
 <p><a href="https://orthochristian.com/97046.html">Orthodox Christian website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="florentine-cet"><a class="header" href="#florentine-cet">Florentine (CET)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1413,9 +1474,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-57"><a class="header" href="#accuracy-57">Accuracy</a></h4>
 <p>The Florentine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate. The only inaccuracies are the differences in the approximation of sunset to the actual time of sunset, which is expected to only differ by a few hours or minutes per day.</p>
 <h4 id="source-57"><a class="header" href="#source-57">Source</a></h4>
-<h3 id="common-source-12"><a class="header" href="#common-source-12">Common Source</a></h3>
+<h3 id="common-source-34"><a class="header" href="#common-source-34">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Florentine_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-12"><a class="header" href="#primary-sources-12">Primary Sources</a></h3>
+<h3 id="primary-sources-45"><a class="header" href="#primary-sources-45">Primary Sources</a></h3>
 <p><a href="https://www.florenceitaly.org/florentine-new-year-on-march-25th-the-tradition-that-lives-on-over-the-centuries/?lang=en">Florence website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pisan-cet"><a class="header" href="#pisan-cet">Pisan (CET)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1445,9 +1506,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-58"><a class="header" href="#accuracy-58">Accuracy</a></h4>
 <p>This calendar is based on the Julian calendar and is considered to be exactly accurate.</p>
 <h4 id="source-58"><a class="header" href="#source-58">Source</a></h4>
-<h3 id="common-source-13"><a class="header" href="#common-source-13">Common Source</a></h3>
+<h3 id="common-source-35"><a class="header" href="#common-source-35">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Pisan_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-13"><a class="header" href="#primary-sources-13">Primary Sources</a></h3>
+<h3 id="primary-sources-46"><a class="header" href="#primary-sources-46">Primary Sources</a></h3>
 <p><a href="https://www.terredipisa.it/en/events/pisan-new-year/">Terre di Pisa website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="venetian-cet"><a class="header" href="#venetian-cet">Venetian (CET)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1476,9 +1537,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-59"><a class="header" href="#accuracy-59">Accuracy</a></h4>
 <p>This calendar is based on the Julian calendar and is considered to be exactly accurate.</p>
 <h4 id="source-59"><a class="header" href="#source-59">Source</a></h4>
-<h3 id="common-source-14"><a class="header" href="#common-source-14">Common Source</a></h3>
+<h3 id="common-source-36"><a class="header" href="#common-source-36">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/More_veneto">Wikipedia article</a></p>
-<h3 id="primary-sources-14"><a class="header" href="#primary-sources-14">Primary Sources</a></h3>
+<h3 id="primary-sources-47"><a class="header" href="#primary-sources-47">Primary Sources</a></h3>
 <p><a href="https://caffeflorian.com/en/the-venetian-calendar-a-journey-through-history-and-tradition/">Florian website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="baháʼí-irst"><a class="header" href="#baháʼí-irst">Baháʼí (IRST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1519,9 +1580,9 @@ gpsTime += leapSecondsCount;
 <p>Dates may change slightly too early or late depending on the real time of sunset.</p>
 <p>There seems to be an issue with the stated epoch on Wikipedia being 1 day later than the calculated epoch here.</p>
 <h4 id="source-60"><a class="header" href="#source-60">Source</a></h4>
-<h3 id="common-source-15"><a class="header" href="#common-source-15">Common Source</a></h3>
+<h3 id="common-source-37"><a class="header" href="#common-source-37">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-15"><a class="header" href="#primary-sources-15">Primary Sources</a></h3>
+<h3 id="primary-sources-48"><a class="header" href="#primary-sources-48">Primary Sources</a></h3>
 <p>Dates can be referenced at the <a href="https://www.bahai.org/action/devotional-life/calendar">official Baháʼí website</a>.</p>
 <p>One of the people running the live chat at <a href="https://www.bahai.us/events-calendar/holy-days/">Baha'is of the United States</a> was kind enough to provide me with their <a href="https://bahai-library.com/pdf/uhj/uhj_bahai_dates_172-221.pdf">50-year calendar</a>, which has been used to calibrate this calendar.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pataphysical"><a class="header" href="#pataphysical">Pataphysical</a></h1>
@@ -1552,9 +1613,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-61"><a class="header" href="#accuracy-61">Accuracy</a></h4>
 <p>The Pataphysical calendar is based off the Gregorian calendar and is thus exactly accurate.</p>
 <h4 id="source-61"><a class="header" href="#source-61">Source</a></h4>
-<h3 id="common-source-16"><a class="header" href="#common-source-16">Common Source</a></h3>
+<h3 id="common-source-38"><a class="header" href="#common-source-38">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/%27Pataphysics#Pataphysical_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-16"><a class="header" href="#primary-sources-16">Primary Sources</a></h3>
+<h3 id="primary-sources-49"><a class="header" href="#primary-sources-49">Primary Sources</a></h3>
 <p><a href="https://www.patakosmos.com/database-open-access/Pataphysical_calendar_en.pdf">Pataphysics website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="discordian"><a class="header" href="#discordian">Discordian</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
@@ -1578,9 +1639,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-62"><a class="header" href="#accuracy-62">Accuracy</a></h4>
 <p>The Discordian calendar is based off the Gregorian calendar and is thus exactly accurate.</p>
 <h4 id="source-62"><a class="header" href="#source-62">Source</a></h4>
-<h3 id="common-source-17"><a class="header" href="#common-source-17">Common Source</a></h3>
+<h3 id="common-source-39"><a class="header" href="#common-source-39">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Discordian_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-17"><a class="header" href="#primary-sources-17">Primary Sources</a></h3>
+<h3 id="primary-sources-50"><a class="header" href="#primary-sources-50">Primary Sources</a></h3>
 <p><a href="https://www.discordianism.org/more-chaos/discordian_calendar.html">Discordian website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sca"><a class="header" href="#sca">SCA</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
@@ -1609,9 +1670,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-63"><a class="header" href="#accuracy-63">Accuracy</a></h4>
 <p>As this calendar is based off the Gregorian calendar, this calculation is exactly accurate.</p>
 <h4 id="source-63"><a class="header" href="#source-63">Source</a></h4>
-<h3 id="common-source-18"><a class="header" href="#common-source-18">Common Source</a></h3>
+<h3 id="common-source-40"><a class="header" href="#common-source-40">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Society_for_Creative_Anachronism">Wikipedia article</a></p>
-<h3 id="primary-sources-18"><a class="header" href="#primary-sources-18">Primary Sources</a></h3>
+<h3 id="primary-sources-51"><a class="header" href="#primary-sources-51">Primary Sources</a></h3>
 <p><a href="https://www.sca.org/sca-calendar-reckoning-dates-in-the-society/">SCA website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="solar-hijri-irst"><a class="header" href="#solar-hijri-irst">Solar Hijri (IRST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1643,9 +1704,9 @@ gpsTime += leapSecondsCount;
 <p>This calendar is reasonably accurate for modern years, but as its calculation relies on the calculation of the equinox, it may experience significant errors for years that are thousands of years out from modern times. It also approximates sunset in Tehran.</p>
 <p>This calendar also may experience errors in its alignment with the Zodiac, as it is tied to the precession of the equinoxes.</p>
 <h4 id="source-64"><a class="header" href="#source-64">Source</a></h4>
-<h3 id="common-source-19"><a class="header" href="#common-source-19">Common Source</a></h3>
+<h3 id="common-source-41"><a class="header" href="#common-source-41">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Solar_Hijri_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-19"><a class="header" href="#primary-sources-19">Primary Sources</a></h3>
+<h3 id="primary-sources-52"><a class="header" href="#primary-sources-52">Primary Sources</a></h3>
 <p><a href="https://www.iranchamber.com/calendar/converter/iranian_calendar_converter.php">Iranian Chamber Society website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="qadimi-irst"><a class="header" href="#qadimi-irst">Qadimi (IRST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1693,9 +1754,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-65"><a class="header" href="#accuracy-65">Accuracy</a></h4>
 <p>This calendar is a simple calculation based off the Gregorian calendar. However, historically this calendar has received many revisions, particularly prior to 1006 CE, so the dates here might not accurately reflect historical dates.</p>
 <h4 id="source-65"><a class="header" href="#source-65">Source</a></h4>
-<h3 id="common-source-20"><a class="header" href="#common-source-20">Common Source</a></h3>
+<h3 id="common-source-42"><a class="header" href="#common-source-42">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-20"><a class="header" href="#primary-sources-20">Primary Sources</a></h3>
+<h3 id="primary-sources-53"><a class="header" href="#primary-sources-53">Primary Sources</a></h3>
 <p><a href="https://zanc.org/zcal/zcal.html">Zoroastrian website</a></p>
 <p>This calendar can be calibrated using the calculator at <a href="http://www.zcserv.com/calendar/">this site</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="egyptian-civil-eet"><a class="header" href="#egyptian-civil-eet">Egyptian Civil (EET)</a></h1>
@@ -1736,9 +1797,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-66"><a class="header" href="#accuracy-66">Accuracy</a></h4>
 <p>This calendar is based on the Sothic Cycle, which is well-established to the Gregorian calendar via the Julian calendar. Some liberties were taken with the epoch, which is why it is in parentheses.</p>
 <h4 id="source-66"><a class="header" href="#source-66">Source</a></h4>
-<h3 id="common-source-21"><a class="header" href="#common-source-21">Common Source</a></h3>
+<h3 id="common-source-43"><a class="header" href="#common-source-43">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Egyptian_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-21"><a class="header" href="#primary-sources-21">Primary Sources</a></h3>
+<h3 id="primary-sources-54"><a class="header" href="#primary-sources-54">Primary Sources</a></h3>
 <p><a href="https://www.aspbooks.org/publications/409/116.pdf">Cosmology Across Cultures, 2009</a></p>
 <p>Month names and other general data came from <a href="https://ancientegyptonline.co.uk/calendar/">this site</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="iso-week-date"><a class="header" href="#iso-week-date">ISO Week Date</a></h1>
@@ -1754,9 +1815,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-67"><a class="header" href="#accuracy-67">Accuracy</a></h4>
 <p>Being an ISO standard with a standard calculation, this calendar is expected to be perfectly accurate.</p>
 <h4 id="source-67"><a class="header" href="#source-67">Source</a></h4>
-<h3 id="common-source-22"><a class="header" href="#common-source-22">Common Source</a></h3>
+<h3 id="common-source-44"><a class="header" href="#common-source-44">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/ISO_week_date">Wikipedia article</a></p>
-<h3 id="primary-sources-22"><a class="header" href="#primary-sources-22">Primary Sources</a></h3>
+<h3 id="primary-sources-55"><a class="header" href="#primary-sources-55">Primary Sources</a></h3>
 <p><a href="https://isoweeks.com/">ISOWeeks website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="haab-cst"><a class="header" href="#haab-cst">Haab (CST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1784,9 +1845,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-68"><a class="header" href="#accuracy-68">Accuracy</a></h4>
 <p>This calendar is still used today in some Maya groups, and it has been calibrated using the calculator provided by the Smithsonian National Museum of the American Indian. However, it also relies on the Long Count calendar being accurate.</p>
 <h4 id="source-68"><a class="header" href="#source-68">Source</a></h4>
-<h3 id="common-source-23"><a class="header" href="#common-source-23">Common Source</a></h3>
+<h3 id="common-source-45"><a class="header" href="#common-source-45">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Maya_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-23"><a class="header" href="#primary-sources-23">Primary Sources</a></h3>
+<h3 id="primary-sources-56"><a class="header" href="#primary-sources-56">Primary Sources</a></h3>
 <p>The <a href="https://maya.nmai.si.edu/calendar/maya-calendar-converter">Smithsonian website</a> has the current day as well as a converter, though it is broken for dates before the Long Count epoch.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="anno-lucis"><a class="header" href="#anno-lucis">Anno Lucis</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1800,9 +1861,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-69"><a class="header" href="#accuracy-69">Accuracy</a></h4>
 <p>As this is a simple addition to the Gregorian calendar, this calculation is exactly accurate.</p>
 <h4 id="source-69"><a class="header" href="#source-69">Source</a></h4>
-<h3 id="common-source-24"><a class="header" href="#common-source-24">Common Source</a></h3>
+<h3 id="common-source-46"><a class="header" href="#common-source-46">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Anno_Lucis">Wikipedia article</a></p>
-<h3 id="primary-sources-24"><a class="header" href="#primary-sources-24">Primary Sources</a></h3>
+<h3 id="primary-sources-57"><a class="header" href="#primary-sources-57">Primary Sources</a></h3>
 <p><a href="https://www.masonic-lodge-of-education.com/anno-lucis.html">Freemason website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tabot-est"><a class="header" href="#tabot-est">Tabot (EST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1832,9 +1893,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-70"><a class="header" href="#accuracy-70">Accuracy</a></h4>
 <p>As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.</p>
 <h4 id="source-70"><a class="header" href="#source-70">Source</a></h4>
-<h3 id="common-source-25"><a class="header" href="#common-source-25">Common Source</a></h3>
+<h3 id="common-source-47"><a class="header" href="#common-source-47">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Tabot_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-25"><a class="header" href="#primary-sources-25">Primary Sources</a></h3>
+<h3 id="primary-sources-58"><a class="header" href="#primary-sources-58">Primary Sources</a></h3>
 <p><a href="https://tabot.co.uk/tabot-calendar/">Tabot website</a></p>
 <p>The Tabot calendar was created by Hermetic Systems and can be found <a href="https://www.hermetic.ch/cal_stud/tabot.htm">here</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="icelandic-utc"><a class="header" href="#icelandic-utc">Icelandic (UTC)</a></h1>
@@ -1868,9 +1929,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-71"><a class="header" href="#accuracy-71">Accuracy</a></h4>
 <p>This calendar has a long history with several slight changes, especially regarding modern/old names and specific starting and ending times of misseri and weeks. I am reasonably sure it is accurate to official sources, but the information is somewhat fragmented.</p>
 <h4 id="source-71"><a class="header" href="#source-71">Source</a></h4>
-<h3 id="common-source-26"><a class="header" href="#common-source-26">Common Source</a></h3>
+<h3 id="common-source-48"><a class="header" href="#common-source-48">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Early_Germanic_calendars">Wikipedia article</a></p>
-<h3 id="primary-sources-26"><a class="header" href="#primary-sources-26">Primary Sources</a></h3>
+<h3 id="primary-sources-59"><a class="header" href="#primary-sources-59">Primary Sources</a></h3>
 <p><a href="https://www2.math.uu.se/~svantejs/papers/calendars/iceland.pdf">The Icelandic Calendar - Svante Janson</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="saka-samvat-ist"><a class="header" href="#saka-samvat-ist">Saka Samvat (IST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1901,9 +1962,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-72"><a class="header" href="#accuracy-72">Accuracy</a></h4>
 <p>As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.</p>
 <h4 id="source-72"><a class="header" href="#source-72">Source</a></h4>
-<h3 id="common-source-27"><a class="header" href="#common-source-27">Common Source</a></h3>
+<h3 id="common-source-49"><a class="header" href="#common-source-49">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Indian_national_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-27"><a class="header" href="#primary-sources-27">Primary Sources</a></h3>
+<h3 id="primary-sources-60"><a class="header" href="#primary-sources-60">Primary Sources</a></h3>
 <p><a href="https://archive.org/details/IndianCalendricSystem-SK-Chatterjee/page/n25/mode/2up">Indian Calendric System - SK Chatterjee, page 18</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="armenian-amt"><a class="header" href="#armenian-amt">Armenian (AMT)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -1975,9 +2036,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-73"><a class="header" href="#accuracy-73">Accuracy</a></h4>
 <p>As this is a simple calculation with a known epoch, this calendar is exactly accurate.</p>
 <h4 id="source-73"><a class="header" href="#source-73">Source</a></h4>
-<h3 id="common-source-28"><a class="header" href="#common-source-28">Common Source</a></h3>
+<h3 id="common-source-50"><a class="header" href="#common-source-50">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Armenian_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-28"><a class="header" href="#primary-sources-28">Primary Sources</a></h3>
+<h3 id="primary-sources-61"><a class="header" href="#primary-sources-61">Primary Sources</a></h3>
 <p><a href="https://ui.adsabs.harvard.edu/scan/manifest/1974JHA.....5...91T?utm_source=chatgpt.com">Epoch Info</a></p>
 <p><a href="https://haytomar.com/en">Calendar specifics</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mandaean-ast"><a class="header" href="#mandaean-ast">Mandaean (AST)</a></h1>
@@ -2025,9 +2086,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-74"><a class="header" href="#accuracy-74">Accuracy</a></h4>
 <p>Since this calendar is a simple formula with a known epoch, this calculation is exactly accurate. However, the epoch of 15 February 479003 BCE in the description of this calendar is calculated and not part of official sources.</p>
 <h4 id="source-74"><a class="header" href="#source-74">Source</a></h4>
-<h3 id="common-source-29"><a class="header" href="#common-source-29">Common Source</a></h3>
+<h3 id="common-source-51"><a class="header" href="#common-source-51">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Mandaean_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-29"><a class="header" href="#primary-sources-29">Primary Sources</a></h3>
+<h3 id="primary-sources-62"><a class="header" href="#primary-sources-62">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="nakaiy-mvt"><a class="header" href="#nakaiy-mvt">Nakaiy (MVT)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>Unknown</td><td>Exact</td><td>Malé, Maldives</td></tr>
@@ -2072,9 +2133,9 @@ gpsTime += leapSecondsCount;
 <p>Regardless, this calculation is exactly accurate based on the available sources.</p>
 <p>The inclusion of the current date of the Nakaiy is not strictly present in official sources and is shown here in parentheses.</p>
 <h4 id="source-75"><a class="header" href="#source-75">Source</a></h4>
-<h3 id="common-source-30"><a class="header" href="#common-source-30">Common Source</a></h3>
+<h3 id="common-source-52"><a class="header" href="#common-source-52">Common Source</a></h3>
 <p><a href="https://shaheeilyas.com/nakaiynevi/list/">Calendar overview</a></p>
-<h3 id="primary-sources-30"><a class="header" href="#primary-sources-30">Primary Sources</a></h3>
+<h3 id="primary-sources-63"><a class="header" href="#primary-sources-63">Primary Sources</a></h3>
 <p><a href="https://www.maldivesfishermensassociation.org/resources/weather">Maldives Fishermens Association website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="igbo-wat"><a class="header" href="#igbo-wat">Igbo (WAT)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
@@ -2114,9 +2175,9 @@ gpsTime += leapSecondsCount;
 <p>I was unable to find any specific point at which the day starts, but it seems any time before or up to sunrise is acceptable.</p>
 <p>Wikipedia noted that 10 March 2012 marked the year-counting festival and noted that it was the 1013th year based on the "lunar calendar", though the source is dead. I was unable to verify anything related to this claim and have decided not to use it.</p>
 <h4 id="source-76"><a class="header" href="#source-76">Source</a></h4>
-<h3 id="common-source-31"><a class="header" href="#common-source-31">Common Source</a></h3>
+<h3 id="common-source-53"><a class="header" href="#common-source-53">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Igbo_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-31"><a class="header" href="#primary-sources-31">Primary Sources</a></h3>
+<h3 id="primary-sources-64"><a class="header" href="#primary-sources-64">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="chinese-solar-term"><a class="header" href="#chinese-solar-term">Chinese Solar Term</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>Unknown</td><td>High</td><td>Beijing</td></tr>
@@ -2158,9 +2219,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-77"><a class="header" href="#accuracy-77">Accuracy</a></h4>
 <p>This calendar is a simple calculation, but it relies on the calculation for the Longitude of the Sun which has a tiny amount of error.</p>
 <h4 id="source-77"><a class="header" href="#source-77">Source</a></h4>
-<h3 id="common-source-32"><a class="header" href="#common-source-32">Common Source</a></h3>
+<h3 id="common-source-54"><a class="header" href="#common-source-54">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Solar_term">Wikipedia article</a></p>
-<h3 id="primary-sources-32"><a class="header" href="#primary-sources-32">Primary Sources</a></h3>
+<h3 id="primary-sources-65"><a class="header" href="#primary-sources-65">Primary Sources</a></h3>
 <p><a href="https://ytliu0.github.io/ChineseCalendar/solarTerms.html">Chinese calendar calculation source</a></p>
 <p><a href="https://www.chinahighlights.com/festivals/the-24-solar-terms.htm">China Highlights website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="japanese-solar-term"><a class="header" href="#japanese-solar-term">Japanese Solar Term</a></h1>
@@ -2250,9 +2311,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-78"><a class="header" href="#accuracy-78">Accuracy</a></h4>
 <p>This calendar is a simple cycle, though it relies on the calculation for the Longitude of the Sun which has a tiny bit of error.</p>
 <h4 id="source-78"><a class="header" href="#source-78">Source</a></h4>
-<h3 id="common-source-33"><a class="header" href="#common-source-33">Common Source</a></h3>
+<h3 id="common-source-55"><a class="header" href="#common-source-55">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Japanese_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-33"><a class="header" href="#primary-sources-33">Primary Sources</a></h3>
+<h3 id="primary-sources-66"><a class="header" href="#primary-sources-66">Primary Sources</a></h3>
 <p><a href="https://www.nippon.com/en/features/h00124/">Nippon website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="other-calendars"><a class="header" href="#other-calendars">Other Calendars</a></h1>
 <p>Other calendars include specialized, ancient, and unique timekeeping systems that don't fit into the standard solar, lunar, or lunisolar categories. These include Maya calendars and various cultural and historical calendar systems. Planet- and moon-specific schemes live in the Extraterrestrial Calendars chapter of this book.</p>
@@ -2360,9 +2421,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-82"><a class="header" href="#accuracy-82">Accuracy</a></h4>
 <p>The Yuga Cycle is ultimately based off the Gregorian calendar via the Kali Ahargaṅa and is considered to be very accurate compared with historical records.</p>
 <h4 id="source-82"><a class="header" href="#source-82">Source</a></h4>
-<h3 id="common-source-34"><a class="header" href="#common-source-34">Common Source</a></h3>
+<h3 id="common-source-56"><a class="header" href="#common-source-56">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Yuga_cycle">Wikipedia article</a></p>
-<h3 id="primary-sources-34"><a class="header" href="#primary-sources-34">Primary Sources</a></h3>
+<h3 id="primary-sources-67"><a class="header" href="#primary-sources-67">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sothic-cycle"><a class="header" href="#sothic-cycle">Sothic Cycle</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>27 June 2781 BCE</td><td>Exact</td><td>Cairo</td></tr>
@@ -2388,9 +2449,9 @@ gpsTime += leapSecondsCount;
 <p>This calendar is mathematically exact, though my calculations are sometimes a day off from official sources. This could be due to leap day rules or due to astronomical dates.</p>
 <p>Historians are also somewhat unsure about how many cycles have passed, and it's possible that there has been one more cycle before the accepted first cycle.</p>
 <h4 id="source-83"><a class="header" href="#source-83">Source</a></h4>
-<h3 id="common-source-35"><a class="header" href="#common-source-35">Common Source</a></h3>
+<h3 id="common-source-57"><a class="header" href="#common-source-57">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Sothic_cycle">Wikipedia article</a></p>
-<h3 id="primary-sources-35"><a class="header" href="#primary-sources-35">Primary Sources</a></h3>
+<h3 id="primary-sources-68"><a class="header" href="#primary-sources-68">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="olympiad"><a class="header" href="#olympiad">Olympiad</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>24 July 775 BCE</td><td>Exact</td><td>Athens</td></tr>
@@ -2404,9 +2465,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-84"><a class="header" href="#accuracy-84">Accuracy</a></h4>
 <p>The exact start of the Olympic games is unclear, and most sources will just say it was held in the summer of 776 BCE. This website uses astronomical dates, so it is displayed here as 775 BCE. I have chosen to use 1 August of the Julian calendar for the middle of summer.</p>
 <h4 id="source-84"><a class="header" href="#source-84">Source</a></h4>
-<h3 id="common-source-36"><a class="header" href="#common-source-36">Common Source</a></h3>
+<h3 id="common-source-58"><a class="header" href="#common-source-58">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Olympiad">Wikipedia article</a></p>
-<h3 id="primary-sources-36"><a class="header" href="#primary-sources-36">Primary Sources</a></h3>
+<h3 id="primary-sources-69"><a class="header" href="#primary-sources-69">Primary Sources</a></h3>
+<p><a href="https://www.olympics.com/ioc/faq/history-and-origin-of-the-games/what-is-the-origin-of-the-olympic-games">Olympics website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pawukon-wita"><a class="header" href="#pawukon-wita">Pawukon (WITA)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>Unknown</td><td>Exact</td><td>Bali</td></tr>
@@ -2452,9 +2514,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-85"><a class="header" href="#accuracy-85">Accuracy</a></h4>
 <p>This calendar is a simple cycle of days with a known epoch and is expected to be exactly accurate.</p>
 <h4 id="source-85"><a class="header" href="#source-85">Source</a></h4>
-<h3 id="common-source-37"><a class="header" href="#common-source-37">Common Source</a></h3>
+<h3 id="common-source-59"><a class="header" href="#common-source-59">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Pawukon_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-37"><a class="header" href="#primary-sources-37">Primary Sources</a></h3>
+<h3 id="primary-sources-70"><a class="header" href="#primary-sources-70">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sexagenary-year-cst"><a class="header" href="#sexagenary-year-cst">Sexagenary Year (CST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>19 January 2696 BCE +16:00:00</td><td>High</td><td>Beijing</td></tr>
@@ -2467,7 +2529,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-86"><a class="header" href="#accuracy-86">Accuracy</a></h4>
 <p>This calendar system should be very accurate. It may be off by a few days at the start of a given year, or rarely an entire month, due to the inaccuracies from the Chinese lunisolar calendar calculations. However, it corrects itself by the next new moon.</p>
 <h4 id="source-86"><a class="header" href="#source-86">Source</a></h4>
-<p>Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Sexagenary_cycle">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.</p>
+<h3 id="common-source-60"><a class="header" href="#common-source-60">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Sexagenary_cycle">Wikipedia article</a></p>
+<h3 id="primary-sources-71"><a class="header" href="#primary-sources-71">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="japanese-jst"><a class="header" href="#japanese-jst">Japanese (JST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>11 February 659 BCE</td><td>Medium</td><td>Kyoto</td></tr>
@@ -2751,9 +2815,9 @@ gpsTime += leapSecondsCount;
 <p>On top of that, the two values given for the length of the tick are very different, with 1.7361 years being rounded significantly, and 633.7 days assumes a year length of 365 days. Using that value, the 235th (or 236th) tick should have been calculated to take place in June of 2016. Neither does lengthening the tick to match the Gregorian calendar year length of 365.2425 days achieve a date of 29 September. It is only when the tick length is further extended to be based off a Julian calendar year length of 365.25 days does the 235th tick occur on 29 September 2016 CE.</p>
 <p>In this calculation, these math errors have all been patched except for the use of the Julian calendar year length. This preserves all past holiday celebrations.</p>
 <h4 id="source-88"><a class="header" href="#source-88">Source</a></h4>
-<h3 id="common-source-38"><a class="header" href="#common-source-38">Common Source</a></h3>
+<h3 id="common-source-61"><a class="header" href="#common-source-61">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Galactic_Tick_Day">Wikipedia article</a></p>
-<h3 id="primary-sources-38"><a class="header" href="#primary-sources-38">Primary Sources</a></h3>
+<h3 id="primary-sources-72"><a class="header" href="#primary-sources-72">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="astronomical-data"><a class="header" href="#astronomical-data">Astronomical Data</a></h1>
 <p>Astronomical data includes calculations of celestial events and phenomena that are fundamental to many calendar systems. These include equinoxes, solstices, lunar phases, eclipses, and other astronomical measurements that serve as reference points for timekeeping systems.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="northward-equinox"><a class="header" href="#northward-equinox">Northward Equinox</a></h1>
@@ -2768,6 +2832,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-89"><a class="header" href="#accuracy-89">Accuracy</a></h4>
 <p>The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.</p>
 <h4 id="source-89"><a class="header" href="#source-89">Source</a></h4>
+<h3 id="primary-sources-73"><a class="header" href="#primary-sources-73">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="northern-solstice"><a class="header" href="#northern-solstice">Northern Solstice</a></h1>
@@ -2782,6 +2847,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-90"><a class="header" href="#accuracy-90">Accuracy</a></h4>
 <p>The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.</p>
 <h4 id="source-90"><a class="header" href="#source-90">Source</a></h4>
+<h3 id="primary-sources-74"><a class="header" href="#primary-sources-74">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="southward-equinox"><a class="header" href="#southward-equinox">Southward Equinox</a></h1>
@@ -2796,6 +2862,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-91"><a class="header" href="#accuracy-91">Accuracy</a></h4>
 <p>The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.</p>
 <h4 id="source-91"><a class="header" href="#source-91">Source</a></h4>
+<h3 id="primary-sources-75"><a class="header" href="#primary-sources-75">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="southern-solstice"><a class="header" href="#southern-solstice">Southern Solstice</a></h1>
@@ -2810,6 +2877,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-92"><a class="header" href="#accuracy-92">Accuracy</a></h4>
 <p>The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.</p>
 <h4 id="source-92"><a class="header" href="#source-92">Source</a></h4>
+<h3 id="primary-sources-76"><a class="header" href="#primary-sources-76">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="longitude-of-the-sun"><a class="header" href="#longitude-of-the-sun">Longitude of the Sun</a></h1>
@@ -2824,6 +2892,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-93"><a class="header" href="#accuracy-93">Accuracy</a></h4>
 <p>The accuracy of this calculation depends on the precision of Meeus's calculations, which should be very accurate.</p>
 <h4 id="source-93"><a class="header" href="#source-93">Source</a></h4>
+<h3 id="primary-sources-77"><a class="header" href="#primary-sources-77">Primary Sources</a></h3>
 <p>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="this-months-new-moon"><a class="header" href="#this-months-new-moon">This Month's New Moon</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
@@ -2840,6 +2909,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-94"><a class="header" href="#accuracy-94">Accuracy</a></h4>
 <p>This calculation is <em>mostly</em> accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.</p>
 <h4 id="source-94"><a class="header" href="#source-94">Source</a></h4>
+<h3 id="primary-sources-78"><a class="header" href="#primary-sources-78">Primary Sources</a></h3>
 <p>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="this-months-first-quarter-moon"><a class="header" href="#this-months-first-quarter-moon">This Month's First Quarter Moon</a></h1>
@@ -2856,6 +2926,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-95"><a class="header" href="#accuracy-95">Accuracy</a></h4>
 <p>This calculation is <em>mostly</em> accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.</p>
 <h4 id="source-95"><a class="header" href="#source-95">Source</a></h4>
+<h3 id="primary-sources-79"><a class="header" href="#primary-sources-79">Primary Sources</a></h3>
 <p>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="this-months-full-moon"><a class="header" href="#this-months-full-moon">This Month's Full Moon</a></h1>
@@ -2872,6 +2943,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-96"><a class="header" href="#accuracy-96">Accuracy</a></h4>
 <p>This calculation is <em>mostly</em> accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.</p>
 <h4 id="source-96"><a class="header" href="#source-96">Source</a></h4>
+<h3 id="primary-sources-80"><a class="header" href="#primary-sources-80">Primary Sources</a></h3>
 <p>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="this-months-last-quarter-moon"><a class="header" href="#this-months-last-quarter-moon">This Month's Last Quarter Moon</a></h1>
@@ -2888,6 +2960,7 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-97"><a class="header" href="#accuracy-97">Accuracy</a></h4>
 <p>This calculation is <em>mostly</em> accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.</p>
 <h4 id="source-97"><a class="header" href="#source-97">Source</a></h4>
+<h3 id="primary-sources-81"><a class="header" href="#primary-sources-81">Primary Sources</a></h3>
 <p>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="next-solar-eclipse"><a class="header" href="#next-solar-eclipse">Next Solar Eclipse</a></h1>
@@ -2908,6 +2981,7 @@ gpsTime += leapSecondsCount;
 <p>This calculation is reasonably accurate (to within seconds or minutes) for thousands of years before and after the year 2000 CE. Outside of that, errors are induced which can grow from hours to even days.</p>
 <p>This calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.</p>
 <h4 id="source-98"><a class="header" href="#source-98">Source</a></h4>
+<h3 id="primary-sources-82"><a class="header" href="#primary-sources-82">Primary Sources</a></h3>
 <p>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="next-lunar-eclipse"><a class="header" href="#next-lunar-eclipse">Next Lunar Eclipse</a></h1>
@@ -2926,6 +3000,7 @@ gpsTime += leapSecondsCount;
 <p>This calculation is reasonably accurate (to within seconds or minutes) for thousands of years before and after the year 2000 CE. Outside of that, errors are induced which can grow from hours to even days.</p>
 <p>This calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.</p>
 <h4 id="source-99"><a class="header" href="#source-99">Source</a></h4>
+<h3 id="primary-sources-83"><a class="header" href="#primary-sources-83">Primary Sources</a></h3>
 <p>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.</p>
 <p>This cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lunisolar-calendars"><a class="header" href="#lunisolar-calendars">Lunisolar Calendars</a></h1>
@@ -2962,7 +3037,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-101"><a class="header" href="#accuracy-101">Accuracy</a></h4>
 <p>This calendar relies on the same calculations as the Chinese Lunisolar Calendar, though using midnight in Vietnam as the start of the say. Thus, it may vary mildly or significantly from the Chinese calendar. This may or may not itself be accurate, but the result should be relatively close to reality.</p>
 <h4 id="source-101"><a class="header" href="#source-101">Source</a></h4>
-<p>Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Vietnamese_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.</p>
+<h3 id="common-source-62"><a class="header" href="#common-source-62">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Vietnamese_calendar">Wikipedia article</a></p>
+<h3 id="primary-sources-84"><a class="header" href="#primary-sources-84">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dangun-kst"><a class="header" href="#dangun-kst">Dangun (KST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>15 February 2332 BCE +15:00:00</td><td>Medium</td><td>Seoul</td></tr>
@@ -2976,7 +3053,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-102"><a class="header" href="#accuracy-102">Accuracy</a></h4>
 <p>This calendar relies on the same calculations as the Chinese Lunisolar Calendar, though using midnight in Korea as the start of the say. Thus, it may vary mildly or significantly from the Chinese calendar. This may or may not itself be accurate, but the result should be relatively close to reality.</p>
 <h4 id="source-102"><a class="header" href="#source-102">Source</a></h4>
-<p>Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Korean_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.</p>
+<h3 id="common-source-63"><a class="header" href="#common-source-63">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Korean_calendar">Wikipedia article</a></p>
+<h3 id="primary-sources-85"><a class="header" href="#primary-sources-85">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hebrew-ist"><a class="header" href="#hebrew-ist">Hebrew (IST)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>6 September 3760 BCE +16:00:00</td><td>Exact</td><td>Jerusalem</td></tr>
@@ -3159,9 +3238,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-108"><a class="header" href="#accuracy-108">Accuracy</a></h4>
 <p>As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.</p>
 <h4 id="source-108"><a class="header" href="#source-108">Source</a></h4>
-<h3 id="common-source-39"><a class="header" href="#common-source-39">Common Source</a></h3>
+<h3 id="common-source-64"><a class="header" href="#common-source-64">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Holocene_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-39"><a class="header" href="#primary-sources-39">Primary Sources</a></h3>
+<h3 id="primary-sources-86"><a class="header" href="#primary-sources-86">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="invariable"><a class="header" href="#invariable">Invariable</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>1 January 1 CE</td><td>Exact</td></tr>
@@ -3175,9 +3254,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-109"><a class="header" href="#accuracy-109">Accuracy</a></h4>
 <p>As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.</p>
 <h4 id="source-109"><a class="header" href="#source-109">Source</a></h4>
-<h3 id="common-source-40"><a class="header" href="#common-source-40">Common Source</a></h3>
+<h3 id="common-source-65"><a class="header" href="#common-source-65">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Invariable_Calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-40"><a class="header" href="#primary-sources-40">Primary Sources</a></h3>
+<h3 id="primary-sources-87"><a class="header" href="#primary-sources-87">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-world-calendar"><a class="header" href="#the-world-calendar">The World Calendar</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>1 January 1 CE</td><td>Exact</td></tr>
@@ -3191,9 +3270,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-110"><a class="header" href="#accuracy-110">Accuracy</a></h4>
 <p>As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.</p>
 <h4 id="source-110"><a class="header" href="#source-110">Source</a></h4>
-<h3 id="common-source-41"><a class="header" href="#common-source-41">Common Source</a></h3>
+<h3 id="common-source-66"><a class="header" href="#common-source-66">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/World_Calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-41"><a class="header" href="#primary-sources-41">Primary Sources</a></h3>
+<h3 id="primary-sources-88"><a class="header" href="#primary-sources-88">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="symmetry454"><a class="header" href="#symmetry454">Symmetry454</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>1 January 1 CE</td><td>Exact</td></tr>
@@ -3398,9 +3477,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-113"><a class="header" href="#accuracy-113">Accuracy</a></h4>
 <p>As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.</p>
 <h4 id="source-113"><a class="header" href="#source-113">Source</a></h4>
-<h3 id="common-source-42"><a class="header" href="#common-source-42">Common Source</a></h3>
+<h3 id="common-source-67"><a class="header" href="#common-source-67">Common Source</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Positivist_calendar">Wikipedia article</a></p>
-<h3 id="primary-sources-42"><a class="header" href="#primary-sources-42">Primary Sources</a></h3>
+<h3 id="primary-sources-89"><a class="header" href="#primary-sources-89">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mpslc"><a class="header" href="#mpslc">MPSLC</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>8 April 4145 BCE</td><td>Exact</td></tr>
@@ -3492,7 +3571,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-116"><a class="header" href="#accuracy-116">Accuracy</a></h4>
 <p>As this is a simple mathematical calculation, this clock is exactly accurate.</p>
 <h4 id="source-116"><a class="header" href="#source-116">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.</p>
+<h3 id="common-source-68"><a class="header" href="#common-source-68">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a></p>
+<h3 id="primary-sources-90"><a class="header" href="#primary-sources-90">Primary Sources</a></h3>
+<p><a href="http://www.antique-horology.org/RepublicanCalendar/">Antique Horology website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="beat-bmt"><a class="header" href="#beat-bmt">.beat (BMT)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>Midnight (BMT)</td><td>Exact</td><td>Biel/Bienne, Switzerland</td></tr>
@@ -3505,7 +3587,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-117"><a class="header" href="#accuracy-117">Accuracy</a></h4>
 <p>As this is a simple mathematical calculation, this clock is exactly accurate.</p>
 <h4 id="source-117"><a class="header" href="#source-117">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Swatch_Internet_Time">Wikipedia article</a>.</p>
+<h3 id="common-source-69"><a class="header" href="#common-source-69">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Swatch_Internet_Time">Wikipedia article</a></p>
+<h3 id="primary-sources-91"><a class="header" href="#primary-sources-91">Primary Sources</a></h3>
+<p><a href="https://www.swatch.com/internet-time.html">Swatch website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hexadecimal"><a class="header" href="#hexadecimal">Hexadecimal</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>Midnight</td><td>Exact</td></tr>
@@ -3518,7 +3603,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-118"><a class="header" href="#accuracy-118">Accuracy</a></h4>
 <p>As this is a simple mathematical calculation, this clock is exactly accurate.</p>
 <h4 id="source-118"><a class="header" href="#source-118">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Hexadecimal_time">Wikipedia article</a>.</p>
+<h3 id="common-source-70"><a class="header" href="#common-source-70">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Hexadecimal_time">Wikipedia article</a></p>
+<h3 id="primary-sources-92"><a class="header" href="#primary-sources-92">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="binary-16-bit"><a class="header" href="#binary-16-bit">Binary (16 bit)</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>Midnight</td><td>Exact</td></tr>
@@ -3531,7 +3618,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-119"><a class="header" href="#accuracy-119">Accuracy</a></h4>
 <p>As this is a simple mathematical calculation, this clock is exactly accurate.</p>
 <h4 id="source-119"><a class="header" href="#source-119">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Binary_time">Wikipedia article</a>.</p>
+<h3 id="common-source-71"><a class="header" href="#common-source-71">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Binary_time">Wikipedia article</a></p>
+<h3 id="primary-sources-93"><a class="header" href="#primary-sources-93">Primary Sources</a></h3>
+<p><a href="https://www.abulsme.com/binarytime/">Abulsme website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="babylonian-time"><a class="header" href="#babylonian-time">Babylonian Time</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>Sunrise</td><td>High</td><td>Babylon</td></tr>
@@ -3550,7 +3640,11 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-120"><a class="header" href="#accuracy-120">Accuracy</a></h4>
 <p>This calculation is based on the solar day and is very accurate, but it approximates sunset as 6:00am local time.</p>
 <h4 id="source-120"><a class="header" href="#source-120">Source</a></h4>
-<p>Much of this clock was sourced from this <a href="https://en.wikipedia.org/wiki/Ancient_Mesopotamian_units_of_measurement">Wikipedia article</a> as well as <a href="https://en.wikipedia.org/wiki/Babylonian_calendar">this one</a>.</p>
+<h3 id="common-sourc"><a class="header" href="#common-sourc">Common Sourc</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Ancient_Mesopotamian_units_of_measurement">Wikipedia article 1</a>
+<a href="https://en.wikipedia.org/wiki/Babylonian_calendar">Wikipedia article 2</a></p>
+<h3 id="primary-sources-94"><a class="header" href="#primary-sources-94">Primary Sources</a></h3>
+<p><a href="https://medium.com/chryptianity-revealed/the-babylonian-genesis-of-time-addd2443c753">Medium article</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="helek"><a class="header" href="#helek">Helek</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>Every Hour</td><td>Exact</td><td>Jerusalem</td></tr>
@@ -3567,7 +3661,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-121"><a class="header" href="#accuracy-121">Accuracy</a></h4>
 <p>As this is a simple mathematical calculation, this clock is exactly accurate.</p>
 <h4 id="source-121"><a class="header" href="#source-121">Source</a></h4>
-<p>All of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Helek">Wikipedia article</a>/</p>
+<h3 id="common-source-72"><a class="header" href="#common-source-72">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Helek">Wikipedia article</a></p>
+<h3 id="primary-sources-95"><a class="header" href="#primary-sources-95">Primary Sources</a></h3>
+<p><a href="https://measurement.en-academic.com/1135/helek">en-academic website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="thai-time"><a class="header" href="#thai-time">Thai Time</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>1:00:00</td><td>Exact</td><td>Bangkok</td></tr>
@@ -3587,7 +3684,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-122"><a class="header" href="#accuracy-122">Accuracy</a></h4>
 <p>As this is a simple mathematical calculation, this clock is exactly accurate.</p>
 <h4 id="source-122"><a class="header" href="#source-122">Source</a></h4>
-<p>All of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand">Wikipedia article</a>.</p>
+<h3 id="common-source-73"><a class="header" href="#common-source-73">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand">Wikipedia article</a></p>
+<h3 id="primary-sources-96"><a class="header" href="#primary-sources-96">Primary Sources</a></h3>
+<p><a href="https://thairanked.com/en/blogs/thai-6-hour-time-system-explained/">Thai Ranked website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="zoroastrian"><a class="header" href="#zoroastrian">Zoroastrian</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>Sunrise</td><td>High</td><td>Yazd</td></tr>
@@ -3608,7 +3708,10 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-123"><a class="header" href="#accuracy-123">Accuracy</a></h4>
 <p>This is a simple calculation and is exactly accurate, though it assumes sunrise and sunset happen at 6am and 6pm respectively.</p>
 <h4 id="source-123"><a class="header" href="#source-123">Source</a></h4>
-<p>All of the information in this clock comes from this <a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia page</a>.</p>
+<h3 id="common-source-74"><a class="header" href="#common-source-74">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia article</a></p>
+<h3 id="primary-sources-97"><a class="header" href="#primary-sources-97">Primary Sources</a></h3>
+<p><a href="https://zoroastrians.net/2025/11/30/spiritual-significance-of-the-five-periods-of-the-day/">Zoroastrian website</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="extraterrestrial-time"><a class="header" href="#extraterrestrial-time">Extraterrestrial Time</a></h1>
 <p>Extraterrestrial time systems are clocks defined for other worlds—Mars coordinated time, prime meridian times on Jupiter’s Galilean moons, and Titan’s circad clock—rather than Earth civil time.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="coordinated-mars-time"><a class="header" href="#coordinated-mars-time">Coordinated Mars Time</a></h1>
@@ -3625,7 +3728,9 @@ gpsTime += leapSecondsCount;
 <h4 id="accuracy-124"><a class="header" href="#accuracy-124">Accuracy</a></h4>
 <p>This clock should be reasonably accurate, though it might be off by a few minutes or seconds due to Terrestrial Time.</p>
 <h4 id="source-124"><a class="header" href="#source-124">Source</a></h4>
-<p>All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Coordinated_Mars_Time">Wikipedia article</a>.</p>
+<h3 id="common-source-75"><a class="header" href="#common-source-75">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Coordinated_Mars_Time">Wikipedia article</a></p>
+<h3 id="primary-sources-98"><a class="header" href="#primary-sources-98">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="io-meridian-time"><a class="header" href="#io-meridian-time">Io Meridian Time</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>31 December 2001 +16:07:45</td><td>High</td></tr>
@@ -4177,7 +4282,9 @@ It features a 24-hour clock similar to the one used on Earth, though marginally 
 <h4 id="accuracy-141"><a class="header" href="#accuracy-141">Accuracy</a></h4>
 <p>This timekeeping system should be perfectly accurate but the epoch will not be the same for everyone, as people don't all sleep at the same time.</p>
 <h4 id="source-141"><a class="header" href="#source-141">Source</a></h4>
-<p>This calculation was sourced from the movie <a href="https://en.wikipedia.org/wiki/Inception_(film)">Inception</a>.</p>
+<h3 id="common-source-76"><a class="header" href="#common-source-76">Common Source</a></h3>
+<p>[Wikipedia article](https://en.wikipedia.org/wiki/Inception_(film)</p>
+<h3 id="primary-sources-99"><a class="header" href="#primary-sources-99">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="termina-time"><a class="header" href="#termina-time">Termina Time</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>6:00:00</td><td>Exact</td></tr>
@@ -4191,7 +4298,9 @@ It features a 24-hour clock similar to the one used on Earth, though marginally 
 <h4 id="accuracy-142"><a class="header" href="#accuracy-142">Accuracy</a></h4>
 <p>This timekeeping system should be perfectly accurate based on local time.</p>
 <h4 id="source-142"><a class="header" href="#source-142">Source</a></h4>
-<p>This calculation was sourced from <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Majora%27s_Mask">The Legend of Zelda: Majora's Mask</a>.</p>
+<h3 id="common-source-77"><a class="header" href="#common-source-77">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Majora%27s_Mask">Wikipedia article</a></p>
+<h3 id="primary-sources-100"><a class="header" href="#primary-sources-100">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="stardate"><a class="header" href="#stardate">Stardate</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th><th>Associated with</th></tr></thead><tbody>
 <tr><td>25 April 2265</td><td>Low</td><td>San Francisco</td></tr>
@@ -4205,7 +4314,9 @@ It features a 24-hour clock similar to the one used on Earth, though marginally 
 <h4 id="accuracy-143"><a class="header" href="#accuracy-143">Accuracy</a></h4>
 <p>Since this calendar is both fictional and without an exact algorithm, it is impossible to know how accurate this calculation is.</p>
 <h4 id="source-143"><a class="header" href="#source-143">Source</a></h4>
-<p>This calculation was sourced from <a href="https://en.wikipedia.org/wiki/Star_Trek">Star Trek</a>.</p>
+<h3 id="common-source-78"><a class="header" href="#common-source-78">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Star_Trek">Wikipedia article</a></p>
+<h3 id="primary-sources-101"><a class="header" href="#primary-sources-101">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="tamrielic"><a class="header" href="#tamrielic">Tamrielic</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>Unknown</td><td>Exact</td></tr>
@@ -4220,7 +4331,9 @@ It features a 24-hour clock similar to the one used on Earth, though marginally 
 <h4 id="accuracy-144"><a class="header" href="#accuracy-144">Accuracy</a></h4>
 <p>Since this calendar is a simple mapping to the Gregorian calendar, it is perfectly accurate.</p>
 <h4 id="source-144"><a class="header" href="#source-144">Source</a></h4>
-<p>This calculation was sourced from <a href="https://en.wikipedia.org/wiki/The_Elder_Scrolls">The Elder Scrolls</a>.</p>
+<h3 id="common-source-79"><a class="header" href="#common-source-79">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/The_Elder_Scrolls">Wikipedia article</a></p>
+<h3 id="primary-sources-102"><a class="header" href="#primary-sources-102">Primary Sources</a></h3>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="imperial-dating-system"><a class="header" href="#imperial-dating-system">Imperial Dating System</a></h1>
 <div class="table-wrapper"><table><thead><tr><th>Epoch</th><th>Confidence</th></tr></thead><tbody>
 <tr><td>1 January 0 BCE</td><td>Exact</td></tr>
@@ -4354,7 +4467,9 @@ Donald Trump 2025-2029</p>
 <h4 id="accuracy-147"><a class="header" href="#accuracy-147">Accuracy</a></h4>
 <p>US terms don't always start on January 20th, with certain stipulations such as if the 20th falls on a Sunday that could change the date slightly. The current system of terms starting on the 20th didn't start until 1937, and previously it was March 4th, with George Washington starting on April 30th.</p>
 <h4 id="source-147"><a class="header" href="#source-147">Source</a></h4>
-<p>The data for this entry was sourced from <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States">this Wikipedia page</a>.</p>
+<h3 id="common-source-80"><a class="header" href="#common-source-80">Common Source</a></h3>
+<p><a href="https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States">Wikipedia article</a></p>
+<h3 id="primary-sources-103"><a class="header" href="#primary-sources-103">Primary Sources</a></h3>
 
                     </main>
 

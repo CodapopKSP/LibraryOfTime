@@ -25,4 +25,9 @@ This calculation is based on the solar day and is very accurate, but it approxim
 
 #### Source
 
-Much of this clock was sourced from this [Wikipedia article](https://en.wikipedia.org/wiki/Ancient_Mesopotamian_units_of_measurement) as well as [this one](https://en.wikipedia.org/wiki/Babylonian_calendar).
+### Common Sourc
+[Wikipedia article 1](https://en.wikipedia.org/wiki/Ancient_Mesopotamian_units_of_measurement)
+[Wikipedia article 2](https://en.wikipedia.org/wiki/Babylonian_calendar)
+
+### Primary Sources
+[Medium article](https://medium.com/chryptianity-revealed/the-babylonian-genesis-of-time-addd2443c753)

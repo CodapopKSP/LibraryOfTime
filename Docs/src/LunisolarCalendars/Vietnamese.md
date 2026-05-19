@@ -24,4 +24,8 @@ This calendar relies on the same calculations as the Chinese Lunisolar Calendar,
 
 #### Source
 
-Some general information was taken from the [Wikipedia article](https://en.wikipedia.org/wiki/Vietnamese_calendar) for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Vietnamese_calendar)
+
+### Primary Sources
+

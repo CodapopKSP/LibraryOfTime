@@ -16,6 +16,5 @@ This calculation is a simple algorithm based on Unix time, and is thus exactly a
 
 #### Source
 
-This calculation came from [this converter](https://www.epochconverter.com/hex).
-
----
+### Primary Sources
+[Epoch Converter website](https://www.epochconverter.com/hex)

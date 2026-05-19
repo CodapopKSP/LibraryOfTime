@@ -22,4 +22,8 @@ As this is a simple mathematical calculation, this clock is exactly accurate.
 
 #### Source
 
-All of the information for this clock came from its [Wikipedia article](https://en.wikipedia.org/wiki/Helek)/
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Helek)
+
+### Primary Sources
+[en-academic website](https://measurement.en-academic.com/1135/helek)

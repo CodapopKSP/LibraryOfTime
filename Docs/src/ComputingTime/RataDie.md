@@ -18,4 +18,8 @@ The Rata Die is a simple count of days, meaning it is exactly accurate.
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Rata_Die).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Rata_Die)
+
+### Primary Sources
+[Hellenica website](https://www.hellenicaworld.com/Science/Mathematics/en/RataDie.html)

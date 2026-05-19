@@ -18,9 +18,13 @@ As Unix is the source of all timekeeping systems on this site, it is perfectly a
 
 #### Source
 
-Unix time is the source of all other timekeeping systems on this website. It is as accurate as JavaScript's Date library and your device's system time allow.
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Unix_time)
 
-Some information for this clock came from <a href="https://en.wikipedia.org/wiki/Unix_time">this website</a>.
+### Primary Sources
+[Epoch Converter website](https://www.epochconverter.com/clock)
+
+Unix time is the source of all other timekeeping systems on this website. It is as accurate as JavaScript's Date library and your device's system time allow.
 
 ---
 

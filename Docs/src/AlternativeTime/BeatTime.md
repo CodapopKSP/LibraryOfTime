@@ -18,4 +18,8 @@ As this is a simple mathematical calculation, this clock is exactly accurate.
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Swatch_Internet_Time).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Swatch_Internet_Time)
+
+### Primary Sources
+[Swatch website](https://www.swatch.com/internet-time.html)

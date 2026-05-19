@@ -18,4 +18,8 @@ The Lilian Date is a simple calculation on the Gregorian calendar, making it exa
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Lilian_date).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Lilian_date)
+
+### Primary Sources
+[IBM website](https://www.ibm.com/docs/en/zos/2.2.0?topic=services-ceedaysconvert-date-lilian-format)

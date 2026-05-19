@@ -22,6 +22,8 @@ This clock should be very accurate, though there are some very minor inaccuracie
 
 #### Source
 
-Much of the information on this clock came from its [Wikipedia article](https://en.wikipedia.org/wiki/Timekeeping_on_Mars).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Timekeeping_on_Mars)
 
+### Primary Source
 Dates can also be verified with [this website](https://ops-alaska.com/time/gangale_converter/calendar_clock.htm), though some inaccuracies have been noted.

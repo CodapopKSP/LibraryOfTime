@@ -18,4 +18,8 @@ As this is a simple mathematical calculation, this clock is exactly accurate.
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Binary_time).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Binary_time)
+
+### Primary Sources
+[Abulsme website](https://www.abulsme.com/binarytime/)

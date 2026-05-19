@@ -18,4 +18,5 @@ It is difficult to find a current representation of LORAN-C despite it apparentl
 
 #### Source
 
-Much of the information for this clock came from [this website](http://www.leapsecond.com/java/gpsclock.htm).
+### Primary Sources
+[this website](http://www.leapsecond.com/java/gpsclock.htm)

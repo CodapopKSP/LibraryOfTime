@@ -18,7 +18,11 @@ This clock relies on the ΔT calculations, which are only approximations. On top
 
 #### Source
 
-All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Terrestrial_Time">Wikipedia article</a>.
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Terrestrial_Time)
+
+### Primary Sources
+[ESA website](https://gssc.esa.int/navipedia/index.php/Atomic_Time)
 
 ---
 

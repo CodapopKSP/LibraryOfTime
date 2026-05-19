@@ -18,6 +18,7 @@ The accuracy of this calculation depends on the precision of Meeus's calculation
 
 #### Source
 
+### Primary Sources
 This calculation was sourced from [Astronomical Algorithms (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.
 
 This cycle can be calibrated using the ephemerides at [this website](https://astropixels.com/ephemeris/soleq2001.html).

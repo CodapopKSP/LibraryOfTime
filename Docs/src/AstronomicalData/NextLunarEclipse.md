@@ -26,6 +26,7 @@ This calculation relies on the New Moon calculation as well as Terrestrial Time,
 
 #### Source
 
+### Primary Sources
 This calculation in its entirety was sourced from [Astronomical Algorithms (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.
 
 This cycle can be calibrated using the ephemerides at [this website](https://astropixels.com/ephemeris/phasescat/phasescat.html).

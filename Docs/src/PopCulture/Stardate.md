@@ -20,4 +20,8 @@ Since this calendar is both fictional and without an exact algorithm, it is impo
 
 #### Source
 
-This calculation was sourced from [Star Trek](https://en.wikipedia.org/wiki/Star_Trek).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Star_Trek)
+
+### Primary Sources
+

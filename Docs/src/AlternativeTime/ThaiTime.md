@@ -25,4 +25,8 @@ As this is a simple mathematical calculation, this clock is exactly accurate.
 
 #### Source
 
-All of the information for this clock came from its [Wikipedia article](https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand)
+
+### Primary Sources
+[Thai Ranked website](https://thairanked.com/en/blogs/thai-6-hour-time-system-explained/)

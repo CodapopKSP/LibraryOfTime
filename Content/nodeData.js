@@ -175,7 +175,7 @@ const computingTimeData = [
         overview: `Unix is the most widespread timing system in computing and on the internet. It is a simple count of number of seconds since midnight on January 1st, 1970. Many of the calculations on this website are derived from Unix timestamps.`,
         info: `Unix time skips leap seconds, operating as if that time never happened.`,
         accuracy: `As Unix is the source of all timekeeping systems on this site, it is perfectly accurate.`,
-        source: `Unix time is the source of all other timekeeping systems on this website. It is as accurate as JavaScript's Date library and your device's system time allow.\n\nSome information for this clock came from <a href="https://en.wikipedia.org/wiki/Unix_time">this website</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Unix_time">Wikipedia article</a><h3>Primary Sources</h3><a href="https://www.epochconverter.com/clock">Epoch Converter website</a>\n\nUnix time is the source of all other timekeeping systems on this website. It is as accurate as JavaScript's Date library and your device's system time allow.`
     },
 
     {
@@ -188,7 +188,7 @@ const computingTimeData = [
         overview: `GPS time is the standard by which all GPS satellites and GPS-enabled devices coordinate their positions. It is a simple count of seconds from midnight on January 6th, 1980.\n\nWhen converted into the Gregorian calendar, it drifts ahead by a second every now and then as it does not follow leap seconds found in other timekeeping standards.`,
         info: `GPS became available to the public in 2000 CE.`,
         accuracy: `This clock is considered to be perfectly accurate, as it's a simple calculation from Unix.`,
-        source: `Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping">Wikipedia article</a>.\n\nSome information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping">Wikipedia article</a><h3>Primary Sources</h3><a href="http://www.leapsecond.com/java/gpsclock.htm">Leap Second website</a>\n\n<a href="https://www.epochconverter.com/gps">Epoch Converter website</a>`
     },
 
     {
@@ -201,7 +201,7 @@ const computingTimeData = [
         overview: `The GPS Week Number is an alternative way to express the GPS timestamp. The first number is the number of weeks since the epoch, and the second number is the number of seconds in the current week.`,
         info: ``,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/gps">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/gps">Epoch Converter website</a>`
     },
 
     {
@@ -214,7 +214,7 @@ const computingTimeData = [
         overview: `International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth\'s geoid. It is the basis for UTC but deviates from UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.`,
         info: `Ironically, the clock displayed here is derived from UTC even though it is itself the basis for UTC.`,
         accuracy: `This clock is considered to be perfectly accurate, as it's a simple calculation from UTC. However, this only applies to dates after the Unix epoch of 1 January 1970. Prior to that, leap seconds aren't taken into account in this calculation.`,
-        source: `Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/International_Atomic_Time">Wikipedia article</a>.\n\nSome information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/International_Atomic_Time">Wikipedia article</a><h3>Primary Sources</h3><a href="http://www.leapsecond.com/java/gpsclock.htm">Leap Second website</a>\n\n<a href="https://gssc.esa.int/navipedia/index.php/Atomic_Time">ESA website</a>`
     },
 
     {
@@ -227,7 +227,7 @@ const computingTimeData = [
         overview: `Terrestrial Time is the timekeeping standard used by astronomers to calculate time as a global concept rather than in relation to the motion of the Earth. As the Earth's rotation slows due to tidal forces and earthquakes, UTC and TT will continue to drift apart. The difference between them is ΔT.`,
         info: `TT is an ideal that can only ever be approximated, including at the precision of atomic clocks. The chosen epoch has no basis in science and is just used as a reference point for when ΔT was zero and thus TT and UTC were aligned.`,
         accuracy: `This clock relies on the ΔT calculations, which are only approximations. On top of that, they were created in the 1990s are are certainly out of date by a few seconds.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Terrestrial_Time">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Terrestrial_Time">Wikipedia article</a><h3>Primary Sources</h3><a href="https://gssc.esa.int/navipedia/index.php/Atomic_Time">ESA website</a>`
     },
 
     {
@@ -240,7 +240,7 @@ const computingTimeData = [
         overview: `Long Range Navigational time was the standard used by the US and other jurisdictions prior to the creation of GPS. It deviates from UTC by the number of leap seconds since 1972 and doesn't include the 10 extra leap seconds in TAI.`,
         info: `LORAN-C uses a network of radio transmitters to determine distance using the synchronized time, similar to GPS that uses satellites.`,
         accuracy: `It is difficult to find a current representation of LORAN-C despite it apparently still being in use. I have reconstructed this clock based off of the provided source as well as explanations of the specifics.`,
-        source: `Much of the information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.`
+        source: `<h3>Primary Sources</h3><a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>`
     },
 
     {
@@ -253,7 +253,7 @@ const computingTimeData = [
         overview: `FILETIME is the timing method found on Windows filesystems. It is a simple count of number of 100-nanosecond intervals since midnight on January 1st, 1601.`,
         info: `The particular date of 1 January 1601 was chosen because it is the start of a new 400-year Gregorian leap year cycle.`,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count 100-nanosecond intervals, instead updating on the site's global 20ms update cycle.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/System_time">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/System_time">Wikipedia article</a><h3>Primary Sources</h3><a href="https://www.epochconverter.com/ldap">Epoch Converter website</a>`
     },
 
     {
@@ -266,7 +266,7 @@ const computingTimeData = [
         overview: `.NET DateTime Ticks is a count of the number of 100-nanosecond intervals since 1 January 1 CE.`,
         info: ``,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count 100-nanosecond intervals, instead updating on the site's global 20ms update cycle.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/dotnet">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/dotnet">Epoch Converter website</a>`
     },
 
     {
@@ -279,7 +279,7 @@ const computingTimeData = [
         overview: `The Chrome/WebKit timestamp is used by browsers based on Chromium, such as Google Chrome.\n\nIt represents the number of microseconds since 1 January 1601 CE.`,
         info: `The particular date of 1 January 1601 was chosen because it is the start of a new 400-year Gregorian leap year cycle.`,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate. However, it doesn't actually count microseconds, instead updating on the site's global 20ms update cycle.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/webkit">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/webkit">Epoch Converter website</a>`
     },
 
     {
@@ -292,7 +292,7 @@ const computingTimeData = [
         overview: `The Unix Hex timestamp is the hexadecimal representation of the Unix timestamp.`,
         info: ``,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/hex">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/hex">Epoch Converter website</a>`
     },
 
     {
@@ -305,7 +305,7 @@ const computingTimeData = [
         overview: `The Cocoa Core Data timestamp is used in iOS and OS X applications. It is also refered to as Mac absolute time.\n\nIt counts the number of seconds since 1 January 2001 CE.`,
         info: ``,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/coredata">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/coredata">Epoch Converter website</a>`
     },
 
     {
@@ -318,7 +318,7 @@ const computingTimeData = [
         overview: `The Mac HFS+ timestamp was a system used in Apple devices and has since been replaces with the Cocoa Core Data timestamp.`,
         info: `The Mac HFS+ can only store 32-bit numbers and will roll over back to 0 on 6 February 2040 at 6:28:16 UTC+0.`,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/mac">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/mac">Epoch Converter website</a>`
     },
 
     {
@@ -331,7 +331,7 @@ const computingTimeData = [
         overview: `The Network Time Protocol timestamp is a count of the number of seconds since 1 January 1900 CE. It can be displayed in both decimal and hexadecimal.`,
         info: `NTP can only store 32-bit numbers and will roll over back to 0 on 7 February 2036 at 6:28:16 UTC+0, also known as the Year 2036 Problem.`,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/ntp">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/ntp">Epoch Converter website</a>`
     },
 
     {
@@ -344,7 +344,7 @@ const computingTimeData = [
         overview: `DOS FAT timestamps are used in the FAT filesystem.`,
         info: ``,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/fat">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/fat">Epoch Converter website</a>`
     },
 
     {
@@ -357,7 +357,7 @@ const computingTimeData = [
         overview: `The Statistical Analysis System 4GL timestamp has two forms. One represents the number of seconds since 1 January 1960 CE, and the other represents the number of days since the same epoch.`,
         info: ``,
         accuracy: `This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.`,
-        source: `This calculation came from <a href="https://www.epochconverter.com/sas">this converter</a>.`
+        source: `<h3>Primary Sources</h3><a href="https://www.epochconverter.com/sas">Epoch Converter website</a>`
     },
 
     {
@@ -370,7 +370,7 @@ const computingTimeData = [
         overview: `The Julian Day Number is a simple count of number of days since noon on 24 November 4713 BCE (1 January 4713 BC in the Julian Calerndar). The JDN is used by astronomers and programmers to simplify calculations for the passage of time, and many of the calculations in this website are based off of the JDN.`,
         info: `There are many versions of the JDN, most of which involve truncating the large number for easier calculations.`,
         accuracy: `This counter is rigorously-studied and exactly accurate, with the only question being the addition of Terrestrial Time.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a><h3>Primary Sources</h3><a href="https://ssd.jpl.nasa.gov/tools/jdc/#/cd">NASA JPL website</a>`
     },
 
     {
@@ -383,7 +383,7 @@ const computingTimeData = [
         overview: `Rata Die is similar to the Julian Day Number and is a simple count of number of days in the Gregorian Calendar since 1 January 1 CE.`,
         info: `Rata Die was created as a way to calculate calendars more easily, though most day-based calculations on this site still use the Julian Day.`,
         accuracy: `The Rata Die is a simple count of days, meaning it is exactly accurate.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Rata_Die">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Rata_Die">Wikipedia article</a><h3>Primary Sources</h3><a href="https://www.hellenicaworld.com/Science/Mathematics/en/RataDie.html">Hellenica website</a>`
     },
 
     {
@@ -396,7 +396,7 @@ const computingTimeData = [
         overview: `The Julian Period is a simple count of years in the Julian Calendar beginning at noon on 24 November 4713 BCE (1 January 4713 BC in the Julian Calerndar). It is used by historians to date events when no calendar date is given or when previous given dates are deemed to be incorrect.`,
         info: `The Julian Period is the count of days since the last time Indiction, Solar and Lunar cycles all started on the same day, and repeats in a cycle of 7980 years.`,
         accuracy: `The Julian Period is a simple count of days, meaning it should be exactly accurate. However, sources for this cycle aren't exactly clear if the year updates on the Julian or Astronomical calendar, so I have chosen to use the Julian Calendar. I've also taken some liberties by adding the cycle number, which is not explicitly defined in any source but is heavily implied.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Julian_day">Wikipedia article</a><h3>Primary Sources</h3><a href="https://quod.lib.umich.edu/d/did/did2222.0004.168/--julian-period?rgn=main;view=fulltext;q1=Jean+Le+Rond+d+Alembert">The Encyclopedia of Diderot & d'Alembert website</a>`
     },
 
     {
@@ -409,7 +409,7 @@ const computingTimeData = [
         overview: `Lilian Date is a timekeeping standard similar to the Julian Day. It was invented by Bruce G. Ohms to be used with IBM systems and is named after Aloysius Lilius, the creator of the Gregorian calendar. It is a simple count of number of days since the beginning of the Gregorian calendar on October 15th, 1582 CE, which is Lilian 1.`,
         info: `Lilian Date technically does not use a specific timezone for its calculation, so this website uses the Julian Day which is based on UTC.`,
         accuracy: `The Lilian Date is a simple calculation on the Gregorian calendar, making it exactly accurate.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Lilian_date">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Lilian_date">Wikipedia article</a><h3>Primary Sources</h3><a href="https://www.ibm.com/docs/en/zos/2.2.0?topic=services-ceedaysconvert-date-lilian-format">IBM website</a>`
     },
 
     {
@@ -422,7 +422,7 @@ const computingTimeData = [
         overview: `The Ordinal Date is a technique of describing the current date with just 5 digits. The first two digits are the year starting from 2000 CE, while the latter three digits is the simple day count for that year, with January 1 being 1.\n\nThe year doesn't necessarily have to be two digits and can become 3 or more if more than +- 99 years from 2000 CE.`,
         info: `This counter used to be called the Julian Day, but that caused lots of confusion since the term had already been used to name the Julian Day Number, among other time formats.`,
         accuracy: `The Ordinal Date is a simple calculation on the Gregorian calendar, making it exactly accurate.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Ordinal_date">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Ordinal_date">Wikipedia article</a><h3>Primary Sources</h3><a href="https://landweb.modaps.eosdis.nasa.gov/help/calendar">NASA website</a>`
     },
 
     {
@@ -435,7 +435,7 @@ const computingTimeData = [
         overview: `ISO 8601 is the standard of displaying date and time provided by the International Organization for Standardization. It is based off the Gregorian calendar and utilizes year 0.`,
         info: `ISO 8601 is intended to provide a clear, unambiguous date time format for international use.`,
         accuracy: `ISO 8601 is derived directly from Unix time and thus is exactly accurate.`,
-        source: `ISO 8601 is actually a supported string of JavaScript's native Date library, so there is nothing for this website to calculate. General information came from its <a href="https://en.wikipedia.org/wiki/ISO_8601">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/ISO_8601">Wikipedia article</a><h3>Primary Sources</h3><a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO website</a>`
     },
 
     {
@@ -448,7 +448,7 @@ const computingTimeData = [
         overview: `ΔT is an approximation of the difference in time between Terrestrial Time and UTC due to various factors that affect Earth's rotation, such as gravitational effects from other planets, earthquakes, and tidal forces.\n\nThe two systems match around the year 1880 and deviate further away in time as a parabolic equation, with an uncertainty as much as two hours by the year 4000 BCE.`,
         info: `The exact length of the day is slowly changing on the order of a few seconds per year. This rate is not constant, though it can be estimated.`,
         accuracy: `ΔT is itself an approximation, so the results here can only be as good as that approximation.\n\nThe epoch for this value is not an epoch but rather a moment where ΔT is close to zero.`,
-        source: `This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.`
+        source: `<h3>Primary Sources</h3>This calculation was sourced from <a href="https://eclipse.gsfc.nasa.gov/SEcat5/deltatpoly.html">the NASA Eclipse Web Site</a>, which provides polynomial expressions for ΔT.`
     },
 
     {
@@ -461,7 +461,7 @@ const computingTimeData = [
         overview: `The Mars Sol Date, similar to the Julian Day Number, is the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. Currently I haven't been able to figure out exactly why the epoch was chosen. The day increments when the Airy-0 crater reaches midnight.`,
         info: `One Mars sol is 39 minutes and 35 seconds longer than an Earth day.`,
         accuracy: `This clock should be very accurate, though it relies on ΔT which ultimately is only an approximation.`,
-        source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a><h3>Primary Sources</h3><a href="https://oregonl5.nss.org/mist/docs/Mars24J/help/notes.html">Oregon L5 Society website</a>`
     },
 
     {
@@ -474,7 +474,7 @@ const computingTimeData = [
         overview: `The Julian Sol Number, created by Thomas Gangale, is similar to the Julian Day Number but it counts the number of sols that have passed since the epoch. A sol is the name for the Martian day, and it is slightly longer than an Earth day. This epoch marks an important Martian Vernal Equinox. The day increments when the Airy-0 crater reaches midnight.\n\nIn a chat I had with with Mr. Gangale, he expressed his desire for this standard to be deprecated, as the Mars Sol Date created by Michael Allison had received wider use. However, since it was used at one point, I have opted to include it in this website.\n\n"The sooner that things become standardized, the better, so consider the JS to be obsolete." -Thomas Gangale, 2024`,
         info: `One Mars sol is 39 minutes and 35 seconds longer than an Earth day.`,
         accuracy: `This clock should be very accurate, though there are some very minor inaccuracies likely stemming from the redefiniton of the epoch of the Mars Sol Day, or perhaps slight differences in calculations of ΔT.`,
-        source: `Much of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a>.\n\nDates can also be verified with <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">this website</a>, though some inaccuracies have been noted.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Timekeeping_on_Mars">Wikipedia article</a><h3>Primary Source</h3>Dates can also be verified with <a href="https://ops-alaska.com/time/gangale_converter/calendar_clock.htm">this website</a>, though some inaccuracies have been noted.`
     },
 
     {
@@ -487,7 +487,7 @@ const computingTimeData = [
         overview: `The Julian Circad Number was a system created by Thomas Gangale in tandem with the Darian calendar for the Saturn moon, Titan. It is inspired by the Julian Day Number, but it counts circads from an epoch rather than days.\n\nThe epoch was chosen as the conjunction of the sun and Titan (when Titan was directly between the sun and Saturn) that occurred nearest to the epoch generally shared by the other Darian calendars.`,
         info: `One circad is about 23 hours, 57 minutes and 13.11 seconds (0.998068439 days).`,
         accuracy: `The accuracy of this timekeeping system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.\n\nThe epoch is noted to account for the time it takes light to travel from Jupiter in the Galilean calendars, but it isn't clear if it has also been accounted for in this clock.`,
-        source: `This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.`
+        source: `<h3>Primary Sources</h3>This formula was extrapolated from the writings of Thomas Gangale found at <a href="https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm">this website</a>.\n\nIt can be somewhat calibrated using <a href="https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/">this model</a> if you know what you're doing.`
     },
 
     {
@@ -500,7 +500,7 @@ const computingTimeData = [
         overview: `Kali Ahargaṅa is a simple count of days since the kali epoch. According to Hindu timekeeping, the current yuga, Kali Yuga, began in 3101 BCE and will last for 432,000 years, ending in 428,899 CE.\n\nKali Yuga is the fourth, shortest, and worst of the four yugas.`,
         info: `Each yuga has a shorter dawn and dusk period before and after the longer main period.\n\n<table class="table-very-very-long"><tr><th>Part</th><th>Start</th><th>Length</th></tr><tr><td>Kali-yuga-sandhya (dawn)</td><td>3101 BCE</td><td>36,000 (100)</td></tr><tr><td>Kali-yuga (proper)</td><td>32,899 CE</td><td>360,000 (1,000)</td></tr><tr><td>Kali-yuga-sandhyamsa (dusk)</td><td>392,899–428,899 CE</td><td>36,000 (100)</td></tr></table>`,
         accuracy: `The Kali Ahargaṅa is based off the Gregorian calendar and is considered to be very accurate compared with historical records.`,
-        source: `Much of the information for this timekeeping system has come from its <a href="https://en.wikipedia.org/wiki/Kali_ahargana">Wikipedia article</a>.\n\nYou can find another converter for this system <a href="https://planetcalc.com/9166/">here</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Kali_ahargana">Wikipedia article</a><h3>Primary Sources</h3><a href="https://vedicastronomy.blogspot.com/2010/07/ahargana-is-defined-as-no-of-days.html">Vedic Astronomy blog</a>\n\n<a href="https://planetcalc.com/9166/">Planet Calc website</a>`
     },
 
     {
@@ -513,7 +513,7 @@ const computingTimeData = [
         overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number was created by Jean Meeus in 1998. It uses the New Moon of 6 January 2000 CE for its epoch, in this case denoted as Lunation 0.`,
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Lunation Number is the standard used by this website to calculate other lunation numbers as well as certain calendars and calculations.`,
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a><h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.`
     },
 
     {
@@ -526,7 +526,7 @@ const computingTimeData = [
         overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number was created by Ernest William Brown. It uses the New Moon of 17 January 1923 CE for its epoch, in this case denoted as Lunation 1.`,
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Brown Lunation Number can be calculated by adding 953 to the Lunation Number.`,
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a><h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.`
     },
 
     {
@@ -539,7 +539,7 @@ const computingTimeData = [
         overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number was created by Herman Goldstine. It uses the New Moon of 11 January 1001 CE for its epoch, in this case denoted as Lunation 0.`,
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Goldstine Lunation Number can be calculated by adding 37105 to the Lunation Number.`,
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a><h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.`
     },
 
     {
@@ -552,7 +552,7 @@ const computingTimeData = [
         overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number is used by the Hebrew calendar. It uses the New Moon of 6 September 3761 BCE for its epoch, in this case denoted as Lunation 1.`,
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Hebrew Lunation Number can be calculated by adding 71234 to the Lunation Number.`,
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a><h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.`
     },
 
     {
@@ -565,7 +565,7 @@ const computingTimeData = [
         overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number is used by the Hijri calendar. It uses the New Moon of 18 July 622 CE for its epoch, in this case denoted as Lunation 1.`,
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Islamic Lunation Number can be calculated by adding 17038 to the Lunation Number.`,
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a><h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.`
     },
 
     {
@@ -578,7 +578,7 @@ const computingTimeData = [
         overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number is used by the Buddhist calendar. It uses the New Moon of 22 March 638 CE for its epoch, in this case denoted as Lunation 0.`,
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Thai Lunation Number can be calculated by adding 16843 to the Lunation Number.`,
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.\n\nMore information can be found in its <a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a><h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">*Astronomical Algorithms* (1991)</a> by Jean Meeus.`
     },
 
     {
@@ -591,7 +591,7 @@ const computingTimeData = [
         overview: `The Lunation Number is the number of New Moons since the epoch. There are several variations of this number.\n\nThis lunation number is associated with the Nabonassar Era of Babylon, using the new moon of 12 February 746 BCE as Lunation 1.`,
         info: `As lunations are important to many calendars and cultures, there are many competing standards.\n\nThe Nabonassar Lunation Number can be calculated by adding 33963 to the Lunation Number.`,
         accuracy: `The lunation number is a simple calculation of time since the epoch divided by the average lunar cycle length. As the lunar cycle can vary by several hours, the time that the lunation number changes might not exactly match the current lunation. It is mostly intended to be used as an approximate reference rather than as a rigid definition of when the lunation has occurred.`,
-        source: `This lunation number was calibrated using <a href="https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm">this converter</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/New_moon">Wikipedia article</a><h3>Primary Sources</h3>This lunation number was calibrated using <a href="https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm">this converter</a>.`
     },
 
     {
@@ -604,7 +604,7 @@ const computingTimeData = [
         overview: `When using spreadsheets such as Excel or Google Sheets, =NOW() can be used to return the current date. This is saved in the background as a single floating point number, which can be revealed if the user incorrectly formats the date to a number.\n\nDays are counted from the epoch of 30 December 1899 CE, which can also be seen if the user formats a zero to a date.`,
         info: `One might notice that the epoch of 30 December 1899 CE is an odd choice. It is very close to 1 January 1900. Assuming that is day 1, then day 0 should be 31 December 1899.\n\nThe reason for this discrepancy is due to Microsoft Excel originally needing to be compatible with Lotus 1-2-3. The date system in Lotus 1-2-3 incorrectly determined the year 1900 to be a leap year (which was true in the Julian calendar but not the Gregorian). This error added an extra date of 29 February, which did not exist. Thus, in order for days after 28 February 1900 to be correct, the epoch must be shifted backwards by one day.`,
         accuracy: `This calculation is a simple count based on a Gregorian date and is thus exactly accurate.`,
-        source: `All of the information on this clock came from its <a href="https://en.wikipedia.org/wiki/Year_1900_problem">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Year_1900_problem">Wikipedia article</a><h3>Primary Sources</h3>`
     }
 ];
 
@@ -619,7 +619,7 @@ const alternativeTimeData = [
         overview: `Revolutionary Time is the timekeeping system employed by France during the French Revolution from 1794 to 1800. It divides the day into 10 hours, each hour into 100 minutes, and each minute into 100 seconds.\n\nThe French would have used Paris Mean Time (GMT + 00:09:21) but this website uses local time.`,
         info: `<table class="table-short"><tr><td>Revolutionary Time</td><td>Standard Time</td></tr><tr><td>Decimal Second</td><td>0.864 Seconds</td></tr><tr><td>Decimal Minute</td><td>1.44 Minutes (86.4 Seconds)</td></tr><tr><td>Decimal Hour</td><td>2.4 Hours (144 Minutes)</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Decimal_time">Wikipedia article</a><h3>Primary Sources</h3><a href="http://www.antique-horology.org/RepublicanCalendar/">Antique Horology website</a>`
     },
 
     {
@@ -632,7 +632,7 @@ const alternativeTimeData = [
         overview: `.beat time, also known as Swatch Internet Time, is a timekeeping system developed in 1998 by the Swatch corporation. It divides the day into 1000 equal parts, called .beats, and is set to the BMT timezone (UTC +1).`,
         info: `<table class="table-long"><tr><th>.Beats</th><th>Seconds</th><th>Minutes</th></tr><tr><td>1</td><td>86.4</td><td>1.44</td></tr><tr><td>100</td><td>8640</td><td>144</td></tr><tr><td>200</td><td>17280</td><td>288</td></tr><tr><td>300</td><td>25920</td><td>432</td></tr><tr><td>400</td><td>34560</td><td>576</td></tr><tr><td>500</td><td>43200</td><td>720</td></tr><tr><td>600</td><td>51840</td><td>864</td></tr><tr><td>700</td><td>60480</td><td>1008</td></tr><tr><td>800</td><td>69120</td><td>1152</td></tr><tr><td>900</td><td>77760</td><td>1296</td></tr><tr><td>1000</td><td>86400</td><td>1440</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Swatch_Internet_Time">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Swatch_Internet_Time">Wikipedia article</a><h3>Primary Sources</h3><a href="https://www.swatch.com/internet-time.html">Swatch website</a>`
     },
 
     {
@@ -645,7 +645,7 @@ const alternativeTimeData = [
         overview: `Hexadecimal time is a simple representation of the current fraction of a day in hexadecimal. Midnight starts at .0000 and the moment just before midnight is .FFFF. The smallest unit of resolution is 675/512 seconds, or about 1.318 seconds.`,
         info: `<table class="table-long"><tr><th>Decimal</th><th>Hexadecimal</th></tr><tr><td>0</td><td>0000</td></tr><tr><td>1</td><td>0001</td></tr><tr><td>2</td><td>0002</td></tr><tr><td>3</td><td>0003</td></tr><tr><td>4</td><td>0004</td></tr><tr><td>5</td><td>0005</td></tr><tr><td>6</td><td>0006</td></tr><tr><td>7</td><td>0007</td></tr><tr><td>8</td><td>0008</td></tr><tr><td>9</td><td>0009</td></tr><tr><td>10</td><td>000A</td></tr><tr><td>11</td><td>000B</td></tr><tr><td>12</td><td>000C</td></tr><tr><td>13</td><td>000D</td></tr><tr><td>14</td><td>000E</td></tr><tr><td>15</td><td>000F</td></tr><tr><td>16</td><td>0010</td></tr><tr><td>17</td><td>0011</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Hexadecimal_time">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Hexadecimal_time">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -658,7 +658,7 @@ const alternativeTimeData = [
         overview: `Binary time is the binary representation of the day divided into 2^16 (65,536) equal parts, with all 0s being midnight and a 1 followed by 15 zeros being exactly half the day (noon). The smallest unit of resolution is 675/512 seconds, or about 1.318 seconds.`,
         info: `<table class="table-long"><tr><th>Decimal</th><th>Binary</th></tr><tr><td>0</td><td>0000000000000000</td></tr><tr><td>1</td><td>0000000000000001</td></tr><tr><td>2</td><td>0000000000000010</td></tr><tr><td>3</td><td>0000000000000011</td></tr><tr><td>4</td><td>0000000000000100</td></tr><tr><td>5</td><td>0000000000000101</td></tr><tr><td>6</td><td>0000000000000110</td></tr><tr><td>7</td><td>0000000000000111</td></tr><tr><td>8</td><td>0000000000001000</td></tr><tr><td>9</td><td>0000000000001001</td></tr><tr><td>10</td><td>0000000000001010</td></tr><tr><td>11</td><td>0000000000001011</td></tr><tr><td>12</td><td>0000000000001100</td></tr><tr><td>13</td><td>0000000000001101</td></tr><tr><td>14</td><td>0000000000001110</td></tr><tr><td>15</td><td>0000000000001111</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Binary_time">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Binary_time">Wikipedia article</a><h3>Primary Sources</h3><a href="https://www.abulsme.com/binarytime/">Abulsme website</a>`
     },
 
     {
@@ -671,7 +671,7 @@ const alternativeTimeData = [
         overview: `Babylonian timekeeping was the timekeeping system used in ancient Babylon. It is the basis for standard timekeeping in modern times.\n\nIt divides each day into 12 watches, each two hours long and beginning at sunrise. Each watch is further divided into 30 geš, which are about 4 minutes each.\n\nSome sources further divided the geš into grains, though they rarely agree, providing numbers such as 60 and 72 grains per geš.`,
         info: `<table class="table-very-very-long"><tr><th>Unit</th><th>Duration</th></tr><tr><td>Watch</td><td>2 hours</td></tr><tr><td>Geš</td><td>4 minutes</td></tr></table>`,
         accuracy: `This calculation is based on the solar day and is very accurate, but it approximates sunset as 6:00am local time.`,
-        source: `Much of this clock was sourced from this <a href="https://en.wikipedia.org/wiki/Ancient_Mesopotamian_units_of_measurement">Wikipedia article</a> as well as <a href="https://en.wikipedia.org/wiki/Babylonian_calendar">this one</a>.`
+        source: `<h3>Common Sourc</h3><a href="https://en.wikipedia.org/wiki/Ancient_Mesopotamian_units_of_measurement">Wikipedia article 1</a>\n\n<a href="https://en.wikipedia.org/wiki/Babylonian_calendar">Wikipedia article 2</a><h3>Primary Sources</h3><a href="https://medium.com/chryptianity-revealed/the-babylonian-genesis-of-time-addd2443c753">Medium article</a>`
     },
 
     {
@@ -684,7 +684,7 @@ const alternativeTimeData = [
         overview: `The Helek is a unit used in Hebrew timekeeping. It divides the standard hour into 1080 parts.\n\nIt is said to be derived from the Babylonian Grain, a similarly-sized unit of time.`,
         info: `<table class="table-very-very-long"><tr><th>Helek</th><th>Seconds</th><th>Minutes</th></tr><tr><td>1</td><td>3 1/3</td><td>1/18</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
-        source: `All of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Helek">Wikipedia article</a>/`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Helek">Wikipedia article</a><h3>Primary Sources</h3><a href="https://measurement.en-academic.com/1135/helek">en-academic website</a>`
     },
 
     {
@@ -697,7 +697,7 @@ const alternativeTimeData = [
         overview: `Thai time is a clock used in Thailand that divides the day into four six-hour sections: ตี, โมงเช้า, บ่าย, and ทุ่ม.\n\nHours are referred to by the current hour (1-6) of the current section.`,
         info: `<table class="table-very-very-long"><tr><th>Section</th><th>Label</th><th>Hours</th></tr><tr><td>1</td><td>ตี</td><td>01:00-06:59</td></tr><tr><td>2</td><td>โมงเช้า</td><td>07:00-12:59</td></tr><tr><td>3</td><td>บ่าย</td><td>13:00-18:59</td></tr><tr><td>4</td><td>ทุ่ม</td><td>19:00-00:59</td></tr></table>`,
         accuracy: `As this is a simple mathematical calculation, this clock is exactly accurate.`,
-        source: `All of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand">Wikipedia article</a><h3>Primary Sources</h3><a href="https://thairanked.com/en/blogs/thai-6-hour-time-system-explained/">Thai Ranked website</a>`
     },
 
     {
@@ -710,7 +710,7 @@ const alternativeTimeData = [
         overview: `Zoroastrian time is the timekeeping system traditionally used by the Zoroastrian religion in Iran. It breaks the day down into five "watches". Beginning at sunset until noon is the watch of Hawan, followed by Rapithwin until 3pm, Uzerin until sunset, Aiwisruthrem from sunset to midnight, and Ushahin until sunrise.\n\nIn medieval times, the first watch of Hawan may have gone until 3pm, excluding Rapithwin.`,
         info: `<table class="table-very-very-long"><tr><th>Gāh</th><th>Hours</th></tr><tr><td>Hawan</td><td>06:00–11:59</td></tr><tr><td>Rapithwin</td><td>12:00–14:59</td></tr><tr><td>Uzerin</td><td>15:00–17:59</td></tr><tr><td>Aiwisruthrem</td><td>18:00–23:59</td></tr><tr><td>Ushahin</td><td>00:00–05:59</td></tr></table>`,
         accuracy: `This is a simple calculation and is exactly accurate, though it assumes sunrise and sunset happen at 6am and 6pm respectively.`,
-        source: `All of the information in this clock comes from this <a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia page</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Zoroastrian_calendar">Wikipedia article</a><h3>Primary Sources</h3><a href="https://zoroastrians.net/2025/11/30/spiritual-significance-of-the-five-periods-of-the-day/">Zoroastrian website</a>`
     }
 ];
 
@@ -725,7 +725,7 @@ const extraterrestrialTimeData = [
         overview: `Coordinated Mars Time, also called MTC as well as Airy Mean Time (AMT), is a proposed clock for use on Mars which has gained some level of mainstream traction in the scientific community. It is intended to be a Martian analog to Earth's UTC.\n\nThe time is displayed as hours, minutes, and seconds since midnight on Mars at the location of the Airy-0 crater. The clock is the same as clocks on Earth, with 24 hours and 60 minutes in an hour, though each unit is slightly longer due to the length of the sol being 39 minutes and 35 seconds longer than the day.`,
         info: `This clock uses the Mars Sol Date for the calculation determining where midnight begins.\n\n<table class="table-short"><tr><td>MTC</td><td>Standard Time</td></tr><tr><td>MTC Second</td><td>1.02749125 Seconds</td></tr><tr><td>MTC Minute</td><td>61.649475 Seconds</td></tr><tr><td>MTC Hour</td><td>61.649475 Minutes</td></tr></table>`,
         accuracy: `This clock should be reasonably accurate, though it might be off by a few minutes or seconds due to Terrestrial Time.`,
-        source: `All of the information on this calendar came from its <a href="https://en.wikipedia.org/wiki/Coordinated_Mars_Time">Wikipedia article</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Coordinated_Mars_Time">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -1394,7 +1394,7 @@ const lunisolarCalendarsData = [
         overview: `The Đại lịch calendar is a traditional observational lunisolar calendar of Vietnam. It is derived from the Chinese lunisolar calendar and shares many of the same elements, but it is set to Vietnamese time, meaning on rare occasions the two calendars can temporarily be significantly offset, only to realign again later.\n\nIt features 12 months of 29 or 30 days with a leap month on average every 2-3 years.\n\nThe Đại lịch calendar also follows a similar 12 Earthly Branches (Vietnamese Zodiac) theme for each year, though a few of the animals are different from the Chinese calendar.\n\nThis calendar uses the same epoch as the Gregorian calendar and may not reflect historic epochs. Similarly, the calendar hasn't always been set to Vietnamese time, changing back from Chinese time in the mid-20th century, so dates before that are likely to be incorrect.`,
         info: `<table class="table-long"><tr><th>Year Cycle</th><th>English</th></tr><tr><td>𤝞</td><td>Rat</td></tr><tr><td>𤛠</td><td>Water Buffalo</td></tr><tr><td>𧲫</td><td>Tiger</td></tr><tr><td>猫</td><td>Cat</td></tr><tr><td>龍</td><td>Dragon</td></tr><tr><td>𧋻</td><td>Snake</td></tr><tr><td>馭</td><td>Horse</td></tr><tr><td>羝</td><td>Goat</td></tr><tr><td>𤠳</td><td>Monkey</td></tr><tr><td>𪂮</td><td>Rooster</td></tr></table>`,
         accuracy: `This calendar relies on the same calculations as the Chinese Lunisolar Calendar, though using midnight in Vietnam as the start of the say. Thus, it may vary mildly or significantly from the Chinese calendar. This may or may not itself be accurate, but the result should be relatively close to reality.`,
-        source: `Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Vietnamese_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Vietnamese_calendar">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -1407,7 +1407,7 @@ const lunisolarCalendarsData = [
         overview: `The Dangun calendar is a traditional observational lunisolar calendar of Korea. It is no longer officially used, but it is still maintained by the South Korean goverment for cultural purposes and holidays. It is derived from the Chinese lunisolar calendar where it gets its months (월) and days (일) while years (년) are counted from 2333 BCE.\n\nThe Dangun calendar is calculated based on midnight in Korea, and its dates may misalign, sometimes significantly, from the Chinese lunisolar calendar.`,
         info: `The Dangun calendar epoch was not traditionally used, but it has seen unofficial use in the 20th century.`,
         accuracy: `This calendar relies on the same calculations as the Chinese Lunisolar Calendar, though using midnight in Korea as the start of the say. Thus, it may vary mildly or significantly from the Chinese calendar. This may or may not itself be accurate, but the result should be relatively close to reality.`,
-        source: `Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Korean_calendar">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Korean_calendar">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -1662,7 +1662,7 @@ const otherCalendars = [
         overview: `The Olympiad is an ancient unit of measurement that corresponds with 4 solar years, counting the number of Olympic games since the first Olympic games in 775 BCE. It was used for over 1000 years by Ancient Greece as well as Ancient Rome.\n\nThe Olympics eventually ceased to be held around 400 AD, and with it the Olympiad fell out of use.`,
         info: `The ancient Olympiad has little connection to the modern olympic games, as they are out of phase with each other and start with a different epoch.`,
         accuracy: `The exact start of the Olympic games is unclear, and most sources will just say it was held in the summer of 776 BCE. This website uses astronomical dates, so it is displayed here as 775 BCE. I have chosen to use 1 August of the Julian calendar for the middle of summer.`,
-        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Olympiad">Wikipedia article</a><h3>Primary Sources</h3>`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Olympiad">Wikipedia article</a><h3>Primary Sources</h3><a href="https://www.olympics.com/ioc/faq/history-and-origin-of-the-games/what-is-the-origin-of-the-olympic-games">Olympics website</a>`
     },
 
     {
@@ -1688,7 +1688,7 @@ const otherCalendars = [
         overview: `The Sexagenary Cycle is a system of counting years in the Chinese calendar (and several other aspects of life). It is a multiplication of the 10 Heavenly Stems and the 12 Earthly Branches (Chinese Zodiac) with half of the combinations left out, leading to a total cycle length of 60. The cycle moves to the next combination on the day of the New Year in the Chinese lunisolar calendar.`,
         info: `<table class="table-long"><tr><th>10 Heavenly Stems</th><th>12 Earthly Branches</th></tr><tr><td>甲 (Jia)</td><td>子 (Zi)</td></tr><tr><td>乙 (Yi)</td><td>丑 (Chou)</td></tr><tr><td>丙 (Bing)</td><td>寅 (Yin)</td></tr><tr><td>丁 (Ding)</td><td>卯 (Mao)</td></tr><tr><td>戊 (Wu)</td><td>辰 (Chen)</td></tr><tr><td>己 (Ji)</td><td>巳 (Si)</td></tr><tr><td>庚 (Geng)</td><td>午 (Wu)</td></tr><tr><td>辛 (Xin)</td><td>未 (Wei)</td></tr><tr><td>壬 (Ren)</td><td>申 (Shen)</td></tr><tr><td>癸 (Gui)</td><td>酉 (You)</td></tr><tr><td></td><td>戌 (Xu)</td></tr><tr><td></td><td>亥 (Hai)</td></tr></table>`,
         accuracy: `This calendar system should be very accurate. It may be off by a few days at the start of a given year, or rarely an entire month, due to the inaccuracies from the Chinese lunisolar calendar calculations. However, it corrects itself by the next new moon.`,
-        source: `Some general information was taken from the <a href="https://en.wikipedia.org/wiki/Sexagenary_cycle">Wikipedia article</a> for this calendar, but the general calculation is derived from the Chinese lunisolar calendar.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Sexagenary_cycle">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -1729,7 +1729,7 @@ const astronomicalData = [
         overview: `This is the approximate date and time of this year's Northward Equinox. In the Northern Hemisphere this is known as the Spring Equinox. In the Southern Hemisphere it is known as the Fall Equinox. It is the time when the length of the day and night are equal all over the planet and the solar declination is heading northward.`,
         info: `The Northward Equinox is an important starting point or anchor point in some calendars. It usually occurs around March 20th. Over time, roughly in a cycle of 25,772 years, Earth's axes precess, causing the equinoxes and solstices to slowly drift through the entire year.`,
         accuracy: `The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.`
     },
 
     {
@@ -1742,7 +1742,7 @@ const astronomicalData = [
         overview: `This is the approximate date and time of this year's Northern Solstice. In the Northern Hemisphere this is known as the Summer Solstice. In the Southern Hemisphere it is known as the Winter Solstice. It is the time when the Northern Hemisphere experiences its longest day while the Southern Hemisphere experiences its shortest day.`,
         info: `The Northern Solstice usually occurs around June 20th. Over time, roughly in a cycle of 25,772 years, Earth's axes precess, causing the equinoxes and solstices to slowly drift through the entire year.`,
         accuracy: `The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.`
     },
 
     {
@@ -1755,7 +1755,7 @@ const astronomicalData = [
         overview: `This is the approximate date and time of this year's Southward Equinox. In the Northern Hemisphere this is known as the Fall Equinox. In the Southern Hemisphere it is known as the Spring Equinox. It is the time when the length of the day and night are equal all over the planet and the solar declination is heading southward.`,
         info: `The Southward Equinox is an important starting point or anchor point in many calendars. It usually occurs around September 20th. Over time, roughly in a cycle of 25,772 years, Earth's axes precess, causing the equinoxes and solstices to slowly drift through the entire year.`,
         accuracy: `The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.`
     },
 
     {
@@ -1768,7 +1768,7 @@ const astronomicalData = [
         overview: `This is the approximate date and time of this year's Southern Solstice. In the Northern Hemisphere this is known as the Winter Solstice. In the Southern Hemisphere it is known as the Summer Solstice. It is the time when the Northern Hemisphere experiences its shortest day while the Southern Hemisphere experiences its longest day.`,
         info: `The Southern Solstice is an important starting point or anchor point in some calendars. It usually occurs around December 20th. Over time, roughly in a cycle of 25,772 years, Earth's axes precess, causing the equinoxes and solstices to slowly drift through the entire year.`,
         accuracy: `The accuracy of this calculation depends on the precision of Meeus's calculations. On top of that, my solutions don't exactly match those provided by Meeus, either due to Javascript's base-2 calculations or due to misinterpreting steps such as adding Terrestrial Time. Overall these results are very close, usually within a few minutes of reality.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/soleq2001.html">this website</a>.`
     },
 
     {
@@ -1781,7 +1781,7 @@ const astronomicalData = [
         overview: `This is the approximate longitude of the sun, the distance in degrees the Earth has traveled along its orbit since the last Northward Equinox.`,
         info: `The longitude of the sun is an important factor in the Chinese lunisolar calendar and its derivatives. As a circle has 360 degrees and the year has roughly 365 days, the longitude of the sun increments a little less than 1 degree each day.`,
         accuracy: `The accuracy of this calculation depends on the precision of Meeus's calculations, which should be very accurate.`,
-        source: `This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.`
+        source: `<h3>Primary Sources</h3>This calculation was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.`
     },
 
     {
@@ -1794,7 +1794,7 @@ const astronomicalData = [
         overview: `This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month.\n\nA New Moon is when the dark side of the moon is directly facing the Earth, rendering it difficult to see. It takes place when the moon is closest to the sun relative to Earth.\n\nIt is an important event in many cultures, and most lunar or lunisolar calendars use the New Moon as the beginning of the month.`,
         info: `Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site. Unfortunately it also must be calculated several times due to the nature of lunar calendars, though the date shown here is resused when possible.\n\nNew Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects. Thus, it is often necessary to calculate each New Moon directly.`,
         accuracy: `This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.`,
-        source: `This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     },
 
     {
@@ -1807,7 +1807,7 @@ const astronomicalData = [
         overview: `This is the approximate time of the First Quarter Moon of the current month.\n\nA First Quarter Moon is when the Eastern half of the moon is in sunlight from the perspective of Earth.`,
         info: `Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site.\n\nFirst Quarter Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects.`,
         accuracy: `This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.`,
-        source: `This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     },
 
     {
@@ -1820,7 +1820,7 @@ const astronomicalData = [
         overview: `This is the approximate time of the Full Moon, also known as a Lunar Opposition, of the current month.\n\nA Full Moon is when the light side of the moon is directly facing Earth, making it the brightest object in the night sky. It takes place when the moon is directly opposite the sun relative to Earth.`,
         info: `Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site.\n\nFull Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects.`,
         accuracy: `This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.`,
-        source: `This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     },
 
     {
@@ -1833,7 +1833,7 @@ const astronomicalData = [
         overview: `This is the approximate time of the Last Quarter Moon of the current month.\n\nA Last Quarter Moon is when the Western half of the moon is in sunlight from the perspective of Earth.`,
         info: `Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site.\n\nLast Quarter Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects.`,
         accuracy: `This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.`,
-        source: `This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     },
 
     {
@@ -1846,7 +1846,7 @@ const astronomicalData = [
         overview: `A solar eclipse occurs when the moon casts a shadow anywhere onto the Earth. It is a fairly rare event that always occurs during a New Moon.\n\nWhen the moon completely covers the disk of the sun from the perpective of a point on the Earth, it is called a Total Solar Eclipse. When the moon appears to be smaller than the sun, with the sun visible in a 'Ring of Fire' around the edge, it is called an Annular Solar Eclipse. When the moon covers part of the sun but doesn't intersect the center of the sun's disk, it is called a Partial Solar Eclipse.\n\nThis entry also displays the node at which the eclipse took place as well as the hemisphere of Earth where it is visible at its maximum.\n\nSolar eclipses typically are only viewable from a small area on the Earth's surface, and they are historically significant events that have inspired legend, religion, and myth. The solar eclipse of 8 April 2024 CE is what inspired me to build this website.`,
         info: `Solar eclipses happen two to four times per year, though total solar eclipses are rarer (every two or three years). They can only occur when a New Moon happens very near to the moon's ascending or descending nodes—the points along the lunar orbit that intersect the Earth's equator. These are at 0°/360° and 180° respectively.\n\nDue to the oblong shape of the moon's orbit, the moon can either appear larger or smaller than the sun from the perspective of Earth. This coincidence produces the two different types of central eclipses, total and annular.\n\nDuring a total solar eclipse, the sun's corona is visible to the naked eye, providing a spectacular sight as well as an opportunity to conduct science.`,
         accuracy: `This calculation is reasonably accurate (to within seconds or minutes) for thousands of years before and after the year 2000 CE. Outside of that, errors are induced which can grow from hours to even days.\n\nThis calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.`,
-        source: `This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     },
 
     {
@@ -1859,7 +1859,7 @@ const astronomicalData = [
         overview: `A lunar eclipse occurs when the Earth casts a shadow anywhere onto the moon. It is a fairly rare event that always occurs during a Full Moon.\n\nWhen the moon is completely covered by Earth's shadow (also known as the Umbra), it is called a Total Lunar Eclipse. When the moon only partially intersects the Umbra, it is called a Partial Lunar Eclipse. When the Earth only covers a part of the sun's disk from the perspective of the moon, it is called a Penumbral Lunar Eclipse.\n\nThis entry also displays the node at which the eclipse took place as well as the hemisphere of Earth that it is above at its maximum.\n\nLunar eclipses typically are viewable from a large area on the Earth's surface, and they are historically significant events that have inspired legend, religion, and myth.`,
         info: `Lunar eclipses happen two to four times per year. Penumbral eclipses typically aren't noticeable from Earth, as the lunar surface is still quite bright. The moon must enter deep within the Penumbra or into the Umbra before it is able to be noticed with the naked eye. While in the Umbra, the moon's surface often takes on a reddish color due to light scattering through the Earth's atmosphere (similar to a sunset), being described as a 'blood moon' in historical literature.`,
         accuracy: `This calculation is reasonably accurate (to within seconds or minutes) for thousands of years before and after the year 2000 CE. Outside of that, errors are induced which can grow from hours to even days.\n\nThis calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.`,
-        source: `This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
+        source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     }
 ];
 
@@ -1887,7 +1887,7 @@ const popCultureData = [
         overview: `According to the movie Inception, time in a dream is experienced 20 times slower, allowing for several days to be experienced in a single night's sleep. The time displayed here is the current time in your dream if you had begun sleeping at midnight.`,
         info: `The concept of time dilation in dreams is actually a fascinating area of study, with some results showing little or no dilation while others show differences in reaction times in dreams. Whatever the real dilation ratio may be, it is nowhere near that expressed in the film.`,
         accuracy: `This timekeeping system should be perfectly accurate but the epoch will not be the same for everyone, as people don't all sleep at the same time.`,
-        source: `This calculation was sourced from the movie <a href="https://en.wikipedia.org/wiki/Inception_(film">Inception</a>).`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Inception_(film">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -1900,7 +1900,7 @@ const popCultureData = [
         overview: `Termina Time is the timekeeping system found in The Legend of Zelda: Majora's Mask.\n\nIt features a cycle of 3 days of 24 hours that are each 150 seconds long when slowed. Days start at sunrise at 6:00am, so 5:00 of one day is followed by 6:00 of the next day.`,
         info: `Slowed time was chosen over regular time due to the former fitting cleanly within three real life hours. The entire 3-day cycle in regular time takes 54 minutes, which would create an awkward short cycle at each real life day change (or rather, 6:00am).`,
         accuracy: `This timekeeping system should be perfectly accurate based on local time.`,
-        source: `This calculation was sourced from <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Majora%27s_Mask">The Legend of Zelda: Majora's Mask</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Majora%27s_Mask">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -1913,7 +1913,7 @@ const popCultureData = [
         overview: `Stardate is the timekeeping system found in Star Trek. Being a fictional system without an exact algorithm, it isn't even clear what Stardates are measuring. They also vary from series to series.\n\nThis calculation is based on the Stardate 0 epoch of 25 April 2265 from the Original Series, with a peculiar 7.21 stardates per day.`,
         info: `Stardates were originally intended to be a system similar to the revised Julian Day Number, but the writers of the show weren't required to follow an exact algorithm.`,
         accuracy: `Since this calendar is both fictional and without an exact algorithm, it is impossible to know how accurate this calculation is.`,
-        source: `This calculation was sourced from <a href="https://en.wikipedia.org/wiki/Star_Trek">Star Trek</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/Star_Trek">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -1926,7 +1926,7 @@ const popCultureData = [
         overview: `The Tamrielic calendar is a fictional Gregorian-based calendar used in the Elder Scrolls franchise. It is a simple 1-1 mapping to the Gregorian calendar, including its leap years.\n\nIt has 12 months of 28-31 days along with weeks of seven days. Since the timeline is fictional, it is impossible to map it to a specific epoch. This site assumes the Tamrielic calendar shares a New Year with the Gregorian.`,
         info: `<table class="table-very-long"><tr><th>Month</th><th>Days</th><th>Gregorian</th></tr><tr><td>Morning Star</td><td>31</td><td>January</td></tr><tr><td>Sun's Dawn</td><td>28 or 29</td><td>February</td></tr><tr><td>First Seed</td><td>31</td><td>March</td></tr><tr><td>Rain's Hand</td><td>30</td><td>April</td></tr><tr><td>Second Seed</td><td>31</td><td>May</td></tr><tr><td>Midyear</td><td>30</td><td>June</td></tr><tr><td>Sun's Height</td><td>31</td><td>July</td></tr><tr><td>Last Seed</td><td>31</td><td>August</td></tr><tr><td>Hearthfire</td><td>30</td><td>September</td></tr><tr><td>Frostfall</td><td>31</td><td>October</td></tr><tr><td>Sun's Dusk</td><td>30</td><td>November</td></tr><tr><td>Evening Star</td><td>31</td><td>December</td></tr></table>\n<table class="table-long"><tr><th>Weekday</th><th>Gregorian</th></tr><tr><td>Morndas</td><td>Monday</td></tr><tr><td>Tirdas</td><td>Tuesday</td></tr><tr><td>Middas</td><td>Wednesday</td></tr><tr><td>Turdas</td><td>Thursday</td></tr><tr><td>Fredas</td><td>Friday</td></tr><tr><td>Loredas</td><td>Saturday</td></tr><tr><td>Sundas</td><td>Sunday</td></tr></table>`,
         accuracy: `Since this calendar is a simple mapping to the Gregorian calendar, it is perfectly accurate.`,
-        source: `This calculation was sourced from <a href="https://en.wikipedia.org/wiki/The_Elder_Scrolls">The Elder Scrolls</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/The_Elder_Scrolls">Wikipedia article</a><h3>Primary Sources</h3>`
     },
 
     {
@@ -1967,7 +1967,7 @@ const politicalCycles = [
         overview: `The term of the US president lasts 4 years, starting from January 20th at noon and ending January 20th at noon four years later. This is a running count of how many presidential terms have passed since the inauguration of George Washington in 1789. The inauguration date has changed over the years, making this display inaccurate for years before 1937.`,
         info: `George Washington 1789-1797\n\nJohn Adams 1797-1801\n\nThomas Jefferson 1801-1809\n\nJames Madison 1809-1817\n\nJames Monroe 1817-1825\n\nJohn Quincy Adams 1825-1829\n\nAndrew Jackson 1829-1837\n\nMartin Van Buren 1837-1841\n\nWilliam Henry Harrison 1841\n\nJohn Tyler 1841-1845\n\nJames K. Polk 1845-1849\n\nZachary Taylor 1849-1850\n\nMillard Fillmore 1850-1853\n\nFranklin Pierce 1853-1857\n\nJames Buchanan 1857-1861\n\nAbraham Lincoln 1861-1865\n\nAndrew Johnson 1865-1869\n\nUlysses S. Grant 1869-1877\n\nRutherford B. Hayes 1877-1881\n\nJames A. Garfield 1881\n\nChester A. Arthur 1881-1885\n\nGrover Cleveland 1885-1889\n\nBenjamin Harrison 1889-1893\n\nGrover Cleveland 1893-1897\n\nWilliam McKinley 1897-1901\n\nTheodore Roosevelt 1901-1909\n\nWilliam Howard Taft 1909-1913\n\nWoodrow Wilson 1913-1921\n\nWarren G. Harding 1921-1923\n\nCalvin Coolidge 1923-1929\n\nHerbert Hoover 1929-1933\n\nFranklin D. Roosevelt 1933-1945\n\nHarry S. Truman 1945-1953\n\nDwight D. Eisenhower 1953-1961\n\nJohn F. Kennedy 1961-1963\n\nLyndon B. Johnson 1963-1969\n\nRichard Nixon 1969-1974\n\nGerald Ford 1974-1977\n\nJimmy Carter 1977-1981\n\nRonald Reagan 1981-1989\n\nGeorge H. W. Bush 1989-1993\n\nBill Clinton 1993-2001\n\nGeorge W. Bush 2001-2009\n\nBarack Obama 2009-2017\n\nDonald Trump 2017-2021\n\nJoe Biden 2021-2025\n\nDonald Trump 2025-2029`,
         accuracy: `US terms don't always start on January 20th, with certain stipulations such as if the 20th falls on a Sunday that could change the date slightly. The current system of terms starting on the 20th didn't start until 1937, and previously it was March 4th, with George Washington starting on April 30th.`,
-        source: `The data for this entry was sourced from <a href="https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States">this Wikipedia page</a>.`
+        source: `<h3>Common Source</h3><a href="https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States">Wikipedia article</a><h3>Primary Sources</h3>`
     }
 ];
 

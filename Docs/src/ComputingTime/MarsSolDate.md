@@ -18,4 +18,8 @@ This clock should be very accurate, though it relies on ΔT which ultimately is 
 
 #### Source
 
-All of the information on this clock came from its [Wikipedia article](https://en.wikipedia.org/wiki/Timekeeping_on_Mars).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Timekeeping_on_Mars)
+
+### Primary Sources
+[Oregon L5 Society website](https://oregonl5.nss.org/mist/docs/Mars24J/help/notes.html)

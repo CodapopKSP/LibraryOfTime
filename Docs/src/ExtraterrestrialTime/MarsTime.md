@@ -22,4 +22,8 @@ This clock should be reasonably accurate, though it might be off by a few minute
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Coordinated_Mars_Time).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Coordinated_Mars_Time)
+
+### Primary Sources
+

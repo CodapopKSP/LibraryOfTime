@@ -20,4 +20,8 @@ The Ordinal Date is a simple calculation on the Gregorian calendar, making it ex
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Ordinal_date).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Ordinal_date)
+
+### Primary Sources
+[NASA website](https://landweb.modaps.eosdis.nasa.gov/help/calendar)

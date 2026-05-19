@@ -22,4 +22,8 @@ This calculation is a simple count based on a Gregorian date and is thus exactly
 
 #### Source
 
-All of the information on this clock came from its [Wikipedia article](https://en.wikipedia.org/wiki/Year_1900_problem).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Year_1900_problem)
+
+### Primary Sources
+

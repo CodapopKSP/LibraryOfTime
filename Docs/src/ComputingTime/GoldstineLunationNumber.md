@@ -22,6 +22,8 @@ The lunation number is a simple calculation of time since the epoch divided by t
 
 #### Source
 
-This calculation was sourced from [*Astronomical Algorithms* (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/New_moon)
 
-More information can be found in its [Wikipedia article](https://en.wikipedia.org/wiki/New_moon).
+### Primary Sources
+This calculation was sourced from [*Astronomical Algorithms* (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.

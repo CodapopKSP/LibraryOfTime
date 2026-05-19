@@ -64,4 +64,8 @@ US terms don't always start on January 20th, with certain stipulations such as i
 
 #### Source
 
-The data for this entry was sourced from [this Wikipedia page](https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States)
+
+### Primary Sources
+

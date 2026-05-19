@@ -20,9 +20,13 @@ This clock is considered to be perfectly accurate, as it's a simple calculation 
 
 ### Source
 
-Much of the information for this clock came from its <a href="https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping">Wikipedia article</a>.
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping)
 
-Some information for this clock came from <a href="http://www.leapsecond.com/java/gpsclock.htm">this website</a>.
+### Primary Sources
+[Leap Second website](http://www.leapsecond.com/java/gpsclock.htm)
+
+[Epoch Converter website](https://www.epochconverter.com/gps)
 
 ---
 

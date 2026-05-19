@@ -18,4 +18,10 @@ This calculation is a simple algorithm based on Unix time, and is thus exactly a
 
 #### Source
 
-All of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/System_time).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/System_time)
+
+### Primary Sources
+[Epoch Converter website](https://www.epochconverter.com/ldap)
+
+
