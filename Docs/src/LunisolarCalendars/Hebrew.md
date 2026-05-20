@@ -24,8 +24,10 @@ Though it is a complex equation, the calculation for this calendar is exactly ac
 
 #### Source
 
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Hebrew_calendar)
+
+### Primary Sources
 The main calculation of this calendar came from [this website](https://www.jewfaq.org/jewish_calendar_calculation).
 
 Dates can be checked for calibration [here](https://www.chabad.org/calendar/view/month.htm).
-
-Some general information was taken from the [Wikipedia article](https://en.wikipedia.org/wiki/Hebrew_calendar) for this calendar.

@@ -26,4 +26,5 @@ Being a simple calculation of days with a known epoch, this calendar is expected
 
 #### Source
 
-The information for this calendar came from [this website](https://kalendis.free.nf/classic.htm).
+### Primary Source
+[this website](https://kalendis.free.nf/classic.htm)

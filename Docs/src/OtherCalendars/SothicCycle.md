@@ -39,4 +39,4 @@ Historians are also somewhat unsure about how many cycles have passed, and it's 
 [Wikipedia article](https://en.wikipedia.org/wiki/Sothic_cycle)
 
 ### Primary Sources
-
+[Britannica website](https://www.britannica.com/topic/chronology/Egyptian#ref523219)

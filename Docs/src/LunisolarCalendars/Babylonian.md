@@ -54,6 +54,8 @@ The intercalary month of 𒌚𒋛𒀀𒆥 was not explicitely named but directly
 
 #### Source
 
-Much of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Babylonian_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Babylonian_calendar)
 
+### Primary Sources
 The calendar can be calibrated using [this converter](https://webspace.science.uu.nl/~gent0113/babylon/babycal_converter.htm) which is sourced from [this table of dates](https://webspace.science.uu.nl/~gent0113/babylon/downloads/babylonian_chronology_pd_1971.dat).

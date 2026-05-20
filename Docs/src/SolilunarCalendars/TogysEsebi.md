@@ -30,4 +30,5 @@ This calendar requires calculating the positions of Alcyone and the moon, which 
 
 #### Source
 
+### Primary Sources
 The information for this calendar came from various sources. [This one](https://www.academia.edu/37894026/KAZAKH_NATIONAL_CALENDAR_READY_MADE_SAMPLE_FOR_USE) has lots of info with actual provided dates for calibration. [This site](https://calendars.fandom.com/wiki/Togys_Esebi_Calendar) has other sources and good general info.

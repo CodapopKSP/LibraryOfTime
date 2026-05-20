@@ -24,5 +24,6 @@ This calculation is exactly accurate, as it is based on the Gregorian calendar a
 
 #### Source
 
-This calculation was sourced from [the Warhammer 40k Fandom Wiki](https://warhammer40k.fandom.com/wiki/Imperial_Dating_System#Original_System).
+### Common Source
+[Warhammer 40k Fandom wiki](https://warhammer40k.fandom.com/wiki/Imperial_Dating_System#Original_System)
 

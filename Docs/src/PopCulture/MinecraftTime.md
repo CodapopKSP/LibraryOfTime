@@ -18,4 +18,5 @@ This clock should be perfectly accurate, with the caveat that time in an actual 
 
 #### Source
 
-This calculation was sourced from [the Minecraft Fandom Wiki](https://minecraft.fandom.com/wiki/Daylight_cycle).
+### Common Source
+[Minecraft Fandom wiki](https://minecraft.fandom.com/wiki/Daylight_cycle)

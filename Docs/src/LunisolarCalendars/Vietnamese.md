@@ -28,4 +28,4 @@ This calendar relies on the same calculations as the Chinese Lunisolar Calendar,
 [Wikipedia article](https://en.wikipedia.org/wiki/Vietnamese_calendar)
 
 ### Primary Sources
-
+This calendar is based on the Chinese lunisolar calendar calculations found [here](https://ytliu0.github.io/ChineseCalendar/sexagenary.html).

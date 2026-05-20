@@ -71,6 +71,7 @@ Otherwise the implementation of the algorithm is fairly straightforward, if a bi
 
 #### Source
 
+### Primary Sources
 Research into this calendar spans several scientific papers and studies.
 
 Information about its month cycle can be found [here](https://antikytheramechanism.com/anatomy.html).

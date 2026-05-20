@@ -22,6 +22,8 @@ Being a simple calculation, these two cycles are expected to be perfectly accura
 
 #### Source
 
-Much of the information on this calendar can be found at its [Wikipedia article](https://en.wikipedia.org/wiki/Lords_of_the_Night).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Lords_of_the_Night).
 
+### Primary Sources
 The [Smithsonian website](https://maya.nmai.si.edu/calendar/maya-calendar-converter) has the current day as well as a converter, though it is broken for dates before the Long Count epoch.

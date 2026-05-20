@@ -24,6 +24,8 @@ Calculating this calendar is very difficult and requires calculating the Winter 
 
 #### Source
 
-This equation was based off of the steps found [here](https://ytliu0.github.io/ChineseCalendar/rules.html).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Chinese_calendar)
 
-General information was taken from the [Wikipedia article](https://en.wikipedia.org/wiki/Chinese_calendar) for this calendar.
+### Primary Sources
+This equation was based off of the steps found [here](https://ytliu0.github.io/ChineseCalendar/rules.html).

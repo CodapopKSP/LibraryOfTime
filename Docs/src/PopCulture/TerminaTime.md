@@ -22,6 +22,3 @@ This timekeeping system should be perfectly accurate based on local time.
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Majora%27s_Mask)
-
-### Primary Sources
-

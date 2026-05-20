@@ -69,6 +69,7 @@ Thus, my conclusion is that 2 Yule S.R. 1 took place on 15 December 523 CE. Calc
 
 #### Source
 
+### Primary Sources
 As stated in the Accuracy tab, much of the work that went into calibrating this calendar was thanks to [Brandon Rhodes](https://shire-reckoning.com/moon.html).
 
 Month and day names as well as general structure can be found [here](https://tolkiengateway.net/wiki/Shire_Calendar).

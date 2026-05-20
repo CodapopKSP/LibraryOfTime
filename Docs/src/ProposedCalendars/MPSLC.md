@@ -49,4 +49,5 @@ The name of the calendar suggests it is a solilunar calendar, which is likely du
 
 #### Source
 
-All of the information on this calendar came from [this website](https://www.hermetic.ch/cal_stud/nlsc/nlsc.htm).
+### Primary Sources
+[Hermetic Systems website](https://www.hermetic.ch/cal_stud/nlsc/nlsc.htm)

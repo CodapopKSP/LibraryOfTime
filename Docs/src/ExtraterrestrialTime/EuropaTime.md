@@ -36,6 +36,7 @@ The name of this timekeeping system is my own creation, as Mr. Gangale did not g
 
 #### Source
 
+### Primary Sources
 This formula was extrapolated from the writings of Thomas Gangale found at [this website](https://ops-alaska.com/time/gangale_jupiter/jupiter.htm).
 
 It can be somewhat calibrated using [this model](https://skyandtelescope.org/wp-content/plugins/observing-tools/jupiter_moons/jupiter.html) if you know what you're doing.

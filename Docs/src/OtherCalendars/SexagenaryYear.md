@@ -22,4 +22,4 @@ This calendar system should be very accurate. It may be off by a few days at the
 [Wikipedia article](https://en.wikipedia.org/wiki/Sexagenary_cycle)
 
 ### Primary Sources
-
+This calendar is based on the Chinese lunisolar calendar calculations found [here](https://ytliu0.github.io/ChineseCalendar/sexagenary.html).

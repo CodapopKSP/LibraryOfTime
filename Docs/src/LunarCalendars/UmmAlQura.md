@@ -24,6 +24,8 @@ Many Muslim nations have their own rules for determining the start of the month,
 
 #### Source
 
-A lot of the information about this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Islamic_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Islamic_calendar)
 
-[This site](https://ummalquracalendar.com/) seems to be a good source for callibrating dates.
+### Primary Sources
+[Umm al-Qura website](https://ummalquracalendar.com/)

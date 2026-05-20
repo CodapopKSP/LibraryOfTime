@@ -53,6 +53,7 @@ The epoch is noted to account for the time it takes light to travel from Jupiter
 
 #### Source
 
+### Primary Sources
 This formula was extrapolated from the writings of Thomas Gangale found at [this website](https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm).
 
 It can be somewhat calibrated using [this model](https://skyandtelescope.org/observing/interactive-sky-watching-tools/saturns-moons-javascript-utility/) if you know what you're doing.

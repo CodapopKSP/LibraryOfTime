@@ -30,6 +30,9 @@ There are sources that list this calendar as meeting up with the Gregorian calen
 
 #### Source
 
-Much of the information on this calendar came from its [Wikipedia article](https://en.wikipedia.org/wiki/Symmetry454).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Symmetry454)
 
-This calendar has also been calibrated using a Windows app created by the creator of the Symmetry454 calendar, which can be found [here](http://individual.utoronto.ca/kalendis/kalendis.htm).
+
+### Primary Sources
+[here](http://individual.utoronto.ca/kalendis/kalendis.htm)

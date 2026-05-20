@@ -16,10 +16,10 @@ The current yuga, Kali Yuga, is the shortest and worst. It will last until the y
 
 | Yuga | Start | Length |
 |------|-------|--------|
-| Krita (Satya) | 3,891,102 BCE | 1,728,000 |
-| Treta | 2,163,102 BCE | 1,296,000 |
-| Dvapara | 867,102 BCE | 864,000 |
-| Kali | 3102 BCE | 432,000 |
+| Krita (Satya) | 3,891,101 BCE | 1,728,000 |
+| Treta | 2,163,101 BCE | 1,296,000 |
+| Dvapara | 867,101 BCE | 864,000 |
+| Kali | 3101 BCE | 432,000 |
 
 | Yuga Part | Solar years |
 |-----------|-------------|
@@ -46,4 +46,6 @@ The Yuga Cycle is ultimately based off the Gregorian calendar via the Kali Aharg
 [Wikipedia article](https://en.wikipedia.org/wiki/Yuga_cycle)
 
 ### Primary Sources
+[Vedic Astronomy blog](https://vedicastronomy.blogspot.com/2010/07/ahargana-is-defined-as-no-of-days.html)
 
+[Planet Calc website](https://planetcalc.com/9166/)

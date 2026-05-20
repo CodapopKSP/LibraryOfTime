@@ -22,6 +22,3 @@ Since this calendar is both fictional and without an exact algorithm, it is impo
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Star_Trek)
-
-### Primary Sources
-

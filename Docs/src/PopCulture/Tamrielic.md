@@ -25,5 +25,3 @@ Since this calendar is a simple mapping to the Gregorian calendar, it is perfect
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/The_Elder_Scrolls)
 
-### Primary Sources
-

@@ -32,6 +32,8 @@ With that in mind, this calendar is actually very easy to calculate, as it is ju
 
 #### Source
 
-Much of the information on this calendar can be found at its [Wikipedia article](https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar).
+### Common Source
+[Wikipedia article](https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar)
 
+### Primary Sources
 The [Smithsonian website](https://maya.nmai.si.edu/calendar/maya-calendar-converter) has the current day as well as a converter, though it is broken for dates before the epoch.

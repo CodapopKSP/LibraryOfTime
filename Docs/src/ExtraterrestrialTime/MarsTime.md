@@ -26,4 +26,4 @@ This clock should be reasonably accurate, though it might be off by a few minute
 [Wikipedia article](https://en.wikipedia.org/wiki/Coordinated_Mars_Time)
 
 ### Primary Sources
-
+[NASA website](https://www.giss.nasa.gov/tools/mars24/help/algorithm.html)

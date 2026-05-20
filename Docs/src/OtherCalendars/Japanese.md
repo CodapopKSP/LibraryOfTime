@@ -263,6 +263,8 @@ After 1873 CE, this calculation is exactly accurate, at least until the ascensio
 
 #### Source
 
-Much of the information in this calendar came from its [Wikipedia page](https://en.wikipedia.org/wiki/Japanese_calendar).
+### Common Source
+[Wikipedia page](https://en.wikipedia.org/wiki/Japanese_calendar)
 
+### Primary Sources
 The [National Astronomical Observatory of Japan (NAOJ)](https://eco.mtk.nao.ac.jp/cgi-bin/koyomi/caldb_en.cgi) maintains a searchable table of ephemeris dates of the Japanese calendar throughout history and can be used for calibration or comparison.

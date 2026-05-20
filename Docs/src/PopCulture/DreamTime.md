@@ -21,5 +21,3 @@ This timekeeping system should be perfectly accurate but the epoch will not be t
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Inception_(film)
 
-### Primary Sources
-

@@ -184,4 +184,4 @@ As this calendar is only a proposal, there really isn't anything to compare it t
 [Wikipedia article](https://en.wikipedia.org/wiki/Positivist_calendar)
 
 ### Primary Sources
-
+The [Citizendium website](https://en.citizendium.org/wiki/Positivist_calendarhttps://en.citizendium.org/wiki/Positivist_calendar) has all the day names.

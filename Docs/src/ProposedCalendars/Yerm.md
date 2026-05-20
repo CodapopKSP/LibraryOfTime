@@ -38,4 +38,5 @@ This calendar is a simple cyclical equation with a known epoch and is thus exact
 
 #### Source
 
-The information for this calendar came from [this Hermetic Systems page](https://hermetic.ch/cal_stud/palmen/yerm1.htm).
+### Primary Sources
+[Hermetic Systems website](https://hermetic.ch/cal_stud/palmen/yerm1.htm)
