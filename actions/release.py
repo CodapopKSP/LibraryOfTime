@@ -103,28 +103,29 @@ def parse_scripts(scripts):
 # Process image references in JavaScript content and convert them to data URIs
 def process_images_in_js(js_content):
     """Find image references in JavaScript content and replace them with base64 data URIs"""
-    
-    # Pattern to match image src attributes in HTML strings within JavaScript
-    # This matches src="Content/OnMakingLoTImages/filename.ext" or src='Content/OnMakingLoTImages/filename.ext'
-    image_pattern = r'src=["\']Content/OnMakingLoTImages/([^"\']+)["\']'
-    
+
+    # Matches src="Content/..." in HTML strings inside bundled JS (modals, etc.)
+    image_pattern = r'src=["\']Content/([^"\']+)["\']'
+
     def replace_image_src(match):
-        image_filename = match.group(1)
-        image_path = f'../Content/OnMakingLoTImages/{image_filename}'
+        rel_path = match.group(1)
+        image_path = os.path.normpath(os.path.join('..', 'Content', rel_path.replace('/', os.sep)))
         data_uri = image_to_data_uri(image_path)
-        
+
         if data_uri:
-            print(f"Successfully converted {image_filename} to data URI")
+            print(f"Successfully converted Content/{rel_path} to data URI")
             return f'src="{data_uri}"'
-        else:
-            # If image conversion failed, use relative path to copied images
-            print(f"Failed to convert {image_filename}, using relative path to copied images")
-            return f'src="./OnMakingLoTImages/{image_filename}"'
-    
-    # Replace all image references with data URIs
-    processed_content = re.sub(image_pattern, replace_image_src, js_content)
-    
-    return processed_content
+
+        # Fallback for OnMakingLoTImages only (copied beside minified.html for Vercel)
+        if rel_path.startswith('OnMakingLoTImages/'):
+            subpath = rel_path[len('OnMakingLoTImages/'):]
+            print(f"Failed to convert Content/{rel_path}, using ./OnMakingLoTImages/{subpath}")
+            return f'src="./OnMakingLoTImages/{subpath}"'
+
+        print(f"Failed to convert Content/{rel_path}, leaving src unchanged")
+        return match.group(0)
+
+    return re.sub(image_pattern, replace_image_src, js_content)
 
 # Returns a string containing the content of all linked stylesheets
 def parse_styles(style_links):
