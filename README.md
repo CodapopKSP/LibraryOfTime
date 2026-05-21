@@ -1,5 +1,7 @@
 # The Library of Time
 
+![Library Animated SVG](The%20Library.svg)
+
 The mission of this website is to create a collection of every calendar with a verifiable date at a specific point in time, as well as other methods of timekeeping. It is to be a celebration of time as counted by humans from all walks of life, displaying all of the unique ways different people chose to satisfy one of humanity's earliest and most universal curiosities.
 
 https://libraryoftime.xyz
