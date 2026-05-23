@@ -4,13 +4,13 @@
 | ---------------------------- | ---------- | --------------- |
 | 23 January 3101 BCE +18:30:00 | Exact      | Ujjain |
 
-#### Overview
+## Overview
 
 Kali Ahargaṅa is a simple count of days since the kali epoch. According to Hindu timekeeping, the current yuga, Kali Yuga, began in 3101 BCE and will last for 432,000 years, ending in 428,899 CE.
 
 Kali Yuga is the fourth, shortest, and worst of the four yugas.
 
-#### Info
+## Info
 
 Each yuga has a shorter dawn and dusk period before and after the longer main period.
 
@@ -20,11 +20,11 @@ Each yuga has a shorter dawn and dusk period before and after the longer main pe
 | Kali-yuga (proper) | 32,899 CE | 360,000 (1,000) |
 | Kali-yuga-sandhyamsa (dusk) | 392,899–428,899 CE | 36,000 (100) |
 
-#### Accuracy
+## Accuracy
 
 The Kali Ahargaṅa is based off the Gregorian calendar and is considered to be very accurate compared with historical records.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Kali_ahargana)

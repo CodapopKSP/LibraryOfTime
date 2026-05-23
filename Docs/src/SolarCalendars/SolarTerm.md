@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | Unknown | High | Beijing |
 
-#### Overview
+## Overview
 
 The Solar Term is an observational solar calendar used in China and its surrounding area. It uses the Longitude of the Sun to determine the seasons and months based on moments when the sun's longitude relative to the equinoxes is multiples of 15 (minor) and 30 (major) degrees.
 
@@ -14,7 +14,7 @@ Due to the variable speed of the Earth around the sun from its slightly eccentri
 
 Solar terms are also used to determine when the leap month should occur in the Chinese lunisolar calendar. When a lunar month does not have a major solar term, then it is repeated and causes that year to have 13 months instead of 12.
 
-#### Info
+## Info
 
 | ° | Season | Month | Name | Type |
 | --- | --- | --- | --- | --- |
@@ -43,11 +43,15 @@ Solar terms are also used to determine when the leap month should occur in the C
 | 285 | Winter | Ox (丑) | 小寒 (Xiǎohán) | minor |
 | 300 | Winter | Ox (丑) | 大寒 (Dàhán) | major |
 
-#### Accuracy
+## Accuracy
 
 This calendar is a simple calculation, but it relies on the calculation for the Longitude of the Sun which has a tiny amount of error.
 
-#### Source
+### Dependencies
+
+- Longitude of the Sun
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Solar_term)

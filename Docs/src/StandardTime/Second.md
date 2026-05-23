@@ -4,19 +4,19 @@
 | ------------ | ---------- |
 | Every Second | Exact |
 
-#### Overview
+## Overview
 
 This is the fraction of time passed in the current second.
 
-#### Info
+## Info
 
 This calculation is based on local time.
 
-#### Accuracy
+## Accuracy
 
 This calculation is perfectly accurate to the millisecond.
 
-#### Source
+## Source
 
 This is a simple calculation with no source.
 

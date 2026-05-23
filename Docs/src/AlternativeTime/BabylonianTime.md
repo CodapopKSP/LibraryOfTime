@@ -4,7 +4,7 @@
 | ----------------- | ------------------- | --------------- |
 | Sunrise  | High   | Babylon         |
 
-#### Overview
+## Overview
 
 Babylonian timekeeping was the timekeeping system used in ancient Babylon. It is the basis for standard timekeeping in modern times.
 
@@ -12,18 +12,18 @@ It divides each day into 12 watches, each two hours long and beginning at sunris
 
 Some sources further divided the geš into grains, though they rarely agree, providing numbers such as 60 and 72 grains per geš.
 
-#### Info
+## Info
 
 | Unit  | Duration |
 | ----- | -------- |
 | Watch | 2 hours  |
 | Geš   | 4 minutes |
 
-#### Accuracy
+## Accuracy
 
 This calculation is based on the solar day and is very accurate, but it approximates sunset as 6:00am local time.
 
-#### Source
+## Source
 
 ### Common Sourc
 [Wikipedia article 1](https://en.wikipedia.org/wiki/Ancient_Mesopotamian_units_of_measurement)

@@ -370,7 +370,13 @@
     text-align: justify;
 }
 
-/* Source tab: markdown # headings from buildNodeData (ATX → <h1>…<h6>) */
+/* Accuracy and Source tabs: markdown # headings from buildNodeData (ATX → <h1>…<h6>) */
+.nodeinfo-accuracy h1,
+.nodeinfo-accuracy h2,
+.nodeinfo-accuracy h3,
+.nodeinfo-accuracy h4,
+.nodeinfo-accuracy h5,
+.nodeinfo-accuracy h6,
 .nodeinfo-source h1,
 .nodeinfo-source h2,
 .nodeinfo-source h3,
@@ -386,30 +392,54 @@
     line-height: 1.22;
 }
 
+.nodeinfo-accuracy :is(h1, h2, h3, h4, h5, h6):first-of-type,
 .nodeinfo-source :is(h1, h2, h3, h4, h5, h6):first-of-type {
     margin-top: 0.4em;
 }
 
+.nodeinfo-accuracy :is(h1, h2, h3, h4, h5, h6):not(:first-of-type),
 .nodeinfo-source :is(h1, h2, h3, h4, h5, h6):not(:first-of-type) {
     margin-top: 0.95em;
 }
 
+.nodeinfo-accuracy h1,
+.nodeinfo-accuracy h2,
 .nodeinfo-source h1,
 .nodeinfo-source h2 {
     font-size: 2.3vh;
 }
 
+.nodeinfo-accuracy h3,
 .nodeinfo-source h3 {
     font-size: 2.1vh;
 }
 
+.nodeinfo-accuracy h4,
 .nodeinfo-source h4 {
     font-size: 1.95vh;
 }
 
+.nodeinfo-accuracy h5,
+.nodeinfo-accuracy h6,
 .nodeinfo-source h5,
 .nodeinfo-source h6 {
     font-size: 1.85vh;
+}
+
+.nodeinfo-accuracy ul,
+.nodeinfo-accuracy ol,
+.nodeinfo-source ul,
+.nodeinfo-source ol {
+    white-space: normal;
+    margin: 0.35em 0 0.5em;
+    padding-left: 1.4em;
+    text-align: left;
+}
+
+.nodeinfo-accuracy li,
+.nodeinfo-source li {
+    margin: 0.12em 0;
+    line-height: 1.35;
 }
 
 /* Desktop description actions: no layout space until a calendar node is selected. */

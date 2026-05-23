@@ -4,7 +4,7 @@
 | ----------------- | ----------------- | --------------- |
 | 2 October 1608 CE | Low | San Francisco, CA |
 
-#### Overview
+## Overview
 
 The Galactic Tick represents the time it takes the Solar System to travel one centi-arcsecond around the Milky Way galaxy.
 
@@ -12,7 +12,7 @@ Completing one orbit of the Milky Way galaxy, known as a galactic year, takes ab
 
 The first Galactic Tick began on 2 October 1608 CE, the date that Hans Lippershey filed the patent for the telescope.
 
-#### Info
+## Info
 
 The Galactic Tick is 634.114583293 days long.
 
@@ -29,7 +29,7 @@ The Galactic Tick is 634.114583293 days long.
 | 242nd | 24 November 2028 |
 | 243rd | 20 August 2030 |
 
-#### Accuracy
+## Accuracy
 
 Since this is a pop science unit of time, it was not calculated with high precision, and in fact there were significant math errors in the calculations available on public sources, which state that the Galactic Tick is 633.7 days. The same sources also state the epoch of 2 October 1608 CE as the 1st tick as well as 29 September 2016 CE as the 235th tick. These dates are all impossible given the math provided.
 
@@ -39,7 +39,7 @@ On top of that, the two values given for the length of the tick are very differe
 
 In this calculation, these math errors have all been patched except for the use of the Julian calendar year length. This preserves all past holiday celebrations.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Galactic_Tick_Day)

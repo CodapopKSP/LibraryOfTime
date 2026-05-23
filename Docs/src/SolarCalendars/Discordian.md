@@ -4,7 +4,7 @@
 | ----------------- | ---------- |
 | 1 January 1165 BCE | Exact |
 
-#### Overview
+## Overview
 
 The Discordian calendar is a Gregorian-based calendar used in the virtual religion of Discordianism. It features 5 months, each of 73 days, with the year beginning on January 1st.
 
@@ -12,7 +12,7 @@ It follows Gregorian leap years, inserting a day between the 59th and 60th of th
 
 Years are denoted with 'YOLD' meaning 'Year of Our Lady Discord'.
 
-#### Info
+## Info
 
 | Month | Days | Approx. Gregorian Time |
 |-------|------|------------------------|
@@ -23,11 +23,15 @@ Years are denoted with 'YOLD' meaning 'Year of Our Lady Discord'.
 | The Aftermath | 73 | Oct 20 - Dec 31 |
 | St. Tib's Day | 1 | Feb 29 |
 
-#### Accuracy
+## Accuracy
 
 The Discordian calendar is based off the Gregorian calendar and is thus exactly accurate.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Discordian_calendar)

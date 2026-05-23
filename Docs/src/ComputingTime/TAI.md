@@ -4,19 +4,19 @@
 | ------------------------------ | ---------- | --------------- |
 | 31 December 1971 CE, +23:59:50 | Exact      | Paris |
 
-#### Overview
+## Overview
 
 International Atomic Time is the average of several atomic clocks and is based on the passage of time on Earth\'s geoid. It is the basis for UTC but deviates from UTC by several seconds due to TAI not including leap seconds, specifically the number of leap seconds since 1972 plus 10 extra to account for missed leap seconds since 1958.
 
-#### Info
+## Info
 
 Ironically, the clock displayed here is derived from UTC even though it is itself the basis for UTC.
 
-#### Accuracy
+## Accuracy
 
 This clock is considered to be perfectly accurate, as it's a simple calculation from UTC. However, this only applies to dates after the Unix epoch of 1 January 1970. Prior to that, leap seconds aren't taken into account in this calculation.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/International_Atomic_Time)

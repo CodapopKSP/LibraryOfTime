@@ -4,21 +4,21 @@
 | ----------------- | ---------- | --------------- |
 | 6 January 1980 CE | Exact      | Washington, D.C. |
 
-### Overview
+## Overview
 
 GPS time is the standard by which all GPS satellites and GPS-enabled devices coordinate their positions. It is a simple count of seconds from midnight on January 6th, 1980.
 
 When converted into the Gregorian calendar, it drifts ahead by a second every now and then as it does not follow leap seconds found in other timekeeping standards.
 
-### Info
+## Info
 
 GPS became available to the public in 2000 CE.
 
-### Accuracy
+## Accuracy
 
 This clock is considered to be perfectly accurate, as it's a simple calculation from Unix.
 
-### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Global_Positioning_System#Timekeeping)

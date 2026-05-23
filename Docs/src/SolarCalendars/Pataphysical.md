@@ -4,13 +4,13 @@
 | ----------------- | ---------- |
 | 8 September 1873 CE | Exact |
 
-#### Overview
+## Overview
 
 The Pataphysical calendar is a Gregorian-based calendar. It is based off of the philosophy of Pataphysics, which is a parody of science created by Alfred Jarry in 1893, though the calendar wasn't created until 1949.
 
 It features 13 months of 29 days, though for each month the 29th day is imaginary except for the month of Gidouille as well as Gueules in leap years. New Year is on September 8th of the Gregorian calendar, and the epoch, denoted A.P., is the day of Alfred Jarry's birth on 8 September 1873 CE.
 
-#### Info
+## Info
 
 | Month | Days | English | Approx. Gregorian Time |
 |-------|------|---------|------------------------|
@@ -28,11 +28,15 @@ It features 13 months of 29 days, though for each month the 29th day is imaginar
 | Tatane | 28 | Shoe or being worn out | Jul 14 - Aug 10 |
 | Phalle | 28 | Phallus | Aug 11 - Sept 7 |
 
-#### Accuracy
+## Accuracy
 
 The Pataphysical calendar is based off the Gregorian calendar and is thus exactly accurate.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/%27Pataphysics#Pataphysical_calendar)

@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | 2 November 1930   | Exact      | Kingston, Jamaica |
 
-#### Overview
+## Overview
 
 The Tabot calendar, an anacronym of "The Anointed Body of Testimony", is a Gregorian-based calendar of Rastafarianism. It features 12 months of 30 days, except for the final month of 35 days and an extra leap day added onto the 4th month.
 
@@ -12,7 +12,7 @@ The epoch is the coronation of H.I.M. Haile Selassie 1st as Emperor of Abyssinia
 
 New Year's Day is always on 2 November in the Gregorian calendar, and leap years occur in tandem with the Gregorian calendar.
 
-#### Info
+## Info
 
 | Month | Days | Start Date |
 |-------|------|------------|
@@ -29,11 +29,15 @@ New Year's Day is always on 2 November in the Gregorian calendar, and leap years
 | Sawwara | 30 | August 29 |
 | Negus & Dejazmatch | 35 | September 28 |
 
-#### Accuracy
+## Accuracy
 
 As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Tabot_calendar)

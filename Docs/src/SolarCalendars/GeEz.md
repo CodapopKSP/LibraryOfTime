@@ -4,13 +4,13 @@
 | ---------------------------- | ---------- | --------------- |
 | 26 August 8 CE +21:00:00     | Exact      | Addis Ababa |
 
-#### Overview
+## Overview
 
 The Ge'ez calendar is the official calendar of Ethiopia. A calculated solar calendar, it has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. It has a leap day every 4 years, keeping it in sync with the Julian calendar while sharing months and days with the Coptic calendar.
 
 The New Year starts on September 11th or 12th, with years abbreviated with ዓ.ም. which is pronounced 'am', short for Amätä Mihret, meaning 'Year of Mercy'.
 
-#### Info
+## Info
 
 The Ge'ez calendar is precisely aligned with the Coptic calendar for its months and days. It nearly shares an epoch with the Julian calendar, as they both are counting years since the same event, but is actually 7-8 years behind due to a difference in calculation of the date of the Annunciation.
 
@@ -30,11 +30,15 @@ The Ge'ez calendar is precisely aligned with the Coptic calendar for its months 
 | Nähase | 30 | Aug 7 - Sep 5 |
 | Ṗagume | 5 or 6 | Sep 6 - Sep 10 |
 
-#### Accuracy
+## Accuracy
 
 The Ge'ez calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.
 
-#### Source
+### Dependencies
+
+- Julian
+
+## Source
 
 ### Common Source
 

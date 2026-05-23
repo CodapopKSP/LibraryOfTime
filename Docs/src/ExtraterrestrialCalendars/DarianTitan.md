@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- |
 | 15 March 1609 +18:37:32 | High |
 
-#### Overview
+## Overview
 
 The Darian calendar for Titan, moon of Saturn, was created by Thomas Gangale and is a continuation of the calendars created for Mars and the four Galilean moons of Jupiter. It is intended to closely align with the Martian Darian calendar, roughly sharing an epoch as well as all 24 months.
 
@@ -16,7 +16,7 @@ Leap years add an entire week, split evenly between the 12th and 24th months, ad
 
 Years don't always begin and end at midnight on Titan's prime meridian, as the circad system takes precedence over the solar day.
 
-#### Info
+## Info
 
 | Titan Month | Circads |
 |-------------|---------|
@@ -45,13 +45,13 @@ Years don't always begin and end at midnight on Titan's prime meridian, as the c
 | Ti Scorpius | 28 |
 | Ti Vrishika | 28-32 |
 
-#### Accuracy
+## Accuracy
 
 The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.
 
 The epoch is noted to account for the time it takes light to travel from Jupiter in the Galilean calendars, but it isn't clear if it has also been accounted for in this calendar.
 
-#### Source
+## Source
 
 ### Primary Sources
 This formula was extrapolated from the writings of Thomas Gangale found at [this website](https://ops-alaska.com/time/gangale_saturn/Darian_Titan_main.htm).

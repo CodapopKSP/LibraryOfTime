@@ -4,7 +4,7 @@
 | ----------------- | ---------- |
 | 2 January 2002 +17:12:57 | High |
 
-#### Overview
+## Overview
 
 Europa Meridian Time is a measure of time passed since midnight on the prime meridian of Europa, moon of Jupiter.
 
@@ -16,7 +16,7 @@ Midnight is thus the time when the moon is directly between Jupiter and the sun,
 
 Europa Meridian Time is a name that was chosen for this website and might not be accurate.
 
-#### Info
+## Info
 
 Europa is in a 2/4/8 Laplace resonance with Io and Ganymede, so their solar days are equally comprised of 2/4/8 circads, though the length of their circads are very slightly different. The circad of Europa is 21.32456 Earth hours long, which is then broken into 24 Europa hours.
 
@@ -26,7 +26,7 @@ Europa is in a 2/4/8 Laplace resonance with Io and Ganymede, so their solar days
 
 As the orbit of Europa is not very inclined, midnight on Circad 1 is also roughly the time of a total solar eclipse on Jupiter.
 
-#### Accuracy
+## Accuracy
 
 The accuracy of this timekeeping system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.
 
@@ -34,7 +34,7 @@ The epoch is noted to account for the time it takes light to travel from Jupiter
 
 The name of this timekeeping system is my own creation, as Mr. Gangale did not give it a name himself.
 
-#### Source
+## Source
 
 ### Primary Sources
 This formula was extrapolated from the writings of Thomas Gangale found at [this website](https://ops-alaska.com/time/gangale_jupiter/jupiter.htm).

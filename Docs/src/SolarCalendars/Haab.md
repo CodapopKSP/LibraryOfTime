@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | Unknown           | Exact      | Chichén Itzá |
 
-#### Overview
+## Overview
 
 The Haab is a calculated solar calendar and one of many calendars used by the Maya people. It features 18 months of 20 days plus a short month of 5 days, with days counted starting from 0. Thus, it has 365 days with no intercalation.
 
@@ -12,7 +12,7 @@ The Haab combines with another Maya calendar, the 260-day Tzolkin, to create the
 
 Years do not increment outside the Calendar Round, so it is impossible to say for certain what the epoch for the Haab should be, but sometime around 550 BCE is accepted among historians.
 
-#### Info
+## Info
 
 | Month | Days | Month | Days |
 |-------|------|-------|------|
@@ -27,11 +27,11 @@ Years do not increment outside the Calendar Round, so it is impossible to say fo
 | Ch'en | 20 | Kumk'u | 20 |
 | | | Wayeb' | 5 |
 
-#### Accuracy
+## Accuracy
 
 This calendar is still used today in some Maya groups, and it has been calibrated using the calculator provided by the Smithsonian National Museum of the American Indian. However, it also relies on the Long Count calendar being accurate.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Maya_calendar)

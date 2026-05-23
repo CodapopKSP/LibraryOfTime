@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | 15 December 523 CE  | High       | London |
 
-#### Overview
+## Overview
 
 The Shire calendar is a fictional calculated solar calendar used in the Lord of the Rings franchise. It is one of the calendars of the Hobbits. It is a solar calendar with 12 months of 30 days plus 5 or 6 named days.
 
@@ -12,7 +12,7 @@ Years begin in the winter with the special day of 2 Yule, taking place immediate
 
 Leap years happen every 4 years but not on centennial years. Years are denoted with S.R. referring to Shire Reckoning, the count of years from the migration of Hobbits to the Shire from Bree in December 523 BCE.
 
-#### Info
+## Info
 
 The Shire calendar took inspiration from many European calendars, including the Julian and Gregorian calendars for leap year rules as well as German calendars for month names and year structure. The leap year rules make its drift from the equinoxes a bit less than the Julian calendar but a bit more than the Gregorian.
 
@@ -53,7 +53,7 @@ The Shire calendar took inspiration from many European calendars, including the 
 | Mersday |
 | Highday |
 
-#### Accuracy
+## Accuracy
 
 Many would be surprised to learn that Tolkein intended for the Lord of the Rings and its companion novels to be historical texts, taking place in the same universe as the real world and translated by Tolkein from their original language into English.
 
@@ -67,7 +67,7 @@ Using the moon calculations on this site, I was unable to find a pattern of moon
 
 Thus, my conclusion is that 2 Yule S.R. 1 took place on 15 December 523 CE. Calculating the remainder of the calendar is simply a matter of following the algorithm clearly established in Tolkein's writings.
 
-#### Source
+## Source
 
 ### Primary Sources
 As stated in the Accuracy tab, much of the work that went into calibrating this calendar was thanks to [Brandon Rhodes](https://shire-reckoning.com/moon.html).

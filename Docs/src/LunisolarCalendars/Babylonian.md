@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | 29 March 310 BCE +15:00:00 | Medium | Babylon |
 
-#### Overview
+## Overview
 
 The Babylonian calendar is an observational lunisolar calendar that was used in ancient Babylon. It consists of 12 months of 29 or 30 days that begin after the first sighting of the new crescent moon at sunset. An intercalary month is added every 2-3 years in accordance with the 19-year Metonic cycle, typically repeating the 12th month but repeating the 6th month for only the 17th year of the Metonic cycle.
 
@@ -12,7 +12,7 @@ Days start at sunset. While there is no week structure, "holy-days" take place a
 
 Due to the long history of empires and conquests of Babylon, years can be counted from a number of different epochs. Two are displayed here: the Seleucid Era (SE) denoting the time since the founding of the Seleucid Empire, and the Asarcid Era (AE) denoting the time from the start of the Arsacid Empire.
 
-#### Info
+## Info
 
 The Babylonian calendar is derived from the ancient Sumerian calendar and shares many similarities in month names, while the Hebrew calendar is derived from the Babylonian calendar.
 
@@ -42,7 +42,7 @@ The Babylonian calendar is derived from the ancient Sumerian calendar and shares
 | 21 | Sin and Shamash |
 | 28 | Enki and Mah |
 
-#### Accuracy
+## Accuracy
 
 The Babylonian calendar is well-documented, but there is some debate as to how it should be calibrated. Certain dates are well-defined, but since it is largely an observational calendar, then there is no set formula to determine the start of each month. This site uses 6pm in Babylon as the time of sunset, and the start of a month is calculated as being the first sunset that occurs at least 24 hours after a new moon.
 
@@ -52,7 +52,11 @@ The Metonic cycle wasn't established in the Babylonian calendar until around 380
 
 The intercalary month of 𒌚𒋛𒀀𒆥 was not explicitely named but directly described. The name was chosen to match the pattern found in the other intercalary month, 𒌚𒋛𒀀𒊺.
 
-#### Source
+### Dependencies
+
+- New Moon
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Babylonian_calendar)

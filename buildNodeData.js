@@ -131,8 +131,8 @@ function parseMarkdownFile(filePath, directory) {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         
-        // Check for section headers (support both ### and ####)
-        if (/^#{3,4}\s+Overview\b/.test(line)) {
+        // Check for section headers (## is canonical; ### and #### still accepted)
+        if (/^#{2,4}\s+Overview\b/.test(line)) {
             if (currentSection && sectionContent.length > 0) {
                 const content = sectionContent.join('\n').trim();
                 if (currentSection === 'overview') overview = content;
@@ -143,7 +143,7 @@ function parseMarkdownFile(filePath, directory) {
             currentSection = 'overview';
             sectionContent = [];
             continue;
-        } else if (/^#{3,4}\s+Info\b/.test(line)) {
+        } else if (/^#{2,4}\s+Info\b/.test(line)) {
             if (currentSection && sectionContent.length > 0) {
                 const content = sectionContent.join('\n').trim();
                 if (currentSection === 'overview') overview = content;
@@ -154,7 +154,7 @@ function parseMarkdownFile(filePath, directory) {
             currentSection = 'info';
             sectionContent = [];
             continue;
-        } else if (/^#{3,4}\s+Accuracy\b/.test(line)) {
+        } else if (/^#{2,4}\s+Accuracy\b/.test(line)) {
             if (currentSection && sectionContent.length > 0) {
                 const content = sectionContent.join('\n').trim();
                 if (currentSection === 'overview') overview = content;
@@ -165,7 +165,7 @@ function parseMarkdownFile(filePath, directory) {
             currentSection = 'accuracy';
             sectionContent = [];
             continue;
-        } else if (/^#{3,4}\s+Source\b/.test(line)) {
+        } else if (/^#{2,4}\s+Source\b/.test(line)) {
             if (currentSection && sectionContent.length > 0) {
                 const content = sectionContent.join('\n').trim();
                 if (currentSection === 'overview') overview = content;
@@ -367,8 +367,7 @@ function convertMarkdownTables(text) {
 }
 
 // Convert ATX markdown headings (lines starting with # …) to HTML.
-// Run after tables, before links, so heading text can still contain [text](url).
-// Used for the Source tab only so other tabs keep plain # lines if any.
+// Run after tables, before lists/links, so heading text can still contain [text](url).
 function convertMarkdownHeadings(text) {
     return text.split('\n').map(function (line) {
         const m = line.match(/^(#{1,6})\s+(.+)$/);
@@ -381,22 +380,47 @@ function convertMarkdownHeadings(text) {
     }).join('\n');
 }
 
-// Collapse whitespace next to <h1>…</h6> so .nodeinfo-source (pre-wrap) does not show huge gaps.
-function trimWhitespaceAroundSourceHeadings(html) {
+// Convert consecutive markdown bullet lines (- item or * item) to a single <ul>.
+function convertMarkdownLists(text) {
+    const lines = text.split('\n');
+    const result = [];
+    let i = 0;
+    while (i < lines.length) {
+        const line = lines[i];
+        if (/^[-*]\s+/.test(line)) {
+            const items = [];
+            while (i < lines.length && /^[-*]\s+/.test(lines[i])) {
+                items.push(lines[i].replace(/^[-*]\s+/, '').trim());
+                i++;
+            }
+            result.push('<ul>' + items.map(function (item) {
+                return '<li>' + item + '</li>';
+            }).join('') + '</ul>');
+            continue;
+        }
+        result.push(line);
+        i++;
+    }
+    return result.join('\n');
+}
+
+// Collapse whitespace next to block HTML so tab panels (pre-wrap) do not show huge gaps.
+function trimWhitespaceAroundBlockElements(html) {
     return html
-        .replace(/(<\/h[1-6]>)\s+/g, '$1')
-        .replace(/\s+(<h[1-6]\b)/g, '$1');
+        .replace(/(<\/(?:h[1-6]|ul|ol|table)>)\s+/g, '$1')
+        .replace(/\s+(<(?:h[1-6]|ul|ol|table)\b)/g, '$1');
 }
 
 // Format the node data object as JavaScript code
 function formatNodeData(nodeData) {
-    // Process each field: convert tables first, optional headings (source tab), then links, then escape
+    // Process each field: tables → headings → lists → links (accuracy/source tabs use all four)
     const processField = (text, options) => {
         const opts = options || {};
         // First convert markdown tables to HTML (this removes newlines from tables)
         let processed = convertMarkdownTables(text);
         if (opts.markdownHeadings) {
             processed = convertMarkdownHeadings(processed);
+            processed = convertMarkdownLists(processed);
         }
         // Then convert markdown links
         processed = convertMarkdownLinks(processed);
@@ -405,19 +429,20 @@ function formatNodeData(nodeData) {
     
     const overview = processField(nodeData.overview);
     const info = processField(nodeData.info);
-    const accuracy = processField(nodeData.accuracy);
+    let accuracy = processField(nodeData.accuracy, { markdownHeadings: true });
+    accuracy = trimWhitespaceAroundBlockElements(accuracy);
     let source = processField(nodeData.source, { markdownHeadings: true });
-    source = trimWhitespaceAroundSourceHeadings(source);
+    source = trimWhitespaceAroundBlockElements(source);
     
     // Escape backticks, handle template literals, and convert newlines to \n
     // But preserve HTML tables (they're already single-line)
     const escapeForTemplate = (str) => {
         // Split by HTML tables to preserve them
-        const parts = str.split(/(<table[^>]*>.*?<\/table>)/g);
+        const parts = str.split(/(<table[^>]*>.*?<\/table>|<ul>.*?<\/ul>|<ol>.*?<\/ol>)/g);
         
         return parts.map((part, index) => {
-            // If it's an HTML table, just escape backticks and ${, don't touch newlines
-            if (part.startsWith('<table')) {
+            // If it's block HTML (table/list), just escape backticks and ${, don't touch newlines
+            if (part.startsWith('<table') || part.startsWith('<ul') || part.startsWith('<ol')) {
                 return part
                     .replace(/`/g, '\\`')
                     .replace(/\${/g, '\\${');

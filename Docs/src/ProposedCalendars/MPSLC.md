@@ -4,7 +4,7 @@
 | ----------------- | ---------- |
 | 8 April 4145 BCE | Exact |
 
-#### Overview
+## Overview
 
 The Meyer-Palmen Solilunar Calendar (MPSLC), despite being named a "solilunar" calendar, is a calculated lunisolar calendar based on the definitions settled upon in this website.
 
@@ -12,7 +12,7 @@ It features 12 regular months of 29 or 30 days plus a leap month at the end of t
 
 Dates are written as a sequence of four numbers separated by hyphens, in the format [cycle]-[year]-[month]-[day] followed by "MP" for the name of the calandar. Months also have standard names.
 
-#### Info
+## Info
 
 | Month | Name | Days |
 | ----------- | ---------- | -------------- |
@@ -41,13 +41,13 @@ Leap years and leap-month length follow two simple steps:
    - If the year is long, Meton has **31 days** when `(floor((n * 2519) / 6840) * 1328) mod 2519 < 1328`.
    - Otherwise, Meton has **30 days**.
 
-#### Accuracy
+## Accuracy
 
 This calculation, despite being difficult to calculate mentally, is straightforward and exactly accurate. Furthermore, the calendar itself is remarkably accurate over the course of several thousand years.
 
 The name of the calendar suggests it is a solilunar calendar, which is likely due to shifting definitions of the words 'lunisolar' and 'solilunar'. Based on the definitions used in this site, it is actually a lunisolar calendar.
 
-#### Source
+## Source
 
 ### Primary Sources
 [Hermetic Systems website](https://www.hermetic.ch/cal_stud/nlsc/nlsc.htm)

@@ -4,17 +4,17 @@
 | ----------------- | ---------- | --------------- |
 | 1 January 1970 CE | Exact      | Murray Hill, New Jersey |
 
-#### Overview
+## Overview
 
 The Unix Hex timestamp is the hexadecimal representation of the Unix timestamp.
 
-#### Info
+## Info
 
-#### Accuracy
+## Accuracy
 
 This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.
 
-#### Source
+## Source
 
 ### Primary Sources
 [Epoch Converter website](https://www.epochconverter.com/hex)

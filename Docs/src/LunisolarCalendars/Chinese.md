@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | 30 January 2697 BCE +16:00:00 | Medium      | Beijing |
 
-#### Overview
+## Overview
 
 The Chinese calendar is an observational lunisolar calendar used by much of East Asia with a long history dating back to ancient China.
 
@@ -12,17 +12,23 @@ It features numerically-named months (月 "yue") of 29 or 30 days (日 "ri") tha
 
 Different versions of this calendar use different eras, but this website uses 2697 BCE as the Year of the Yellow Emperor (2698 BC), a date which was standardized by Sun Yat-sen in 1912 despite there being controversy over the exact date.
 
-#### Info
+## Info
 
 The Chinese calendar is one of the most widespread calendars in history, used by various cultures in Asia and around the world either directly or as a base.
 
 <table class="table-long"><tr><th>Year Cycle</th><th>English</th></tr><tr><td>鼠</td><td>Rat</td></tr><tr><td>牛</td><td>Ox</td></tr><tr><td>虎</td><td>Tiger</td></tr><tr><td>兔</td><td>Rabbit</td></tr><tr><td>龍</td><td>Dragon</td></tr><tr><td>蛇</td><td>Snake</td></tr><tr><td>馬</td><td>Horse</td></tr><tr><td>羊</td><td>Goat</td></tr><tr><td>猴</td><td>Monkey</td></tr><tr><td>雞</td><td>Rooster</td></tr><tr><td>狗</td><td>Dog</td></tr><tr><td>豬</td><td>Pig</td></tr></table>
 
-#### Accuracy
+## Accuracy
 
 Calculating this calendar is very difficult and requires calculating the Winter Solstice, Longitude of the Sun, and any given New Moon. Due to the difficulty of this calculation, months and days might be off by 1 at times, though they typically self-correct by the next month. Rarely, the leap month may be incorrect, especially in cases where the new moon and solstice happen on the same day.
 
-#### Source
+### Dependencies
+
+- New Moon
+- Winter Solstice
+- Longitude of the Sun
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Chinese_calendar)

@@ -4,19 +4,19 @@
 | ----------------- | ---------- | --------------- |
 | 1 January 1970 CE | Exact      | Murray Hill, New Jersey |
 
-#### Overview
+## Overview
 
 Unix is the most widespread timing system in computing and on the internet. It is a simple count of number of seconds since midnight on January 1st, 1970. Many of the calculations on this website are derived from Unix timestamps.
 
-#### Info
+## Info
 
 Unix time skips leap seconds, operating as if that time never happened.
 
-#### Accuracy
+## Accuracy
 
 As Unix is the source of all timekeeping systems on this site, it is perfectly accurate.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Unix_time)

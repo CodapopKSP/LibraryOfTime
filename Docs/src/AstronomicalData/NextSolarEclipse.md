@@ -4,7 +4,7 @@
 | ----------------- | ---------- |
 | Next Solar Eclipse | High |
 
-#### Overview
+## Overview
 
 A solar eclipse occurs when the moon casts a shadow anywhere onto the Earth. It is a fairly rare event that always occurs during a New Moon.
 
@@ -14,7 +14,7 @@ This entry also displays the node at which the eclipse took place as well as the
 
 Solar eclipses typically are only viewable from a small area on the Earth's surface, and they are historically significant events that have inspired legend, religion, and myth. The solar eclipse of 8 April 2024 CE is what inspired me to build this website.
 
-#### Info
+## Info
 
 Solar eclipses happen two to four times per year, though total solar eclipses are rarer (every two or three years). They can only occur when a New Moon happens very near to the moon's ascending or descending nodes—the points along the lunar orbit that intersect the Earth's equator. These are at 0°/360° and 180° respectively.
 
@@ -22,13 +22,18 @@ Due to the oblong shape of the moon's orbit, the moon can either appear larger o
 
 During a total solar eclipse, the sun's corona is visible to the naked eye, providing a spectacular sight as well as an opportunity to conduct science.
 
-#### Accuracy
+## Accuracy
 
 This calculation is reasonably accurate (to within seconds or minutes) for thousands of years before and after the year 2000 CE. Outside of that, errors are induced which can grow from hours to even days.
 
 This calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.
 
-#### Source
+### Dependencies
+
+- ΔT
+- New Moon
+
+## Source
 
 ### Primary Sources
 This calculation in its entirety was sourced from [Astronomical Algorithms (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.

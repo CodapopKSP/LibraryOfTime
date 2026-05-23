@@ -4,13 +4,13 @@
 | ----- | ---------- | --------------- |
 | Unknown | Exact | Malé, Maldives |
 
-#### Overview
+## Overview
 
 The Nakaiy calendar is a Gregorian-based solar calendar used in the Maldives. Years begin on 10 December and are divided into two seasons, Iruvaa and Hulhangu, with Iruvaa being shorter.
 
 Each season is further divided into several Nakaiy, each 12 or 13 days long, which are associated with various weather and climate phenomena.
 
-#### Info
+## Info
 
 | Season | Nakaiy | Characteristics | Dates |
 | ------ | ------ | --------------- | ----- |
@@ -42,7 +42,7 @@ Each season is further divided into several Nakaiy, each 12 or 13 days long, whi
 | Hulhangu | Nora | Light winds, sun showers, unsettled sea currents | Nov 14 – Nov 26 |
 | Hulhangu | Dosha | Light NE winds, good fishing | Nov 27 – Dec 9 |
 
-#### Accuracy
+## Accuracy
 
 This calendar is somewhat lacking in official documentation. Most sources give Gregorian dates for the Nakaiy, but some state that these are approximate while others leave no room for interpretation. It's possible that the start and end dates of each Nakaiy were never intended to be exact, or alternatively their traditional methods for calculation are no longer used.
 
@@ -50,7 +50,11 @@ Regardless, this calculation is exactly accurate based on the available sources.
 
 The inclusion of the current date of the Nakaiy is not strictly present in official sources and is shown here in parentheses.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Calendar overview](https://shaheeilyas.com/nakaiynevi/list/)

@@ -4,7 +4,7 @@
 | ----------------- | ---------- |
 | 1 January 1789 CE | Exact |
 
-#### Overview
+## Overview
 
 The Positivist calendar was a Gregorian-based calendar proposed by French philosopher and Positivist Auguste Comte in 1849. It features 13 months of 28 days named after significant figures in Western history.
 
@@ -12,7 +12,7 @@ Each of the 364 days is also named after a historical figure, not all of whom ar
 
 Years are counted from 1789, the year of the French Revolution, and are denoted as "Year of the Great Crisis". Each year starts on January 1 of the Gregorian calendar.
 
-#### Info
+## Info
 
 <table class="table-very-very-long"><tr><th colspan="3">Positivist Months</th></tr><tr><th>Month</th><th>Gregorian Dates</th><th>Days</th></tr><tr><td>Moses</td><td>Jan 1 - Jan 28</td><td>28</td></tr><tr><td>Homer</td><td>Jan 29 - Feb 25</td><td>28</td></tr><tr><td>Aristotle</td><td>Feb 26 - Mar 25</td><td>28</td></tr><tr><td>Archimedes</td><td>Mar 26 - Apr 22</td><td>28</td></tr><tr><td>Caesar</td><td>Apr 23 - May 20</td><td>28</td></tr><tr><td>Saint Paul</td><td>May 21 - Jun 17</td><td>28</td></tr><tr><td>Charlemagne</td><td>Jun 18 - Jul 15</td><td>28</td></tr><tr><td>Dante</td><td>Jul 16 - Aug 12</td><td>28</td></tr><tr><td>Gutenberg</td><td>Aug 13 - Sep 9</td><td>28</td></tr><tr><td>Shakespeare</td><td>Sep 10 - Oct 7</td><td>28</td></tr><tr><td>Descartes</td><td>Oct 8 - Nov 4</td><td>28</td></tr><tr><td>Frederick</td><td>Nov 5 - Dec 2</td><td>28</td></tr><tr><td>Bichat</td><td>Dec 3 - Dec 30</td><td>28</td></tr><tr><td>Festival of<br>All the Dead</td><td>Dec 30/31</td><td>1</td></tr><tr><td>Festival of<br>Holy Women</td><td>Dec 31 (leap years)</td><td>1</td></tr></table>
 
@@ -174,11 +174,15 @@ The Positivist calendar includes 364 days named after historical figures, organi
 | Broussais |
 | Gall |
 
-#### Accuracy
+## Accuracy
 
 As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Positivist_calendar)

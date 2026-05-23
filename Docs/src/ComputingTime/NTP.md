@@ -4,19 +4,19 @@
 | ------------------------------- | ---------- | --------------- |
 | 1 January 1900 CE, 00:00:00 UTC | Exact      | Newark, DE      |
 
-#### Overview
+## Overview
 
 The Network Time Protocol timestamp is a count of the number of seconds since 1 January 1900 CE. It can be displayed in both decimal and hexadecimal.
 
-#### Info
+## Info
 
 NTP can only store 32-bit numbers and will roll over back to 0 on 7 February 2036 at 6:28:16 UTC+0, also known as the Year 2036 Problem.
 
-#### Accuracy
+## Accuracy
 
 This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.
 
-#### Source
+## Source
 
 ### Primary Sources
 [Epoch Converter website](https://www.epochconverter.com/ntp)

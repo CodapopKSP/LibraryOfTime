@@ -4,7 +4,7 @@
 | ----- | ---------- | --------------- |
 | 12 July 552 CE +20:00:00 | Exact | Yerevan, Armenia |
 
-#### Overview
+## Overview
 
 The Armenian calendar is a calculated solar calendar traditionally used in Armenia.
 
@@ -12,7 +12,7 @@ It features 12 months of 30 days plus a short intercalary month of 5 days, աւ�
 
 The 30 days of the month are also individually named.
 
-#### Info
+## Info
 
 | # | Days | Month | Transliteration |
 |---|------|------------------|-----------------|
@@ -73,11 +73,11 @@ The 30 days of the month are also individually named.
 | 6 | Ուրբաթ | Urbat |
 | 7 | Շաբաթ | Shabat |
 
-#### Accuracy
+## Accuracy
 
 As this is a simple calculation with a known epoch, this calendar is exactly accurate.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Armenian_calendar)

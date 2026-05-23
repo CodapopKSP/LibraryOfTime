@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- |
 | 30 December 0 BCE +00:00:00 | Exact |
 
-#### Overview
+## Overview
 
 The Astronomical calendar is a standard for calculating dates of astronomical or historical events. It is a combination of the Gregorian calendar for dates after midnight on 15 October 1582 and the Julian calendar for dates before.
 
@@ -12,7 +12,7 @@ Unlike the Julian calendar, it utilizes Year 0 to enable the easier calculation 
 
 Years are not denoted with anything and are simply listed as a positive or negative number.
 
-#### Info
+## Info
 
 | Month | Days |
 |-------|------|
@@ -29,11 +29,16 @@ Years are not denoted with anything and are simply listed as a positive or negat
 | November | 30 |
 | December | 31 |
 
-#### Accuracy
+## Accuracy
 
 This calendar is a simple calculation and is considered to be exactly accurate.
 
-#### Source
+### Dependencies
+
+- Gregorian
+- Julian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Astronomical_year_numbering)

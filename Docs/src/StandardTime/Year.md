@@ -4,19 +4,19 @@
 | ---------- | ---------- |
 | Every Year | Exact |
 
-#### Overview
+## Overview
 
 This is the fraction of time passed in the current year.
 
-#### Info
+## Info
 
 Due to leap days, this fraction might not be a perfect 10x multiplication of the century calculation.
 
-#### Accuracy
+## Accuracy
 
 This calculation is perfectly accurate to the millisecond.
 
-#### Source
+## Source
 
 This is a simple calculation with no source.
 

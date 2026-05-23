@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- |
 | 12 March 1609 CE, 18:40:06 | High |
 
-#### Overview
+## Overview
 
 The Darian calendar is a proposed calculated solar calendar for use on Mars. It was created in 1985 by Thomas Gangale and named after his son, Darius.
 
@@ -14,7 +14,7 @@ The epoch is the Vernal Equinox of Julian Sol Number 0, taking place on 12 March
 
 Leap years add one extra day in the final month, and they take place if the year number is odd or divisible by 10, unless also divisible by 100 except if divisible by 1000, though this formula changes after Darian year 2000 and gets updated every few thousand years as the orbit of Mars becomes more eccentric.
 
-#### Info
+## Info
 
 | Month | Days |
 |-------|------|
@@ -43,13 +43,17 @@ Leap years add one extra day in the final month, and they take place if the year
 | Scorpius | 28 |
 | Vrishika | 27 or 28 |
 
-#### Accuracy
+## Accuracy
 
 This calendar depends on the Julian Sol Number which is in turn based on the Mars Sol Date. Assuming these are all accurate, then the Darian calendar should be correct.
 
 There is one more stipulation that the current calendar is only perfectly accurate between the years 0 and 2000 due to the shortening of the Martian equinox year. Whether those are Martian years or Earth years isn't clear, but the difference is rather small and is currently ignored for this calendar.
 
-#### Source
+### Dependencies
+
+- Julian Sol Number
+
+## Source
 
 ### Primary Sources
 Much of the information on this calendar can be found at its [Wikipedia article](https://en.wikipedia.org/wiki/Darian_calendar).

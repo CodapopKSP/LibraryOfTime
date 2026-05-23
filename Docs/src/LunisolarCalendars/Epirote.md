@@ -4,7 +4,7 @@
 | ----------------- | --------------- | --------------- |
 | 20 August 204 BCE + 16:00:00 | High | Epirus |
 
-#### Overview
+## Overview
 
 The Epirote calendar is the previously-undescribed Greek lunisolar calendar displayed on the Antikythera mechanism, theorized to be from the Epirus region of Ancient Greece.
 
@@ -14,7 +14,7 @@ Months were either "full" (30 days) or "hollow" (29 days) in a roughly alternati
 
 There is no known epoch for the Epirote calendar, but this site uses the calibration date of the Antikythera mechanism, 20 August 204 BCE, as a pseudoepoch, listed here in parentheses.
 
-#### Info
+## Info
 
 When the Antikythera mechanism was discovered in the early 1900s, it shocked historians as proof that the Ancient Greeks had the technology to create precision bronze gears. While large portions of the mechanism were damaged or missing, enough remained that enabled 21st century researchers, with careful deduction and investigation, to rebuild and sufficiently calibrate its calendar.
 
@@ -63,13 +63,13 @@ When the Antikythera mechanism was discovered in the early 1900s, it shocked his
 | 45               | Skip 27 | 46       | Full    |
 | 47               | Full    |          |         |
 
-#### Accuracy
+## Accuracy
 
 The Epirote calendar is an enigma in horology. Many things are known about it thanks to research done on the Antikythera mechanism, but ultimately certain aspects of the calendar, such as its calibration date and leap month, are educated speculation.
 
 Otherwise the implementation of the algorithm is fairly straightforward, if a bit complex. As this calendar was calibrated millennia ago, it is sure to have experienced significant drift from the solar year, which is unaccounted for here.
 
-#### Source
+## Source
 
 ### Primary Sources
 Research into this calendar spans several scientific papers and studies.

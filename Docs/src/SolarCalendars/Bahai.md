@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- | --------------- |
 | 19 March 1844 CE +14:30:00  | High       | Tehran |
 
-#### Overview
+## Overview
 
 The Baháʼí calendar is an observational solar calendar of the Baháʼí Faith. It begins its New Year on the day of the Spring Equinox, preventing it from drifting from the tropical year and causing it to very slowly drift through the Gregorian year following the precession of the equinoxes.
 
@@ -12,7 +12,7 @@ It features 19 months (or sometimes referred to as weeks) of 19 days, for a tota
 
 Days start at sunset in Tehran, which is approximated here as 18:00 IRST. Years are denoted with 'BE', meaning Baháʼí Era.
 
-#### Info
+## Info
 
 The new year starts on the day that the equinox occurs before noon in Iran, or the next day if it occurs after noon. The starting of the new year results in the final month having 29 or 30 days depending on when exactly the equinox occurs.
 
@@ -39,7 +39,7 @@ The new year starts on the day that the equinox occurs before noon in Iran, or t
 | Ayyám-i-Há | 4 or 5 | Feb 26 - Mar 1 |
 | 'Alá' | 19 | Mar 2 - Mar 20 |
 
-#### Accuracy
+## Accuracy
 
 The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year especially if it happens very close to sunset, but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Terrestrial Time invokes inaccuracies.
 
@@ -47,7 +47,11 @@ Dates may change slightly too early or late depending on the real time of sunset
 
 There seems to be an issue with the stated epoch on Wikipedia being 1 day later than the calculated epoch here.
 
-#### Source
+### Dependencies
+
+- Spring Equinox
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_calendar)

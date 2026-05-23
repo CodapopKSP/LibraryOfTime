@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- | --------------- |
 | 28 August 284 CE +22:00:00  | Exact      | Alexandria |
 
-#### Overview
+## Overview
 
 The Coptic calendar, also known as the Alexandrian calendar, was a calculated solar calendar used in Egypt until the adoption of the Gregorian calendar in 1875. It is based on the ancient Egyptian calendar but with leap years every four years, keeping it in sync with the Julian calendar while sharing months and days with the Ge'ez calendar.
 
@@ -12,7 +12,7 @@ It has 12 months of 30 days plus a smaller 13th month of 5 or 6 days. The new ye
 
 The Coptic calendar is still in use today by Egyptian farmers as well as the Coptic Orthodox Church.
 
-#### Info
+## Info
 
 The Ge'ez calendar is precisely aligned with the Coptic calendar for its months and days. It's epoch, translated to 'Year of the Martyrs', is counted from the year Diocletian became Emperor of Rome, which was followed by a period of mass persecution of Christians.
 
@@ -32,11 +32,15 @@ The Ge'ez calendar is precisely aligned with the Coptic calendar for its months 
 | Mesori | 30 | Aug 7 - Sep 5 |
 | Pi Kogi Enavot | 5 or 6 | Sep 6 - Sep 10 |
 
-#### Accuracy
+## Accuracy
 
 The Coptic calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.
 
-#### Source
+### Dependencies
+
+- Julian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Coptic_calendar)

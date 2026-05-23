@@ -4,7 +4,7 @@
 | ----------------- | ---------- |
 | New Moon | High |
 
-#### Overview
+## Overview
 
 This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month.
 
@@ -12,17 +12,21 @@ A New Moon is when the dark side of the moon is directly facing the Earth, rende
 
 It is an important event in many cultures, and most lunar or lunisolar calendars use the New Moon as the beginning of the month.
 
-#### Info
+## Info
 
 Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site. Unfortunately it also must be calculated several times due to the nature of lunar calendars, though the date shown here is resused when possible.
 
 New Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects. Thus, it is often necessary to calculate each New Moon directly.
 
-#### Accuracy
+## Accuracy
 
 This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.
 
-#### Source
+### Dependencies
+
+- ΔT
+
+## Source
 
 ### Primary Sources
 This calculation in its entirety was sourced from [Astronomical Algorithms (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.

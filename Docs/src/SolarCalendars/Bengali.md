@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- | --------------- |
 | 13 April 593 CE, +18:00:00   | High       | Dhaka, Bangladesh           |
 
-#### Overview
+## Overview
 
 The Bengali calendar is a Gregorian-based solar calendar used in Bangladesh and Eastern India.
 
@@ -14,7 +14,7 @@ Years are denoted with "BS", meaning Bengali Sambat or Bengali Era. The precise 
 
 The Bengali calendar also recognizes six season; Summer, Monsoon, Autumn, Dry, Winter, and Spring.
 
-#### Info
+## Info
 
 | Month | Days (pre-2019) | Days (2019–) | First day (2019 rules) | Season |
 | ----- | --------------- | ------------ | ------------------------ | ------ |
@@ -41,11 +41,15 @@ The Bengali calendar also recognizes six season; Summer, Monsoon, Autumn, Dry, W
 | Friday | শুক্রবার |
 | Saturday | শনিবার |
 
-#### Accuracy
+## Accuracy
 
 This calendar is intrinsically tied to the Gregorian calendar and is exactly accurate. However, it does have an alternate rule set used in India that is not present here.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Bengali_calendar)

@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | 11 February 659 BCE | Medium | Kyoto |
 
-#### Overview
+## Overview
 
 The Japanese calendar has a long and storied history. It was originally a calculated lunisolar calendar based off of the Chinese calendar and went through several rule revisions. It changed to a Gregorian-derived calendar on 1 January 1873 CE.
 
@@ -16,7 +16,7 @@ Years can also be denoted with the Jinmu Era, written as "神武紀元", countin
 
 Each day also follows the sexegenary cycle, a cycle of 60 day names identical to the Sexagenary Year.
 
-#### Info
+## Info
 
 | Era | Kanji | Gregorian Date |
 | --- | --- | --- |
@@ -251,7 +251,7 @@ Each day also follows the sexegenary cycle, a cycle of 60 day names identical to
 | Heisei | 平成 | 1989-01-08 |
 | Reiwa | 令和 | 2019-05-01 |
 
-#### Accuracy
+## Accuracy
 
 The Japanese calendar is full of rule changes which greatly reduce the accuracy of this calculation, as I was unable to find the specific rules used throughout its history.
 
@@ -261,7 +261,12 @@ Regnal dates before 701 CE are not included since their coverage isn't clear.
 
 After 1873 CE, this calculation is exactly accurate, at least until the ascension of the next emperor requires updating this site.
 
-#### Source
+### Dependencies
+
+- Chinese
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia page](https://en.wikipedia.org/wiki/Japanese_calendar)

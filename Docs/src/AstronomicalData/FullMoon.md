@@ -4,23 +4,27 @@
 | ----------------- | ---------- |
 | Full Moon | High |
 
-#### Overview
+## Overview
 
 This is the approximate time of the Full Moon, also known as a Lunar Opposition, of the current month.
 
 A Full Moon is when the light side of the moon is directly facing Earth, making it the brightest object in the night sky. It takes place when the moon is directly opposite the sun relative to Earth.
 
-#### Info
+## Info
 
 Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site.
 
 Full Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects.
 
-#### Accuracy
+## Accuracy
 
 This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.
 
-#### Source
+### Dependencies
+
+- ΔT
+
+## Source
 
 ### Primary Sources
 This calculation in its entirety was sourced from [Astronomical Algorithms (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.

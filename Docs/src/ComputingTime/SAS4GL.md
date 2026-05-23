@@ -4,17 +4,17 @@
 | ------------------------------- | ---------- | --------------- |
 | 1 January 1960 CE, 00:00:00 UTC | Exact      | Cary, NC        |
 
-#### Overview
+## Overview
 
 The Statistical Analysis System 4GL timestamp has two forms. One represents the number of seconds since 1 January 1960 CE, and the other represents the number of days since the same epoch.
 
-#### Info
+## Info
 
-#### Accuracy
+## Accuracy
 
 This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.
 
-#### Source
+## Source
 
 ### Primary Sources
 [Epoch Converter website](https://www.epochconverter.com/sas)

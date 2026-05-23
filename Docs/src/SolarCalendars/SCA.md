@@ -4,13 +4,13 @@
 | ----------------- | ---------- |
 | 1 May 1966 CE | Exact |
 
-#### Overview
+## Overview
 
 The SCA calendar is a Gregorian-derived calendar used by the Society for Creative Anachronism.
 
 Years are written as roman numerals and denoted with 'A.S.', short for 'Anno Societatis', meaning 'in the year of the Society', counting the number of years since the First Tournament on 1 May 1966 CE. Years begin on May 1st, so April 30th is the last day of the previous year.
 
-#### Info
+## Info
 
 | Month | Days |
 |-------|------|
@@ -27,11 +27,15 @@ Years are written as roman numerals and denoted with 'A.S.', short for 'Anno Soc
 | November | 30 |
 | December | 31 |
 
-#### Accuracy
+## Accuracy
 
 As this calendar is based off the Gregorian calendar, this calculation is exactly accurate.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Society_for_Creative_Anachronism)

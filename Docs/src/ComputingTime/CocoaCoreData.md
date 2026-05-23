@@ -4,19 +4,19 @@
 | ------------------------------- | ---------- | --------------- |
 | 1 January 2001 CE, 00:00:00 UTC | Exact      | Cupertino, CA   |
 
-#### Overview
+## Overview
 
 The Cocoa Core Data timestamp is used in iOS and OS X applications. It is also refered to as Mac absolute time.
 
 It counts the number of seconds since 1 January 2001 CE.
 
-#### Info
+## Info
 
-#### Accuracy
+## Accuracy
 
 This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.
 
-#### Source
+## Source
 
 ### Primary Sources
 [Epoch Converter website](https://www.epochconverter.com/coredata)

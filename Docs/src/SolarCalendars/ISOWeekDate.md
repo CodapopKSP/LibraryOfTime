@@ -4,21 +4,25 @@
 | ----------------- | ---------- |
 | 1 January 1 CE | Exact |
 
-#### Overview
+## Overview
 
 The ISO Week Date is part of the ISO standard for time. It is Gregorian-based and breaks the year entirely into a whole number of weeks rather than months, which is often useful for business accounting.
 
 Each year can have either 52 weeks (364 days) or 53 weeks (371 days).
 
-#### Info
+## Info
 
 The ISO Week Date follows the format of Year-Week-Weekday, with Monday being the first day of the week and Sunday being the 7th day of the week.
 
-#### Accuracy
+## Accuracy
 
 Being an ISO standard with a standard calculation, this calendar is expected to be perfectly accurate.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/ISO_week_date)

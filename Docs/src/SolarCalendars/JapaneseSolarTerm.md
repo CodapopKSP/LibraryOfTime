@@ -4,13 +4,13 @@
 | ----------------- | ---------- | --------------- |
 | Unknown | High | Kyoto |
 
-#### Overview
+## Overview
 
 The Japanese Solar Term is an observational solar calendar that is based on the Longitude of the Sun relative to the equinoxes. Starting at 315 degrees, it follows a pattern of 24 solar terms that each cover 15 degrees of solar longitude.
 
 The 24 solar terms (sekki), regarded as seasons, are further broken down into 3 microseasons (kō) for a total of 72 microseasons. Each microseason is named after environmental phenomena that occur around that time.
 
-#### Info
+## Info
 
 | Number | Sun ° | Microseason (kō) | Sekki |
 | --- | --- | --- | --- |
@@ -87,11 +87,15 @@ The 24 solar terms (sekki), regarded as seasons, are further broken down into 3 
 | 71 | 305 | 水沢腹堅 | 大寒 |
 | 72 | 310 | 鶏始乳 | 大寒 |
 
-#### Accuracy
+## Accuracy
 
 This calendar is a simple cycle, though it relies on the calculation for the Longitude of the Sun which has a tiny bit of error.
 
-#### Source
+### Dependencies
+
+- Longitude of the Sun
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Japanese_calendar)

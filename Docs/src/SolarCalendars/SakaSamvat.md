@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- | --------------- |
 | 21 March 78 CE, +18:30:00    | Exact      | Ujjain |
 
-#### Overview
+## Overview
 
 The Śaka Samvat, also known as the Indian National Calendar, is a Gregorian-based calendar used for official government communications and media within India.
 
@@ -14,7 +14,7 @@ Years are not denoted with anything, being shown as a simple number counting the
 
 As it follows the intercalation rules of the Gregorian calendar, its months start on the same day of the Gregorian calendar every year except for the month of Chaitra which starts one day earlier during leap years.
 
-#### Info
+## Info
 
 | Months     | Days      |
 |-----------|-----------|
@@ -31,11 +31,15 @@ As it follows the intercalation rules of the Gregorian calendar, its months star
 | Magha     | 30        |
 | Phalguna  | 30        |
 
-#### Accuracy
+## Accuracy
 
 As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Indian_national_calendar)

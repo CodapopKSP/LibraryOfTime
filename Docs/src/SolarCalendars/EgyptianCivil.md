@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- | --------------- |
 | 26 June 2781 BCE +22:00:00   | Exact      | Cairo |
 
-#### Overview
+## Overview
 
 The Egyptian Civil calendar was a calculated solar calendar used by Ancient Egypt, alongside its lunar calendar.
 
@@ -14,7 +14,7 @@ The new year historically was intended to mark the heliacal rising of the star S
 
 The epoch changed with each dynasty, and I could not find evidence of a standardized epoch. Here I have chosen to show the years since the believed beginning of the calendar, which is the day of the heliacal rising of Sirius in 2781 BCE.
 
-#### Info
+## Info
 
 | Season | Month | Month Number | Days |
 |--------|-------|--------------|------|
@@ -41,11 +41,11 @@ The intercalary days, called Heriu Renpet, celebrated the birthdays of the child
 | 4: Isis |
 | 5: Nephthys |
 
-#### Accuracy
+## Accuracy
 
 This calendar is based on the Sothic Cycle, which is well-established to the Gregorian calendar via the Julian calendar. Some liberties were taken with the epoch, which is why it is in parentheses.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Egyptian_calendar)

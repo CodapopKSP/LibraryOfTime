@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- | --------------- |
 | 22 March 1 CE, +17:00:00    | High       | Florence |
 
-#### Overview
+## Overview
 
 The Florentine calendar was a Julian-derived calendar used in the Republic of Florence during the Middle Ages. It differed from the Julian calendar with the new year starting on March 25th.
 
@@ -12,7 +12,7 @@ This meant that January 1st of a given year was immediately after December 31st 
 
 Days also started at sunset (of the previous calendar day on the Julian calendar), which is approximated here as 6:00pm in Florence.
 
-#### Info
+## Info
 
 | Months | Days |
 |--------|------|
@@ -30,11 +30,15 @@ Days also started at sunset (of the previous calendar day on the Julian calendar
 | February | 28 or 29 |
 | March (1st - 24th) | 24 |
 
-#### Accuracy
+## Accuracy
 
 The Florentine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate. The only inaccuracies are the differences in the approximation of sunset to the actual time of sunset, which is expected to only differ by a few hours or minutes per day.
 
-#### Source
+### Dependencies
+
+- Julian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Florentine_calendar)

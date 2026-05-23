@@ -4,7 +4,7 @@
 | ----- | ---------- | --------------- |
 | Unknown | High | Onitsha, Nigeria |
 
-#### Overview
+## Overview
 
 The Igbo calendar is a calculated solar calendar used by the Igbo people of Nigeria. It has 13 months of 28 days each, except for the final month which has 29 days for a total of 365 days in a year.
 
@@ -12,7 +12,7 @@ The Igbo week consists of 4 days, each with an associated market, named Eke, Ori
 
 The Igbo calendar has no central authority and limited specific rules, so the start of the day may be at sunrise, though this site uses midnight in Nigeria. Years are not specifically counted in this calendar’s usual practice.
 
-#### Info
+## Info
 
 Since this calendar is 365 days with no intercalation, it drifts relative to the equinoxes by about 1 day every 4 years.
 
@@ -39,7 +39,7 @@ Since this calendar is 365 days with no intercalation, it drifts relative to the
 | 3 | Afo |
 | 4 | Nkwo |
 
-#### Accuracy
+## Accuracy
 
 Since this calendar is pracrticed by many different people and has no central authority, it is likely that it only matches some groups' interpretation of the calendar.
 
@@ -47,7 +47,7 @@ I was unable to find any specific point at which the day starts, but it seems an
 
 Wikipedia noted that 10 March 2012 marked the year-counting festival and noted that it was the 1013th year based on the "lunar calendar", though the source is dead. I was unable to verify anything related to this claim and have decided not to use it.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Igbo_calendar)

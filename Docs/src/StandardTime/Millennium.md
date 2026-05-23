@@ -4,19 +4,19 @@
 | ---------------- | ---------- |
 | Every Millennium | Exact |
 
-#### Overview
+## Overview
 
 This is the fraction of time passed in the current millennium.
 
-#### Info
+## Info
 
 Due to leap days, midnight on the 1st of January of the 501st year in the millennium might not be exactly 50% of the way through the millennium.
 
-#### Accuracy
+## Accuracy
 
 This calculation is perfectly accurate to the millisecond.
 
-#### Source
+## Source
 
 This is a simple calculation with no source.
 

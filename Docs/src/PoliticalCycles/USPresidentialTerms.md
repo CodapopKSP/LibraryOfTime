@@ -4,11 +4,11 @@
 | ---------------------------- | ---------- |
 | 20 January 1789 CE +16:00:00 | High |
 
-#### Overview
+## Overview
 
 The term of the US president lasts 4 years, starting from January 20th at noon and ending January 20th at noon four years later. This is a running count of how many presidential terms have passed since the inauguration of George Washington in 1789. The inauguration date has changed over the years, making this display inaccurate for years before 1937.
 
-#### Info
+## Info
 
 George Washington 1789-1797
 John Adams 1797-1801
@@ -58,11 +58,15 @@ Donald Trump 2017-2021
 Joe Biden 2021-2025
 Donald Trump 2025-2029
 
-#### Accuracy
+## Accuracy
 
 US terms don't always start on January 20th, with certain stipulations such as if the 20th falls on a Sunday that could change the date slightly. The current system of terms starting on the 20th didn't start until 1937, and previously it was March 4th, with George Washington starting on April 30th.
 
-#### Source
+### Dependencies
+
+- Gregorian
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States)

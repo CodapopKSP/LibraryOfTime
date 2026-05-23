@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | Unknown           | Exact      | Bali |
 
-#### Overview
+## Overview
 
 The Pawukon calendar of Bali, Indonesia is a 210-day cycle of ten repeating and undulating "weeks" that happen concurrently. The first week has only 1 day, the second week has 2 days, the third week has 3 days, and so on.
 
@@ -14,7 +14,7 @@ Weeks 1, 2, and 10 operate on more complex rules, involving adding the 'urip', a
 
 Each of the 30 cycles of Week 7 also has a name. This calendar does not count the number of cycles and has no epoch.
 
-#### Info
+## Info
 
 | Week Number | Week Name | Day Names |
 |-------------|-----------|-----------|
@@ -49,11 +49,11 @@ Each of the 30 cycles of Week 7 also has a name. This calendar does not count th
 | Bala | Ugu | Wayang |
 | Kelawu | Dukut | Watugunung |
 
-#### Accuracy
+## Accuracy
 
 This calendar is a simple cycle of days with a known epoch and is expected to be exactly accurate.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Pawukon_calendar)

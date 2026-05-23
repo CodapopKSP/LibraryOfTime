@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | Unknown            | High       | Reykjavik |
 
-#### Overview
+## Overview
 
 The Icelandic calendar is the traditional calculated solar calendar of Iceland. It features two seasons, Summer and Winter, called 'misseri' meaning 'semester', each with 26-28 weeks. There is no epoch, and years do not necessarily begin with either misseri.
 
@@ -12,7 +12,7 @@ Although the misseri and weeks are the primary units, the misseri are further br
 
 In order to keep the calendar aligned with the solar year, an intercalary week is added every 7 years, called 'Sumarauki' and occurring immediately after Aukanætur. Modern intercalary rules ensure the start of Summer always happens on the Thursday that occurs between 19-25th April of the Gregorian calendar (and previously 9-15th of the Julian calendar.)
 
-#### Info
+## Info
 
 Because of the 4 days of Aukanætur, Summer is slightly longer than Winter, and neither is divisible cleanly by the 7-day week. The beginning of Winter is not on the same day of the week as the beginning of Summer. Instead, the beginning of the week shifts depending on the current misseri, resulting in the final week of each misseri being incomplete.
 
@@ -33,11 +33,11 @@ Because of the 4 days of Aukanætur, Summer is slightly longer than Winter, and 
 | Góa | 30 | Winter |
 | Einmánuðr | 30 | Winter |
 
-#### Accuracy
+## Accuracy
 
 This calendar has a long history with several slight changes, especially regarding modern/old names and specific starting and ending times of misseri and weeks. I am reasonably sure it is accurate to official sources, but the information is somewhat fragmented.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Early_Germanic_calendars)

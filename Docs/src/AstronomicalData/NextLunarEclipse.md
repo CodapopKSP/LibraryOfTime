@@ -4,7 +4,7 @@
 | ----------------- | ---------- |
 | Next Lunar Eclipse | High |
 
-#### Overview
+## Overview
 
 A lunar eclipse occurs when the Earth casts a shadow anywhere onto the moon. It is a fairly rare event that always occurs during a Full Moon.
 
@@ -14,17 +14,22 @@ This entry also displays the node at which the eclipse took place as well as the
 
 Lunar eclipses typically are viewable from a large area on the Earth's surface, and they are historically significant events that have inspired legend, religion, and myth.
 
-#### Info
+## Info
 
 Lunar eclipses happen two to four times per year. Penumbral eclipses typically aren't noticeable from Earth, as the lunar surface is still quite bright. The moon must enter deep within the Penumbra or into the Umbra before it is able to be noticed with the naked eye. While in the Umbra, the moon's surface often takes on a reddish color due to light scattering through the Earth's atmosphere (similar to a sunset), being described as a 'blood moon' in historical literature.
 
-#### Accuracy
+## Accuracy
 
 This calculation is reasonably accurate (to within seconds or minutes) for thousands of years before and after the year 2000 CE. Outside of that, errors are induced which can grow from hours to even days.
 
-This calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.
+This calculation relies on the Full Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.
 
-#### Source
+### Dependencies
+
+- ΔT
+- Full Moon
+
+## Source
 
 ### Primary Sources
 This calculation in its entirety was sourced from [Astronomical Algorithms (1991)](https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up) by Jean Meeus.

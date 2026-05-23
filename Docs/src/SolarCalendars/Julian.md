@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- | --------------- |
 | 30 December 0 BCE +00:00:00 | Exact      | Rome |
 
-#### Overview
+## Overview
 
 The Julian Calendar is a calculated solar calendar issued by Julius Caesar in 45 BC after several corrections to the solar date.
 
@@ -12,7 +12,7 @@ It features a leap day every 4 years, leading it to drift from the Gregorian cal
 
 The Julian calendar was the principal calendar in much of the world, especially Europe, prior to the adoption of the Gregorian calendar.
 
-#### Info
+## Info
 
 The Julian calendar drifts from the solar year by about 1 day every 129 years, as it has too many leap years. The Gregorian calendar is meant to correct this drift. As of the 21st century, the two calendars are 13 days apart.
 
@@ -31,13 +31,13 @@ The Julian calendar drifts from the solar year by about 1 day every 129 years, a
 | November | 30 |
 | December | 31 |
 
-#### Accuracy
+## Accuracy
 
 The Julian calendar is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections.
 
 The date of leap days might not be exactly aligned with the Gregorian calendar here, but they are accurate to the year.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Julian_calendar)

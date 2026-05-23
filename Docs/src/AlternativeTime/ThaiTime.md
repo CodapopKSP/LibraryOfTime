@@ -4,13 +4,13 @@
 | ----------------- | ---------- | --------------- |
 | 1:00:00           | Exact      | Bangkok         |
 
-#### Overview
+## Overview
 
 Thai time is a clock used in Thailand that divides the day into four six-hour sections: ตี, โมงเช้า, บ่าย, and ทุ่ม.
 
 Hours are referred to by the current hour (1-6) of the current section.
 
-#### Info
+## Info
 
 | Section | Label | Hours |
 | ------- | ----- | ----- |
@@ -19,11 +19,11 @@ Hours are referred to by the current hour (1-6) of the current section.
 | 3       | บ่าย    | 13:00-18:59 |
 | 4       | ทุ่ม    | 19:00-00:59 |
 
-#### Accuracy
+## Accuracy
 
 As this is a simple mathematical calculation, this clock is exactly accurate.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Date_and_time_notation_in_Thailand)

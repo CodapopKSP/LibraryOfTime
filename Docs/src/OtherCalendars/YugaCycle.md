@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | 3,891,102 BCE     | Exact      | Ujjain |
 
-#### Overview
+## Overview
 
 The Yuga Cycle is the cyclic age in Hindu cosmology. It is divided into 4 yugas, each divided into dawn, proper, and dusk periods, that lasts for a total of 4,320,000 years.
 
@@ -12,7 +12,7 @@ Each yuga in the cycle lasts for a shorter amount of time but, according to Hind
 
 The current yuga, Kali Yuga, is the shortest and worst. It will last until the year 428,899 CE.
 
-#### Info
+## Info
 
 | Yuga | Start | Length |
 |------|-------|--------|
@@ -36,11 +36,15 @@ The current yuga, Kali Yuga, is the shortest and worst. It will last until the y
 | Kali Yuga (proper) | 360,000 |
 | Kali Yuga: Sandhyamsa (dusk) | 36,000 |
 
-#### Accuracy
+## Accuracy
 
 The Yuga Cycle is ultimately based off the Gregorian calendar via the Kali Ahargaṅa and is considered to be very accurate compared with historical records.
 
-#### Source
+### Dependencies
+
+- Kali Ahargana
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Yuga_cycle)

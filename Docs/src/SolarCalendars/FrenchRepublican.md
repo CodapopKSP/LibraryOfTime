@@ -4,7 +4,7 @@
 | ---------------------------- | ---------- | --------------- |
 | 22 September 1792 CE, +1:00:00 | High      | Paris |
 
-#### Overview
+## Overview
 
 The French Republican calendar was an observational solar calendar used during and after the French Revolution from 1793 to 1805.
 
@@ -12,7 +12,7 @@ It featured twelve months of 30 days each, broken into 3 weeks of 10 days. The r
 
 The new year started on the Autumn Equinox, and years were written in Roman numerals with the era name of 'l'ère républicaine', or 'Republican Era', abbreviated here as 'RE'.
 
-#### Info
+## Info
 
 | Month | Days | Approx. Gregorian Dates |
 |-------|------|------------------------|
@@ -30,13 +30,17 @@ The new year started on the Autumn Equinox, and years were written in Roman nume
 | Fructidor | 30 | Aug 18 - Sep 16 |
 | Sansculottides | 5 or 6 | Sep 17 - Sep 21 |
 
-#### Accuracy
+## Accuracy
 
 This calendar depends on the accuracy of the equinox calculations, which are generally within a few minutes of accuracy and should only affect years where the equinox happens very close to midnight CET.
 
 The French Republican calendar also had some issues with rules that contracticted each other, like a 4 year leap year rule conflicting with the date of the equinox. That rule has been ignored in favor of the equinox rule.
 
-#### Source
+### Dependencies
+
+- Autumn Equinox
+
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/French_Republican_calendar)

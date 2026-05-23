@@ -4,7 +4,7 @@
 | ----- | ---------- | --------------- |
 | 8th June 678 CE +9:00:00 | Exact | Nasiriyah |
 
-#### Overview
+## Overview
 
 The Mandaean calendar is a calculated solar calendar used by the Mandaean culture. It has 12 months of 30 days plus a 5-day holiday known as Parwanaya that occurs after the 8th month. Thus, it is exactly 365 days with no intercalation, resulting in a drift from the solar year of roughly one day every 4 years.
 
@@ -12,7 +12,7 @@ Years are denoted with "AA", meaning "After [the creation of] Adam", occurring o
 
 Days begin at sunset in Iraq, the ancestral home of the Mandaean people. Four seasons are also included in the calendar, each encompassing three calendar months, though due to the drift of the calendar from the solar year these seasons have little relation to their seasonal counterparts.
 
-#### Info
+## Info
 
 So many years have passed since the Mandaean epoch that it is calculated to have drifted over 317 years by 2000 CE. Since the end of the Epoch of Noah and Nuraita in 480001 AA in 678 CE until 2000 CE, this calendar has drifted 321 days.
 
@@ -49,11 +49,11 @@ So many years have passed since the Mandaean epoch that it is calculated to have
 | giṭa | 7–9 | Aryā, Šomboltā; Parwanaya (5 days); Qaynā |
 | paiz | 10–12 | Arqəwā, Heṭyā, Gadyā |
 
-#### Accuracy
+## Accuracy
 
 Since this calendar is a simple formula with a known epoch, this calculation is exactly accurate. However, the epoch of 15 February 479003 BCE in the description of this calendar is calculated and not part of official sources.
 
-#### Source
+## Source
 
 ### Common Source
 [Wikipedia article](https://en.wikipedia.org/wiki/Mandaean_calendar)

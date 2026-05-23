@@ -4,7 +4,7 @@
 | ----------------- | ---------- | --------------- |
 | 30 April 3669 BCE +19:00:00 | Medium       | Astana |
 
-#### Overview
+## Overview
 
 The Togys Esebi calendar is an observational solilunar calendar used by Kazakh nomads. It consists of 13 or 14 months of 27 or 28 days. Months begin on the day when the moon crosses through the Pleiades star cluster (or matches its right ascension) and follows the sidereal month, making it particularly unique among calendars.
 
@@ -14,7 +14,7 @@ The year begins on the month with the youngest moon, in April or May just before
 
 Years follow a 12-year animal cycle similar to the Chinese lunisolar calendar and its derivatives. There is no official epoch, but some sources use 3669 BCE as the start of Kazakh nomad chronology.
 
-#### Info
+## Info
 
 Kazakh nomads seem to have used the actual visual appearance of the moon at the point of eclipsing Pleiades as the month name. This makes the Togys Esebi calendar one of the few calendars that doesn't need complex rules or an authoritative body, being dictated by a very simple concept that is easy for any individual to check.
 
@@ -22,13 +22,17 @@ Kazakh nomads seem to have used the actual visual appearance of the moon at the 
 
 <table><thead><tr><th colspan="1">Togys Esebi years</th></tr></thead><tbody><tr><td>Mouse</td></tr><tr><td>Cow</td></tr><tr><td>Leopard</td></tr><tr><td>Hare</td></tr><tr><td>Wolf</td></tr><tr><td>Snake</td></tr><tr><td>Horse</td></tr><tr><td>Sheep</td></tr><tr><td>Monkey</td></tr><tr><td>Hen</td></tr><tr><td>Dog</td></tr><tr><td>Boar</td></tr></tbody></table>
 
-#### Accuracy
+## Accuracy
 
 This calendar is not widely known, at least among Western sources, and doesn't even have a Wikipedia page. I had to do my best with the sources available to me, though they do appear to be consistent.
 
 This calendar requires calculating the positions of Alcyone and the moon, which are quite complex algorithms that I may have implemented incorrectly. When compared to sky tracking apps, my calculated time of alignment seems to be about 30-60 minutes off. This is likely to have an effect on the calendar but not significantly so.
 
-#### Source
+### Dependencies
+
+- Moon Position
+
+## Source
 
 ### Primary Sources
 The information for this calendar came from various sources. [This one](https://www.academia.edu/37894026/KAZAKH_NATIONAL_CALENDAR_READY_MADE_SAMPLE_FOR_USE) has lots of info with actual provided dates for calibration. [This site](https://calendars.fandom.com/wiki/Togys_Esebi_Calendar) has other sources and good general info.

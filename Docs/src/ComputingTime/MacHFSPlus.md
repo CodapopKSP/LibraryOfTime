@@ -4,19 +4,19 @@
 | ------------------------------- | ---------- | --------------- |
 | 1 January 1904 CE, 00:00:00 UTC | Exact      | Cupertino, CA   |
 
-#### Overview
+## Overview
 
 The Mac HFS+ timestamp was a system used in Apple devices and has since been replaces with the Cocoa Core Data timestamp.
 
-#### Info
+## Info
 
 The Mac HFS+ can only store 32-bit numbers and will roll over back to 0 on 6 February 2040 at 6:28:16 UTC+0.
 
-#### Accuracy
+## Accuracy
 
 This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.
 
-#### Source
+## Source
 
 ### Primary Sources
 [Epoch Converter website](https://www.epochconverter.com/mac)

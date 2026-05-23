@@ -4,17 +4,17 @@
 | ------------------------------------------------------------- | ---------- | --------------- |
 | Local civil time; MS-DOS date field counts years from 1980 CE | Exact      | Redmond, WA     |
 
-#### Overview
+## Overview
 
 DOS FAT timestamps are used in the FAT filesystem. 
 
-#### Info
+## Info
 
-#### Accuracy
+## Accuracy
 
 This calculation is a simple algorithm based on Unix time, and is thus exactly accurate.
 
-#### Source
+## Source
 
 ### Primary Sources
 [Epoch Converter website](https://www.epochconverter.com/fat)
