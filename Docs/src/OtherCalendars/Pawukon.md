@@ -1,8 +1,8 @@
 # Pawukon (WITA)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| Unknown           | Exact      | Bali |
+| Epoch   | Confidence | Associated with |
+| ------- | ---------- | --------------- |
+| Unknown | Exact      | Bali            |
 
 ## Overview
 
@@ -16,38 +16,38 @@ Each of the 30 cycles of Week 7 also has a name. This calendar does not count th
 
 ## Info
 
-| Week Number | Week Name | Day Names |
-|-------------|-----------|-----------|
-| 1 | Ekawara | Luang |
-| 2 | Dwiwara | Menga, Pepet |
-| 3 | Triwara | Pasah, Beteng, Kajeng |
-| 4 | Caturwara | Sri, Laba, Jaya, Menala |
-| 5 | Pancawara | Paing, Pon, Wage, Keliwon, Umanis |
-| 6 | Sadwara | Tungleh, Aryang, Urukung, Paniron, Was, Maulu |
-| 7 | Saptawara | Redite, Soma, Anggara, Buda, Wraspati, Sukra, Saniscara |
-| 8 | Astawara | Sri, Indra, Guru, Yama, Ludra, Brahma, Kala, Uma |
-| 9 | Sangawara | Dangu, Jangur, Gigis, Nohan, Ogan, Erangan, Urungan, Tulus, Dadi |
-| 10 | Dasawara | Sri, Pati, Raja, Manuh, Duka, Manusa, Raksasa, Suka, Dewa, Pandita |
+| Week Number | Week Name | Day Names                                                          |
+| ----------- | --------- | ------------------------------------------------------------------ |
+| 1           | Ekawara   | Luang                                                              |
+| 2           | Dwiwara   | Menga, Pepet                                                       |
+| 3           | Triwara   | Pasah, Beteng, Kajeng                                              |
+| 4           | Caturwara | Sri, Laba, Jaya, Menala                                            |
+| 5           | Pancawara | Paing, Pon, Wage, Keliwon, Umanis                                  |
+| 6           | Sadwara   | Tungleh, Aryang, Urukung, Paniron, Was, Maulu                      |
+| 7           | Saptawara | Redite, Soma, Anggara, Buda, Wraspati, Sukra, Saniscara            |
+| 8           | Astawara  | Sri, Indra, Guru, Yama, Ludra, Brahma, Kala, Uma                   |
+| 9           | Sangawara | Dangu, Jangur, Gigis, Nohan, Ogan, Erangan, Urungan, Tulus, Dadi   |
+| 10          | Dasawara  | Sri, Pati, Raja, Manuh, Duka, Manusa, Raksasa, Suka, Dewa, Pandita |
 
-| Urip Info | | |
-|-----------|---|---|
-| Week | Values | |
-| 5 | 9, 7, 4, 8, 5 | |
-| 7 | 5, 4, 3, 7, 8, 6, 9 | |
-| 10 | 5, 2, 8, 6, 4, 7, 10, 3, 9, 1 | |
+| Urip Info |                               |     |
+| --------- | ----------------------------- | --- |
+| Week      | Values                        |     |
+| 5         | 9, 7, 4, 8, 5                 |     |
+| 7         | 5, 4, 3, 7, 8, 6, 9           |     |
+| 10        | 5, 2, 8, 6, 4, 7, 10, 3, 9, 1 |     |
 
-| Week Names | | |
-|------------|---|---|
-| Sinta | Landep | Ukir |
-| Kulantir | Taulu | Gumbreg |
-| Wariga | Warigadian | Julungwangi |
-| Sungsang | Dunggulan | Kuningan |
-| Langkir | Medangsia | Pujut |
-| Pahang | Krulut | Merakih |
-| Tambir | Medangkungan | Matal |
-| Uye | Menail | Parangbakat |
-| Bala | Ugu | Wayang |
-| Kelawu | Dukut | Watugunung |
+| Week Names |              |             |
+| ---------- | ------------ | ----------- |
+| Sinta      | Landep       | Ukir        |
+| Kulantir   | Taulu        | Gumbreg     |
+| Wariga     | Warigadian   | Julungwangi |
+| Sungsang   | Dunggulan    | Kuningan    |
+| Langkir    | Medangsia    | Pujut       |
+| Pahang     | Krulut       | Merakih     |
+| Tambir     | Medangkungan | Matal       |
+| Uye        | Menail       | Parangbakat |
+| Bala       | Ugu          | Wayang      |
+| Kelawu     | Dukut        | Watugunung  |
 
 ## Accuracy
 

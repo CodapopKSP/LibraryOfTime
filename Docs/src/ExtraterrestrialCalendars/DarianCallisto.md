@@ -1,8 +1,8 @@
 # Darian (Callisto)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 17 March 1609 +20:57:24 | High |
+| Epoch                   | Confidence |
+| ----------------------- | ---------- |
+| 17 March 1609 +20:57:24 | High       |
 
 ## Overview
 
@@ -16,32 +16,32 @@ The calendars all share circads, months, and weeks of 8 circads, though they dri
 
 All four of the Galilean Darian calendars use roughly the same epoch, within a week, as the Martian Darian calendar, each of which corresponds with their Meridian Time.
 
-| Callisto Month | Circads |
-|----------------|---------|
-| Cal Sagittarius | 32 |
-| Cal Dhanus | 32 |
-| Cal Capricornus | 32 |
-| Cal Makara | 32 |
-| Cal Aquarius | 32 |
-| Cal Khumba | 32 |
-| Cal Pisces | 32 |
-| Cal Mina | 32 |
-| Cal Aries | 32 |
-| Cal Mesha | 32 |
-| Cal Taurus | 32 |
-| Cal Rishabha | 40 |
-| Cal Gemini | 32 |
-| Cal Mithuna | 32 |
-| Cal Cancer | 32 |
-| Cal Karka | 32 |
-| Cal Leo | 32 |
-| Cal Simha | 32 |
-| Cal Virgo | 32 |
-| Cal Kanya | 32 |
-| Cal Libra | 32 |
-| Cal Tula | 32 |
-| Cal Scorpius | 32 |
-| Cal Vrishika | 32-40 |
+| Callisto Month  | Circads |
+| --------------- | ------- |
+| Cal Sagittarius | 32      |
+| Cal Dhanus      | 32      |
+| Cal Capricornus | 32      |
+| Cal Makara      | 32      |
+| Cal Aquarius    | 32      |
+| Cal Khumba      | 32      |
+| Cal Pisces      | 32      |
+| Cal Mina        | 32      |
+| Cal Aries       | 32      |
+| Cal Mesha       | 32      |
+| Cal Taurus      | 32      |
+| Cal Rishabha    | 40      |
+| Cal Gemini      | 32      |
+| Cal Mithuna     | 32      |
+| Cal Cancer      | 32      |
+| Cal Karka       | 32      |
+| Cal Leo         | 32      |
+| Cal Simha       | 32      |
+| Cal Virgo       | 32      |
+| Cal Kanya       | 32      |
+| Cal Libra       | 32      |
+| Cal Tula        | 32      |
+| Cal Scorpius    | 32      |
+| Cal Vrishika    | 32-40   |
 
 ## Accuracy
 

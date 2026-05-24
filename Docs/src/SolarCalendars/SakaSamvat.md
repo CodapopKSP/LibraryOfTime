@@ -1,8 +1,8 @@
 # Saka Samvat (IST)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 21 March 78 CE, +18:30:00    | Exact      | Ujjain |
+| Epoch                     | Confidence | Associated with |
+| ------------------------- | ---------- | --------------- |
+| 21 March 78 CE, +18:30:00 | Exact      | Ujjain          |
 
 ## Overview
 
@@ -16,20 +16,20 @@ As it follows the intercalation rules of the Gregorian calendar, its months star
 
 ## Info
 
-| Months     | Days      |
-|-----------|-----------|
-| Chaitra   | 30 or 31  |
-| Vaishakha | 31        |
-| Jyestha   | 31        |
-| Ashadha   | 31        |
-| Sravana   | 31        |
-| Bhadra    | 31        |
-| Asvina    | 30        |
-| Kartika   | 30        |
-| Agrahayana| 30        |
-| Pausha    | 30        |
-| Magha     | 30        |
-| Phalguna  | 30        |
+| Months     | Days     |
+| ---------- | -------- |
+| Chaitra    | 30 or 31 |
+| Vaishakha  | 31       |
+| Jyestha    | 31       |
+| Ashadha    | 31       |
+| Sravana    | 31       |
+| Bhadra     | 31       |
+| Asvina     | 30       |
+| Kartika    | 30       |
+| Agrahayana | 30       |
+| Pausha     | 30       |
+| Magha      | 30       |
+| Phalguna   | 30       |
 
 ## Accuracy
 

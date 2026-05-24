@@ -1,8 +1,8 @@
 # Galilean (Callisto)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 28 December 2001 +12:27:23 | Medium |
+| Epoch                      | Confidence |
+| -------------------------- | ---------- |
+| 28 December 2001 +12:27:23 | Medium     |
 
 ## Overview
 
@@ -18,21 +18,21 @@ All four of the Galilean calendars use roughly the same epoch, within a week, as
 
 The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.
 
-| Callisto Month | Circads |
-|----------------|---------|
-| Cal Januarius | 32 |
-| Cal Februarius | 32 |
-| Cal Mercedonius | 32 |
-| Cal Martius | 32 |
-| Cal Aprilis | 32 |
-| Cal Maius | 32 |
-| Cal Junius | 32 |
-| Cal Julius | 32 |
-| Cal Augustus | 32 |
-| Cal September | 32 |
-| Cal October | 32 |
-| Cal November | 32 |
-| Cal December | 24-32 |
+| Callisto Month  | Circads |
+| --------------- | ------- |
+| Cal Januarius   | 32      |
+| Cal Februarius  | 32      |
+| Cal Mercedonius | 32      |
+| Cal Martius     | 32      |
+| Cal Aprilis     | 32      |
+| Cal Maius       | 32      |
+| Cal Junius      | 32      |
+| Cal Julius      | 32      |
+| Cal Augustus    | 32      |
+| Cal September   | 32      |
+| Cal October     | 32      |
+| Cal November    | 32      |
+| Cal December    | 24-32   |
 
 ## Accuracy
 

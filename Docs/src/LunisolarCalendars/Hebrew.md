@@ -1,8 +1,8 @@
 # Hebrew (IST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 6 September 3760 BCE +16:00:00 | Exact       | Jerusalem |
+| Epoch                          | Confidence | Associated with |
+| ------------------------------ | ---------- | --------------- |
+| 6 September 3760 BCE +16:00:00 | Exact      | Jerusalem       |
 
 ## Overview
 
@@ -16,21 +16,21 @@ Years are denoted with AM for 'Anno Mundi', meaning 'in the year of the world', 
 
 The Hebrew calendar is not strictly based on the moon. The modern Jewish calendar, which is a mathematical equation, was codified by Rabbi Hillel II in the year 358 CE. Days start at sunset, which is approximated as 18:00 in Israel.
 
-| Months   | Approx. Gregorian Dates |
-| -------- | ----------------------- |
-| Tishri   | September - October     |
-| Heshvan  | October - November      |
-| Kislev   | November - December     |
-| Tevet    | December - January      |
-| Shevat   | January - February      |
-| Adar     | February - March        |
-| (Adar II)| February - March        |
-| Nisan    | March - April           |
-| Iyyar    | April - May             |
-| Sivan    | May - June              |
-| Tammuz   | June - July             |
-| Av       | July - August           |
-| Elul     | August - September      |
+| Months    | Approx. Gregorian Dates |
+| --------- | ----------------------- |
+| Tishri    | September - October     |
+| Heshvan   | October - November      |
+| Kislev    | November - December     |
+| Tevet     | December - January      |
+| Shevat    | January - February      |
+| Adar      | February - March        |
+| (Adar II) | February - March        |
+| Nisan     | March - April           |
+| Iyyar     | April - May             |
+| Sivan     | May - June              |
+| Tammuz    | June - July             |
+| Av        | July - August           |
+| Elul      | August - September      |
 
 ## Accuracy
 

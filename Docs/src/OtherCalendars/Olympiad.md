@@ -1,8 +1,8 @@
 # Olympiad
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 24 July 775 BCE   | Exact      | Athens |
+| Epoch           | Confidence | Associated with |
+| --------------- | ---------- | --------------- |
+| 24 July 775 BCE | Exact      | Athens          |
 
 ## Overview
 

@@ -1,8 +1,8 @@
 # Thai Lunation Number
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 22 March 638 CE   | Exact      | Bangkok |
+| Epoch           | Confidence | Associated with |
+| --------------- | ---------- | --------------- |
+| 22 March 638 CE | Exact      | Bangkok         |
 
 ## Overview
 

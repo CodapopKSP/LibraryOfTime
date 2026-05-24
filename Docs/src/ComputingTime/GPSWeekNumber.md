@@ -1,7 +1,7 @@
 # GPS Week Number
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
+| Epoch             | Confidence | Associated with  |
+| ----------------- | ---------- | ---------------- |
 | 6 January 1980 CE | Exact      | Washington, D.C. |
 
 ## Overview

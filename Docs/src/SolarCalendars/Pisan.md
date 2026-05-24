@@ -1,8 +1,8 @@
 # Pisan (CET)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 22 March 0 BCE, +23:00:00   | Exact      | Pisa |
+| Epoch                     | Confidence | Associated with |
+| ------------------------- | ---------- | --------------- |
+| 22 March 0 BCE, +23:00:00 | Exact      | Pisa            |
 
 ## Overview
 
@@ -12,21 +12,21 @@ It differs from the Julian calendars with years beginning on March 25th, meaning
 
 ## Info
 
-| Months | Days |
-|--------|------|
-| March (25th - 31st) | 7 |
-| April | 30 |
-| May | 31 |
-| June | 30 |
-| July | 31 |
-| August | 31 |
-| September | 30 |
-| October | 31 |
-| November | 30 |
-| December | 31 |
-| January | 31 |
-| February | 28 or 29 |
-| March (1st - 24th) | 24 |
+| Months              | Days     |
+| ------------------- | -------- |
+| March (25th - 31st) | 7        |
+| April               | 30       |
+| May                 | 31       |
+| June                | 30       |
+| July                | 31       |
+| August              | 31       |
+| September           | 30       |
+| October             | 31       |
+| November            | 30       |
+| December            | 31       |
+| January             | 31       |
+| February            | 28 or 29 |
+| March (1st - 24th)  | 24       |
 
 ## Accuracy
 

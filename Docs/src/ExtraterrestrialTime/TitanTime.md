@@ -1,8 +1,8 @@
 # Titan Meridian Time
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 18 December 2002 +10:42:02 | High |
+| Epoch                      | Confidence |
+| -------------------------- | ---------- |
+| 18 December 2002 +10:42:02 | High       |
 
 ## Overview
 

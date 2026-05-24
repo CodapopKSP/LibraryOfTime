@@ -1,8 +1,8 @@
 # .NET DateTime Ticks
 
-| Epoch                              | Confidence | Associated with |
-| ---------------------------------- | ---------- | --------------- |
-| 1 January 0001 CE, 00:00:00 UTC    | Exact      |   Redmond, WA   |
+| Epoch                           | Confidence | Associated with |
+| ------------------------------- | ---------- | --------------- |
+| 1 January 0001 CE, 00:00:00 UTC | Exact      | Redmond, WA     |
 
 ## Overview
 

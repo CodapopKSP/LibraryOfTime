@@ -1,8 +1,8 @@
 # Mandaean (AST)
 
-| Epoch | Confidence | Associated with |
-| ----- | ---------- | --------------- |
-| 8th June 678 CE +9:00:00 | Exact | Nasiriyah |
+| Epoch                    | Confidence | Associated with |
+| ------------------------ | ---------- | --------------- |
+| 8th June 678 CE +9:00:00 | Exact      | Nasiriyah       |
 
 ## Overview
 
@@ -16,38 +16,38 @@ Days begin at sunset in Iraq, the ancestral home of the Mandaean people. Four se
 
 So many years have passed since the Mandaean epoch that it is calculated to have drifted over 317 years by 2000 CE. Since the end of the Epoch of Noah and Nuraita in 480001 AA in 678 CE until 2000 CE, this calendar has drifted 321 days.
 
-| # | Days | Mandaic | Latin transliteration |
-| - | ---- | ------- | --------------------- |
-| 1 | 30 | ࡃࡀࡅࡋࡀ | Dawlā |
-| 2 | 30 | ࡍࡅࡍࡀ | Nunā |
-| 3 | 30 | ࡏࡌࡁࡓࡀ | Embərā |
-| 4 | 30 | ࡕࡀࡅࡓࡀ | Tawrā |
-| 5 | 30 | ࡑࡉࡋࡌࡉࡀ | Şelmi |
-| 6 | 30 | ࡎࡀࡓࡈࡀࡍࡀ | Şarṭānā |
-| 7 | 30 | ࡀࡓࡉࡀ | Aryā |
-| 8 | 30 | ࡔࡅࡌࡁࡅࡋࡕࡀ | Šomboltā |
-| — | 5 | ࡐࡀࡅࡅࡀࡍࡀࡉࡉࡀ | Parwanaya |
-| 9 | 30 | ࡒࡀࡉࡍࡀ | Qaynā |
-| 10 | 30 | ࡀࡓࡒࡁࡀ | Arqəwā |
-| 11 | 30 | ࡄࡉࡈࡉࡀ | Heṭyā |
-| 12 | 30 | ࡂࡀࡃࡉࡀ | Gadyā |
+| #   | Days | Mandaic    | Latin transliteration |
+| --- | ---- | ---------- | --------------------- |
+| 1   | 30   | ࡃࡀࡅࡋࡀ      | Dawlā                 |
+| 2   | 30   | ࡍࡅࡍࡀ       | Nunā                  |
+| 3   | 30   | ࡏࡌࡁࡓࡀ      | Embərā                |
+| 4   | 30   | ࡕࡀࡅࡓࡀ      | Tawrā                 |
+| 5   | 30   | ࡑࡉࡋࡌࡉࡀ     | Şelmi                 |
+| 6   | 30   | ࡎࡀࡓࡈࡀࡍࡀ    | Şarṭānā               |
+| 7   | 30   | ࡀࡓࡉࡀ       | Aryā                  |
+| 8   | 30   | ࡔࡅࡌࡁࡅࡋࡕࡀ   | Šomboltā              |
+| —   | 5    | ࡐࡀࡅࡅࡀࡍࡀࡉࡉࡀ | Parwanaya             |
+| 9   | 30   | ࡒࡀࡉࡍࡀ      | Qaynā                 |
+| 10  | 30   | ࡀࡓࡒࡁࡀ      | Arqəwā                |
+| 11  | 30   | ࡄࡉࡈࡉࡀ      | Heṭyā                 |
+| 12  | 30   | ࡂࡀࡃࡉࡀ      | Gadyā                 |
 
-| Day | Name |
-| --- | ---- |
-| Sunday | Habšaba |
-| Monday | Trin Habšaba |
-| Tuesday | Tlata Habšaba |
-| Wednesday | Arba Habšaba |
-| Thursday | Hamša Habšaba |
-| Friday | Yuma ḏ-Rahatia |
-| Saturday | Yuma ḏ-Šafta |
+| Day       | Name           |
+| --------- | -------------- |
+| Sunday    | Habšaba        |
+| Monday    | Trin Habšaba   |
+| Tuesday   | Tlata Habšaba  |
+| Wednesday | Arba Habšaba   |
+| Thursday  | Hamša Habšaba  |
+| Friday    | Yuma ḏ-Rahatia |
+| Saturday  | Yuma ḏ-Šafta   |
 
-| Season | Months | Includes |
-| ------ | ---------------- | -------- |
-| sitwa | 1–3 | Dawlā, Nunā, Embərā |
-| abhar | 4–6 | Tawrā, Şelmi, Şarṭānā |
-| giṭa | 7–9 | Aryā, Šomboltā; Parwanaya (5 days); Qaynā |
-| paiz | 10–12 | Arqəwā, Heṭyā, Gadyā |
+| Season | Months | Includes                                  |
+| ------ | ------ | ----------------------------------------- |
+| sitwa  | 1–3    | Dawlā, Nunā, Embərā                       |
+| abhar  | 4–6    | Tawrā, Şelmi, Şarṭānā                     |
+| giṭa   | 7–9    | Aryā, Šomboltā; Parwanaya (5 days); Qaynā |
+| paiz   | 10–12  | Arqəwā, Heṭyā, Gadyā                      |
 
 ## Accuracy
 

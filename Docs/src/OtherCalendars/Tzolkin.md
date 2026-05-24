@@ -1,8 +1,8 @@
 # Tzolkin (CST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| Unknown           | Exact      | Chichén Itzá |
+| Epoch   | Confidence | Associated with |
+| ------- | ---------- | --------------- |
+| Unknown | Exact      | Chichén Itzá    |
 
 ## Overview
 
@@ -16,18 +16,18 @@ Cycles do not increment outside the Calendar Round, so it is impossible to say f
 
 ## Info
 
-| Day | Meaning | Day | Meaning |
-|-----|---------|-----|---------|
-| Imix | Crocodile | Chuwen | Monkey |
-| Ik' | Wind | Eb' | Road |
-| Ak'b'al | Night | B'en | Reed |
-| K'an | Seed | Ix | Jaguar |
-| Chikchan | Serpent | Men | Eagle |
-| Kimi | Death | K'ib' | Wisdom |
-| Manik' | Deer | Kaban | Earth |
-| Lamat | Star | Etz'nab' | Flint |
-| Muluk | Water | Kawak | Storm |
-| Ok | Dog | Ajaw | Sun |
+| Day      | Meaning   | Day      | Meaning |
+| -------- | --------- | -------- | ------- |
+| Imix     | Crocodile | Chuwen   | Monkey  |
+| Ik'      | Wind      | Eb'      | Road    |
+| Ak'b'al  | Night     | B'en     | Reed    |
+| K'an     | Seed      | Ix       | Jaguar  |
+| Chikchan | Serpent   | Men      | Eagle   |
+| Kimi     | Death     | K'ib'    | Wisdom  |
+| Manik'   | Deer      | Kaban    | Earth   |
+| Lamat    | Star      | Etz'nab' | Flint   |
+| Muluk    | Water     | Kawak    | Storm   |
+| Ok       | Dog       | Ajaw     | Sun     |
 
 ## Accuracy
 

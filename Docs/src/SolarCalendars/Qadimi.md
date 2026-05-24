@@ -1,8 +1,8 @@
 # Qadimi (IRST)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 19 June 632, +2:30:00        | High       | Yazd |
+| Epoch                 | Confidence | Associated with |
+| --------------------- | ---------- | --------------- |
+| 19 June 632, +2:30:00 | High       | Yazd            |
 
 ## Overview
 
@@ -16,39 +16,39 @@ Compared to the Gregorian calendar, the Qadimi calendar drifts by about 1 day ev
 
 ## Info
 
-| Month | Days |
-|-------|------|
-| Farvardin | 30 |
-| Ardibehesht | 30 |
-| Khordad | 30 |
-| Tir | 30 |
-| Amardad | 30 |
-| Shehrevar | 30 |
-| Mehr | 30 |
-| Aban | 30 |
-| Azar | 30 |
-| Dae | 30 |
-| Bahman | 30 |
-| Asfand | 30 |
-| Gatha | 5 |
+| Month       | Days |
+| ----------- | ---- |
+| Farvardin   | 30   |
+| Ardibehesht | 30   |
+| Khordad     | 30   |
+| Tir         | 30   |
+| Amardad     | 30   |
+| Shehrevar   | 30   |
+| Mehr        | 30   |
+| Aban        | 30   |
+| Azar        | 30   |
+| Dae         | 30   |
+| Bahman      | 30   |
+| Asfand      | 30   |
+| Gatha       | 5    |
 
-| Day Names | | |
-|-----------|---|---|
-| 1: Hormazd | 2: Bahman | 3: Ardibehesht |
-| 4: Shehrevar | 5: Aspandard | 6: Khordad |
-| 7: Amardad | 8: Dae-Pa-Adar | 9: Adar |
-| 10: Avan | 11: Khorshed | 12: Mohor |
-| 13: Tir | 14: Gosh | 15: Dae-Pa-Meher |
-| 16: Meher | 17: Srosh | 18: Rashne |
-| 19: Fravardin | 20: Behram | 21: Ram |
-| 22: Govad | 23: Dae-Pa-Din | 24: Din |
-| 25: Ashishvangh | 26: Ashtad | 27: Asman |
-| 28: Zamyad | 29: Mareshpand | 30: Aneran |
+| Day Names       |                |                  |
+| --------------- | -------------- | ---------------- |
+| 1: Hormazd      | 2: Bahman      | 3: Ardibehesht   |
+| 4: Shehrevar    | 5: Aspandard   | 6: Khordad       |
+| 7: Amardad      | 8: Dae-Pa-Adar | 9: Adar          |
+| 10: Avan        | 11: Khorshed   | 12: Mohor        |
+| 13: Tir         | 14: Gosh       | 15: Dae-Pa-Meher |
+| 16: Meher       | 17: Srosh      | 18: Rashne       |
+| 19: Fravardin   | 20: Behram     | 21: Ram          |
+| 22: Govad       | 23: Dae-Pa-Din | 24: Din          |
+| 25: Ashishvangh | 26: Ashtad     | 27: Asman        |
+| 28: Zamyad      | 29: Mareshpand | 30: Aneran       |
 
-| Gatha Days | | |
-|------------|---|---|
-| 1: Ahunavaiti | 2: Ushtavaiti | 3: Spentamainyu |
-| 4: Vohuxshathra | 5: Vahishtoishti | |
+| Gatha Days      |                  |                 |
+| --------------- | ---------------- | --------------- |
+| 1: Ahunavaiti   | 2: Ushtavaiti    | 3: Spentamainyu |
+| 4: Vohuxshathra | 5: Vahishtoishti |                 |
 
 ## Accuracy
 

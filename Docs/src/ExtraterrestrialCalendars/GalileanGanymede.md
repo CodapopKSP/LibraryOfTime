@@ -1,8 +1,8 @@
 # Galilean (Ganymede)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 1 January 2002 +11:08:29 | Medium |
+| Epoch                    | Confidence |
+| ------------------------ | ---------- |
+| 1 January 2002 +11:08:29 | Medium     |
 
 ## Overview
 
@@ -18,21 +18,21 @@ All four of the Galilean calendars use roughly the same epoch, within a week, as
 
 The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.
 
-| Ganymede Month | Circads |
-|----------------|---------|
-| Gan Januarius | 32 |
-| Gan Februarius | 32 |
-| Gan Mercedonius | 32 |
-| Gan Martius | 32 |
-| Gan Aprilis | 32 |
-| Gan Maius | 32 |
-| Gan Junius | 24 |
-| Gan Julius | 32 |
-| Gan Augustus | 32 |
-| Gan September | 32 |
-| Gan October | 32 |
-| Gan November | 32 |
-| Gan December | 24-32 |
+| Ganymede Month  | Circads |
+| --------------- | ------- |
+| Gan Januarius   | 32      |
+| Gan Februarius  | 32      |
+| Gan Mercedonius | 32      |
+| Gan Martius     | 32      |
+| Gan Aprilis     | 32      |
+| Gan Maius       | 32      |
+| Gan Junius      | 24      |
+| Gan Julius      | 32      |
+| Gan Augustus    | 32      |
+| Gan September   | 32      |
+| Gan October     | 32      |
+| Gan November    | 32      |
+| Gan December    | 24-32   |
 
 ## Accuracy
 

@@ -1,8 +1,8 @@
 # Next Solar Eclipse
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| Next Solar Eclipse | High |
+| Epoch              | Confidence |
+| ------------------ | ---------- |
+| Next Solar Eclipse | High       |
 
 ## Overview
 

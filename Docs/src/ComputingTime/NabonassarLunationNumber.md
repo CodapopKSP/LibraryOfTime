@@ -1,8 +1,8 @@
 # Nabonassar Lunation Number
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 12 February 746 BCE | Exact | Babylon |
+| Epoch               | Confidence | Associated with |
+| ------------------- | ---------- | --------------- |
+| 12 February 746 BCE | Exact      | Babylon         |
 
 ## Overview
 

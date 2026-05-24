@@ -1,8 +1,8 @@
 # Yuga Cycle (IST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 3,891,102 BCE     | Exact      | Ujjain |
+| Epoch         | Confidence | Associated with |
+| ------------- | ---------- | --------------- |
+| 3,891,102 BCE | Exact      | Ujjain          |
 
 ## Overview
 
@@ -14,27 +14,27 @@ The current yuga, Kali Yuga, is the shortest and worst. It will last until the y
 
 ## Info
 
-| Yuga | Start | Length |
-|------|-------|--------|
+| Yuga          | Start         | Length    |
+| ------------- | ------------- | --------- |
 | Krita (Satya) | 3,891,101 BCE | 1,728,000 |
-| Treta | 2,163,101 BCE | 1,296,000 |
-| Dvapara | 867,101 BCE | 864,000 |
-| Kali | 3101 BCE | 432,000 |
+| Treta         | 2,163,101 BCE | 1,296,000 |
+| Dvapara       | 867,101 BCE   | 864,000   |
+| Kali          | 3101 BCE      | 432,000   |
 
-| Yuga Part | Solar years |
-|-----------|-------------|
-| Satya Yuga: Sandhya (dawn) | 144,000 |
-| Satya Yuga (proper) | 1,440,000 |
-| Satya Yuga: Sandhyamsa (dusk) | 144,000 |
-| Treta Yuga: Sandhya (dawn) | 108,000 |
-| Treta Yuga (proper) | 1,080,000 |
-| Treta Yuga: Sandhyamsa (dusk) | 108,000 |
-| Dvapara Yuga: Sandhya (dawn) | 72,000 |
-| Dvapara Yuga (proper) | 720,000 |
-| Dvapara Yuga: Sandhyamsa (dusk) | 72,000 |
-| Kali Yuga: Sandhya (dawn) | 36,000 |
-| Kali Yuga (proper) | 360,000 |
-| Kali Yuga: Sandhyamsa (dusk) | 36,000 |
+| Yuga Part                       | Solar years |
+| ------------------------------- | ----------- |
+| Satya Yuga: Sandhya (dawn)      | 144,000     |
+| Satya Yuga (proper)             | 1,440,000   |
+| Satya Yuga: Sandhyamsa (dusk)   | 144,000     |
+| Treta Yuga: Sandhya (dawn)      | 108,000     |
+| Treta Yuga (proper)             | 1,080,000   |
+| Treta Yuga: Sandhyamsa (dusk)   | 108,000     |
+| Dvapara Yuga: Sandhya (dawn)    | 72,000      |
+| Dvapara Yuga (proper)           | 720,000     |
+| Dvapara Yuga: Sandhyamsa (dusk) | 72,000      |
+| Kali Yuga: Sandhya (dawn)       | 36,000      |
+| Kali Yuga (proper)              | 360,000     |
+| Kali Yuga: Sandhyamsa (dusk)    | 36,000      |
 
 ## Accuracy
 

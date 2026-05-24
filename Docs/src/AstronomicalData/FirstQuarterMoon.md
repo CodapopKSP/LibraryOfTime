@@ -1,8 +1,8 @@
 # This Month's First Quarter Moon
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| First Quarter Moon | High |
+| Epoch              | Confidence |
+| ------------------ | ---------- |
+| First Quarter Moon | High       |
 
 ## Overview
 

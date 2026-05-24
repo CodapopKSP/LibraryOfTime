@@ -2,7 +2,7 @@
 
 | Epoch                        | Confidence | Associated with |
 | ---------------------------- | ---------- | --------------- |
-| 11 August 3113 BCE +06:00:00 | Exact      | Chichén Itzá |
+| 11 August 3113 BCE +06:00:00 | Exact      | Chichén Itzá    |
 
 ## Overview
 
@@ -16,13 +16,13 @@ The Maya Long Count Calendar was of international interest in 2012 as it was the
 
 Notably, winals are counted in base-18 rather than base-20 like the rest of the units. This is to reasonably match the tun to the length of the solar year. However, it is still over 5 days short, meaning it will drift about half as much as a true lunar calendar. 20 winals would be 400 days, which wouldn't have been as useful.
 
-| Maya Unit | Length |
-|-----------|--------|
-| kʼin | 1 day |
-| winal | 20 kʼins, 20 days |
-| tun | 18 winals, 360 days |
-| kʼatun | 20 tuns, 7200 days |
-| bʼakʼtun | 20 kʼatuns, 144000 days |
+| Maya Unit | Length                  |
+| --------- | ----------------------- |
+| kʼin      | 1 day                   |
+| winal     | 20 kʼins, 20 days       |
+| tun       | 18 winals, 360 days     |
+| kʼatun    | 20 tuns, 7200 days      |
+| bʼakʼtun  | 20 kʼatuns, 144000 days |
 
 ## Accuracy
 

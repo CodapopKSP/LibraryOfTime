@@ -1,8 +1,8 @@
 # Tamrielic
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| Unknown | Exact |
+| Epoch   | Confidence |
+| ------- | ---------- |
+| Unknown | Exact      |
 
 ## Overview
 
@@ -12,20 +12,20 @@ It has 12 months of 28-31 days along with weeks of seven days. Since the timelin
 
 ## Info
 
-| Month        | Days      | Gregorian |
-| ------------ | --------- | --------- |
-| Morning Star | 31        | January   |
-| Sun's Dawn   | 28 or 29  | February  |
-| First Seed   | 31        | March     |
-| Rain's Hand  | 30        | April     |
-| Second Seed  | 31        | May       |
-| Midyear      | 30        | June      |
-| Sun's Height | 31        | July      |
-| Last Seed    | 31        | August    |
-| Hearthfire   | 30        | September |
-| Frostfall    | 31        | October   |
-| Sun's Dusk   | 30        | November  |
-| Evening Star | 31        | December  |
+| Month        | Days     | Gregorian |
+| ------------ | -------- | --------- |
+| Morning Star | 31       | January   |
+| Sun's Dawn   | 28 or 29 | February  |
+| First Seed   | 31       | March     |
+| Rain's Hand  | 30       | April     |
+| Second Seed  | 31       | May       |
+| Midyear      | 30       | June      |
+| Sun's Height | 31       | July      |
+| Last Seed    | 31       | August    |
+| Hearthfire   | 30       | September |
+| Frostfall    | 31       | October   |
+| Sun's Dusk   | 30       | November  |
+| Evening Star | 31       | December  |
 
 | Weekday | Gregorian |
 | ------- | --------- |

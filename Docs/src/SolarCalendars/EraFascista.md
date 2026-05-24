@@ -2,7 +2,7 @@
 
 | Epoch                        | Confidence | Associated with |
 | ---------------------------- | ---------- | --------------- |
-| 28 October 1922 CE +23:00:00 | Exact      | Rome |
+| 28 October 1922 CE +23:00:00 | Exact      | Rome            |
 
 ## Overview
 

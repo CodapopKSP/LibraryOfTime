@@ -1,8 +1,8 @@
 # Shire (UTC)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 15 December 523 CE  | High       | London |
+| Epoch              | Confidence | Associated with |
+| ------------------ | ---------- | --------------- |
+| 15 December 523 CE | High       | London          |
 
 ## Overview
 
@@ -37,15 +37,15 @@ The Shire calendar took inspiration from many European calendars, including the 
 | Foreyule         | 30   | Nov - Dec          |
 | 1 Yule           | 1    | Dec                |
 
-| Weekdays |
-|---------|
-| Sterday |
-| Sunday |
-| Monday |
-| Trewsday |
+| Weekdays  |
+| --------- |
+| Sterday   |
+| Sunday    |
+| Monday    |
+| Trewsday  |
 | Hevensday |
-| Mersday |
-| Highday |
+| Mersday   |
+| Highday   |
 
 ## Accuracy
 

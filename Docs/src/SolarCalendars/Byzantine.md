@@ -1,8 +1,8 @@
 # Byzantine (TRT)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 18 July 5508 BCE +21:00:00  | High       | Constantinople |
+| Epoch                      | Confidence | Associated with |
+| -------------------------- | ---------- | --------------- |
+| 18 July 5508 BCE +21:00:00 | High       | Constantinople  |
 
 ## Overview
 
@@ -12,20 +12,20 @@ It differed from the Julian calendar with the new year starting on September 1st
 
 ## Info
 
-| Months | Days |
-|--------|------|
-| September | 30 |
-| October | 31 |
-| November | 30 |
-| December | 31 |
-| January | 31 |
-| February | 28 or 29 |
-| March | 31 |
-| April | 30 |
-| May | 31 |
-| June | 30 |
-| July | 31 |
-| August | 31 |
+| Months    | Days     |
+| --------- | -------- |
+| September | 30       |
+| October   | 31       |
+| November  | 30       |
+| December  | 31       |
+| January   | 31       |
+| February  | 28 or 29 |
+| March     | 31       |
+| April     | 30       |
+| May       | 31       |
+| June      | 30       |
+| July      | 31       |
+| August    | 31       |
 
 ## Accuracy
 

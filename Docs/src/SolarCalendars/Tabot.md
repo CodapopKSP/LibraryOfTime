@@ -1,8 +1,8 @@
 # Tabot (EST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 2 November 1930   | Exact      | Kingston, Jamaica |
+| Epoch           | Confidence | Associated with   |
+| --------------- | ---------- | ----------------- |
+| 2 November 1930 | Exact      | Kingston, Jamaica |
 
 ## Overview
 
@@ -14,20 +14,20 @@ New Year's Day is always on 2 November in the Gregorian calendar, and leap years
 
 ## Info
 
-| Month | Days | Start Date |
-|-------|------|------------|
-| Anbassa | 30 | November 2 |
-| Hymanot | 30 | December 2 |
-| Immanuel | 30 | January 1 |
-| Ras | 30/31 | January 31 |
-| Ta'Berhan | 30 | March 2 |
-| Manassa | 30 | April 1 |
-| Danaffa | 30 | May 1 |
-| Negest | 30 | May 31 |
-| Tafari | 30 | June 30 |
-| Emru | 30 | July 30 |
-| Sawwara | 30 | August 29 |
-| Negus & Dejazmatch | 35 | September 28 |
+| Month              | Days  | Start Date   |
+| ------------------ | ----- | ------------ |
+| Anbassa            | 30    | November 2   |
+| Hymanot            | 30    | December 2   |
+| Immanuel           | 30    | January 1    |
+| Ras                | 30/31 | January 31   |
+| Ta'Berhan          | 30    | March 2      |
+| Manassa            | 30    | April 1      |
+| Danaffa            | 30    | May 1        |
+| Negest             | 30    | May 31       |
+| Tafari             | 30    | June 30      |
+| Emru               | 30    | July 30      |
+| Sawwara            | 30    | August 29    |
+| Negus & Dejazmatch | 35    | September 28 |
 
 ## Accuracy
 

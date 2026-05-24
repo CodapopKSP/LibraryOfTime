@@ -1,8 +1,8 @@
 # The World Calendar
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 1 January 1 CE | Exact |
+| Epoch          | Confidence |
+| -------------- | ---------- |
+| 1 January 1 CE | Exact      |
 
 ## Overview
 

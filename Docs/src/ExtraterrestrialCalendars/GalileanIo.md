@@ -1,8 +1,8 @@
 # Galilean (Io)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 31 December 2001 +16:07:45 | Medium |
+| Epoch                      | Confidence |
+| -------------------------- | ---------- |
+| 31 December 2001 +16:07:45 | Medium     |
 
 ## Overview
 
@@ -18,21 +18,21 @@ All four of the Galilean calendars use roughly the same epoch, within a week, as
 
 The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.
 
-| Io Month | Circads |
-|----------|---------|
-| Io Januarius | 32 |
-| Io Februarius | 32 |
-| Io Mercedonius | 32 |
-| Io Martius | 32 |
-| Io Aprilis | 32 |
-| Io Maius | 32 |
-| Io Junius | 32 |
-| Io Julius | 32 |
-| Io Augustus | 32 |
-| Io September | 32 |
-| Io October | 32 |
-| Io November | 32 |
-| Io December | 24-32 |
+| Io Month       | Circads |
+| -------------- | ------- |
+| Io Januarius   | 32      |
+| Io Februarius  | 32      |
+| Io Mercedonius | 32      |
+| Io Martius     | 32      |
+| Io Aprilis     | 32      |
+| Io Maius       | 32      |
+| Io Junius      | 32      |
+| Io Julius      | 32      |
+| Io Augustus    | 32      |
+| Io September   | 32      |
+| Io October     | 32      |
+| Io November    | 32      |
+| Io December    | 24-32   |
 
 ## Accuracy
 

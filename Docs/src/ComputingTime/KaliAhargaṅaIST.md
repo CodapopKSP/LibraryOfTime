@@ -1,8 +1,8 @@
 # Kali Ahargaṅa (IST)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 23 January 3101 BCE +18:30:00 | Exact      | Ujjain |
+| Epoch                         | Confidence | Associated with |
+| ----------------------------- | ---------- | --------------- |
+| 23 January 3101 BCE +18:30:00 | Exact      | Ujjain          |
 
 ## Overview
 
@@ -14,11 +14,11 @@ Kali Yuga is the fourth, shortest, and worst of the four yugas.
 
 Each yuga has a shorter dawn and dusk period before and after the longer main period.
 
-| Part | Start | Length |
-|------|-------|--------|
-| Kali-yuga-sandhya (dawn) | 3101 BCE | 36,000 (100) |
-| Kali-yuga (proper) | 32,899 CE | 360,000 (1,000) |
-| Kali-yuga-sandhyamsa (dusk) | 392,899–428,899 CE | 36,000 (100) |
+| Part                        | Start              | Length          |
+| --------------------------- | ------------------ | --------------- |
+| Kali-yuga-sandhya (dawn)    | 3101 BCE           | 36,000 (100)    |
+| Kali-yuga (proper)          | 32,899 CE          | 360,000 (1,000) |
+| Kali-yuga-sandhyamsa (dusk) | 392,899–428,899 CE | 36,000 (100)    |
 
 ## Accuracy
 

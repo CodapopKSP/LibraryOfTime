@@ -1,8 +1,8 @@
 # Brown Lunation Number
 
-| Epoch | Confidence |
-| ------------------ | ---------- |
-| 17 January 1923 CE +15:21:00 | Exact |
+| Epoch                        | Confidence |
+| ---------------------------- | ---------- |
+| 17 January 1923 CE +15:21:00 | Exact      |
 
 ## Overview
 

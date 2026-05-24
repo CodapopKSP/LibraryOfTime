@@ -1,8 +1,8 @@
 # Darian (Io)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 13 March 1609 +05:29:26 | High |
+| Epoch                   | Confidence |
+| ----------------------- | ---------- |
+| 13 March 1609 +05:29:26 | High       |
 
 ## Overview
 
@@ -16,32 +16,32 @@ The calendars all share circads, months, and weeks of 8 circads, though they dri
 
 All four of the Galilean Darian calendars use roughly the same epoch, within a week, as the Martian Darian calendar, each of which corresponds with their Meridian Time.
 
-| Io Month | Circads |
-|----------|---------|
-| Io Sagittarius | 32 |
-| Io Dhanus | 32 |
-| Io Capricornus | 32 |
-| Io Makara | 32 |
-| Io Aquarius | 32 |
-| Io Khumba | 32 |
-| Io Pisces | 32 |
-| Io Mina | 32 |
-| Io Aries | 32 |
-| Io Mesha | 32 |
-| Io Taurus | 32 |
-| Io Rishabha | 40 |
-| Io Gemini | 32 |
-| Io Mithuna | 32 |
-| Io Cancer | 32 |
-| Io Karka | 32 |
-| Io Leo | 32 |
-| Io Simha | 32 |
-| Io Virgo | 32 |
-| Io Kanya | 32 |
-| Io Libra | 32 |
-| Io Tula | 32 |
-| Io Scorpius | 32 |
-| Io Vrishika | 32-40 |
+| Io Month       | Circads |
+| -------------- | ------- |
+| Io Sagittarius | 32      |
+| Io Dhanus      | 32      |
+| Io Capricornus | 32      |
+| Io Makara      | 32      |
+| Io Aquarius    | 32      |
+| Io Khumba      | 32      |
+| Io Pisces      | 32      |
+| Io Mina        | 32      |
+| Io Aries       | 32      |
+| Io Mesha       | 32      |
+| Io Taurus      | 32      |
+| Io Rishabha    | 40      |
+| Io Gemini      | 32      |
+| Io Mithuna     | 32      |
+| Io Cancer      | 32      |
+| Io Karka       | 32      |
+| Io Leo         | 32      |
+| Io Simha       | 32      |
+| Io Virgo       | 32      |
+| Io Kanya       | 32      |
+| Io Libra       | 32      |
+| Io Tula        | 32      |
+| Io Scorpius    | 32      |
+| Io Vrishika    | 32-40   |
 
 ## Accuracy
 

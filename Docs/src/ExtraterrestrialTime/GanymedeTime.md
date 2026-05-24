@@ -1,8 +1,8 @@
 # Ganymede Meridian Time
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 1 January 2002 +11:08:29 | High |
+| Epoch                    | Confidence |
+| ------------------------ | ---------- |
+| 1 January 2002 +11:08:29 | High       |
 
 ## Overview
 
@@ -20,11 +20,11 @@ Ganymede Meridian Time is a name that was chosen for this website and might not 
 
 Ganymede is in a 2/4/8 Laplace resonance with Io and Europa, so their solar days are equally comprised of 2/4/8 circads, though the length of their circads are very slightly different. The circad of Ganymede is 21.49916 Earth hours long, which is then broken into 24 Ganymede hours.
 
-| GMT        | Standard Time      |
-| ---------- | ------------------ |
-| GMT Second | 0.8957983 Seconds  |
-| GMT Minute | 53.7479 Seconds    |
-| GMT Hour   | 53.7479 Minutes    |
+| GMT        | Standard Time     |
+| ---------- | ----------------- |
+| GMT Second | 0.8957983 Seconds |
+| GMT Minute | 53.7479 Seconds   |
+| GMT Hour   | 53.7479 Minutes   |
 
 | Moon     | Circad Length  | Circads Per Orbit |
 | -------- | -------------- | ----------------- |

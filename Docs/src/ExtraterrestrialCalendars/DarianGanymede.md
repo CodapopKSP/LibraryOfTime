@@ -1,8 +1,8 @@
 # Darian (Ganymede)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 11 March 1609 +09:52:12 | High |
+| Epoch                   | Confidence |
+| ----------------------- | ---------- |
+| 11 March 1609 +09:52:12 | High       |
 
 ## Overview
 
@@ -16,32 +16,32 @@ The calendars all share circads, months, and weeks of 8 circads, though they dri
 
 All four of the Galilean Darian calendars use roughly the same epoch, within a week, as the Martian Darian calendar, each of which corresponds with their Meridian Time.
 
-| Ganymede Month | Circads |
-|----------------|---------|
-| Gan Sagittarius | 32 |
-| Gan Dhanus | 32 |
-| Gan Capricornus | 32 |
-| Gan Makara | 32 |
-| Gan Aquarius | 32 |
-| Gan Khumba | 32 |
-| Gan Pisces | 32 |
-| Gan Mina | 32 |
-| Gan Aries | 32 |
-| Gan Mesha | 32 |
-| Gan Taurus | 32 |
-| Gan Rishabha | 32 |
-| Gan Gemini | 32 |
-| Gan Mithuna | 32 |
-| Gan Cancer | 32 |
-| Gan Karka | 32 |
-| Gan Leo | 32 |
-| Gan Simha | 32 |
-| Gan Virgo | 32 |
-| Gan Kanya | 32 |
-| Gan Libra | 32 |
-| Gan Tula | 32 |
-| Gan Scorpius | 32 |
-| Gan Vrishika | 24-32 |
+| Ganymede Month  | Circads |
+| --------------- | ------- |
+| Gan Sagittarius | 32      |
+| Gan Dhanus      | 32      |
+| Gan Capricornus | 32      |
+| Gan Makara      | 32      |
+| Gan Aquarius    | 32      |
+| Gan Khumba      | 32      |
+| Gan Pisces      | 32      |
+| Gan Mina        | 32      |
+| Gan Aries       | 32      |
+| Gan Mesha       | 32      |
+| Gan Taurus      | 32      |
+| Gan Rishabha    | 32      |
+| Gan Gemini      | 32      |
+| Gan Mithuna     | 32      |
+| Gan Cancer      | 32      |
+| Gan Karka       | 32      |
+| Gan Leo         | 32      |
+| Gan Simha       | 32      |
+| Gan Virgo       | 32      |
+| Gan Kanya       | 32      |
+| Gan Libra       | 32      |
+| Gan Tula        | 32      |
+| Gan Scorpius    | 32      |
+| Gan Vrishika    | 24-32   |
 
 ## Accuracy
 

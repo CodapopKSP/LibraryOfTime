@@ -1,8 +1,8 @@
 # Umm al-Qura (AST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 17 July 622 CE, +15:00:00 | High       | Mecca |
+| Epoch                     | Confidence | Associated with |
+| ------------------------- | ---------- | --------------- |
+| 17 July 622 CE, +15:00:00 | High       | Mecca           |
 
 ## Overview
 
@@ -16,20 +16,20 @@ The desert-faring culture of Islam is apparent in this calendar, as such a civil
 
 The Hijri calendar is on a roughly 37-year cycle when compared with the solar year. Dates and holidays drift throughout the entire year before arriving back where they started 37 years prior.
 
-| Months |
-| ------ |
-| al-Muḥarram |
-| Ṣafar |
-| Rabīʿ al-ʾAwwal |
-| Rabīʿ ath-Thānī |
-| Jumādā al-ʾŪlā |
+| Months             |
+| ------------------ |
+| al-Muḥarram        |
+| Ṣafar              |
+| Rabīʿ al-ʾAwwal    |
+| Rabīʿ ath-Thānī    |
+| Jumādā al-ʾŪlā     |
 | Jumādā al-ʾĀkhirah |
-| Rajab |
-| Shaʿbān |
-| Ramaḍān |
-| Shawwāl |
-| Dhū al-Qaʿdah |
-| Dhū al-Ḥijjah |
+| Rajab              |
+| Shaʿbān            |
+| Ramaḍān            |
+| Shawwāl            |
+| Dhū al-Qaʿdah      |
+| Dhū al-Ḥijjah      |
 
 ## Accuracy
 

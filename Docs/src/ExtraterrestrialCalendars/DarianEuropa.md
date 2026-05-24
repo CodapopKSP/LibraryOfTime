@@ -1,8 +1,8 @@
 # Darian (Europa)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 12 March 1609 +01:19:41 | High |
+| Epoch                   | Confidence |
+| ----------------------- | ---------- |
+| 12 March 1609 +01:19:41 | High       |
 
 ## Overview
 
@@ -16,32 +16,32 @@ The calendars all share circads, months, and weeks of 8 circads, though they dri
 
 All four of the Galilean Darian calendars use roughly the same epoch, within a week, as the Martian Darian calendar, each of which corresponds with their Meridian Time.
 
-| Europa Month | Circads |
-|--------------|---------|
-| Eu Sagittarius | 32 |
-| Eu Dhanus | 32 |
-| Eu Capricornus | 32 |
-| Eu Makara | 32 |
-| Eu Aquarius | 32 |
-| Eu Khumba | 32 |
-| Eu Pisces | 32 |
-| Eu Mina | 32 |
-| Eu Aries | 32 |
-| Eu Mesha | 32 |
-| Eu Taurus | 32 |
-| Eu Rishabha | 32 |
-| Eu Gemini | 32 |
-| Eu Mithuna | 32 |
-| Eu Cancer | 32 |
-| Eu Karka | 32 |
-| Eu Leo | 32 |
-| Eu Simha | 32 |
-| Eu Virgo | 32 |
-| Eu Kanya | 32 |
-| Eu Libra | 32 |
-| Eu Tula | 32 |
-| Eu Scorpius | 32 |
-| Eu Vrishika | 32-40 |
+| Europa Month   | Circads |
+| -------------- | ------- |
+| Eu Sagittarius | 32      |
+| Eu Dhanus      | 32      |
+| Eu Capricornus | 32      |
+| Eu Makara      | 32      |
+| Eu Aquarius    | 32      |
+| Eu Khumba      | 32      |
+| Eu Pisces      | 32      |
+| Eu Mina        | 32      |
+| Eu Aries       | 32      |
+| Eu Mesha       | 32      |
+| Eu Taurus      | 32      |
+| Eu Rishabha    | 32      |
+| Eu Gemini      | 32      |
+| Eu Mithuna     | 32      |
+| Eu Cancer      | 32      |
+| Eu Karka       | 32      |
+| Eu Leo         | 32      |
+| Eu Simha       | 32      |
+| Eu Virgo       | 32      |
+| Eu Kanya       | 32      |
+| Eu Libra       | 32      |
+| Eu Tula        | 32      |
+| Eu Scorpius    | 32      |
+| Eu Vrishika    | 32-40   |
 
 ## Accuracy
 

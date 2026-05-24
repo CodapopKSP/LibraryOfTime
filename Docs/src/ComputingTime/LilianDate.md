@@ -1,8 +1,8 @@
 # Lilian Date
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 15 October 1582 CE | Exact |
+| Epoch              | Confidence |
+| ------------------ | ---------- |
+| 15 October 1582 CE | Exact      |
 
 ## Overview
 

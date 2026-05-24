@@ -1,8 +1,8 @@
 # Epirote (EET)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | --------------- | --------------- |
-| 20 August 204 BCE + 16:00:00 | High | Epirus |
+| Epoch                        | Confidence | Associated with |
+| ---------------------------- | ---------- | --------------- |
+| 20 August 204 BCE + 16:00:00 | High       | Epirus          |
 
 ## Overview
 
@@ -18,22 +18,22 @@ There is no known epoch for the Epirote calendar, but this site uses the calibra
 
 When the Antikythera mechanism was discovered in the early 1900s, it shocked historians as proof that the Ancient Greeks had the technology to create precision bronze gears. While large portions of the mechanism were damaged or missing, enough remained that enabled 21st century researchers, with careful deduction and investigation, to rebuild and sufficiently calibrate its calendar.
 
-| Months            |              |
-| ----------------- | ------------ |
-| Name              | Latinized    |
-| ΦΟΙΝΙΚΑΙΟΣ        | Phoinikaios  |
-| ΚΡΑΝΕΙΟΣ          | Kraneios     |
-| ΛΑΝΟΤΡΟΠΙΟΣ       | Lanotropios  |
-| ΜΑΧΑΝΕΥΣ          | Machaneus    |
-| ΜΑΧΑΝΕΥΣ (Leap)   | Machaneus (Leap) |
-| ΔΩΔΕΚΑΤΕΥΣ        | Dodekateus   |
-| ΕΥΚΛΕΙΟΣ          | Eukleios     |
-| ΑΡΤΕΜΙΣΙΟΣ        | Artemisios   |
-| ΨΥΔΡΕΥΣ           | Psydreus     |
-| ΓΑΜΕΙΛΙΟΣ         | Gameilios    |
-| ΑΓΡΙΑΝΙΟΣ         | Agrianios    |
-| ΠΑΝΑΜΟΣ           | Panamos      |
-| ΑΠΕΛΛΑΙΟΣ         | Apellaios    |
+| Months          |                  |
+| --------------- | ---------------- |
+| Name            | Latinized        |
+| ΦΟΙΝΙΚΑΙΟΣ      | Phoinikaios      |
+| ΚΡΑΝΕΙΟΣ        | Kraneios         |
+| ΛΑΝΟΤΡΟΠΙΟΣ     | Lanotropios      |
+| ΜΑΧΑΝΕΥΣ        | Machaneus        |
+| ΜΑΧΑΝΕΥΣ (Leap) | Machaneus (Leap) |
+| ΔΩΔΕΚΑΤΕΥΣ      | Dodekateus       |
+| ΕΥΚΛΕΙΟΣ        | Eukleios         |
+| ΑΡΤΕΜΙΣΙΟΣ      | Artemisios       |
+| ΨΥΔΡΕΥΣ         | Psydreus         |
+| ΓΑΜΕΙΛΙΟΣ       | Gameilios        |
+| ΑΓΡΙΑΝΙΟΣ       | Agrianios        |
+| ΠΑΝΑΜΟΣ         | Panamos          |
+| ΑΠΕΛΛΑΙΟΣ       | Apellaios        |
 
 | Hollow Day Cycle |         |          |         |
 | ---------------- | ------- | -------- | ------- |

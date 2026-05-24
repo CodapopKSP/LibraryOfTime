@@ -1,8 +1,8 @@
 # Gregorian
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 1 January 1 CE    | Exact      | Rome |
+| Epoch          | Confidence | Associated with |
+| -------------- | ---------- | --------------- |
+| 1 January 1 CE | Exact      | Rome            |
 
 ## Overview
 
@@ -18,20 +18,20 @@ This calendar is exactly accurate, however dates before October 15th 1582 are pr
 
 After the initial 10-day skip in 1582 and the following centuries to the 21st century, the Gregorian calendar and the Julian calendar are 13 days apart.
 
-| Month | Days |
-|-------|------|
-| January | 31 |
-| February | 28 or 29 |
-| March | 31 |
-| April | 30 |
-| May | 31 |
-| June | 30 |
-| July | 31 |
-| August | 31 |
-| September | 30 |
-| October | 31 |
-| November | 30 |
-| December | 31 |
+| Month     | Days     |
+| --------- | -------- |
+| January   | 31       |
+| February  | 28 or 29 |
+| March     | 31       |
+| April     | 30       |
+| May       | 31       |
+| June      | 30       |
+| July      | 31       |
+| August    | 31       |
+| September | 30       |
+| October   | 31       |
+| November  | 30       |
+| December  | 31       |
 
 ## Accuracy
 

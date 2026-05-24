@@ -1,8 +1,8 @@
 # Đại lịch (ICT)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 9 February 1 CE +17:00:00 | Low       | Hanoi |
+| Epoch                     | Confidence | Associated with |
+| ------------------------- | ---------- | --------------- |
+| 9 February 1 CE +17:00:00 | Low        | Hanoi           |
 
 ## Overview
 
@@ -21,11 +21,11 @@ This calendar uses the same epoch as the Gregorian calendar and may not reflect 
 | 𤝞         | Rat           |
 | 𤛠         | Water Buffalo |
 | 𧲫         | Tiger         |
-| 猫         | Cat           |
-| 龍         | Dragon        |
+| 猫          | Cat           |
+| 龍          | Dragon        |
 | 𧋻         | Snake         |
-| 馭         | Horse         |
-| 羝         | Goat          |
+| 馭          | Horse         |
+| 羝          | Goat          |
 | 𤠳         | Monkey        |
 | 𪂮         | Rooster       |
 

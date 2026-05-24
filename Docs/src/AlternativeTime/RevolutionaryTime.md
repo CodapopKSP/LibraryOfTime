@@ -1,8 +1,8 @@
 # French Revolutionary
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| Midnight          | Exact      | Paris |
+| Epoch    | Confidence | Associated with |
+| -------- | ---------- | --------------- |
+| Midnight | Exact      | Paris           |
 
 ## Overview
 
@@ -12,11 +12,11 @@ The French would have used Paris Mean Time (GMT + 00:09:21) but this website use
 
 ## Info
 
-| Revolutionary Time | Standard Time                  |
-| ------------------ | ------------------------------ |
-| Decimal Second     | 0.864 Seconds                  |
-| Decimal Minute     | 1.44 Minutes (86.4 Seconds)    |
-| Decimal Hour       | 2.4 Hours (144 Minutes)        |
+| Revolutionary Time | Standard Time               |
+| ------------------ | --------------------------- |
+| Decimal Second     | 0.864 Seconds               |
+| Decimal Minute     | 1.44 Minutes (86.4 Seconds) |
+| Decimal Hour       | 2.4 Hours (144 Minutes)     |
 
 ## Accuracy
 

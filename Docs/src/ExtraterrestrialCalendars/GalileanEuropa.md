@@ -1,8 +1,8 @@
 # Galilean (Europa)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 2 January 2002 +17:12:57 | Medium |
+| Epoch                    | Confidence |
+| ------------------------ | ---------- |
+| 2 January 2002 +17:12:57 | Medium     |
 
 ## Overview
 
@@ -18,21 +18,21 @@ All four of the Galilean calendars use roughly the same epoch, within a week, as
 
 The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.
 
-| Europa Month | Circads |
-|--------------|---------|
-| Eu Januarius | 32 |
-| Eu Februarius | 32 |
-| Eu Mercedonius | 32 |
-| Eu Martius | 32 |
-| Eu Aprilis | 32 |
-| Eu Maius | 32 |
-| Eu Junius | 32 |
-| Eu Julius | 32 |
-| Eu Augustus | 32 |
-| Eu September | 32 |
-| Eu October | 32 |
-| Eu November | 32 |
-| Eu December | 24-32 |
+| Europa Month   | Circads |
+| -------------- | ------- |
+| Eu Januarius   | 32      |
+| Eu Februarius  | 32      |
+| Eu Mercedonius | 32      |
+| Eu Martius     | 32      |
+| Eu Aprilis     | 32      |
+| Eu Maius       | 32      |
+| Eu Junius      | 32      |
+| Eu Julius      | 32      |
+| Eu Augustus    | 32      |
+| Eu September   | 32      |
+| Eu October     | 32      |
+| Eu November    | 32      |
+| Eu December    | 24-32   |
 
 ## Accuracy
 

@@ -1,8 +1,8 @@
 # Sexagenary Year (CST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 19 January 2696 BCE +16:00:00 | High       | Beijing |
+| Epoch                         | Confidence | Associated with |
+| ----------------------------- | ---------- | --------------- |
+| 19 January 2696 BCE +16:00:00 | High       | Beijing         |
 
 ## Overview
 
@@ -12,18 +12,18 @@ The Sexagenary Cycle is a system of counting years in the Chinese calendar (and 
 
 | 10 Heavenly Stems | 12 Earthly Branches |
 | ----------------- | ------------------- |
-| 甲 (Jia)          | 子 (Zi)             |
-| 乙 (Yi)           | 丑 (Chou)           |
-| 丙 (Bing)         | 寅 (Yin)            |
-| 丁 (Ding)         | 卯 (Mao)            |
-| 戊 (Wu)           | 辰 (Chen)           |
-| 己 (Ji)           | 巳 (Si)             |
-| 庚 (Geng)         | 午 (Wu)             |
-| 辛 (Xin)          | 未 (Wei)            |
-| 壬 (Ren)          | 申 (Shen)           |
-| 癸 (Gui)          | 酉 (You)            |
-|                   | 戌 (Xu)             |
-|                   | 亥 (Hai)            |
+| 甲 (Jia)           | 子 (Zi)              |
+| 乙 (Yi)            | 丑 (Chou)            |
+| 丙 (Bing)          | 寅 (Yin)             |
+| 丁 (Ding)          | 卯 (Mao)             |
+| 戊 (Wu)            | 辰 (Chen)            |
+| 己 (Ji)            | 巳 (Si)              |
+| 庚 (Geng)          | 午 (Wu)              |
+| 辛 (Xin)           | 未 (Wei)             |
+| 壬 (Ren)           | 申 (Shen)            |
+| 癸 (Gui)           | 酉 (You)             |
+|                   | 戌 (Xu)              |
+|                   | 亥 (Hai)             |
 
 ## Accuracy
 

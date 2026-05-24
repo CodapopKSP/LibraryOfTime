@@ -1,8 +1,8 @@
 # Pataphysical
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 8 September 1873 CE | Exact |
+| Epoch               | Confidence |
+| ------------------- | ---------- |
+| 8 September 1873 CE | Exact      |
 
 ## Overview
 
@@ -12,21 +12,21 @@ It features 13 months of 29 days, though for each month the 29th day is imaginar
 
 ## Info
 
-| Month | Days | English | Approx. Gregorian Time |
-|-------|------|---------|------------------------|
-| Absolu | 28 | Absolute | Sept 8 - Oct 5 |
-| Haha | 28 | Haha | Oct 6 - Nov 2 |
-| As | 28 | Skiff | Nov 3 - Nov 30 |
-| Sable | 28 | Sand or heraldic black | Dec 1 - Dec 28 |
-| Décervelage | 28 | Debraining | Dec 29 - Jan 25 |
-| Gueules | 28 or 29 | Heraldic red or gob | Jan 26 - Feb 22 |
-| Pédale | 28 | Bicycle pedal | Feb 23 - Mar 22 |
-| Clinamen | 28 | Swerve | Mar 23 - Apr 19 |
-| Palotin | 28 | Ubu's henchmen | Apr 20 - May 17 |
-| Merdre | 28 | Pshit | May 18 - Jun 14 |
-| Gidouille | 29 | Spiral | Jun 15 - Jul 13 |
-| Tatane | 28 | Shoe or being worn out | Jul 14 - Aug 10 |
-| Phalle | 28 | Phallus | Aug 11 - Sept 7 |
+| Month       | Days     | English                | Approx. Gregorian Time |
+| ----------- | -------- | ---------------------- | ---------------------- |
+| Absolu      | 28       | Absolute               | Sept 8 - Oct 5         |
+| Haha        | 28       | Haha                   | Oct 6 - Nov 2          |
+| As          | 28       | Skiff                  | Nov 3 - Nov 30         |
+| Sable       | 28       | Sand or heraldic black | Dec 1 - Dec 28         |
+| Décervelage | 28       | Debraining             | Dec 29 - Jan 25        |
+| Gueules     | 28 or 29 | Heraldic red or gob    | Jan 26 - Feb 22        |
+| Pédale      | 28       | Bicycle pedal          | Feb 23 - Mar 22        |
+| Clinamen    | 28       | Swerve                 | Mar 23 - Apr 19        |
+| Palotin     | 28       | Ubu's henchmen         | Apr 20 - May 17        |
+| Merdre      | 28       | Pshit                  | May 18 - Jun 14        |
+| Gidouille   | 29       | Spiral                 | Jun 15 - Jul 13        |
+| Tatane      | 28       | Shoe or being worn out | Jul 14 - Aug 10        |
+| Phalle      | 28       | Phallus                | Aug 11 - Sept 7        |
 
 ## Accuracy
 

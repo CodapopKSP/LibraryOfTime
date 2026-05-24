@@ -1,8 +1,8 @@
 # Discordian
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 1 January 1165 BCE | Exact |
+| Epoch              | Confidence |
+| ------------------ | ---------- |
+| 1 January 1165 BCE | Exact      |
 
 ## Overview
 
@@ -14,14 +14,14 @@ Years are denoted with 'YOLD' meaning 'Year of Our Lady Discord'.
 
 ## Info
 
-| Month | Days | Approx. Gregorian Time |
-|-------|------|------------------------|
-| Chaos | 73 | Jan 1 - Mar 14 |
-| Discord | 73 | Mar 15 - May 26 |
-| Confusion | 73 | May 27 - Aug 8 |
-| Bureaucracy | 73 | Aug 9 - Oct 19 |
-| The Aftermath | 73 | Oct 20 - Dec 31 |
-| St. Tib's Day | 1 | Feb 29 |
+| Month         | Days | Approx. Gregorian Time |
+| ------------- | ---- | ---------------------- |
+| Chaos         | 73   | Jan 1 - Mar 14         |
+| Discord       | 73   | Mar 15 - May 26        |
+| Confusion     | 73   | May 27 - Aug 8         |
+| Bureaucracy   | 73   | Aug 9 - Oct 19         |
+| The Aftermath | 73   | Oct 20 - Dec 31        |
+| St. Tib's Day | 1    | Feb 29                 |
 
 ## Accuracy
 

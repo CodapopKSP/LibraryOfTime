@@ -1,8 +1,8 @@
 # Coordinated Mars Time
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 29 December 1873 CE +12:04:11 | High |
+| Epoch                         | Confidence |
+| ----------------------------- | ---------- |
+| 29 December 1873 CE +12:04:11 | High       |
 
 ## Overview
 
@@ -14,11 +14,11 @@ The time is displayed as hours, minutes, and seconds since midnight on Mars at t
 
 This clock uses the Mars Sol Date for the calculation determining where midnight begins.
 
-| MTC        | Standard Time        |
-| ---------- | -------------------- |
-| MTC Second | 1.02749125 Seconds   |
-| MTC Minute | 61.649475 Seconds    |
-| MTC Hour   | 61.649475 Minutes    |
+| MTC        | Standard Time      |
+| ---------- | ------------------ |
+| MTC Second | 1.02749125 Seconds |
+| MTC Minute | 61.649475 Seconds  |
+| MTC Hour   | 61.649475 Minutes  |
 
 ## Accuracy
 

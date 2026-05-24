@@ -1,8 +1,8 @@
 # SCA
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 1 May 1966 CE | Exact |
+| Epoch         | Confidence |
+| ------------- | ---------- |
+| 1 May 1966 CE | Exact      |
 
 ## Overview
 
@@ -12,20 +12,20 @@ Years are written as roman numerals and denoted with 'A.S.', short for 'Anno Soc
 
 ## Info
 
-| Month | Days |
-|-------|------|
-| January | 31 |
-| February | 28/29 |
-| March | 31 |
-| April | 30 |
-| May | 31 |
-| June | 30 |
-| July | 31 |
-| August | 31 |
-| September | 30 |
-| October | 31 |
-| November | 30 |
-| December | 31 |
+| Month     | Days  |
+| --------- | ----- |
+| January   | 31    |
+| February  | 28/29 |
+| March     | 31    |
+| April     | 30    |
+| May       | 31    |
+| June      | 30    |
+| July      | 31    |
+| August    | 31    |
+| September | 30    |
+| October   | 31    |
+| November  | 30    |
+| December  | 31    |
 
 ## Accuracy
 

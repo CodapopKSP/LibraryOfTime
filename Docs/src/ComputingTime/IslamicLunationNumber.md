@@ -1,8 +1,8 @@
 # Islamic Lunation Number
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 18 July 622 CE    | Exact      | Mecca |
+| Epoch          | Confidence | Associated with |
+| -------------- | ---------- | --------------- |
+| 18 July 622 CE | Exact      | Mecca           |
 
 ## Overview
 

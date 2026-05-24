@@ -1,8 +1,8 @@
 # Zoroastrian
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| Sunrise           | High       | Yazd            |
+| Epoch   | Confidence | Associated with |
+| ------- | ---------- | --------------- |
+| Sunrise | High       | Yazd            |
 
 ## Overview
 
@@ -12,13 +12,13 @@ In medieval times, the first watch of Hawan may have gone until 3pm, excluding R
 
 ## Info
 
-| Gāh | Hours |
-| --- | ------------- |
-| Hawan | 06:00–11:59 |
-| Rapithwin | 12:00–14:59 |
-| Uzerin | 15:00–17:59 |
+| Gāh          | Hours       |
+| ------------ | ----------- |
+| Hawan        | 06:00–11:59 |
+| Rapithwin    | 12:00–14:59 |
+| Uzerin       | 15:00–17:59 |
 | Aiwisruthrem | 18:00–23:59 |
-| Ushahin | 00:00–05:59 |
+| Ushahin      | 00:00–05:59 |
 
 ## Accuracy
 

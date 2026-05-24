@@ -1,8 +1,8 @@
 # Yerm
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 19 May 622 CE +12:00:00 | Exact |
+| Epoch                   | Confidence |
+| ----------------------- | ---------- |
+| 19 May 622 CE +12:00:00 | Exact      |
 
 ## Overview
 
@@ -17,20 +17,20 @@ Months begin at or around the New Moon and are broken into weeks of 7 nights tha
 ## Info
 
 | Months per yerm | Nights per yerm |
-| --- | --- |
-| 17 | 502 |
-| 15 | 443 |
+| --------------- | --------------- |
+| 17              | 502             |
+| 15              | 443             |
 
-| Weeknight | Name |
-| --- | --- |
-| 1 | Moonnight |
-| 2 | Tuesnight |
-| 3 | Wensnight |
-| 4 | Thursnight |
-| 5 | Frinight |
-| 6 | Saturnight |
-| 7 | Soonnight |
-| 30th Night | Lastnight |
+| Weeknight  | Name       |
+| ---------- | ---------- |
+| 1          | Moonnight  |
+| 2          | Tuesnight  |
+| 3          | Wensnight  |
+| 4          | Thursnight |
+| 5          | Frinight   |
+| 6          | Saturnight |
+| 7          | Soonnight  |
+| 30th Night | Lastnight  |
 
 ## Accuracy
 

@@ -1,8 +1,8 @@
 # Hebrew Lunation Number
 
-| Epoch              | Confidence | Associated with |
-| ------------------ | ---------- | --------------- |
-| 6 September 3760 BCE | Exact | Jerusalem |
+| Epoch                | Confidence | Associated with |
+| -------------------- | ---------- | --------------- |
+| 6 September 3760 BCE | Exact      | Jerusalem       |
 
 ## Overview
 

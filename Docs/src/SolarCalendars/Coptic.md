@@ -1,8 +1,8 @@
 # Coptic (EET)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 28 August 284 CE +22:00:00  | Exact      | Alexandria |
+| Epoch                      | Confidence | Associated with |
+| -------------------------- | ---------- | --------------- |
+| 28 August 284 CE +22:00:00 | Exact      | Alexandria      |
 
 ## Overview
 
@@ -16,21 +16,21 @@ The Coptic calendar is still in use today by Egyptian farmers as well as the Cop
 
 The Ge'ez calendar is precisely aligned with the Coptic calendar for its months and days. It's epoch, translated to 'Year of the Martyrs', is counted from the year Diocletian became Emperor of Rome, which was followed by a period of mass persecution of Christians.
 
-| Month | Days | Approx. Gregorian Dates |
-|-------|------|------------------------|
-| Thout | 30 | Sep 11 - Oct 10 |
-| Paopi | 30 | Oct 11 - Nov 9 |
-| Hathor | 30 | Nov 10 - Dec 9 |
-| Koiak | 30 | Dec 10 - Jan 8 |
-| Tobi | 30 | Jan 9 - Feb 7 |
-| Meshir | 30 | Feb 8 - Mar 9 |
-| Paremhat | 30 | Mar 10 - Apr 8 |
-| Parmouti | 30 | Apr 9 - May 8 |
-| Pashons | 30 | May 9 - Jun 7 |
-| Paoni | 30 | Jun 8 - Jul 7 |
-| Epip | 30 | Jul 8 - Aug 6 |
-| Mesori | 30 | Aug 7 - Sep 5 |
-| Pi Kogi Enavot | 5 or 6 | Sep 6 - Sep 10 |
+| Month          | Days   | Approx. Gregorian Dates |
+| -------------- | ------ | ----------------------- |
+| Thout          | 30     | Sep 11 - Oct 10         |
+| Paopi          | 30     | Oct 11 - Nov 9          |
+| Hathor         | 30     | Nov 10 - Dec 9          |
+| Koiak          | 30     | Dec 10 - Jan 8          |
+| Tobi           | 30     | Jan 9 - Feb 7           |
+| Meshir         | 30     | Feb 8 - Mar 9           |
+| Paremhat       | 30     | Mar 10 - Apr 8          |
+| Parmouti       | 30     | Apr 9 - May 8           |
+| Pashons        | 30     | May 9 - Jun 7           |
+| Paoni          | 30     | Jun 8 - Jul 7           |
+| Epip           | 30     | Jul 8 - Aug 6           |
+| Mesori         | 30     | Aug 7 - Sep 5           |
+| Pi Kogi Enavot | 5 or 6 | Sep 6 - Sep 10          |
 
 ## Accuracy
 

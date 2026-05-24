@@ -1,8 +1,8 @@
 # Spreadsheet =NOW()
 
-| Epoch              | Confidence | Associated with |
-| ------------------ | ---------- | --------------- |
-| 30 December 1899 CE | Exact     | Cambridge, Massachusetts |
+| Epoch               | Confidence | Associated with          |
+| ------------------- | ---------- | ------------------------ |
+| 30 December 1899 CE | Exact      | Cambridge, Massachusetts |
 
 ## Overview
 

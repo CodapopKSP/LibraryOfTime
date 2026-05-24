@@ -1,8 +1,8 @@
 # Togys Esebi (KZT)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 30 April 3669 BCE +19:00:00 | Medium       | Astana |
+| Epoch                       | Confidence | Associated with |
+| --------------------------- | ---------- | --------------- |
+| 30 April 3669 BCE +19:00:00 | Medium     | Astana          |
 
 ## Overview
 
@@ -18,22 +18,22 @@ Years follow a 12-year animal cycle similar to the Chinese lunisolar calendar an
 
 Kazakh nomads seem to have used the actual visual appearance of the moon at the point of eclipsing Pleiades as the month name. This makes the Togys Esebi calendar one of the few calendars that doesn't need complex rules or an authoritative body, being dictated by a very simple concept that is easy for any individual to check.
 
-| Month Name                      | Approximate Dates |
-| ------------------------------- | ----------------- |
-| 1 togys aiy                     | Apr–May           |
-| 27 togys aiy (14-month years only) | May–Jun        |
-| 25 togys aiy                    | Jun               |
-| 23 togys aiy                    | Jun–Jul           |
-| 21 togys aiy                    | Jul–Aug           |
-| 19 togys aiy                    | Aug               |
-| 17 togys aiy                    | Aug–Sep           |
-| 15 togys aiy                    | Sep–Oct           |
-| 13 togys aiy                    | Oct               |
-| 11 togys aiy                    | Oct–Nov           |
-| 9 togys aiy                     | Nov–Dec           |
-| 7 togys aiy                     | Dec–Jan           |
-| 5 togys aiy                     | Jan–Feb           |
-| 3 togys aiy                     | Feb–Mar           |
+| Month Name                         | Approximate Dates |
+| ---------------------------------- | ----------------- |
+| 1 togys aiy                        | Apr–May           |
+| 27 togys aiy (14-month years only) | May–Jun           |
+| 25 togys aiy                       | Jun               |
+| 23 togys aiy                       | Jun–Jul           |
+| 21 togys aiy                       | Jul–Aug           |
+| 19 togys aiy                       | Aug               |
+| 17 togys aiy                       | Aug–Sep           |
+| 15 togys aiy                       | Sep–Oct           |
+| 13 togys aiy                       | Oct               |
+| 11 togys aiy                       | Oct–Nov           |
+| 9 togys aiy                        | Nov–Dec           |
+| 7 togys aiy                        | Dec–Jan           |
+| 5 togys aiy                        | Jan–Feb           |
+| 3 togys aiy                        | Feb–Mar           |
 
 | Togys Esebi years |
 | ----------------- |

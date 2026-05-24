@@ -1,8 +1,8 @@
 # Io Meridian Time
 
-| Epoch | Confidence |
+| Epoch                      | Confidence |
 | -------------------------- | ---------- |
-| 31 December 2001 +16:07:45 | High |
+| 31 December 2001 +16:07:45 | High       |
 
 ## Overview
 
@@ -20,11 +20,11 @@ Io Meridian Time is a name that was chosen for this website and might not be acc
 
 Io is in a 2/4/8 Laplace resonance with Europa and Ganymede, so their solar days are equally comprised of 2/4/8 circads, though the length of their circads are very slightly different. The circad of Io is 21.23833 Earth hours long, which is then broken into 24 Io hours.
 
-| IMT        | Standard Time       |
-| ---------- | ------------------- |
-| IMT Second | 0.8849304 Seconds   |
-| IMT Minute | 53.095825 Seconds   |
-| IMT Hour   | 53.095825 Minutes   |
+| IMT        | Standard Time     |
+| ---------- | ----------------- |
+| IMT Second | 0.8849304 Seconds |
+| IMT Minute | 53.095825 Seconds |
+| IMT Hour   | 53.095825 Minutes |
 
 | Moon     | Circad Length  | Circads Per Orbit |
 | -------- | -------------- | ----------------- |

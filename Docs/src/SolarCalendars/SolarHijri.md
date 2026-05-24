@@ -1,8 +1,8 @@
 # Solar Hijri (IRST)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 21 March 622, +20:30:00      | High       | Tehran |
+| Epoch                   | Confidence | Associated with |
+| ----------------------- | ---------- | --------------- |
+| 21 March 622, +20:30:00 | High       | Tehran          |
 
 ## Overview
 
@@ -16,20 +16,20 @@ Unlike the lunar Hijri calendar, days start at midnight, though they both share 
 
 The new year starts on the day that the equinox occurs before noon in Iran, or the next day if it occurs after noon. The starting of the new year results in the final month having 29 or 30 days depending on when exactly the equinox occurs.
 
-| Month | Zodiac | Days |
-|-------|--------|------|
-| Farvardin | Aries | 31 |
-| Ordibehesht | Taurus | 31 |
-| Khordad | Gemini | 31 |
-| Tir | Cancer | 31 |
-| Mordad | Leo | 31 |
-| Shahrivar | Virgo | 31 |
-| Mehr | Libra | 30 |
-| Aban | Scorpio | 30 |
-| Azar | Sagittarius | 30 |
-| Dey | Capricorn | 30 |
-| Bahman | Aquarius | 30 |
-| Esfand | Pisces | 29 or 30 |
+| Month       | Zodiac      | Days     |
+| ----------- | ----------- | -------- |
+| Farvardin   | Aries       | 31       |
+| Ordibehesht | Taurus      | 31       |
+| Khordad     | Gemini      | 31       |
+| Tir         | Cancer      | 31       |
+| Mordad      | Leo         | 31       |
+| Shahrivar   | Virgo       | 31       |
+| Mehr        | Libra       | 30       |
+| Aban        | Scorpio     | 30       |
+| Azar        | Sagittarius | 30       |
+| Dey         | Capricorn   | 30       |
+| Bahman      | Aquarius    | 30       |
+| Esfand      | Pisces      | 29 or 30 |
 
 ## Accuracy
 

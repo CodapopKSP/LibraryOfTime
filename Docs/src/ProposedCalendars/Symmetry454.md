@@ -1,8 +1,8 @@
 # Symmetry454
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 1 January 1 CE | Exact |
+| Epoch          | Confidence |
+| -------------- | ---------- |
+| 1 January 1 CE | Exact      |
 
 ## Overview
 
@@ -18,20 +18,20 @@ The format of the calendar allows each day of the year to always occur on the sa
 
 This calendar is calibrated using 1 January 2001 as a reference date.
 
-| Months   | Days      |
-| -------- | --------- |
-| January  | 28        |
-| February | 35        |
-| March    | 28        |
-| April    | 28        |
-| May      | 35        |
-| June     | 28        |
-| July     | 28        |
-| August   | 35        |
-| September| 28        |
-| October  | 28        |
-| November | 35        |
-| December | 28 or 35  |
+| Months    | Days     |
+| --------- | -------- |
+| January   | 28       |
+| February  | 35       |
+| March     | 28       |
+| April     | 28       |
+| May       | 35       |
+| June      | 28       |
+| July      | 28       |
+| August    | 35       |
+| September | 28       |
+| October   | 28       |
+| November  | 35       |
+| December  | 28 or 35 |
 
 ## Accuracy
 

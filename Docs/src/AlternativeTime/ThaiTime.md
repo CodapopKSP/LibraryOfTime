@@ -1,8 +1,8 @@
 # Thai Time
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 1:00:00           | Exact      | Bangkok         |
+| Epoch   | Confidence | Associated with |
+| ------- | ---------- | --------------- |
+| 1:00:00 | Exact      | Bangkok         |
 
 ## Overview
 
@@ -12,12 +12,12 @@ Hours are referred to by the current hour (1-6) of the current section.
 
 ## Info
 
-| Section | Label | Hours |
-| ------- | ----- | ----- |
-| 1       | ตี      | 01:00-06:59 |
-| 2       | โมงเช้า | 07:00-12:59 |
-| 3       | บ่าย    | 13:00-18:59 |
-| 4       | ทุ่ม    | 19:00-00:59 |
+| Section | Label   | Hours       |
+| ------- | ------- | ----------- |
+| 1       | ตี       | 01:00-06:59 |
+| 2       | โมงเช้า    | 07:00-12:59 |
+| 3       | บ่าย      | 13:00-18:59 |
+| 4       | ทุ่ม      | 19:00-00:59 |
 
 ## Accuracy
 

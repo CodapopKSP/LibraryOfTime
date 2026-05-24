@@ -1,8 +1,8 @@
 # Darian (Mars)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 12 March 1609 CE, 18:40:06 | High |
+| Epoch                      | Confidence |
+| -------------------------- | ---------- |
+| 12 March 1609 CE, 18:40:06 | High       |
 
 ## Overview
 
@@ -16,32 +16,32 @@ Leap years add one extra day in the final month, and they take place if the year
 
 ## Info
 
-| Month | Days |
-|-------|------|
-| Sagittarius | 28 |
-| Dhanus | 28 |
-| Capricornus | 28 |
-| Makara | 28 |
-| Aquarius | 28 |
-| Khumba | 27 |
-| Pisces | 28 |
-| Mina | 28 |
-| Aries | 28 |
-| Mesha | 28 |
-| Taurus | 28 |
-| Rishabha | 27 |
-| Gemini | 28 |
-| Mithuna | 28 |
-| Cancer | 28 |
-| Karka | 28 |
-| Leo | 28 |
-| Simha | 27 |
-| Virgo | 28 |
-| Kanya | 28 |
-| Libra | 28 |
-| Tula | 28 |
-| Scorpius | 28 |
-| Vrishika | 27 or 28 |
+| Month       | Days     |
+| ----------- | -------- |
+| Sagittarius | 28       |
+| Dhanus      | 28       |
+| Capricornus | 28       |
+| Makara      | 28       |
+| Aquarius    | 28       |
+| Khumba      | 27       |
+| Pisces      | 28       |
+| Mina        | 28       |
+| Aries       | 28       |
+| Mesha       | 28       |
+| Taurus      | 28       |
+| Rishabha    | 27       |
+| Gemini      | 28       |
+| Mithuna     | 28       |
+| Cancer      | 28       |
+| Karka       | 28       |
+| Leo         | 28       |
+| Simha       | 27       |
+| Virgo       | 28       |
+| Kanya       | 28       |
+| Libra       | 28       |
+| Tula        | 28       |
+| Scorpius    | 28       |
+| Vrishika    | 27 or 28 |
 
 ## Accuracy
 

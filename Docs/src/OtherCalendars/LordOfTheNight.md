@@ -1,8 +1,8 @@
 # Lord of the Night | Y (CST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| Unknown           | Exact      | Chichén Itzá |
+| Epoch   | Confidence | Associated with |
+| ------- | ---------- | --------------- |
+| Unknown | Exact      | Chichén Itzá    |
 
 ## Overview
 

@@ -1,8 +1,8 @@
 # Thai (THB)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 31 December 544 BCE, +17:00:00 | Exact     | Bangkok |
+| Epoch                          | Confidence | Associated with |
+| ------------------------------ | ---------- | --------------- |
+| 31 December 544 BCE, +17:00:00 | Exact      | Bangkok         |
 
 ## Overview
 
@@ -10,20 +10,20 @@ The Thai solar calendar is a Gregorian-derived calendar used in Thailand. It rep
 
 ## Info
 
-| Months | English | Days |
-|--------|---------|------|
-| มกราคม | January | 31 |
-| กุมภาพันธ์ | February | 28 or 29 |
-| มีนาคม | March | 31 |
-| เมษายน | April | 30 |
-| พฤษภาคม | May | 31 |
-| มิถุนายน | June | 30 |
-| กรกฎาคม | July | 31 |
-| สิงหาคม | August | 31 |
-| กันยายน | September | 30 |
-| ตุลาคม | October | 31 |
-| พฤศจิกายน | November | 30 |
-| ธันวาคม | December | 31 |
+| Months     | English   | Days     |
+| ---------- | --------- | -------- |
+| มกราคม     | January   | 31       |
+| กุมภาพันธ์ | February  | 28 or 29 |
+| มีนาคม     | March     | 31       |
+| เมษายน     | April     | 30       |
+| พฤษภาคม    | May       | 31       |
+| มิถุนายน   | June      | 30       |
+| กรกฎาคม    | July      | 31       |
+| สิงหาคม    | August    | 31       |
+| กันยายน    | September | 30       |
+| ตุลาคม     | October   | 31       |
+| พฤศจิกายน  | November  | 30       |
+| ธันวาคม    | December  | 31       |
 
 ## Accuracy
 

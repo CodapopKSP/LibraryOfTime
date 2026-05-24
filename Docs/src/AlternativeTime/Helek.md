@@ -1,8 +1,8 @@
 # Helek
 
-| Epoch             | Confidence        | Associated with |
-| ----------------- | ----------------- | --------------- |
-| Every Hour   | Exact             | Jerusalem       |
+| Epoch      | Confidence | Associated with |
+| ---------- | ---------- | --------------- |
+| Every Hour | Exact      | Jerusalem       |
 
 ## Overview
 

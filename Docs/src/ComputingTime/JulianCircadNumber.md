@@ -1,8 +1,8 @@
 # Julian Circad Number
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 15 March 1609 +18:37:32 | High |
+| Epoch                   | Confidence |
+| ----------------------- | ---------- |
+| 15 March 1609 +18:37:32 | High       |
 
 ## Overview
 

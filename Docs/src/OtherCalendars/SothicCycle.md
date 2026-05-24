@@ -1,8 +1,8 @@
 # Sothic Cycle
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 27 June 2781 BCE  | Exact      | Cairo |
+| Epoch            | Confidence | Associated with |
+| ---------------- | ---------- | --------------- |
+| 27 June 2781 BCE | Exact      | Cairo           |
 
 ## Overview
 
@@ -18,14 +18,14 @@ The Sothic Cycle was instrumental in calibrating the Egyptian date by historians
 
 The Sothic Cycle shows a relationship between the Julian and Egyptian calendars of 1460/1461. The Gregorian calendar does not line up in the same way due to the revised leap year rules.
 
-| Cycle | Julian Date | Gregorian Date |
-|-------|-------------|----------------|
-| 1 | 20 July 2782 BC | 27 June 2781 BCE |
-| 2 | 20 July 1322 BC | 8 July 1321 BCE |
-| 3 | 20 July 139 AD | 19 July 139 CE |
-| 4 | 20 July 1599 AD | 30 July 1599 CE |
-| 5 | 20 July 3059 AD | 10 August 3059 CE |
-| 6 | 20 July 4519 AD | 21 August 4519 CE |
+| Cycle | Julian Date     | Gregorian Date    |
+| ----- | --------------- | ----------------- |
+| 1     | 20 July 2782 BC | 27 June 2781 BCE  |
+| 2     | 20 July 1322 BC | 8 July 1321 BCE   |
+| 3     | 20 July 139 AD  | 19 July 139 CE    |
+| 4     | 20 July 1599 AD | 30 July 1599 CE   |
+| 5     | 20 July 3059 AD | 10 August 3059 CE |
+| 6     | 20 July 4519 AD | 21 August 4519 CE |
 
 ## Accuracy
 

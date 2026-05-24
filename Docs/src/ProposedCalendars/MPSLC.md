@@ -1,8 +1,8 @@
 # MPSLC
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 8 April 4145 BCE | Exact |
+| Epoch            | Confidence |
+| ---------------- | ---------- |
+| 8 April 4145 BCE | Exact      |
 
 ## Overview
 
@@ -14,21 +14,21 @@ Dates are written as a sequence of four numbers separated by hyphens, in the for
 
 ## Info
 
-| Month | Name | Days |
-| ----------- | ---------- | -------------- |
-| 1 | Aristarchus | 29 |
-| 2 | Bruno | 30 |
-| 3 | Copernicus | 29 |
-| 4 | Dee | 30 |
-| 5 | Eratosthenes | 29 |
-| 6 | Flamsteed | 30 |
-| 7 | Galileo | 29 |
-| 8 | Hypatia | 30 |
-| 9 | Ibrahim | 29 |
-| 10 | Julius | 30 |
-| 11 | Khayyam | 29 |
-| 12 | Lilius | 30 |
-| 13 (leap) | Meton | 30/31 |
+| Month     | Name         | Days  |
+| --------- | ------------ | ----- |
+| 1         | Aristarchus  | 29    |
+| 2         | Bruno        | 30    |
+| 3         | Copernicus   | 29    |
+| 4         | Dee          | 30    |
+| 5         | Eratosthenes | 29    |
+| 6         | Flamsteed    | 30    |
+| 7         | Galileo      | 29    |
+| 8         | Hypatia      | 30    |
+| 9         | Ibrahim      | 29    |
+| 10        | Julius       | 30    |
+| 11        | Khayyam      | 29    |
+| 12        | Lilius       | 30    |
+| 13 (leap) | Meton        | 30/31 |
 
 Leap years and leap-month length follow two simple steps:
 

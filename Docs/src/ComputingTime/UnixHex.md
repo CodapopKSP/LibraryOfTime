@@ -1,7 +1,7 @@
 # Unix Hex
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
+| Epoch             | Confidence | Associated with         |
+| ----------------- | ---------- | ----------------------- |
 | 1 January 1970 CE | Exact      | Murray Hill, New Jersey |
 
 ## Overview

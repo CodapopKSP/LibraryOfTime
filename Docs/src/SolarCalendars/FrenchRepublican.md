@@ -1,8 +1,8 @@
 # French Republican (CET)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 22 September 1792 CE, +1:00:00 | High      | Paris |
+| Epoch                          | Confidence | Associated with |
+| ------------------------------ | ---------- | --------------- |
+| 22 September 1792 CE, +1:00:00 | High       | Paris           |
 
 ## Overview
 
@@ -14,21 +14,21 @@ The new year started on the Autumn Equinox, and years were written in Roman nume
 
 ## Info
 
-| Month | Days | Approx. Gregorian Dates |
-|-------|------|------------------------|
-| Vendémiaire | 30 | Sep 22 - Oct 21 |
-| Brumaire | 30 | Oct 22 - Nov 20 |
-| Frimaire | 30 | Nov 21 - Dec 20 |
-| Nivôse | 30 | Dec 21 - Jan 19 |
-| Pluviôse | 30 | Jan 20 - Feb 18 |
-| Ventôse | 30 | Feb 19 - Mar 20 |
-| Germinal | 30 | Mar 21 - Apr 19 |
-| Floréal | 30 | Apr 20 - May 19 |
-| Prairial | 30 | May 20 - Jun 18 |
-| Messidor | 30 | Jun 19 - Jul 18 |
-| Thermidor | 30 | Jul 19 - Aug 17 |
-| Fructidor | 30 | Aug 18 - Sep 16 |
-| Sansculottides | 5 or 6 | Sep 17 - Sep 21 |
+| Month          | Days   | Approx. Gregorian Dates |
+| -------------- | ------ | ----------------------- |
+| Vendémiaire    | 30     | Sep 22 - Oct 21         |
+| Brumaire       | 30     | Oct 22 - Nov 20         |
+| Frimaire       | 30     | Nov 21 - Dec 20         |
+| Nivôse         | 30     | Dec 21 - Jan 19         |
+| Pluviôse       | 30     | Jan 20 - Feb 18         |
+| Ventôse        | 30     | Feb 19 - Mar 20         |
+| Germinal       | 30     | Mar 21 - Apr 19         |
+| Floréal        | 30     | Apr 20 - May 19         |
+| Prairial       | 30     | May 20 - Jun 18         |
+| Messidor       | 30     | Jun 19 - Jul 18         |
+| Thermidor      | 30     | Jul 19 - Aug 17         |
+| Fructidor      | 30     | Aug 18 - Sep 16         |
+| Sansculottides | 5 or 6 | Sep 17 - Sep 21         |
 
 ## Accuracy
 

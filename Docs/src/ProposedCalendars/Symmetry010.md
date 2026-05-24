@@ -1,8 +1,8 @@
 # Symmetry010
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 1 January 1 CE | Exact |
+| Epoch          | Confidence |
+| -------------- | ---------- |
+| 1 January 1 CE | Exact      |
 
 ## Overview
 
@@ -18,21 +18,21 @@ The format of the calendar allows each day of the year to always occur on the sa
 
 This calendar is calibrated using 1 January 1 CE as a reference date.
 
-| Months           | Days |
-| ---------------- | ---- |
-| January          | 30   |
-| February         | 31   |
-| March            | 30   |
-| April            | 30   |
-| May              | 31   |
-| June             | 30   |
-| July             | 30   |
-| August           | 31   |
-| September        | 30   |
-| October          | 30   |
-| November         | 31   |
-| December         | 30   |
-| Leap Week ("Irv")| 7    |
+| Months            | Days |
+| ----------------- | ---- |
+| January           | 30   |
+| February          | 31   |
+| March             | 30   |
+| April             | 30   |
+| May               | 31   |
+| June              | 30   |
+| July              | 30   |
+| August            | 31   |
+| September         | 30   |
+| October           | 30   |
+| November          | 31   |
+| December          | 30   |
+| Leap Week ("Irv") | 7    |
 
 ## Accuracy
 

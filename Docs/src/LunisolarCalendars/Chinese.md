@@ -1,8 +1,8 @@
 # Chinese (CST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 30 January 2697 BCE +16:00:00 | Medium      | Beijing |
+| Epoch                         | Confidence | Associated with |
+| ----------------------------- | ---------- | --------------- |
+| 30 January 2697 BCE +16:00:00 | Medium     | Beijing         |
 
 ## Overview
 
@@ -18,18 +18,18 @@ The Chinese calendar is one of the most widespread calendars in history, used by
 
 | Year Cycle | English |
 | ---------- | ------- |
-| 鼠         | Rat     |
-| 牛         | Ox      |
-| 虎         | Tiger   |
-| 兔         | Rabbit  |
-| 龍         | Dragon  |
-| 蛇         | Snake   |
-| 馬         | Horse   |
-| 羊         | Goat    |
-| 猴         | Monkey  |
-| 雞         | Rooster |
-| 狗         | Dog     |
-| 豬         | Pig     |
+| 鼠          | Rat     |
+| 牛          | Ox      |
+| 虎          | Tiger   |
+| 兔          | Rabbit  |
+| 龍          | Dragon  |
+| 蛇          | Snake   |
+| 馬          | Horse   |
+| 羊          | Goat    |
+| 猴          | Monkey  |
+| 雞          | Rooster |
+| 狗          | Dog     |
+| 豬          | Pig     |
 
 ## Accuracy
 

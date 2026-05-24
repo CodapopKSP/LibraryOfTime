@@ -1,8 +1,8 @@
 # This Month's New Moon
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| New Moon | High |
+| Epoch    | Confidence |
+| -------- | ---------- |
+| New Moon | High       |
 
 ## Overview
 

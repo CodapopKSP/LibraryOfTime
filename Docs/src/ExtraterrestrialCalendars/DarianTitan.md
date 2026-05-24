@@ -1,8 +1,8 @@
 # Darian (Titan)
 
-| Epoch | Confidence |
-| ---------------------------- | ---------- |
-| 15 March 1609 +18:37:32 | High |
+| Epoch                   | Confidence |
+| ----------------------- | ---------- |
+| 15 March 1609 +18:37:32 | High       |
 
 ## Overview
 
@@ -18,32 +18,32 @@ Years don't always begin and end at midnight on Titan's prime meridian, as the c
 
 ## Info
 
-| Titan Month | Circads |
-|-------------|---------|
-| Ti Sagittarius | 28 |
-| Ti Dhanus | 28 |
-| Ti Capricornus | 32 |
-| Ti Makara | 28 |
-| Ti Aquarius | 28 |
-| Ti Khumba | 28 |
-| Ti Pisces | 28 |
-| Ti Mina | 28 |
-| Ti Aries | 32 |
-| Ti Mesha | 28 |
-| Ti Taurus | 28 |
-| Ti Rishabha | 28-32 |
-| Ti Gemini | 28 |
-| Ti Mithuna | 28 |
-| Ti Cancer | 32 |
-| Ti Karka | 28 |
-| Ti Leo | 28 |
-| Ti Simha | 28 |
-| Ti Virgo | 28 |
-| Ti Kanya | 28 |
-| Ti Libra | 32 |
-| Ti Tula | 28 |
-| Ti Scorpius | 28 |
-| Ti Vrishika | 28-32 |
+| Titan Month    | Circads |
+| -------------- | ------- |
+| Ti Sagittarius | 28      |
+| Ti Dhanus      | 28      |
+| Ti Capricornus | 32      |
+| Ti Makara      | 28      |
+| Ti Aquarius    | 28      |
+| Ti Khumba      | 28      |
+| Ti Pisces      | 28      |
+| Ti Mina        | 28      |
+| Ti Aries       | 32      |
+| Ti Mesha       | 28      |
+| Ti Taurus      | 28      |
+| Ti Rishabha    | 28-32   |
+| Ti Gemini      | 28      |
+| Ti Mithuna     | 28      |
+| Ti Cancer      | 32      |
+| Ti Karka       | 28      |
+| Ti Leo         | 28      |
+| Ti Simha       | 28      |
+| Ti Virgo       | 28      |
+| Ti Kanya       | 28      |
+| Ti Libra       | 32      |
+| Ti Tula        | 28      |
+| Ti Scorpius    | 28      |
+| Ti Vrishika    | 28-32   |
 
 ## Accuracy
 

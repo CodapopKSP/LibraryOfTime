@@ -1,8 +1,8 @@
 # UTC
 
-| Epoch         | Confidence | Associated with |
-| ------------- | ---------- | --------------- |
-| Midnight (UTC) | Exact      | Paris |
+| Epoch          | Confidence | Associated with |
+| -------------- | ---------- | --------------- |
+| Midnight (UTC) | Exact      | Paris           |
 
 ## Overview
 

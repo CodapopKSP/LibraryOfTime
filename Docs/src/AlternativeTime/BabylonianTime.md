@@ -1,8 +1,8 @@
 # Babylonian Time
 
-| Epoch             | Confidence          | Associated with |
-| ----------------- | ------------------- | --------------- |
-| Sunrise  | High   | Babylon         |
+| Epoch   | Confidence | Associated with |
+| ------- | ---------- | --------------- |
+| Sunrise | High       | Babylon         |
 
 ## Overview
 
@@ -14,9 +14,9 @@ Some sources further divided the geš into grains, though they rarely agree, pro
 
 ## Info
 
-| Unit  | Duration |
-| ----- | -------- |
-| Watch | 2 hours  |
+| Unit  | Duration  |
+| ----- | --------- |
+| Watch | 2 hours   |
 | Geš   | 4 minutes |
 
 ## Accuracy

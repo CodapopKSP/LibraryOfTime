@@ -1,8 +1,8 @@
 # Lunation Number
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 6 January 2000 CE +18:14:00 | Exact |
+| Epoch                       | Confidence |
+| --------------------------- | ---------- |
+| 6 January 2000 CE +18:14:00 | Exact      |
 
 ## Overview
 

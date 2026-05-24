@@ -1,8 +1,8 @@
 # Galactic Tick
 
-| Epoch             | Confidence        | Associated with |
-| ----------------- | ----------------- | --------------- |
-| 2 October 1608 CE | Low | San Francisco, CA |
+| Epoch             | Confidence | Associated with   |
+| ----------------- | ---------- | ----------------- |
+| 2 October 1608 CE | Low        | San Francisco, CA |
 
 ## Overview
 
@@ -16,18 +16,18 @@ The first Galactic Tick began on 2 October 1608 CE, the date that Hans Lippershe
 
 The Galactic Tick is 634.114583293 days long.
 
-| Tick | Date |
-| ---------- | ---- |
-| 0th | 2 October 1608 |
+| Tick  | Date              |
+| ----- | ----------------- |
+| 0th   | 2 October 1608    |
 | 235th | 29 September 2016 |
-| 236th | 26 June 2018 |
-| 237th | 21 March 2020 |
-| 238th | 15 December 2021 |
+| 236th | 26 June 2018      |
+| 237th | 21 March 2020     |
+| 238th | 15 December 2021  |
 | 239th | 10 September 2023 |
-| 240th | 5 June 2025 |
-| 241st | 1 March 2027 |
-| 242nd | 24 November 2028 |
-| 243rd | 20 August 2030 |
+| 240th | 5 June 2025       |
+| 241st | 1 March 2027      |
+| 242nd | 24 November 2028  |
+| 243rd | 20 August 2030    |
 
 ## Accuracy
 

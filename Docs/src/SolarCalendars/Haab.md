@@ -1,8 +1,8 @@
 # Haab (CST)
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| Unknown           | Exact      | Chichén Itzá |
+| Epoch   | Confidence | Associated with |
+| ------- | ---------- | --------------- |
+| Unknown | Exact      | Chichén Itzá    |
 
 ## Overview
 
@@ -14,18 +14,18 @@ Years do not increment outside the Calendar Round, so it is impossible to say fo
 
 ## Info
 
-| Month | Days | Month | Days |
-|-------|------|-------|------|
-| Pop | 20 | Yax | 20 |
-| Wo | 20 | Sak | 20 |
-| Sip | 20 | Keh | 20 |
-| Sotz' | 20 | Mak | 20 |
-| Sek | 20 | K'ank'in | 20 |
-| Xul | 20 | Muwan | 20 |
-| Yaxk'in | 20 | Pax | 20 |
-| Mol | 20 | K'ayab | 20 |
-| Ch'en | 20 | Kumk'u | 20 |
-| | | Wayeb' | 5 |
+| Month   | Days | Month    | Days |
+| ------- | ---- | -------- | ---- |
+| Pop     | 20   | Yax      | 20   |
+| Wo      | 20   | Sak      | 20   |
+| Sip     | 20   | Keh      | 20   |
+| Sotz'   | 20   | Mak      | 20   |
+| Sek     | 20   | K'ank'in | 20   |
+| Xul     | 20   | Muwan    | 20   |
+| Yaxk'in | 20   | Pax      | 20   |
+| Mol     | 20   | K'ayab   | 20   |
+| Ch'en   | 20   | Kumk'u   | 20   |
+|         |      | Wayeb'   | 5    |
 
 ## Accuracy
 

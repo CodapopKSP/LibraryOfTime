@@ -1,8 +1,8 @@
 # Egyptian Civil (EET)
 
-| Epoch                        | Confidence | Associated with |
-| ---------------------------- | ---------- | --------------- |
-| 26 June 2781 BCE +22:00:00   | Exact      | Cairo |
+| Epoch                      | Confidence | Associated with |
+| -------------------------- | ---------- | --------------- |
+| 26 June 2781 BCE +22:00:00 | Exact      | Cairo           |
 
 ## Overview
 
@@ -16,30 +16,30 @@ The epoch changed with each dynasty, and I could not find evidence of a standard
 
 ## Info
 
-| Season | Month | Month Number | Days |
-|--------|-------|--------------|------|
-| Akhet | Tekh | I | 30 |
-| Akhet | Menhet | II | 30 |
-| Akhet | Hwt-Hrw | III | 30 |
-| Akhet | Ka-Hr-Ka | IV | 30 |
-| Peret | Sf-Bdt | I | 30 |
-| Peret | Rekh Wer | II | 30 |
-| Peret | Rekh Neds | III | 30 |
-| Peret | Renwet | IV | 30 |
-| Shemu | Hnsw | I | 30 |
-| Shemu | Hnt-Htj | II | 30 |
-| Shemu | Ipt-Hmt | III | 30 |
-| Shemu | Wep-Renpet | IV | 30 |
+| Season | Month      | Month Number | Days |
+| ------ | ---------- | ------------ | ---- |
+| Akhet  | Tekh       | I            | 30   |
+| Akhet  | Menhet     | II           | 30   |
+| Akhet  | Hwt-Hrw    | III          | 30   |
+| Akhet  | Ka-Hr-Ka   | IV           | 30   |
+| Peret  | Sf-Bdt     | I            | 30   |
+| Peret  | Rekh Wer   | II           | 30   |
+| Peret  | Rekh Neds  | III          | 30   |
+| Peret  | Renwet     | IV           | 30   |
+| Shemu  | Hnsw       | I            | 30   |
+| Shemu  | Hnt-Htj    | II           | 30   |
+| Shemu  | Ipt-Hmt    | III          | 30   |
+| Shemu  | Wep-Renpet | IV           | 30   |
 
 The intercalary days, called Heriu Renpet, celebrated the birthdays of the children of the god Nut.
 
-| Heriu Renpet |
-|--------------|
-| 1: Osiris |
+| Heriu Renpet       |
+| ------------------ |
+| 1: Osiris          |
 | 2: Horus the Elder |
-| 3: Set |
-| 4: Isis |
-| 5: Nephthys |
+| 3: Set             |
+| 4: Isis            |
+| 5: Nephthys        |
 
 ## Accuracy
 

@@ -1,8 +1,8 @@
 # Callisto Meridian Time
 
-| Epoch | Confidence |
-| ----------------- | ---------- |
-| 28 December 2001 +12:27:23 | High |
+| Epoch                      | Confidence |
+| -------------------------- | ---------- |
+| 28 December 2001 +12:27:23 | High       |
 
 ## Overview
 
@@ -20,11 +20,11 @@ Callisto Meridian Time is a name that was chosen for this website and might not 
 
 Callisto is in a 2/4/8 Laplace resonance with Io, Europa, and Ganymede, so their solar days are equally comprised of 2/4/8 circads, though the length of their circads are very slightly different. The circad of Callisto is 21.16238 Earth hours long, which is then broken into 24 Callisto hours.
 
-| CMT        | Standard Time      |
-| ---------- | ------------------ |
-| CMT Second | 0.8818025 Seconds  |
-| CMT Minute | 52.90815 Seconds   |
-| CMT Hour   | 52.90815 Minutes   |
+| CMT        | Standard Time     |
+| ---------- | ----------------- |
+| CMT Second | 0.8818025 Seconds |
+| CMT Minute | 52.90815 Seconds  |
+| CMT Hour   | 52.90815 Minutes  |
 
 | Moon     | Circad Length  | Circads Per Orbit |
 | -------- | -------------- | ----------------- |

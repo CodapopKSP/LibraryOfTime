@@ -1,8 +1,8 @@
 # Anno Lucis
 
-| Epoch             | Confidence | Associated with |
-| ----------------- | ---------- | --------------- |
-| 1 January 3999 BCE | Exact     | London |
+| Epoch              | Confidence | Associated with |
+| ------------------ | ---------- | --------------- |
+| 1 January 3999 BCE | Exact      | London          |
 
 ## Overview
 
