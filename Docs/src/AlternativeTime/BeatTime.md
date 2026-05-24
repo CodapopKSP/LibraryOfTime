@@ -10,7 +10,19 @@
 
 ## Info
 
-<table class="table-long"><tr><th>.Beats</th><th>Seconds</th><th>Minutes</th></tr><tr><td>1</td><td>86.4</td><td>1.44</td></tr><tr><td>100</td><td>8640</td><td>144</td></tr><tr><td>200</td><td>17280</td><td>288</td></tr><tr><td>300</td><td>25920</td><td>432</td></tr><tr><td>400</td><td>34560</td><td>576</td></tr><tr><td>500</td><td>43200</td><td>720</td></tr><tr><td>600</td><td>51840</td><td>864</td></tr><tr><td>700</td><td>60480</td><td>1008</td></tr><tr><td>800</td><td>69120</td><td>1152</td></tr><tr><td>900</td><td>77760</td><td>1296</td></tr><tr><td>1000</td><td>86400</td><td>1440</td></tr></table>
+| .Beats | Seconds | Minutes |
+| ------ | ------- | ------- |
+| 1      | 86.4    | 1.44    |
+| 100    | 8640    | 144     |
+| 200    | 17280   | 288     |
+| 300    | 25920   | 432     |
+| 400    | 34560   | 576     |
+| 500    | 43200   | 720     |
+| 600    | 51840   | 864     |
+| 700    | 60480   | 1008    |
+| 800    | 69120   | 1152    |
+| 900    | 77760   | 1296    |
+| 1000   | 86400   | 1440    |
 
 ## Accuracy
 

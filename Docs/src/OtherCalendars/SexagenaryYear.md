@@ -10,7 +10,20 @@ The Sexagenary Cycle is a system of counting years in the Chinese calendar (and 
 
 ## Info
 
-<table class="table-long"><tr><th>10 Heavenly Stems</th><th>12 Earthly Branches</th></tr><tr><td>甲 (Jia)</td><td>子 (Zi)</td></tr><tr><td>乙 (Yi)</td><td>丑 (Chou)</td></tr><tr><td>丙 (Bing)</td><td>寅 (Yin)</td></tr><tr><td>丁 (Ding)</td><td>卯 (Mao)</td></tr><tr><td>戊 (Wu)</td><td>辰 (Chen)</td></tr><tr><td>己 (Ji)</td><td>巳 (Si)</td></tr><tr><td>庚 (Geng)</td><td>午 (Wu)</td></tr><tr><td>辛 (Xin)</td><td>未 (Wei)</td></tr><tr><td>壬 (Ren)</td><td>申 (Shen)</td></tr><tr><td>癸 (Gui)</td><td>酉 (You)</td></tr><tr><td></td><td>戌 (Xu)</td></tr><tr><td></td><td>亥 (Hai)</td></tr></table>
+| 10 Heavenly Stems | 12 Earthly Branches |
+| ----------------- | ------------------- |
+| 甲 (Jia)          | 子 (Zi)             |
+| 乙 (Yi)           | 丑 (Chou)           |
+| 丙 (Bing)         | 寅 (Yin)            |
+| 丁 (Ding)         | 卯 (Mao)            |
+| 戊 (Wu)           | 辰 (Chen)           |
+| 己 (Ji)           | 巳 (Si)             |
+| 庚 (Geng)         | 午 (Wu)             |
+| 辛 (Xin)          | 未 (Wei)            |
+| 壬 (Ren)          | 申 (Shen)           |
+| 癸 (Gui)          | 酉 (You)            |
+|                   | 戌 (Xu)             |
+|                   | 亥 (Hai)            |
 
 ## Accuracy
 

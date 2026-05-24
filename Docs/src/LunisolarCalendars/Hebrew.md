@@ -16,7 +16,21 @@ Years are denoted with AM for 'Anno Mundi', meaning 'in the year of the world', 
 
 The Hebrew calendar is not strictly based on the moon. The modern Jewish calendar, which is a mathematical equation, was codified by Rabbi Hillel II in the year 358 CE. Days start at sunset, which is approximated as 18:00 in Israel.
 
-<table class="table-long"><tr><th>Months</th><th>Approx. Gregorian Dates</th></tr><tr><td>Tishri</td><td>September - October</td></tr><tr><td>Heshvan</td><td>October - November</td></tr><tr><td>Kislev</td><td>November - December</td></tr><tr><td>Tevet</td><td>December - January</td></tr><tr><td>Shevat</td><td>January - February</td></tr><tr><td>Adar</td><td>February - March</td></tr><tr><td>(Adar II)</td><td>February - March</td></tr><tr><td>Nisan</td><td>March - April</td></tr><tr><td>Iyyar</td><td>April - May</td></tr><tr><td>Sivan</td><td>May - June</td></tr><tr><td>Tammuz</td><td>June - July</td></tr><tr><td>Av</td><td>July - August</td></tr><tr><td>Elul</td><td>August - September</td></tr></table>
+| Months   | Approx. Gregorian Dates |
+| -------- | ----------------------- |
+| Tishri   | September - October     |
+| Heshvan  | October - November      |
+| Kislev   | November - December     |
+| Tevet    | December - January      |
+| Shevat   | January - February      |
+| Adar     | February - March        |
+| (Adar II)| February - March        |
+| Nisan    | March - April           |
+| Iyyar    | April - May             |
+| Sivan    | May - June              |
+| Tammuz   | June - July             |
+| Av       | July - August           |
+| Elul     | August - September      |
 
 ## Accuracy
 

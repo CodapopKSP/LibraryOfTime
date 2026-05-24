@@ -16,7 +16,18 @@ This calendar uses the same epoch as the Gregorian calendar and may not reflect 
 
 ## Info
 
-<table class="table-long"><tr><th>Year Cycle</th><th>English</th></tr><tr><td>𤝞</td><td>Rat</td></tr><tr><td>𤛠</td><td>Water Buffalo</td></tr><tr><td>𧲫</td><td>Tiger</td></tr><tr><td>猫</td><td>Cat</td></tr><tr><td>龍</td><td>Dragon</td></tr><tr><td>𧋻</td><td>Snake</td></tr><tr><td>馭</td><td>Horse</td></tr><tr><td>羝</td><td>Goat</td></tr><tr><td>𤠳</td><td>Monkey</td></tr><tr><td>𪂮</td><td>Rooster</td></tr></table>
+| Year Cycle | English       |
+| ---------- | ------------- |
+| 𤝞         | Rat           |
+| 𤛠         | Water Buffalo |
+| 𧲫         | Tiger         |
+| 猫         | Cat           |
+| 龍         | Dragon        |
+| 𧋻         | Snake         |
+| 馭         | Horse         |
+| 羝         | Goat          |
+| 𤠳         | Monkey        |
+| 𪂮         | Rooster       |
 
 ## Accuracy
 

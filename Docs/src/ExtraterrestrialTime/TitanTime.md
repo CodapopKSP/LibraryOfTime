@@ -17,7 +17,11 @@ Titan Meridian Time is a name that was chosen for this website and might not be 
 
 ## Info
 
-<table class="table-short"><tr><td>TMT</td><td>Standard Time</td></tr><tr><td>TMT Second</td><td>0.998068439 Seconds</td></tr><tr><td>TMT Minute</td><td>59.8841 Seconds</td></tr><tr><td>TMT Hour</td><td>59.8841 Minutes</td></tr></table>
+| TMT        | Standard Time       |
+| ---------- | ------------------- |
+| TMT Second | 0.998068439 Seconds |
+| TMT Minute | 59.8841 Seconds     |
+| TMT Hour   | 59.8841 Minutes     |
 
 As the orbit of Titan is not very inclined, midnight on Circad 1 is also roughly the time of a total solar eclipse on Saturn.
 

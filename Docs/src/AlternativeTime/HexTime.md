@@ -10,7 +10,26 @@ Hexadecimal time is a simple representation of the current fraction of a day in 
 
 ## Info
 
-<table class="table-long"><tr><th>Decimal</th><th>Hexadecimal</th></tr><tr><td>0</td><td>0000</td></tr><tr><td>1</td><td>0001</td></tr><tr><td>2</td><td>0002</td></tr><tr><td>3</td><td>0003</td></tr><tr><td>4</td><td>0004</td></tr><tr><td>5</td><td>0005</td></tr><tr><td>6</td><td>0006</td></tr><tr><td>7</td><td>0007</td></tr><tr><td>8</td><td>0008</td></tr><tr><td>9</td><td>0009</td></tr><tr><td>10</td><td>000A</td></tr><tr><td>11</td><td>000B</td></tr><tr><td>12</td><td>000C</td></tr><tr><td>13</td><td>000D</td></tr><tr><td>14</td><td>000E</td></tr><tr><td>15</td><td>000F</td></tr><tr><td>16</td><td>0010</td></tr><tr><td>17</td><td>0011</td></tr></table>
+| Decimal | Hexadecimal |
+| ------- | ----------- |
+| 0       | 0000        |
+| 1       | 0001        |
+| 2       | 0002        |
+| 3       | 0003        |
+| 4       | 0004        |
+| 5       | 0005        |
+| 6       | 0006        |
+| 7       | 0007        |
+| 8       | 0008        |
+| 9       | 0009        |
+| 10      | 000A        |
+| 11      | 000B        |
+| 12      | 000C        |
+| 13      | 000D        |
+| 14      | 000E        |
+| 15      | 000F        |
+| 16      | 0010        |
+| 17      | 0011        |
 
 ## Accuracy
 

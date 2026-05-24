@@ -12,7 +12,22 @@ The regular month lengths ensure that the first of every month always lands on a
 
 ## Info
 
-<table class="table-short"><tr><th>Calendar Unit</th><th>Days</th></tr><tr><td>New Years Day</td><td>1</td></tr><tr><td>January</td><td>30</td></tr><tr><td>February</td><td>30</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>30</td></tr><tr><td>June</td><td>31</td></tr><tr><td>(Leap Day)</td><td>1</td></tr><tr><td>July</td><td>30</td></tr><tr><td>August</td><td>30</td></tr><tr><td>September</td><td>31</td></tr><tr><td>October</td><td>30</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>
+| Calendar Unit | Days |
+| ------------- | ---- |
+| New Years Day | 1    |
+| January       | 30   |
+| February      | 30   |
+| March         | 31   |
+| April         | 30   |
+| May           | 30   |
+| June          | 31   |
+| (Leap Day)    | 1    |
+| July          | 30   |
+| August        | 30   |
+| September     | 31   |
+| October       | 30   |
+| November      | 30   |
+| December      | 31   |
 
 ## Accuracy
 

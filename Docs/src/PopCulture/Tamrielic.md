@@ -12,9 +12,30 @@ It has 12 months of 28-31 days along with weeks of seven days. Since the timelin
 
 ## Info
 
-<table class="table-very-long"><tr><th>Month</th><th>Days</th><th>Gregorian</th></tr><tr><td>Morning Star</td><td>31</td><td>January</td></tr><tr><td>Sun's Dawn</td><td>28 or 29</td><td>February</td></tr><tr><td>First Seed</td><td>31</td><td>March</td></tr><tr><td>Rain's Hand</td><td>30</td><td>April</td></tr><tr><td>Second Seed</td><td>31</td><td>May</td></tr><tr><td>Midyear</td><td>30</td><td>June</td></tr><tr><td>Sun's Height</td><td>31</td><td>July</td></tr><tr><td>Last Seed</td><td>31</td><td>August</td></tr><tr><td>Hearthfire</td><td>30</td><td>September</td></tr><tr><td>Frostfall</td><td>31</td><td>October</td></tr><tr><td>Sun's Dusk</td><td>30</td><td>November</td></tr><tr><td>Evening Star</td><td>31</td><td>December</td></tr></table>
+| Month        | Days      | Gregorian |
+| ------------ | --------- | --------- |
+| Morning Star | 31        | January   |
+| Sun's Dawn   | 28 or 29  | February  |
+| First Seed   | 31        | March     |
+| Rain's Hand  | 30        | April     |
+| Second Seed  | 31        | May       |
+| Midyear      | 30        | June      |
+| Sun's Height | 31        | July      |
+| Last Seed    | 31        | August    |
+| Hearthfire   | 30        | September |
+| Frostfall    | 31        | October   |
+| Sun's Dusk   | 30        | November  |
+| Evening Star | 31        | December  |
 
-<table class="table-long"><tr><th>Weekday</th><th>Gregorian</th></tr><tr><td>Morndas</td><td>Monday</td></tr><tr><td>Tirdas</td><td>Tuesday</td></tr><tr><td>Middas</td><td>Wednesday</td></tr><tr><td>Turdas</td><td>Thursday</td></tr><tr><td>Fredas</td><td>Friday</td></tr><tr><td>Loredas</td><td>Saturday</td></tr><tr><td>Sundas</td><td>Sunday</td></tr></table>
+| Weekday | Gregorian |
+| ------- | --------- |
+| Morndas | Monday    |
+| Tirdas  | Tuesday   |
+| Middas  | Wednesday |
+| Turdas  | Thursday  |
+| Fredas  | Friday    |
+| Loredas | Saturday  |
+| Sundas  | Sunday    |
 
 ## Accuracy
 

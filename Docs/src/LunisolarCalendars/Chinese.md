@@ -16,7 +16,20 @@ Different versions of this calendar use different eras, but this website uses 26
 
 The Chinese calendar is one of the most widespread calendars in history, used by various cultures in Asia and around the world either directly or as a base.
 
-<table class="table-long"><tr><th>Year Cycle</th><th>English</th></tr><tr><td>鼠</td><td>Rat</td></tr><tr><td>牛</td><td>Ox</td></tr><tr><td>虎</td><td>Tiger</td></tr><tr><td>兔</td><td>Rabbit</td></tr><tr><td>龍</td><td>Dragon</td></tr><tr><td>蛇</td><td>Snake</td></tr><tr><td>馬</td><td>Horse</td></tr><tr><td>羊</td><td>Goat</td></tr><tr><td>猴</td><td>Monkey</td></tr><tr><td>雞</td><td>Rooster</td></tr><tr><td>狗</td><td>Dog</td></tr><tr><td>豬</td><td>Pig</td></tr></table>
+| Year Cycle | English |
+| ---------- | ------- |
+| 鼠         | Rat     |
+| 牛         | Ox      |
+| 虎         | Tiger   |
+| 兔         | Rabbit  |
+| 龍         | Dragon  |
+| 蛇         | Snake   |
+| 馬         | Horse   |
+| 羊         | Goat    |
+| 猴         | Monkey  |
+| 雞         | Rooster |
+| 狗         | Dog     |
+| 豬         | Pig     |
 
 ## Accuracy
 

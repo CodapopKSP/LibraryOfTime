@@ -16,32 +16,26 @@ Leap years happen every 4 years but not on centennial years. Years are denoted w
 
 The Shire calendar took inspiration from many European calendars, including the Julian and Gregorian calendars for leap year rules as well as German calendars for month names and year structure. The leap year rules make its drift from the equinoxes a bit less than the Julian calendar but a bit more than the Gregorian.
 
-<table>
-  <thead>
-    <tr><th colspan="3">Months</th></tr>
-    <tr><th>Name</th><th>Days</th><th>Approx. Gregiorian</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>2 Yule</td><td>1</td><td>Dec</td></tr>
-    <tr><td>Afteryule</td><td>30</td><td>Dec - Jan</td></tr>
-    <tr><td>Solmath</td><td>30</td><td>Jan - Feb</td></tr>
-    <tr><td>Rethe</td><td>30</td><td>Feb - Mar</td></tr>
-    <tr><td>Astron</td><td>30</td><td>Mar - Apr</td></tr>
-    <tr><td>Thrimidge</td><td>30</td><td>Apr - May</td></tr>
-    <tr><td>Forelithe</td><td>30</td><td>May - Jun</td></tr>
-    <tr><td>1 Lithe</td><td>1</td><td>Jun</td></tr>
-    <tr><td>Mid-year's Day</td><td>1</td><td>Jun</td></tr>
-    <tr><td>Overlithe (leap)</td><td>1</td><td>Jun</td></tr>
-    <tr><td>2 Lithe</td><td>1</td><td>Jun</td></tr>
-    <tr><td>Afterlithe</td><td>30</td><td>Jun - Jul</td></tr>
-    <tr><td>Wedmath</td><td>30</td><td>Jul - Aug</td></tr>
-    <tr><td>Halimath</td><td>30</td><td>Aug - Sep</td></tr>
-    <tr><td>Winterfilth</td><td>30</td><td>Sep - Oct</td></tr>
-    <tr><td>Blotmath</td><td>30</td><td>Oct - Nov</td></tr>
-    <tr><td>Foreyule</td><td>30</td><td>Nov - Dec</td></tr>
-    <tr><td>1 Yule</td><td>1</td><td>Dec</td></tr>
-  </tbody>
-</table>
+| Name             | Days | Approx. Gregiorian |
+| ---------------- | ---- | ------------------ |
+| 2 Yule           | 1    | Dec                |
+| Afteryule        | 30   | Dec - Jan          |
+| Solmath          | 30   | Jan - Feb          |
+| Rethe            | 30   | Feb - Mar          |
+| Astron           | 30   | Mar - Apr          |
+| Thrimidge        | 30   | Apr - May          |
+| Forelithe        | 30   | May - Jun          |
+| 1 Lithe          | 1    | Jun                |
+| Mid-year's Day   | 1    | Jun                |
+| Overlithe (leap) | 1    | Jun                |
+| 2 Lithe          | 1    | Jun                |
+| Afterlithe       | 30   | Jun - Jul          |
+| Wedmath          | 30   | Jul - Aug          |
+| Halimath         | 30   | Aug - Sep          |
+| Winterfilth      | 30   | Sep - Oct          |
+| Blotmath         | 30   | Oct - Nov          |
+| Foreyule         | 30   | Nov - Dec          |
+| 1 Yule           | 1    | Dec                |
 
 | Weekdays |
 |---------|

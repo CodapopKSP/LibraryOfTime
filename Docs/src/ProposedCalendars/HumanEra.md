@@ -12,7 +12,20 @@ The Human Era, also known as the Holocene Era, is a Gregorian-derived calendar p
 
 The Human Era is an attempt to adapt the Gregorian calendar, which has become widespread enough that it could be considered the default calendar of the world, to an epoch that better encompasses human history. It chooses its epoch based on what may be the most significant moment in our ancient past: the time when humans first created civilization. Conventiently, this occurs roughly 10000 years before 1 AD, allowing for simple math to arrive at the converted date.
 
-<table class="table-long"><tr><th>Months</th><th>Days</th></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>28 or 29</td></tr><tr><td>March</td><td>31</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>31</td></tr></table>
+| Months    | Days     |
+| --------- | -------- |
+| January   | 31       |
+| February  | 28 or 29 |
+| March     | 31       |
+| April     | 30       |
+| May       | 31       |
+| June      | 30       |
+| July      | 31       |
+| August    | 31       |
+| September | 30       |
+| October   | 31       |
+| November  | 30       |
+| December  | 31       |
 
 ## Accuracy
 

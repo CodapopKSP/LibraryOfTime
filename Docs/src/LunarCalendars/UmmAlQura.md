@@ -16,7 +16,20 @@ The desert-faring culture of Islam is apparent in this calendar, as such a civil
 
 The Hijri calendar is on a roughly 37-year cycle when compared with the solar year. Dates and holidays drift throughout the entire year before arriving back where they started 37 years prior.
 
-<table class="table-long"><tr><th>Months</th></tr><tr><td>al-Muḥarram</td></tr><tr><td>Ṣafar</td></tr><tr><td>Rabīʿ al-ʾAwwal</td></tr><tr><td>Rabīʿ ath-Thānī</td></tr><tr><td>Jumādā al-ʾŪlā</td></tr><tr><td>Jumādā al-ʾĀkhirah</td></tr><tr><td>Rajab</td></tr><tr><td>Shaʿbān</td></tr><tr><td>Ramaḍān</td></tr><tr><td>Shawwāl</td></tr><tr><td>Dhū al-Qaʿdah</td></tr><tr><td>Dhū al-Ḥijjah</td></tr></table>
+| Months |
+| ------ |
+| al-Muḥarram |
+| Ṣafar |
+| Rabīʿ al-ʾAwwal |
+| Rabīʿ ath-Thānī |
+| Jumādā al-ʾŪlā |
+| Jumādā al-ʾĀkhirah |
+| Rajab |
+| Shaʿbān |
+| Ramaḍān |
+| Shawwāl |
+| Dhū al-Qaʿdah |
+| Dhū al-Ḥijjah |
 
 ## Accuracy
 

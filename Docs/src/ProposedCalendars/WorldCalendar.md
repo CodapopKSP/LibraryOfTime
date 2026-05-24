@@ -12,7 +12,22 @@ The regular month lengths ensure that the first of every month always lands on a
 
 ## Info
 
-<table class="table-short"><tr><th>Calendar Unit</th><th>Days</th></tr><tr><td>World's Day</td><td>1</td></tr><tr><td>January</td><td>31</td></tr><tr><td>February</td><td>30</td></tr><tr><td>March</td><td>30</td></tr><tr><td>April</td><td>31</td></tr><tr><td>May</td><td>30</td></tr><tr><td>June</td><td>30</td></tr><tr><td>(Leapyear Day)</td><td>1</td></tr><tr><td>July</td><td>31</td></tr><tr><td>August</td><td>30</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>31</td></tr><tr><td>November</td><td>30</td></tr><tr><td>December</td><td>30</td></tr></table>
+| Calendar Unit  | Days |
+| -------------- | ---- |
+| World's Day    | 1    |
+| January        | 31   |
+| February       | 30   |
+| March          | 30   |
+| April          | 31   |
+| May            | 30   |
+| June           | 30   |
+| (Leapyear Day) | 1    |
+| July           | 31   |
+| August         | 30   |
+| September      | 30   |
+| October        | 31   |
+| November       | 30   |
+| December       | 30   |
 
 ## Accuracy
 

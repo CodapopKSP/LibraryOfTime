@@ -14,7 +14,11 @@ The time is displayed as hours, minutes, and seconds since midnight on Mars at t
 
 This clock uses the Mars Sol Date for the calculation determining where midnight begins.
 
-<table class="table-short"><tr><td>MTC</td><td>Standard Time</td></tr><tr><td>MTC Second</td><td>1.02749125 Seconds</td></tr><tr><td>MTC Minute</td><td>61.649475 Seconds</td></tr><tr><td>MTC Hour</td><td>61.649475 Minutes</td></tr></table>
+| MTC        | Standard Time        |
+| ---------- | -------------------- |
+| MTC Second | 1.02749125 Seconds   |
+| MTC Minute | 61.649475 Seconds    |
+| MTC Hour   | 61.649475 Minutes    |
 
 ## Accuracy
 

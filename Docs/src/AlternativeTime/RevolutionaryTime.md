@@ -12,7 +12,11 @@ The French would have used Paris Mean Time (GMT + 00:09:21) but this website use
 
 ## Info
 
-<table class="table-short"><tr><td>Revolutionary Time</td><td>Standard Time</td></tr><tr><td>Decimal Second</td><td>0.864 Seconds</td></tr><tr><td>Decimal Minute</td><td>1.44 Minutes (86.4 Seconds)</td></tr><tr><td>Decimal Hour</td><td>2.4 Hours (144 Minutes)</td></tr></table>
+| Revolutionary Time | Standard Time                  |
+| ------------------ | ------------------------------ |
+| Decimal Second     | 0.864 Seconds                  |
+| Decimal Minute     | 1.44 Minutes (86.4 Seconds)    |
+| Decimal Hour       | 2.4 Hours (144 Minutes)        |
 
 ## Accuracy
 

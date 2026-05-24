@@ -18,9 +18,37 @@ Years follow a 12-year animal cycle similar to the Chinese lunisolar calendar an
 
 Kazakh nomads seem to have used the actual visual appearance of the moon at the point of eclipsing Pleiades as the month name. This makes the Togys Esebi calendar one of the few calendars that doesn't need complex rules or an authoritative body, being dictated by a very simple concept that is easy for any individual to check.
 
-<table class="table-very-very-long"><thead><tr><th colspan="2">Togys Esebi months</th></tr><tr><th>Month Name</th><th>Approximate Dates</th></tr></thead><tbody><tr><td>1 togys aiy</td><td>Apr–May</td></tr><tr><td>27 togys aiy<br>(14-month years only)</td><td>May–Jun</td></tr><tr><td>25 togys aiy</td><td>Jun</td></tr><tr><td>23 togys aiy</td><td>Jun–Jul</td></tr><tr><td>21 togys aiy</td><td>Jul–Aug</td></tr><tr><td>19 togys aiy</td><td>Aug</td></tr><tr><td>17 togys aiy</td><td>Aug–Sep</td></tr><tr><td>15 togys aiy</td><td>Sep–Oct</td></tr><tr><td>13 togys aiy</td><td>Oct</td></tr><tr><td>11 togys aiy</td><td>Oct–Nov</td></tr><tr><td>9 togys aiy</td><td>Nov–Dec</td></tr><tr><td>7 togys aiy</td><td>Dec–Jan</td></tr><tr><td>5 togys aiy</td><td>Jan–Feb</td></tr><tr><td>3 togys aiy</td><td>Feb–Mar</td></tr></tbody></table>
+| Month Name                      | Approximate Dates |
+| ------------------------------- | ----------------- |
+| 1 togys aiy                     | Apr–May           |
+| 27 togys aiy (14-month years only) | May–Jun        |
+| 25 togys aiy                    | Jun               |
+| 23 togys aiy                    | Jun–Jul           |
+| 21 togys aiy                    | Jul–Aug           |
+| 19 togys aiy                    | Aug               |
+| 17 togys aiy                    | Aug–Sep           |
+| 15 togys aiy                    | Sep–Oct           |
+| 13 togys aiy                    | Oct               |
+| 11 togys aiy                    | Oct–Nov           |
+| 9 togys aiy                     | Nov–Dec           |
+| 7 togys aiy                     | Dec–Jan           |
+| 5 togys aiy                     | Jan–Feb           |
+| 3 togys aiy                     | Feb–Mar           |
 
-<table><thead><tr><th colspan="1">Togys Esebi years</th></tr></thead><tbody><tr><td>Mouse</td></tr><tr><td>Cow</td></tr><tr><td>Leopard</td></tr><tr><td>Hare</td></tr><tr><td>Wolf</td></tr><tr><td>Snake</td></tr><tr><td>Horse</td></tr><tr><td>Sheep</td></tr><tr><td>Monkey</td></tr><tr><td>Hen</td></tr><tr><td>Dog</td></tr><tr><td>Boar</td></tr></tbody></table>
+| Togys Esebi years |
+| ----------------- |
+| Mouse             |
+| Cow               |
+| Leopard           |
+| Hare              |
+| Wolf              |
+| Snake             |
+| Horse             |
+| Sheep             |
+| Monkey            |
+| Hen               |
+| Dog               |
+| Boar              |
 
 ## Accuracy
 

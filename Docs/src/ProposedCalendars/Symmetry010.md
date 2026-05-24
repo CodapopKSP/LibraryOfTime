@@ -18,7 +18,21 @@ The format of the calendar allows each day of the year to always occur on the sa
 
 This calendar is calibrated using 1 January 1 CE as a reference date.
 
-<table class="table-short"><tr><th>Months</th><th>Days</th></tr><tr><td>January</td><td>30</td></tr><tr><td>February</td><td>31</td></tr><tr><td>March</td><td>30</td></tr><tr><td>April</td><td>30</td></tr><tr><td>May</td><td>31</td></tr><tr><td>June</td><td>30</td></tr><tr><td>July</td><td>30</td></tr><tr><td>August</td><td>31</td></tr><tr><td>September</td><td>30</td></tr><tr><td>October</td><td>30</td></tr><tr><td>November</td><td>31</td></tr><tr><td>December</td><td>30</td></tr><tr><td>Leap Week ("Irv")</td><td>7</td></tr></table>
+| Months           | Days |
+| ---------------- | ---- |
+| January          | 30   |
+| February         | 31   |
+| March            | 30   |
+| April            | 30   |
+| May              | 31   |
+| June             | 30   |
+| July             | 30   |
+| August           | 31   |
+| September        | 30   |
+| October          | 30   |
+| November         | 31   |
+| December         | 30   |
+| Leap Week ("Irv")| 7    |
 
 ## Accuracy
 

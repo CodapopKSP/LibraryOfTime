@@ -20,9 +20,18 @@ Callisto Meridian Time is a name that was chosen for this website and might not 
 
 Callisto is in a 2/4/8 Laplace resonance with Io, Europa, and Ganymede, so their solar days are equally comprised of 2/4/8 circads, though the length of their circads are very slightly different. The circad of Callisto is 21.16238 Earth hours long, which is then broken into 24 Callisto hours.
 
-<table class="table-short"><tr><td>CMT</td><td>Standard Time</td></tr><tr><td>CMT Second</td><td>0.8818025 Seconds</td></tr><tr><td>CMT Minute</td><td>52.90815 Seconds</td></tr><tr><td>CMT Hour</td><td>52.90815 Minutes</td></tr></table>
+| CMT        | Standard Time      |
+| ---------- | ------------------ |
+| CMT Second | 0.8818025 Seconds  |
+| CMT Minute | 52.90815 Seconds   |
+| CMT Hour   | 52.90815 Minutes   |
 
-<table class="table-short"><tr><td>Moon</td><td>Circad Length</td><td>Circads Per Orbit</td></tr><tr><td>Io</td><td>21.23833 Hours</td><td>2</td></tr><tr><td>Europa</td><td>21.32456 Hours</td><td>4</td></tr><tr><td>Ganymede</td><td>21.49916 Hours</td><td>8</td></tr><tr><td>Callisto</td><td>21.16238 Hours</td><td>19</td></tr></table>
+| Moon     | Circad Length  | Circads Per Orbit |
+| -------- | -------------- | ----------------- |
+| Io       | 21.23833 Hours | 2                 |
+| Europa   | 21.32456 Hours | 4                 |
+| Ganymede | 21.49916 Hours | 8                 |
+| Callisto | 21.16238 Hours | 19                |
 
 As the orbit of Callisto is not very inclined, midnight on Circad 1 is also roughly the time of a total solar eclipse on Jupiter.
 
