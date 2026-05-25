@@ -1,6 +1,6 @@
 #!/bin/bash
 # Unified build script
-# Runs both buildNodeData.js and mdbook build
+# Runs buildNodeData.js, mdbook build, and (optionally) the single-file HTML bundler
 
 set -e  # Exit on error
 
@@ -34,19 +34,43 @@ cd "$SCRIPT_DIR/Docs" || exit 1
 if ! command -v mdbook &> /dev/null; then
     echo "Warning: mdbook is not installed."
     echo "Skipping mdbook build. Install with: cargo install mdbook"
-    echo ""
-    echo "Build complete (nodeData.js only)"
-    exit 0
+else
+    mdbook build
+
+    if [ $? -eq 0 ]; then
+        echo ""
+        echo "✓ mdbook build complete! Output is in Docs/book/"
+    else
+        echo "Error: mdbook build failed!"
+        exit 1
+    fi
 fi
 
-mdbook build
+cd "$SCRIPT_DIR" || exit 1
 
-if [ $? -eq 0 ]; then
-    echo ""
-    echo "✓ mdbook build complete! Output is in Docs/book/"
+echo ""
+echo "Step 3: Bundling and minifying site (release.py)..."
+echo "---------------------------------------------------"
+
+if ! command -v python3 &> /dev/null; then
+    echo "Warning: python3 is not installed."
+    echo "Skipping HTML bundle. Install Python 3 and: pip install -r actions/requirements.txt"
+elif ! python3 -c "import bs4, minify_html, PIL" 2>/dev/null; then
+    echo "Warning: bundler dependencies are not installed."
+    echo "Skipping HTML bundle. Install with:"
+    echo "  pip install -r actions/requirements.txt"
 else
-    echo "Error: mdbook build failed!"
-    exit 1
+    cd "$SCRIPT_DIR/actions" || exit 1
+    python3 release.py
+
+    if [ $? -eq 0 ]; then
+        echo ""
+        echo "✓ HTML bundle complete!"
+        echo "  Open actions/dist/minified.html in a browser (~1.6 MB single-file site)"
+    else
+        echo "Error: release.py failed!"
+        exit 1
+    fi
 fi
 
 echo ""

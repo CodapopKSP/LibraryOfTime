@@ -26,6 +26,11 @@ py release.py
 ```
 
 # Output
-The Bundler will generate two HTML files. `full.html` is a mere copy of the entire repo in a single file, including all comments and white spaces. `minified.html` is the highly optimized and compressed version.
+The bundler writes two HTML files under `dist/` (gitignored):
 
-Thanks to a GitHub Action, an up to date version of `minified.html` will be generated as a Release on every commit on the main branch of the repository.
+- `dist/full.html` — single file with inlined JS/CSS and readable formatting (~1.7 MB)
+- `dist/minified.html` — compressed version for releases; open this in a browser to test the offline build
+
+After a successful run, `release.py` also updates the size badge in the repo root `README.md` from `dist/minified.html`.
+
+Thanks to a GitHub Action, an up to date version of `dist/minified.html` will be generated as a Release on every commit on the main branch of the repository.

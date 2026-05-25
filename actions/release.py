@@ -5,6 +5,21 @@ import base64
 import io
 import re
 import os
+import json
+from urllib.parse import quote
+
+OUTPUT_DIR = 'dist'
+
+
+def load_readme_badge_config():
+    config_path = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', 'readmeBadges.json'))
+    with open(config_path, 'r', encoding='utf-8') as config_file:
+        return json.load(config_file)
+
+
+def readme_badge_regex(alt_text):
+    return re.compile(rf'!\[{re.escape(alt_text)}\]\(https://img\.shields\.io/badge/[^)]+\)')
+
 
 def main():
     with open('../index.html', 'r', encoding='utf-8') as in_file:
@@ -64,21 +79,27 @@ def main():
 
         inline_content_images_in_html(soup)
 
-        # Copy images to output directory for Vercel deployment
-        copy_images_to_output()
-        
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+
         # Save to HTML file (full)
         pretty_html = soup.prettify()
-        with open('./full.html', "w", encoding="utf-8") as file:
+        full_path = os.path.join(OUTPUT_DIR, 'full.html')
+        with open(full_path, "w", encoding="utf-8") as file:
             file.write(pretty_html)
-        
+
         # Minify HTML file and save again
         # minify_js=False: the JS minifier causes scope collisions (e.g. weekNames->w vs local const w)
         # leading to "w is not defined" ReferenceError in production
         minified = minify_html.minify(pretty_html, minify_js=False, minify_css=True, remove_processing_instructions=True)
 
-        with open('minified.html', 'w', encoding="utf-8") as out_file:
+        minified_path = os.path.join(OUTPUT_DIR, 'minified.html')
+        with open(minified_path, 'w', encoding="utf-8") as out_file:
             out_file.write(minified)
+
+        minified_bytes = os.path.getsize(minified_path)
+        update_readme_minified_size_badge(minified_bytes)
+
+        print(f"Wrote {full_path} and {minified_path}")
 
 
 # Returns a string containing the content of all script tags
@@ -115,12 +136,6 @@ def process_images_in_js(js_content):
         if data_uri:
             print(f"Successfully converted Content/{rel_path} to data URI")
             return f'src="{data_uri}"'
-
-        # Fallback for OnMakingLoTImages only (copied beside minified.html for Vercel)
-        if rel_path.startswith('OnMakingLoTImages/'):
-            subpath = rel_path[len('OnMakingLoTImages/'):]
-            print(f"Failed to convert Content/{rel_path}, using ./OnMakingLoTImages/{subpath}")
-            return f'src="./OnMakingLoTImages/{subpath}"'
 
         print(f"Failed to convert Content/{rel_path}, leaving src unchanged")
         return match.group(0)
@@ -238,21 +253,44 @@ def image_to_data_uri(image_path):
         print(f"Error converting {image_path}: {e}")
         return ""
 
-# Copy images to output directory for Vercel deployment
-def copy_images_to_output():
-    """Copy OnMakingLoTImages folder to the actions directory for deployment"""
-    import shutil
-    
-    source_dir = '../Content/OnMakingLoTImages'
-    dest_dir = './OnMakingLoTImages'
-    
-    if os.path.exists(source_dir):
-        if os.path.exists(dest_dir):
-            shutil.rmtree(dest_dir)
-        shutil.copytree(source_dir, dest_dir)
-        print(f"Copied images from {source_dir} to {dest_dir}")
-    else:
-        print(f"Warning: Source directory {source_dir} not found")
+
+def format_minified_size_for_badge(num_bytes):
+    """Human-readable size for the README shields.io badge."""
+    if num_bytes >= 1024 * 1024:
+        mb = num_bytes / (1024 * 1024)
+        return f'{mb:.1f} MB' if mb < 10 else f'{int(round(mb))} MB'
+    if num_bytes >= 1024:
+        return f'{round(num_bytes / 1024)} KB'
+    return f'{num_bytes} B'
+
+
+def update_readme_minified_size_badge(minified_bytes):
+    """Set README.md size badge to the minified single-file output size."""
+    badge_cfg = load_readme_badge_config()['librarySize']
+    alt_text = badge_cfg['altText']
+    shields_color = badge_cfg['shieldsColor']
+    readme_path = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', 'README.md'))
+    size_label = format_minified_size_for_badge(minified_bytes)
+    badge_url = (
+        f'https://img.shields.io/badge/'
+        f'{quote(alt_text, safe="")}-{quote(size_label, safe="")}-{shields_color}'
+    )
+    new_line = f'![{alt_text}]({badge_url})'
+    badge_re = readme_badge_regex(alt_text)
+
+    with open(readme_path, 'r', encoding='utf-8') as readme_file:
+        content = readme_file.read()
+
+    if not badge_re.search(content):
+        print('Warning: README.md size badge not found; skipping badge update')
+        return
+
+    new_content = badge_re.sub(new_line, content, count=1)
+    with open(readme_path, 'w', encoding='utf-8') as readme_file:
+        readme_file.write(new_content)
+
+    print(f'Updated README.md size badge: {size_label} ({shields_color})')
+
 
 if __name__ == "__main__":
     main()

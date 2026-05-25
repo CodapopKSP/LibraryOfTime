@@ -31,8 +31,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: v0.${{ github.run_id }}-${{ github.run_attempt }}
-        release_name: Minified site
-        body: The entire site compressed into a single .html file. This release is created automatically on every push to the repo. Please disregard the version number and simply download the latest one.
+        release_name: Library of Time
+        body: The entire Library of Time website compressed into a single .html file. This release is created automatically on every push to the repo. Please disregard the version number and simply download the latest one.
         draft: false
         prerelease: false
 
@@ -43,7 +43,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: "./actions/minified.html"
+        asset_path: "./actions/dist/minified.html"
         asset_name: library_of_time.html
         asset_content_type: text/html
 

@@ -618,6 +618,73 @@ function formatNodeDataArray(nodeDataArray, variableName) {
     return `const ${variableName} = [\n${items}\n];\n`;
 }
 
+function loadReadmeBadgeConfig() {
+    const configPath = path.join(__dirname, 'readmeBadges.json');
+    return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+}
+
+function readmeBadgeRegex(altText) {
+    const escaped = altText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`!\\[${escaped}\\]\\(https:\\/\\/img\\.shields\\.io\\/badge\\/[^)]+\\)`);
+}
+
+function updateReadmeEntriesBadge(nodeCount) {
+    const { altText, shieldsColor } = loadReadmeBadgeConfig().libraryEntries;
+    const readmePath = path.join(__dirname, 'README.md');
+    const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(altText)}-${nodeCount}-${shieldsColor}`;
+    const newLine = `![${altText}](${badgeUrl})`;
+    const badgeRe = readmeBadgeRegex(altText);
+
+    let content = fs.readFileSync(readmePath, 'utf8');
+    if (!badgeRe.test(content)) {
+        console.warn('Warning: README.md Library Entries badge not found; skipping badge update');
+        return;
+    }
+    content = content.replace(badgeRe, newLine);
+    fs.writeFileSync(readmePath, content, 'utf8');
+    console.log(`Updated README.md entries badge: ${nodeCount} (${shieldsColor})`);
+}
+
+function countTestSuiteFunctions() {
+    const testsDir = path.join(__dirname, 'Tests');
+    const skipFiles = new Set(['runTests.js', 'runCalendarDevTests.js']);
+    let total = 0;
+
+    for (const fileName of fs.readdirSync(testsDir)) {
+        if (!fileName.endsWith('.js') || skipFiles.has(fileName)) {
+            continue;
+        }
+        const source = fs.readFileSync(path.join(testsDir, fileName), 'utf8');
+        for (const match of source.matchAll(/const\s+testFunctions\s*=\s*\[([\s\S]*?)\];/g)) {
+            const names = match[1].match(/\btest[A-Za-z0-9_]+\b/g);
+            if (names) {
+                total += names.length;
+            }
+        }
+    }
+
+    return total;
+}
+
+function updateReadmeTestCoverageBadge(testCount, entryCount) {
+    const { altText, shieldsColor } = loadReadmeBadgeConfig().testCoverage;
+    const percent = entryCount > 0 ? Math.round((testCount / entryCount) * 100) : 0;
+    const badgeValue = `${percent}%`;
+    const readmePath = path.join(__dirname, 'README.md');
+    const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(altText)}-${encodeURIComponent(badgeValue)}-${shieldsColor}`;
+    const newLine = `![${altText}](${badgeUrl})`;
+    const badgeRe = readmeBadgeRegex(altText);
+
+    let content = fs.readFileSync(readmePath, 'utf8');
+    if (!badgeRe.test(content)) {
+        console.warn('Warning: README.md Test Coverage badge not found; skipping badge update');
+        return;
+    }
+    content = content.replace(badgeRe, newLine);
+    fs.writeFileSync(readmePath, content, 'utf8');
+    console.log(`Updated README.md test coverage badge: ${testCount}/${entryCount} (${badgeValue}, ${shieldsColor})`);
+}
+
 // Main build function
 function build() {
     const docsSrcPath = path.join(__dirname, 'Docs/src');
@@ -748,6 +815,8 @@ ${arrayReferences.join(',\n')}
 `;
     
     fs.writeFileSync(outputPath, jsOutput, 'utf8');
+    updateReadmeEntriesBadge(totalFiles);
+    updateReadmeTestCoverageBadge(countTestSuiteFunctions(), totalFiles);
     console.log('\nGenerated:', outputPath);
     console.log('Build complete!');
 }

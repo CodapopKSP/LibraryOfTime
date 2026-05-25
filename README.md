@@ -6,7 +6,10 @@ The mission of this website is to create a collection of every calendar with a v
 
 https://libraryoftime.xyz
 
----
+<!-- Badges: colors in readmeBadges.json; entries & test coverage from buildNodeData.js; size from release.py -->
+![Library Entries](https://img.shields.io/badge/Library%20Entries-148-blue)
+![Library Size](https://img.shields.io/badge/Library%20Size-1.6%20MB-orange)
+![Test Coverage](https://img.shields.io/badge/Test%20Coverage-72%25-brightgreen)
 
 ## Deployment
 
