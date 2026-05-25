@@ -46,13 +46,13 @@ Each step below is required unless explicitly skipped by the user.
    - **Accuracy** (stub section).
    - **Source** (stub section).
    - Keep all sections present even if their bodies are just short placeholder sentences, and add **no detailed content** unless the user explicitly requested text (respect the project’s `Docs/` rule).
-3. Ensure the new file is referenced in `Docs/src/SUMMARY.md` under the right section, so `buildNodeData.js` will include it.
+3. Ensure the new file is referenced in `Docs/src/SUMMARY.md` under the right section, so `actions/buildNodeData.js` will include it.
 
 ### Reference tables in `#### Info` (months, weekdays, alignment)
 
 When adding **month names**, **weekday names**, or similar reference material:
 
-- Use **markdown tables** with a **header row** (required for mdBook and `buildNodeData.js` table conversion).
+- Use **markdown tables** with a **header row** (required for mdBook and `actions/buildNodeData.js` table conversion).
 - **Months:** Include month order/number, **days per month** (or an explicit rule when lengths vary), and **names**. If names are given in a **non-Latin script**, include a **Latin transliteration** column (or Latin-letter names) beside the native script so readers can parse the table without the script.
 - **Weekdays:** Include order (e.g. Sunday first) and names; state in the header if the week **starts on a different day** than Sunday.
 - **Approximate Gregorian alignment:** Add a column, footnote row, or small separate table **only when** the calendar maps in a stable, documentable way to Gregorian months or seasons. When there is **no** meaningful fixed mapping (e.g. a **drifting** 365-day solar year, or a lunar/lunisolar calendar unrelated to Gregorian months), use a one-row table or single cell with **Not applicable** (or an em dash)—**do not** invent long explanatory prose unless the user explicitly asks for body copy.
@@ -64,7 +64,7 @@ When adding **month names**, **weekday names**, or similar reference material:
 
 1. Run the build pipeline to regenerate `Content/nodeData.js` and the mdBook output, typically via:
    - `bash build.sh`
-   - or directly `node buildNodeData.js` if only `Content/nodeData.js` is needed.
+   - or directly `node actions/buildNodeData.js` if only `Content/nodeData.js` is needed.
 2. **Do not edit** `Content/nodeData.js` by hand; it is generated.
 3. After the build, locate the new node entry in `Content/nodeData.js`:
    - Search by the doc filename or title.
@@ -154,7 +154,7 @@ The main grid and `nodeUpdate.js` are not enough for the **Calendar View** side 
 Before considering a new calendar/time system “hooked up”, confirm:
 
 - [ ] A Docs stub exists in `Docs/src/...` with title/outline and is referenced from `Docs/src/SUMMARY.md`.
-- [ ] `Content/nodeData.js` has been regenerated (via `build.sh` or `buildNodeData.js`), and the node id is known.
+- [ ] `Content/nodeData.js` has been regenerated (via `build.sh` or `actions/buildNodeData.js`), and the node id is known.
 - [ ] A main implementation function exists in the correct `CalendarAPI/...` file, following existing patterns and conventions.
 - [ ] `nodeUpdate.js` calls `setTimeValue` for this node id using the main function.
 - [ ] **`calendarView.js`:** `buildNodeValueGetters` includes an entry for the node’s short `id` (so Calendar View cells and month shading work when that system is selected).

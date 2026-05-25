@@ -1,10 +1,15 @@
 #!/bin/bash
 # Unified build script
-# Runs buildNodeData.js, mdbook build, and (optionally) the single-file HTML bundler
+# Runs actions/buildNodeData.js, mdbook build, and (optionally) the single-file HTML bundler
 
 set -e  # Exit on error
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# README shields.io badge colors (names or hex without #)
+export LOT_README_BADGE_LIBRARY_ENTRIES_COLOR=blue
+export LOT_README_BADGE_LIBRARY_SIZE_COLOR=orange
+export LOT_README_BADGE_TEST_COVERAGE_COLOR=brightgreen
 
 echo "=========================================="
 echo "  Library of Time - Build Script"
@@ -14,10 +19,10 @@ echo ""
 # Step 1: Build nodeData.js from markdown files
 echo "Step 1: Building nodeData.js from markdown files..."
 echo "---------------------------------------------------"
-node "$SCRIPT_DIR/buildNodeData.js"
+node "$SCRIPT_DIR/actions/buildNodeData.js"
 
 if [ $? -ne 0 ]; then
-    echo "Error: buildNodeData.js failed!"
+    echo "Error: actions/buildNodeData.js failed!"
     exit 1
 fi
 

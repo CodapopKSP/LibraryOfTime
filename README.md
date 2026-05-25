@@ -1,12 +1,11 @@
 # The Library of Time
 
-![Library Animated SVG](The%20Library.svg)
+![Library Animated SVG](actions/The%20Library.svg)
 
 The mission of this website is to create a collection of every calendar with a verifiable date at a specific point in time, as well as other methods of timekeeping. It is to be a celebration of time as counted by humans from all walks of life, displaying all of the unique ways different people chose to satisfy one of humanity's earliest and most universal curiosities.
 
 https://libraryoftime.xyz
 
-<!-- Badges: colors in readmeBadges.json; entries & test coverage from buildNodeData.js; size from release.py -->
 ![Library Entries](https://img.shields.io/badge/Library%20Entries-148-blue)
 ![Library Size](https://img.shields.io/badge/Library%20Size-1.6%20MB-orange)
 ![Test Coverage](https://img.shields.io/badge/Test%20Coverage-72%25-brightgreen)
@@ -27,7 +26,7 @@ This command should be run from the Docs directory. It will generate the HTML fi
 
 The Library of Time is written entirely in vanilla HTML/JS/CSS. There must not be any imported packages nor external API.
 
-*Currently there is one exception (masonry.pkgd.min.js) purely to make the calendar groups more pleasing to look at. The website does not need it to function and should eventually be phased out.*
+*Currently there is one exception (`UserInterface/masonry.pkgd.min.js`) purely to make the calendar groups more pleasing to look at. The website does not need it to function and should eventually be phased out.*
 
 Calendars should be rigorously tested to ensure accuracy. These tests can be found in /Tests, and they can be run by uncommenting the following line located in runTests.js
 

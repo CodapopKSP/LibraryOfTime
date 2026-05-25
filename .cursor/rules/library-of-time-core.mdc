@@ -8,7 +8,7 @@ alwaysApply: true
 - **Tech constraints**
   - Use only vanilla HTML, JavaScript, and CSS.
   - Do not introduce build tools, frameworks, or dependencies.
-  - Do not add new external scripts, CDNs, or APIs beyond the existing `masonry.pkgd.min.js` file.
+  - Do not add new external scripts, CDNs, or APIs beyond the existing `UserInterface/masonry.pkgd.min.js` file.
   - The site must continue to work when `index.html` is opened directly from disk.
 
 - **Deployment model**

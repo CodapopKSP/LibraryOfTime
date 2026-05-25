@@ -5,16 +5,18 @@ import base64
 import io
 import re
 import os
-import json
 from urllib.parse import quote
 
 OUTPUT_DIR = 'dist'
 
 
 def load_readme_badge_config():
-    config_path = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', 'readmeBadges.json'))
-    with open(config_path, 'r', encoding='utf-8') as config_file:
-        return json.load(config_file)
+    return {
+        'librarySize': {
+            'altText': 'Library Size',
+            'shieldsColor': os.environ.get('LOT_README_BADGE_LIBRARY_SIZE_COLOR', 'orange'),
+        },
+    }
 
 
 def readme_badge_regex(alt_text):

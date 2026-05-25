@@ -1,5 +1,18 @@
-# Bundler
-The `release.py` compresses the Library of Time project into a single .html file. The file can then be ran on client side without the need for a web server or even an internet connection. Specifically:
+# Build scripts
+
+## `buildNodeData.js`
+
+Generates `Content/nodeData.js` from markdown in `Docs/src`, and updates the Library Entries and Test Coverage badges in the root `README.md`. Run from the repo root via `bash build.sh` (Step 1) or:
+
+```bash
+node actions/buildNodeData.js
+```
+
+Badge colors are set by environment variables exported from `build.sh`.
+
+## `release.py`
+
+The bundler compresses the Library of Time project into a single .html file. The file can then be ran on client side without the need for a web server or even an internet connection. Specifically:
 
 - JS files are compressed into a single string and embeded in a `<script>` tag at the bottom of the page
 - CSS files are copied into a single `<style>` tag in the page he ader

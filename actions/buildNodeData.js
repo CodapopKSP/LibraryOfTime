@@ -9,6 +9,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const REPO_ROOT = path.join(__dirname, '..');
+
 // Map directory names to node types
 const directoryToType = {
     'StandardTime': 'Standard Time',
@@ -554,7 +556,7 @@ const typeToVariableName = {
 
 // Parse SUMMARY.md to get the ordered list of files
 function parseSummaryForFileOrder() {
-    const summaryPath = path.join(__dirname, 'Docs/src/SUMMARY.md');
+    const summaryPath = path.join(REPO_ROOT, 'Docs/src/SUMMARY.md');
     const summaryContent = fs.readFileSync(summaryPath, 'utf8');
     const lines = summaryContent.split('\n');
     
@@ -619,8 +621,20 @@ function formatNodeDataArray(nodeDataArray, variableName) {
 }
 
 function loadReadmeBadgeConfig() {
-    const configPath = path.join(__dirname, 'readmeBadges.json');
-    return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    return {
+        libraryEntries: {
+            altText: 'Library Entries',
+            shieldsColor: process.env.LOT_README_BADGE_LIBRARY_ENTRIES_COLOR || 'blue',
+        },
+        librarySize: {
+            altText: 'Library Size',
+            shieldsColor: process.env.LOT_README_BADGE_LIBRARY_SIZE_COLOR || 'orange',
+        },
+        testCoverage: {
+            altText: 'Test Coverage',
+            shieldsColor: process.env.LOT_README_BADGE_TEST_COVERAGE_COLOR || 'brightgreen',
+        },
+    };
 }
 
 function readmeBadgeRegex(altText) {
@@ -630,7 +644,7 @@ function readmeBadgeRegex(altText) {
 
 function updateReadmeEntriesBadge(nodeCount) {
     const { altText, shieldsColor } = loadReadmeBadgeConfig().libraryEntries;
-    const readmePath = path.join(__dirname, 'README.md');
+    const readmePath = path.join(REPO_ROOT, 'README.md');
     const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(altText)}-${nodeCount}-${shieldsColor}`;
     const newLine = `![${altText}](${badgeUrl})`;
     const badgeRe = readmeBadgeRegex(altText);
@@ -646,7 +660,7 @@ function updateReadmeEntriesBadge(nodeCount) {
 }
 
 function countTestSuiteFunctions() {
-    const testsDir = path.join(__dirname, 'Tests');
+    const testsDir = path.join(REPO_ROOT, 'Tests');
     const skipFiles = new Set(['runTests.js', 'runCalendarDevTests.js']);
     let total = 0;
 
@@ -670,7 +684,7 @@ function updateReadmeTestCoverageBadge(testCount, entryCount) {
     const { altText, shieldsColor } = loadReadmeBadgeConfig().testCoverage;
     const percent = entryCount > 0 ? Math.round((testCount / entryCount) * 100) : 0;
     const badgeValue = `${percent}%`;
-    const readmePath = path.join(__dirname, 'README.md');
+    const readmePath = path.join(REPO_ROOT, 'README.md');
     const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(altText)}-${encodeURIComponent(badgeValue)}-${shieldsColor}`;
     const newLine = `![${altText}](${badgeUrl})`;
     const badgeRe = readmeBadgeRegex(altText);
@@ -687,8 +701,8 @@ function updateReadmeTestCoverageBadge(testCount, entryCount) {
 
 // Main build function
 function build() {
-    const docsSrcPath = path.join(__dirname, 'Docs/src');
-    const outputPath = path.join(__dirname, 'Content', 'nodeData.js');
+    const docsSrcPath = path.join(REPO_ROOT, 'Docs/src');
+    const outputPath = path.join(REPO_ROOT, 'Content', 'nodeData.js');
     
     console.log('Parsing SUMMARY.md for file order...');
     const fileOrder = parseSummaryForFileOrder();
