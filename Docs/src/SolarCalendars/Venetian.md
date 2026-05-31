@@ -27,6 +27,16 @@ It differed from the Julian calendar with years beginning on March 1st. The Vene
 | January   | 31       |
 | February  | 28 or 29 |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 This calendar is based on the Julian calendar and is considered to be exactly accurate.

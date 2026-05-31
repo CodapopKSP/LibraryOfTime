@@ -33,6 +33,16 @@ After the initial 10-day skip in 1582 and the following centuries to the 21st ce
 | November  | 30       |
 | December  | 31       |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 The Gregorian calendar is exactly accurate, as it is what this entire site is based on. However, it does drift from the solar year ever so slightly at a rate of about 1 day every 3030 years without taking axial precession into account, or 1 day every 7700 years if taken into account.

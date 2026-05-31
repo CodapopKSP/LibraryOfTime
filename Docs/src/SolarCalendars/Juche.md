@@ -12,6 +12,16 @@ The Juche calendar was a Gregorian-derived calendar used in North Korea. It repr
 
 Juche refers to the specific ideology of the Worker's Party of Korea and is related to Marxist-Leninism.
 
+| Weekdays  |        |
+| --------- | ------ |
+| Sunday    | 일요일 |
+| Monday    | 월요일 |
+| Tuesday   | 화요일 |
+| Wednesday | 수요일 |
+| Thursday  | 목요일 |
+| Friday    | 금요일 |
+| Saturday  | 토요일 |
+
 ## Accuracy
 
 The Juche calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.

@@ -39,6 +39,16 @@ The new year starts on the day that the equinox occurs before noon in Iran, or t
 | Ayyám-i-Há | 4 or 5 | Feb 26 - Mar 1         |
 | 'Alá'      | 19     | Mar 2 - Mar 20         |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | Jamál |
+| Monday | Kamál |
+| Tuesday | Fiḍál |
+| Wednesday | ‘Idál |
+| Thursday | Istijlál |
+| Friday | Istiqlál |
+| Saturday | Jalál |
+
 ## Accuracy
 
 The accuracy of this calendar depends on the equinox calculations and may be off by a day for a whole year especially if it happens very close to sunset, but it is likely to self-correct by the next year. The equation breaks down considerably if rolled back or forward several thousand years as the equinox drifts due to precession and Terrestrial Time invokes inaccuracies.

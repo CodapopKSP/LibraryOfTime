@@ -25,6 +25,16 @@ The Thai solar calendar is a Gregorian-derived calendar used in Thailand. It rep
 | พฤศจิกายน  | November  | 30       |
 | ธันวาคม    | December  | 31       |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | อาทิตย์ |
+| Monday | จันทร์ |
+| Tuesday | อังคาร |
+| Wednesday | พุธ |
+| Thursday | พฤหัสบดี |
+| Friday | ศุกร์ |
+| Saturday | เสาร์ |
+
 ## Accuracy
 
 The Thai solar calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.

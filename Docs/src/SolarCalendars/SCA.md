@@ -27,6 +27,16 @@ Years are written as roman numerals and denoted with 'A.S.', short for 'Anno Soc
 | November  | 30    |
 | December  | 31    |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 As this calendar is based off the Gregorian calendar, this calculation is exactly accurate.

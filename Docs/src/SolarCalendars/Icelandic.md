@@ -33,6 +33,16 @@ Because of the 4 days of Aukanætur, Summer is slightly longer than Winter, and 
 | Góa                   | 30   | Winter |
 | Einmánuðr             | 30   | Winter |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | sunnudagr |
+| Monday | mánadagr |
+| Tuesday | týrsdagr |
+| Wednesday | óðinsdagr |
+| Thursday | þorsdagr |
+| Friday | frjádagr |
+| Saturday | laugardagr |
+
 ## Accuracy
 
 This calendar has a long history with several slight changes, especially regarding modern/old names and specific starting and ending times of misseri and weeks. I am reasonably sure it is accurate to official sources, but the information is somewhat fragmented.

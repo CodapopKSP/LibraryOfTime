@@ -12,6 +12,16 @@ Years are denoted with 'AL', which stands for Anno Lucis, meaning "in the Year o
 
 ## Info
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 As this is a simple addition to the Gregorian calendar, this calculation is exactly accurate.

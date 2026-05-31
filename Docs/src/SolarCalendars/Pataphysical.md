@@ -28,6 +28,16 @@ It features 13 months of 29 days, though for each month the 29th day is imaginar
 | Tatane      | 28       | Shoe or being worn out | Jul 14 - Aug 10        |
 | Phalle      | 28       | Phallus                | Aug 11 - Sept 7        |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | Dimanche |
+| Monday | Lundi |
+| Tuesday | Mardi |
+| Wednesday | Mercredi |
+| Thursday | Jeudi |
+| Friday | Vendredi |
+| Saturday | Samedi |
+
 ## Accuracy
 
 The Pataphysical calendar is based off the Gregorian calendar and is thus exactly accurate.

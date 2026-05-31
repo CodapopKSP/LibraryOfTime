@@ -29,6 +29,16 @@ New Year's Day is always on 2 November in the Gregorian calendar, and leap years
 | Sawwara            | 30    | August 29    |
 | Negus & Dejazmatch | 35    | September 28 |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | Ergat |
+| Monday | Tazajenat |
+| Tuesday | Kedusenant |
+| Wednesday | Ra'ee |
+| Thursday | Makrab |
+| Friday | Mamlak |
+| Saturday | Germa |
+
 ## Accuracy
 
 As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.

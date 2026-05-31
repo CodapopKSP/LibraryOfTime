@@ -28,6 +28,16 @@ It differs from the Julian calendars with years beginning on March 25th, meaning
 | February            | 28 or 29 |
 | March (1st - 24th)  | 24       |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 This calendar is based on the Julian calendar and is considered to be exactly accurate.

@@ -50,6 +50,16 @@ Compared to the Gregorian calendar, the Qadimi calendar drifts by about 1 day ev
 | 1: Ahunavaiti   | 2: Ushtavaiti    | 3: Spentamainyu |
 | 4: Vohuxshathra | 5: Vahishtoishti |                 |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | Jomeh |
+| Monday | Shanbeh |
+| Tuesday | Yekshanbeh |
+| Wednesday | Doshanbeh |
+| Thursday | Seshanbeh |
+| Friday | Chaharshanbeh |
+| Saturday | Panjshanbeh |
+
 ## Accuracy
 
 This calendar is a simple calculation with a known epoch. However, historically this calendar has received many revisions, particularly prior to 1006 CE, so the dates here might not accurately reflect historical dates.

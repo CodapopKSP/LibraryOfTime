@@ -31,6 +31,16 @@ The new year starts on the day that the equinox occurs before noon in Iran, or t
 | Bahman      | Aquarius    | 30       |
 | Esfand      | Pisces      | 29 or 30 |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | Shanbeh |
+| Monday | Yekshanbeh |
+| Tuesday | Doshanbeh |
+| Wednesday | Seshanbeh |
+| Thursday | Chaharshanbeh |
+| Friday | Panjshanbeh |
+| Saturday | Jomeh |
+
 ## Accuracy
 
 This calendar is reasonably accurate for modern years, but as its calculation relies on the calculation of the equinox, it may experience significant errors for years that are thousands of years out from modern times. It also approximates sunset in Tehran.

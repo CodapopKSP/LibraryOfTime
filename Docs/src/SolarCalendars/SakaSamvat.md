@@ -31,6 +31,16 @@ As it follows the intercalation rules of the Gregorian calendar, its months star
 | Magha      | 30       |
 | Phalguna   | 30       |
 
+| Weekdays | | |
+| -------- | -------- | -------- |
+| Sunday | Ravivāra | Ravivara |
+| Monday | Somavāra | Somavara |
+| Tuesday | Maṅgalavāra | Mangalavara |
+| Wednesday | Budhavāra | Budhavara |
+| Thursday | Bṛhaspativāra | Brihaspativara |
+| Friday | Śukravāra | Shukravara |
+| Saturday | Śanivāra | Shanivara |
+
 ## Accuracy
 
 As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.

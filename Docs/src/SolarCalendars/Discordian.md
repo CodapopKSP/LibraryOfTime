@@ -23,6 +23,14 @@ Years are denoted with 'YOLD' meaning 'Year of Our Lady Discord'.
 | The Aftermath | 73   | Oct 20 - Dec 31        |
 | St. Tib's Day | 1    | Feb 29                 |
 
+| # | Weekday         |
+| - | --------------- |
+| 1 | Sweetmorn       |
+| 2 | Boomtime        |
+| 3 | Pungenday       |
+| 4 | Prickle-Prickle |
+| 5 | Setting Orange  |
+
 ## Accuracy
 
 The Discordian calendar is based off the Gregorian calendar and is thus exactly accurate.

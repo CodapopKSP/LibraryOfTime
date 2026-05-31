@@ -29,6 +29,16 @@ Years are not denoted with anything and are simply listed as a positive or negat
 | November  | 30       |
 | December  | 31       |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 This calendar is a simple calculation and is considered to be exactly accurate.

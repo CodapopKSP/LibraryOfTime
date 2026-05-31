@@ -32,6 +32,16 @@ The Ge'ez calendar is precisely aligned with the Coptic calendar for its months 
 | Mesori         | 30     | Aug 7 - Sep 5           |
 | Pi Kogi Enavot | 5 or 6 | Sep 6 - Sep 10          |
 
+| Day       | Coptic     | Transliteration |
+| --------- | ---------- | --------------- |
+| Sunday    | ⲁⲕⲃⲟⲩⲗ    | Akhoum          |
+| Monday    | ⲥⲟⲙ       | Som             |
+| Tuesday   | ⲅⲃⲁⲣ       | Gobar           |
+| Wednesday | ⲅⲟⲡ       | Ghoub           |
+| Thursday  | ⲃⲁⲣⲙⲁⲕ     | Barmo           |
+| Friday    | ⲃⲉⲕⲃⲁⲧ     | Bakhoub         |
+| Saturday  | ⲁⲧⲟⲃⲁⲣ     | Atchob          |
+
 ## Accuracy
 
 The Coptic calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.

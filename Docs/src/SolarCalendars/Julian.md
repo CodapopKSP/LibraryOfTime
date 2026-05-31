@@ -31,6 +31,16 @@ The Julian calendar drifts from the solar year by about 1 day every 129 years, a
 | November  | 30       |
 | December  | 31       |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 The Julian calendar is exactly accurate in relation to the Gregorian calendar, but dates before 40 BC might not reflect civic dates of the era due to a series of corrections.

@@ -14,6 +14,16 @@ The Minguo calendar was also used in China between 1912 and the fleeing of the R
 
 Prior to the establishment of the Republic of China in 1912, the Chinese people and government used the traditional Chinese lunisolar calendar. The ROC adopted the Gregorian calendar for official business but used the new Era of the Republic as the epoch. After claiming victory over the Chinese mainland in 1949, the PRC opted to use the Gregorian calendar along with its epoch.
 
+| Weekdays  |        |
+| --------- | ------ |
+| Sunday    | 星期天 |
+| Monday    | 星期一 |
+| Tuesday   | 星期二 |
+| Wednesday | 星期三 |
+| Thursday  | 星期四 |
+| Friday    | 星期五 |
+| Saturday  | 星期六 |
+
 ## Accuracy
 
 The Minguo calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.

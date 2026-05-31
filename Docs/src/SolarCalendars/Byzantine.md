@@ -27,6 +27,16 @@ It differed from the Julian calendar with the new year starting on September 1st
 | July      | 31       |
 | August    | 31       |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 The Byzantine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate. However, there is some confusion as to when the day actually begins, with sources seemingly contradicting each other.
