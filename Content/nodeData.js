@@ -1785,52 +1785,52 @@ const astronomicalData = [
     },
 
     {
-        name: `Next New Moon`,
-        id: `next-new-moon`,
+        name: `This Month's New Moon`,
+        id: `this-months-new-moon`,
         type: `Astronomical Data`,
-        epoch: `Next New Moon`,
+        epoch: `New Moon`,
         confidence: `High`,
         associatedWith: ``,
-        overview: `This is the approximate time of the next New Moon, also known as a Lunar Conjunction, after the selected date.\n\nA New Moon is when the dark side of the moon is directly facing the Earth, rendering it difficult to see. It takes place when the moon is closest to the sun relative to Earth.\n\nIt is an important event in many cultures, and most lunar or lunisolar calendars use the New Moon as the beginning of the month.`,
+        overview: `This is the approximate time of the New Moon, also known as a Lunar Conjunction, of the current month.\n\nA New Moon is when the dark side of the moon is directly facing the Earth, rendering it difficult to see. It takes place when the moon is closest to the sun relative to Earth.\n\nIt is an important event in many cultures, and most lunar or lunisolar calendars use the New Moon as the beginning of the month.`,
         info: `Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site. Unfortunately it also must be calculated several times due to the nature of lunar calendars, though the date shown here is resused when possible.\n\nNew Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects. Thus, it is often necessary to calculate each New Moon directly.`,
         accuracy: `This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.<h3>Dependencies</h3><ul><li>ΔT</li></ul>`,
         source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     },
 
     {
-        name: `Next First Quarter Moon`,
-        id: `next-first-quarter-moon`,
+        name: `This Month's First Quarter Moon`,
+        id: `this-months-first-quarter-moon`,
         type: `Astronomical Data`,
-        epoch: `Next First Quarter Moon`,
+        epoch: `First Quarter Moon`,
         confidence: `High`,
         associatedWith: ``,
-        overview: `This is the approximate time of the next First Quarter Moon after the selected date.\n\nA First Quarter Moon is when the Eastern half of the moon is in sunlight from the perspective of Earth.`,
+        overview: `This is the approximate time of the First Quarter Moon of the current month.\n\nA First Quarter Moon is when the Eastern half of the moon is in sunlight from the perspective of Earth.`,
         info: `Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site.\n\nFirst Quarter Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects.`,
         accuracy: `This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.<h3>Dependencies</h3><ul><li>ΔT</li></ul>`,
         source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     },
 
     {
-        name: `Next Full Moon`,
-        id: `next-full-moon`,
+        name: `This Month's Full Moon`,
+        id: `this-months-full-moon`,
         type: `Astronomical Data`,
-        epoch: `Next Full Moon`,
+        epoch: `Full Moon`,
         confidence: `High`,
         associatedWith: ``,
-        overview: `This is the approximate time of the next Full Moon, also known as a Lunar Opposition, after the selected date.\n\nA Full Moon is when the light side of the moon is directly facing Earth, making it the brightest object in the night sky. It takes place when the moon is directly opposite the sun relative to Earth.`,
+        overview: `This is the approximate time of the Full Moon, also known as a Lunar Opposition, of the current month.\n\nA Full Moon is when the light side of the moon is directly facing Earth, making it the brightest object in the night sky. It takes place when the moon is directly opposite the sun relative to Earth.`,
         info: `Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site.\n\nFull Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects.`,
         accuracy: `This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.<h3>Dependencies</h3><ul><li>ΔT</li></ul>`,
         source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
     },
 
     {
-        name: `Next Last Quarter Moon`,
-        id: `next-last-quarter-moon`,
+        name: `This Month's Last Quarter Moon`,
+        id: `this-months-last-quarter-moon`,
         type: `Astronomical Data`,
-        epoch: `Next Last Quarter Moon`,
+        epoch: `Last Quarter Moon`,
         confidence: `High`,
         associatedWith: ``,
-        overview: `This is the approximate time of the next Last Quarter Moon after the selected date.\n\nA Last Quarter Moon is when the Western half of the moon is in sunlight from the perspective of Earth.`,
+        overview: `This is the approximate time of the Last Quarter Moon of the current month.\n\nA Last Quarter Moon is when the Western half of the moon is in sunlight from the perspective of Earth.`,
         info: `Calculating the lunar phases is no easy task. It involves several steps and different tables of equations, and it is likely the most resource-taxing calculation on this site.\n\nLast Quarter Moons are on average 29.53059 days apart, but that number can vary by several hours in a given cycle due to the shape of the moon's orbit as well as other gravitational effects.`,
         accuracy: `This calculation is *mostly* accurate, but it differs from Jean Meeus's solutions by a few minutes. I am not sure why this is the case, though I suspect it has to do with the base-2 calculations in JavaScript. It is also possible that my Terrestrial Time calculations are independently incorrect, which are factored into the New Moon calculation. Dates thousands of years away from 2000 CE are likely to be significantly off.<h3>Dependencies</h3><ul><li>ΔT</li></ul>`,
         source: `<h3>Primary Sources</h3>This calculation in its entirety was sourced from <a href="https://archive.org/details/astronomicalalgorithmsjeanmeeus1991/page/n7/mode/2up">Astronomical Algorithms (1991)</a> by Jean Meeus.\n\nThis cycle can be calibrated using the ephemerides at <a href="https://astropixels.com/ephemeris/phasescat/phasescat.html">this website</a>.`
