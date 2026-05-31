@@ -98,6 +98,9 @@ function testGetMoonPhase() {
         ["1-1-12, 00:00:00", "UTC+00:00", "Thu, 11 Jan 0001 10:49:07 GMT", 0],          // Off by 9 mins in Ephemeris
         ["4000-12-20, 00:00:00", "UTC+00:00", "Sun, 31 Dec 4000 01:13:56 GMT", 0.75],   // Off by 5 mins in Ephemeris
         ["622-7-12, 00:00:00", "UTC+00:00", "Wed, 17 Jul 0622 05:21:49 GMT", 0],        // Off by 5 mins in Ephemeris
+        ["-1999-11-19, 00:00:00", "UTC+00:00", "Mon, 19 Nov -1999 09:59:04 GMT", 0],    // Off by 24 mins in Ephemeris
+        ["-1900-5-20, 00:00:00", "UTC+00:00", "Wed, 12 May -1900 07:03:59 GMT", 0],     // Off by 23 mins in Ephemeris
+        ["4000-3-20, 00:00:00", "UTC+00:00", "Sun, 02 Apr 4000 05:21:03 GMT", 0.5],     // Off by 4 mins in Ephemeris
     ]);
 }
 
@@ -107,6 +110,7 @@ function testGetNextSolarLunarEclipse() {
         ["-3339-11-2, 00:00:00", "UTC+00:00", "Sun, 03 Nov -3339 21:06:22 GMT\nAnnular | Descending\nNorthern Hemisphere", 0],  // Earliest recorded solar eclipse
         ["-584-5-21, 00:00:00", "UTC+00:00", "Wed, 22 May -0584 14:03:03 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Herodotus's eclipse
         ["1916-6-14, 00:00:00", "UTC+00:00", "Sat, 15 Jul 1916 04:39:39 GMT\nPartial | Ascending\nSouthern Hemisphere", 0.5],   // Ernest Shackleton's Antarctic Eclipse
+        ["-1999-11-19, 00:00:00", "UTC+00:00", "Mon, 19 Nov -1999 09:59:04 GMT\nAnnular | Descending\nSouthern Hemisphere", 0], // Oldest solar eclipse in source that doesn't bridge Greg/Jul years
     ]);
 }
 
@@ -118,6 +122,7 @@ function testGetNewMoon() {
         ["2024-04-08, 18:20:47", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT", 0],
         ["2024-04-08, 18:20:47", "UTC+00:00", "Sun, 10 Mar 2024 09:00:17 GMT", -1],
         ["2024-04-08, 18:20:47", "UTC+00:00", "Wed, 08 May 2024 03:21:49 GMT", 1],
+        ["4000-03-20, 00:00:00", "UTC+00:00", "Sun, 19 Mar 4000 05:24:22 GMT", 0],
     ]);
 }
 

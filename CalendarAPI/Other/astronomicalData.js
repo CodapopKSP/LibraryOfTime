@@ -31,61 +31,157 @@ const SEASONS = ['SPRING', 'SUMMER', 'AUTUMN', 'WINTER'];
 
 const LUNATION_RANGE_MIN = -14;
 const LUNATION_RANGE_MAX = 12;
+const LUNATION_ANCHOR_YEAR_INTERVAL = 500;
+const LUNATION_REFERENCE_JDE = 2451550.09765;
+const LUNATION_AVERAGE_LENGTH_DAYS = 29.530588853;
+const LUNATION_FALLBACK_WINDOW_PADDING = 12;
+const LUNATION_RETRY_ATTEMPTS = 3;
+const LUNATION_CORRECTION_GUARD = 120;
 
 const SOLSTICE_EQUINOX_YEAR_OFFSET = 3;
 
 // Manages the global list of new moons
 let allNewMoons = [];
+let allNewMoonsRangeMin = LUNATION_RANGE_MIN;
+let allNewMoonsRangeMax = LUNATION_RANGE_MAX;
+
+function getLunationAnchorForDate(currentDateTime) {
+    const year = currentDateTime.getUTCFullYear();
+    const anchorYear = Math.floor(year / LUNATION_ANCHOR_YEAR_INTERVAL) * LUNATION_ANCHOR_YEAR_INTERVAL;
+    const anchorDate = createAdjustedDateTime({ year: anchorYear, month: 1, day: 1 });
+    const anchorJDE = getJulianDayNumber(anchorDate);
+    const anchorLunation = Math.trunc((anchorJDE - LUNATION_REFERENCE_JDE) / LUNATION_AVERAGE_LENGTH_DAYS);
+
+    return {
+        anchorJDE,
+        anchorLunation,
+    };
+}
+
+// Anchor-based lunation estimate for getNewMoon cache (far from J2000).
+function estimateLunationAtDate(currentDateTime) {
+    const { anchorJDE, anchorLunation } = getLunationAnchorForDate(currentDateTime);
+    const currentJDE = getJulianDayNumber(currentDateTime);
+    const lunationsFromAnchor = Math.trunc((currentJDE - anchorJDE) / LUNATION_AVERAGE_LENGTH_DAYS);
+    return anchorLunation + lunationsFromAnchor;
+}
+
+function getMoonPhaseByLunationNumber(k, phaseModifier = 0) {
+    const T = k/1236.85;
+    const E = 1 - 0.002516*T - 0.0000074*T**2;
+    const JDE =  LUNATION_REFERENCE_JDE + LUNATION_AVERAGE_LENGTH_DAYS*k +  0.0001337*T**2 + - 0.000000150*T**3 + 0.00000000073*T**4;
+    const SunM = 2.5534 + 29.10535669*k - 0.0000218*T**2 - 0.00000011*T**3;
+    const MoonM = 201.5643 + 385.81693528*k + 0.0107438*T**2 + 0.00001239*T**3 - 0.000000058*T**4;
+    const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
+    const lunarNode = 124.7746 - 1.56375580*k + 0.0020691*T**2 + 0.00000215*T**3;
+    const sumOfAllPhaseTable = allLunarPhaseTable(k, T);
+    let tableSum = 0;
+    if (phaseModifier % 1 === 0) {
+        tableSum = sumNewMoonTable(SunM, MoonM, F, E, lunarNode);
+    }
+    else if (phaseModifier % 1 === 0.5) {
+        tableSum = sumFullMoonTable(SunM, MoonM, F, E, lunarNode);
+    }
+    else {
+        tableSum = sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, phaseModifier);
+    }
+    const calculatedMoonPhaseJDE = JDE + sumOfAllPhaseTable + tableSum;
+    return new Date(calculateDateFromJDE(calculatedMoonPhaseJDE));
+}
+
+function findLunationAtOrBefore(referenceDate) {
+    let lunation = estimateLunationAtDate(referenceDate);
+    let currentMoon = getMoonPhaseByLunationNumber(lunation, 0);
+    let iterations = 0;
+
+    while (currentMoon > referenceDate && iterations < LUNATION_CORRECTION_GUARD) {
+        lunation--;
+        currentMoon = getMoonPhaseByLunationNumber(lunation, 0);
+        iterations++;
+    }
+
+    let nextMoon = getMoonPhaseByLunationNumber(lunation + 1, 0);
+    while (nextMoon <= referenceDate && iterations < LUNATION_CORRECTION_GUARD) {
+        lunation++;
+        nextMoon = getMoonPhaseByLunationNumber(lunation + 1, 0);
+        iterations++;
+    }
+
+    return lunation;
+}
 
 // Generate a list of all new moons to reduce resource usage
-function generateAllNewMoons(currentDateTime) {
+function generateAllNewMoons(currentDateTime, rangeMin = LUNATION_RANGE_MIN, rangeMax = LUNATION_RANGE_MAX) {
+    const baseLunation = findLunationAtOrBefore(currentDateTime);
     let newMoons = [];
-    let lunation = LUNATION_RANGE_MIN;
-    while (lunation <= LUNATION_RANGE_MAX) {
-        const newMoon = getMoonPhase(currentDateTime, lunation);
+    let lunation = rangeMin;
+    while (lunation <= rangeMax) {
+        const newMoon = getMoonPhaseByLunationNumber(baseLunation + lunation, 0);
         newMoons.push(newMoon);
         lunation++;
     }
     allNewMoons = newMoons;
+    allNewMoonsRangeMin = rangeMin;
+    allNewMoonsRangeMax = rangeMax;
 }
 
 // Get a new moon from the allNewMoons list, with lunations = 0 being just before the date
 function getNewMoon(referenceDate, lunations) {
+    const requiredRangeMin = Math.min(LUNATION_RANGE_MIN, lunations - 1);
+    const requiredRangeMax = Math.max(LUNATION_RANGE_MAX, lunations + 1);
+    let cacheRangeMin = requiredRangeMin;
+    let cacheRangeMax = requiredRangeMax;
+
     if (allNewMoons.length === 0) {
-        generateAllNewMoons(referenceDate);
+        generateAllNewMoons(referenceDate, cacheRangeMin, cacheRangeMax);
     } else if (
         referenceDate < allNewMoons[0] ||
         referenceDate > allNewMoons[allNewMoons.length - 1]
     ) {
-        generateAllNewMoons(referenceDate);
+        generateAllNewMoons(referenceDate, cacheRangeMin, cacheRangeMax);
+    } else if (
+        allNewMoonsRangeMin > requiredRangeMin ||
+        allNewMoonsRangeMax < requiredRangeMax
+    ) {
+        generateAllNewMoons(referenceDate, cacheRangeMin, cacheRangeMax);
     }
 
-    const len = allNewMoons.length;
-    if (len === 0) return null;
-
-    let bestIndex = -1;
-
-    // Binary search to find the last date <= referenceDate
-    let low = 0;
-    let high = len - 1;
-
-    while (low <= high) {
-        const mid = Math.floor((low + high) / 2);
-        if (allNewMoons[mid] <= referenceDate) {
-            bestIndex = mid;
-            low = mid + 1; // keep searching to the right
-        } else {
-            high = mid - 1;
+    for (let attempt = 0; attempt < LUNATION_RETRY_ATTEMPTS; attempt++) {
+        const len = allNewMoons.length;
+        if (len === 0) {
+            return null;
         }
+
+        let bestIndex = -1;
+
+        // Binary search to find the last date <= referenceDate
+        let low = 0;
+        let high = len - 1;
+
+        while (low <= high) {
+            const mid = Math.floor((low + high) / 2);
+            if (allNewMoons[mid] <= referenceDate) {
+                bestIndex = mid;
+                low = mid + 1; // keep searching to the right
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        // Apply the lunations to the index after we've found the best match
+        const adjustedIndex = bestIndex + lunations;
+        if (bestIndex >= 0 && adjustedIndex >= 0 && adjustedIndex < len) {
+            return new Date(allNewMoons[adjustedIndex]);
+        }
+
+        cacheRangeMin -= LUNATION_FALLBACK_WINDOW_PADDING;
+        cacheRangeMax += LUNATION_FALLBACK_WINDOW_PADDING;
+        generateAllNewMoons(referenceDate, cacheRangeMin, cacheRangeMax);
     }
 
-    // Apply the lunations to the index after we've found the best match
-    const adjustedIndex = bestIndex + lunations;
-    if (adjustedIndex >= 0 && adjustedIndex < len) {
-        return new Date(allNewMoons[adjustedIndex]);
-    }
-
-    return null;
+    // Fall back to direct phase computation from a corrected lunation number.
+    const fallbackBaseLunation = findLunationAtOrBefore(referenceDate);
+    return getMoonPhaseByLunationNumber(fallbackBaseLunation + lunations, 0);
 }
 
 // Manages the global list of solstices and equinoxes
