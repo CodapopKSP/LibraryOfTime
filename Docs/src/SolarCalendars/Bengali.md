@@ -31,7 +31,7 @@ The Bengali calendar also recognizes six season; Summer, Monsoon, Autumn, Dry, W
 | ফাল্গুন   | 30/31           | 29/30        | 14 February            | বসন্ত (Spring)   |
 | চৈত্র     | 30              | 30           | 15 March               | বসন্ত (Spring)   |
 
-| English   | Bengali     |
+| Weekdays  | |
 | --------- | ----------- |
 | Sunday    | রবিবার      |
 | Monday    | সোমবার      |

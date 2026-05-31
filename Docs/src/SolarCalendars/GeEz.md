@@ -30,7 +30,7 @@ The Ge'ez calendar is precisely aligned with the Coptic calendar for its months 
 | Nähase   | 30     | Aug 7 - Sep 5           |
 | Ṗagume   | 5 or 6 | Sep 6 - Sep 10          |
 
-| Day       | Ge'ez  | Transliteration |
+| Weekday   | Ge'ez  | Transliteration |
 | --------- | ------ | --------------- |
 | Sunday    | ሰንበት | Senbet          |
 | Monday    | ሰኑይ  | Segno           |

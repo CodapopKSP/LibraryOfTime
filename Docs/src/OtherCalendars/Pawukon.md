@@ -49,6 +49,16 @@ Each of the 30 cycles of Week 7 also has a name. This calendar does not count th
 | Bala       | Ugu          | Wayang      |
 | Kelawu     | Dukut        | Watugunung  |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | Redite |
+| Monday | Soma |
+| Tuesday | Anggara |
+| Wednesday | Buda |
+| Thursday | Wraspati |
+| Friday | Sukra |
+| Saturday | Saniscara |
+
 ## Accuracy
 
 This calendar is a simple cycle of days with a known epoch and is expected to be exactly accurate.

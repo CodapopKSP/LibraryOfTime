@@ -43,6 +43,16 @@ Leap years add one extra day in the final month, and they take place if the year
 | Scorpius    | 28       |
 | Vrishika    | 27 or 28 |
 
+| Weekdays  |
+| --------- |
+| Solis     |
+| Lunae     |
+| Martis    |
+| Mercurii  |
+| Jovis     |
+| Veneris   |
+| Saturni   |
+
 ## Accuracy
 
 This calendar depends on the Julian Sol Number which is in turn based on the Mars Sol Date. Assuming these are all accurate, then the Darian calendar should be correct.

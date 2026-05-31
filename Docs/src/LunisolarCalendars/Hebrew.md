@@ -32,6 +32,16 @@ The Hebrew calendar is not strictly based on the moon. The modern Jewish calenda
 | Av        | July - August           |
 | Elul      | August - September      |
 
+| Weekdays | |
+| -------- | -------- |
+| Sunday | Yom Rishon |
+| Monday | Yom Sheni |
+| Tuesday | Yom Shlishi |
+| Wednesday | Yom Revi'i |
+| Thursday | Yom Chamishi |
+| Friday | Yom Shishi |
+| Saturday | Shabbat |
+
 ## Accuracy
 
 Though it is a complex equation, the calculation for this calendar is exactly accurate to modern Jewish calendars. However, prior to the Jewish year 4119 (358 CE), the calendar was decided through observation.

@@ -21,7 +21,7 @@ Months begin at or around the New Moon and are broken into weeks of 7 nights tha
 | 17              | 502             |
 | 15              | 443             |
 
-| Weeknight  | Name       |
+| #          | Weekday    |
 | ---------- | ---------- |
 | 1          | Moonnight  |
 | 2          | Tuesnight  |

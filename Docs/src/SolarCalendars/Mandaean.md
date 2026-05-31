@@ -32,7 +32,7 @@ So many years have passed since the Mandaean epoch that it is calculated to have
 | 11  | 30   | ࡄࡉࡈࡉࡀ      | Heṭyā                 |
 | 12  | 30   | ࡂࡀࡃࡉࡀ      | Gadyā                 |
 
-| Day       | Name           |
+| Weekdays  | |
 | --------- | -------------- |
 | Sunday    | Habšaba        |
 | Monday    | Trin Habšaba   |

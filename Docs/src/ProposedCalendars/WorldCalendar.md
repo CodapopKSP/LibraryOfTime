@@ -29,6 +29,16 @@ The regular month lengths ensure that the first of every month always lands on a
 | November       | 30   |
 | December       | 30   |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.

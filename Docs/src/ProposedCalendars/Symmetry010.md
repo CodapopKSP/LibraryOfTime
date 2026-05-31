@@ -34,6 +34,16 @@ This calendar is calibrated using 1 January 1 CE as a reference date.
 | December          | 30   |
 | Leap Week ("Irv") | 7    |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 Being a simple calculation of days with a known epoch, this calendar is expected to be exactly accurate.

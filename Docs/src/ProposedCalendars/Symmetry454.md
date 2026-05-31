@@ -33,6 +33,16 @@ This calendar is calibrated using 1 January 2001 as a reference date.
 | November  | 35       |
 | December  | 28 or 35 |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 As this calendar is only a proposal, there really isn't anything to compare it to historically. It is a simple calculation with a known epoch, making it perfectly accurate.

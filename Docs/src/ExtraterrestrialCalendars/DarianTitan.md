@@ -45,6 +45,17 @@ Years don't always begin and end at midnight on Titan's prime meridian, as the c
 | Ti Scorpius    | 28      |
 | Ti Vrishika    | 28-32   |
 
+| Weekdays  |
+| --------- |
+| Solis     |
+| Lunae     |
+| Terrae    |
+| Martis    |
+| Mercurii  |
+| Jovis     |
+| Veneris   |
+| Saturni   |
+
 ## Accuracy
 
 The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.

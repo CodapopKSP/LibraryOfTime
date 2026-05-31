@@ -27,6 +27,16 @@ The Human Era is an attempt to adapt the Gregorian calendar, which has become wi
 | November  | 30       |
 | December  | 31       |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 ## Accuracy
 
 As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.

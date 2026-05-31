@@ -43,6 +43,17 @@ All four of the Galilean Darian calendars use roughly the same epoch, within a w
 | Cal Scorpius    | 32      |
 | Cal Vrishika    | 32-40   |
 
+| Weekdays  |
+| --------- |
+| Solis     |
+| Lunae     |
+| Terrae    |
+| Martis    |
+| Mercurii  |
+| Jovis     |
+| Veneris   |
+| Saturni   |
+
 ## Accuracy
 
 The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.

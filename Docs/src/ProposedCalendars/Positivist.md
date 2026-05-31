@@ -32,6 +32,16 @@ Years are counted from 1789, the year of the French Revolution, and are denoted 
 | Festival of All the Dead | Dec 30/31           | 1    |
 | Festival of Holy Women   | Dec 31 (leap years) | 1    |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 The Positivist calendar includes 364 days named after historical figures, organized into 13 months. Each day is named after a significant person from Western history, including philosophers, scientists, artists, and political figures. The calendar was designed to celebrate human achievement and progress.
 
 | Positivist Days      |              |                           |

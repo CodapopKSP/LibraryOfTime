@@ -30,6 +30,16 @@ Dates are written as a sequence of four numbers separated by hyphens, in the for
 | 12        | Lilius       | 30    |
 | 13 (leap) | Meton        | 30/31 |
 
+| Weekday   |
+| --------- |
+| Sunday    |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+
 Leap years and leap-month length follow two simple steps:
 
 1. Compute the running year number:

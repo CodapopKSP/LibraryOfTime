@@ -34,6 +34,17 @@ The Galilean months are roughly equal to the Gregorian months, though with sligh
 | Eu November    | 32      |
 | Eu December    | 24-32   |
 
+| Weekdays  |
+| --------- |
+| Solis     |
+| Lunae     |
+| Terrae    |
+| Martis    |
+| Mercurii  |
+| Jovis     |
+| Veneris   |
+| Saturni   |
+
 ## Accuracy
 
 The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.

@@ -30,27 +30,29 @@ The new year started on the Autumn Equinox, and years were written in Roman nume
 | Fructidor      | 30     | Aug 18 - Sep 16         |
 | Sansculottides | 5 or 6 | Sep 17 - Sep 21         |
 
-| #  | Décade day |
-| -- | ---------- |
-| 1  | Primidi    |
-| 2  | Duodi      |
-| 3  | Tridi      |
-| 4  | Quartidi   |
-| 5  | Quintidi   |
-| 6  | Sextidi    |
-| 7  | Septidi    |
-| 8  | Octidi     |
-| 9  | Nonidi     |
-| 10 | Décadi     |
+| #  | Weekday  |
+| -- | -------- |
+| 1  | Primidi  |
+| 2  | Duodi    |
+| 3  | Tridi    |
+| 4  | Quartidi |
+| 5  | Quintidi |
+| 6  | Sextidi  |
+| 7  | Septidi  |
+| 8  | Octidi   |
+| 9  | Nonidi   |
+| 10 | Décadi   |
 
-| # | Sansculottides day          |
-| - | --------------------------- |
-| 1 | La Fête de la Vertu         |
-| 2 | La Fête du Génie            |
-| 3 | La Fête du Travail          |
-| 4 | La Fête de l'Opinion        |
-| 5 | La Fête des Récompenses     |
-| 6 | La Fête de la Révolution    |
+Sansculottides:
+
+| # | Weekday                 |
+| - | ----------------------- |
+| 1 | La Fête de la Vertu     |
+| 2 | La Fête du Génie        |
+| 3 | La Fête du Travail      |
+| 4 | La Fête de l'Opinion    |
+| 5 | La Fête des Récompenses |
+| 6 | La Fête de la Révolution |
 
 ## Accuracy
 
