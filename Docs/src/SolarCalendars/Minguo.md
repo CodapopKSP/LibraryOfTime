@@ -18,9 +18,9 @@ Prior to the establishment of the Republic of China in 1912, the Chinese people 
 
 The Minguo calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

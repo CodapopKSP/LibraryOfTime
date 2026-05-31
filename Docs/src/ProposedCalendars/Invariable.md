@@ -33,9 +33,9 @@ The regular month lengths ensure that the first of every month always lands on a
 
 As this calendar is only a proposal, there really isn't anything to compare it to historically. It is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

@@ -35,9 +35,9 @@ As it follows the intercalation rules of the Gregorian calendar, its months star
 
 As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

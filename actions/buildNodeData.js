@@ -205,6 +205,11 @@ function parseMarkdownFile(filePath, directory) {
         else if (currentSection === 'accuracy') accuracy = content;
         else if (currentSection === 'source') source = content;
     }
+
+    // Dependencies must be a single-column markdown table in ## Accuracy, not a ### heading + list.
+    if (accuracy.includes('### Dependencies')) {
+        throw new Error(`${filePath}: use a Dependencies markdown table (| Dependencies |) instead of ### Dependencies`);
+    }
     
     // Get node type and ID
     const filename = path.basename(filePath);
@@ -344,14 +349,13 @@ function convertMarkdownTables(text) {
                     return `<tr>${cellsHtml}</tr>`;
                 }).join('');
                 
-                // Determine table class based on number of columns
-                let tableClass = ' class="table-very-very-long"';
-                /*
-                if (headerCells.length <= 3) {
-                    tableClass = ' class="table-long"';
-                } else {
-                    tableClass = ' class="table-very-very-long"';
-                }*/
+                // Dependencies tables in ## Accuracy use a narrower layout in the description panel.
+                const isDependenciesTable = headerCellsNonEmpty.length === 1 &&
+                    headerCellsNonEmpty[0] === 'Dependencies' &&
+                    columnCount === 1;
+                const tableClass = isDependenciesTable
+                    ? ' class="table-dependencies"'
+                    : ' class="table-very-very-long"';
                 
                 result.push(`<table${tableClass}><tr>${headerHtml}</tr>${rowsHtml}</table>`);
                 i = j;

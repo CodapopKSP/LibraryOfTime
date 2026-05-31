@@ -16,9 +16,9 @@ The longitude of the sun is an important factor in the Chinese lunisolar calenda
 
 The accuracy of this calculation depends on the precision of Meeus's calculations, which should be very accurate.
 
-### Dependencies
-
-- ΔT
+| Dependencies |
+| ------------ |
+| ΔT           |
 
 ## Source
 

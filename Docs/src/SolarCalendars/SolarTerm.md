@@ -47,9 +47,9 @@ Solar terms are also used to determine when the leap month should occur in the C
 
 This calendar is a simple calculation, but it relies on the calculation for the Longitude of the Sun which has a tiny amount of error.
 
-### Dependencies
-
-- Longitude of the Sun
+| Dependencies         |
+| -------------------- |
+| Longitude of the Sun |
 
 ## Source
 

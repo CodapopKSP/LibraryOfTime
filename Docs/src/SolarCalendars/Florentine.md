@@ -34,9 +34,9 @@ Days also started at sunset (of the previous calendar day on the Julian calendar
 
 The Florentine calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate. The only inaccuracies are the differences in the approximation of sunset to the actual time of sunset, which is expected to only differ by a few hours or minutes per day.
 
-### Dependencies
-
-- Julian
+| Dependencies |
+| ------------ |
+| Julian       |
 
 ## Source
 

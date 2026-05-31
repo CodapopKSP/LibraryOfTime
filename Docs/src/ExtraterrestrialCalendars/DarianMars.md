@@ -49,9 +49,9 @@ This calendar depends on the Julian Sol Number which is in turn based on the Mar
 
 There is one more stipulation that the current calendar is only perfectly accurate between the years 0 and 2000 due to the shortening of the Martian equinox year. Whether those are Martian years or Earth years isn't clear, but the difference is rather small and is currently ignored for this calendar.
 
-### Dependencies
-
-- Julian Sol Number
+| Dependencies      |
+| ----------------- |
+| Julian Sol Number |
 
 ## Source
 

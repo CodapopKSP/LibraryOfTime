@@ -33,10 +33,10 @@ Years are not denoted with anything and are simply listed as a positive or negat
 
 This calendar is a simple calculation and is considered to be exactly accurate.
 
-### Dependencies
-
-- Gregorian
-- Julian
+| Dependencies |
+| ------------ |
+| Gregorian    |
+| Julian       |
 
 ## Source
 

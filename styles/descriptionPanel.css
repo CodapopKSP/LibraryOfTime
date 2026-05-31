@@ -442,6 +442,11 @@
     line-height: 1.35;
 }
 
+.nodeinfo-accuracy .table-dependencies,
+.home-accuracy .table-dependencies {
+    white-space: normal;
+}
+
 /* Desktop description actions: no layout space until a calendar node is selected. */
 .desktop-description-actions {
     display: none;

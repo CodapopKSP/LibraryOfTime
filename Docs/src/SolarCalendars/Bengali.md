@@ -45,9 +45,9 @@ The Bengali calendar also recognizes six season; Summer, Monsoon, Autumn, Dry, W
 
 This calendar is intrinsically tied to the Gregorian calendar and is exactly accurate. However, it does have an alternate rule set used in India that is not present here.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

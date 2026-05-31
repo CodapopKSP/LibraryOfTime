@@ -34,9 +34,9 @@ The Ge'ez calendar is precisely aligned with the Coptic calendar for its months 
 
 The Ge'ez calendar is intrinsically based on and locked to the Julian calendar, making it perfectly accurate.
 
-### Dependencies
-
-- Julian
+| Dependencies |
+| ------------ |
+| Julian       |
 
 ## Source
 

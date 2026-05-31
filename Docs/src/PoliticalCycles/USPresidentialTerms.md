@@ -62,9 +62,9 @@ Donald Trump 2025-2029
 
 US terms don't always start on January 20th, with certain stipulations such as if the 20th falls on a Sunday that could change the date slightly. The current system of terms starting on the 20th didn't start until 1937, and previously it was March 4th, with George Washington starting on April 30th.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

@@ -41,9 +41,9 @@ It has 12 months of 28-31 days along with weeks of seven days. Since the timelin
 
 Since this calendar is a simple mapping to the Gregorian calendar, it is perfectly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

@@ -43,7 +43,7 @@ Each step below is required unless explicitly skipped by the user.
    - **Confidence** (brief note on how confident we are; can be “To be determined.”).
    - **Overview** (stub section).
    - **Info** (stub section or reference tables — see below).
-   - **Accuracy** (stub section).
+   - **Accuracy** (stub section; if the node depends on other nodes, end with a **Dependencies** single-column table — see below).
    - **Source** (stub section).
    - Keep all sections present even if their bodies are just short placeholder sentences, and add **no detailed content** unless the user explicitly requested text (respect the project’s `Docs/` rule).
 3. Ensure the new file is referenced in `Docs/src/SUMMARY.md` under the right section, so `actions/buildNodeData.js` will include it.
@@ -57,6 +57,21 @@ When adding **month names**, **weekday names**, or similar reference material:
 - **Weekdays:** Include order (e.g. Sunday first) and names; state in the header if the week **starts on a different day** than Sunday.
 - **Approximate Gregorian alignment:** Add a column, footnote row, or small separate table **only when** the calendar maps in a stable, documentable way to Gregorian months or seasons. When there is **no** meaningful fixed mapping (e.g. a **drifting** 365-day solar year, or a lunar/lunisolar calendar unrelated to Gregorian months), use a one-row table or single cell with **Not applicable** (or an em dash)—**do not** invent long explanatory prose unless the user explicitly asks for body copy.
 - If the user asks for **tables only** (no narrative), keep **`#### Overview`**, **`#### Accuracy`**, and **`#### Source`** as `To be determined.` (or equivalent stubs) and put **only tables** under **`#### Info`**.
+
+### Dependencies table in `## Accuracy`
+
+When a node relies on other site nodes (calendars, astronomical data, ΔT, etc.), list them at the **end of `## Accuracy`** as a **single-column markdown table** (not a `### Dependencies` heading or bullet list). One dependency per row:
+
+```markdown
+| Dependencies |
+| ------------ |
+| Gregorian    |
+| Julian       |
+```
+
+Pad each cell to the same width within the table (including the header), leave a blank line above the table, and use one dependency per row.
+
+`actions/buildNodeData.js` converts this table to HTML in the Accuracy tab, same as other markdown tables.
 
 ---
 

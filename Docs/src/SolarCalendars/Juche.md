@@ -16,9 +16,9 @@ Juche refers to the specific ideology of the Worker's Party of Korea and is rela
 
 The Juche calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

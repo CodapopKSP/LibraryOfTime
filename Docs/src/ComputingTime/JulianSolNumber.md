@@ -20,10 +20,10 @@ One Mars sol is 39 minutes and 35 seconds longer than an Earth day.
 
 This clock should be very accurate, though there are some very minor inaccuracies likely stemming from the redefiniton of the epoch of the Mars Sol Day, or perhaps slight differences in calculations of ΔT.
 
-### Dependencies
-
-- ΔT
-- Mars Sol Day
+| Dependencies |
+| ------------ |
+| ΔT           |
+| Mars Sol Day |
 
 ## Source
 

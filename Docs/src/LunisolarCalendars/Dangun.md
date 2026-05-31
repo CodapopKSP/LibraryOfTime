@@ -18,9 +18,9 @@ The Dangun calendar epoch was not traditionally used, but it has seen unofficial
 
 This calendar relies on the same calculations as the Chinese Lunisolar Calendar, though using midnight in Korea as the start of the say. Thus, it may vary mildly or significantly from the Chinese calendar. This may or may not itself be accurate, but the result should be relatively close to reality.
 
-### Dependencies
-
-- Chinese
+| Dependencies |
+| ------------ |
+| Chinese      |
 
 ## Source
 

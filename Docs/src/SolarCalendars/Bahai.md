@@ -47,9 +47,9 @@ Dates may change slightly too early or late depending on the real time of sunset
 
 There seems to be an issue with the stated epoch on Wikipedia being 1 day later than the calculated epoch here.
 
-### Dependencies
-
-- Spring Equinox
+| Dependencies   |
+| -------------- |
+| Spring Equinox |
 
 ## Source
 

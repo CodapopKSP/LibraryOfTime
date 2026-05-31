@@ -29,9 +29,9 @@ The Sexagenary Cycle is a system of counting years in the Chinese calendar (and 
 
 This calendar system should be very accurate. It may be off by a few days at the start of a given year, or rarely an entire month, due to the inaccuracies from the Chinese lunisolar calendar calculations. However, it corrects itself by the next new moon.
 
-### Dependencies
-
-- Chinese
+| Dependencies |
+| ------------ |
+| Chinese      |
 
 ## Source
 

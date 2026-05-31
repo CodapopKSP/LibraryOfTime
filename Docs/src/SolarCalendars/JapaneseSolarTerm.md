@@ -91,9 +91,9 @@ The 24 solar terms (sekki), regarded as seasons, are further broken down into 3 
 
 This calendar is a simple cycle, though it relies on the calculation for the Longitude of the Sun which has a tiny bit of error.
 
-### Dependencies
-
-- Longitude of the Sun
+| Dependencies         |
+| -------------------- |
+| Longitude of the Sun |
 
 ## Source
 

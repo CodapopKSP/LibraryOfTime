@@ -16,9 +16,9 @@ Years are denoted with 'AL', which stands for Anno Lucis, meaning "in the Year o
 
 As this is a simple addition to the Gregorian calendar, this calculation is exactly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

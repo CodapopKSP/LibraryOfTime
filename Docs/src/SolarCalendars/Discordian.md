@@ -27,9 +27,9 @@ Years are denoted with 'YOLD' meaning 'Year of Our Lady Discord'.
 
 The Discordian calendar is based off the Gregorian calendar and is thus exactly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

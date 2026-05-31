@@ -35,9 +35,9 @@ The Hijri calendar is on a roughly 37-year cycle when compared with the solar ye
 
 Many Muslim nations have their own rules for determining the start of the month, often based on direct observation, and as a result their calendar dates may occasionally misalign. The algorithm used by this website requires calculating the New Moon and uses 18:00 local time in Mecca for sunset. Its accuracy is dependent on the New Moon calculations and may not reflect historical records.
 
-### Dependencies
-
-- New Moon
+| Dependencies |
+| ------------ |
+| New Moon     |
 
 ## Source
 

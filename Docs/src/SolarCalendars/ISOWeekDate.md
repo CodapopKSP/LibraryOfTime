@@ -18,9 +18,9 @@ The ISO Week Date follows the format of Year-Week-Weekday, with Monday being the
 
 Being an ISO standard with a standard calculation, this calendar is expected to be perfectly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

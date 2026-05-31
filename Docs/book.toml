@@ -3,3 +3,6 @@ authors = ["CodapopKSP"]
 language = "en"
 src = "src"
 title = "Library of Time: Complete Documentation"
+
+[output.html]
+additional-css = ["theme/custom.css"]

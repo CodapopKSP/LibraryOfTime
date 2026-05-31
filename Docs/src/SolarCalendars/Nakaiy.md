@@ -50,9 +50,9 @@ Regardless, this calculation is exactly accurate based on the available sources.
 
 The inclusion of the current date of the Nakaiy is not strictly present in official sources and is shown here in parentheses.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

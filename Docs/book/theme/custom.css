@@ -1,0 +1,18 @@
+/* Dependencies tables at the end of ## Accuracy */
+#accuracy ~ .table-wrapper {
+    margin-top: 1.25em;
+    display: flex;
+    justify-content: center;
+}
+
+#accuracy ~ .table-wrapper table {
+    width: fit-content;
+    min-width: 14rem;
+    max-width: 100%;
+}
+
+#accuracy ~ .table-wrapper th,
+#accuracy ~ .table-wrapper td {
+    white-space: nowrap;
+    padding: 0.35em 1.4em;
+}

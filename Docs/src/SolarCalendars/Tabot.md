@@ -33,9 +33,9 @@ New Year's Day is always on 2 November in the Gregorian calendar, and leap years
 
 As this calendar is intrinsically locked to the Gregorian calendar, this calculation is exactly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

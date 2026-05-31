@@ -32,9 +32,9 @@ It features 13 months of 29 days, though for each month the 29th day is imaginar
 
 The Pataphysical calendar is based off the Gregorian calendar and is thus exactly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

@@ -36,9 +36,9 @@ This calendar depends on the accuracy of the equinox calculations, which are gen
 
 The French Republican calendar also had some issues with rules that contracticted each other, like a 4 year leap year rule conflicting with the date of the equinox. That rule has been ignored in favor of the equinox rule.
 
-### Dependencies
-
-- Autumn Equinox
+| Dependencies   |
+| -------------- |
+| Autumn Equinox |
 
 ## Source
 

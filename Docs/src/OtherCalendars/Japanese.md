@@ -261,10 +261,10 @@ Regnal dates before 701 CE are not included since their coverage isn't clear.
 
 After 1873 CE, this calculation is exactly accurate, at least until the ascension of the next emperor requires updating this site.
 
-### Dependencies
-
-- Chinese
-- Gregorian
+| Dependencies |
+| ------------ |
+| Chinese      |
+| Gregorian    |
 
 ## Source
 

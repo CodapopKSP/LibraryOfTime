@@ -16,9 +16,9 @@ TT is an ideal that can only ever be approximated, including at the precision of
 
 This clock relies on the ΔT calculations, which are only approximations. On top of that, they were created in the 1990s are are certainly out of date by a few seconds.
 
-### Dependencies
-
-- ΔT
+| Dependencies |
+| ------------ |
+| ΔT           |
 
 ## Source
 

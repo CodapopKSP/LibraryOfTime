@@ -29,9 +29,9 @@ The Thai solar calendar is a Gregorian-derived calendar used in Thailand. It rep
 
 The Thai solar calendar is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

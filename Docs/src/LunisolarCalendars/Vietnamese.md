@@ -33,9 +33,9 @@ This calendar uses the same epoch as the Gregorian calendar and may not reflect 
 
 This calendar relies on the same calculations as the Chinese Lunisolar Calendar, though using midnight in Vietnam as the start of the say. Thus, it may vary mildly or significantly from the Chinese calendar. This may or may not itself be accurate, but the result should be relatively close to reality.
 
-### Dependencies
-
-- Chinese
+| Dependencies |
+| ------------ |
+| Chinese      |
 
 ## Source
 

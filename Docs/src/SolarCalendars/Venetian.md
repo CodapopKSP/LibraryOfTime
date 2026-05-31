@@ -31,9 +31,9 @@ It differed from the Julian calendar with years beginning on March 1st. The Vene
 
 This calendar is based on the Julian calendar and is considered to be exactly accurate.
 
-### Dependencies
-
-- Julian
+| Dependencies |
+| ------------ |
+| Julian       |
 
 ## Source
 

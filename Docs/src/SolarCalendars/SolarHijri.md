@@ -37,9 +37,9 @@ This calendar is reasonably accurate for modern years, but as its calculation re
 
 This calendar also may experience errors in its alignment with the Zodiac, as it is tied to the precession of the equinoxes.
 
-### Dependencies
-
-- Spring Equinox
+| Dependencies   |
+| -------------- |
+| Spring Equinox |
 
 ## Source
 

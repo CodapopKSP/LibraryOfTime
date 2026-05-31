@@ -52,9 +52,9 @@ The Metonic cycle wasn't established in the Babylonian calendar until around 380
 
 The intercalary month of 𒌚𒋛𒀀𒆥 was not explicitely named but directly described. The name was chosen to match the pattern found in the other intercalary month, 𒌚𒋛𒀀𒊺.
 
-### Dependencies
-
-- New Moon
+| Dependencies |
+| ------------ |
+| New Moon     |
 
 ## Source
 

@@ -62,3 +62,17 @@ th, td {
 .table-confidence th {
     color: #6f986a;
 }
+
+.table-dependencies {
+    width: fit-content;
+    min-width: 20rem;
+    max-width: 100%;
+    margin: 1.25em auto 0;
+}
+
+.table-dependencies th,
+.table-dependencies td {
+    font-size: 1.5vh;
+    padding: 0.5vh 1.6vh;
+    white-space: nowrap;
+}

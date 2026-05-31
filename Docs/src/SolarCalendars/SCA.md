@@ -31,9 +31,9 @@ Years are written as roman numerals and denoted with 'A.S.', short for 'Anno Soc
 
 As this calendar is based off the Gregorian calendar, this calculation is exactly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

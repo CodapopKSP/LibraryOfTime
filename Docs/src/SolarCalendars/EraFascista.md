@@ -18,9 +18,9 @@ Era Fascista didn't really implement months, as it was used alongside the Gregor
 
 Era Fascista is intrinsically based on and locked to the Gregorian calendar, making it perfectly accurate.
 
-### Dependencies
-
-- Gregorian
+| Dependencies |
+| ------------ |
+| Gregorian    |
 
 ## Source
 

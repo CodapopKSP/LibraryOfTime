@@ -35,11 +35,11 @@ The Chinese calendar is one of the most widespread calendars in history, used by
 
 Calculating this calendar is very difficult and requires calculating the Winter Solstice, Longitude of the Sun, and any given New Moon. Due to the difficulty of this calculation, months and days might be off by 1 at times, though they typically self-correct by the next month. Rarely, the leap month may be incorrect, especially in cases where the new moon and solstice happen on the same day.
 
-### Dependencies
-
-- New Moon
-- Winter Solstice
-- Longitude of the Sun
+| Dependencies         |
+| -------------------- |
+| New Moon             |
+| Winter Solstice      |
+| Longitude of the Sun |
 
 ## Source
 

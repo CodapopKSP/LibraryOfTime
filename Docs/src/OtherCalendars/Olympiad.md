@@ -18,9 +18,9 @@ The ancient Olympiad has little connection to the modern olympic games, as they 
 
 The exact start of the Olympic games is unclear, and most sources will just say it was held in the summer of 776 BCE. This website uses astronomical dates, so it is displayed here as 775 BCE. I have chosen to use 1 August of the Julian calendar for the middle of summer.
 
-### Dependencies
-
-- Julian
+| Dependencies |
+| ------------ |
+| Julian       |
 
 ## Source
 

@@ -40,9 +40,9 @@ The current yuga, Kali Yuga, is the shortest and worst. It will last until the y
 
 The Yuga Cycle is ultimately based off the Gregorian calendar via the Kali Ahargaṅa and is considered to be very accurate compared with historical records.
 
-### Dependencies
-
-- Kali Ahargana
+| Dependencies  |
+| ------------- |
+| Kali Ahargana |
 
 ## Source
 

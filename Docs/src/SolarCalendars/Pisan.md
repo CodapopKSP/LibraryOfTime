@@ -32,9 +32,9 @@ It differs from the Julian calendars with years beginning on March 25th, meaning
 
 This calendar is based on the Julian calendar and is considered to be exactly accurate.
 
-### Dependencies
-
-- Julian
+| Dependencies |
+| ------------ |
+| Julian       |
 
 ## Source
 

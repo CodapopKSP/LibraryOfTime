@@ -56,9 +56,9 @@ This calendar is not widely known, at least among Western sources, and doesn't e
 
 This calendar requires calculating the positions of Alcyone and the moon, which are quite complex algorithms that I may have implemented incorrectly. When compared to sky tracking apps, my calculated time of alignment seems to be about 30-60 minutes off. This is likely to have an effect on the calendar but not significantly so.
 
-### Dependencies
-
-- Moon Position
+| Dependencies  |
+| ------------- |
+| Moon Position |
 
 ## Source
 

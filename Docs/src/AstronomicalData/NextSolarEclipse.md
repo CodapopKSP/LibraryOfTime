@@ -28,10 +28,10 @@ This calculation is reasonably accurate (to within seconds or minutes) for thous
 
 This calculation relies on the New Moon calculation as well as Terrestrial Time, each of which have potential to induce these errors.
 
-### Dependencies
-
-- ΔT
-- New Moon
+| Dependencies |
+| ------------ |
+| ΔT           |
+| New Moon     |
 
 ## Source
 
