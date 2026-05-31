@@ -1,4 +1,4 @@
-# This Month's First Quarter Moon
+# Next First Quarter Moon
 
 | Epoch              | Confidence |
 | ------------------ | ---------- |

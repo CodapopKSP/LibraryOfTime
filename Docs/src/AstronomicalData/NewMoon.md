@@ -1,4 +1,4 @@
-# This Month's New Moon
+# Next New Moon
 
 | Epoch    | Confidence |
 | -------- | ---------- |

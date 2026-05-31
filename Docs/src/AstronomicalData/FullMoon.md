@@ -1,4 +1,4 @@
-# This Month's Full Moon
+# Next Full Moon
 
 | Epoch     | Confidence |
 | --------- | ---------- |

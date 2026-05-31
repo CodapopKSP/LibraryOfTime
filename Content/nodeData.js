@@ -1785,8 +1785,8 @@ const astronomicalData = [
     },
 
     {
-        name: `This Month's New Moon`,
-        id: `this-months-new-moon`,
+        name: `Next New Moon`,
+        id: `next-new-moon`,
         type: `Astronomical Data`,
         epoch: `New Moon`,
         confidence: `High`,
@@ -1798,8 +1798,8 @@ const astronomicalData = [
     },
 
     {
-        name: `This Month's First Quarter Moon`,
-        id: `this-months-first-quarter-moon`,
+        name: `Next First Quarter Moon`,
+        id: `next-first-quarter-moon`,
         type: `Astronomical Data`,
         epoch: `First Quarter Moon`,
         confidence: `High`,
@@ -1811,8 +1811,8 @@ const astronomicalData = [
     },
 
     {
-        name: `This Month's Full Moon`,
-        id: `this-months-full-moon`,
+        name: `Next Full Moon`,
+        id: `next-full-moon`,
         type: `Astronomical Data`,
         epoch: `Full Moon`,
         confidence: `High`,
@@ -1824,8 +1824,8 @@ const astronomicalData = [
     },
 
     {
-        name: `This Month's Last Quarter Moon`,
-        id: `this-months-last-quarter-moon`,
+        name: `Next Last Quarter Moon`,
+        id: `next-last-quarter-moon`,
         type: `Astronomical Data`,
         epoch: `Last Quarter Moon`,
         confidence: `High`,

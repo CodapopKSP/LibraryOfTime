@@ -1,4 +1,4 @@
-# This Month's Last Quarter Moon
+# Next Last Quarter Moon
 
 | Epoch             | Confidence |
 | ----------------- | ---------- |
