@@ -284,9 +284,9 @@ function getAstronomicalEventsForMonth(year, month) {
     } catch (e) {}
 
     try {
-        var eclipseRef = createAdjustedDateTime({ year: year, month: month, day: 1 });
-        for (var attempt = 0; attempt < 3; attempt++) {
-            var solarStr = getNextSolarLunarEclipse(eclipseRef, attempt);
+        var refDate = createAdjustedDateTime({ year: year, month: month, day: 15 });
+        for (var attempt = -2; attempt <= 2; attempt++) {
+            var solarStr = trySolarLunarEclipseAtModifier(refDate, attempt, false);
             if (solarStr) {
                 var firstLine = solarStr.split('\n')[0];
                 var eclipseDate = parseDateFromUTCStringLine(firstLine);
@@ -294,7 +294,7 @@ function getAstronomicalEventsForMonth(year, month) {
                     addEvent(eclipseDate.getUTCDate(), 'solar-eclipse');
                 }
             }
-            var lunarStr = getNextSolarLunarEclipse(eclipseRef, attempt + 0.5);
+            var lunarStr = trySolarLunarEclipseAtModifier(refDate, attempt + 0.5, true);
             if (lunarStr) {
                 var lunarFirst = lunarStr.split('\n')[0];
                 var lunarDate = parseDateFromUTCStringLine(lunarFirst);

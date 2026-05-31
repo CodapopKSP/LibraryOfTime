@@ -705,14 +705,12 @@ function handleEpochClick(epoch) {
     }
 
     // Moon Phases
-    if (epoch === 'New Moon' || epoch === 'First Quarter Moon' || epoch === 'Full Moon' || epoch === 'Last Quarter Moon') {
+    if (epoch === 'Next New Moon' || epoch === 'Next First Quarter Moon' || epoch === 'Next Full Moon' || epoch === 'Next Last Quarter Moon') {
         timePicked = getDatePickerTimezone();
         let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
         const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const y = now.getUTCFullYear();
-        const m = now.getUTCMonth() + 1;
-        const phaseType = epoch === 'New Moon' ? 0 : epoch === 'First Quarter Moon' ? 0.25 : epoch === 'Full Moon' ? 0.5 : 0.75;
-        let target = getMoonPhaseInMonth(y, m, phaseType);
+        const phaseType = epoch === 'Next New Moon' ? 0 : epoch === 'Next First Quarter Moon' ? 0.25 : epoch === 'Next Full Moon' ? 0.5 : 0.75;
+        let target = getNextMoonPhase(now, phaseType);
         target.setTime(target.getTime() + (timezoneOffset*1000*60));
 
         const hours = String(target.getUTCHours()).padStart(2, '0');

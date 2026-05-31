@@ -102,12 +102,10 @@ function updateAstronomicalData(currentDateTime) {
     setTimeValue('southward-equinox-node', getSolsticeOrEquinox(currentDateTime, 'AUTUMN').toUTCString());
     setTimeValue('southern-solstice-node', getSolsticeOrEquinox(currentDateTime, 'WINTER').toUTCString());
     setTimeValue('longitude-of-the-sun-node', getLongitudeOfSun(currentDateTime) + '°');
-    const y = currentDateTime.getUTCFullYear();
-    const m = currentDateTime.getUTCMonth() + 1;
-    setTimeValue('this-months-new-moon-node', getMoonPhaseInMonth(y, m, 0).toUTCString());
-    setTimeValue('this-months-first-quarter-moon-node', getMoonPhaseInMonth(y, m, 0.25).toUTCString());
-    setTimeValue('this-months-full-moon-node', getMoonPhaseInMonth(y, m, 0.5).toUTCString());
-    setTimeValue('this-months-last-quarter-moon-node', getMoonPhaseInMonth(y, m, 0.75).toUTCString());
+    setTimeValue('next-new-moon-node', getNextMoonPhase(currentDateTime, 0).toUTCString());
+    setTimeValue('next-first-quarter-moon-node', getNextMoonPhase(currentDateTime, 0.25).toUTCString());
+    setTimeValue('next-full-moon-node', getNextMoonPhase(currentDateTime, 0.5).toUTCString());
+    setTimeValue('next-last-quarter-moon-node', getNextMoonPhase(currentDateTime, 0.75).toUTCString());
     setTimeValue('next-solar-eclipse-node', getNextSolarLunarEclipse(currentDateTime, 0));
     setTimeValue('next-lunar-eclipse-node', getNextSolarLunarEclipse(currentDateTime, 0.5));
 }

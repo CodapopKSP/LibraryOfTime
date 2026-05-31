@@ -104,6 +104,17 @@ function testGetMoonPhase() {
     ]);
 }
 
+function testGetNextMoonPhase() {
+    return runAstronomicalTests("Next Moon Phase", getNextMoonPhase, [
+        ["2024-04-08, 10:20:46", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT", 0],
+        ["2024-04-08, 18:20:47", "UTC+00:00", "Wed, 08 May 2024 03:21:49 GMT", 0],
+        ["2024-04-08, 18:20:47", "UTC+00:00", "Tue, 23 Apr 2024 23:48:58 GMT", 0.5],
+        ["2025-3-20, 00:00:00", "UTC+00:00", "Sat, 29 Mar 2025 10:57:37 GMT", 0],
+        ["1801-3-10, 00:00:00", "UTC+00:00", "Mon, 30 Mar 1801 05:23:43 GMT", 0.5],
+        ["1801-3-11, 00:00:00", "UTC+00:00", "Mon, 30 Mar 1801 05:23:43 GMT", 0.5],
+    ]);
+}
+
 function testGetNextSolarLunarEclipse() {
     return runAstronomicalTests("Eclipse", getNextSolarLunarEclipse, [
         ["2024-04-08, 18:20:46", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Coda's eclipse
@@ -111,6 +122,8 @@ function testGetNextSolarLunarEclipse() {
         ["-584-5-21, 00:00:00", "UTC+00:00", "Wed, 22 May -0584 14:03:03 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Herodotus's eclipse
         ["1916-6-14, 00:00:00", "UTC+00:00", "Sat, 15 Jul 1916 04:39:39 GMT\nPartial | Ascending\nSouthern Hemisphere", 0.5],   // Ernest Shackleton's Antarctic Eclipse
         ["-1999-11-19, 00:00:00", "UTC+00:00", "Mon, 19 Nov -1999 09:59:04 GMT\nAnnular | Descending\nSouthern Hemisphere", 0], // Oldest solar eclipse in source that doesn't bridge Greg/Jul years
+        ["1801-3-10, 00:00:00", "UTC+00:00", "Mon, 30 Mar 1801 05:23:43 GMT\nTotal | Descending\nNorthern Hemisphere", 0.5],
+        ["1801-3-11, 00:00:00", "UTC+00:00", "Mon, 30 Mar 1801 05:23:43 GMT\nTotal | Descending\nNorthern Hemisphere", 0.5],
     ]);
 }
 
@@ -134,6 +147,7 @@ function runAstronomicalDataTests() {
         testGetLongitudeOfSun,
         testGetSolsticeOrEquinox,
         testGetMoonPhase,
+        testGetNextMoonPhase,
         testGetNextSolarLunarEclipse,
         testGetNewMoon,
     ];

@@ -389,21 +389,65 @@ function getLongitudeOfSun(currentDateTime) {
 //|     Lunar  Calculations     |
 //|-----------------------------|
 
-// Get the moon phase (new/first quarter/full/last quarter) that falls within the given Gregorian month.
+// Next occurrence of a moon phase after referenceDate.
 // phaseType: 0=new, 0.25=first quarter, 0.5=full, 0.75=last quarter
-// Used by Calendar View and "This Month's" nodes to avoid off-by-one issues from getMoonPhase(refDate, phaseType).
-function getMoonPhaseInMonth(year, month, phaseType) {
+function getNextMoonPhase(referenceDate, phaseType) {
+    const offsets = [-2, -1, 0, 1, 2].map(function (o) { return o + phaseType; });
+    let best = null;
+    let bestModifier = null;
+    for (let i = 0; i < offsets.length; i++) {
+        const phaseDate = getMoonPhase(referenceDate, offsets[i]);
+        if (phaseDate.getTime() > referenceDate.getTime()) {
+            if (best === null || phaseDate.getTime() < best.getTime()) {
+                best = phaseDate;
+                bestModifier = offsets[i];
+            }
+        }
+    }
+    if (best !== null) {
+        if (bestModifier !== phaseType) {
+            return refineMoonPhaseInMonth(best, phaseType);
+        }
+        return best;
+    }
+    let modifier = phaseType + 3;
+    let phaseDate = getMoonPhase(referenceDate, modifier);
+    let guard = 0;
+    while (phaseDate.getTime() <= referenceDate.getTime() && guard < 4) {
+        modifier += 1;
+        phaseDate = getMoonPhase(referenceDate, modifier);
+        guard += 1;
+    }
+    if (modifier !== phaseType) {
+        return refineMoonPhaseInMonth(phaseDate, phaseType);
+    }
+    return phaseDate;
+}
+
+// Recompute a moon phase using a mid-month anchor so k truncation stays stable.
+function refineMoonPhaseInMonth(phaseDate, phaseType) {
+    const year = phaseDate.getUTCFullYear();
+    const month = phaseDate.getUTCMonth() + 1;
     const monthStart = createAdjustedDateTime({ year: year, month: month, day: 1 });
     const monthEnd = createAdjustedDateTime({ year: year, month: month + 1, day: 0 });
     const refDate = createAdjustedDateTime({ year: year, month: month, day: 15 });
     const offsets = [-2, -1, 0, 1, 2].map(function (o) { return o + phaseType; });
     for (let i = 0; i < offsets.length; i++) {
-        const phaseDate = getMoonPhase(refDate, offsets[i]);
-        if (phaseDate.getTime() >= monthStart.getTime() && phaseDate.getTime() <= monthEnd.getTime()) {
-            return phaseDate;
+        const refined = getMoonPhase(refDate, offsets[i]);
+        if (refined.getTime() >= monthStart.getTime() && refined.getTime() <= monthEnd.getTime()) {
+            return refined;
         }
     }
-    return getMoonPhase(refDate, phaseType);
+    return phaseDate;
+}
+
+// Fractional part of monthModifier in [0, 1), for new (0), quarter (0.25/0.75), or full (0.5).
+function moonPhaseFraction(monthModifier) {
+    let fraction = monthModifier % 1;
+    if (fraction < 0) {
+        fraction += 1;
+    }
+    return fraction;
 }
 
 // Calculates a moon phase
@@ -419,11 +463,12 @@ function getMoonPhase(currentDateTime, monthModifier) {
     const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
     const lunarNode = 124.7746 - 1.56375580*k + 0.0020691*T**2 + 0.00000215*T**3;
     const sumOfAllPhaseTable = allLunarPhaseTable(k, T);
+    const phaseFraction = moonPhaseFraction(monthModifier);
     let tableSum = 0;
-    if (monthModifier % 1 === 0) {
+    if (phaseFraction === 0) {
         tableSum = sumNewMoonTable(SunM, MoonM, F, E, lunarNode);
     }
-    else if (monthModifier % 1 === 0.5) {
+    else if (phaseFraction === 0.5) {
         tableSum = sumFullMoonTable(SunM, MoonM, F, E, lunarNode);
     }
     else {
@@ -544,7 +589,7 @@ function sumQuarterMoonTable(SunM, MoonM, F, E, lunarNode, monthModifier) {
         sumQuarterMoonTableHelperW(0.00002, MoonM+SunM) +
         sumQuarterMoonTableHelperW(0.00002, F*2);
 
-    if (monthModifier % 1 === 0.25) {
+    if (moonPhaseFraction(monthModifier) === 0.25) {
         sum += w;
     }
     else {
@@ -590,17 +635,18 @@ function allLunarPhaseTable(k, T) {
     return sum;
 }
 
-// Get formatted information about the next solar eclipse
-function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
+// Evaluate one syzygy for a solar (phaseType 0) or lunar (phaseType 0.5) eclipse.
+// Returns null when no eclipse occurs at that modifier.
+function trySolarLunarEclipseAtModifier(currentDateTime, monthModifier, isLunar) {
     let year = currentDateTime.getUTCFullYear();
     year += calculateUTCYearFraction(currentDateTime);
     const k = Math.trunc((year - 2000)*12.3685) + monthModifier;
     const T = k/1236.85;
     const F = 160.7108 + 390.67050274*k - 0.0016341*T**2 - 0.00000227*T**3 + 0.000000011*T**4;
 
-    // Eclipse is impossible
+    // Eclipse is impossible at this syzygy
     if (Math.abs(Math.sin(radians(F))) > 0.36) {
-        return getNextSolarLunarEclipse(currentDateTime, monthModifier+1);
+        return null;
     }
 
     // Calculate a bunch of values from Astronomical Algorithms
@@ -665,7 +711,7 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
     let eclipseType = 'None';
 
     // Lunar Eclipse
-    if ((monthModifier%1)===0.5) {
+    if (isLunar) {
         // Not an umbral eclipse
         const umbra = 0.7403 - u;
         const umbralEclipseMagnitude = (1.0128 - u - Math.abs(Y))/0.5450;
@@ -695,7 +741,7 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
     } else {
         // Umbra cannot be seen from Earth, not a solar eclipse
         if (Math.abs(Y) > 1.5433+u) {
-            return getNextSolarLunarEclipse(currentDateTime, monthModifier+1);
+            return null;
         }
 
         // Central eclipse
@@ -710,10 +756,60 @@ function getNextSolarLunarEclipse(currentDateTime, monthModifier) {
         }
     }
 
-    // Get date of eclipse
-    const eclipseDate = getMoonPhase(currentDateTime, monthModifier)
+    const eclipseDate = getMoonPhase(currentDateTime, monthModifier);
 
     return eclipseDate.toUTCString() + '\n' + eclipseType + ' | ' + eclipseNode + '\n' + hemisphere;
+}
+
+// Get formatted information about the next solar or lunar eclipse after referenceDate.
+// phaseType: 0 = solar (new moon), 0.5 = lunar (full moon)
+function getNextSolarLunarEclipse(currentDateTime, phaseType) {
+    const isLunar = phaseType === 0.5;
+    const offsets = [-2, -1, 0, 1, 2].map(function (o) { return o + phaseType; });
+    let bestResult = null;
+    let bestDate = null;
+    let bestModifier = null;
+    for (let i = 0; i < offsets.length; i++) {
+        const result = trySolarLunarEclipseAtModifier(currentDateTime, offsets[i], isLunar);
+        if (!result) {
+            continue;
+        }
+        const eclipseDate = getMoonPhase(currentDateTime, offsets[i]);
+        if (eclipseDate.getTime() > currentDateTime.getTime()) {
+            if (bestDate === null || eclipseDate.getTime() < bestDate.getTime()) {
+                bestDate = eclipseDate;
+                bestResult = result;
+                bestModifier = offsets[i];
+            }
+        }
+    }
+    if (bestResult === null) {
+        let modifier = phaseType + 3;
+        let guard = 0;
+        while (guard < 100) {
+            const result = trySolarLunarEclipseAtModifier(currentDateTime, modifier, isLunar);
+            if (result) {
+                const eclipseDate = getMoonPhase(currentDateTime, modifier);
+                if (eclipseDate.getTime() > currentDateTime.getTime()) {
+                    bestResult = result;
+                    bestDate = eclipseDate;
+                    bestModifier = modifier;
+                    break;
+                }
+            }
+            modifier += 1;
+            guard += 1;
+        }
+    }
+    if (bestResult === null) {
+        return '';
+    }
+    const finalDate = bestModifier !== phaseType
+        ? refineMoonPhaseInMonth(bestDate, phaseType)
+        : bestDate;
+    const lines = bestResult.split('\n');
+    lines[0] = finalDate.toUTCString();
+    return lines.join('\n');
 }
 
 // Taken from Astronomical Algorithms
