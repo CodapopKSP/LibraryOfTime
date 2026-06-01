@@ -12,7 +12,7 @@ The regular month lengths ensure that the first of every month always lands on a
 
 ## Info
 
-| Calendar Unit  | Days |
+| Months | Days |
 | -------------- | ---- |
 | World's Day    | 1    |
 | January        | 31   |
@@ -29,7 +29,7 @@ The regular month lengths ensure that the first of every month always lands on a
 | November       | 30   |
 | December       | 30   |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |

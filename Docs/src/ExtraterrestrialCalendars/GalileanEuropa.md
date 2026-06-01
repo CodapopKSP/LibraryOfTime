@@ -18,8 +18,8 @@ All four of the Galilean calendars use roughly the same epoch, within a week, as
 
 The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.
 
-| Europa Month   | Circads |
-| -------------- | ------- |
+| Months | Days |
+| ------ | ---- |
 | Eu Januarius   | 32      |
 | Eu Februarius  | 32      |
 | Eu Mercedonius | 32      |

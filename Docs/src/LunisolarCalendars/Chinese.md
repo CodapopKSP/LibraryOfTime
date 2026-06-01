@@ -16,7 +16,7 @@ Different versions of this calendar use different eras, but this website uses 26
 
 The Chinese calendar is one of the most widespread calendars in history, used by various cultures in Asia and around the world either directly or as a base.
 
-| Year Cycle | English |
+| Year Cycle | Transliteration |
 | ---------- | ------- |
 | 鼠          | Rat     |
 | 牛          | Ox      |

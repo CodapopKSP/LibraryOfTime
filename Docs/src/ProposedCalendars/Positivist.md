@@ -14,7 +14,7 @@ Years are counted from 1789, the year of the French Revolution, and are denoted 
 
 ## Info
 
-| Month                    | Gregorian Dates     | Days |
+| Months                   | Gregorian Dates     | Days |
 | ------------------------ | ------------------- | ---- |
 | Moses                    | Jan 1 - Jan 28      | 28   |
 | Homer                    | Jan 29 - Feb 25     | 28   |
@@ -32,7 +32,7 @@ Years are counted from 1789, the year of the French Revolution, and are denoted 
 | Festival of All the Dead | Dec 30/31           | 1    |
 | Festival of Holy Women   | Dec 31 (leap years) | 1    |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |

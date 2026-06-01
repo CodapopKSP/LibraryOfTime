@@ -18,8 +18,8 @@ Years follow a 12-year animal cycle similar to the Chinese lunisolar calendar an
 
 Kazakh nomads seem to have used the actual visual appearance of the moon at the point of eclipsing Pleiades as the month name. This makes the Togys Esebi calendar one of the few calendars that doesn't need complex rules or an authoritative body, being dictated by a very simple concept that is easy for any individual to check.
 
-| Month Name                         | Approximate Dates |
-| ---------------------------------- | ----------------- |
+| Months | Approx. Gregorian Time |
+| ------ | ---------------------- |
 | 1 togys aiy                        | Apr–May           |
 | 27 togys aiy (14-month years only) | May–Jun           |
 | 25 togys aiy                       | Jun               |
@@ -35,8 +35,8 @@ Kazakh nomads seem to have used the actual visual appearance of the moon at the 
 | 5 togys aiy                        | Jan–Feb           |
 | 3 togys aiy                        | Feb–Mar           |
 
-| Togys Esebi years |
-| ----------------- |
+| Year Cycle |
+| ---------- |
 | Mouse             |
 | Cow               |
 | Leopard           |

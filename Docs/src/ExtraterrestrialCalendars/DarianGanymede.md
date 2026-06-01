@@ -16,8 +16,8 @@ The calendars all share circads, months, and weeks of 8 circads, though they dri
 
 All four of the Galilean Darian calendars use roughly the same epoch, within a week, as the Martian Darian calendar, each of which corresponds with their Meridian Time.
 
-| Ganymede Month  | Circads |
-| --------------- | ------- |
+| Months | Days |
+| ------ | ---- |
 | Gan Sagittarius | 32      |
 | Gan Dhanus      | 32      |
 | Gan Capricornus | 32      |

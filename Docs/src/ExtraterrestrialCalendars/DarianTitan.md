@@ -18,8 +18,8 @@ Years don't always begin and end at midnight on Titan's prime meridian, as the c
 
 ## Info
 
-| Titan Month    | Circads |
-| -------------- | ------- |
+| Months | Days |
+| ------ | ---- |
 | Ti Sagittarius | 28      |
 | Ti Dhanus      | 28      |
 | Ti Capricornus | 32      |

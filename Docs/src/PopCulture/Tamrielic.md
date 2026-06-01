@@ -12,7 +12,7 @@ It has 12 months of 28-31 days along with weeks of seven days. Since the timelin
 
 ## Info
 
-| Month        | Days     | Gregorian |
+| Months       | Days     | Gregorian |
 | ------------ | -------- | --------- |
 | Morning Star | 31       | January   |
 | Sun's Dawn   | 28 or 29 | February  |
@@ -27,15 +27,15 @@ It has 12 months of 28-31 days along with weeks of seven days. Since the timelin
 | Sun's Dusk   | 30       | November  |
 | Evening Star | 31       | December  |
 
-| Weekday | Gregorian |
-| ------- | --------- |
-| Morndas | Monday    |
-| Tirdas  | Tuesday   |
-| Middas  | Wednesday |
-| Turdas  | Thursday  |
-| Fredas  | Friday    |
-| Loredas | Saturday  |
-| Sundas  | Sunday    |
+| Weekdays | |
+| -------- | - |
+| Morndas | Monday |
+| Tirdas | Tuesday |
+| Middas | Wednesday |
+| Turdas | Thursday |
+| Fredas | Friday |
+| Loredas | Saturday |
+| Sundas | Sunday |
 
 ## Accuracy
 

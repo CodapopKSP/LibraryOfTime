@@ -27,7 +27,7 @@ The Human Era is an attempt to adapt the Gregorian calendar, which has become wi
 | November  | 30       |
 | December  | 31       |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |

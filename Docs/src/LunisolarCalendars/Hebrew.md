@@ -33,7 +33,7 @@ The Hebrew calendar is not strictly based on the moon. The modern Jewish calenda
 | Elul      | August - September      |
 
 | Weekdays | |
-| -------- | -------- |
+| -------- | - |
 | Sunday | Yom Rishon |
 | Monday | Yom Sheni |
 | Tuesday | Yom Shlishi |

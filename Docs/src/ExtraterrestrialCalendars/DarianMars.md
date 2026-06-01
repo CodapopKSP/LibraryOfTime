@@ -16,7 +16,7 @@ Leap years add one extra day in the final month, and they take place if the year
 
 ## Info
 
-| Month       | Days     |
+| Months      | Days     |
 | ----------- | -------- |
 | Sagittarius | 28       |
 | Dhanus      | 28       |

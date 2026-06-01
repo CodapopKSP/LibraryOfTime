@@ -50,7 +50,7 @@ Each of the 30 cycles of Week 7 also has a name. This calendar does not count th
 | Kelawu     | Dukut        | Watugunung  |
 
 | Weekdays | |
-| -------- | -------- |
+| -------- | - |
 | Sunday | Redite |
 | Monday | Soma |
 | Tuesday | Anggara |

@@ -32,7 +32,7 @@ The Hijri calendar is on a roughly 37-year cycle when compared with the solar ye
 | Dhū al-Ḥijjah      |
 
 | Weekdays | |
-| -------- | -------- |
+| -------- | - |
 | Sunday | Yawm al-Ahad |
 | Monday | Yawm al-Ithnayn |
 | Tuesday | Yawm ath-Thulatha |

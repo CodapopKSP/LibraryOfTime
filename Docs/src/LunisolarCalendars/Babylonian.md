@@ -16,31 +16,29 @@ Due to the long history of empires and conquests of Babylon, years can be counte
 
 The Babylonian calendar is derived from the ancient Sumerian calendar and shares many similarities in month names, while the Hebrew calendar is derived from the Babylonian calendar.
 
-| Months                     |           |                                         |                   |
-| -------------------------- | --------- | --------------------------------------- | ----------------- |
-| Month                      | Cuneiform | Transliteration (Akkadian)              | Approx. Gregorian |
-| 1                          | 𒌚𒁈      | Arah Nisānu                             | Mar/Apr           |
-| 2                          | 𒌚𒄞      | Arah Āru                                | Apr/May           |
-| 3                          | 𒌚𒋞      | Arah Simānu                             | May/Jun           |
-| 4                          | 𒌚𒋗      | Arah Dumuzu                             | Jun/Jul           |
-| 5                          | 𒌚𒉈      | Arah Abu                                | Jul/Aug           |
-| 6                          | 𒌚𒆥      | Arah Ulūlu                              | Aug/Sep           |
-| Intercalary (year 17 only) | 𒌚𒋛𒀀𒆥  | Arah Makarūša Ulūlu                     | Sep               |
-| 7                          | 𒌚𒇯      | Arah Tišrītum                           | Sep/Oct           |
-| 8                          | 𒌚𒀳      | Arah Samnu                              | Oct/Nov           |
-| 9                          | 𒌚𒃶      | Arah Kislīmu                            | Nov/Dec           |
-| 10                         | 𒌚𒀊      | Arah Ṭebētum                            | Dec/Jan           |
-| 11                         | 𒌚𒍩      | Arah Šabāṭu                             | Jan/Feb           |
-| 12                         | 𒌚𒊺      | Arah Addaru / Adār                      | Feb/Mar           |
-| Intercalary                | 𒌚𒋛𒀀𒊺  | Arah Makarūša Addari / Arah Addaru Arku | Mar               |
+| Months | | Transliteration | Approx. Gregorian |
+| ------ | - | --------------- | ----------------- |
+| 1 | 𒌚𒁈 | Arah Nisānu | Mar/Apr |
+| 2 | 𒌚𒄞 | Arah Āru | Apr/May |
+| 3 | 𒌚𒋞 | Arah Simānu | May/Jun |
+| 4 | 𒌚𒋗 | Arah Dumuzu | Jun/Jul |
+| 5 | 𒌚𒉈 | Arah Abu | Jul/Aug |
+| 6 | 𒌚𒆥 | Arah Ulūlu | Aug/Sep |
+| Intercalary (year 17 only) | 𒌚𒋛𒀀𒆥 | Arah Makarūša Ulūlu | Sep |
+| 7 | 𒌚𒇯 | Arah Tišrītum | Sep/Oct |
+| 8 | 𒌚𒀳 | Arah Samnu | Oct/Nov |
+| 9 | 𒌚𒃶 | Arah Kislīmu | Nov/Dec |
+| 10 | 𒌚𒀊 | Arah Ṭebētum | Dec/Jan |
+| 11 | 𒌚𒍩 | Arah Šabāṭu | Jan/Feb |
+| 12 | 𒌚𒊺 | Arah Addaru / Adār | Feb/Mar |
+| Intercalary | 𒌚𒋛𒀀𒊺 | Arah Makarūša Addari / Arah Addaru Arku | Mar |
 
-| Holy-days |                   |
-| --------- | ----------------- |
-| Day       | Offering to       |
-| 7         | Marduk and Ishtar |
-| 14        | Ninlil and Nergal |
-| 21        | Sin and Shamash   |
-| 28        | Enki and Mah      |
+| Holy-days | |
+| --------- | - |
+| 7 | Marduk and Ishtar |
+| 14 | Ninlil and Nergal |
+| 21 | Sin and Shamash |
+| 28 | Enki and Mah |
 
 ## Accuracy
 

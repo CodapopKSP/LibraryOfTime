@@ -16,7 +16,7 @@ Leap years happen every 4 years but not on centennial years. Years are denoted w
 
 The Shire calendar took inspiration from many European calendars, including the Julian and Gregorian calendars for leap year rules as well as German calendars for month names and year structure. The leap year rules make its drift from the equinoxes a bit less than the Julian calendar but a bit more than the Gregorian.
 
-| Name             | Days | Approx. Gregiorian |
+| Months           | Days | Approx. Gregorian |
 | ---------------- | ---- | ------------------ |
 | 2 Yule           | 1    | Dec                |
 | Afteryule        | 30   | Dec - Jan          |

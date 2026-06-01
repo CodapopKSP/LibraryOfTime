@@ -18,8 +18,8 @@ All four of the Galilean calendars use roughly the same epoch, within a week, as
 
 The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.
 
-| Callisto Month  | Circads |
-| --------------- | ------- |
+| Months | Days |
+| ------ | ---- |
 | Cal Januarius   | 32      |
 | Cal Februarius  | 32      |
 | Cal Mercedonius | 32      |

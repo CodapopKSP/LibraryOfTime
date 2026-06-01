@@ -18,8 +18,8 @@ All four of the Galilean calendars use roughly the same epoch, within a week, as
 
 The Galilean months are roughly equal to the Gregorian months, though with slightly different names as well as a 13th month added between Februarius and Martius. Each moon has a slightly different day arrangement.
 
-| Io Month       | Circads |
-| -------------- | ------- |
+| Months | Days |
+| ------ | ---- |
 | Io Januarius   | 32      |
 | Io Februarius  | 32      |
 | Io Mercedonius | 32      |

@@ -31,15 +31,15 @@ As it follows the intercalation rules of the Gregorian calendar, its months star
 | Magha      | 30       |
 | Phalguna   | 30       |
 
-| Weekdays | | Transliteration |
-| -------- | - | --------------- |
-| Sunday | Ravivāra | Ravivara |
-| Monday | Somavāra | Somavara |
-| Tuesday | Maṅgalavāra | Mangalavara |
-| Wednesday | Budhavāra | Budhavara |
-| Thursday | Bṛhaspativāra | Brihaspativara |
-| Friday | Śukravāra | Shukravara |
-| Saturday | Śanivāra | Shanivara |
+| Weekdays | Transliteration |
+| -------- | --------------- |
+| Ravivāra | Ravivara |
+| Somavāra | Somavara |
+| Maṅgalavāra | Mangalavara |
+| Budhavāra | Budhavara |
+| Bṛhaspativāra | Brihaspativara |
+| Śukravāra | Shukravara |
+| Śanivāra | Shanivara |
 
 ## Accuracy
 

@@ -16,8 +16,8 @@ The calendars all share circads, months, and weeks of 8 circads, though they dri
 
 All four of the Galilean Darian calendars use roughly the same epoch, within a week, as the Martian Darian calendar, each of which corresponds with their Meridian Time.
 
-| Europa Month   | Circads |
-| -------------- | ------- |
+| Months | Days |
+| ------ | ---- |
 | Eu Sagittarius | 32      |
 | Eu Dhanus      | 32      |
 | Eu Capricornus | 32      |

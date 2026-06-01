@@ -33,7 +33,7 @@ This calendar is calibrated using 1 January 2001 as a reference date.
 | November  | 35       |
 | December  | 28 or 35 |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |
