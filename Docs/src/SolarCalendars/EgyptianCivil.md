@@ -16,7 +16,7 @@ The epoch changed with each dynasty, and I could not find evidence of a standard
 
 ## Info
 
-| Season | Month      | Month Number | Days |
+| Season | Months     | Month Number | Days |
 | ------ | ---------- | ------------ | ---- |
 | Akhet  | Tekh       | I            | 30   |
 | Akhet  | Menhet     | II           | 30   |

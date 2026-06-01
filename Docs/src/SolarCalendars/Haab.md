@@ -14,7 +14,7 @@ Years do not increment outside the Calendar Round, so it is impossible to say fo
 
 ## Info
 
-| Month   | Days | Month    | Days |
+| Months  | Days | Months   | Days |
 | ------- | ---- | -------- | ---- |
 | Pop     | 20   | Yax      | 20   |
 | Wo      | 20   | Sak      | 20   |

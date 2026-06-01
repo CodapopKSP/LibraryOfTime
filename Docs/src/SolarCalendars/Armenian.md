@@ -14,64 +14,64 @@ The 30 days of the month are also individually named.
 
 ## Info
 
-| #   | Days | Month    | Transliteration |
-| --- | ---- | -------- | --------------- |
-| 1   | 30   | նաւասարդ | Nawasard        |
-| 2   | 30   | հոռի     | Hoṙi            |
-| 3   | 30   | սահմի    | Sahmi           |
-| 4   | 30   | տրէ      | Trē             |
-| 5   | 30   | քաղոց    | Kʿałocʿ         |
-| 6   | 30   | արաց     | Aracʿ           |
-| 7   | 30   | մեհեկան  | Mehekan         |
-| 8   | 30   | արեգ     | Areg            |
-| 9   | 30   | ահեկան   | Ahekan          |
-| 10  | 30   | մարերի   | Mareri          |
-| 11  | 30   | մարգաց   | Margacʿ         |
-| 12  | 30   | հրոտից   | Hroticʿ         |
-| 13  | 5    | աւելեաց  | Aweleacʿ        |
+| Months | Days | Transliteration |
+| ------ | ---- | --------------- |
+| նաւասարդ | 30   | Nawasard        |
+| հոռի     | 30   | Hoṙi            |
+| սահմի    | 30   | Sahmi           |
+| տրէ      | 30   | Trē             |
+| քաղոց    | 30   | Kʿałocʿ         |
+| արաց     | 30   | Aracʿ           |
+| մեհեկան  | 30   | Mehekan         |
+| արեգ     | 30   | Areg            |
+| ահեկան   | 30   | Ahekan          |
+| մարերի | 30   | Mareri          |
+| մարգաց   | 30   | Margacʿ         |
+| հրոտից   | 30   | Hroticʿ         |
+| աւելեաց  | 5    | Aweleacʿ        |
 
-| #   | Name      | Armenian |
-| --- | --------- | -------- |
-| 1   | Areg      | Արեգ     |
-| 2   | Hrand     | Հրանդ    |
-| 3   | Aram      | Արամ     |
-| 4   | Margar    | Մարգար   |
-| 5   | Ahrank'   | Ահրանկ   |
-| 6   | Mazdeł    | —        |
-| 7   | Astłik    | Աստղիկ   |
-| 8   | Mihr      | Միհր     |
-| 9   | Jopaber   | —        |
-| 10  | Murc'     | Մուրց    |
-| 11  | Erezhan   | —        |
-| 12  | Ani       | Անի      |
-| 13  | Parkhar   | —        |
-| 14  | Vanat     | Վանատ    |
-| 15  | Aramazd   | Արամազդ  |
-| 16  | Mani      | Մանի     |
-| 17  | Asak      | Ասակ     |
-| 18  | Masis     | Մասիս    |
-| 19  | Anahit    | Անահիտ   |
-| 20  | Aragats   | Արագած   |
-| 21  | Gorgor    | —        |
-| 22  | Kordvik   | —        |
-| 23  | Tsmak     | Ծմակ     |
-| 24  | Lusnak    | Լուսնակ  |
-| 25  | Tsrōn     | —        |
-| 26  | Npat      | Նպատ     |
-| 27  | Vahagn    | Վահագն   |
-| 28  | Sim       | Սիմ      |
-| 29  | Varag     | Վարագ    |
-| 30  | Gišeravar | —        |
+| Day Names | Transliteration |
+| --------- | --------------- |
+| Արեգ     | Areg            |
+| Հրանդ    | Hrand           |
+| Արամ     | Aram            |
+| Մարգար   | Margar          |
+| Ահրանկ   | Ahrank'         |
+| —        | Mazdeł          |
+| Աստղիկ   | Astłik          |
+| Միհր     | Mihr            |
+| —        | Jopaber         |
+| Մուրց    | Murc'           |
+| —        | Erezhan         |
+| Անի      | Ani             |
+| —        | Parkhar         |
+| Վանատ    | Vanat           |
+| Արամազդ  | Aramazd         |
+| Մանի     | Mani            |
+| Ասակ     | Asak            |
+| Մասիս    | Masis           |
+| Անահիտ   | Anahit          |
+| Արագած   | Aragats         |
+| —        | Gorgor          |
+| —        | Kordvik         |
+| Ծմակ     | Tsmak           |
+| Լուսնակ  | Lusnak          |
+| —        | Tsrōn           |
+| Նպատ     | Npat            |
+| Վահագն   | Vahagn          |
+| Սիմ      | Sim             |
+| Վարագ    | Varag           |
+| —        | Gišeravar       |
 
-| Order | Weekday    | Transliteration |
-| ----- | ---------- | --------------- |
-| 1     | Կիրակի     | Kiraki          |
-| 2     | Երկուշաբթի | Yerkushabti     |
-| 3     | Երեքշաբթի  | Yereqshabti     |
-| 4     | Չորեքշաբթի | Choreqshabti    |
-| 5     | Հինգշաբթի  | Hingshabti      |
-| 6     | Ուրբաթ     | Urbat           |
-| 7     | Շաբաթ      | Shabat          |
+| Weekdays | Transliteration |
+| -------- | --------------- |
+| Կիրակի     | Kiraki          |
+| Երկուշաբթի | Yerkushabti     |
+| Երեքշաբթի  | Yereqshabti     |
+| Չորեքշաբթի | Choreqshabti    |
+| Հինգշաբթի  | Hingshabti      |
+| Ուրբաթ     | Urbat           |
+| Շաբաթ      | Shabat          |
 
 ## Accuracy
 

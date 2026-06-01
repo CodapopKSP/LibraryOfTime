@@ -30,7 +30,7 @@ Days also started at sunset (of the previous calendar day on the Julian calendar
 | February            | 28 or 29 |
 | March (1st - 24th)  | 24       |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |

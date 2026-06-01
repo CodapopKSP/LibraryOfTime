@@ -27,7 +27,7 @@ It differed from the Julian calendar with years beginning on March 1st. The Vene
 | January   | 31       |
 | February  | 28 or 29 |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |

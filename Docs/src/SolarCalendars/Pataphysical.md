@@ -12,7 +12,7 @@ It features 13 months of 29 days, though for each month the 29th day is imaginar
 
 ## Info
 
-| Month       | Days     | English                | Approx. Gregorian Time |
+| Months      | Days     | English                | Approx. Gregorian Time |
 | ----------- | -------- | ---------------------- | ---------------------- |
 | Absolu      | 28       | Absolute               | Sept 8 - Oct 5         |
 | Haha        | 28       | Haha                   | Oct 6 - Nov 2          |
@@ -29,7 +29,7 @@ It features 13 months of 29 days, though for each month the 29th day is imaginar
 | Phalle      | 28       | Phallus                | Aug 11 - Sept 7        |
 
 | Weekdays | |
-| -------- | -------- |
+| -------- | - |
 | Sunday | Dimanche |
 | Monday | Lundi |
 | Tuesday | Mardi |

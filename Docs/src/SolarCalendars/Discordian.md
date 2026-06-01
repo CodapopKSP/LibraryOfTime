@@ -14,7 +14,7 @@ Years are denoted with 'YOLD' meaning 'Year of Our Lady Discord'.
 
 ## Info
 
-| Month         | Days | Approx. Gregorian Time |
+| Months        | Days | Approx. Gregorian Time |
 | ------------- | ---- | ---------------------- |
 | Chaos         | 73   | Jan 1 - Mar 14         |
 | Discord       | 73   | Mar 15 - May 26        |
@@ -23,13 +23,13 @@ Years are denoted with 'YOLD' meaning 'Year of Our Lady Discord'.
 | The Aftermath | 73   | Oct 20 - Dec 31        |
 | St. Tib's Day | 1    | Feb 29                 |
 
-| # | Weekday         |
-| - | --------------- |
-| 1 | Sweetmorn       |
-| 2 | Boomtime        |
-| 3 | Pungenday       |
-| 4 | Prickle-Prickle |
-| 5 | Setting Orange  |
+| Weekdays        |
+| --------------- |
+| Sweetmorn       |
+| Boomtime        |
+| Pungenday       |
+| Prickle-Prickle |
+| Setting Orange  |
 
 ## Accuracy
 

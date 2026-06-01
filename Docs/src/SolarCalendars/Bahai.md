@@ -16,8 +16,9 @@ Days start at sunset in Tehran, which is approximated here as 18:00 IRST. Years 
 
 The new year starts on the day that the equinox occurs before noon in Iran, or the next day if it occurs after noon. The starting of the new year results in the final month having 29 or 30 days depending on when exactly the equinox occurs.
 
-| Month      | Days   | Approx. Gregorian Time |
-| ---------- | ------ | ---------------------- |
+| Months | | |
+| ------ | - | - |
+| Months | Days   | Approx. Gregorian Time |
 | Bahá       | 19     | Mar 21 - Apr 8         |
 | Jalál      | 19     | Apr 9 - Apr 27         |
 | Jamál      | 19     | Apr 28 - May 16        |
@@ -40,14 +41,14 @@ The new year starts on the day that the equinox occurs before noon in Iran, or t
 | 'Alá'      | 19     | Mar 2 - Mar 20         |
 
 | Weekdays | |
-| -------- | -------- |
-| Sunday | Jamál |
-| Monday | Kamál |
-| Tuesday | Fiḍál |
+| -------- | - |
+| Sunday    | Jamál |
+| Monday    | Kamál |
+| Tuesday   | Fiḍál |
 | Wednesday | ‘Idál |
-| Thursday | Istijlál |
-| Friday | Istiqlál |
-| Saturday | Jalál |
+| Thursday  | Istijlál |
+| Friday    | Istiqlál |
+| Saturday  | Jalál |
 
 ## Accuracy
 

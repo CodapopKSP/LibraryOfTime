@@ -27,7 +27,7 @@ It differed from the Julian calendar with the new year starting on September 1st
 | July      | 31       |
 | August    | 31       |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |

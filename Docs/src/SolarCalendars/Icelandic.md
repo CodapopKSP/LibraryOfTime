@@ -16,7 +16,7 @@ In order to keep the calendar aligned with the solar year, an intercalary week i
 
 Because of the 4 days of Aukanætur, Summer is slightly longer than Winter, and neither is divisible cleanly by the 7-day week. The beginning of Winter is not on the same day of the week as the beginning of Summer. Instead, the beginning of the week shifts depending on the current misseri, resulting in the final week of each misseri being incomplete.
 
-| Month                 | Days | Season |
+| Months                | Days | Season |
 | --------------------- | ---- | ------ |
 | Harpa                 | 30   | Summer |
 | Skerpla               | 30   | Summer |
@@ -34,7 +34,7 @@ Because of the 4 days of Aukanætur, Summer is slightly longer than Winter, and 
 | Einmánuðr             | 30   | Winter |
 
 | Weekdays | |
-| -------- | -------- |
+| -------- | - |
 | Sunday | sunnudagr |
 | Monday | mánadagr |
 | Tuesday | týrsdagr |

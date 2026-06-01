@@ -14,15 +14,15 @@ Each year can have either 52 weeks (364 days) or 53 weeks (371 days).
 
 The ISO Week Date follows the format of Year-Week-Weekday, with Monday being the first day of the week and Sunday being the 7th day of the week.
 
-| # | Weekday |
-| - | ------- |
-| 1 | Monday  |
-| 2 | Tuesday |
-| 3 | Wednesday |
-| 4 | Thursday |
-| 5 | Friday |
-| 6 | Saturday |
-| 7 | Sunday  |
+| Weekdays  |
+| --------- |
+| Monday    |
+| Tuesday   |
+| Wednesday |
+| Thursday  |
+| Friday    |
+| Saturday  |
+| Sunday    |
 
 ## Accuracy
 

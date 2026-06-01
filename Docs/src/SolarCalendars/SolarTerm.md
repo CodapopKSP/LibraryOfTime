@@ -16,7 +16,7 @@ Solar terms are also used to determine when the leap month should occur in the C
 
 ## Info
 
-| °   | Season | Month       | Name             | Type  |
+| °   | Season | Months      | Name             | Type  |
 | --- | ------ | ----------- | ---------------- | ----- |
 | 315 | Spring | Tiger (寅)   | 立春 (Lìchūn)      | minor |
 | 330 | Spring | Tiger (寅)   | 雨水 (Yǔshuǐ)      | major |

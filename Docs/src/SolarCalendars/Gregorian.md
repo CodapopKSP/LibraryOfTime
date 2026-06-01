@@ -18,7 +18,7 @@ This calendar is exactly accurate, however dates before October 15th 1582 are pr
 
 After the initial 10-day skip in 1582 and the following centuries to the 21st century, the Gregorian calendar and the Julian calendar are 13 days apart.
 
-| Month     | Days     |
+| Months    | Days     |
 | --------- | -------- |
 | January   | 31       |
 | February  | 28 or 29 |
@@ -33,7 +33,7 @@ After the initial 10-day skip in 1582 and the following centuries to the 21st ce
 | November  | 30       |
 | December  | 31       |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |

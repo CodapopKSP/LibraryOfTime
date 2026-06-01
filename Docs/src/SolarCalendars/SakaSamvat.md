@@ -31,8 +31,8 @@ As it follows the intercalation rules of the Gregorian calendar, its months star
 | Magha      | 30       |
 | Phalguna   | 30       |
 
-| Weekdays | | |
-| -------- | -------- | -------- |
+| Weekdays | | Transliteration |
+| -------- | - | --------------- |
 | Sunday | Ravivāra | Ravivara |
 | Monday | Somavāra | Somavara |
 | Tuesday | Maṅgalavāra | Mangalavara |

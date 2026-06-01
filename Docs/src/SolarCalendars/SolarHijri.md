@@ -16,7 +16,7 @@ Unlike the lunar Hijri calendar, days start at midnight, though they both share 
 
 The new year starts on the day that the equinox occurs before noon in Iran, or the next day if it occurs after noon. The starting of the new year results in the final month having 29 or 30 days depending on when exactly the equinox occurs.
 
-| Month       | Zodiac      | Days     |
+| Months      | Zodiac      | Days     |
 | ----------- | ----------- | -------- |
 | Farvardin   | Aries       | 31       |
 | Ordibehesht | Taurus      | 31       |
@@ -32,7 +32,7 @@ The new year starts on the day that the equinox occurs before noon in Iran, or t
 | Esfand      | Pisces      | 29 or 30 |
 
 | Weekdays | |
-| -------- | -------- |
+| -------- | - |
 | Sunday | Shanbeh |
 | Monday | Yekshanbeh |
 | Tuesday | Doshanbeh |

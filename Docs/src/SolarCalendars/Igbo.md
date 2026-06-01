@@ -16,28 +16,28 @@ The Igbo calendar has no central authority and limited specific rules, so the st
 
 Since this calendar is 365 days with no intercalation, it drifts relative to the equinoxes by about 1 day every 4 years.
 
-| #   | Days | Name           | Approximate Gregorian alignment |
-| --- | ---- | -------------- | ------------------------------- |
-| 1   | 28   | Ọnwa Mbụ       | February–March                  |
-| 2   | 28   | Ọnwa Abụọ      | March–April                     |
-| 3   | 28   | Ọnwa Ife Eke   | April–May                       |
-| 4   | 28   | Ọnwa Anọ       | May–June                        |
-| 5   | 28   | Ọnwa Agwụ      | June–July                       |
-| 6   | 28   | Ọnwa Ifejiọkụ  | July–August                     |
-| 7   | 28   | Ọnwa Alọm Chi  | August–early September          |
-| 8   | 28   | Ọnwa Ilọ Mmụọ  | Late September                  |
-| 9   | 28   | Ọnwa Ana       | October                         |
-| 10  | 28   | Ọnwa Okike     | Early November                  |
-| 11  | 28   | Ọnwa Ajana     | Late November                   |
-| 12  | 28   | Ọnwa Ede Ajana | Late November–December          |
-| 13  | 29   | Ọnwa Ụzọ Alụsị | January–early February          |
+| Months         | Days | Approximate Gregorian alignment |
+| -------------- | ---- | ------------------------------- |
+| Ọnwa Mbụ       | 28   | February–March                  |
+| Ọnwa Abụọ      | 28   | March–April                     |
+| Ọnwa Ife Eke   | 28   | April–May                       |
+| Ọnwa Anọ       | 28   | May–June                        |
+| Ọnwa Agwụ      | 28   | June–July                       |
+| Ọnwa Ifejiọkụ  | 28   | July–August                     |
+| Ọnwa Alọm Chi  | 28   | August–early September          |
+| Ọnwa Ilọ Mmụọ  | 28   | Late September                  |
+| Ọnwa Ana       | 28   | October                         |
+| Ọnwa Okike     | 28   | Early November                  |
+| Ọnwa Ajana     | 28   | Late November                   |
+| Ọnwa Ede Ajana | 28   | Late November–December          |
+| Ọnwa Ụzọ Alụsị | 29   | January–early February          |
 
-| #   | Weekday |
-| --- | ------- |
-| 1   | Eke     |
-| 2   | Orie    |
-| 3   | Afo     |
-| 4   | Nkwo    |
+| Weekdays |
+| -------- |
+| Eke      |
+| Orie     |
+| Afo      |
+| Nkwo     |
 
 ## Accuracy
 

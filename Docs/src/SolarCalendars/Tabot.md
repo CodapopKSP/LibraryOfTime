@@ -14,7 +14,7 @@ New Year's Day is always on 2 November in the Gregorian calendar, and leap years
 
 ## Info
 
-| Month              | Days  | Start Date   |
+| Months             | Days  | Start Date   |
 | ------------------ | ----- | ------------ |
 | Anbassa            | 30    | November 2   |
 | Hymanot            | 30    | December 2   |
@@ -30,7 +30,7 @@ New Year's Day is always on 2 November in the Gregorian calendar, and leap years
 | Negus & Dejazmatch | 35    | September 28 |
 
 | Weekdays | |
-| -------- | -------- |
+| -------- | - |
 | Sunday | Ergat |
 | Monday | Tazajenat |
 | Tuesday | Kedusenant |

@@ -14,7 +14,7 @@ Years are not denoted with anything and are simply listed as a positive or negat
 
 ## Info
 
-| Month     | Days     |
+| Months    | Days     |
 | --------- | -------- |
 | January   | 31       |
 | February  | 28 or 29 |
@@ -29,7 +29,7 @@ Years are not denoted with anything and are simply listed as a positive or negat
 | November  | 30       |
 | December  | 31       |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |

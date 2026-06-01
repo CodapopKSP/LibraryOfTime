@@ -14,7 +14,7 @@ The New Year starts on September 11th or 12th, with years abbreviated with ዓ.�
 
 The Ge'ez calendar is precisely aligned with the Coptic calendar for its months and days. It nearly shares an epoch with the Julian calendar, as they both are counting years since the same event, but is actually 7-8 years behind due to a difference in calculation of the date of the Annunciation.
 
-| Month    | Days   | Approx. Gregorian Dates |
+| Months   | Days   | Approx. Gregorian Dates |
 | -------- | ------ | ----------------------- |
 | Mäskäräm | 30     | Sep 11 - Oct 10         |
 | Ṭəqəmt   | 30     | Oct 11 - Nov 9          |
@@ -30,15 +30,15 @@ The Ge'ez calendar is precisely aligned with the Coptic calendar for its months 
 | Nähase   | 30     | Aug 7 - Sep 5           |
 | Ṗagume   | 5 or 6 | Sep 6 - Sep 10          |
 
-| Weekday   | Ge'ez  | Transliteration |
-| --------- | ------ | --------------- |
-| Sunday    | ሰንበት | Senbet          |
-| Monday    | ሰኑይ  | Segno           |
-| Tuesday   | ሠሉስ  | Salus           |
-| Wednesday | ረቡዕ  | Rabue           |
-| Thursday  | ሓሙስ  | Hamus           |
-| Friday    | ዓርብ  | Arb             |
-| Saturday  | ቀዳሚት | Qedameet        |
+| Weekdays | | Transliteration |
+| -------- | - | --------------- |
+| Sunday | ሰንበት | Senbet |
+| Monday | ሰኑይ | Segno |
+| Tuesday | ሠሉስ | Salus |
+| Wednesday | ረቡዕ | Rabue |
+| Thursday | ሓሙስ | Hamus |
+| Friday | ዓርብ | Arb |
+| Saturday | ቀዳሚት | Qedameet |
 
 ## Accuracy
 

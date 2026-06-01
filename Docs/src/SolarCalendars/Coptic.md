@@ -16,7 +16,7 @@ The Coptic calendar is still in use today by Egyptian farmers as well as the Cop
 
 The Ge'ez calendar is precisely aligned with the Coptic calendar for its months and days. It's epoch, translated to 'Year of the Martyrs', is counted from the year Diocletian became Emperor of Rome, which was followed by a period of mass persecution of Christians.
 
-| Month          | Days   | Approx. Gregorian Dates |
+| Months         | Days   | Approx. Gregorian Dates |
 | -------------- | ------ | ----------------------- |
 | Thout          | 30     | Sep 11 - Oct 10         |
 | Paopi          | 30     | Oct 11 - Nov 9          |
@@ -32,15 +32,15 @@ The Ge'ez calendar is precisely aligned with the Coptic calendar for its months 
 | Mesori         | 30     | Aug 7 - Sep 5           |
 | Pi Kogi Enavot | 5 or 6 | Sep 6 - Sep 10          |
 
-| Weekday   | Coptic     | Transliteration |
-| --------- | ---------- | --------------- |
-| Sunday    | ⲁⲕⲃⲟⲩⲗ    | Akhoum          |
-| Monday    | ⲥⲟⲙ       | Som             |
-| Tuesday   | ⲅⲃⲁⲣ       | Gobar           |
-| Wednesday | ⲅⲟⲡ       | Ghoub           |
-| Thursday  | ⲃⲁⲣⲙⲁⲕ     | Barmo           |
-| Friday    | ⲃⲉⲕⲃⲁⲧ     | Bakhoub         |
-| Saturday  | ⲁⲧⲟⲃⲁⲣ     | Atchob          |
+| Weekdays | | Transliteration |
+| -------- | - | --------------- |
+| Sunday | ⲁⲕⲃⲟⲩⲗ | Akhoum |
+| Monday | ⲥⲟⲙ | Som |
+| Tuesday | ⲅⲃⲁⲣ | Gobar |
+| Wednesday | ⲅⲟⲡ | Ghoub |
+| Thursday | ⲃⲁⲣⲙⲁⲕ | Barmo |
+| Friday | ⲃⲉⲕⲃⲁⲧ | Bakhoub |
+| Saturday | ⲁⲧⲟⲃⲁⲣ | Atchob |
 
 ## Accuracy
 

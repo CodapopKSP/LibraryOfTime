@@ -16,7 +16,7 @@ The Bengali calendar also recognizes six season; Summer, Monsoon, Autumn, Dry, W
 
 ## Info
 
-| Month     | Days (pre-2019) | Days (2019–) | First day (2019 rules) | Season           |
+| Months    | Days (pre-2019) | Days (2019–) | First day (2019 rules) | Season           |
 | --------- | --------------- | ------------ | ---------------------- | ---------------- |
 | বৈশাখ     | 31              | 31           | 14 April               | গ্রীষ্ম (Summer) |
 | জ্যৈষ্ঠ   | 31              | 31           | 15 May                 | গ্রীষ্ম (Summer) |
@@ -31,8 +31,8 @@ The Bengali calendar also recognizes six season; Summer, Monsoon, Autumn, Dry, W
 | ফাল্গুন   | 30/31           | 29/30        | 14 February            | বসন্ত (Spring)   |
 | চৈত্র     | 30              | 30           | 15 March               | বসন্ত (Spring)   |
 
-| Weekdays  | |
-| --------- | ----------- |
+| Weekdays | |
+| -------- | - |
 | Sunday    | রবিবার      |
 | Monday    | সোমবার      |
 | Tuesday   | মঙ্গলবার    |

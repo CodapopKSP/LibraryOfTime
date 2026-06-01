@@ -34,4 +34,5 @@ alwaysApply: true
 - **Documentation in `Docs/`**
   - Do not modify existing content within `Docs/` (including `Docs/src` and generated `Docs/book`) unless the user explicitly requests specific changes to those sections.
   - It is allowed to add new files under `Docs/` and set up basic document structure (including names, epochs, and headings) when adding a new calendar, but not to add the body text of new sections without explicit instruction.
+  - **Never use HTML tables** in `Docs/src` — use markdown tables only. Section titles (`Months`, `Day Names`, `Weekdays`) go in the first row of the table, not as `###` headings.
 

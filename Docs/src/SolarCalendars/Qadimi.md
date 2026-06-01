@@ -16,7 +16,7 @@ Compared to the Gregorian calendar, the Qadimi calendar drifts by about 1 day ev
 
 ## Info
 
-| Month       | Days |
+| Months      | Days |
 | ----------- | ---- |
 | Farvardin   | 30   |
 | Ardibehesht | 30   |
@@ -51,7 +51,7 @@ Compared to the Gregorian calendar, the Qadimi calendar drifts by about 1 day ev
 | 4: Vohuxshathra | 5: Vahishtoishti |                 |
 
 | Weekdays | |
-| -------- | -------- |
+| -------- | - |
 | Sunday | Jomeh |
 | Monday | Shanbeh |
 | Tuesday | Yekshanbeh |

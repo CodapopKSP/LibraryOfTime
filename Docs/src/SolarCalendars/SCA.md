@@ -12,7 +12,7 @@ Years are written as roman numerals and denoted with 'A.S.', short for 'Anno Soc
 
 ## Info
 
-| Month     | Days  |
+| Months    | Days  |
 | --------- | ----- |
 | January   | 31    |
 | February  | 28/29 |
@@ -27,7 +27,7 @@ Years are written as roman numerals and denoted with 'A.S.', short for 'Anno Soc
 | November  | 30    |
 | December  | 31    |
 
-| Weekday   |
+| Weekdays  |
 | --------- |
 | Sunday    |
 | Monday    |
