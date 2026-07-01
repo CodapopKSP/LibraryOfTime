@@ -101,7 +101,6 @@ function updateAstronomicalData(currentDateTime) {
     setTimeValue('northern-solstice-node', getSolsticeOrEquinox(currentDateTime, 'SUMMER').toUTCString());
     setTimeValue('southward-equinox-node', getSolsticeOrEquinox(currentDateTime, 'AUTUMN').toUTCString());
     setTimeValue('southern-solstice-node', getSolsticeOrEquinox(currentDateTime, 'WINTER').toUTCString());
-    setTimeValue('longitude-of-the-sun-node', getLongitudeOfSun(currentDateTime) + '°');
     setTimeValue('next-new-moon-node', getNextMoonPhase(currentDateTime, 0).toUTCString());
     setTimeValue('next-first-quarter-moon-node', getNextMoonPhase(currentDateTime, 0.25).toUTCString());
     setTimeValue('next-full-moon-node', getNextMoonPhase(currentDateTime, 0.5).toUTCString());
@@ -272,6 +271,7 @@ function updateClocks_Fast(currentDateTime, timezoneOffset, dateInput) {
     }
     setTimeValue('decade-node', calculateDecade(currentDateTime, timezoneOffset).toFixed(decimals));
     setTimeValue('century-node', calculateCentury(currentDateTime, timezoneOffset).toFixed(decimals));
+    setTimeValue('longitude-of-the-sun-node', getLongitudeOfSun(currentDateTime) + '°');
 }
 
 // Update clocks that change every second
