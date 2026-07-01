@@ -152,6 +152,7 @@ function testGetSexagenaryYear() {
 function testCalculateHebrewCalendar() {
     return runSingleParameterTests("Hebrew Calendar", calculateHebrewCalendar, [
         ["2024-10-2, 16:00:00", "UTC+00:00", "1 Tishri 5785 AM\nYom Chamishi"],
+        ["2025-3-29, 16:00:00", "UTC+00:00", "1 Nisan 5785 AM\nYom Rishon"],
         ["2024-10-2, 15:00:00", "UTC+00:00", "29 Elul 5784 AM\nYom Revi'i"],
         ["2000-5-17, 10:00:00", "UTC+00:00", "12 Iyyar 5760 AM\nYom Revi'i"],
         ["1999-9-11, 10:00:00", "UTC+00:00", "1 Tishri 5760 AM\nShabbat"],

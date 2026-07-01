@@ -430,9 +430,9 @@ function getBabylonianLunisolarCalendar(currentDateTime) {
 
 const JERUSALEM_TZ = 'UTC+02:00';
 
-const HEBREW_MONTH_DAYS_DEFICIENT = [30, 29, 29, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29];
-const HEBREW_MONTH_DAYS_REGULAR = [30, 29, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29];
-const HEBREW_MONTH_DAYS_COMPLETE = [30, 30, 30, 29, 30, 30, 29, 30, 29, 30, 29, 30, 29];
+const HEBREW_MONTH_DAYS_DEFICIENT = [30, 29, 29, 29, 30, 29, 29, 30, 29, 30, 29, 30, 29];
+const HEBREW_MONTH_DAYS_REGULAR = [30, 29, 30, 29, 30, 29, 29, 30, 29, 30, 29, 30, 29];
+const HEBREW_MONTH_DAYS_COMPLETE = [30, 30, 30, 29, 30, 29, 29, 30, 29, 30, 29, 30, 29];
 
 const HEBREW_MONTH_NAMES = [
     'Tishri', 'Heshvan', 'Kislev', 'Tevet',
@@ -474,6 +474,9 @@ function calculateHebrewCalendar(currentDateTime) {
     if (daysThisYear < 380) {
         yearMonths = yearMonths.slice(0, 6).concat(yearMonths.slice(7));
         hebrewMonthNames = hebrewMonthNames.slice(0, 6).concat(hebrewMonthNames.slice(7));
+    } else {
+        yearMonths = yearMonths.slice();
+        yearMonths[5] = 30;
     }
 
     let daysThisYearSoFar = differenceInDays(startOfToday, earlyTishri[0]);
