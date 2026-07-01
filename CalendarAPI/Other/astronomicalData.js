@@ -814,7 +814,8 @@ function getNextSolarLunarEclipse(currentDateTime, phaseType) {
 
 // Taken from Astronomical Algorithms
 function getPositionOfTheMoon(currentDateTime) {
-    const T = (getJulianDayNumber(currentDateTime) - JDE_JULIAN_EPOCH) / JDE_JULIAN_CENTURY_DAYS;
+    const date_deltaTimeFixed = convertUTToTT(currentDateTime);
+    const T = (getJulianDayNumber(date_deltaTimeFixed) - JDE_JULIAN_EPOCH) / JDE_JULIAN_CENTURY_DAYS;
 
     // Get all variables
     const L_prime = 218.3164477 + (481267.88123421 * T) - (0.0015786 * T**2) + ((T**3) / 538841) - ((T**4) / 65194000);
