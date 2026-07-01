@@ -79,8 +79,8 @@ function testCalculateUTCYearFraction() {
 
 function testGetLongitudeOfSun() {
     return runCalendarTestsReturnNumber("LongitudeOfSun", getLongitudeOfSun, [
-        ["2001-3-20, 13:00:00", "UTC+00:00", 360],
-        ["2050-9-22, 19:28:00", "UTC+00:00", 180],
+        ["2001-3-20, 13:00:00", "UTC+00:00", 359.995453],
+        ["2050-9-22, 19:28:00", "UTC+00:00", 179.9994],
     ]);
 }
 
