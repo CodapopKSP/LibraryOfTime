@@ -345,14 +345,17 @@ function getSolsticeOrEquinox(currentDateTime, season) {
         if (season === 'SPRING') {
             JDE_ = calculateSolsEquiJDE(Y, 1721139.29189, 365242.13740, 0.06134, 0.00111, -0.00071);
         }
-        if (season === 'SUMMER') {
+        else if (season === 'SUMMER') {
             JDE_ = calculateSolsEquiJDE(Y, 1721233.25401, 365241.72562, -0.05323, 0.00907, 0.00025);
         }
-        if (season === 'AUTUMN') {
+        else if (season === 'AUTUMN') {
             JDE_ = calculateSolsEquiJDE(Y, 1721325.70455, 365242.49558, -0.11677, -0.00297, 0.00074);
         }
-        if (season === 'WINTER') {
+        else if (season === 'WINTER') {
             JDE_ = calculateSolsEquiJDE(Y, 1721414.39987, 365242.88257, -0.00769, -0.00933, -0.00006);
+        }
+        else {
+            return "Invalid Season"
         }
         const T = (JDE_ - JDE_JULIAN_EPOCH) / JDE_JULIAN_CENTURY_DAYS;
         const W = 35999.373 * T - 2.47;

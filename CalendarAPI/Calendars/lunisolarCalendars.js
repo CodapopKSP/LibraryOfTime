@@ -70,7 +70,7 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
 
     const config = COUNTRY_CONFIG[country];
     if (!config) {
-        return;
+        return "Invalid country";
     }
 
     const lunisolarDate = getLunisolarCalendarDate(currentDateTime, config.timezone);
@@ -549,7 +549,7 @@ function calculateMoladTishri(currentYear) {
     }
 
     const daysSinceMolad5732Adjusted = Math.floor(daysSinceMolad5732 - 1);
-    let dayOfMoladTishri = addDay(moladTishri5732, daysSinceMolad5732Adjusted, true);
+    let dayOfMoladTishri = addDay(moladTishri5732, daysSinceMolad5732Adjusted);
     dayOfMoladTishri = createAdjustedDateTime({ currentDateTime: dayOfMoladTishri, timezone: JERUSALEM_TZ, hour: 'SUNSET' });
 
     return [dayOfMoladTishri, yearsSince5732 + HEBREW_MOLAD_REFERENCE_YEAR, weekdayOfMolad];

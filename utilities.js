@@ -9,6 +9,15 @@ const weekNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frid
 const decimals = 10;  // Decimals to show in some nodes
 const updateMilliseconds = 20;  // Update tick length
 
+// Keeps track of how far ahead the Julian calendar is from the Gregorian
+let _gregJulianDifference = 0;
+function getGregJulianDifference() {
+    return _gregJulianDifference;
+}
+function setGregJulianDifference(newDifference) {
+    _gregJulianDifference = newDifference;
+}
+
 function radians(num) {
     return num * Math.PI / 180;
 }

@@ -80,7 +80,7 @@ function calculateGregorianJulianDifference(currentDateTime) {
 // Shared helper for calendars that convert an equinox instant to a local
 // day boundary (for example sunset/noon and optionally next midnight).
 function adjustEquinoxAtLocalBoundary(equinoxDateTime, timezone, boundaryHour, moveToNextLocalMidnight) {
-    const equinox = addDay(equinoxDateTime, 0, true);
+    const equinox = addDay(equinoxDateTime, 0);
     const boundaryDateTime = createAdjustedDateTime({ currentDateTime: equinox, timezone, hour: boundaryHour });
     if (equinox < boundaryDateTime) {
         addDay(boundaryDateTime, -1);
@@ -517,7 +517,7 @@ function getBahaiCalendar(currentDateTime, _vernalEquinoxUnused) {
         // Months after intercalary days
         } else {
             // Get first day of final month, which is 19 days before the ending equinox
-            let firstDayOfFinalMonth = addDay(endingEquinox, -19, true);
+            let firstDayOfFinalMonth = addDay(endingEquinox, -19);
 
             // If before that time, then it's the intercalary 4 or 5 days
             if (currentDateTime < firstDayOfFinalMonth) {
@@ -954,14 +954,14 @@ function getISOWeekDate(currentDateTime, timezoneOffset) {
     const isoDay = localTime.getUTCDay() === 0 ? 7 : localTime.getUTCDay(); // 0 => 7 (Sunday)
     
     // Move date to the Thursday in the current ISO week
-    const thursday = addDay(startOfLocalDay, 4 - isoDay, true);
+    const thursday = addDay(startOfLocalDay, 4 - isoDay);
 
     const weekYear = thursday.getUTCFullYear();
 
     // Find the first Thursday of the year
     let firstThursday = createAdjustedDateTime({year: weekYear, month: 1, day: 4});
     const firstIsoDay = firstThursday.getUTCDay() === 0 ? 7 : firstThursday.getUTCDay();
-    firstThursday = addDay(firstThursday, 4 - firstIsoDay, true);
+    firstThursday = addDay(firstThursday, 4 - firstIsoDay);
 
     // Calculate week number using whole-day math to avoid time-of-day drift.
     const wholeDaysBetweenThursdays = Math.floor(differenceInDays(thursday, firstThursday));

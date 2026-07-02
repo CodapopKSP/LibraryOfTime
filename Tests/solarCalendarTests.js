@@ -378,7 +378,7 @@ function testJapaneseSolarTermCalendar() {
 }
 
 function testArmenianSolarCalendar() {
-    return runSolarTests('Armenian (365-day)', getArmenianSolarDate, [
+    return runSolarTests('Armenian', getArmenianSolarDate, [
         ['2026-5-10, 12:00:00', 'UTC+04:00', '24 մարերի ԹՎ 1475\nLusnak | Կիրակի'],
         ['552-7-13, 00:00:00', 'UTC+04:00', '1 նաւասարդ ԹՎ 1\nAreg | Հինգշաբթի'],
         ['553-7-12, 00:00:00', 'UTC+04:00', '5 աւելեաց ԹՎ 1\nՀինգշաբթի'],

@@ -10,15 +10,6 @@
 let selectedNode = null;
 let selectedNodeData = null; // Store the JavaScript object for the selected node
 
-// Keeps track of how far ahead the Julian calendar is from the Gregorian
-let _gregJulianDifference = 0;
-function getGregJulianDifference() {
-    return _gregJulianDifference;
-}
-function setGregJulianDifference(newDifference) {
-    _gregJulianDifference = newDifference;
-}
-
 // Fills the description panel for `item` and updates selection; `content` is the grid .content element or null.
 function populateNodeDescriptionAndSelection(content, item, options) {
     clearDescriptionPanel();
