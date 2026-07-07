@@ -407,7 +407,7 @@ function getGalileanMonthDaysArray(bodyName, year, useDarianRules) {
         if (bodyName === 'Gan') {
             return isLeap ? DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS_LEAP : DARIAN_GALILEAN_GANYMEDE_MONTH_DAYS;
         }
-        return '';
+        throw new Error(`Unsupported Galilean body: ${bodyName}`);
     }
 
     if (bodyName === 'Gan') {
@@ -416,7 +416,7 @@ function getGalileanMonthDaysArray(bodyName, year, useDarianRules) {
     if (bodyName === 'Io' || bodyName === 'Eu' || bodyName === 'Cal') {
         return isLeap ? GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP : GALILEAN_IO_CALLISTO_MONTH_DAYS;
     }
-    return '';
+    throw new Error(`Unsupported Galilean body: ${bodyName}`);
 }
 
 function getGalileanDate(currentDateTime, body) {
@@ -440,6 +440,8 @@ function getGalileanDate(currentDateTime, body) {
     }
 
     if (isNegative) {
+        year--;
+        daysInYear = getGalileanYearLength(body, year, false);
         daysSince = daysInYear - daysSince;
     }
 
