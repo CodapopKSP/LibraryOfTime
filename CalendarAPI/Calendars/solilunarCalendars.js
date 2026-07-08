@@ -75,6 +75,8 @@ function getTogysStartOfMonth(currentDateTime) {
         // Step back exactly one Togys day (to the previous 19:00 UTC boundary)
         addDay(startOfMonth, -1);
     }
+
+    throw new Error('Could not find a Togys month start within the lookback window');
 }
 
 function isTogysStartOfMonth(currentDateTime) {
@@ -87,7 +89,13 @@ function isTogysStartOfMonth(currentDateTime) {
     const [lunar_alpha_startOfToday] = getPositionOfTheMoon(startOfToday);
     const [lunar_alpha_startOfTomorrow] = getPositionOfTheMoon(startOfTomorrow);
 
-    return lunar_alpha_startOfToday <= TOGYS_ALCYONE_RA && lunar_alpha_startOfTomorrow >= TOGYS_ALCYONE_RA;
+    // Right ascension wraps 360°->0° once per sidereal month, so measure how far
+    // forward the Moon moved and how far forward to Alcyone, both mod 360, rather
+    // than comparing the raw values (which breaks across the wrap).
+    const advanced = ((lunar_alpha_startOfTomorrow - lunar_alpha_startOfToday) % 360 + 360) % 360;
+    const distanceToAlcyone = ((TOGYS_ALCYONE_RA - lunar_alpha_startOfToday) % 360 + 360) % 360;
+
+    return distanceToAlcyone <= advanced;
 }
 
 function getTogysDayStart(dt) {

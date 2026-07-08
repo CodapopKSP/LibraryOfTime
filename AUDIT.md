@@ -17,9 +17,6 @@
 ---
 
 ## 2. Correctness traps & silent failures
-
-- **`getGalileanMonthDaysArray`** returns `''` (a string) as its fallback instead of throwing; `getDarianGalileanDate` and `getGalileanDate` handle negative years differently.
-- **`getTogysStartOfMonth`** can fall out of its 35-iteration loop and return `undefined`; Alcyone RA comparison breaks at the 360°→0° wrap.
 - **Float equality**: solarCalendars.js tests `=== 366` on a float day count for leap detection; Bahai year loop mutates its loop variable mid-iteration.
 
 ---
