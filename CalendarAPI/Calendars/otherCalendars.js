@@ -156,14 +156,11 @@ const GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP = Array(13).fill(32);
 const GALILEAN_GANYMEDE_MONTH_DAYS_SHORT = [...Array(6).fill(32), 24, ...Array(5).fill(32), 24];
 const GALILEAN_GANYMEDE_MONTH_DAYS_LEAP = [...Array(6).fill(32), 24, ...Array(6).fill(32)];
 
-const GALILEAN_EPOCHS = {
-    Io: { year: 2001, month: 12, day: 31, hour: 16, minute: 7, second: 45 },
-    Eu: { year: 2002, month: 1, day: 2, hour: 17, minute: 12, second: 57 },
-    Gan: { year: 2002, month: 1, day: 1, hour: 11, minute: 8, second: 29 },
-    Cal: { year: 2001, month: 12, day: 28, hour: 12, minute: 27, second: 23 }
-};
+// Sourced from otherTime.js (IO_EPOCH/EUROPA_EPOCH/GANYMEDE_EPOCH/CALLISTO_EPOCH and their
+// circad hours) so the calendar and prime-meridian-time implementations can't drift apart.
+const GALILEAN_EPOCHS = { Io: IO_EPOCH, Eu: EUROPA_EPOCH, Gan: GANYMEDE_EPOCH, Cal: CALLISTO_EPOCH };
 
-const GALILEAN_CIRCAD_HOURS = { Io: 21.238325, Eu: 21.32456, Gan: 21.49916, Cal: 21.16238 };
+const GALILEAN_CIRCAD_HOURS = { Io: IO_CIRCAD_HOURS, Eu: EUROPA_CIRCAD_HOURS, Gan: GANYMEDE_CIRCAD_HOURS, Cal: CALLISTO_CIRCAD_HOURS };
 
 const DARIAN_GALILEAN_EPOCHS = {
     Io: { year: 1609, month: 3, day: 13, hour: 5, minute: 29, second: 26 },
