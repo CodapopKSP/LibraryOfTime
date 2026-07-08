@@ -708,67 +708,63 @@ function normalizePawukonEpoch(currentDateTime) {
     return normalizedEpoch;
 }
 
+// Waras with a plain N-day cycle (Balinese Pawukon "weeks" of length N).
+const PAWUKON_SIMPLE_WARAS = [
+    { length: 3, table: PAWUKON_TRIWARA },
+    { length: 5, table: PAWUKON_PANCAWARA },
+    { length: 6, table: PAWUKON_SADWARA },
+    { length: 7, table: PAWUKON_SAPTAWARA },
+];
+
+// Caturwara (4-day) and Astawara (8-day) share a day count that "freezes" for two
+// days (71-72 of the 210-day cycle) and then catches up by 2
+// in the traditional Pawukon rules, not an indexing bug.
+const PAWUKON_4_8_ANOMALY_FREEZE_DAYS = [71, 72];
+const PAWUKON_4_8_ANOMALY_FROZEN_VALUE = 70;
+const PAWUKON_4_8_ANOMALY_CATCHUP_AFTER = 72;
+const PAWUKON_4_8_WARAS = [
+    { length: 4, table: PAWUKON_CATURWARA },
+    { length: 8, table: PAWUKON_ASTAWARA },
+];
+
+function getPawukonAdjustedDayCount(daysSinceEpoch) {
+    if (PAWUKON_4_8_ANOMALY_FREEZE_DAYS.includes(daysSinceEpoch)) {
+        return PAWUKON_4_8_ANOMALY_FROZEN_VALUE;
+    }
+    if (daysSinceEpoch > PAWUKON_4_8_ANOMALY_CATCHUP_AFTER) {
+        return daysSinceEpoch - 2;
+    }
+    return daysSinceEpoch;
+}
+
 // Returns a formatted Pawukon calendar (WITA) date
 function getPawukonCalendarDate(currentDateTime) {
     const normalizedEpoch = normalizePawukonEpoch(currentDateTime);
-
-    let dayOfWeek1 = '';
-    let dayOfWeek2 = '';
-    let dayOfWeek3 = '';
-    let dayOfWeek4 = '';
-    let dayOfWeek5 = '';
-    let dayOfWeek6 = '';
-    let dayOfWeek7 = '';
-    let dayOfWeek8 = '';
-    let dayOfWeek9 = '';
-    let dayOfWeek10 = '';
-
     const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, normalizedEpoch));
-    let daysSinceEpoch4_8 = daysSinceEpoch;
-    let daysSinceEpoch9 = daysSinceEpoch-3;
 
-    dayOfWeek3 = PAWUKON_TRIWARA[daysSinceEpoch % 3];
-    dayOfWeek5 = PAWUKON_PANCAWARA[daysSinceEpoch % 5];
-    dayOfWeek6 = PAWUKON_SADWARA[daysSinceEpoch % 6];
-    dayOfWeek7 = PAWUKON_SAPTAWARA[daysSinceEpoch % 7];
+    const [triwaraName, pancawaraName, sadwaraName, saptawaraName] =
+        PAWUKON_SIMPLE_WARAS.map(({ length, table }) => table[daysSinceEpoch % length]);
 
-    if ((daysSinceEpoch===71) || (daysSinceEpoch===72)) {
-        daysSinceEpoch4_8 = 70;
-    }
-    if (daysSinceEpoch4_8>72) {
-        daysSinceEpoch4_8 -= 2;
-    }
-    dayOfWeek4 = PAWUKON_CATURWARA[daysSinceEpoch4_8 % 4];
-    dayOfWeek8 = PAWUKON_ASTAWARA[daysSinceEpoch4_8 % 8];
+    const daysSinceEpoch4_8 = getPawukonAdjustedDayCount(daysSinceEpoch);
+    const [caturwaraName, astawaraName] =
+        PAWUKON_4_8_WARAS.map(({ length, table }) => table[daysSinceEpoch4_8 % length]);
 
-    if (daysSinceEpoch9<0) {
-        daysSinceEpoch9 = 0;
-    }
-    dayOfWeek9 = PAWUKON_SANGAWARA[daysSinceEpoch9 % 9];
+    const daysSinceEpoch9 = Math.max(0, daysSinceEpoch - 3);
+    const sangawaraName = PAWUKON_SANGAWARA[daysSinceEpoch9 % 9];
 
     let urip = PAWUKON_URIP_5[daysSinceEpoch % 5] + PAWUKON_URIP_7[daysSinceEpoch % 7] + 1;
     if (urip > 10) {
         urip -= 10;
     }
+    const dasawaraIndex = PAWUKON_URIP_10.indexOf(urip);
+    const dasawaraName = dasawaraIndex === -1 ? '' : PAWUKON_DASAWARA[dasawaraIndex];
 
-    for (let i = 0; i < PAWUKON_URIP_10.length; i++) {
-        if (PAWUKON_URIP_10[i] === urip) {
-            dayOfWeek10 = PAWUKON_DASAWARA[i];
-            break;
-        }
-    }
-
-    if (urip % 2 === 0) {
-        dayOfWeek1 = PAWUKON_EKAWARA[0];
-        dayOfWeek2 = PAWUKON_DWIWARA[1];
-    } else {
-        dayOfWeek1 = '';
-        dayOfWeek2 = PAWUKON_DWIWARA[0];
-    }
+    const isEven = urip % 2 === 0;
+    const ekawaraName = isEven ? PAWUKON_EKAWARA[0] : '';
+    const dwiwaraName = PAWUKON_DWIWARA[isEven ? 1 : 0];
 
     const weekName = PAWUKON_WEEK_NAMES[(Math.floor(daysSinceEpoch / 7) % 30)];
-
-    const output = `${dayOfWeek1}${dayOfWeek2} ${dayOfWeek3} ${dayOfWeek4} ${dayOfWeek5} ${dayOfWeek6} ${dayOfWeek7} ${dayOfWeek8} ${dayOfWeek9} ${dayOfWeek10}\nWeek Name: ${weekName}`;
+    const output = `${ekawaraName}${dwiwaraName} ${triwaraName} ${caturwaraName} ${pancawaraName} ${sadwaraName} ${saptawaraName} ${astawaraName} ${sangawaraName} ${dasawaraName}\nWeek Name: ${weekName}`;
     return { output, other: { weekName } };
 }
 

@@ -16,15 +16,7 @@
 
 ---
 
-## 2. Correctness traps & silent failures
-- **Float equality**: solarCalendars.js tests `=== 366` on a float day count for leap detection; Bahai year loop mutates its loop variable mid-iteration.
-
----
-
 ## 3. Architecture & readability
-
-- **Duplicated constants/data**: lunar-phase tables duplicated within astronomicalData.js; Galilean epochs duplicated between otherCalendars.js and otherTime.js with *near*-identical values (`IO_CIRCAD_HOURS = 21.23833` vs `21.238325`) — near-duplicates are worse than duplicates because they hide which is authoritative.
-- **Pawukon** (otherCalendars.js): magic 71/72 special-casing on `daysSinceEpoch4_8` and ten separate `dayOfWeekN` string variables — table-drive it.
 
 - Document timescale (UT vs TD) and valid year range in the JSDoc of every astronomical function. Most current comments describe *what*, none describe *valid domain*.
 
