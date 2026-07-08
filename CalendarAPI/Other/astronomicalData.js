@@ -482,6 +482,34 @@ function getMoonPhase(currentDateTime, monthModifier) {
     return new Date(calculateDateFromJDE(calculatedMoonPhaseJDE));
 }
 
+// Terms shared by the New Moon and Full Moon tables from Astronomical Algorithms;
+// only each phase's first several correction terms differ (see sumNewMoonTable/sumFullMoonTable).
+function sumMoonPhaseCommonTerms(SunM, MoonM, F, E, lunarNode) {
+    function term(num1, num2) {
+        return num1 * Math.sin(radians(num2));
+    }
+    return (
+        term(-0.00111, MoonM-F*2) +
+        term(-0.00057, MoonM + F*2) +
+        term(0.00056*E, 2*MoonM + SunM) +
+        term(-0.00042, 3*MoonM) +
+        term(0.00042*E, SunM + F*2) +
+        term(0.00038*E, SunM - F*2) +
+        term(-0.00024*E, 2*MoonM-SunM) +
+        term(-0.00017, lunarNode) +
+        term(-0.00007, MoonM+2*SunM) +
+        term(0.00004, 2*MoonM - 2*F) +
+        term(0.00004, 3*SunM) +
+        term(0.00003, SunM + MoonM - 2*F) +
+        term(0.00003, 2*MoonM + 2*F) +
+        term(-0.00003, SunM + MoonM + 2*F) +
+        term(0.00003, MoonM - SunM + 2*F) +
+        term(-0.00002, MoonM - SunM - 2*F) +
+        term(-0.00002, MoonM*3 + SunM) +
+        term(0.00002, MoonM*4)
+    );
+}
+
 // Sum the New Moon table from Astronomical Algorithms
 function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
     function sumNewMoonTableHelper(num1, num2) {
@@ -495,24 +523,7 @@ function sumNewMoonTable(SunM, MoonM, F, E, lunarNode) {
         sumNewMoonTableHelper(0.00739*E, MoonM-SunM) +
         sumNewMoonTableHelper(-0.00514*E, MoonM+SunM) +
         sumNewMoonTableHelper(0.00208*E*E, SunM*2) +
-        sumNewMoonTableHelper(-0.00111, MoonM-F*2) +
-        sumNewMoonTableHelper(-0.00057, MoonM + F*2) +
-        sumNewMoonTableHelper(0.00056*E, 2*MoonM + SunM) +
-        sumNewMoonTableHelper(-0.00042, 3*MoonM) +
-        sumNewMoonTableHelper(0.00042*E, SunM + F*2) +
-        sumNewMoonTableHelper(0.00038*E, SunM - F*2) +
-        sumNewMoonTableHelper(-0.00024*E, 2*MoonM-SunM) +
-        sumNewMoonTableHelper(-0.00017, lunarNode) +
-        sumNewMoonTableHelper(-0.00007, MoonM+2*SunM) +
-        sumNewMoonTableHelper(0.00004, 2*MoonM - 2*F) +
-        sumNewMoonTableHelper(0.00004, 3*SunM) +
-        sumNewMoonTableHelper(0.00003, SunM + MoonM - 2*F) +
-        sumNewMoonTableHelper(0.00003, 2*MoonM + 2*F) +
-        sumNewMoonTableHelper(-0.00003, SunM + MoonM + 2*F) +
-        sumNewMoonTableHelper(0.00003, MoonM - SunM + 2*F) +
-        sumNewMoonTableHelper(-0.00002, MoonM - SunM - 2*F) +
-        sumNewMoonTableHelper(-0.00002, MoonM*3 + SunM) +
-        sumNewMoonTableHelper(0.00002, MoonM*4);
+        sumMoonPhaseCommonTerms(SunM, MoonM, F, E, lunarNode);
     return sum;
 }
 
@@ -529,24 +540,7 @@ function sumFullMoonTable(SunM, MoonM, F, E, lunarNode) {
         sumFullMoonTableHelper(0.00734*E, MoonM-SunM) +
         sumFullMoonTableHelper(-0.00515*E, MoonM+SunM) +
         sumFullMoonTableHelper(0.00209*E*E, SunM*2) +
-        sumFullMoonTableHelper(-0.00111, MoonM-F*2) +
-        sumFullMoonTableHelper(-0.00057, MoonM + F*2) +
-        sumFullMoonTableHelper(0.00056*E, 2*MoonM + SunM) +
-        sumFullMoonTableHelper(-0.00042, 3*MoonM) +
-        sumFullMoonTableHelper(0.00042*E, SunM + F*2) +
-        sumFullMoonTableHelper(0.00038*E, SunM - F*2) +
-        sumFullMoonTableHelper(-0.00024*E, 2*MoonM-SunM) +
-        sumFullMoonTableHelper(-0.00017, lunarNode) +
-        sumFullMoonTableHelper(-0.00007, MoonM+2*SunM) +
-        sumFullMoonTableHelper(0.00004, 2*MoonM - 2*F) +
-        sumFullMoonTableHelper(0.00004, 3*SunM) +
-        sumFullMoonTableHelper(0.00003, SunM + MoonM - 2*F) +
-        sumFullMoonTableHelper(0.00003, 2*MoonM + 2*F) +
-        sumFullMoonTableHelper(-0.00003, SunM + MoonM + 2*F) +
-        sumFullMoonTableHelper(0.00003, MoonM - SunM + 2*F) +
-        sumFullMoonTableHelper(-0.00002, MoonM - SunM - 2*F) +
-        sumFullMoonTableHelper(-0.00002, MoonM*3 + SunM) +
-        sumFullMoonTableHelper(0.00002, MoonM*4);
+        sumMoonPhaseCommonTerms(SunM, MoonM, F, E, lunarNode);
     return sum;
 }
 
