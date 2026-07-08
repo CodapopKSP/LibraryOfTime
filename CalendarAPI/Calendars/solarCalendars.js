@@ -517,7 +517,7 @@ function getBahaiCalendar(currentDateTime, _vernalEquinoxUnused) {
         // Months after intercalary days
         } else {
             // Get first day of final month, which is 19 days before the ending equinox
-            let firstDayOfFinalMonth = addDay(endingEquinox, -19);
+            let firstDayOfFinalMonth = addDay(new Date(endingEquinox), -19);
 
             // If before that time, then it's the intercalary 4 or 5 days
             if (currentDateTime < firstDayOfFinalMonth) {
@@ -579,7 +579,7 @@ function getPataphysicalDate(currentDateTime, timezoneOffset) {
     // Figure out leap year rules
     let nextSept8 = addYear(mostRecentSept8, 1, true);
     const daysInYear = differenceInDays(nextSept8, mostRecentSept8);
-    const daysOfMonths = daysInYear === 366 
+    const daysOfMonths = Math.round(daysInYear) === 366
         ? [28,28,28,28,28,29,28,28,28,28,29,28,28]
         : [28,28,28,28,28,28,28,28,28,28,29,28,29];
 
@@ -615,7 +615,7 @@ function getDiscordianDate(currentDateTime, timezoneOffset) {
     const startOfYear = createAdjustedDateTime({currentDateTime: localTime, month: 1, day: 1});
     const endOfYear = addYear(startOfYear, 1, true);
     let remainingDays = Math.floor(differenceInDays(localTime, startOfYear)+1);
-    const leapYear = differenceInDays(endOfYear, startOfYear) === 366;
+    const leapYear = Math.round(differenceInDays(endOfYear, startOfYear)) === 366;
 
     let dayMonthString = '';
 
@@ -673,7 +673,7 @@ function getSolarHijriDate(currentDateTime, vernalEquinox_) {
         endingEquinox = adjustEquinoxAtLocalBoundary(endingEquinox, SOLAR_HIJRI_TZ, 'NOON', true);
     }
     
-    const leapYear = differenceInDays(endingEquinox, startingEquinox) === 366;
+    const leapYear = Math.round(differenceInDays(endingEquinox, startingEquinox)) === 366;
     let remainingDays = Math.floor(differenceInDays(currentDateTime, startingEquinox));
 
     // Days per month in Solar Hijri calendar
