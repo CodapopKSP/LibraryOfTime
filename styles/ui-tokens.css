@@ -41,6 +41,8 @@
     --ui-text-muted: #d3d3d3;
     /* Dark grey for secondary / hint text on lighter elevated surfaces (e.g. floating panel strip) */
     --ui-text-dark-grey: #000000;
+    /* Warm accent for section headings (description panel, modals, glossary terms) so they stand out from body text */
+    --ui-heading-accent: #bda47d;
     --ui-hover-accent: #303030;
 
     /* Full-screen dim: modals, calendar view, mobile sheet backdrop, touch node-picker sheet — set to any solid color with alpha, e.g. rgba(0,0,0,0.55) or color-mix(in srgb, #000 55%, transparent) */

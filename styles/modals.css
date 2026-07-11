@@ -106,6 +106,21 @@
     margin-bottom: 2vh;
 }
 
+.modal-text h1,
+.modal-text h2,
+.modal-text h3,
+.modal-text h4,
+.modal-text h5,
+.modal-text h6 {
+    color: var(--ui-heading-accent);
+    font-family: var(--ui-font-heading);
+}
+
+.glossary-term {
+    font-family: var(--ui-font-heading);
+    color: var(--ui-heading-accent);
+}
+
 .modal-images {
     display: flex;
     flex-direction: column;

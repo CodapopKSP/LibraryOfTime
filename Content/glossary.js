@@ -82,7 +82,7 @@ const glossaryContent = {
 // Function to generate glossary HTML
 function generateGlossaryHTML() {
     const termsHTML = glossaryContent.terms.map(item =>
-        `<p><strong>${item.term}</strong><br>${item.definition}</p>`
+        `<p><strong class="glossary-term">${item.term}</strong><br>${item.definition}</p>`
     ).join('');
     
     return termsHTML;
