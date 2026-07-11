@@ -151,7 +151,7 @@
     line-height: 1;
     color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
-    border: 0.15vh solid var(--ui-border-warm);
+    border: 0.15vh solid var(--ui-border);
     border-radius: 0.3vh;
     cursor: pointer;
 }
@@ -248,7 +248,7 @@
     color: var(--ui-text-muted);
     -webkit-text-fill-color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
-    border: 0.15vh solid var(--ui-border-warm);
+    border: 0.15vh solid var(--ui-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -312,7 +312,7 @@
     font-size: 1.2vh;
     color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
-    border: 0.15vh solid var(--ui-border-warm);
+    border: 0.15vh solid var(--ui-border);
     margin: 0;
     box-sizing: border-box;
     font-family: inherit;
@@ -326,7 +326,7 @@
     font-size: 1.2vh;
     color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
-    border: 0.15vh solid var(--ui-border-warm);
+    border: 0.15vh solid var(--ui-border);
     margin: 0;
     box-sizing: border-box;
     font-family: inherit;
