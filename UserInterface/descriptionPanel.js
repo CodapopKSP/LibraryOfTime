@@ -263,21 +263,33 @@ function setupScrollFade(scrollableElement, containerElement) {
 
     // Run once layout is ready
     requestAnimationFrame(updateFadeOpacity);
-    
+
     // Also run after a short delay to ensure content is fully rendered
     setTimeout(updateFadeOpacity, 100);
-    
-    // Run again after images and other content load
-    window.addEventListener('load', updateFadeOpacity);
-    
-    scrollableElement.addEventListener('scroll', updateFadeOpacity);
 
+    const abortController = new AbortController();
+
+    // Run again after images and other content load
+    window.addEventListener('load', updateFadeOpacity, { signal: abortController.signal });
+
+    scrollableElement.addEventListener('scroll', updateFadeOpacity, { signal: abortController.signal });
+
+    let resizeObserver = null;
     if (typeof ResizeObserver !== 'undefined') {
-        const resizeObserver = new ResizeObserver(() => {
+        resizeObserver = new ResizeObserver(() => {
             requestAnimationFrame(updateFadeOpacity);
         });
         resizeObserver.observe(scrollableElement);
     }
+
+    // Caller must invoke this when the panel content is discarded, so the window
+    // 'load' listener and ResizeObserver don't outlive the (detached) elements they close over.
+    return function cleanupScrollFade() {
+        abortController.abort();
+        if (resizeObserver) {
+            resizeObserver.disconnect();
+        }
+    };
 }
 
 function createHomePageDescription(contentKey, contentClass) {
@@ -324,8 +336,8 @@ function createNodeDescription(item, type) {
         description.appendChild(contentElement);
     }
 
-    // Set up scroll fade
-    setupScrollFade(contentElement, description);
+    // Set up scroll fade; tracked so clearDescriptionPanel() can tear it down when this element is discarded
+    activeScrollFadeCleanups.push(setupScrollFade(contentElement, description));
 
     return description;
 }
@@ -342,6 +354,8 @@ function createTitleElement(name) {
 let dismissActiveEpochTooltip = null;
 /** Closes any open mobile confidence tooltip. */
 let dismissActiveConfidenceTooltip = null;
+/** Cleanup functions (abort scroll-fade listeners + disconnect ResizeObserver) for the currently shown panel tabs. */
+let activeScrollFadeCleanups = [];
 
 /**
  * Collapses all whitespace (including newlines) so epoch strings from the panel
@@ -1068,6 +1082,8 @@ function clearDescriptionPanel() {
     if (dismissActiveConfidenceTooltip) {
         dismissActiveConfidenceTooltip();
     }
+    activeScrollFadeCleanups.forEach(cleanup => cleanup());
+    activeScrollFadeCleanups = [];
     document.querySelectorAll('.epoch-action-tooltip').forEach(el => el.remove());
     const nodeinfos = document.querySelectorAll('.nodeinfo');
     nodeinfos.forEach(nodeinfo => {
