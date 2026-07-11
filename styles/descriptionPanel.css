@@ -255,11 +255,14 @@
 
 /* Mac Chrome only styles */
 .mac-chrome-only .nodeinfo-confidence .tooltiptext {
-    width: 300px;
-    max-width: 300px;
-    padding: 15px;
-    font-size: 1.2vh;
-    line-height: 1.4;
+    width: 30vw;
+    max-width: 30vw;
+    max-height: 65vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 10px;
+    font-size: 1vh;
+    line-height: 1;
 }
 
 .mac-chrome-only .nodeinfo {
