@@ -81,22 +81,12 @@ function createAdjustedDateTime({currentDateTime=null, timezone='UTC+00:00', yea
         millisecond: 0
     };
 
-    // Convert hour enum keyword to numeric value if needed
+    // Convert hour enum keyword to numeric value if needed;
+    // unrecognized strings keep the original value (will be treated as invalid)
     let resolvedHour = hour;
     if (hour !== null && typeof hour === 'string') {
         const upperHour = hour.toUpperCase();
-        if (upperHour === 'MIDNIGHT') {
-            resolvedHour = HOUR_ENUM.MIDNIGHT;
-        } else if (upperHour === 'SUNRISE') {
-            resolvedHour = HOUR_ENUM.SUNRISE;
-        } else if (upperHour === 'NOON') {
-            resolvedHour = HOUR_ENUM.NOON;
-        } else if (upperHour === 'SUNSET') {
-            resolvedHour = HOUR_ENUM.SUNSET;
-        } else {
-            // If it's not a recognized enum, keep the original value (will be treated as invalid)
-            resolvedHour = hour;
-        }
+        resolvedHour = upperHour in HOUR_ENUM ? HOUR_ENUM[upperHour] : hour;
     }
 
     // Override with provided values (month needs adjustment: 1-based to 0-based)
@@ -190,14 +180,8 @@ function getWeekdayAtTime(currentDateTime, afterTime, timezone='UTC+00:00') {
     let resolvedMinute = afterTime.minute;
     if (afterTime.hour !== null && typeof afterTime.hour === 'string') {
         const upperHour = afterTime.hour.toUpperCase();
-        if (upperHour === 'MIDNIGHT') {
-            resolvedHour = HOUR_ENUM.MIDNIGHT;
-        } else if (upperHour === 'SUNRISE') {
-            resolvedHour = HOUR_ENUM.SUNRISE;
-        } else if (upperHour === 'NOON') {
-            resolvedHour = HOUR_ENUM.NOON;
-        } else if (upperHour === 'SUNSET') {
-            resolvedHour = HOUR_ENUM.SUNSET;
+        if (upperHour in HOUR_ENUM) {
+            resolvedHour = HOUR_ENUM[upperHour];
         }
         resolvedMinute = 0;
     }

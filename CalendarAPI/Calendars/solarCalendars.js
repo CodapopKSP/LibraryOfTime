@@ -4,21 +4,12 @@
 
 // A set of functions for calculating dates in the Solar Calendars category.
 
-// Function to compute the Julian Day Number from a Gregorian date
+// Function to compute the integer (noon-based) Julian Day Number from a Gregorian date.
+// Delegates to getJulianDayNumber (computingTime.js), which is the same Meeus formula;
+// the fractional JD at midnight is always exactly JDN - 0.5.
 function gregorianToJDN(currentDateTime) {
-    let year = currentDateTime.getUTCFullYear();
-    let month = currentDateTime.getUTCMonth() + 1; // JavaScript months are 0-based
-    let day = currentDateTime.getUTCDate();
-    if (month <= 2) {
-        year -= 1;
-        month += 12;
-    }
-    const A = Math.floor(year / 100);
-    const B = 2 - A + Math.floor(A / 4);
-    const JDN = Math.floor(365.25 * (year + 4716)) +
-                Math.floor(30.6001 * (month + 1)) +
-                day + B - 1524;
-    return JDN;
+    const midnight = createAdjustedDateTime({ currentDateTime });
+    return Math.round(getJulianDayNumber(midnight) + 0.5);
 }
 
 // Function to convert a JDN to a Julian calendar date
