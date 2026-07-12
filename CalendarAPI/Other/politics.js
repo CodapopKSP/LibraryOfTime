@@ -11,7 +11,7 @@ const PRESIDENTIAL_TZ = 'UTC-04:00';
 function getCurrentPresidentialTerm(currentDateTime) {
     const januaryThisYear = createAdjustedDateTime({ currentDateTime, timezone: PRESIDENTIAL_TZ, month: 1, day: 20, hour: 'NOON' });
 
-    let yearsSinceEpoch = currentDateTime.getFullYear() - PRESIDENTIAL_EPOCH_YEAR;
+    let yearsSinceEpoch = currentDateTime.getUTCFullYear() - PRESIDENTIAL_EPOCH_YEAR;
     if (currentDateTime < januaryThisYear) {
         yearsSinceEpoch -= 1;
     }

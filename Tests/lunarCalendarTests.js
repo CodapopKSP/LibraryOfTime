@@ -96,7 +96,7 @@ function testGetUmmalQuraDate() {
         ["2024-6-14, 10:00:00", "UTC+03:00", "8 Dhū al-Ḥijjah 1445 AH\nYawm al-Jumu'ah"],
         ["2024-7-6, 18:00:00", "UTC+03:00", "1 al-Muḥarram 1446 AH\nYawm al-Ahad"],
         ["2026-6-16, 17:00:00", "UTC+03:00", "1 al-Muḥarram 1448 AH\nYawm ath-Thulatha"],
-        ["2035-10-16, 15:00:00", "UTC+03:00", "14 al-Muḥarram 1457 AH\nYawm ath-Thulatha"],
+        ["2035-10-16, 15:00:00", "UTC+03:00", "15 Shaʿbān 1457 AH\nYawm ath-Thulatha"],
     ]);
 }
 

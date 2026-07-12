@@ -58,7 +58,7 @@ function getRealJulianDate(currentDateTime) {
 // Returns an unformatted Julian date object, useful for calculating many calendars
 function getApproxJulianDate(currentDateTime) {
     let year = currentDateTime.getUTCFullYear();
-    let daysAhead = Math.trunc(year / 100) - Math.trunc(year / 400) - 2;
+    let daysAhead = Math.floor(year / 100) - Math.floor(year / 400) - 2;
     let julianDate = createAdjustedDateTime({ currentDateTime, nullHourMinute: false, nullSeconds: false });
     julianDate.setUTCDate(julianDate.getUTCDate() - daysAhead);
     return julianDate;
@@ -287,7 +287,7 @@ const COPTIC_MONTH_DAYS = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 5];
 const COPTIC_MONTH_DAYS_LEAP = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 6];
 
 function getAlexandrian13MonthDateParts(currentDateTime, epochDate) {
-    const currentJulianYear = getApproxJulianDate(currentDateTime).getFullYear();
+    const currentJulianYear = getApproxJulianDate(currentDateTime).getUTCFullYear();
     const monthDays = currentJulianYear % 4 === 3 ? COPTIC_MONTH_DAYS_LEAP : COPTIC_MONTH_DAYS;
     const daysSinceEpoch = Math.floor(differenceInDays(currentDateTime, epochDate));
     const yearsSinceEpoch = Math.floor((4 * daysSinceEpoch + 3) / 1461);
@@ -633,7 +633,7 @@ function getDiscordianDate(currentDateTime, timezoneOffset) {
     let month = Math.floor(dayIndex / daysPerMonth);
     let day = (dayIndex % daysPerMonth) + 1;
     let year = localTime.getUTCFullYear() + 1166;
-    const dayOfWeek = remainingDays % 5;
+    const dayOfWeek = dayIndex % 5;
 
     if (dayMonthString==='') {
         dayMonthString = `${day} ${DISCORDIAN_MONTHS[month]}`;

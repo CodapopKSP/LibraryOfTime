@@ -207,15 +207,15 @@ function testPataphysicalCalendar() {
 
 function testDiscordianCalendar() {
     return runSolarTests("Discordian Calendar", getDiscordianDate, [
-        ["-1165-1-5, 00:00:00", "UTC+00:00", "5 Chaos 1 YOLD\nSweetmorn"],
-        ["-1165-1-5, 00:00:00", "UTC+14:00", "5 Chaos 1 YOLD\nSweetmorn"],
-        ["2000-3-19, 00:00:00", "UTC+00:00", "5 Discord 3166 YOLD\nPrickle-Prickle"],
-        ["2000-3-19, 00:00:00", "UTC-12:00", "5 Discord 3166 YOLD\nPrickle-Prickle"],
-        ["2025-12-8, 00:00:00", "UTC+00:00", "50 The Aftermath 3191 YOLD\nPungenday"],
-        ["2025-12-8, 23:00:00", "UTC+14:00", "50 The Aftermath 3191 YOLD\nPungenday"],
-        ["2024-2-29, 23:00:00", "UTC+14:00", "St. Tib's Day 3190 YOLD\nSetting Orange"],
-        ["2024-12-31, 00:00:00", "UTC+00:00", "73 The Aftermath 3190 YOLD\nSweetmorn"],
-        ["2025-12-31, 00:00:00", "UTC+00:00", "73 The Aftermath 3191 YOLD\nSweetmorn"],
+        ["-1165-1-5, 00:00:00", "UTC+00:00", "5 Chaos 1 YOLD\nSetting Orange"],
+        ["-1165-1-5, 00:00:00", "UTC+14:00", "5 Chaos 1 YOLD\nSetting Orange"],
+        ["2000-3-19, 00:00:00", "UTC+00:00", "5 Discord 3166 YOLD\nPungenday"],
+        ["2000-3-19, 00:00:00", "UTC-12:00", "5 Discord 3166 YOLD\nPungenday"],
+        ["2025-12-8, 00:00:00", "UTC+00:00", "50 The Aftermath 3191 YOLD\nBoomtime"],
+        ["2025-12-8, 23:00:00", "UTC+14:00", "50 The Aftermath 3191 YOLD\nBoomtime"],
+        ["2024-2-29, 23:00:00", "UTC+14:00", "St. Tib's Day 3190 YOLD\nPrickle-Prickle"],
+        ["2024-12-31, 00:00:00", "UTC+00:00", "73 The Aftermath 3190 YOLD\nSetting Orange"],
+        ["2025-12-31, 00:00:00", "UTC+00:00", "73 The Aftermath 3191 YOLD\nSetting Orange"],
     ]);
 }
 
