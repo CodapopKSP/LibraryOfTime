@@ -763,6 +763,9 @@ function trySolarLunarEclipseAtModifier(currentDateTime, monthModifier, isLunar)
 function getNextSolarLunarEclipse(currentDateTime, phaseType) {
     const isLunar = phaseType === 0.5;
     const offsets = [-2, -1, 0, 1, 2].map(function (o) { return o + phaseType; });
+    // Eclipse instants are parsed back from display strings at whole-second precision,
+    // so compare at second granularity: an eclipse at the current second still counts as next
+    const currentSecondStartMs = Math.floor(currentDateTime.getTime() / 1000) * 1000;
     let bestResult = null;
     let bestDate = null;
     let bestModifier = null;
@@ -771,8 +774,9 @@ function getNextSolarLunarEclipse(currentDateTime, phaseType) {
         if (!result) {
             continue;
         }
-        const eclipseDate = getMoonPhase(currentDateTime, offsets[i]);
-        if (eclipseDate.getTime() > currentDateTime.getTime()) {
+        // The eclipse instant is already on the result's first line; parsing it avoids re-running the lunar tables
+        const eclipseDate = parseDateFromUTCStringLine(result.split('\n')[0]);
+        if (eclipseDate && eclipseDate.getTime() >= currentSecondStartMs) {
             if (bestDate === null || eclipseDate.getTime() < bestDate.getTime()) {
                 bestDate = eclipseDate;
                 bestResult = result;
@@ -786,8 +790,8 @@ function getNextSolarLunarEclipse(currentDateTime, phaseType) {
         while (guard < 100) {
             const result = trySolarLunarEclipseAtModifier(currentDateTime, modifier, isLunar);
             if (result) {
-                const eclipseDate = getMoonPhase(currentDateTime, modifier);
-                if (eclipseDate.getTime() > currentDateTime.getTime()) {
+                const eclipseDate = parseDateFromUTCStringLine(result.split('\n')[0]);
+                if (eclipseDate && eclipseDate.getTime() >= currentSecondStartMs) {
                     bestResult = result;
                     bestDate = eclipseDate;
                     bestModifier = modifier;

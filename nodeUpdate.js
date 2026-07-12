@@ -31,11 +31,11 @@ function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     // Make adjustments based on calendar choice
     currentDateTime = adjustCalendarType(currentDateTime);
 
-    // Update once per day
+    // Update once per day: regenerate the astronomical caches. The astronomical
+    // display nodes themselves are refreshed by the quarter-hour block below.
     if ((getNeedsUpdate_PerDay() && (currentDateTime.getHours() < 5))||firstPass) {
         generateAllNewMoons(currentDateTime);
         generateAllSolsticesEquinoxes(currentDateTime);
-        updateAstronomicalData(currentDateTime);
         setNeedsUpdate_PerDay(false);
     }
     // Reset the update interval for the next day
@@ -73,8 +73,66 @@ function updateAllNodes(dateInput, timezoneOffset_, firstPass) {
     updateClocks_Fast(currentDateTime, timezoneOffsetConverted, dateInput);
 }
 
+// Cache of cloned-node lookups (floating panel + map view tooltips). Re-querying the
+// document for every node on every tick is the single largest steady-state cost, so
+// lookups are cached per type and cleared whenever elements are added or removed
+// inside the clone containers. Text updates only touch Text nodes, so they don't
+// invalidate the cache.
+const _clonedNodeCache = new Map();
+let _cloneObserverStarted = false;
+
+function _clearClonedNodeCacheOnElementChange(mutations) {
+    for (const mutation of mutations) {
+        for (const added of mutation.addedNodes) {
+            if (added.nodeType === Node.ELEMENT_NODE) {
+                _clonedNodeCache.clear();
+                return;
+            }
+        }
+        for (const removed of mutation.removedNodes) {
+            if (removed.nodeType === Node.ELEMENT_NODE) {
+                _clonedNodeCache.clear();
+                return;
+            }
+        }
+    }
+}
+
+function _startCloneObserver() {
+    _cloneObserverStarted = true;
+    const observer = new MutationObserver(_clearClonedNodeCacheOnElementChange);
+    for (const containerId of ['floating-box-node-container', 'map-view-node-tooltip', 'map-view-hover-tooltip']) {
+        const container = document.getElementById(containerId);
+        if (container) {
+            observer.observe(container, { childList: true, subtree: true });
+        }
+    }
+}
+
+function getClonedNodes(type) {
+    if (!_cloneObserverStarted) {
+        _startCloneObserver();
+    }
+    let clonedNodes = _clonedNodeCache.get(type);
+    if (clonedNodes === undefined) {
+        clonedNodes = document.querySelectorAll(
+            `.grid-item .${type}, #map-view-node-tooltip .${type}, #map-view-hover-tooltip .${type}`
+        );
+        _clonedNodeCache.set(type, clonedNodes);
+    }
+    return clonedNodes;
+}
+
+// Last value written per node, so unchanged values skip all DOM work
+const _lastSetValues = new Map();
+
 // Main function for populating a node
 function setTimeValue(type, value) {
+    if (_lastSetValues.get(type) === value) {
+        return;
+    }
+    _lastSetValues.set(type, value);
+
     // Update the original node
     const originalNode = document.getElementById(type);
     if (originalNode) {
@@ -88,10 +146,7 @@ function setTimeValue(type, value) {
     }
 
     // Update cloned nodes (floating panel + map view tooltips), if any
-    const clonedNodes = document.querySelectorAll(
-        `.grid-item .${type}, #map-view-node-tooltip .${type}, #map-view-hover-tooltip .${type}`
-    );
-    clonedNodes.forEach(clonedNode => {
+    getClonedNodes(type).forEach(clonedNode => {
         clonedNode.textContent = value;
     });
 }
