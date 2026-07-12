@@ -422,24 +422,19 @@ function getGalileanDate(currentDateTime, body) {
     const circad = GALILEAN_CIRCAD_HOURS[body];
     const dayMilliseconds = circad * 60 * 60 * 1000;
     let daysSince = Math.floor((currentDateTime - epoch) / dayMilliseconds);
-    const isNegative = daysSince < 0;
-    daysSince = Math.abs(daysSince);
 
-    let year = 2002; // starting year after the epoch
-    let daysInYear = 0;
-    while (true) {
-        daysInYear = getGalileanYearLength(body, year, false);
-        if (daysSince < daysInYear) {
-            break;
-        }
-        daysSince -= daysInYear;
-        year += isNegative ? -1 : 1;
-    }
-
-    if (isNegative) {
+    // Resolve the year in either direction, leaving daysSince as the 0-based day index within it
+    let year = 2002; // starting year at the epoch
+    let daysInYear = getGalileanYearLength(body, year, false);
+    while (daysSince < 0) {
         year--;
         daysInYear = getGalileanYearLength(body, year, false);
-        daysSince = daysInYear - daysSince;
+        daysSince += daysInYear;
+    }
+    while (daysSince >= daysInYear) {
+        daysSince -= daysInYear;
+        year++;
+        daysInYear = getGalileanYearLength(body, year, false);
     }
 
     let remainingDays = daysSince;
@@ -452,8 +447,8 @@ function getGalileanDate(currentDateTime, body) {
     }
 
     const day = remainingDays + 1;
-    const adjustedDays = isNegative ? -daysSince : daysSince;
-    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[(adjustedDays % 8 + 8) % 8];
+    // Every year length is a multiple of 8 circads, so the within-year index preserves the continuous week cycle
+    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[daysSince % 8];
 
     const output = day + ' ' + body + ' ' + GALILEAN_MONTH_NAMES[month] + ' ' + year + '\n' + body + ' ' + dayOfWeek;
     return { output, day, month, year, other: { body } };
@@ -463,28 +458,20 @@ function getDarianGalileanDate(currentDateTime, body) {
     const epoch = createAdjustedDateTime(DARIAN_GALILEAN_EPOCHS[body]);
     const circad = GALILEAN_CIRCAD_HOURS[body];
     const dayMilliseconds = circad * 60 * 60 * 1000;
-    let daysSince = (currentDateTime - epoch) / dayMilliseconds;
-    const isNegative = daysSince < 0;
-    daysSince = Math.abs(daysSince);
+    let daysSince = Math.floor((currentDateTime - epoch) / dayMilliseconds);
 
-    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[Math.floor(daysSince % 8)];
+    // Resolve the year in either direction, leaving daysSince as the 0-based day index within it
     let year = 0;
-    
-    // Calculate the year and day remaining within the year
-    while (true) {
-        const daysInYear = getGalileanYearLength(body, year, true);
-        
-        // Adjust for negative years and decrement properly
-        if (daysSince < daysInYear) {
-            break;
-        }
-        daysSince -= daysInYear;
-        year += isNegative ? -1 : 1;
+    let daysInYear = getGalileanYearLength(body, year, true);
+    while (daysSince < 0) {
+        year--;
+        daysInYear = getGalileanYearLength(body, year, true);
+        daysSince += daysInYear;
     }
-
-    if (isNegative) {
-        year--;  // Properly decrement the year if going backwards
-        daysSince = getGalileanYearLength(body, year, true) - daysSince;
+    while (daysSince >= daysInYear) {
+        daysSince -= daysInYear;
+        year++;
+        daysInYear = getGalileanYearLength(body, year, true);
     }
 
     let remainingDays = daysSince;
@@ -496,7 +483,9 @@ function getDarianGalileanDate(currentDateTime, body) {
         month++;
     }
 
-    const day = Math.trunc(remainingDays) + 1;
+    const day = remainingDays + 1;
+    // Every year length is a multiple of 8 circads, so the within-year index preserves the continuous week cycle
+    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[daysSince % 8];
     const output = `${day} ${body} ${DARIAN_MONTH_NAMES[month]} ${year}\n${body} ${dayOfWeek}`;
     return { output, day, month, year, other: { body } };
 }
@@ -535,29 +524,20 @@ function getDarianTitanDate(currentDateTime, body) {
 
     const epoch = createAdjustedDateTime(DARIAN_TITAN_EPOCH_CONFIG);
     const titanDayMilliseconds = DARIAN_TITAN_CIRCAD_DAYS * 24 * 60 * 60 * 1000;
-    let titanDaysSince = (currentDateTime - epoch) / titanDayMilliseconds;
-    const isNegative = titanDaysSince < 0;
-    titanDaysSince = Math.abs(titanDaysSince);
+    let titanDaysSince = Math.floor((currentDateTime - epoch) / titanDayMilliseconds);
 
-    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[Math.floor(titanDaysSince % 8)];
+    // Resolve the year in either direction, leaving titanDaysSince as the 0-based day index within it
     let year = 0;
-    
-    // Calculate the year and remaining days within the year
-    while (true) {
-        let daysInYear = isDarianTitanLeapYear(year) ? 696 : 688;
-        
-        if (titanDaysSince < daysInYear) {
-            break;
-        }
-
-        titanDaysSince -= daysInYear;
-        year += isNegative ? -1 : 1;
+    let daysInYear = isDarianTitanLeapYear(year) ? 696 : 688;
+    while (titanDaysSince < 0) {
+        year--;
+        daysInYear = isDarianTitanLeapYear(year) ? 696 : 688;
+        titanDaysSince += daysInYear;
     }
-    
-    // Handle negative years and reverse time correctly
-    if (isNegative) {
-        year -= 1;  // Adjust for a full reverse year
-        titanDaysSince = (isDarianTitanLeapYear(year) ? 696 : 688) - titanDaysSince;
+    while (titanDaysSince >= daysInYear) {
+        titanDaysSince -= daysInYear;
+        year++;
+        daysInYear = isDarianTitanLeapYear(year) ? 696 : 688;
     }
 
     // Calculate the month and day
@@ -570,7 +550,9 @@ function getDarianTitanDate(currentDateTime, body) {
         month++;
     }
 
-    const day = Math.floor(remainingDays) + 1;
+    const day = remainingDays + 1;
+    // Every year length is a multiple of 8 circads, so the within-year index preserves the continuous week cycle
+    const dayOfWeek = GALILEAN_WEEKDAY_NAMES[titanDaysSince % 8];
 
     const output = day + ' Ti ' + DARIAN_MONTH_NAMES[month] + ' ' + year + '\nTi ' + dayOfWeek;
     return { output, day, month, year, dayOfWeek };

@@ -112,6 +112,55 @@ function testJapaneseLunisolarCalendar() {
     ]);
 }
 
+// Expectations derived from the calendar definitions: each epoch instant is
+// day 1 of Januarius/Sagittarius of the starting year on weekday Solis, and the
+// 8-circad week cycles continuously in both directions from there.
+function testGalileanCalendar() {
+    let failedTestCount = 0;
+    failedTestCount += runOtherCalendarSingleParamTests("Galilean (Io)", (dt) => getGalileanDate(dt, 'Io'), [
+        ["2001-12-31, 16:07:45", "UTC+00:00", "1 Io Januarius 2002\nIo Solis"],          // exact epoch
+        ["2002-1-1, 13:22:03", "UTC+00:00", "2 Io Januarius 2002\nIo Lunae"],            // epoch + 1 circad (21.23833h)
+        ["2001-12-31, 16:07:44", "UTC+00:00", "32 Io December 2001\nIo Saturni"],        // last day of leap year 2001 (416 circads)
+        ["2001-1-4, 15:00:00", "UTC+00:00", "9 Io Januarius 2001\nIo Solis"],            // 408 circads before epoch
+    ]);
+    failedTestCount += runOtherCalendarSingleParamTests("Galilean (Eu)", (dt) => getGalileanDate(dt, 'Eu'), [
+        ["2002-1-2, 17:12:57", "UTC+00:00", "1 Eu Januarius 2002\nEu Solis"],
+    ]);
+    failedTestCount += runOtherCalendarSingleParamTests("Galilean (Gan)", (dt) => getGalileanDate(dt, 'Gan'), [
+        ["2002-1-1, 11:08:29", "UTC+00:00", "1 Gan Januarius 2002\nGan Solis"],
+    ]);
+    failedTestCount += runOtherCalendarSingleParamTests("Galilean (Cal)", (dt) => getGalileanDate(dt, 'Cal'), [
+        ["2001-12-28, 12:27:23", "UTC+00:00", "1 Cal Januarius 2002\nCal Solis"],
+    ]);
+    return failedTestCount;
+}
+
+function testDarianGalileanCalendar() {
+    let failedTestCount = 0;
+    failedTestCount += runOtherCalendarSingleParamTests("Darian Galilean (Io)", (dt) => getDarianGalileanDate(dt, 'Io'), [
+        ["1609-3-13, 05:29:26", "UTC+00:00", "1 Io Sagittarius 0\nIo Solis"],            // exact epoch
+        ["1609-3-13, 05:29:25", "UTC+00:00", "32 Io Vrishika -1\nIo Saturni"],           // last day of year -1 (776 circads)
+    ]);
+    failedTestCount += runOtherCalendarSingleParamTests("Darian Galilean (Eu)", (dt) => getDarianGalileanDate(dt, 'Eu'), [
+        ["1609-3-12, 01:19:41", "UTC+00:00", "1 Eu Sagittarius 0\nEu Solis"],
+    ]);
+    failedTestCount += runOtherCalendarSingleParamTests("Darian Galilean (Gan)", (dt) => getDarianGalileanDate(dt, 'Gan'), [
+        ["1609-3-11, 09:52:12", "UTC+00:00", "1 Gan Sagittarius 0\nGan Solis"],
+    ]);
+    failedTestCount += runOtherCalendarSingleParamTests("Darian Galilean (Cal)", (dt) => getDarianGalileanDate(dt, 'Cal'), [
+        ["1609-3-17, 20:57:24", "UTC+00:00", "1 Cal Sagittarius 0\nCal Solis"],
+    ]);
+    return failedTestCount;
+}
+
+function testDarianTitanCalendar() {
+    return runOtherCalendarSingleParamTests("Darian Titan", getDarianTitanDate, [
+        ["1609-3-15, 18:37:32", "UTC+00:00", "1 Ti Sagittarius 0\nTi Solis"],            // exact epoch
+        ["1609-3-16, 18:34:46", "UTC+00:00", "2 Ti Sagittarius 0\nTi Lunae"],            // epoch + 1 circad (0.998068439 d)
+        ["1609-3-15, 18:37:31", "UTC+00:00", "28 Ti Vrishika -1\nTi Saturni"],           // last day of year -1 (688 circads)
+    ]);
+}
+
 function testGalacticTickDay() {
     return runOtherCalendarSingleParamTests("Galactic Tick Day", getGalacticTickDay, [
         ["1608-10-2, 00:00:00", "UTC+00:00", "0th"],
@@ -140,6 +189,9 @@ function runOtherCalendarTests() {
         testOlympiad,
         testPawukon,
         testJapaneseLunisolarCalendar,
+        testGalileanCalendar,
+        testDarianGalileanCalendar,
+        testDarianTitanCalendar,
         testGalacticTickDay,
     ];
 

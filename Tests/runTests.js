@@ -16,6 +16,7 @@ function runAllTests() {
     runAlternativeTimeTests();
     runOtherCalendarTests();
     runPopCultureCalendarTests();
+    runPoliticsTests();
 }
 
 // Run a multi-day span for a given calendar function.
