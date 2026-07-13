@@ -10,8 +10,66 @@
 let selectedNode = null;
 let selectedNodeData = null; // Store the JavaScript object for the selected node
 
+// Spotlight: after an indirect selection (map tooltip, floating panel), every other node dims
+// briefly so the user can find the chosen one on screen. See body.node-spotlight in nodes.css.
+const NODE_SPOTLIGHT_DURATION_MS = 2500;
+let nodeSpotlightTimer = 0;
+
+function clearNodeSpotlight() {
+    if (nodeSpotlightTimer) {
+        clearTimeout(nodeSpotlightTimer);
+        nodeSpotlightTimer = 0;
+    }
+    document.body.classList.remove('node-spotlight');
+    document.querySelectorAll('.node.node-spotlight-target').forEach(function (el) {
+        el.classList.remove('node-spotlight-target');
+    });
+}
+
+/**
+ * Dims all other nodes for a few seconds so `target` stands out.
+ * @param target A `.node` card or any element inside one (e.g. its `.content`).
+ */
+function spotlightNode(target) {
+    if (!target || typeof target.closest !== 'function') {
+        return;
+    }
+    const card = target.classList && target.classList.contains('node') ? target : target.closest('.node');
+    if (!card || card.getClientRects().length === 0) {
+        return; // Not rendered (e.g. floating panel closed) — dimming everything would highlight nothing.
+    }
+    clearNodeSpotlight();
+    card.classList.add('node-spotlight-target');
+    document.body.classList.add('node-spotlight');
+    nodeSpotlightTimer = setTimeout(clearNodeSpotlight, NODE_SPOTLIGHT_DURATION_MS);
+}
+
+/**
+ * After selecting a grid node from another surface (map, floating panel, calendar view),
+ * scroll the main grid to the node's card and spotlight it. Desktop only: on mobile the
+ * description sheet covers the grid. Double rAF so a just-closed modal has finished hiding.
+ */
+function revealSelectedGridNode(content) {
+    if (!content || typeof content.closest !== 'function' || isMobileLayout()) {
+        return;
+    }
+    const card = content.closest('.node');
+    if (!card) {
+        return;
+    }
+    requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+            if (typeof card.scrollIntoView === 'function') {
+                card.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
+            }
+            spotlightNode(card);
+        });
+    });
+}
+
 // Fills the description panel for `item` and updates selection; `content` is the grid .content element or null.
 function populateNodeDescriptionAndSelection(content, item, options) {
+    clearNodeSpotlight();
     clearDescriptionPanel();
     var opts = options || {};
     var openMobileSheet = opts.openMobileSheet !== false;

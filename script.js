@@ -246,9 +246,10 @@ document.addEventListener('DOMContentLoaded', function () {
         setDatePickerTimezone(datePickerTimezone);
     });
 
-    // Add event listeners for floating panel controls (add = inline select; wired in userPanel.js)
-    const removeButtons = document.querySelectorAll('.remove-node-button');
-    const selectButtons = document.querySelectorAll('.select-node-button');
+    // Add event listeners for floating panel controls (add = inline select; wired in userPanel.js).
+    // Scoped to the panel: the calendar view reuses these button classes with its own handlers.
+    const removeButtons = document.querySelectorAll('#floating-box-node-container .remove-node-button');
+    const selectButtons = document.querySelectorAll('#floating-box-node-container .select-node-button');
 
     document.querySelectorAll('#floating-box-node-container .panel-section').forEach(function (section) {
         updateFloatingPanelSlotControls(section);
@@ -299,6 +300,9 @@ document.addEventListener('DOMContentLoaded', function () {
             clearDescriptionPanel();
             handleNodeClick(mainContent, item);
             mainContent.classList.add('active');
+            if (typeof window.revealSelectedGridNode === 'function') {
+                window.revealSelectedGridNode(mainContent);
+            }
         });
     });
 });

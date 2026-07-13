@@ -7,6 +7,7 @@
 .node {
     margin: 0.5vh;
     width: var(--layout-node-width);
+    transition: opacity 0.4s ease;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -135,6 +136,22 @@
 
 .content.clicking {
     background-color: rgb(150, 150, 150);
+}
+
+/* Spotlight after an indirect selection (map tooltip, floating panel, calendar view): all other
+   nodes and section titles dim for a few seconds so the chosen node is easy to find.
+   Applied by spotlightNode (nodeDraw.js). */
+.container-name {
+    transition: opacity 0.4s ease;
+}
+
+body.node-spotlight .node,
+body.node-spotlight .container-name {
+    opacity: 0.15;
+}
+
+body.node-spotlight .node.node-spotlight-target {
+    opacity: 1;
 }
 
 .node-menu {

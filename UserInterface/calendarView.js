@@ -789,8 +789,12 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!mainContent) {
                 return;
             }
+            closeCalendarView();
             if (typeof window.populateNodeDescriptionAndSelection === 'function') {
                 window.populateNodeDescriptionAndSelection(mainContent, item, { openMobileSheet: true });
+            }
+            if (typeof window.revealSelectedGridNode === 'function') {
+                window.revealSelectedGridNode(mainContent);
             }
         });
     }

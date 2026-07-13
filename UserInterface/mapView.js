@@ -947,13 +947,8 @@
         if (typeof window.populateNodeDescriptionAndSelection === 'function') {
             window.populateNodeDescriptionAndSelection(content, item, { openMobileSheet: true });
         }
-        var nodeCard = content.closest('.node');
-        if (!isMobileLayout() && nodeCard && typeof nodeCard.scrollIntoView === 'function') {
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () {
-                    nodeCard.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
-                });
-            });
+        if (typeof window.revealSelectedGridNode === 'function') {
+            window.revealSelectedGridNode(content);
         }
     }
 

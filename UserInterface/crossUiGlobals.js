@@ -18,5 +18,7 @@
     expose('toggleFloatingPanelVisibility', toggleFloatingPanelVisibility);
     expose('setFloatingPanelOpen', setFloatingPanelOpen);
     expose('findNodeDataById', findNodeDataById);
+    expose('spotlightNode', spotlightNode);
+    expose('revealSelectedGridNode', revealSelectedGridNode);
     expose('syncFloatingPanelAddSelectForSection', syncFloatingPanelAddSelectForSection);
 })();
