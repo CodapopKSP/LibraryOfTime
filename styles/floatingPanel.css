@@ -366,13 +366,28 @@
     background-color: var(--ui-elevated-bg);
 }
 
+/* Narrow-for-their-height desktop windows (width < ~1.6x height, e.g. 1120x840): the
+   vh-sized header buttons outgrow the width, wrap, and get clipped by the header's
+   overflow:hidden. Cap font/padding by vw so the row always fits on one line; caps are
+   the vh value x0.62vw, so windows wider than ~1.6x height render exactly as before.
+   Mobile (<=1024px) hides these buttons entirely. */
+#floating-panel-toggle-button,
+#glossary-button,
+#bc-vs-bce-button,
+#on-making-LoT-button,
+#calendar-view-button,
+#map-view-button {
+    font-size: min(1.2vh, 0.75vw);
+    padding: min(0.8vh, 0.5vw) min(1.5vh, 0.93vw);
+}
+
 .mac-chrome-only #floating-panel-toggle-button,
 .mac-chrome-only #glossary-button,
 .mac-chrome-only #bc-vs-bce-button,
 .mac-chrome-only #on-making-LoT-button,
 .mac-chrome-only #calendar-view-button,
 .mac-chrome-only #map-view-button {
-    font-size: 1.8vh;
+    font-size: min(1.8vh, 1.12vw);
 }
 
 /* --- Touch-only site node picker (see UserInterface/siteNodeMobilePicker.js); desktop keeps native <select> --- */

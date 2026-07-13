@@ -4,6 +4,9 @@
 |==============|
 */
 
+/* --main-grid-col-width is set by fitMainGridColumnWidth (script.js) so whole columns exactly
+   fill the space left of the description panel; vh values are the pre-fit fallback.
+   Mobile column widths override this in responsive.css. */
 .container {
     display: flex;
     flex-direction: column;
@@ -12,17 +15,17 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 8px;
     margin: 0 1vh 1vh 0vh;
-    width: 17vh;
-    max-width: 17vh;
+    width: var(--main-grid-col-width, 17vh);
+    max-width: var(--main-grid-col-width, 17vh);
     padding: 0.55vh 0.75vh 0.65vh;
     box-sizing: border-box;
 }
 
 .mac-chrome-only .container {
     font-size: 1.6vh;
-    /* Masonry column width: ~1vh wider than --layout-node-width (ui-tokens mac-chrome) */
-    width: 22vh;
-    max-width: 23vh;
+    /* Fallback Masonry column width: ~1vh wider than --layout-node-width (ui-tokens mac-chrome) */
+    width: var(--main-grid-col-width, 22vh);
+    max-width: var(--main-grid-col-width, 23vh);
     padding: 0.55vh 0.75vh 0.65vh;
 }
 

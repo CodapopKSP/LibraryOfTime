@@ -196,13 +196,40 @@ function getMainGridMasonryGutter() {
     return window.matchMedia('(max-width: 1024px)').matches ? 12 : 0;
 }
 
+/**
+ * Desktop only: set --main-grid-col-width so a whole number of columns exactly fills the grid,
+ * leaving no dead band next to the description panel. Picks the column count closest to the
+ * preferred vh-based width (containers.css fallbacks), so columns stretch or shrink by at most
+ * about half a column. Mobile (<=1024px) column widths are owned by responsive.css.
+ */
+function fitMainGridColumnWidth() {
+    if (window.matchMedia('(max-width: 1024px)').matches) {
+        document.body.style.removeProperty('--main-grid-col-width');
+        return;
+    }
+    const wrapper = document.querySelector('.node-wrapper');
+    if (!wrapper || wrapper.clientWidth <= 0) {
+        return;
+    }
+    const vh = window.innerHeight / 100;
+    const colGap = 1 * vh; // .container margin-right
+    const preferredColWidth = (document.body.classList.contains('mac-chrome-only') ? 22 : 17) * vh;
+    const count = Math.max(2, Math.round(wrapper.clientWidth / (preferredColWidth + colGap)));
+    const width = Math.floor(wrapper.clientWidth / count - colGap);
+    document.body.style.setProperty('--main-grid-col-width', width + 'px');
+}
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Detect Mac Chrome and add class to body
-    if (navigator.userAgent.includes("Chrome") && navigator.platform === "MacIntel") {
+    // Larger type + wider cards (see .mac-chrome-only rules): the base vh sizes render too
+    // small on Mac Chrome and Mac Firefox, leaving cramped extra columns. Safari keeps the
+    // base sizes. Class name is historic — Chrome was detected first.
+    if (navigator.platform === "MacIntel" &&
+        (navigator.userAgent.includes("Chrome") || navigator.userAgent.includes("Firefox"))) {
         document.body.classList.add("mac-chrome-only");
     }
 
     // Masonry Tiling library
+    fitMainGridColumnWidth();
     var grid = document.querySelector('.node-wrapper');
     var msnry = new Masonry(grid, {
         itemSelector: '.container',
@@ -315,6 +342,7 @@ window.addEventListener('resize', function () {
 
 // Safe helper to trigger a Masonry relayout when node sizes or visibility change.
 function relayoutMasonry() {
+    fitMainGridColumnWidth();
     if (window.msnry && typeof window.msnry.layout === 'function') {
         if (typeof window.msnry.option === 'function') {
             window.msnry.option({ gutter: getMainGridMasonryGutter() });

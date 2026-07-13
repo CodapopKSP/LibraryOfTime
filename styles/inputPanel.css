@@ -219,23 +219,30 @@
     }
 }
 
-.mac-chrome-only .input-box-wrapper {
-    min-height: 11vh;
-}
+/* Desktop only: these .mac-chrome-only overrides out-rank the mobile id selectors in
+   responsive.css (class+id vs id), so scope them above the 1024px breakpoint or they
+   crush the touch layout when a Mac Chrome window is resized to tablet width. */
+@media (min-width: 1025px) {
+    .mac-chrome-only .input-box-wrapper {
+        min-height: 11vh;
+    }
 
-.mac-chrome-only .input-main-row {
-    min-height: 6vh;
-}
+    .mac-chrome-only .input-main-row {
+        min-height: 6vh;
+    }
 
-.mac-chrome-only #date-input-date {
-    font-size: 1.6vh;
-    height: 3.3vh;
-    width: 14vh;
-}
-.mac-chrome-only #date-input-time {
-    font-size: 1.6vh;
-    height: 3.3vh;
-    width: 10vh;
+    /* vw caps (vh x0.62vw): keep the input row inside the panel in narrow desktop windows;
+       no effect when the window is wider than ~1.6x its height. */
+    .mac-chrome-only #date-input-date {
+        font-size: min(1.6vh, 1vw);
+        height: 3.3vh;
+        width: min(14vh, 8.7vw);
+    }
+    .mac-chrome-only #date-input-time {
+        font-size: min(1.6vh, 1vw);
+        height: 3.3vh;
+        width: min(10vh, 6.2vw);
+    }
 }
 
 .date-picker-button {
@@ -257,10 +264,13 @@
     cursor: pointer;
 }
 
-.mac-chrome-only .date-picker-button {
-    font-size: 1vh;
-    width: 5vh;
-    height: 3.75vh;
+/* Desktop only: must not out-rank the mobile .date-picker-button touch sizing (see note above) */
+@media (min-width: 1025px) {
+    .mac-chrome-only .date-picker-button {
+        font-size: 1vh;
+        width: min(5vh, 3.1vw);
+        height: 3.75vh;
+    }
 }
 
 .date-picker-button b,
@@ -334,24 +344,27 @@
     cursor: pointer;
 }
 
-.mac-chrome-only #timezone,
-.mac-chrome-only #calendar-type {
-    font-size: 1.6vh;
-    width: 12vh;
-    height: 4vh;
-}
+/* Desktop only: must not out-rank the mobile select/stepper touch sizing (see note above) */
+@media (min-width: 1025px) {
+    .mac-chrome-only #timezone,
+    .mac-chrome-only #calendar-type {
+        font-size: min(1.6vh, 1vw);
+        width: min(12vh, 7.4vw);
+        height: 4vh;
+    }
 
-.mac-chrome-only .step-group {
-    font-size: 1.6vh;
-}
+    .mac-chrome-only .step-group {
+        font-size: 1.6vh;
+    }
 
-.mac-chrome-only .step-label {
-    font-size: 1.8vh;
-    min-width: 3vh;
-}
+    .mac-chrome-only .step-label {
+        font-size: 1.8vh;
+        min-width: 3vh;
+    }
 
-.mac-chrome-only .step-button {
-    height: 2.2vh;
-    width: 3vh;
-    margin: 0.1vh;
+    .mac-chrome-only .step-button {
+        height: 2.2vh;
+        width: 3vh;
+        margin: 0.1vh;
+    }
 }

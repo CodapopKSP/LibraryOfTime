@@ -12,7 +12,8 @@
     --layout-title-bar-height: 5vh;
     /* Single top bar (title + nav buttons); used for positioning main content */
     --layout-site-header-height: 6vh;
-    --layout-description-panel-width: 33vw;
+    /* Floor keeps the input row usable in narrow desktop windows (~1025–1330px wide) */
+    --layout-description-panel-width: max(33vw, 440px);
     --layout-description-panel-height: 90vh;
     --layout-description-panel-top: 4vh;
     --layout-description-panel-margin-inline-end: 3vh;

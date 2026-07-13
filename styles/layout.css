@@ -86,13 +86,15 @@
 #page-title {
     position: relative;
     z-index: 1;
-    /* Was min(..., 2rem), which capped the title at ~32px on most desktops */
-    font-size: 5vh;
+    /* vw cap: in windows narrower than ~1.6x their height the vh-sized title would
+       overflow the header's center column and clip (see also the header-button caps
+       in floatingPanel.css) */
+    font-size: min(5vh, 3vw);
     text-align: center;
 }
 
 .mac-chrome-only #page-title {
-    font-size: 5vh;
+    font-size: min(5vh, 3vw);
 }
 
 /* Right column: date strip + description panel (desktop); mobile uses display:contents in responsive.css */
@@ -162,7 +164,14 @@
     display: grid;
     justify-content: center;
     align-items: center;
-    max-width: 63vw;
+    /* Span exactly to the description panel's outer edge; 3vh = own left offset (left: 1vh + margin-left: 2vh) */
+    max-width: calc(
+        100vw
+        - var(--layout-description-panel-width)
+        - var(--layout-description-panel-margin-inline-end)
+        - var(--layout-description-panel-margin-inline-start)
+        - 3vh
+    );
     top: var(--layout-site-header-height);
     left: 1vh;
     margin: 2vh 0 0 2vh;

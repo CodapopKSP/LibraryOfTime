@@ -22,6 +22,15 @@
     max-width: 20.5vh;
 }
 
+/* Main grid: cards track the fitted column width (see --main-grid-col-width in containers.css).
+   Floating panel clones keep --layout-node-width. */
+.node-wrapper .node {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .node > label {
     display: block;
     font-family: var(--ui-font-heading);
