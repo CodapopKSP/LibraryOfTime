@@ -131,6 +131,13 @@
 
 .node .content.active {
     background-color: rgb(44, 44, 44);
+    transition: border-color 0.4s ease;
+}
+
+/* While a spotlight holds, the target keeps its section border color; the usual selected-gray
+   border applies once the other nodes have faded back in. */
+body:not(.node-spotlight) .node .content.active,
+.node:not(.node-spotlight-target) .content.active {
     border-color: rgb(150, 150, 150);
 }
 
