@@ -111,6 +111,12 @@
     justify-content: space-between;
 }
 
+/* Perspective toggle (⇄): pressed = grid shows the selected calendar's own months */
+#calendar-view-native-toggle[aria-pressed="true"] {
+    background-color: var(--ui-hover-accent);
+    color: var(--ui-text-muted);
+}
+
 /*
  * Calendar modal dropdown: overrides on top of floatingPanel.css “recessed strip” rules
  * (same base + hover/disabled as .add-node-select). All calendar-specific tweaks stay here.
@@ -211,7 +217,8 @@
 .calendar-view-week-row {
     display: grid;
     /* minmax(0, 1fr) keeps columns equal width when cell text is long (default min-width:auto would grow the track) */
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    /* --calendar-cols is set on the grid by the native month view (e.g. 10 for French décades) */
+    grid-template-columns: repeat(var(--calendar-cols, 7), minmax(0, 1fr));
     gap: 0;
 }
 
@@ -230,8 +237,14 @@
 
 .calendar-view-day-name {
     aspect-ratio: auto;
-    min-height: auto;
-    height: 2.5vh;
+    /* min-height + auto height: native week names (Primidi…, Prickle-Prickle) may wrap to a second line */
+    min-height: 2.5vh;
+    height: auto;
+    padding: 0 0.15vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    text-align: center;
     font-size: 1.2vh;
     font-weight: bold;
     background-color: var(--ui-accent-bg);
@@ -358,7 +371,7 @@
 }
 
 .mac-chrome-only .calendar-view-day-name {
-    height: 3.125vh;
+    min-height: 3.125vh;
     font-size: 1.5vh;
 }
 
@@ -418,8 +431,7 @@
     }
 
     .calendar-view-day-name {
-        height: clamp(1.5rem, 5.2vw, 2.75rem);
-        min-height: 0;
+        min-height: clamp(1.5rem, 5.2vw, 2.75rem);
     }
 
     .calendar-view-month-title {

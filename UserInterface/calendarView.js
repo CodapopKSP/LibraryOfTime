@@ -167,7 +167,7 @@ function buildNodeValueGetters(tzOffset) {
     };
 }
 
-/** Returns { display, monthKey } when a calendar is selected, or null. */
+/** Returns { display, monthKey, day, dayOfWeek } when a calendar is selected, or null. */
 function getNodeValueForDay(nodeId, year, month, day, getters) {
     if (!nodeId || typeof parseInputDate !== 'function') return null;
     var dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00';
@@ -185,11 +185,12 @@ function getNodeValueForDay(nodeId, year, month, day, getters) {
         if (raw == null) return null;
         var display = typeof out === 'function' ? out(raw) : String(raw);
         var monthKey = '';
-        if (raw && typeof raw === 'object' && raw.month != null) {
+        var isObj = raw && typeof raw === 'object';
+        if (isObj && raw.month != null) {
             var m = raw.month, y = raw.year;
             monthKey = (y != null && y !== '') ? String(y) + '-' + String(m) : String(m);
         }
-        return { display: display, monthKey: monthKey };
+        return { display: display, monthKey: monthKey, day: isObj ? raw.day : undefined, dayOfWeek: isObj ? raw.dayOfWeek : undefined };
     } catch (e) {
         return null;
     }
@@ -203,6 +204,34 @@ function getDaysInMonth(year, month) {
 function getFirstDayOfMonth(year, month) {
     var firstDay = createAdjustedDateTime({ year: year, month: month, day: 1 });
     return firstDay.getUTCDay();
+}
+
+/** Gregorian { year, month (1-based), day } of the date picker's selected date, falling back to today. */
+function getSelectedGregorianDateParts() {
+    var year, month, day;
+    var dateStr = typeof getDatePickerTime === 'function' ? getDatePickerTime() : '';
+    if (dateStr) {
+        var datePart = dateStr.split(', ')[0];
+        var parts = datePart ? datePart.replace(/^-/, '').split('-') : [];
+        year = parseInt(parts[0] || '0', 10);
+        month = parseInt(parts[1] || '1', 10);
+        day = parseInt(parts[2] || '1', 10);
+        if (datePart && datePart.startsWith('-')) year = -year;
+    }
+    if (year == null || Number.isNaN(year) || Number.isNaN(month) || month < 1 || month > 12 || Number.isNaN(day) || day < 1) {
+        var now = new Date();
+        year = now.getFullYear();
+        month = now.getMonth() + 1;
+        day = now.getDate();
+    }
+    return { year: year, month: month, day: day };
+}
+
+/** Shifts Gregorian date parts by whole days (setUTCDate handles month/year rollover for all years). */
+function shiftGregorianDayParts(parts, delta) {
+    var dt = createAdjustedDateTime({ year: parts.year, month: parts.month, day: parts.day });
+    dt.setUTCDate(dt.getUTCDate() + delta);
+    return { year: dt.getUTCFullYear(), month: dt.getUTCMonth() + 1, day: dt.getUTCDate() };
 }
 
 function formatDateTooltip(year, month, day, eventLabels, systemLabel, systemValue) {
@@ -511,27 +540,8 @@ function buildCalendarHTML(year, month, selectedNodeData) {
     var systemLabel = null;
     var getters = null;
     var monthKeyToIndex = {};
-    var selectedYear, selectedMonth, selectedDay;
-    var dateStr = typeof getDatePickerTime === 'function' ? getDatePickerTime() : '';
-    if (dateStr) {
-        var datePart = dateStr.split(', ')[0];
-        var parts = datePart ? datePart.replace(/^-/, '').split('-') : [];
-        selectedYear = parseInt(parts[0] || '0', 10);
-        selectedMonth = parseInt(parts[1] || '1', 10);
-        selectedDay = parseInt(parts[2] || '1', 10);
-        if (datePart && datePart.startsWith('-')) selectedYear = -selectedYear;
-    } else {
-        var now = new Date();
-        selectedYear = now.getFullYear();
-        selectedMonth = now.getMonth() + 1;
-        selectedDay = now.getDate();
-    }
-    if (Number.isNaN(selectedYear) || Number.isNaN(selectedMonth) || selectedMonth < 1 || selectedMonth > 12 || Number.isNaN(selectedDay) || selectedDay < 1) {
-        var now = new Date();
-        selectedYear = now.getFullYear();
-        selectedMonth = now.getMonth() + 1;
-        selectedDay = now.getDate();
-    }
+    var selected = getSelectedGregorianDateParts();
+    var selectedYear = selected.year, selectedMonth = selected.month, selectedDay = selected.day;
     if (selectedNodeData && selectedNodeData.id) {
         nodeId = selectedNodeData.id;
         systemLabel = selectedNodeData.name || selectedNodeData.id;
@@ -597,19 +607,280 @@ function buildCalendarHTML(year, month, selectedNodeData) {
     return html;
 }
 
+/*
+    |=====================================|
+    |   Native (own-calendar) month view  |
+    |=====================================|
+    Alternative to the Gregorian grid: shows one month of the selected calendar
+    itself (e.g. Messidor CCXXXIV), discovered generically by scanning Gregorian
+    midnights outward from an anchor date until the calendar's month key changes.
+    Cells are Gregorian days labeled with the calendar's own day numbers, tinted
+    by Gregorian month (the inverse of the Gregorian view's native-month shading).
+*/
+
+/** Max Gregorian days scanned in each direction when finding a native month's bounds. */
+var CALENDAR_NATIVE_SCAN_LIMIT = 400;
+
+var _calendarViewNativeMode = false;
+var _calendarViewNativeAnchor = null;   // Gregorian {year, month, day} inside the displayed native month
+var _calendarViewNativePrevDate = null; // Gregorian day just before / after the displayed native month
+var _calendarViewNativeNextDate = null;
+
+var _nativeWeekRegistry = null;
+
+/**
+ * Week structure used for the native view's columns. Calendars with a known
+ * non-Gregorian week get their own day names and column mapping; everything
+ * else keeps Gregorian weekday columns (each cell is still a Gregorian day).
+ */
+function getNativeWeekStructure(nodeId) {
+    if (!_nativeWeekRegistry) {
+        _nativeWeekRegistry = {};
+        var nativeDayOfWeekCol = function (len) {
+            return function (entry) {
+                var d = Number(entry.dayOfWeek);
+                return Number.isNaN(d) ? 0 : ((d % len) + len) % len;
+            };
+        };
+        if (typeof FRENCH_WEEK !== 'undefined') {
+            // Décades restart with each month, so day-of-month determines the column
+            _nativeWeekRegistry['french-republican'] = {
+                names: FRENCH_WEEK,
+                col: function (entry) {
+                    var d = Number(entry.nativeDay);
+                    return Number.isNaN(d) ? 0 : (d - 1) % 10;
+                }
+            };
+        }
+        if (typeof DISCORDIAN_WEEK !== 'undefined') {
+            _nativeWeekRegistry['discordian'] = { names: DISCORDIAN_WEEK, col: nativeDayOfWeekCol(5) };
+        }
+        if (typeof IGBO_WEEK !== 'undefined') {
+            _nativeWeekRegistry['igbo'] = { names: IGBO_WEEK, col: nativeDayOfWeekCol(4) };
+        }
+    }
+    return _nativeWeekRegistry[nodeId] || {
+        names: DAY_NAMES,
+        col: function (entry) { return entry.gregWeekday; }
+    };
+}
+
+/**
+ * Month title shared by every day of the native month, derived from the day
+ * outputs' first lines: the common prefix plus the common suffix is everything
+ * except the part that varies per day (the day number/name).
+ * E.g. "24 Messidor CCXXXIV RE" → "Messidor CCXXXIV RE".
+ */
+function deriveNativeMonthTitle(displays, fallback) {
+    var lines = [];
+    for (var i = 0; i < displays.length; i++) {
+        var line = String(displays[i] || '').split('\n')[0].trim();
+        if (line) lines.push(line);
+    }
+    if (!lines.length) return fallback;
+    var prefix = lines[0];
+    for (i = 1; i < lines.length && prefix; i++) {
+        var n = 0;
+        while (n < prefix.length && n < lines[i].length && prefix.charAt(n) === lines[i].charAt(n)) n++;
+        prefix = prefix.slice(0, n);
+    }
+    // Suffix is computed on the remainders after the prefix so the two never overlap
+    var suffix = lines[0].slice(prefix.length);
+    for (i = 1; i < lines.length && suffix; i++) {
+        var rest = lines[i].slice(prefix.length);
+        var m = 0;
+        while (m < suffix.length && m < rest.length && suffix.charAt(suffix.length - 1 - m) === rest.charAt(rest.length - 1 - m)) m++;
+        suffix = suffix.slice(suffix.length - m);
+    }
+    var trimSep = function (s) { return s.replace(/^[\s.,;:\-–—/]+|[\s.,;:\-–—/]+$/g, ''); };
+    var parts = [];
+    if (trimSep(prefix).length >= 2) parts.push(trimSep(prefix));
+    if (trimSep(suffix).length >= 2) parts.push(trimSep(suffix));
+    return parts.join(' ') || fallback;
+}
+
+/**
+ * Finds every Gregorian day whose midnight falls in the same native month as
+ * the anchor date. Returns ordered entries or null when the anchor date has no
+ * month in this system.
+ */
+function scanNativeMonth(nodeId, getters, anchor) {
+    var anchorVal = getNodeValueForDay(nodeId, anchor.year, anchor.month, anchor.day, getters);
+    if (!anchorVal || !anchorVal.monthKey) return null;
+    var key = anchorVal.monthKey;
+
+    function toEntry(parts, val) {
+        var dt = createAdjustedDateTime({ year: parts.year, month: parts.month, day: parts.day });
+        return {
+            year: parts.year, month: parts.month, day: parts.day,
+            nativeDay: val.day, dayOfWeek: val.dayOfWeek,
+            display: val.display, gregWeekday: dt.getUTCDay()
+        };
+    }
+
+    var entries = [toEntry(anchor, anchorVal)];
+    var cur = anchor;
+    for (var i = 0; i < CALENDAR_NATIVE_SCAN_LIMIT; i++) {
+        var probe = shiftGregorianDayParts(cur, -1);
+        var val = getNodeValueForDay(nodeId, probe.year, probe.month, probe.day, getters);
+        if (!val || val.monthKey !== key) break;
+        entries.unshift(toEntry(probe, val));
+        cur = probe;
+    }
+    cur = anchor;
+    for (i = 0; i < CALENDAR_NATIVE_SCAN_LIMIT; i++) {
+        probe = shiftGregorianDayParts(cur, 1);
+        val = getNodeValueForDay(nodeId, probe.year, probe.month, probe.day, getters);
+        if (!val || val.monthKey !== key) break;
+        entries.push(toEntry(probe, val));
+        cur = probe;
+    }
+    return entries;
+}
+
+/**
+ * Builds the native month grid. Returns { html, title, cols, first, prev, next }
+ * or null when the view is unavailable for this node/anchor.
+ */
+function buildNativeCalendarHTML(selectedNodeData, anchor) {
+    if (!selectedNodeData || !selectedNodeData.id || !anchor) return null;
+    var nodeId = selectedNodeData.id;
+    var systemLabel = selectedNodeData.name || nodeId;
+    var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
+    var tzOffset = typeof convertUTCOffsetToMinutes === 'function' ? convertUTCOffsetToMinutes(tz) : 0;
+    var getters = buildNodeValueGetters(tzOffset);
+    var entries = scanNativeMonth(nodeId, getters, anchor);
+    if (!entries) return null;
+
+    var selected = getSelectedGregorianDateParts();
+    var weekStructure = getNativeWeekStructure(nodeId);
+    var cols = weekStructure.names.length;
+
+    // Astronomical events per Gregorian month; a native month can span several
+    var eventsCache = {};
+    function eventsForDay(y, m, d) {
+        var k = y + '-' + m;
+        if (!(k in eventsCache)) {
+            eventsCache[k] = (typeof getAstronomicalEventsForMonth === 'function') ? getAstronomicalEventsForMonth(y, m) : {};
+        }
+        return eventsCache[k][d] || [];
+    }
+
+    var html = '<div class="calendar-view-header-row">';
+    weekStructure.names.forEach(function (name) {
+        html += '<div class="calendar-view-cell calendar-view-day-name">' + escapeHtml(name) + '</div>';
+    });
+    html += '</div>';
+
+    // Flat cell list padded with empties so each entry lands in its week column
+    var cells = [];
+    entries.forEach(function (entry) {
+        var col = weekStructure.col(entry);
+        col = Number.isNaN(Number(col)) ? 0 : ((col % cols) + cols) % cols;
+        var guard = 0;
+        while (cells.length % cols !== col && guard++ < cols) cells.push(null);
+        cells.push(entry);
+    });
+    while (cells.length % cols !== 0) cells.push(null);
+
+    for (var i = 0; i < cells.length; i += cols) {
+        html += '<div class="calendar-view-week-row">';
+        for (var c = 0; c < cols; c++) {
+            var entry = cells[i + c];
+            if (!entry) {
+                html += '<div class="calendar-view-cell calendar-view-empty"></div>';
+                continue;
+            }
+            var dayEvents = eventsForDay(entry.year, entry.month, entry.day);
+            var eventLabels = dayEvents.map(function (k) {
+                return ASTRONOMICAL_ICONS[k] ? ASTRONOMICAL_ICONS[k].title : k;
+            });
+            var iconHtml = '';
+            dayEvents.forEach(function (k) {
+                if (ASTRONOMICAL_ICONS[k]) {
+                    iconHtml += '<span class="calendar-astronomy-icon">' + ASTRONOMICAL_ICONS[k].symbol + '</span>';
+                }
+            });
+            var tooltip = formatDateTooltip(entry.year, entry.month, entry.day, eventLabels, systemLabel, entry.display);
+            var shade = getShadeForMonthKey(String(entry.month - 1));
+            var shadeStyle = shade ? ' style="background-color:' + shade + '"' : '';
+            var isSelectedDay = (entry.year === selected.year && entry.month === selected.month && entry.day === selected.day);
+            var todayClass = isSelectedDay ? ' calendar-view-day-today' : '';
+            var gregLabel = entry.day + ' ' + MONTH_NAMES[entry.month - 1].slice(0, 3);
+            var nativeDayLabel = entry.nativeDay != null ? String(entry.nativeDay) : '';
+            var yearAttr = entry.year < 0 ? '-' + Math.abs(entry.year) : String(entry.year);
+            html += '<div class="calendar-view-cell calendar-view-day' + todayClass + '" data-year="' + yearAttr + '" data-month="' + entry.month + '" data-day="' + entry.day + '" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' +
+                '<span class="calendar-view-day-num">' + escapeHtml(nativeDayLabel) + '</span>' +
+                '<span class="calendar-view-system-value">' + escapeHtml(gregLabel) + '</span>' +
+                (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') +
+                '</div>';
+        }
+        html += '</div>';
+    }
+
+    var displays = entries.map(function (entry) { return entry.display; });
+    return {
+        html: html,
+        title: deriveNativeMonthTitle(displays, systemLabel),
+        cols: cols,
+        first: { year: entries[0].year, month: entries[0].month, day: entries[0].day },
+        prev: shiftGregorianDayParts(entries[0], -1),
+        next: shiftGregorianDayParts(entries[entries.length - 1], 1)
+    };
+}
+
+/** The native view exists whenever the node's value for the selected date carries a month. */
+function nativeViewAvailable(selectedNodeData) {
+    if (!selectedNodeData || !selectedNodeData.id) return false;
+    var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
+    var tzOffset = typeof convertUTCOffsetToMinutes === 'function' ? convertUTCOffsetToMinutes(tz) : 0;
+    var sel = getSelectedGregorianDateParts();
+    var val = getNodeValueForDay(selectedNodeData.id, sel.year, sel.month, sel.day, buildNodeValueGetters(tzOffset));
+    return !!(val && val.monthKey);
+}
+
+function updateNativeToggleButton(selectedNodeData) {
+    var btn = document.getElementById('calendar-view-native-toggle');
+    if (!btn) return;
+    var available = _calendarViewNativeMode || nativeViewAvailable(selectedNodeData);
+    btn.style.display = available ? '' : 'none';
+    btn.setAttribute('aria-pressed', _calendarViewNativeMode ? 'true' : 'false');
+    var label = selectedNodeData ? (selectedNodeData.name || selectedNodeData.id) : '';
+    btn.title = _calendarViewNativeMode ? 'Show Gregorian months' : 'Show ' + label + ' months';
+}
+
 var _calendarTooltipsInitialized = false;
 
 function renderCalendarView(year, month) {
     var titleEl = document.getElementById('calendar-view-title');
     var gridEl = document.getElementById('calendar-view-grid');
     if (!titleEl || !gridEl) return;
-    var title = MONTH_NAMES[month - 1] + ' ' + year;
-    titleEl.textContent = title;
     var selectedData = getCalendarViewDisplayNodeData();
     if (!selectedData) {
         selectedData = tryResolveCalendarViewNodeDataFromSelectValue();
     }
-    gridEl.innerHTML = buildCalendarHTML(year, month, selectedData);
+    var native = null;
+    if (_calendarViewNativeMode && selectedData) {
+        if (!_calendarViewNativeAnchor) _calendarViewNativeAnchor = getSelectedGregorianDateParts();
+        native = buildNativeCalendarHTML(selectedData, _calendarViewNativeAnchor);
+    }
+    if (native) {
+        _calendarViewNativeAnchor = native.first;
+        _calendarViewNativePrevDate = native.prev;
+        _calendarViewNativeNextDate = native.next;
+        // Keep the Gregorian month tracking the native one so toggling back lands nearby
+        _calendarViewYear = native.first.year;
+        _calendarViewMonth = native.first.month;
+        titleEl.textContent = native.title;
+        gridEl.style.setProperty('--calendar-cols', String(native.cols));
+        gridEl.innerHTML = native.html;
+    } else {
+        _calendarViewNativeMode = false;
+        titleEl.textContent = MONTH_NAMES[month - 1] + ' ' + year;
+        gridEl.style.removeProperty('--calendar-cols');
+        gridEl.innerHTML = buildCalendarHTML(year, month, selectedData);
+    }
+    updateNativeToggleButton(selectedData);
     if (!_calendarTooltipsInitialized) {
         setupCalendarTooltips();
         _calendarTooltipsInitialized = true;
@@ -671,26 +942,12 @@ function openCalendarView() {
         mapModal.style.display = 'none';
         document.body.classList.remove('mobile-ui-map-open');
     }
-    var dateStr = typeof getDatePickerTime === 'function' ? getDatePickerTime() : '';
-    var year, month;
-    if (dateStr) {
-        var datePart = dateStr.split(', ')[0];
-        var parts = datePart ? datePart.replace(/^-/, '').split('-') : [];
-        year = parseInt(parts[0] || '0', 10);
-        month = parseInt(parts[1] || '1', 10);
-        if (datePart && datePart.startsWith('-')) {
-            year = -year;
-        }
-    } else {
-        var now = new Date();
-        year = now.getFullYear();
-        month = now.getMonth() + 1;
-    }
-    if (Number.isNaN(year)) year = new Date().getFullYear();
-    if (Number.isNaN(month) || month < 1 || month > 12) month = new Date().getMonth() + 1;
-
+    var selected = getSelectedGregorianDateParts();
     calendarViewBootstrapDisplayFromMainIfNeeded();
-    setCalendarViewMonth(year, month);
+    if (_calendarViewNativeMode) {
+        _calendarViewNativeAnchor = selected;
+    }
+    setCalendarViewMonth(selected.year, selected.month);
     syncCalendarViewNodeSelect();
     document.getElementById('calendar-view-modal').style.display = 'block';
     setMobileCalendarToolbarActive(true);
@@ -703,6 +960,11 @@ function setMobileCalendarToolbarActive(isOpen) {
 }
 
 function goToPrevMonth() {
+    if (_calendarViewNativeMode && _calendarViewNativePrevDate) {
+        _calendarViewNativeAnchor = _calendarViewNativePrevDate;
+        renderCalendarView(_calendarViewYear, _calendarViewMonth);
+        return;
+    }
     if (_calendarViewMonth === 1) {
         setCalendarViewMonth(_calendarViewYear - 1, 12);
     } else {
@@ -711,6 +973,11 @@ function goToPrevMonth() {
 }
 
 function goToNextMonth() {
+    if (_calendarViewNativeMode && _calendarViewNativeNextDate) {
+        _calendarViewNativeAnchor = _calendarViewNativeNextDate;
+        renderCalendarView(_calendarViewYear, _calendarViewMonth);
+        return;
+    }
     if (_calendarViewMonth === 12) {
         setCalendarViewMonth(_calendarViewYear + 1, 1);
     } else {
@@ -796,6 +1063,20 @@ document.addEventListener('DOMContentLoaded', function () {
             if (typeof window.revealSelectedGridNode === 'function') {
                 window.revealSelectedGridNode(mainContent);
             }
+        });
+    }
+    var nativeToggleBtn = document.getElementById('calendar-view-native-toggle');
+    if (nativeToggleBtn) {
+        nativeToggleBtn.addEventListener('click', function () {
+            _calendarViewNativeMode = !_calendarViewNativeMode;
+            if (_calendarViewNativeMode) {
+                // Anchor to the selected date when it is in view, else to the viewed month
+                var sel = getSelectedGregorianDateParts();
+                _calendarViewNativeAnchor = (sel.year === _calendarViewYear && sel.month === _calendarViewMonth)
+                    ? sel
+                    : { year: _calendarViewYear, month: _calendarViewMonth, day: 1 };
+            }
+            renderCalendarView(_calendarViewYear, _calendarViewMonth);
         });
     }
     if (nodeClearBtn && nodeSelect) {

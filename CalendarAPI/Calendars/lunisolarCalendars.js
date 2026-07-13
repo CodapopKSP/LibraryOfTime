@@ -492,7 +492,7 @@ function calculateHebrewCalendar(currentDateTime) {
 
     const dayOfMonth = daysThisYearSoFar + 1;
     const output = dayOfMonth + ' ' + hebrewMonthNames[monthIndex] + ' ' + earlyTishri[1] + ' AM\n' + HEBREW_WEEKDAY_NAMES[weekday];
-    return { output, day: daysThisYearSoFar, month: monthIndex, year: earlyTishri[1], dayOfWeek: weekday };
+    return { output, day: dayOfMonth, month: monthIndex, year: earlyTishri[1], dayOfWeek: weekday };
 }
 
 const HEBREW_MOLAD_REFERENCE_YEAR = 5732;
