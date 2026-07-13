@@ -363,8 +363,15 @@
     }
 
     .mac-chrome-only .step-button {
-        height: 2.2vh;
-        width: 3vh;
+        height: 2vh;
+        width: 2.7vh;
         margin: 0.1vh;
+    }
+
+    /* Optical centering: the stack is box-centered against the label, but the capital
+       letters sit above their line box's center (descender space is below the baseline),
+       so an exactly-centered stack reads as slightly too low. Lift it ~a descender's half. */
+    .mac-chrome-only .step-arrows {
+        transform: translateY(-0.15vh);
     }
 }
