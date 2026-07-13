@@ -167,7 +167,7 @@ function buildNodeValueGetters(tzOffset) {
     };
 }
 
-/** Returns { display, monthKey, day, dayOfWeek } when a calendar is selected, or null. */
+/** Returns { display, monthKey, day, monthValue, dayOfWeek, other } when a calendar is selected, or null. */
 function getNodeValueForDay(nodeId, year, month, day, getters) {
     if (!nodeId || typeof parseInputDate !== 'function') return null;
     var dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00';
@@ -190,7 +190,14 @@ function getNodeValueForDay(nodeId, year, month, day, getters) {
             var m = raw.month, y = raw.year;
             monthKey = (y != null && y !== '') ? String(y) + '-' + String(m) : String(m);
         }
-        return { display: display, monthKey: monthKey, day: isObj ? raw.day : undefined, dayOfWeek: isObj ? raw.dayOfWeek : undefined };
+        return {
+            display: display,
+            monthKey: monthKey,
+            day: isObj ? raw.day : undefined,
+            monthValue: isObj ? raw.month : undefined,
+            dayOfWeek: isObj ? raw.dayOfWeek : undefined,
+            other: isObj ? raw.other : undefined
+        };
     } catch (e) {
         return null;
     }
@@ -629,39 +636,165 @@ var _calendarViewNativeNextDate = null;
 var _nativeWeekRegistry = null;
 
 /**
- * Week structure used for the native view's columns. Calendars with a known
- * non-Gregorian week get their own day names and column mapping; everything
- * else keeps Gregorian weekday columns (each cell is still a Gregorian day).
+ * Week structure used for the native view's columns:
+ *   names — column headers (null = calendar has no weekday cycle: blank headers)
+ *   len   — number of columns
+ *   col(entry) — column index for a day; null marks a day OUTSIDE the week
+ *                cycle (St. Tib's Day, Year Day, …) drawn as a full-width row
+ *   flow  — place days sequentially with no weekday alignment
+ * Registry entries pair each calendar's weekday-name constant with the same
+ * index its own function uses, so headers and alignment follow the calendar's
+ * week (which may differ from Gregorian's), not Gregorian weekdays.
  */
 function getNativeWeekStructure(nodeId) {
     if (!_nativeWeekRegistry) {
-        _nativeWeekRegistry = {};
-        var nativeDayOfWeekCol = function (len) {
-            return function (entry) {
-                var d = Number(entry.dayOfWeek);
-                return Number.isNaN(d) ? 0 : ((d % len) + len) % len;
+        var reg = {};
+        // Numeric raw.dayOfWeek indexes the calendar's own week-name array
+        var byIndex = function (names) {
+            return names && {
+                names: names, len: names.length,
+                col: function (e) { var d = Number(e.dayOfWeek); return Number.isFinite(d) ? ((d % names.length) + names.length) % names.length : null; }
             };
         };
+        // String raw.dayOfWeek holds a week-name; look it up in indexNames
+        var byName = function (names, indexNames, shift) {
+            return names && {
+                names: names, len: names.length,
+                col: function (e) {
+                    var i = (indexNames || names).indexOf(String(e.dayOfWeek == null ? '' : e.dayOfWeek).trim());
+                    return i < 0 ? null : (i + (shift || 0)) % names.length;
+                }
+            };
+        };
+        // No weekday cycle: blank headers, rows of len aligned by day number
+        var blankByDay = function (len, zeroBased) {
+            return {
+                names: null, len: len,
+                col: function (e) { var d = Number(e.nativeDay); return Number.isFinite(d) ? (((d - (zeroBased ? 0 : 1)) % len) + len) % len : 0; }
+            };
+        };
+        var globalWeekNames = typeof weekNames !== 'undefined' ? weekNames : null;
+        var MON_FIRST = DAY_NAMES.slice(1).concat(DAY_NAMES[0]);
+
+        // 7-day weeks with the calendar's own day names (index = raw.dayOfWeek)
+        reg['minguo'] = byIndex(typeof MINGUO_WEEK !== 'undefined' && MINGUO_WEEK);
+        reg['juche'] = byIndex(typeof JUCHE_WEEK !== 'undefined' && JUCHE_WEEK);
+        reg['thai'] = byIndex(typeof THAI_SOLAR_WEEK !== 'undefined' && THAI_SOLAR_WEEK);
+        reg['bengali'] = byIndex(typeof BENGALI_WEEKDAYS !== 'undefined' && BENGALI_WEEKDAYS);
+        reg['armenian'] = byIndex(typeof ARMENIAN_SOLAR_WEEK !== 'undefined' && ARMENIAN_SOLAR_WEEK);
+        reg['coptic'] = byIndex(typeof COPTIC_WEEK !== 'undefined' && COPTIC_WEEK);
+        reg['geez'] = byIndex(typeof ETHIOPIAN_WEEK !== 'undefined' && ETHIOPIAN_WEEK);
+        reg['tabot'] = byIndex(typeof TABOT_WEEK !== 'undefined' && TABOT_WEEK);
+        reg['pataphysical'] = byIndex(typeof PATAPHYSICAL_WEEK !== 'undefined' && PATAPHYSICAL_WEEK);
+        reg['solar-hijri'] = byIndex(typeof SOLAR_HIJRI_WEEK !== 'undefined' && SOLAR_HIJRI_WEEK);
+        reg['qadimi'] = byIndex(typeof QADIMI_WEEK !== 'undefined' && QADIMI_WEEK);
+        reg['mandaean'] = byIndex(typeof MANDAEAN_WEEK !== 'undefined' && MANDAEAN_WEEK);
+        reg['saka-samvat'] = byIndex(typeof SAKA_SAMVAT_WEEK !== 'undefined' && SAKA_SAMVAT_WEEK);
+        reg['icelandic'] = byIndex(typeof ICELANDIC_DAYS !== 'undefined' && ICELANDIC_DAYS);
+        reg['hebrew'] = byIndex(typeof HEBREW_WEEKDAY_NAMES !== 'undefined' && HEBREW_WEEKDAY_NAMES);
+        reg['umm-al-qura'] = byIndex(typeof HIJRI_WEEKDAY_NAMES !== 'undefined' && HIJRI_WEEKDAY_NAMES);
+        reg['darian-mars'] = byIndex(typeof DARIAN_MARS_WEEKDAY_NAMES !== 'undefined' && DARIAN_MARS_WEEKDAY_NAMES);
+
+        // Bahá'í week starts on Jalál (Saturday); raw.dayOfWeek is Sunday-based (getBahaiCalendar's local list)
+        var bahaiSundayFirst = ['Jamál', 'Kamál', 'Fiḍál', '‘Idál', 'Istijlál', 'Istiqlál', 'Jalál'];
+        reg['bahai'] = {
+            names: [bahaiSundayFirst[6]].concat(bahaiSundayFirst.slice(0, 6)), len: 7,
+            col: function (e) { var d = Number(e.dayOfWeek); return Number.isFinite(d) ? (d + 1) % 7 : null; }
+        };
+
+        // 4-day izu; continuous cycle, does not reset at month start
+        reg['igbo'] = byIndex(typeof IGBO_WEEK !== 'undefined' && IGBO_WEEK);
+
+        // Décades restart each month; Sansculottides (month index 12) are festival days outside any décade
         if (typeof FRENCH_WEEK !== 'undefined') {
-            // Décades restart with each month, so day-of-month determines the column
-            _nativeWeekRegistry['french-republican'] = {
-                names: FRENCH_WEEK,
-                col: function (entry) {
-                    var d = Number(entry.nativeDay);
-                    return Number.isNaN(d) ? 0 : (d - 1) % 10;
+            reg['french-republican'] = {
+                names: FRENCH_WEEK, len: 10,
+                col: function (e) {
+                    if (e.nativeMonth === 12) return null;
+                    var d = Number(e.nativeDay);
+                    return Number.isFinite(d) ? (d - 1) % 10 : null;
                 }
             };
         }
+
+        // 5-day week; St. Tib's Day sits outside it (identified by its output — raw fields mirror Chaos 59)
         if (typeof DISCORDIAN_WEEK !== 'undefined') {
-            _nativeWeekRegistry['discordian'] = { names: DISCORDIAN_WEEK, col: nativeDayOfWeekCol(5) };
+            reg['discordian'] = {
+                names: DISCORDIAN_WEEK, len: 5,
+                col: function (e) {
+                    if (String(e.display).indexOf("St. Tib's Day") === 0) return null;
+                    var d = Number(e.dayOfWeek);
+                    return Number.isFinite(d) ? ((d % 5) + 5) % 5 : null;
+                }
+            };
         }
-        if (typeof IGBO_WEEK !== 'undefined') {
-            _nativeWeekRegistry['igbo'] = { names: IGBO_WEEK, col: nativeDayOfWeekCol(4) };
+
+        // Leap-week and positivist calendars: their weekday differs from Gregorian's.
+        // Invariable/World/Positivist return the weekday as a name ('' on Year Day / Worldsday / festivals).
+        if (globalWeekNames) {
+            var colFromWeekdayName = function (shift) {
+                return function (e) {
+                    var i = globalWeekNames.indexOf(String(e.dayOfWeek == null ? '' : e.dayOfWeek).trim());
+                    return i < 0 ? null : (i + shift) % 7;
+                };
+            };
+            reg['invariable'] = { names: DAY_NAMES, len: 7, col: colFromWeekdayName(0) };
+            reg['the-world-calendar'] = { names: DAY_NAMES, len: 7, col: colFromWeekdayName(0) };
+            reg['positivist'] = { names: MON_FIRST, len: 7, col: colFromWeekdayName(6) };
         }
+        // Symmetry454 months always start Monday (its numeric weekday matches the real one)
+        reg['symmetry454'] = {
+            names: MON_FIRST, len: 7,
+            col: function (e) { var d = Number(e.dayOfWeek); return Number.isFinite(d) ? (d + 6) % 7 : null; }
+        };
+
+        // Yerm: 7-night weeks restart each month; the closing night of every month is 'Lastnight', outside them
+        if (typeof YERM_LUNAR_WEEK_NAMES !== 'undefined') {
+            reg['yerm'] = {
+                names: YERM_LUNAR_WEEK_NAMES, len: 7,
+                col: function (e) {
+                    if (e.other && e.other.lunarWeek === 'Lastnight') return null;
+                    var d = Number(e.nativeDay);
+                    return Number.isFinite(d) ? (d - 1) % 7 : null;
+                }
+            };
+        }
+
+        // 8-day Galilean/Titan week; the circad's weekday only exists in the output's second line
+        if (typeof GALILEAN_WEEKDAY_NAMES !== 'undefined') {
+            var galileanSpec = {
+                names: GALILEAN_WEEKDAY_NAMES, len: 8,
+                col: function (e) {
+                    var line2 = String(e.display).split('\n')[1] || '';
+                    var i = GALILEAN_WEEKDAY_NAMES.indexOf(line2.trim().split(/\s+/).pop());
+                    return i < 0 ? null : i;
+                }
+            };
+            ['galilean-io', 'galilean-europa', 'galilean-ganymede', 'galilean-callisto',
+             'darian-io', 'darian-europa', 'darian-ganymede', 'darian-callisto'].forEach(function (id) {
+                reg[id] = galileanSpec;
+            });
+            reg['darian-titan'] = byName(GALILEAN_WEEKDAY_NAMES);
+        }
+
+        // No weekday cycle → blank headers. East Asian lunisolar months group into 10-day xún;
+        // Egyptian months into 10-day decans; Haab days are 0-based (0 = seating).
+        ['chinese', 'japanese', 'dai-lich', 'dangun', 'egyptian-civil'].forEach(function (id) { reg[id] = blankByDay(10); });
+        ['babylonian', 'epirote', 'togys-esebi', 'nakaiy'].forEach(function (id) { reg[id] = blankByDay(7); });
+        reg['haab'] = blankByDay(10, true);
+        reg['tzolkin'] = { names: null, len: 7, flow: true };
+
+        _nativeWeekRegistry = {};
+        Object.keys(reg).forEach(function (id) { if (reg[id]) _nativeWeekRegistry[id] = reg[id]; });
     }
     return _nativeWeekRegistry[nodeId] || {
-        names: DAY_NAMES,
-        col: function (entry) { return entry.gregWeekday; }
+        // Calendars sharing the Gregorian week: numeric weekday if provided (it is
+        // computed in the calendar's own timezone), else the cell's Gregorian weekday
+        names: DAY_NAMES, len: 7,
+        col: function (entry) {
+            var d = Number(entry.dayOfWeek);
+            return (Number.isFinite(d) && d >= 0 && d <= 6) ? d : entry.gregWeekday;
+        }
     };
 }
 
@@ -692,7 +825,13 @@ function deriveNativeMonthTitle(displays, fallback) {
         while (m < suffix.length && m < rest.length && suffix.charAt(suffix.length - 1 - m) === rest.charAt(rest.length - 1 - m)) m++;
         suffix = suffix.slice(suffix.length - m);
     }
-    var trimSep = function (s) { return s.replace(/^[\s.,;:\-–—/]+|[\s.,;:\-–—/]+$/g, ''); };
+    var trimSep = function (s) {
+        s = s.replace(/^[\s.,;:\-–—/]+|[\s.,;:\-–—/]+$/g, '');
+        // A dangling opener at the end / closer at the start means the day number
+        // sat inside brackets ("Funoas (12)" → prefix "Funoas ("); balanced pairs stay
+        s = s.replace(/[([{«]+$/, '').replace(/^[)\]}»]+/, '');
+        return s.replace(/^[\s.,;:\-–—/]+|[\s.,;:\-–—/]+$/g, '');
+    };
     var parts = [];
     if (trimSep(prefix).length >= 2) parts.push(trimSep(prefix));
     if (trimSep(suffix).length >= 2) parts.push(trimSep(suffix));
@@ -711,11 +850,20 @@ function scanNativeMonth(nodeId, getters, anchor) {
 
     function toEntry(parts, val) {
         var dt = createAdjustedDateTime({ year: parts.year, month: parts.month, day: parts.day });
+        var nativeDay = (typeof val.day === 'string') ? val.day.trim() : val.day;
         return {
             year: parts.year, month: parts.month, day: parts.day,
-            nativeDay: val.day, dayOfWeek: val.dayOfWeek,
-            display: val.display, gregWeekday: dt.getUTCDay()
+            nativeDay: nativeDay, nativeMonth: val.monthValue, dayOfWeek: val.dayOfWeek,
+            other: val.other, display: val.display, gregWeekday: dt.getUTCDay()
         };
+    }
+
+    // Off-world days (sols, circads) can span two Gregorian midnights; keep one
+    // cell per native day — the earliest Gregorian midnight inside it. Displays
+    // must match too: St. Tib's Day shares Chaos 59's day number but not its output.
+    function sameNativeDay(a, b) {
+        return a.nativeDay != null && a.nativeDay !== '' &&
+            String(a.nativeDay) === String(b.nativeDay) && a.display === b.display;
     }
 
     var entries = [toEntry(anchor, anchorVal)];
@@ -724,7 +872,12 @@ function scanNativeMonth(nodeId, getters, anchor) {
         var probe = shiftGregorianDayParts(cur, -1);
         var val = getNodeValueForDay(nodeId, probe.year, probe.month, probe.day, getters);
         if (!val || val.monthKey !== key) break;
-        entries.unshift(toEntry(probe, val));
+        var entry = toEntry(probe, val);
+        if (sameNativeDay(entry, entries[0])) {
+            entries[0] = entry;
+        } else {
+            entries.unshift(entry);
+        }
         cur = probe;
     }
     cur = anchor;
@@ -732,7 +885,10 @@ function scanNativeMonth(nodeId, getters, anchor) {
         probe = shiftGregorianDayParts(cur, 1);
         val = getNodeValueForDay(nodeId, probe.year, probe.month, probe.day, getters);
         if (!val || val.monthKey !== key) break;
-        entries.push(toEntry(probe, val));
+        entry = toEntry(probe, val);
+        if (!sameNativeDay(entry, entries[entries.length - 1])) {
+            entries.push(entry);
+        }
         cur = probe;
     }
     return entries;
@@ -754,7 +910,7 @@ function buildNativeCalendarHTML(selectedNodeData, anchor) {
 
     var selected = getSelectedGregorianDateParts();
     var weekStructure = getNativeWeekStructure(nodeId);
-    var cols = weekStructure.names.length;
+    var cols = weekStructure.len;
 
     // Astronomical events per Gregorian month; a native month can span several
     var eventsCache = {};
@@ -766,57 +922,76 @@ function buildNativeCalendarHTML(selectedNodeData, anchor) {
         return eventsCache[k][d] || [];
     }
 
+    function renderDayCell(entry, intercalary) {
+        var dayEvents = eventsForDay(entry.year, entry.month, entry.day);
+        var eventLabels = dayEvents.map(function (k) {
+            return ASTRONOMICAL_ICONS[k] ? ASTRONOMICAL_ICONS[k].title : k;
+        });
+        var iconHtml = '';
+        dayEvents.forEach(function (k) {
+            if (ASTRONOMICAL_ICONS[k]) {
+                iconHtml += '<span class="calendar-astronomy-icon">' + ASTRONOMICAL_ICONS[k].symbol + '</span>';
+            }
+        });
+        var tooltip = formatDateTooltip(entry.year, entry.month, entry.day, eventLabels, systemLabel, entry.display);
+        var shadeStyle = '';
+        if (!intercalary) {
+            var shade = getShadeForMonthKey(String(entry.month - 1));
+            if (shade) shadeStyle = ' style="background-color:' + shade + '"';
+        }
+        var isSelectedDay = (entry.year === selected.year && entry.month === selected.month && entry.day === selected.day);
+        var classes = 'calendar-view-cell calendar-view-day' +
+            (intercalary ? ' calendar-view-day-intercalary' : '') +
+            (isSelectedDay ? ' calendar-view-day-today' : '');
+        var gregLabel = entry.day + ' ' + MONTH_NAMES[entry.month - 1].slice(0, 3);
+        var nativeDayLabel = entry.nativeDay != null ? String(entry.nativeDay) : '';
+        var valueText = intercalary
+            ? String(entry.display || '').split('\n')[0] + '\n' + gregLabel
+            : gregLabel;
+        var yearAttr = entry.year < 0 ? '-' + Math.abs(entry.year) : String(entry.year);
+        return '<div class="' + classes + '" data-year="' + yearAttr + '" data-month="' + entry.month + '" data-day="' + entry.day + '" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' +
+            '<span class="calendar-view-day-num">' + escapeHtml(nativeDayLabel) + '</span>' +
+            '<span class="calendar-view-system-value">' + escapeHtml(valueText) + '</span>' +
+            (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') +
+            '</div>';
+    }
+
     var html = '<div class="calendar-view-header-row">';
-    weekStructure.names.forEach(function (name) {
-        html += '<div class="calendar-view-cell calendar-view-day-name">' + escapeHtml(name) + '</div>';
-    });
+    for (var h = 0; h < cols; h++) {
+        var headerName = weekStructure.names ? String(weekStructure.names[h]) : '';
+        html += '<div class="calendar-view-cell calendar-view-day-name"' +
+            (headerName ? ' title="' + escapeHtml(headerName) + '"' : '') + '>' + escapeHtml(headerName) + '</div>';
+    }
     html += '</div>';
 
-    // Flat cell list padded with empties so each entry lands in its week column
-    var cells = [];
-    entries.forEach(function (entry) {
-        var col = weekStructure.col(entry);
-        col = Number.isNaN(Number(col)) ? 0 : ((col % cols) + cols) % cols;
-        var guard = 0;
-        while (cells.length % cols !== col && guard++ < cols) cells.push(null);
-        cells.push(entry);
-    });
-    while (cells.length % cols !== 0) cells.push(null);
-
-    for (var i = 0; i < cells.length; i += cols) {
-        html += '<div class="calendar-view-week-row">';
-        for (var c = 0; c < cols; c++) {
-            var entry = cells[i + c];
-            if (!entry) {
-                html += '<div class="calendar-view-cell calendar-view-empty"></div>';
-                continue;
+    // Aligned days accumulate into week rows; a day outside the week cycle
+    // (col == null) flushes them and takes a full-width intercalary row
+    var pending = [];
+    function flushPending() {
+        if (!pending.length) return;
+        while (pending.length % cols !== 0) pending.push(null);
+        for (var i = 0; i < pending.length; i += cols) {
+            html += '<div class="calendar-view-week-row">';
+            for (var c = 0; c < cols; c++) {
+                html += pending[i + c] ? renderDayCell(pending[i + c], false) : '<div class="calendar-view-cell calendar-view-empty"></div>';
             }
-            var dayEvents = eventsForDay(entry.year, entry.month, entry.day);
-            var eventLabels = dayEvents.map(function (k) {
-                return ASTRONOMICAL_ICONS[k] ? ASTRONOMICAL_ICONS[k].title : k;
-            });
-            var iconHtml = '';
-            dayEvents.forEach(function (k) {
-                if (ASTRONOMICAL_ICONS[k]) {
-                    iconHtml += '<span class="calendar-astronomy-icon">' + ASTRONOMICAL_ICONS[k].symbol + '</span>';
-                }
-            });
-            var tooltip = formatDateTooltip(entry.year, entry.month, entry.day, eventLabels, systemLabel, entry.display);
-            var shade = getShadeForMonthKey(String(entry.month - 1));
-            var shadeStyle = shade ? ' style="background-color:' + shade + '"' : '';
-            var isSelectedDay = (entry.year === selected.year && entry.month === selected.month && entry.day === selected.day);
-            var todayClass = isSelectedDay ? ' calendar-view-day-today' : '';
-            var gregLabel = entry.day + ' ' + MONTH_NAMES[entry.month - 1].slice(0, 3);
-            var nativeDayLabel = entry.nativeDay != null ? String(entry.nativeDay) : '';
-            var yearAttr = entry.year < 0 ? '-' + Math.abs(entry.year) : String(entry.year);
-            html += '<div class="calendar-view-cell calendar-view-day' + todayClass + '" data-year="' + yearAttr + '" data-month="' + entry.month + '" data-day="' + entry.day + '" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' +
-                '<span class="calendar-view-day-num">' + escapeHtml(nativeDayLabel) + '</span>' +
-                '<span class="calendar-view-system-value">' + escapeHtml(gregLabel) + '</span>' +
-                (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') +
-                '</div>';
+            html += '</div>';
         }
-        html += '</div>';
+        pending = [];
     }
+    entries.forEach(function (entry) {
+        var col = weekStructure.flow ? (pending.length % cols) : weekStructure.col(entry);
+        if (col == null) {
+            flushPending();
+            html += '<div class="calendar-view-week-row">' + renderDayCell(entry, true) + '</div>';
+            return;
+        }
+        col = ((Math.floor(col) % cols) + cols) % cols;
+        var guard = 0;
+        while (pending.length % cols !== col && guard++ < cols) pending.push(null);
+        pending.push(entry);
+    });
+    flushPending();
 
     var displays = entries.map(function (entry) { return entry.display; });
     return {
@@ -847,6 +1022,36 @@ function updateNativeToggleButton(selectedNodeData) {
     btn.setAttribute('aria-pressed', _calendarViewNativeMode ? 'true' : 'false');
     var label = selectedNodeData ? (selectedNodeData.name || selectedNodeData.id) : '';
     btn.title = _calendarViewNativeMode ? 'Show Gregorian months' : 'Show ' + label + ' months';
+}
+
+/**
+ * Uniformly shrinks the weekday header font (to at most 60% of its CSS size)
+ * until the widest unbreakable name fits its column. Runs after layout via
+ * requestAnimationFrame so measurements see the opened modal's real widths.
+ */
+function fitCalendarViewHeaderFont(gridEl) {
+    if (!gridEl || typeof gridEl.querySelectorAll !== 'function' || typeof requestAnimationFrame !== 'function' || typeof getComputedStyle !== 'function') {
+        return;
+    }
+    requestAnimationFrame(function () {
+        var cells = gridEl.querySelectorAll('.calendar-view-day-name');
+        if (!cells.length || !cells[0].clientWidth) {
+            return;
+        }
+        var worst = 1;
+        for (var i = 0; i < cells.length; i++) {
+            var ratio = cells[i].scrollWidth / cells[i].clientWidth;
+            if (ratio > worst) worst = ratio;
+        }
+        if (worst <= 1) {
+            return;
+        }
+        var base = parseFloat(getComputedStyle(cells[0]).fontSize);
+        var size = Math.max(base * 0.6, (base * 0.95) / worst);
+        for (i = 0; i < cells.length; i++) {
+            cells[i].style.fontSize = size + 'px';
+        }
+    });
 }
 
 var _calendarTooltipsInitialized = false;
@@ -880,6 +1085,7 @@ function renderCalendarView(year, month) {
         gridEl.style.removeProperty('--calendar-cols');
         gridEl.innerHTML = buildCalendarHTML(year, month, selectedData);
     }
+    fitCalendarViewHeaderFont(gridEl);
     updateNativeToggleButton(selectedData);
     if (!_calendarTooltipsInitialized) {
         setupCalendarTooltips();

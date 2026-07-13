@@ -243,7 +243,8 @@
     padding: 0 0.15vh;
     box-sizing: border-box;
     overflow: hidden;
-    overflow-wrap: anywhere;
+    /* Wrap only at spaces/hyphens; single words that still overflow are shrunk by fitCalendarViewHeaderFont */
+    overflow-wrap: normal;
     text-align: center;
     font-size: 1.2vh;
     font-weight: bold;
@@ -297,6 +298,26 @@
 .calendar-view-empty {
     color: rgb(80, 80, 80);
     background-color: var(--ui-deep-accent-bg);
+}
+
+/* Native view: a day outside the calendar's week cycle (St. Tib's Day, Year Day, Sansculottides…)
+   spans the full week row, set off by warm red rules */
+.calendar-view-day-intercalary {
+    grid-column: 1 / -1;
+    aspect-ratio: auto;
+    min-height: 3vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.6vh;
+    border-top: 0.15vh solid rgba(205, 92, 92, 0.8);
+    border-bottom: 0.15vh solid rgba(205, 92, 92, 0.8);
+    background-color: rgba(205, 92, 92, 0.12);
+}
+
+.calendar-view-day-intercalary .calendar-view-system-value {
+    flex: 0 1 auto;
+    width: auto;
 }
 
 .calendar-astronomy-icons {
