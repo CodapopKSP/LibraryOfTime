@@ -135,20 +135,34 @@ function testGalileanCalendar() {
     return failedTestCount;
 }
 
+// Year 0 begins at the clock epoch minus DARIAN_GALILEAN_CIRCAD_OFFSETS whole circads — within
+// half a circad of Gangale's published 1609 epochs (see otherCalendars.js) — and every date
+// boundary coincides with the prime-meridian clock's midnight, verified here at the clock epochs.
 function testDarianGalileanCalendar() {
     let failedTestCount = 0;
     failedTestCount += runOtherCalendarSingleParamTests("Darian Galilean (Io)", (dt) => getDarianGalileanDate(dt, 'Io'), [
-        ["1609-3-13, 05:29:26", "UTC+00:00", "1 Io Sagittarius 0\nIo Solis"],            // exact epoch
-        ["1609-3-13, 05:29:25", "UTC+00:00", "32 Io Vrishika -1\nIo Saturni"],           // last day of year -1 (776 circads)
+        ["1609-3-13, 05:06:59", "UTC+00:00", "1 Io Sagittarius 0\nIo Solis"],            // first circad of year 0
+        ["1609-3-13, 05:06:58", "UTC+00:00", "32 Io Vrishika -1\nIo Saturni"],           // last day of year -1 (776 circads)
+        ["2001-12-31, 16:07:45", "UTC+00:00", "5 Io Libra 208\nIo Mercurii"],            // date flips exactly at the clock epoch
+        ["2001-12-31, 16:07:44", "UTC+00:00", "4 Io Libra 208\nIo Martis"],
     ]);
     failedTestCount += runOtherCalendarSingleParamTests("Darian Galilean (Eu)", (dt) => getDarianGalileanDate(dt, 'Eu'), [
-        ["1609-3-12, 01:19:41", "UTC+00:00", "1 Eu Sagittarius 0\nEu Solis"],
+        ["1609-3-12, 01:51:49", "UTC+00:00", "1 Eu Sagittarius 0\nEu Solis"],
+        ["1609-3-12, 01:51:48", "UTC+00:00", "40 Eu Vrishika -1\nEu Saturni"],           // last day of leap year -1 (776 circads)
+        ["2002-1-2, 17:12:57", "UTC+00:00", "17 Eu Libra 208\nEu Solis"],
+        ["2002-1-2, 17:12:56", "UTC+00:00", "16 Eu Libra 208\nEu Saturni"],
     ]);
     failedTestCount += runOtherCalendarSingleParamTests("Darian Galilean (Gan)", (dt) => getDarianGalileanDate(dt, 'Gan'), [
-        ["1609-3-11, 09:52:12", "UTC+00:00", "1 Gan Sagittarius 0\nGan Solis"],
+        ["1609-3-11, 09:40:33", "UTC+00:00", "1 Gan Sagittarius 0\nGan Solis"],
+        ["1609-3-11, 09:40:32", "UTC+00:00", "32 Gan Vrishika -1\nGan Saturni"],
+        ["2002-1-1, 11:08:29", "UTC+00:00", "17 Gan Libra 208\nGan Solis"],
+        ["2002-1-1, 11:08:28", "UTC+00:00", "16 Gan Libra 208\nGan Saturni"],
     ]);
     failedTestCount += runOtherCalendarSingleParamTests("Darian Galilean (Cal)", (dt) => getDarianGalileanDate(dt, 'Cal'), [
-        ["1609-3-17, 20:57:24", "UTC+00:00", "1 Cal Sagittarius 0\nCal Solis"],
+        ["1609-3-17, 20:43:04", "UTC+00:00", "1 Cal Sagittarius 0\nCal Solis"],
+        ["1609-3-17, 20:43:03", "UTC+00:00", "32 Cal Vrishika -1\nCal Saturni"],
+        ["2001-12-28, 12:27:23", "UTC+00:00", "26 Cal Kanya 208\nCal Lunae"],
+        ["2001-12-28, 12:27:22", "UTC+00:00", "25 Cal Kanya 208\nCal Solis"],
     ]);
     return failedTestCount;
 }

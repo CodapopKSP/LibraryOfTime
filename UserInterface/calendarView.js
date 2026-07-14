@@ -933,9 +933,11 @@ function getEtDayCount(nodeId) {
             Object.keys(moons).forEach(function (moon) {
                 var body = moons[moon];
                 var circadMs = GALILEAN_CIRCAD_HOURS[body] * 3600000;
-                _etDayCountRegistry['galilean-' + moon] = linearCount(GALILEAN_EPOCHS[body], circadMs);
-                if (typeof DARIAN_GALILEAN_EPOCHS !== 'undefined') {
-                    _etDayCountRegistry['darian-' + moon] = linearCount(DARIAN_GALILEAN_EPOCHS[body], circadMs);
+                var galileanCount = linearCount(GALILEAN_EPOCHS[body], circadMs);
+                _etDayCountRegistry['galilean-' + moon] = galileanCount;
+                if (typeof DARIAN_GALILEAN_CIRCAD_OFFSETS !== 'undefined') {
+                    var darianOffset = DARIAN_GALILEAN_CIRCAD_OFFSETS[body];
+                    _etDayCountRegistry['darian-' + moon] = function (dt) { return galileanCount(dt) + darianOffset; };
                 }
             });
         }

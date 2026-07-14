@@ -2,7 +2,7 @@
 
 | Epoch                   | Confidence |
 | ----------------------- | ---------- |
-| 17 March 1609 +20:57:24 | High       |
+| 17 March 1609 +20:43:04 | High       |
 
 ## Overview
 
@@ -58,7 +58,7 @@ All four of the Galilean Darian calendars use roughly the same epoch, within a w
 
 The accuracy of this calendar system is wholely dependent on the writings and calculations of Thomas Gangale. It is likely that these calculations weren't precise enough to extend more than a few decades, as they do seem to drift from ephemeris data.
 
-The epoch is noted to account for the time it takes light to travel from Jupiter.
+The epoch for this calendar appears to be incorrectly given as 17 March 1609 +20:57:24, which is not a whole number of circads away from the seemingly more-accurate epoch given for the Galilean calendar. It is about 14 minutes later than the calculated circad change at the meridian. The epoch has been corrected to account for this.
 
 ## Source
 

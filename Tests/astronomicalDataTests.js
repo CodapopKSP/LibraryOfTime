@@ -66,7 +66,7 @@ function runAstronomicalTests(calendarName, getCalendarFunction, testCases) {
 function testCalculateDateFromJDE() {
     return runCalculateDateFromJDETests("DateFromJDE", calculateDateFromJDE, [
         [2086302.5, "Tue, 31 Dec 0999 23:33:40 GMT"],
-        [2451544.5, "Fri, 31 Dec 1999 23:58:56 GMT"],
+        [2451544.5, "Fri, 31 Dec 1999 23:58:55 GMT"],
     ]);
 }
 
@@ -87,29 +87,29 @@ function testGetLongitudeOfSun() {
 function testGetSolsticeOrEquinox() {
     return runAstronomicalTests("SolsticeOrEquinox", getSolsticeOrEquinox, [
         ["2001-3-20, 00:00:00", "UTC+00:00", "Tue, 20 Mar 2001 13:30:41 GMT", 'SPRING'],
-        ["2100-3-20, 00:00:00", "UTC+00:00", "Sat, 20 Mar 2100 13:03:11 GMT", 'SPRING'],
-        ["2050-9-22, 00:00:00", "UTC+00:00", "Thu, 22 Sep 2050 19:28:30 GMT", 'AUTUMN'],
+        ["2100-3-20, 00:00:00", "UTC+00:00", "Sat, 20 Mar 2100 13:03:23 GMT", 'SPRING'],
+        ["2050-9-22, 00:00:00", "UTC+00:00", "Thu, 22 Sep 2050 19:28:41 GMT", 'AUTUMN'],
     ]);
 }
 
 function testGetMoonPhase() {
     return runAstronomicalTests("Moon Phase", getMoonPhase, [
-        ["2025-3-20, 00:00:00", "UTC+00:00", "Fri, 28 Feb 2025 00:44:37 GMT", 0],
+        ["2025-3-20, 00:00:00", "UTC+00:00", "Fri, 28 Feb 2025 00:44:42 GMT", 0],
         ["1-1-12, 00:00:00", "UTC+00:00", "Thu, 11 Jan 0001 10:49:07 GMT", 0],          // Off by 9 mins in Ephemeris
-        ["4000-12-20, 00:00:00", "UTC+00:00", "Sun, 31 Dec 4000 01:13:56 GMT", 0.75],   // Off by 5 mins in Ephemeris
+        ["4000-12-20, 00:00:00", "UTC+00:00", "Sun, 31 Dec 4000 01:14:08 GMT", 0.75],   // Off by 5 mins in Ephemeris
         ["622-7-12, 00:00:00", "UTC+00:00", "Wed, 17 Jul 0622 05:21:49 GMT", 0],        // Off by 5 mins in Ephemeris
         ["-1999-11-19, 00:00:00", "UTC+00:00", "Mon, 19 Nov -1999 09:59:04 GMT", 0],    // Off by 24 mins in Ephemeris
         ["-1900-5-20, 00:00:00", "UTC+00:00", "Wed, 12 May -1900 07:03:59 GMT", 0],     // Off by 23 mins in Ephemeris
-        ["4000-3-20, 00:00:00", "UTC+00:00", "Sun, 02 Apr 4000 05:21:03 GMT", 0.5],     // Off by 4 mins in Ephemeris
+        ["4000-3-20, 00:00:00", "UTC+00:00", "Sun, 02 Apr 4000 05:21:15 GMT", 0.5],     // Off by 4 mins in Ephemeris
     ]);
 }
 
 function testGetNextMoonPhase() {
     return runAstronomicalTests("Next Moon Phase", getNextMoonPhase, [
-        ["2024-04-08, 10:20:46", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT", 0],
-        ["2024-04-08, 18:20:47", "UTC+00:00", "Wed, 08 May 2024 03:21:49 GMT", 0],
-        ["2024-04-08, 18:20:47", "UTC+00:00", "Tue, 23 Apr 2024 23:48:58 GMT", 0.5],
-        ["2025-3-20, 00:00:00", "UTC+00:00", "Sat, 29 Mar 2025 10:57:37 GMT", 0],
+        ["2024-04-08, 10:20:46", "UTC+00:00", "Mon, 08 Apr 2024 18:20:50 GMT", 0],
+        ["2024-04-08, 18:20:51", "UTC+00:00", "Wed, 08 May 2024 03:21:53 GMT", 0],
+        ["2024-04-08, 18:20:51", "UTC+00:00", "Tue, 23 Apr 2024 23:49:02 GMT", 0.5],
+        ["2025-3-20, 00:00:00", "UTC+00:00", "Sat, 29 Mar 2025 10:57:42 GMT", 0],
         ["1801-3-10, 00:00:00", "UTC+00:00", "Mon, 30 Mar 1801 05:23:43 GMT", 0.5],
         ["1801-3-11, 00:00:00", "UTC+00:00", "Mon, 30 Mar 1801 05:23:43 GMT", 0.5],
     ]);
@@ -117,7 +117,7 @@ function testGetNextMoonPhase() {
 
 function testGetNextSolarLunarEclipse() {
     return runAstronomicalTests("Eclipse", getNextSolarLunarEclipse, [
-        ["2024-04-08, 18:20:46", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Coda's eclipse
+        ["2024-04-08, 18:20:50", "UTC+00:00", "Mon, 08 Apr 2024 18:20:50 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Coda's eclipse
         ["-3339-11-2, 00:00:00", "UTC+00:00", "Sun, 03 Nov -3339 21:06:22 GMT\nAnnular | Descending\nNorthern Hemisphere", 0],  // Earliest recorded solar eclipse
         ["-584-5-21, 00:00:00", "UTC+00:00", "Wed, 22 May -0584 14:03:03 GMT\nTotal | Ascending\nNorthern Hemisphere", 0],      // Herodotus's eclipse
         ["1916-6-14, 00:00:00", "UTC+00:00", "Sat, 15 Jul 1916 04:39:39 GMT\nPartial | Ascending\nSouthern Hemisphere", 0.5],   // Ernest Shackleton's Antarctic Eclipse
@@ -128,14 +128,14 @@ function testGetNextSolarLunarEclipse() {
 }
 
 function testGetNewMoon() {
-    const currentDateTime = new Date(Date.UTC(2024, 3, 8, 18, 20, 46));
+    const currentDateTime = new Date(Date.UTC(2024, 3, 8, 18, 20, 50));
     generateAllNewMoons(currentDateTime);
     return runAstronomicalTests("New Moon", getNewMoon, [
-        ["2024-04-08, 10:20:46", "UTC+00:00", "Sun, 10 Mar 2024 09:00:17 GMT", 0],
-        ["2024-04-08, 18:20:47", "UTC+00:00", "Mon, 08 Apr 2024 18:20:46 GMT", 0],
-        ["2024-04-08, 18:20:47", "UTC+00:00", "Sun, 10 Mar 2024 09:00:17 GMT", -1],
-        ["2024-04-08, 18:20:47", "UTC+00:00", "Wed, 08 May 2024 03:21:49 GMT", 1],
-        ["4000-03-20, 00:00:00", "UTC+00:00", "Sun, 19 Mar 4000 05:24:22 GMT", 0],
+        ["2024-04-08, 10:20:46", "UTC+00:00", "Sun, 10 Mar 2024 09:00:21 GMT", 0],
+        ["2024-04-08, 18:20:51", "UTC+00:00", "Mon, 08 Apr 2024 18:20:50 GMT", 0],
+        ["2024-04-08, 18:20:51", "UTC+00:00", "Sun, 10 Mar 2024 09:00:21 GMT", -1],
+        ["2024-04-08, 18:20:51", "UTC+00:00", "Wed, 08 May 2024 03:21:53 GMT", 1],
+        ["4000-03-20, 00:00:00", "UTC+00:00", "Sun, 19 Mar 4000 05:24:34 GMT", 0],
     ]);
 }
 

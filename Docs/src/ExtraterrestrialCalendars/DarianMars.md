@@ -1,8 +1,8 @@
 # Darian (Mars)
 
-| Epoch                      | Confidence |
-| -------------------------- | ---------- |
-| 12 March 1609 CE, 18:40:06 | High       |
+| Epoch                       | Confidence |
+| --------------------------- | ---------- |
+| 11 March 1609 CE, +18:39:43 | High       |
 
 ## Overview
 
@@ -10,7 +10,7 @@ The Darian calendar is a proposed calculated solar calendar for use on Mars. It 
 
 It takes the ~668.5 sol Martian year (~687 Earth days) and divides it into 24 months of 28 or 27 sols. The new year is on the day of the Martian Northern Equinox.
 
-The epoch is the Vernal Equinox of Julian Sol Number 0, taking place on 12 March 1609 CE at 18:40:06 UTC.
+The epoch is the day of the Vernal Equinox of Julian Sol Number 0, which takes place on 11 March 1609 CE.
 
 Leap years add one extra day in the final month, and they take place if the year number is odd or divisible by 10, unless also divisible by 100 except if divisible by 1000, though this formula changes after Darian year 2000 and gets updated every few thousand years as the orbit of Mars becomes more eccentric.
 

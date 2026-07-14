@@ -284,8 +284,33 @@ function getDynamicalTimeBackward(currentDateTime) {
     return convertTTToUT(currentDateTime).toISOString();
 }
 
+// TT − TAI is 32.184 s by definition, so within the leap-second era TT − UTC is known exactly
+// from the leap-second table rather than modeled. The CGPM has resolved to abandon leap seconds
+// by 2035, so the table value stays exact in practice through the cutoff; if a leap second is
+// ever added, extending TAIleapSeconds keeps this branch exact.
+const DELTA_T_TT_TAI_OFFSET_SECONDS = 32.184;
+const DELTA_T_LEAP_SECOND_ERA_START = Date.UTC(1972, 0, 1);
+const DELTA_T_LEAP_SECOND_CUTOFF = Date.UTC(2035, 0, 1);
+const DELTA_T_LEAP_SECOND_CUTOFF_YEAR = 2035;
+
 function getDeltaT(currentDateTime) {
-    const year = currentDateTime.getUTCFullYear();
+    const timestamp = currentDateTime.getTime();
+    if ((timestamp >= DELTA_T_LEAP_SECOND_ERA_START) && (timestamp < DELTA_T_LEAP_SECOND_CUTOFF)) {
+        return DELTA_T_TT_TAI_OFFSET_SECONDS + getTAIOffsetSeconds(currentDateTime);
+    }
+    const polynomialDeltaT = getDeltaTPolynomial(currentDateTime.getUTCFullYear());
+    if (timestamp >= DELTA_T_LEAP_SECOND_CUTOFF) {
+        // Beyond the leap-second era, keep the polynomial's long-term trend but rebase it onto the
+        // last exact value so ΔT is continuous at the cutoff instead of jumping by the
+        // polynomial's prediction error (~7 s as of 2026).
+        const cutoffDeltaT = DELTA_T_TT_TAI_OFFSET_SECONDS + getTAIOffsetSeconds(new Date(DELTA_T_LEAP_SECOND_CUTOFF - 1));
+        return polynomialDeltaT - getDeltaTPolynomial(DELTA_T_LEAP_SECOND_CUTOFF_YEAR) + cutoffDeltaT;
+    }
+    return polynomialDeltaT;
+}
+
+// Espenak–Meeus ΔT polynomial fit/reconstruction; sole source before 1972, trend model after 2035.
+function getDeltaTPolynomial(year) {
     if (year < -500) {
         const year_factor = (year - 1820) / 100;
         return -20 + 32 * year_factor**2;

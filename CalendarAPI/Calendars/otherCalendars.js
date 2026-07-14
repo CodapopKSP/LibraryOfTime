@@ -162,12 +162,15 @@ const GALILEAN_EPOCHS = { Io: IO_EPOCH, Eu: EUROPA_EPOCH, Gan: GANYMEDE_EPOCH, C
 
 const GALILEAN_CIRCAD_HOURS = { Io: IO_CIRCAD_HOURS, Eu: EUROPA_CIRCAD_HOURS, Gan: GANYMEDE_CIRCAD_HOURS, Cal: CALLISTO_CIRCAD_HOURS };
 
-const DARIAN_GALILEAN_EPOCHS = {
-    Io: { year: 1609, month: 3, day: 13, hour: 5, minute: 29, second: 26 },
-    Eu: { year: 1609, month: 3, day: 12, hour: 1, minute: 19, second: 41 },
-    Gan: { year: 1609, month: 3, day: 11, hour: 9, minute: 52, second: 12 },
-    Cal: { year: 1609, month: 3, day: 17, hour: 20, minute: 57, second: 24 }
-};
+// The Darian-Galilean calendars are anchored at Gangale's 1609 telescopic epochs:
+//   Io 1609-03-13 05:29:26, Eu 1609-03-12 01:19:41, Gan 1609-03-11 09:52:12, Cal 1609-03-17 20:57:24 (UTC).
+// Gangale computed those and the 2001/2002 opposition epochs (the clock anchors above) independently
+// from ephemeris data, so they are NOT a whole number of his rounded circads apart (Io 162123.98,
+// Eu 161472.03, Gan 160159.99, Cal 162696.99 circads). The clock epoch is authoritative for the
+// circad boundary, so the calendar counts circads from it plus these offsets (the epoch differences
+// rounded to the nearest circad), keeping day rollovers exactly on prime-meridian midnight while
+// preserving Gangale's 1609 dates ("1 <body> Sagittarius 0") to within half a circad.
+const DARIAN_GALILEAN_CIRCAD_OFFSETS = { Io: 162124, Eu: 161472, Gan: 160160, Cal: 162697 };
 
 const DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS = [...Array(11).fill(32), 40, ...Array(12).fill(32)];
 const DARIAN_GALILEAN_IO_CALLISTO_MONTH_DAYS_LEAP = [...Array(11).fill(32), 40, ...Array(11).fill(32), 40];
@@ -455,10 +458,10 @@ function getGalileanDate(currentDateTime, body) {
 }
 
 function getDarianGalileanDate(currentDateTime, body) {
-    const epoch = createAdjustedDateTime(DARIAN_GALILEAN_EPOCHS[body]);
+    const epoch = createAdjustedDateTime(GALILEAN_EPOCHS[body]);
     const circad = GALILEAN_CIRCAD_HOURS[body];
     const dayMilliseconds = circad * 60 * 60 * 1000;
-    let daysSince = Math.floor((currentDateTime - epoch) / dayMilliseconds);
+    let daysSince = Math.floor((currentDateTime - epoch) / dayMilliseconds) + DARIAN_GALILEAN_CIRCAD_OFFSETS[body];
 
     // Resolve the year in either direction, leaving daysSince as the 0-based day index within it
     let year = 0;
