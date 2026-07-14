@@ -689,6 +689,14 @@ function getNativeWeekStructure(nodeId) {
         };
         var globalWeekNames = typeof weekNames !== 'undefined' ? weekNames : null;
         var MON_FIRST = DAY_NAMES.slice(1).concat(DAY_NAMES[0]);
+        // Header-only abbreviation for Solar Hijri/Qadimi: names ending in lowercase
+        // "shanbeh" (Yekshanbeh, Doshanbeh, ...) drop that suffix, leaving just the
+        // prefix (Yek, Do, ...). Case-sensitive so the bare "Shanbeh" (Saturday) is
+        // left whole, since its leading "S" doesn't match the lowercase suffix.
+        // Does not touch SOLAR_HIJRI_WEEK/QADIMI_WEEK, so normal weekday output is unaffected.
+        var truncateShanbehNames = function (names) {
+            return names && names.map(function (n) { return /shanbeh$/.test(n) ? n.slice(0, -7) : n; });
+        };
 
         // 7-day weeks with the calendar's own day names (index = raw.dayOfWeek)
         reg['minguo'] = byIndex(typeof MINGUO_WEEK !== 'undefined' && MINGUO_WEEK);
@@ -700,8 +708,8 @@ function getNativeWeekStructure(nodeId) {
         reg['geez'] = byIndex(typeof ETHIOPIAN_WEEK !== 'undefined' && ETHIOPIAN_WEEK);
         reg['tabot'] = byIndex(typeof TABOT_WEEK !== 'undefined' && TABOT_WEEK);
         reg['pataphysical'] = byIndex(typeof PATAPHYSICAL_WEEK !== 'undefined' && PATAPHYSICAL_WEEK);
-        reg['solar-hijri'] = byIndex(typeof SOLAR_HIJRI_WEEK !== 'undefined' && SOLAR_HIJRI_WEEK);
-        reg['qadimi'] = byIndex(typeof QADIMI_WEEK !== 'undefined' && QADIMI_WEEK);
+        reg['solar-hijri'] = byIndex(typeof SOLAR_HIJRI_WEEK !== 'undefined' && truncateShanbehNames(SOLAR_HIJRI_WEEK));
+        reg['qadimi'] = byIndex(typeof QADIMI_WEEK !== 'undefined' && truncateShanbehNames(QADIMI_WEEK));
         reg['mandaean'] = byIndex(typeof MANDAEAN_WEEK !== 'undefined' && MANDAEAN_WEEK);
         reg['saka-samvat'] = byIndex(typeof SAKA_SAMVAT_WEEK !== 'undefined' && SAKA_SAMVAT_WEEK);
         reg['icelandic'] = byIndex(typeof ICELANDIC_DAYS !== 'undefined' && ICELANDIC_DAYS);
