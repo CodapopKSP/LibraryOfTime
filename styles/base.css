@@ -5,6 +5,7 @@ body, html {
     overflow-y: hidden;
     color: var(--ui-text-muted);
     font-family: var(--ui-font-body);
+    background: var(--ui-accent-bg);
 }
 
 /*
