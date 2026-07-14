@@ -804,7 +804,7 @@ function getNativeWeekStructure(nodeId) {
         ['chinese', 'japanese', 'dai-lich', 'dangun', 'egyptian-civil'].forEach(function (id) { reg[id] = blankByDay(10); });
         ['babylonian', 'epirote', 'togys-esebi', 'nakaiy'].forEach(function (id) { reg[id] = blankByDay(7); });
         reg['haab'] = blankByDay(10, true);
-        reg['tzolkin'] = { names: null, len: 7, flow: true };
+        // tzolkin has no native view (see buildNativeCalendarHTML/nativeViewAvailable)
 
         _nativeWeekRegistry = {};
         Object.keys(reg).forEach(function (id) { if (reg[id]) _nativeWeekRegistry[id] = reg[id]; });
@@ -1028,6 +1028,9 @@ function scanNativeMonthByCount(nodeId, getters, anchor, countFn, tzOffset) {
 function buildNativeCalendarHTML(selectedNodeData, anchor) {
     if (!selectedNodeData || !selectedNodeData.id || !anchor) return null;
     var nodeId = selectedNodeData.id;
+    // Tzolk'in's raw.month is a day-glyph index, not a real month grouping;
+    // no native month view makes sense for it.
+    if (nodeId === 'tzolkin') return null;
     var systemLabel = selectedNodeData.name || nodeId;
     var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
     var tzOffset = typeof convertUTCOffsetToMinutes === 'function' ? convertUTCOffsetToMinutes(tz) : 0;
@@ -1186,6 +1189,7 @@ function buildNativeCalendarHTML(selectedNodeData, anchor) {
 /** The native view exists whenever the node's value for the selected date carries a month. */
 function nativeViewAvailable(selectedNodeData) {
     if (!selectedNodeData || !selectedNodeData.id) return false;
+    if (selectedNodeData.id === 'tzolkin') return false;
     var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
     var tzOffset = typeof convertUTCOffsetToMinutes === 'function' ? convertUTCOffsetToMinutes(tz) : 0;
     var sel = getSelectedGregorianDateParts();
