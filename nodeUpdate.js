@@ -268,9 +268,9 @@ function updateProposedCalendars(currentDateTime, timezoneOffset) {
 }
 
 function updatePopCultureCalendars(currentDateTime, timezoneOffset) {
-    setTimeValue('tamrielic-node', getTamrielicDate(currentDateTime, timezoneOffset));
+    setTimeValue('tamrielic-node', out(getTamrielicDate(currentDateTime, timezoneOffset)));
     setTimeValue('imperial-dating-system-node', getImperialDatingSystem(currentDateTime, timezoneOffset));
-    setTimeValue('shire-node', getShireDate(currentDateTime, timezoneOffset));
+    setTimeValue('shire-node', out(getShireDate(currentDateTime, timezoneOffset)));
 }
 
 // Update clocks that change every millisecond

@@ -716,6 +716,22 @@ function getNativeWeekStructure(nodeId) {
         reg['hebrew'] = byIndex(typeof HEBREW_WEEKDAY_NAMES !== 'undefined' && HEBREW_WEEKDAY_NAMES);
         reg['umm-al-qura'] = byIndex(typeof HIJRI_WEEKDAY_NAMES !== 'undefined' && HIJRI_WEEKDAY_NAMES);
         reg['darian-mars'] = byIndex(typeof DARIAN_MARS_WEEKDAY_NAMES !== 'undefined' && DARIAN_MARS_WEEKDAY_NAMES);
+        // Tamriel reuses the Gregorian calendar's structure under different names,
+        // so its own week (Monday-first) indexes the same way as raw.dayOfWeek.
+        reg['tamrielic'] = byIndex(typeof TAMRIELIC_WEEK !== 'undefined' && TAMRIELIC_WEEK);
+        // Shire: raw.dayOfWeek is null on Mid-year's Day / Overlithe, which sit outside
+        // the week cycle (drawn as full-width rows); byIndex's Number(null) === 0 would
+        // wrongly place them on Sterday, so this needs its own null check first.
+        if (typeof SHIRE_WEEKDAYS !== 'undefined') {
+            reg['shire'] = {
+                names: SHIRE_WEEKDAYS, len: 7,
+                col: function (e) {
+                    if (e.dayOfWeek == null) return null;
+                    var d = Number(e.dayOfWeek);
+                    return Number.isFinite(d) ? ((d % 7) + 7) % 7 : null;
+                }
+            };
+        }
 
         // Bahá'í week starts on Jalál (Saturday); raw.dayOfWeek is Sunday-based (getBahaiCalendar's local list)
         var bahaiSundayFirst = ['Jamál', 'Kamál', 'Fiḍál', '‘Idál', 'Istijlál', 'Istiqlál', 'Jalál'];

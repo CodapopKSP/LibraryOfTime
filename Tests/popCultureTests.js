@@ -17,6 +17,7 @@ function runSingleParamaterTests(timeName, getCalendarFunction, testCases) {
         if (result instanceof Date) {
             result = result.toUTCString();
         }
+        result = typeof out === 'function' ? out(result) : result;
         if (result !== expectedOutput) {
             console.error(`${timeName}: Test ${testCount} failed.`);
             console.error('Expected:', expectedOutput);

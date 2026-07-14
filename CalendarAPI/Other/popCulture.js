@@ -140,8 +140,10 @@ function getTamrielicDate(currentDateTime, timezoneOffset) {
     const gregorianDate = getGregorianDateTime(currentDateTime, timezoneOffset);
     const day = gregorianDate.day;
     const month = gregorianDate.month;
+    const year = gregorianDate.year;
     const week = (gregorianDate.dayOfWeek + 6) % 7;
-    return day + ' ' + TAMRIELIC_MONTHS[month] + '\n' + TAMRIELIC_WEEK[week];
+    const output = day + ' ' + TAMRIELIC_MONTHS[month] + '\n' + TAMRIELIC_WEEK[week];
+    return { output, day, month, year, dayOfWeek: week };
 }
 
 const IMPERIAL_MILLENNIUM_YEAR_OFFSET = 1000;
@@ -192,18 +194,24 @@ function getShireDate(currentDateTime, timezoneOffset) {
         return isShireLeapYear(shireYear) ? 366 : 365;
     }
 
-    function labelForDay(shireYear, dayIndex) {
+    // Splits a day-of-year index into its display label plus a { day, month }
+    // pair for the native month view. Regular months keep their day number and
+    // a month index (1-6 / 8-13); the special days each get their own single-
+    // or few-day "month" (0, 7, 14) so they group into their own native month
+    // instead of merging into a neighboring one (mirrors how Qadimi's Gatha
+    // days get their own month index).
+    function partsForDay(shireYear, dayIndex) {
         // dayIndex: 0..yearLength-1 where 0 is "2 Yule".
         const leap = isShireLeapYear(shireYear);
 
-        if (dayIndex === 0) return '2 Yule';
+        if (dayIndex === 0) return { label: '2 Yule', day: '2 Yule', month: 0 };
 
         let idx = dayIndex - 1; // 0-based after "2 Yule"
 
         if (idx < SHIRE_DAYS_IN_HALF_YEAR) {
             const monthIndex = Math.floor(idx / SHIRE_DAYS_PER_MONTH);
             const dayInMonth = (idx % SHIRE_DAYS_PER_MONTH) + 1;
-            return `${dayInMonth} ${SHIRE_FIRST_MONTHS[monthIndex]}`;
+            return { label: `${dayInMonth} ${SHIRE_FIRST_MONTHS[monthIndex]}`, day: dayInMonth, month: monthIndex + 1 };
         }
         idx -= SHIRE_DAYS_IN_HALF_YEAR;
 
@@ -212,29 +220,25 @@ function getShireDate(currentDateTime, timezoneOffset) {
         // Leap: 1 Lithe, Mid-year's Day, Overlithe, 2 Lithe
         const interLen = leap ? 4 : 3;
         if (idx < interLen) {
-            if (!leap) {
-                if (idx === 0) return '1 Lithe';
-                if (idx === 1) return "Mid-year's Day";
-                return '2 Lithe';
-            }
-            if (idx === 0) return '1 Lithe';
-            if (idx === 1) return "Mid-year's Day";
-            if (idx === 2) return 'Overlithe';
-            return '2 Lithe';
+            const names = leap
+                ? ['1 Lithe', "Mid-year's Day", 'Overlithe', '2 Lithe']
+                : ['1 Lithe', "Mid-year's Day", '2 Lithe'];
+            return { label: names[idx], day: names[idx], month: 7 };
         }
         idx -= interLen;
 
         if (idx < SHIRE_DAYS_IN_HALF_YEAR) {
             const monthIndex = Math.floor(idx / SHIRE_DAYS_PER_MONTH);
             const dayInMonth = (idx % SHIRE_DAYS_PER_MONTH) + 1;
-            return `${dayInMonth} ${SHIRE_SECOND_MONTHS[monthIndex]}`;
+            return { label: `${dayInMonth} ${SHIRE_SECOND_MONTHS[monthIndex]}`, day: dayInMonth, month: monthIndex + 8 };
         }
 
         // Final day of the year.
-        return '1 Yule';
+        return { label: '1 Yule', day: '1 Yule', month: 14 };
     }
 
-    function weekdayForDay(shireYear, dayIndex) {
+    // Index into SHIRE_WEEKDAYS, or null on Mid-year's Day / Overlithe (outside the week cycle).
+    function weekdayIndexForDay(shireYear, dayIndex) {
         const leap = isShireLeapYear(shireYear);
 
         const isMidYearDay = dayIndex === SHIRE_MID_YEARS_DAY_INDEX;
@@ -246,8 +250,7 @@ function getShireDate(currentDateTime, timezoneOffset) {
         if (leap && dayIndex > SHIRE_OVERLITHE_DAY_INDEX) skippedBefore += 1;
 
         const regularDaysElapsed = dayIndex - skippedBefore;
-        const weekdayIndex = ((regularDaysElapsed % SHIRE_DAYS_PER_WEEK) + SHIRE_DAYS_PER_WEEK) % SHIRE_DAYS_PER_WEEK;
-        return SHIRE_WEEKDAYS[weekdayIndex];
+        return ((regularDaysElapsed % SHIRE_DAYS_PER_WEEK) + SHIRE_DAYS_PER_WEEK) % SHIRE_DAYS_PER_WEEK;
     }
 
     const midnight = createAdjustedDateTime({ currentDateTime, hour: 'MIDNIGHT' });
@@ -270,8 +273,11 @@ function getShireDate(currentDateTime, timezoneOffset) {
         }
     }
 
-    const dayLabel = labelForDay(shireYear, dayIndex);
-    const base = `${dayLabel} S.R. ${shireYear}`;
-    const weekday = weekdayForDay(shireYear, dayIndex);
-    return weekday ? `${base}\n${weekday}` : base;
+    const parts = partsForDay(shireYear, dayIndex);
+    const base = `${parts.label} S.R. ${shireYear}`;
+    const weekdayIndex = weekdayIndexForDay(shireYear, dayIndex);
+    const weekday = weekdayIndex == null ? null : SHIRE_WEEKDAYS[weekdayIndex];
+    const output = weekday ? `${base}\n${weekday}` : base;
+
+    return { output, day: parts.day, month: parts.month, year: shireYear, dayOfWeek: weekdayIndex };
 }
