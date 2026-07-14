@@ -167,17 +167,28 @@ function buildNodeValueGetters(tzOffset) {
     };
 }
 
-/** Returns { display, monthKey, day, monthValue, dayOfWeek, other } when a calendar is selected, or null. */
-function getNodeValueForDay(nodeId, year, month, day, getters) {
-    if (!nodeId || typeof parseInputDate !== 'function') return null;
-    var dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00';
+/** Midnight instant of Gregorian { year, month, day } in the picker's timezone, or null. */
+function instantForGregorianParts(parts) {
+    if (typeof parseInputDate !== 'function') return null;
+    var dateStr = parts.year + '-' + String(parts.month).padStart(2, '0') + '-' + String(parts.day).padStart(2, '0') + ', 00:00:00';
     var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
-    var dt;
     try {
-        dt = parseInputDate(dateStr, tz);
+        return parseInputDate(dateStr, tz);
     } catch (e) {
         return null;
     }
+}
+
+/** Returns { display, monthKey, day, monthValue, dayOfWeek, other } when a calendar is selected, or null. */
+function getNodeValueForDay(nodeId, year, month, day, getters) {
+    if (!nodeId) return null;
+    var dt = instantForGregorianParts({ year: year, month: month, day: day });
+    if (!dt) return null;
+    return getNodeValueAtInstant(nodeId, dt, getters);
+}
+
+/** Same normalization as getNodeValueForDay, but for an arbitrary instant. */
+function getNodeValueAtInstant(nodeId, dt, getters) {
     var getter = getters ? getters[nodeId] : null;
     if (!getter) return null;
     try {
@@ -241,16 +252,19 @@ function shiftGregorianDayParts(parts, delta) {
     return { year: dt.getUTCFullYear(), month: dt.getUTCMonth() + 1, day: dt.getUTCDate() };
 }
 
-function formatDateTooltip(year, month, day, eventLabels, systemLabel, systemValue) {
+/** exactStart (optional Date): the cell is a sol/circad starting at this instant — show its date AND time. */
+function formatDateTooltip(year, month, day, eventLabels, systemLabel, systemValue, exactStart) {
     var gregorianText = '—';
     if (typeof parseInputDate === 'function' && typeof getGregorianDateTime === 'function' && typeof getDatePickerTimezone === 'function' && typeof convertUTCOffsetToMinutes === 'function') {
         try {
-            var dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00';
             var tz = getDatePickerTimezone();
-            var dt = parseInputDate(dateStr, tz);
             var offset = convertUTCOffsetToMinutes(tz);
+            var dt = exactStart || parseInputDate(year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00', tz);
             var raw = getGregorianDateTime(dt, offset);
             gregorianText = (raw && raw.output != null) ? raw.output : '';
+            if (exactStart && raw && raw.time) {
+                gregorianText += '\n' + raw.time + ' (start)';
+            }
         } catch (e) {}
     }
     var sections = ['Gregorian:\n' + gregorianText];
@@ -894,6 +908,109 @@ function scanNativeMonth(nodeId, getters, anchor) {
     return entries;
 }
 
+/*
+ * Extraterrestrial calendars: sols/circads differ from Earth days, so sampling
+ * Gregorian midnights duplicates some native days and skips others. All these
+ * calendars floor a linear day count ((t − epoch) / dayLength), so the count
+ * can be inverted to enumerate the month's actual sols/circads with exact
+ * start instants instead.
+ */
+var _etDayCountRegistry = null;
+
+/** Continuous (fractional) native-day count function for extraterrestrial nodes, or null. */
+function getEtDayCount(nodeId) {
+    if (!_etDayCountRegistry) {
+        _etDayCountRegistry = {};
+        if (typeof getJulianSolDate === 'function') {
+            _etDayCountRegistry['darian-mars'] = function (dt) { return getJulianSolDate(dt); };
+        }
+        var linearCount = function (epochConfig, dayMs) {
+            var epoch = createAdjustedDateTime(epochConfig).getTime();
+            return function (dt) { return (dt.getTime() - epoch) / dayMs; };
+        };
+        if (typeof GALILEAN_EPOCHS !== 'undefined' && typeof GALILEAN_CIRCAD_HOURS !== 'undefined') {
+            var moons = { 'io': 'Io', 'europa': 'Eu', 'ganymede': 'Gan', 'callisto': 'Cal' };
+            Object.keys(moons).forEach(function (moon) {
+                var body = moons[moon];
+                var circadMs = GALILEAN_CIRCAD_HOURS[body] * 3600000;
+                _etDayCountRegistry['galilean-' + moon] = linearCount(GALILEAN_EPOCHS[body], circadMs);
+                if (typeof DARIAN_GALILEAN_EPOCHS !== 'undefined') {
+                    _etDayCountRegistry['darian-' + moon] = linearCount(DARIAN_GALILEAN_EPOCHS[body], circadMs);
+                }
+            });
+        }
+        if (typeof DARIAN_TITAN_EPOCH_CONFIG !== 'undefined' && typeof DARIAN_TITAN_CIRCAD_DAYS !== 'undefined') {
+            _etDayCountRegistry['darian-titan'] = linearCount(DARIAN_TITAN_EPOCH_CONFIG, DARIAN_TITAN_CIRCAD_DAYS * 86400000);
+        }
+    }
+    return _etDayCountRegistry[nodeId] || null;
+}
+
+/**
+ * Native-month scan for extraterrestrial calendars: enumerates the month's
+ * sols/circads directly via the continuous day count. Each entry additionally
+ * carries start/end instants and startStr (picker-timezone datetime string).
+ */
+function scanNativeMonthByCount(nodeId, getters, anchor, countFn, tzOffset) {
+    var t0 = instantForGregorianParts(anchor);
+    if (!t0) return null;
+    var c0 = countFn(t0);
+    var slope = (countFn(new Date(t0.getTime() + 864000000)) - c0) / 864000000; // counts per ms over 10 days
+    if (!(slope > 0) || !Number.isFinite(slope)) return null;
+    function startOf(n) {
+        var t = t0.getTime() + (n - c0) / slope;
+        t += (n - countFn(new Date(t))) / slope; // one Newton step absorbs slight nonlinearity (ΔT)
+        return t;
+    }
+    // Cell starts are exposed (data-time, tooltip, picker) at second precision, so
+    // they must be whole seconds INSIDE day n: truncation would select the previous
+    // sol/circad and roll clocks derived from it back to ~23:59:59
+    var _boundaries = {};
+    function boundaryOf(n) {
+        if (!_boundaries[n]) {
+            var sec = Math.ceil(startOf(n) / 1000) * 1000;
+            if (Math.floor(countFn(new Date(sec))) < n) sec += 1000;
+            _boundaries[n] = new Date(sec);
+        }
+        return _boundaries[n];
+    }
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function toEntry(n, val) {
+        var start = boundaryOf(n);
+        var local = createFauxUTCDate(start, tzOffset);
+        var year = local.getUTCFullYear();
+        var nativeDay = (typeof val.day === 'string') ? val.day.trim() : val.day;
+        return {
+            year: year, month: local.getUTCMonth() + 1, day: local.getUTCDate(),
+            nativeDay: nativeDay, nativeMonth: val.monthValue, dayOfWeek: val.dayOfWeek,
+            other: val.other, display: val.display, gregWeekday: local.getUTCDay(),
+            start: start, end: boundaryOf(n + 1),
+            startStr: year + '-' + pad(local.getUTCMonth() + 1) + '-' + pad(local.getUTCDate()) +
+                ', ' + pad(local.getUTCHours()) + ':' + pad(local.getUTCMinutes()) + ':' + pad(local.getUTCSeconds())
+        };
+    }
+    function valueAt(n) {
+        // Mid-day instant: safely inside sol n regardless of boundary rounding
+        return getNodeValueAtInstant(nodeId, new Date(Math.round(startOf(n + 0.5))), getters);
+    }
+    var n0 = Math.floor(c0);
+    var anchorVal = valueAt(n0);
+    if (!anchorVal || !anchorVal.monthKey) return null;
+    var key = anchorVal.monthKey;
+    var entries = [toEntry(n0, anchorVal)];
+    for (var i = 1; i <= CALENDAR_NATIVE_SCAN_LIMIT; i++) {
+        var val = valueAt(n0 - i);
+        if (!val || val.monthKey !== key) break;
+        entries.unshift(toEntry(n0 - i, val));
+    }
+    for (i = 1; i <= CALENDAR_NATIVE_SCAN_LIMIT; i++) {
+        val = valueAt(n0 + i);
+        if (!val || val.monthKey !== key) break;
+        entries.push(toEntry(n0 + i, val));
+    }
+    return entries;
+}
+
 /**
  * Builds the native month grid. Returns { html, title, cols, first, prev, next }
  * or null when the view is unavailable for this node/anchor.
@@ -905,10 +1022,19 @@ function buildNativeCalendarHTML(selectedNodeData, anchor) {
     var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
     var tzOffset = typeof convertUTCOffsetToMinutes === 'function' ? convertUTCOffsetToMinutes(tz) : 0;
     var getters = buildNodeValueGetters(tzOffset);
-    var entries = scanNativeMonth(nodeId, getters, anchor);
+    var etCount = getEtDayCount(nodeId);
+    var entries = etCount ? scanNativeMonthByCount(nodeId, getters, anchor, etCount, tzOffset) : null;
+    if (!entries) entries = scanNativeMonth(nodeId, getters, anchor);
     if (!entries) return null;
 
     var selected = getSelectedGregorianDateParts();
+    // For sol/circad cells the highlight follows which native day contains the picker instant
+    var selectedInstant = null;
+    if (etCount && typeof getDatePickerTime === 'function' && typeof parseInputDate === 'function') {
+        try {
+            selectedInstant = parseInputDate(getDatePickerTime(), typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00');
+        } catch (e) {}
+    }
     var weekStructure = getNativeWeekStructure(nodeId);
     var cols = weekStructure.len;
 
@@ -923,7 +1049,26 @@ function buildNativeCalendarHTML(selectedNodeData, anchor) {
     }
 
     function renderDayCell(entry, intercalary) {
-        var dayEvents = eventsForDay(entry.year, entry.month, entry.day);
+        var dayEvents;
+        if (entry.start && entry.end) {
+            // A sol/circad gets the events of every Gregorian day whose local noon it
+            // contains — each day's events land on exactly one native day, no dupes
+            dayEvents = [];
+            var p = { year: entry.year, month: entry.month, day: entry.day };
+            for (var s = 0; s < 3; s++) {
+                var midnight = instantForGregorianParts(p);
+                if (!midnight || midnight.getTime() >= entry.end.getTime()) break;
+                var noon = midnight.getTime() + 43200000;
+                if (noon >= entry.start.getTime() && noon < entry.end.getTime()) {
+                    eventsForDay(p.year, p.month, p.day).forEach(function (k) {
+                        if (dayEvents.indexOf(k) === -1) dayEvents.push(k);
+                    });
+                }
+                p = shiftGregorianDayParts(p, 1);
+            }
+        } else {
+            dayEvents = eventsForDay(entry.year, entry.month, entry.day);
+        }
         var eventLabels = dayEvents.map(function (k) {
             return ASTRONOMICAL_ICONS[k] ? ASTRONOMICAL_ICONS[k].title : k;
         });
@@ -933,23 +1078,29 @@ function buildNativeCalendarHTML(selectedNodeData, anchor) {
                 iconHtml += '<span class="calendar-astronomy-icon">' + ASTRONOMICAL_ICONS[k].symbol + '</span>';
             }
         });
-        var tooltip = formatDateTooltip(entry.year, entry.month, entry.day, eventLabels, systemLabel, entry.display);
+        var tooltip = formatDateTooltip(entry.year, entry.month, entry.day, eventLabels, systemLabel, entry.display, entry.start);
         var shadeStyle = '';
         if (!intercalary) {
             var shade = getShadeForMonthKey(String(entry.month - 1));
             if (shade) shadeStyle = ' style="background-color:' + shade + '"';
         }
-        var isSelectedDay = (entry.year === selected.year && entry.month === selected.month && entry.day === selected.day);
+        var isSelectedDay = entry.start
+            ? (selectedInstant != null && selectedInstant >= entry.start && selectedInstant < entry.end)
+            : (entry.year === selected.year && entry.month === selected.month && entry.day === selected.day);
         var classes = 'calendar-view-cell calendar-view-day' +
             (intercalary ? ' calendar-view-day-intercalary' : '') +
             (isSelectedDay ? ' calendar-view-day-today' : '');
         var gregLabel = entry.day + ' ' + MONTH_NAMES[entry.month - 1].slice(0, 3);
+        if (entry.startStr) {
+            gregLabel += ' ' + entry.startStr.split(', ')[1].slice(0, 5);
+        }
         var nativeDayLabel = entry.nativeDay != null ? String(entry.nativeDay) : '';
         var valueText = intercalary
             ? String(entry.display || '').split('\n')[0] + '\n' + gregLabel
             : gregLabel;
         var yearAttr = entry.year < 0 ? '-' + Math.abs(entry.year) : String(entry.year);
-        return '<div class="' + classes + '" data-year="' + yearAttr + '" data-month="' + entry.month + '" data-day="' + entry.day + '" data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' +
+        var timeAttr = entry.startStr ? ' data-time="' + escapeHtml(entry.startStr) + '"' : '';
+        return '<div class="' + classes + '" data-year="' + yearAttr + '" data-month="' + entry.month + '" data-day="' + entry.day + '"' + timeAttr + ' data-tooltip="' + escapeHtml(tooltip) + '"' + shadeStyle + '>' +
             '<span class="calendar-view-day-num">' + escapeHtml(nativeDayLabel) + '</span>' +
             '<span class="calendar-view-system-value">' + escapeHtml(valueText) + '</span>' +
             (iconHtml ? '<div class="calendar-astronomy-icons">' + iconHtml + '</div>' : '') +
@@ -994,13 +1145,31 @@ function buildNativeCalendarHTML(selectedNodeData, anchor) {
     flushPending();
 
     var displays = entries.map(function (entry) { return entry.display; });
+    var firstEntry = entries[0], lastEntry = entries[entries.length - 1];
+    var first, prev, next;
+    if (firstEntry.start) {
+        // Anchors resolve through the local midnight of their date, so pick dates
+        // whose midnights are safely inside this / the neighboring native months
+        var partsAt = function (ms) {
+            var local = createFauxUTCDate(new Date(ms), tzOffset);
+            return { year: local.getUTCFullYear(), month: local.getUTCMonth() + 1, day: local.getUTCDate() };
+        };
+        var h36 = 36 * 3600000;
+        first = partsAt(firstEntry.start.getTime() + h36);
+        prev = partsAt(firstEntry.start.getTime() - h36);
+        next = partsAt(lastEntry.end.getTime() + h36);
+    } else {
+        first = { year: firstEntry.year, month: firstEntry.month, day: firstEntry.day };
+        prev = shiftGregorianDayParts(firstEntry, -1);
+        next = shiftGregorianDayParts(lastEntry, 1);
+    }
     return {
         html: html,
         title: deriveNativeMonthTitle(displays, systemLabel),
         cols: cols,
-        first: { year: entries[0].year, month: entries[0].month, day: entries[0].day },
-        prev: shiftGregorianDayParts(entries[0], -1),
-        next: shiftGregorianDayParts(entries[entries.length - 1], 1)
+        first: first,
+        prev: prev,
+        next: next
     };
 }
 
@@ -1126,7 +1295,8 @@ function setupCalendarTooltips() {
         var d = parseInt(cell.dataset.day, 10);
         if (Number.isNaN(m) || Number.isNaN(d)) return;
         var pad = function (n) { return String(n).padStart(2, '0'); };
-        var dateStr = y + '-' + pad(m) + '-' + pad(d) + ', 00:00:00';
+        // Sol/circad cells carry their exact start instant; Earth-day cells use midnight
+        var dateStr = cell.dataset.time || (y + '-' + pad(m) + '-' + pad(d) + ', 00:00:00');
         if (typeof setDatePickerTime === 'function') setDatePickerTime(dateStr);
         if (typeof changeDateTime === 'function') changeDateTime(dateStr);
         renderCalendarView(_calendarViewYear, _calendarViewMonth);
