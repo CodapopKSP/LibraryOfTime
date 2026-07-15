@@ -234,6 +234,14 @@ function adjustDatePickerField(unit, step) {
         return;
     }
 
+    // When an input calendar is selected, the fields hold that calendar's
+    // components, so step in that calendar instead of Gregorian
+    const inputCalendarConfig = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(getSelectedCalendarType()) : null;
+    if (inputCalendarConfig) {
+        adjustDatePickerFieldNative(inputCalendarConfig, unit, step, { year, month, day, hour, minute, second });
+        return;
+    }
+
     // Work in UTC so we treat the fields as a simple civil date/time
     const workingDate = createAdjustedDateTime({year, month, day, hour, minute, second});
 
@@ -268,6 +276,63 @@ function adjustDatePickerField(unit, step) {
     const newSecond = workingDate.getUTCSeconds();
 
     const newValue = `${newYear}-${pad(newMonth)}-${pad(newDay)}, ${pad(newHour)}:${pad(newMinute)}:${pad(newSecond)}`;
+    setDatePickerTime(newValue);
+    changeDateTime(newValue);
+}
+
+// Step the picker fields when they hold a non-Gregorian input calendar date.
+// Year/month steps operate on the typed components (nonexistent results are
+// clamped on apply); day/time steps go through the Gregorian instant so month
+// lengths and leap months resolve exactly.
+function adjustDatePickerFieldNative(config, unit, step, parts) {
+    const pad = (n) => Math.abs(n).toString().padStart(2, '0');
+    const formatValue = (y, m, d, h, min, s) => `${y}-${pad(m)}-${pad(d)}, ${pad(h)}:${pad(min)}:${pad(s)}`;
+
+    let { year, month, day, hour, minute, second } = parts;
+
+    if (unit === 'year' || unit === 'month') {
+        if (unit === 'year') {
+            year += step;
+        } else {
+            const monthIndex = month - 1 + step;
+            month = ((monthIndex % config.monthsInYear) + config.monthsInYear) % config.monthsInYear + 1;
+            year += Math.floor(monthIndex / config.monthsInYear);
+        }
+        const newValue = formatValue(year, month, day, hour, minute, second);
+        setDatePickerTime(newValue);
+        changeDateTime(newValue);
+        return;
+    }
+
+    const stepMs = { day: 86400000, hour: 3600000, minute: 60000, second: 1000 }[unit];
+    if (!stepMs) {
+        return;
+    }
+
+    const tzMinutes = convertUTCOffsetToMinutes(getDatePickerTimezone());
+    const converted = convertInputCalendarDateToGregorian(
+        getSelectedCalendarType(),
+        { year, month, day, leap: getInputLeapMonthFlag() },
+        { hour, minute, second },
+        tzMinutes
+    );
+    if (converted.error) {
+        showInputDateTooltip('Date out of supported range');
+        return;
+    }
+
+    const adjusted = new Date(converted.dateTime.getTime() + step * stepMs);
+    if (typeof _ensureSolsticeCacheNear === 'function') {
+        _ensureSolsticeCacheNear(adjusted);
+    }
+    const forwardParts = config.forward(adjusted);
+    setInputLeapMonthFlag(forwardParts.leap);
+
+    const localTime = createFauxUTCDate(adjusted, tzMinutes);
+    const newValue = formatValue(
+        forwardParts.year, forwardParts.month, forwardParts.day,
+        localTime.getUTCHours(), localTime.getUTCMinutes(), localTime.getUTCSeconds()
+    );
     setDatePickerTime(newValue);
     changeDateTime(newValue);
 }
@@ -326,6 +391,69 @@ function setCalendarType(newCalendarType) {
     _calendarType = newCalendarType;
 }
 
+// The calendar type currently shown in the select (may not be applied yet)
+function getSelectedCalendarType() {
+    if (typeof document !== 'undefined') {
+        const select = document.getElementById('calendar-type');
+        if (select) {
+            return select.value;
+        }
+    }
+    return getCalendarType();
+}
+
+// Leap-month flag for lunisolar input calendars (checkbox in the picker row)
+function getInputLeapMonthFlag() {
+    if (typeof document === 'undefined') {
+        return false;
+    }
+    const checkbox = document.getElementById('leap-month-checkbox');
+    return !!(checkbox && checkbox.checked);
+}
+
+function setInputLeapMonthFlag(value) {
+    if (typeof document === 'undefined') {
+        return;
+    }
+    const checkbox = document.getElementById('leap-month-checkbox');
+    if (checkbox) {
+        checkbox.checked = !!value;
+    }
+}
+
+function syncLeapMonthVisibility() {
+    if (typeof document === 'undefined') {
+        return;
+    }
+    const label = document.getElementById('leap-month-label');
+    const select = document.getElementById('calendar-type');
+    if (!label || !select) {
+        return;
+    }
+    const config = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(select.value) : null;
+    label.hidden = !(config && config.hasLeapMonths);
+}
+
+function syncInputDateFormatHint() {
+    if (typeof document === 'undefined') {
+        return;
+    }
+    const hint = document.getElementById('date-format-hint');
+    const select = document.getElementById('calendar-type');
+    if (!hint || !select) {
+        return;
+    }
+    const config = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(select.value) : null;
+    hint.textContent = config && config.inputHint ? config.inputHint : 'Input Date: yyyy-mm-dd';
+}
+
+if (typeof document !== 'undefined') {
+    document.getElementById('calendar-type')?.addEventListener('change', () => {
+        syncLeapMonthVisibility();
+        syncInputDateFormatHint();
+    });
+}
+
 // Return a formatted dateTime based on the user's date from the input field
 function parseInputDate(dateInput_, timezoneOffset) {
     let dateInput = dateInput_;
@@ -348,6 +476,26 @@ function parseInputDate(dateInput_, timezoneOffset) {
 
     // Convert timezone offset string (e.g., "+08:00") to minutes
     const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
+
+    // If a registered input calendar is selected, interpret the typed
+    // components in that calendar and search for the matching Gregorian instant
+    const inputCalendarConfig = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(getCalendarType()) : null;
+    if (inputCalendarConfig) {
+        const converted = convertInputCalendarDateToGregorian(
+            getCalendarType(),
+            { year: BCE ? -inputYear : inputYear, month: inputMonth, day: inputDay, leap: getInputLeapMonthFlag() },
+            { hour: inputHour, minute: inputMinute, second: inputSecond },
+            offsetInMinutes
+        );
+        if (converted.error) {
+            showInputDateTooltip('Date out of supported range');
+            return new Date();
+        }
+        if (converted.clamped) {
+            showInputDateTooltip(converted.message, 4000);
+        }
+        return converted.dateTime;
+    }
 
     // Construct UTC time in milliseconds
     let utcMillis = createAdjustedDateTime({year: inputYear, month: inputMonth, day: inputDay, hour: inputHour, minute: inputMinute, second: inputSecond});
@@ -407,13 +555,16 @@ function adjustForAstronomical(currentDateTime, gregJulDifference) {
 
 let _inputDateTooltipHideTimer = null;
 
-function showInputDateRequiredTooltip() {
+function showInputDateTooltip(message, durationMs = 1500) {
+    if (typeof document === 'undefined') {
+        return;
+    }
     const tip = document.getElementById('input-date-tooltip');
     const anchor = document.getElementById('change-date-button');
     if (!tip || !anchor) {
         return;
     }
-    tip.textContent = 'Input a date to calculate';
+    tip.textContent = message;
     tip.setAttribute('aria-hidden', 'false');
     tip.classList.add('visible');
     const rect = anchor.getBoundingClientRect();
@@ -427,7 +578,11 @@ function showInputDateRequiredTooltip() {
         tip.classList.remove('visible');
         tip.setAttribute('aria-hidden', 'true');
         _inputDateTooltipHideTimer = null;
-    }, 1500);
+    }, durationMs);
+}
+
+function showInputDateRequiredTooltip() {
+    showInputDateTooltip('Input a date to calculate');
 }
 
 /** Clears URL params and restores the live-updating clock (used by Reset). */
@@ -469,6 +624,12 @@ function changeDateTime(newDateString = '', timezonePassthrough = '') {
     currentUrl.searchParams.set('datetime', formatDateTimeForURL(newDateString));
     currentUrl.searchParams.set('timezone', formatTimezoneForURL(timezoneChoice));
     currentUrl.searchParams.set('type', getCalendarType());
+    const leapConfig = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(getCalendarType()) : null;
+    if (leapConfig && leapConfig.hasLeapMonths && getInputLeapMonthFlag()) {
+        currentUrl.searchParams.set('leap', '1');
+    } else {
+        currentUrl.searchParams.delete('leap');
+    }
     window.history.replaceState(null, '', currentUrl);
     setDatePickerTime(newDateString);
     updateAllNodes(newDateString, timezoneChoice, true);

@@ -65,11 +65,30 @@
                 <div class="input-main-row">
                     <div class="input-row input-row-pickers">
                         <select id="calendar-type">
-                            <option value="GREGORIAN">Gregorian (Proleptic)</option>
-                            <option value="JULIAN">Julian (Liturgical)</option>
-                            <option value="ASTRONOMICAL">Astronomical</option>
+                            <optgroup label="Framing">
+                                <option value="GREGORIAN">Gregorian (Proleptic)</option>
+                                <option value="JULIAN">Julian (Liturgical)</option>
+                                <option value="ASTRONOMICAL">Astronomical</option>
+                            </optgroup>
+                            <optgroup label="Solar">
+                                <option value="THAI">Thai Solar</option>
+                                <option value="MINGUO">Minguo</option>
+                                <option value="JUCHE">Juche</option>
+                                <option value="BENGALI">Bengali</option>
+                                <option value="COPTIC">Coptic</option>
+                                <option value="ETHIOPIAN">Ethiopian</option>
+                                <option value="SOLAR_HIJRI">Solar Hijri</option>
+                            </optgroup>
+                            <optgroup label="Lunisolar &amp; Lunar">
+                                <option value="CHINESE">Chinese</option>
+                                <option value="HEBREW">Hebrew</option>
+                                <option value="UMM_AL_QURA">Umm al-Qura</option>
+                            </optgroup>
                         </select>
                         <select id="timezone"></select>
+                        <label id="leap-month-label" class="leap-month-label" hidden>
+                            <input type="checkbox" id="leap-month-checkbox"> Leap month
+                        </label>
                     </div>
                     <div class="input-row input-row-datetime">
                         <button type="button" class="date-picker-button date-picker-lead-button" id="date-input-lead-button" aria-controls="input-step-controls" aria-expanded="false" aria-label="Show date increment controls"><b><span class="date-picker-icon" aria-hidden="true"><svg class="date-picker-lead-icon-svg" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" focusable="false"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg></span></b></button>
@@ -411,7 +430,8 @@
     <script src="CalendarAPI/Calendars/solilunarCalendars.js"></script>
     <script src="CalendarAPI/Calendars/proposedCalendars.js"></script>
     <script src="CalendarAPI/Calendars/otherCalendars.js"></script>
-    
+    <script src="CalendarAPI/Other/inputCalendars.js"></script>
+
     <script src="utilities.js"></script>
     <script src="UserInterface/siteNodeList.js"></script>
     <script src="UserInterface/siteNodeMobilePicker.js"></script>
@@ -437,6 +457,7 @@
     <script src="Tests/popCultureTests.js"></script>
     <script src="Tests/politicsTests.js"></script>
     <script src="Tests/proposedCalendarTests.js"></script>
+    <script src="Tests/inputCalendarTests.js"></script>
     <script src="Tests/runTests.js"></script>
     <script src="Tests/runCalendarDevTests.js"></script>
 

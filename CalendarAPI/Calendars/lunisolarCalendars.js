@@ -81,18 +81,18 @@ function getChineseLunisolarCalendarDate(currentDateTime, country) {
         const earthlyBranchIndex = getLunisolarEarthlyBranchIndex(year, config.earthlyBranchOffset);
         const zodiac = config.zodiacAnimals[earthlyBranchIndex];
         const output = `${year}年 ${monthString}月 ${lunisolarDate.day}日\nYear of the ${zodiac}`;
-        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac } };
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, leapMonth: lunisolarDate.leapMonth, other: { zodiac } };
     }
 
     if (country === 'VIETNAM') {
         const earthlyBranchIndex = getLunisolarEarthlyBranchIndex(year, config.earthlyBranchOffset);
         const zodiac = config.zodiacAnimals[earthlyBranchIndex];
         const output = `${year} ${monthString} ${lunisolarDate.day}\nYear of the ${zodiac}`;
-        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, other: { zodiac } };
+        return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, dayOfWeek: undefined, leapMonth: lunisolarDate.leapMonth, other: { zodiac } };
     }
 
     const output = `${year}년 ${monthString}월 ${lunisolarDate.day}일`;
-    return { output, day: lunisolarDate.day, month: lunisolarDate.month, year };
+    return { output, day: lunisolarDate.day, month: lunisolarDate.month, year, leapMonth: lunisolarDate.leapMonth };
 }
 
 const SEXAGENARY_HEAVENLY_STEMS = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
@@ -492,7 +492,7 @@ function calculateHebrewCalendar(currentDateTime) {
 
     const dayOfMonth = daysThisYearSoFar + 1;
     const output = dayOfMonth + ' ' + hebrewMonthNames[monthIndex] + ' ' + earlyTishri[1] + ' AM\n' + HEBREW_WEEKDAY_NAMES[weekday];
-    return { output, day: dayOfMonth, month: monthIndex, year: earlyTishri[1], dayOfWeek: weekday };
+    return { output, day: dayOfMonth, month: monthIndex, year: earlyTishri[1], dayOfWeek: weekday, other: { leapYear: daysThisYear >= 380, monthName: hebrewMonthNames[monthIndex] } };
 }
 
 const HEBREW_MOLAD_REFERENCE_YEAR = 5732;

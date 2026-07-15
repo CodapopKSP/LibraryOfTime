@@ -67,8 +67,12 @@ function getTimezoneFromURL(urlTimezone) {
 }
 
 function getCalendarTypeFromURL(urlCalendarType) {
-    if (!urlCalendarType) return "gregorian-proleptic"; // Default to Gregorian
-    return urlCalendarType;
+    const framingTypes = ['GREGORIAN', 'JULIAN', 'ASTRONOMICAL'];
+    if (urlCalendarType && (framingTypes.includes(urlCalendarType)
+        || (typeof getInputCalendarConfig === 'function' && getInputCalendarConfig(urlCalendarType)))) {
+        return urlCalendarType;
+    }
+    return 'GREGORIAN'; // Default to Gregorian
 }
 
 const chronologyComputingNodeIds = new Set([
@@ -411,6 +415,16 @@ setTimeout(function () {
 addHeaderTabHoverEffect();
 addHomeButtonHoverEffect();
 instantiateFloatingPanel();
+
+// Sync the calendar-type select and leap checkbox with the URL state before
+// the initial update, since parseInputDate reads the leap checkbox
+const calendarTypeSelect = document.getElementById('calendar-type');
+if (calendarTypeSelect) {
+    calendarTypeSelect.value = getCalendarType();
+}
+setInputLeapMonthFlag(urlParameters.get('leap') === '1');
+syncLeapMonthVisibility();
+syncInputDateFormatHint();
 
 // Initial update
 if (urlDateString && urlTimezone) {

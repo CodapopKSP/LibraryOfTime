@@ -27,6 +27,16 @@
     min-height: 4vh;
 }
 
+/* When the leap-month checkbox (lunisolar input calendars) is visible, wrap
+   the datetime group to a second line instead of squeezing its fields */
+.input-main-row:has(.leap-month-label:not([hidden])) {
+    flex-wrap: wrap;
+}
+
+.input-main-row:has(.leap-month-label:not([hidden])) .input-row-datetime {
+    flex-shrink: 0;
+}
+
 .input-row-pickers {
     display: flex;
     flex-direction: row;
@@ -341,6 +351,27 @@
     box-sizing: border-box;
     font-family: inherit;
     padding: 0 1.75em 0 0.35vh;
+    cursor: pointer;
+}
+
+/* Leap-month checkbox for lunisolar input calendars (shown/hidden by dateSelector.js) */
+.leap-month-label {
+    display: flex;
+    align-items: center;
+    gap: 0.3vh;
+    font-size: 1.2vh;
+    color: var(--ui-text-muted);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.leap-month-label[hidden] {
+    display: none;
+}
+
+.leap-month-label input[type="checkbox"] {
+    margin: 0;
     cursor: pointer;
 }
 

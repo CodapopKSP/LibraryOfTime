@@ -15,6 +15,7 @@ function runAllTests() {
     runComputingTimeTests();
     runAlternativeTimeTests();
     runOtherCalendarTests();
+    runInputCalendarTests();
     runPopCultureCalendarTests();
     runPoliticsTests();
 }

@@ -647,23 +647,27 @@ const SOLAR_HIJRI_WEEK = [
 
 // Returns a formatted Solar Hijri IRST date
 function getSolarHijriDate(currentDateTime, vernalEquinox_) {
-    let vernalEquinox = adjustEquinoxAtLocalBoundary(vernalEquinox_, SOLAR_HIJRI_TZ, 'NOON', true);
+    // Solar Hijri years run Nowruz to Nowruz. Use the spring equinox of the current Gregorian
+    // year, not getSolsticeEquinox(dt) ("last spring ≤ dt"), which is still the previous March
+    // when viewing the last day of the year before the equinox instant — that mis-sized the year
+    // (ending equinox two springs ahead) and broke leap-year detection on 30 Esfand. Same fix as
+    // getBahaiCalendar. Second argument kept for API compatibility with callers.
+    const gregorianYear = currentDateTime.getUTCFullYear();
+    const midThisYear = createAdjustedDateTime({ currentDateTime, year: gregorianYear, month: 7, day: 1 });
+    const springThisYear = adjustEquinoxAtLocalBoundary(getSolsticeOrEquinox(midThisYear, 'SPRING'), SOLAR_HIJRI_TZ, 'NOON', true);
 
     // Determine the starting and ending equinoxes
     let startingEquinox, endingEquinox;
-    const octoberThisYear = createAdjustedDateTime({currentDateTime: currentDateTime, month: 10});
-    if (currentDateTime < vernalEquinox) {
-        let lastYear = addYear(octoberThisYear, -1);
-        startingEquinox = getSolsticeEquinox(lastYear, 'SPRING');
-        startingEquinox = adjustEquinoxAtLocalBoundary(startingEquinox, SOLAR_HIJRI_TZ, 'NOON', true);
-        endingEquinox = vernalEquinox;
+    if (currentDateTime < springThisYear) {
+        const midPrevYear = createAdjustedDateTime({ currentDateTime, year: gregorianYear - 1, month: 7, day: 1 });
+        startingEquinox = adjustEquinoxAtLocalBoundary(getSolsticeOrEquinox(midPrevYear, 'SPRING'), SOLAR_HIJRI_TZ, 'NOON', true);
+        endingEquinox = springThisYear;
     } else {
-        let nextYear = addYear(octoberThisYear, 1);
-        startingEquinox = vernalEquinox;
-        endingEquinox = getSolsticeEquinox(nextYear, 'SPRING');
-        endingEquinox = adjustEquinoxAtLocalBoundary(endingEquinox, SOLAR_HIJRI_TZ, 'NOON', true);
+        const midNextYear = createAdjustedDateTime({ currentDateTime, year: gregorianYear + 1, month: 7, day: 1 });
+        startingEquinox = springThisYear;
+        endingEquinox = adjustEquinoxAtLocalBoundary(getSolsticeOrEquinox(midNextYear, 'SPRING'), SOLAR_HIJRI_TZ, 'NOON', true);
     }
-    
+
     const leapYear = Math.round(differenceInDays(endingEquinox, startingEquinox)) === 366;
     let remainingDays = Math.floor(differenceInDays(currentDateTime, startingEquinox));
 

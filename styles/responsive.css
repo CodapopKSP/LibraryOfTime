@@ -240,6 +240,11 @@
         width: 100%;
     }
 
+    .leap-month-label {
+        grid-column: 1 / -1;
+        font-size: 0.8rem;
+    }
+
     .input-row-datetime {
         display: flex;
         flex-direction: row;
