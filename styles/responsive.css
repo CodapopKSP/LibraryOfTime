@@ -240,9 +240,14 @@
         width: 100%;
     }
 
-    .leap-month-label {
-        grid-column: 1 / -1;
-        font-size: 0.8rem;
+    .input-row-pickers:has(.leap-month-button:not([hidden])) {
+        grid-template-columns: 1fr 1fr auto;
+    }
+
+    .leap-month-button {
+        font-size: clamp(0.65rem, 2.6vw, 0.8rem);
+        height: 1.65rem;
+        padding: 0 0.4rem;
     }
 
     .input-row-datetime {

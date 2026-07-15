@@ -183,6 +183,8 @@ if (typeof document !== 'undefined') {
         setDatePickerTimezone(getLocalTimezoneOffset());
         setDatePickerTime("");
         restartLiveDateTimeTicker();
+        // Re-apply the timezone lock if a fixed-timezone input calendar is still selected
+        syncTimezoneLock();
     });
 }
 
@@ -402,36 +404,43 @@ function getSelectedCalendarType() {
     return getCalendarType();
 }
 
-// Leap-month flag for lunisolar input calendars (checkbox in the picker row)
+// Leap-month flag for lunisolar input calendars (toggle in the picker row)
+function getLeapMonthButton() {
+    return typeof document !== 'undefined' ? document.getElementById('leap-month-button') : null;
+}
+
 function getInputLeapMonthFlag() {
-    if (typeof document === 'undefined') {
-        return false;
-    }
-    const checkbox = document.getElementById('leap-month-checkbox');
-    return !!(checkbox && checkbox.checked);
+    const button = getLeapMonthButton();
+    return !!(button && button.getAttribute('aria-pressed') === 'true');
 }
 
 function setInputLeapMonthFlag(value) {
-    if (typeof document === 'undefined') {
+    const button = getLeapMonthButton();
+    if (!button) {
         return;
     }
-    const checkbox = document.getElementById('leap-month-checkbox');
-    if (checkbox) {
-        checkbox.checked = !!value;
-    }
+    const on = !!value;
+    button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    button.classList.toggle('leap-month-button--active', on);
 }
 
 function syncLeapMonthVisibility() {
     if (typeof document === 'undefined') {
         return;
     }
-    const label = document.getElementById('leap-month-label');
+    const button = getLeapMonthButton();
     const select = document.getElementById('calendar-type');
-    if (!label || !select) {
+    if (!button || !select) {
         return;
     }
     const config = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(select.value) : null;
-    label.hidden = !(config && config.hasLeapMonths);
+    button.hidden = !(config && config.hasLeapMonths);
+}
+
+if (typeof document !== 'undefined') {
+    getLeapMonthButton()?.addEventListener('click', () => {
+        setInputLeapMonthFlag(!getInputLeapMonthFlag());
+    });
 }
 
 function syncInputDateFormatHint() {
@@ -444,13 +453,61 @@ function syncInputDateFormatHint() {
         return;
     }
     const config = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(select.value) : null;
-    hint.textContent = config && config.inputHint ? config.inputHint : 'Input Date: yyyy-mm-dd';
+    let text = config && config.inputHint ? config.inputHint : 'Input Date: yyyy-mm-dd';
+    if (config && config.timezone) {
+        const place = config.timezoneLabel ? config.timezoneLabel + ' time' : 'local time';
+        text += ' — fixed to ' + place + ' (' + config.timezone + ')';
+    }
+    hint.textContent = text;
+}
+
+// Remembers the timezone the user chose while a framing calendar was active,
+// so it can be restored when they leave a fixed-timezone input calendar.
+let _timezoneBeforeLock = null;
+
+// Input calendars are computed in a fixed civil timezone (Chinese in Beijing,
+// Hebrew in Jerusalem, etc.), so a free-floating UTC offset is meaningless for
+// them. Lock the timezone selector to the calendar's home zone while one is
+// selected, and restore the user's choice when they switch back.
+function syncTimezoneLock() {
+    if (typeof document === 'undefined') {
+        return;
+    }
+    const timezoneSelect = document.getElementById('timezone');
+    const calendarSelect = document.getElementById('calendar-type');
+    if (!timezoneSelect || !calendarSelect) {
+        return;
+    }
+    const config = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(calendarSelect.value) : null;
+    if (config && config.timezone) {
+        // Entering (or moving between) fixed-timezone calendars: remember the
+        // last freely-chosen timezone only on the first lock
+        if (!timezoneSelect.disabled) {
+            _timezoneBeforeLock = timezoneSelect.value;
+        }
+        setDatePickerTimezone(config.timezone);
+        timezoneSelect.disabled = true;
+        timezoneSelect.classList.add('timezone-locked');
+        timezoneSelect.title = config.label + ' dates are fixed to '
+            + (config.timezoneLabel ? config.timezoneLabel + ' time' : 'local time')
+            + ' (' + config.timezone + ')';
+    } else if (timezoneSelect.disabled) {
+        // Leaving a fixed-timezone calendar: restore the remembered timezone
+        timezoneSelect.disabled = false;
+        timezoneSelect.classList.remove('timezone-locked');
+        timezoneSelect.title = '';
+        if (_timezoneBeforeLock) {
+            setDatePickerTimezone(_timezoneBeforeLock);
+            _timezoneBeforeLock = null;
+        }
+    }
 }
 
 if (typeof document !== 'undefined') {
     document.getElementById('calendar-type')?.addEventListener('change', () => {
         syncLeapMonthVisibility();
         syncInputDateFormatHint();
+        syncTimezoneLock();
     });
 }
 

@@ -48,10 +48,12 @@ function _firstOutputLine(result) {
 const INPUT_CALENDARS = {
     CHINESE: {
         label: 'Chinese',
+        timezone: 'UTC+08:00',
+        timezoneLabel: 'Beijing',
         hasLeapMonths: true,
         monthsInYear: 12,
         estimateGregorianYear: (year) => year - 2698,
-        inputHint: 'Input Date: yyyy-mm-dd (check Leap month for 閏 months)',
+        inputHint: 'Input Date: yyyy-mm-dd (toggle Leap for 閏 months)',
         forward: (dateTime) => {
             const r = getChineseLunisolarCalendarDate(dateTime, 'CHINA');
             return { year: r.year, month: r.month, day: r.day, leap: !!r.leapMonth, outputLine: _firstOutputLine(r) };
@@ -59,6 +61,8 @@ const INPUT_CALENDARS = {
     },
     HEBREW: {
         label: 'Hebrew',
+        timezone: 'UTC+02:00',
+        timezoneLabel: 'Jerusalem',
         hasLeapMonths: true,
         monthsInYear: 12,
         estimateGregorianYear: (year) => year - 3760,
@@ -82,6 +86,8 @@ const INPUT_CALENDARS = {
     },
     UMM_AL_QURA: {
         label: 'Umm al-Qura',
+        timezone: 'UTC+03:00',
+        timezoneLabel: 'Mecca',
         hasLeapMonths: false,
         monthsInYear: 12,
         // Display years skip 0 (1 BH is -1); lunar years are ~0.970224 solar years.
@@ -93,6 +99,8 @@ const INPUT_CALENDARS = {
     },
     SOLAR_HIJRI: {
         label: 'Solar Hijri',
+        timezone: 'UTC+03:30',
+        timezoneLabel: 'Tehran',
         hasLeapMonths: false,
         monthsInYear: 12,
         estimateGregorianYear: (year) => (year < 0 ? year + 1 : year) + 621,
@@ -104,6 +112,8 @@ const INPUT_CALENDARS = {
     },
     ETHIOPIAN: {
         label: 'Ethiopian',
+        timezone: 'UTC+03:00',
+        timezoneLabel: 'Addis Ababa',
         hasLeapMonths: false,
         monthsInYear: 13,
         estimateGregorianYear: (year) => year + 8,
@@ -114,6 +124,8 @@ const INPUT_CALENDARS = {
     },
     COPTIC: {
         label: 'Coptic',
+        timezone: 'UTC+02:00',
+        timezoneLabel: 'Cairo',
         hasLeapMonths: false,
         monthsInYear: 13,
         estimateGregorianYear: (year) => year + 284,
@@ -124,6 +136,8 @@ const INPUT_CALENDARS = {
     },
     THAI: {
         label: 'Thai Solar',
+        timezone: 'UTC+07:00',
+        timezoneLabel: 'Bangkok',
         hasLeapMonths: false,
         monthsInYear: 12,
         estimateGregorianYear: (year) => year - 543,
@@ -134,6 +148,8 @@ const INPUT_CALENDARS = {
     },
     MINGUO: {
         label: 'Minguo',
+        timezone: 'UTC+08:00',
+        timezoneLabel: 'Taipei',
         hasLeapMonths: false,
         monthsInYear: 12,
         estimateGregorianYear: (year) => year + 1911,
@@ -144,6 +160,8 @@ const INPUT_CALENDARS = {
     },
     JUCHE: {
         label: 'Juche',
+        timezone: 'UTC+09:00',
+        timezoneLabel: 'Pyongyang',
         hasLeapMonths: false,
         monthsInYear: 12,
         estimateGregorianYear: (year) => year + 1911,
@@ -154,6 +172,8 @@ const INPUT_CALENDARS = {
     },
     BENGALI: {
         label: 'Bengali',
+        timezone: 'UTC+06:00',
+        timezoneLabel: 'Dhaka',
         hasLeapMonths: false,
         monthsInYear: 12,
         estimateGregorianYear: (year) => year + 593,

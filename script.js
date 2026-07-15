@@ -272,6 +272,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // so increment buttons use the selected timezone immediately.
     setDatePickerTimezone(selectedTimezone);
 
+    // Now that the timezone options exist, lock the selector to the calendar's
+    // home zone if an input calendar was restored from the URL.
+    if (typeof syncTimezoneLock === 'function') {
+        syncTimezoneLock();
+    }
+
     timezoneSelect.addEventListener('change', function () {
         const datePickerTimezone = document.getElementById('timezone').value;
         setDatePickerTimezone(datePickerTimezone);

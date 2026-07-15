@@ -27,13 +27,13 @@
     min-height: 4vh;
 }
 
-/* When the leap-month checkbox (lunisolar input calendars) is visible, wrap
+/* When the leap-month toggle (lunisolar input calendars) is visible, wrap
    the datetime group to a second line instead of squeezing its fields */
-.input-main-row:has(.leap-month-label:not([hidden])) {
+.input-main-row:has(.leap-month-button:not([hidden])) {
     flex-wrap: wrap;
 }
 
-.input-main-row:has(.leap-month-label:not([hidden])) .input-row-datetime {
+.input-main-row:has(.leap-month-button:not([hidden])) .input-row-datetime {
     flex-shrink: 0;
 }
 
@@ -203,15 +203,15 @@
 }
 
 #date-input-time {
-    width: 8ch;
+    width: 8.5ch;
     max-width: 100%;
 }
 
 /* Wide viewports: no increment button; let date/time fields use comfortable widths (mobile overrides in responsive.css). */
 @media (min-width: 1025px) {
     .input-main-row {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        padding-left: 0.15rem;
+        padding-right: 0.15rem;
         box-sizing: border-box;
     }
 
@@ -221,7 +221,7 @@
     }
 
     #date-input-date {
-        width: 13ch;
+        width: 12ch;
     }
 
     #date-input-time {
@@ -241,17 +241,16 @@
         min-height: 6vh;
     }
 
-    /* vw caps (vh x0.62vw): keep the input row inside the panel in narrow desktop windows;
-       no effect when the window is wider than ~1.6x its height. */
+    /* Prefer ch so these track the typed value; vw only caps narrow windows. */
     .mac-chrome-only #date-input-date {
         font-size: min(1.6vh, 1vw);
         height: 3.3vh;
-        width: min(14vh, 8.7vw);
+        width: min(12ch, 8vw);
     }
     .mac-chrome-only #date-input-time {
         font-size: min(1.6vh, 1vw);
         height: 3.3vh;
-        width: min(10vh, 6.2vw);
+        width: min(10ch, 6.5vw);
     }
 }
 
@@ -259,9 +258,9 @@
     -webkit-appearance: none;
     appearance: none;
     height: 2.5vh;
-    width: 2vw;
+    width: 1.55vw;
     font-size: 1.2vh;
-    margin: 0.2vh;
+    margin: 0.15vh;
     color: var(--ui-text-muted);
     -webkit-text-fill-color: var(--ui-text-muted);
     background-color: var(--ui-accent-bg);
@@ -278,7 +277,7 @@
 @media (min-width: 1025px) {
     .mac-chrome-only .date-picker-button {
         font-size: 1vh;
-        width: min(5vh, 3.1vw);
+        width: min(3.8vh, 2.35vw);
         height: 3.75vh;
     }
 }
@@ -354,25 +353,58 @@
     cursor: pointer;
 }
 
-/* Leap-month checkbox for lunisolar input calendars (shown/hidden by dateSelector.js) */
-.leap-month-label {
-    display: flex;
-    align-items: center;
-    gap: 0.3vh;
-    font-size: 1.2vh;
+/* Fixed-timezone calendars: quiet label, not a control — content-width only */
+#timezone.timezone-locked {
+    width: auto;
+    max-width: none;
+    border: none;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    /* Undo browser washout on :disabled so muted text stays intentional */
+    opacity: 1;
+    color: color-mix(in srgb, var(--ui-text-muted) 65%, transparent);
+    -webkit-text-fill-color: color-mix(in srgb, var(--ui-text-muted) 65%, transparent);
+    padding-inline: 0.35vh;
+    cursor: default;
+    font-style: italic;
+    pointer-events: none;
+}
+
+/* Leap-month toggle for lunisolar input calendars (shown/hidden by dateSelector.js) */
+.leap-month-button {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 0 0 auto;
+    height: 1.9vh;
+    margin: 0;
+    padding: 0 0.35vh;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 1vh;
+    line-height: 1;
     color: var(--ui-text-muted);
+    background-color: var(--ui-accent-bg);
+    border: 0.12vh solid var(--ui-border);
+    border-radius: 0.35vh;
     cursor: pointer;
     user-select: none;
     white-space: nowrap;
 }
 
-.leap-month-label[hidden] {
-    display: none;
+.leap-month-button:hover {
+    background-color: var(--ui-elevated-bg);
 }
 
-.leap-month-label input[type="checkbox"] {
-    margin: 0;
-    cursor: pointer;
+.leap-month-button[aria-pressed="true"],
+.leap-month-button.leap-month-button--active {
+    background-color: var(--ui-elevated-bg2);
+    color: #ffffff;
+    border-color: var(--ui-heading-accent);
+}
+
+.leap-month-button[hidden] {
+    display: none;
 }
 
 /* Desktop only: must not out-rank the mobile select/stepper touch sizing (see note above) */
@@ -382,6 +414,16 @@
         font-size: min(1.6vh, 1vw);
         width: min(12vh, 7.4vw);
         height: 4vh;
+    }
+
+    .mac-chrome-only #timezone.timezone-locked {
+        width: auto;
+    }
+
+    .mac-chrome-only .leap-month-button {
+        font-size: min(1.2vh, 0.75vw);
+        height: 2.8vh;
+        padding: 0 0.45vh;
     }
 
     .mac-chrome-only .step-group {
