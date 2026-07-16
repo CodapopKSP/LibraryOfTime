@@ -1,12 +1,12 @@
 # Mac HFS+
 
-| Epoch                           | Confidence | Associated with |
-| ------------------------------- | ---------- | --------------- |
-| 1 January 1904 CE, 00:00:00 UTC | Exact      | Cupertino, CA   |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1904 CE | Exact      | Cupertino, CA   |
 
 ## Overview
 
-The Mac HFS+ timestamp was a system used in Apple devices and has since been replaces with the Cocoa Core Data timestamp.
+The Mac HFS+ timestamp was a system used in Apple devices and has since been replaced with the Cocoa Core Data timestamp.
 
 ## Info
 

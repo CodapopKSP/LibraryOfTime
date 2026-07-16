@@ -270,6 +270,68 @@ function _resolveInputCalendarDate(config, target, time, timezoneOffsetMinutes) 
     return { dayIndex: hi, actual, exact: _compareInputCalendarDates(actual, target) === 0 };
 }
 
+// True when `year` contains a leap month following regular month `month`
+// (both the Chinese leap months and the Hebrew Adar II encoding sort the leap
+// month directly after its regular month). Time-of-day is irrelevant to a
+// month's existence, so the probe uses noon of day 1.
+function inputCalendarLeapMonthExists(calendarType, year, month, timezoneOffsetMinutes) {
+    const config = getInputCalendarConfig(calendarType);
+    if (!config || !config.hasLeapMonths) {
+        return false;
+    }
+    const probe = _resolveInputCalendarDate(
+        config,
+        { year: year, month: month, day: 1, leap: true },
+        { hour: 12, minute: 0, second: 0 },
+        Number(timezoneOffsetMinutes) || 0
+    );
+    return !!(probe && probe.exact);
+}
+
+/**
+ * Step { year, month, leap } by `step` months through the calendar's real
+ * month sequence, so leap months are entered and left like any other month
+ * (e.g. Chinese 6 -> 6L -> 7). Wraps years; day overflow is left to the
+ * inverse engine's clamping on resolution. Returns null for unknown calendars.
+ */
+function stepInputCalendarMonth(calendarType, parts, step, timezoneOffsetMinutes) {
+    const config = getInputCalendarConfig(calendarType);
+    if (!config) {
+        return null;
+    }
+    const monthsInYear = config.monthsInYear;
+    let year = parts.year;
+    let month = parts.month;
+    // A stale leap flag (e.g. left on in a year without that leap month) would
+    // otherwise skip a month on the first backward step
+    let leap = !!parts.leap && inputCalendarLeapMonthExists(calendarType, year, month, timezoneOffsetMinutes);
+
+    for (let i = 0; i < Math.abs(step); i++) {
+        if (step > 0) {
+            if (!leap && inputCalendarLeapMonthExists(calendarType, year, month, timezoneOffsetMinutes)) {
+                leap = true;
+            } else {
+                leap = false;
+                month++;
+                if (month > monthsInYear) {
+                    month = 1;
+                    year++;
+                }
+            }
+        } else if (leap) {
+            leap = false;
+        } else {
+            month--;
+            if (month < 1) {
+                month = monthsInYear;
+                year--;
+            }
+            leap = inputCalendarLeapMonthExists(calendarType, year, month, timezoneOffsetMinutes);
+        }
+    }
+    return { year: year, month: month, leap: leap };
+}
+
 /**
  * Convert a date typed in a registered input calendar to the canonical UTC Date.
  * @param calendarType key of INPUT_CALENDARS

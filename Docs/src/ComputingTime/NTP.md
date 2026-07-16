@@ -1,8 +1,8 @@
 # NTP
 
-| Epoch                           | Confidence | Associated with |
-| ------------------------------- | ---------- | --------------- |
-| 1 January 1900 CE, 00:00:00 UTC | Exact      | Newark, DE      |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1900 CE | Exact      | Newark, DE      |
 
 ## Overview
 

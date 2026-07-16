@@ -179,9 +179,7 @@ if (typeof document !== 'undefined') {
 if (typeof document !== 'undefined') {
     document.getElementById('reset-date-button')?.addEventListener('click', () => {
         setDatePickerTime('');
-        document.getElementById('timezone').value = "UTC+08:00";
         setDatePickerTimezone(getLocalTimezoneOffset());
-        setDatePickerTime("");
         restartLiveDateTimeTicker();
         // Re-apply the timezone lock if a fixed-timezone input calendar is still selected
         syncTimezoneLock();
@@ -283,9 +281,10 @@ function adjustDatePickerField(unit, step) {
 }
 
 // Step the picker fields when they hold a non-Gregorian input calendar date.
-// Year/month steps operate on the typed components (nonexistent results are
-// clamped on apply); day/time steps go through the Gregorian instant so month
-// lengths and leap months resolve exactly.
+// Year steps operate on the typed components (nonexistent results are clamped
+// on apply); month steps walk the calendar's real month sequence so leap
+// months are stepped into and out of like any other month; day/time steps go
+// through the Gregorian instant so month lengths resolve exactly.
 function adjustDatePickerFieldNative(config, unit, step, parts) {
     const pad = (n) => Math.abs(n).toString().padStart(2, '0');
     const formatValue = (y, m, d, h, min, s) => `${y}-${pad(m)}-${pad(d)}, ${pad(h)}:${pad(min)}:${pad(s)}`;
@@ -296,9 +295,18 @@ function adjustDatePickerFieldNative(config, unit, step, parts) {
         if (unit === 'year') {
             year += step;
         } else {
-            const monthIndex = month - 1 + step;
-            month = ((monthIndex % config.monthsInYear) + config.monthsInYear) % config.monthsInYear + 1;
-            year += Math.floor(monthIndex / config.monthsInYear);
+            const tzMinutes = convertUTCOffsetToMinutes(getDatePickerTimezone());
+            const stepped = stepInputCalendarMonth(
+                getSelectedCalendarType(),
+                { year, month, leap: getInputLeapMonthFlag() },
+                step,
+                tzMinutes
+            );
+            if (stepped) {
+                year = stepped.year;
+                month = stepped.month;
+                setInputLeapMonthFlag(stepped.leap);
+            }
         }
         const newValue = formatValue(year, month, day, hour, minute, second);
         setDatePickerTime(newValue);
@@ -518,6 +526,47 @@ function parseInputDate(dateInput_, timezoneOffset) {
     if (dateInput==="") {
         dateInput = getDatePickerTime(); // If null, return current datetime
     }
+
+    // If a registered input calendar is selected, interpret the typed
+    // components in that calendar and search for the matching Gregorian instant
+    const inputCalendarConfig = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(getCalendarType()) : null;
+    if (inputCalendarConfig) {
+        let [inputDate, inputTime] = dateInput.split(', ');
+        let BCE = false;
+        if (inputDate.startsWith('-')) {
+            BCE = true;
+            inputDate = inputDate.substring(1);
+        }
+        let [inputYear, inputMonth, inputDay] = inputDate ? inputDate.split('-').map(Number) : [0, 1, 1];
+        let [inputHour, inputMinute, inputSecond] = inputTime ? inputTime.split(':').map(Number) : [0, 0, 0];
+        const converted = convertInputCalendarDateToGregorian(
+            getCalendarType(),
+            { year: BCE ? -inputYear : inputYear, month: inputMonth, day: inputDay, leap: getInputLeapMonthFlag() },
+            { hour: inputHour, minute: inputMinute, second: inputSecond },
+            convertUTCOffsetToMinutes(timezoneOffset)
+        );
+        if (converted.error) {
+            showInputDateTooltip('Date out of supported range');
+            return new Date();
+        }
+        if (converted.clamped) {
+            showInputDateTooltip(converted.message, 4000);
+        }
+        return converted.dateTime;
+    }
+
+    return parseGregorianDate(dateInput, timezoneOffset);
+}
+
+// Gregorian-only variant of parseInputDate: always interprets the string as
+// Gregorian civil fields, ignoring any selected input calendar. Used where
+// the string is known to be Gregorian (e.g. the calendar view's month grid).
+function parseGregorianDate(dateInput_, timezoneOffset) {
+    let dateInput = dateInput_;
+
+    if (dateInput==="") {
+        dateInput = getDatePickerTime(); // If null, return current datetime
+    }
     let [inputDate, inputTime] = dateInput.split(', ');
     let BCE = false;
 
@@ -533,26 +582,6 @@ function parseInputDate(dateInput_, timezoneOffset) {
 
     // Convert timezone offset string (e.g., "+08:00") to minutes
     const offsetInMinutes = convertUTCOffsetToMinutes(timezoneOffset);
-
-    // If a registered input calendar is selected, interpret the typed
-    // components in that calendar and search for the matching Gregorian instant
-    const inputCalendarConfig = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(getCalendarType()) : null;
-    if (inputCalendarConfig) {
-        const converted = convertInputCalendarDateToGregorian(
-            getCalendarType(),
-            { year: BCE ? -inputYear : inputYear, month: inputMonth, day: inputDay, leap: getInputLeapMonthFlag() },
-            { hour: inputHour, minute: inputMinute, second: inputSecond },
-            offsetInMinutes
-        );
-        if (converted.error) {
-            showInputDateTooltip('Date out of supported range');
-            return new Date();
-        }
-        if (converted.clamped) {
-            showInputDateTooltip(converted.message, 4000);
-        }
-        return converted.dateTime;
-    }
 
     // Construct UTC time in milliseconds
     let utcMillis = createAdjustedDateTime({year: inputYear, month: inputMonth, day: inputDay, hour: inputHour, minute: inputMinute, second: inputSecond});

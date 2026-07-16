@@ -103,6 +103,54 @@ function runInputCalendarClampTests(testCases) {
     return failedTestCount;
 }
 
+// Month stepping: the picker's month arrows walk the real month sequence,
+// entering and leaving leap months regardless of the current leap flag.
+function runInputCalendarMonthStepTests(testCases) {
+    let failedTestCount = 0;
+    let testCount = 0;
+
+    for (const [calendarType, start, step, timezone, expected] of testCases) {
+        testCount++;
+
+        const result = stepInputCalendarMonth(calendarType, start, step, convertUTCOffsetToMinutes(timezone));
+        if (!result || result.year !== expected.year || result.month !== expected.month
+            || !!result.leap !== !!expected.leap) {
+            console.error(`Input calendar month step (${calendarType}): Test ${testCount} failed.`);
+            console.error('Start:', JSON.stringify(start), 'step:', step);
+            console.error('Expected:', JSON.stringify(expected));
+            console.error('Received:', JSON.stringify(result));
+            failedTestCount++;
+        }
+    }
+
+    return failedTestCount;
+}
+
+function testInputCalendarMonthSteps() {
+    return runInputCalendarMonthStepTests([
+        // Chinese 4723 (2025) has a leap 6th month: step into and out of it
+        ['CHINESE', { year: 4723, month: 6, leap: false }, 1, 'UTC+08:00', { year: 4723, month: 6, leap: true }],
+        ['CHINESE', { year: 4723, month: 6, leap: true }, 1, 'UTC+08:00', { year: 4723, month: 7, leap: false }],
+        ['CHINESE', { year: 4723, month: 7, leap: false }, -1, 'UTC+08:00', { year: 4723, month: 6, leap: true }],
+        ['CHINESE', { year: 4723, month: 6, leap: true }, -1, 'UTC+08:00', { year: 4723, month: 6, leap: false }],
+        ['CHINESE', { year: 4723, month: 5, leap: false }, 3, 'UTC+08:00', { year: 4723, month: 7, leap: false }],
+        // No leap 6th month in 4722: plain increment, and a stale leap flag is ignored
+        ['CHINESE', { year: 4722, month: 6, leap: false }, 1, 'UTC+08:00', { year: 4722, month: 7, leap: false }],
+        ['CHINESE', { year: 4722, month: 6, leap: true }, -1, 'UTC+08:00', { year: 4722, month: 5, leap: false }],
+        // Year wrap in both directions
+        ['CHINESE', { year: 4722, month: 12, leap: false }, 1, 'UTC+08:00', { year: 4723, month: 1, leap: false }],
+        ['CHINESE', { year: 4723, month: 1, leap: false }, -1, 'UTC+08:00', { year: 4722, month: 12, leap: false }],
+        // Hebrew 5784 is a leap year (Adar II = month 6 + leap); 5785 is common
+        ['HEBREW', { year: 5784, month: 6, leap: false }, 1, 'UTC+02:00', { year: 5784, month: 6, leap: true }],
+        ['HEBREW', { year: 5784, month: 6, leap: true }, 1, 'UTC+02:00', { year: 5784, month: 7, leap: false }],
+        ['HEBREW', { year: 5784, month: 7, leap: false }, -1, 'UTC+02:00', { year: 5784, month: 6, leap: true }],
+        ['HEBREW', { year: 5785, month: 6, leap: false }, 1, 'UTC+02:00', { year: 5785, month: 7, leap: false }],
+        // 13-month solar calendar without leap months wraps on month 13
+        ['ETHIOPIAN', { year: 2016, month: 13, leap: false }, 1, 'UTC+03:00', { year: 2017, month: 1, leap: false }],
+        ['ETHIOPIAN', { year: 2017, month: 1, leap: false }, -1, 'UTC+03:00', { year: 2016, month: 13, leap: false }],
+    ]);
+}
+
 function testInputCalendarRoundTrips() {
     return runInputCalendarRoundTripTests([
         // Chinese: leap 6th month 2025, New Year 2024, leap 11th month 2033,
@@ -193,6 +241,7 @@ function runInputCalendarTests() {
         testInputCalendarRoundTrips,
         testInputCalendarKnownValues,
         testInputCalendarClamping,
+        testInputCalendarMonthSteps,
     ];
 
     const allTests = testFunctions.reduce((sum, fn) => sum + fn(), 0);

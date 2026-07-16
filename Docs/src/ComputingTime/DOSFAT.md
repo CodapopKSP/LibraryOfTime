@@ -1,12 +1,14 @@
 # DOS FAT/FAT32
 
-| Epoch                                                         | Confidence | Associated with |
-| ------------------------------------------------------------- | ---------- | --------------- |
-| Local civil time; MS-DOS date field counts years from 1980 CE | Exact      | Redmond, WA     |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1980 CE | Exact      | Redmond, WA     |
 
 ## Overview
 
-DOS FAT timestamps are used in the FAT filesystem. 
+DOS FAT timestamps are used in the FAT filesystem.
+
+NEEDS MORE INFO
 
 ## Info
 

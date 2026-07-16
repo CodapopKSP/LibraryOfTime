@@ -169,11 +169,13 @@ function buildNodeValueGetters(tzOffset) {
 
 /** Midnight instant of Gregorian { year, month, day } in the picker's timezone, or null. */
 function instantForGregorianParts(parts) {
-    if (typeof parseInputDate !== 'function') return null;
+    if (typeof parseGregorianDate !== 'function') return null;
     var dateStr = parts.year + '-' + String(parts.month).padStart(2, '0') + '-' + String(parts.day).padStart(2, '0') + ', 00:00:00';
     var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
     try {
-        return parseInputDate(dateStr, tz);
+        // Gregorian-only parse: the grid is framed in Gregorian dates even
+        // when a non-Gregorian input calendar is selected in the picker
+        return parseGregorianDate(dateStr, tz);
     } catch (e) {
         return null;
     }
@@ -228,7 +230,20 @@ function getFirstDayOfMonth(year, month) {
 function getSelectedGregorianDateParts() {
     var year, month, day;
     var dateStr = typeof getDatePickerTime === 'function' ? getDatePickerTime() : '';
-    if (dateStr) {
+    var inputConfig = (typeof getInputCalendarConfig === 'function' && typeof getCalendarType === 'function')
+        ? getInputCalendarConfig(getCalendarType()) : null;
+    if (dateStr && inputConfig && typeof parseInputDate === 'function' && typeof createFauxUTCDate === 'function') {
+        // The picker string holds input-calendar components (e.g. a Chinese
+        // date); resolve it to an instant and read the Gregorian wall date in
+        // the picker timezone.
+        try {
+            var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
+            var local = createFauxUTCDate(parseInputDate(dateStr, tz), tz);
+            year = local.getUTCFullYear();
+            month = local.getUTCMonth() + 1;
+            day = local.getUTCDate();
+        } catch (e) {}
+    } else if (dateStr) {
         var datePart = dateStr.split(', ')[0];
         var parts = datePart ? datePart.replace(/^-/, '').split('-') : [];
         year = parseInt(parts[0] || '0', 10);
@@ -255,11 +270,11 @@ function shiftGregorianDayParts(parts, delta) {
 /** exactStart (optional Date): the cell is a sol/circad starting at this instant — show its date AND time. */
 function formatDateTooltip(year, month, day, eventLabels, systemLabel, systemValue, exactStart) {
     var gregorianText = '—';
-    if (typeof parseInputDate === 'function' && typeof getGregorianDateTime === 'function' && typeof getDatePickerTimezone === 'function' && typeof convertUTCOffsetToMinutes === 'function') {
+    if (typeof parseGregorianDate === 'function' && typeof getGregorianDateTime === 'function' && typeof getDatePickerTimezone === 'function' && typeof convertUTCOffsetToMinutes === 'function') {
         try {
             var tz = getDatePickerTimezone();
             var offset = convertUTCOffsetToMinutes(tz);
-            var dt = exactStart || parseInputDate(year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00', tz);
+            var dt = exactStart || parseGregorianDate(year + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0') + ', 00:00:00', tz);
             var raw = getGregorianDateTime(dt, offset);
             gregorianText = (raw && raw.output != null) ? raw.output : '';
             if (exactStart && raw && raw.time) {
@@ -1327,6 +1342,22 @@ function setupCalendarTooltips() {
         var pad = function (n) { return String(n).padStart(2, '0'); };
         // Sol/circad cells carry their exact start instant; Earth-day cells use midnight
         var dateStr = cell.dataset.time || (y + '-' + pad(m) + '-' + pad(d) + ', 00:00:00');
+        // When an input calendar is selected, the picker fields hold that
+        // calendar's components: convert the clicked Gregorian date (and set
+        // the leap flag) before applying it.
+        var inputConfig = (typeof getInputCalendarConfig === 'function' && typeof getSelectedCalendarType === 'function')
+            ? getInputCalendarConfig(getSelectedCalendarType()) : null;
+        if (inputConfig && typeof parseGregorianDate === 'function') {
+            try {
+                var tz = typeof getDatePickerTimezone === 'function' ? getDatePickerTimezone() : 'UTC+00:00';
+                var instant = parseGregorianDate(dateStr, tz);
+                if (typeof _ensureSolsticeCacheNear === 'function') _ensureSolsticeCacheNear(instant);
+                var native = inputConfig.forward(instant);
+                if (typeof setInputLeapMonthFlag === 'function') setInputLeapMonthFlag(native.leap);
+                var timePart = dateStr.split(', ')[1] || '00:00:00';
+                dateStr = native.year + '-' + pad(native.month) + '-' + pad(native.day) + ', ' + timePart;
+            } catch (err) {}
+        }
         if (typeof setDatePickerTime === 'function') setDatePickerTime(dateStr);
         if (typeof changeDateTime === 'function') changeDateTime(dateStr);
         renderCalendarView(_calendarViewYear, _calendarViewMonth);

@@ -1,8 +1,8 @@
 # Cocoa Core Data
 
-| Epoch                           | Confidence | Associated with |
-| ------------------------------- | ---------- | --------------- |
-| 1 January 2001 CE, 00:00:00 UTC | Exact      | Cupertino, CA   |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 2001 CE | Exact      | Cupertino, CA   |
 
 ## Overview
 

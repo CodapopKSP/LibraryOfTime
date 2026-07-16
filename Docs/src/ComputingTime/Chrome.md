@@ -1,8 +1,8 @@
 # Chrome/WebKit
 
-| Epoch                           | Confidence | Associated with |
-| ------------------------------- | ---------- | --------------- |
-| 1 January 1601 CE, 00:00:00 UTC | Exact      | Redmond, WA     |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1601 CE | Exact      | Redmond, WA     |
 
 ## Overview
 

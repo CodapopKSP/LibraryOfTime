@@ -1,8 +1,8 @@
 # SAS 4GL
 
-| Epoch                           | Confidence | Associated with |
-| ------------------------------- | ---------- | --------------- |
-| 1 January 1960 CE, 00:00:00 UTC | Exact      | Cary, NC        |
+| Epoch             | Confidence | Associated with |
+| ----------------- | ---------- | --------------- |
+| 1 January 1960 CE | Exact      | Cary, NC        |
 
 ## Overview
 

@@ -551,64 +551,6 @@ function createEpochElement(item) {
 
 function handleEpochClick(epoch) {
     let epoch_ = epoch;
-    let timePicked = "UTC+00:00";
-
-    // Most clocks
-    if (epoch==='Midnight') {
-        timePicked = getDatePickerTimezone();
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const hours = '00';
-        const minutes = '00';
-        const seconds = '00';
-        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
-
-    // Sunrise
-    if (epoch==='Sunrise') {
-        timePicked = getDatePickerTimezone();
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const hours = '06';
-        const minutes = '00';
-        const seconds = '00';
-        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
-
-    // .beat (BMT)
-    if (epoch==='Midnight (BMT)') {
-        timePicked = 'UTC+00:00';
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const hours = '23';
-        const minutes = '00';
-        const seconds = '00';
-        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
-
-    // UTC (Standard Time)
-    if (epoch==='Midnight (UTC)') {
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
-        timePicked = 'UTC+00:00';
-    }
-
-    // Termina Time (Slowed)
-    if (epoch==='6:00:00') {
-        timePicked = getDatePickerTimezone();
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const hours = '6';
-        const minutes = '00';
-        const seconds = '00';
-        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
-
-    // Thai Time
-    if (epoch==='1:00:00') {
-        timePicked = getDatePickerTimezone();
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const hours = '1';
-        const minutes = '00';
-        const seconds = '00';
-        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
 
     // Maya Calendars and any others
     if (epoch==='Unknown') {
@@ -620,171 +562,142 @@ function handleEpochClick(epoch) {
         return;
     }
 
+    // Epoch strings are Gregorian wall dates at UTC, so clicking one always
+    // lands in the neutral frame: Gregorian calendar, UTC+00:00. The "now"-
+    // relative epochs below resolve the current picker value in its own
+    // calendar and timezone first, before the frame switches at the end.
+    const timePicked = 'UTC+00:00';
+    const now = parseInputDate(getDatePickerTime(), getDatePickerTimezone());
+
+    // Most clocks
+    if (epoch==='Midnight') {
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +00:00:00`;
+    }
+
+    // Sunrise
+    if (epoch==='Sunrise') {
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +06:00:00`;
+    }
+
+    // .beat (BMT)
+    if (epoch==='Midnight (BMT)') {
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +23:00:00`;
+    }
+
+    // UTC (Standard Time)
+    if (epoch==='Midnight (UTC)') {
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+    }
+
+    // Termina Time (Slowed)
+    if (epoch==='6:00:00') {
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +06:00:00`;
+    }
+
+    // Thai Time
+    if (epoch==='1:00:00') {
+        epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()} +01:00:00`;
+    }
+
     // Every Second/Minute/Hour/Day - All Midnight
     if ((epoch==='Every Second') || (epoch==='Every Minute') || (epoch==='Every Hour') || (epoch==='Every Day')) {
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
         epoch_ = `${now.getUTCDate()} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
-        timePicked = '';
     }
 
     // Every Month
     if (epoch==='Every Month') {
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
         epoch_ = `${1} ${monthNames[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
-        timePicked = '';
     }
 
     // Every Year
     if (epoch==='Every Year') {
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
         epoch_ = `${1} ${'January'} ${now.getUTCFullYear()}`;
-        timePicked = '';
     }
 
     // Every Decade
     if (epoch === 'Every Decade') {
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const year = now.getUTCFullYear();
-        const centuryYear = Math.floor(year / 10) * 10 + 1;
-        epoch_ = `${1} January ${centuryYear}`;
-        timePicked = getDatePickerTimezone();
+        const decadeYear = Math.floor(now.getUTCFullYear() / 10) * 10 + 1;
+        epoch_ = `${1} January ${decadeYear}`;
     }
 
     // Every Century
     if (epoch === 'Every Century') {
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const year = now.getUTCFullYear();
-        const centuryYear = Math.floor(year / 100) * 100 + 1;
+        const centuryYear = Math.floor(now.getUTCFullYear() / 100) * 100 + 1;
         epoch_ = `${1} January ${centuryYear}`;
-        timePicked = getDatePickerTimezone();
     }
 
     // Every Millennium
     if (epoch === 'Every Millennium') {
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const year = now.getUTCFullYear();
-        const millenniumYear = Math.floor(year / 1000) * 1000 + 1;
+        const millenniumYear = Math.floor(now.getUTCFullYear() / 1000) * 1000 + 1;
         epoch_ = `${1} January ${millenniumYear}`;
-        timePicked = getDatePickerTimezone();
     }
+
+    // UTC wall-time string "d Month yyyy +hh:mm:ss" for an instant
+    const formatUTCInstant = (target) => {
+        const hours = String(target.getUTCHours()).padStart(2, '0');
+        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
+        return `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+    };
 
     // Equinoxes and Solstices
     if (epoch === 'Northward Equinox') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getSolsticeOrEquinox(now, 'SPRING');
-        target.setTime(target.getTime() + (timezoneOffset*1000*60));
-
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = formatUTCInstant(getSolsticeOrEquinox(now, 'SPRING'));
     }
     if (epoch === 'Northern Solstice') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getSolsticeOrEquinox(now, 'SUMMER');
-        target.setTime(target.getTime() + (timezoneOffset*1000*60));
-
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = formatUTCInstant(getSolsticeOrEquinox(now, 'SUMMER'));
     }
     if (epoch === 'Southward Equinox') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getSolsticeOrEquinox(now, 'AUTUMN');
-        target.setTime(target.getTime() + (timezoneOffset*1000*60));
-
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = formatUTCInstant(getSolsticeOrEquinox(now, 'AUTUMN'));
     }
     if (epoch === 'Southern Solstice') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let target = getSolsticeOrEquinox(now, 'WINTER');
-        target.setTime(target.getTime() + (timezoneOffset*1000*60));
-
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = formatUTCInstant(getSolsticeOrEquinox(now, 'WINTER'));
     }
 
-    // Moon Phases
-    if (epoch === 'Next New Moon' || epoch === 'Next First Quarter Moon' || epoch === 'Next Full Moon' || epoch === 'Next Last Quarter Moon') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        const phaseType = epoch === 'Next New Moon' ? 0 : epoch === 'Next First Quarter Moon' ? 0.25 : epoch === 'Next Full Moon' ? 0.5 : 0.75;
-        let target = getNextMoonPhase(now, phaseType);
-        target.setTime(target.getTime() + (timezoneOffset*1000*60));
-
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+    // Moon Phases (nodeData labels them without the "Next", but accept both)
+    const moonPhaseTypes = {
+        'New Moon': 0, 'Next New Moon': 0,
+        'First Quarter Moon': 0.25, 'Next First Quarter Moon': 0.25,
+        'Full Moon': 0.5, 'Next Full Moon': 0.5,
+        'Last Quarter Moon': 0.75, 'Next Last Quarter Moon': 0.75
+    };
+    if (Object.prototype.hasOwnProperty.call(moonPhaseTypes, epoch)) {
+        epoch_ = formatUTCInstant(getNextMoonPhase(now, moonPhaseTypes[epoch]));
     }
 
     // Eclipses
-    if (epoch === 'Next Solar Eclipse') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked);
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let targetRaw = getNextSolarLunarEclipse(now, 0);
+    if (epoch === 'Next Solar Eclipse' || epoch === 'Next Lunar Eclipse') {
+        const targetRaw = getNextSolarLunarEclipse(now, epoch === 'Next Solar Eclipse' ? 0 : 0.5);
 
         // Extract the first line (the date)
-        let dateString = targetRaw.split('\n')[0].trim();
+        const dateString = targetRaw.split('\n')[0].trim();
 
         // Parse toUTCString line without new Date(str) — years 0001–0099 map to 1901–1999 in ES
         let target = parseDateFromUTCStringLine(dateString);
         if (!target) {
             target = new Date(dateString);
         }
-
-        // Apply timezone offset
-        target.setTime(target.getTime() + (timezoneOffset * 1000 * 60));
-
-        // Format the date output
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
-    }
-    if (epoch === 'Next Lunar Eclipse') {
-        timePicked = getDatePickerTimezone();
-        let timezoneOffset = convertUTCOffsetToMinutes(timePicked); // Get current timezone setting
-        const now = parseInputDate(getDatePickerTime(), timePicked); // Get current URL or datePicker time
-        let targetRaw = getNextSolarLunarEclipse(now, 0.5);
-
-        // Extract the first line (the date)
-        let dateString = targetRaw.split('\n')[0].trim();
-
-        // Parse toUTCString line without new Date(str) — years 0001–0099 map to 1901–1999 in ES
-        let target = parseDateFromUTCStringLine(dateString);
-        if (!target) {
-            target = new Date(dateString);
-        }
-
-        // Apply timezone offset
-        target.setTime(target.getTime() + (timezoneOffset * 1000 * 60));
-
-        // Format the date output
-        const hours = String(target.getUTCHours()).padStart(2, '0');
-        const minutes = String(target.getUTCMinutes()).padStart(2, '0');
-        const seconds = String(target.getUTCSeconds()).padStart(2, '0');
-        epoch_ = `${target.getUTCDate()} ${monthNames[target.getUTCMonth()]} ${target.getUTCFullYear()} +${hours}:${minutes}:${seconds}`;
+        epoch_ = formatUTCInstant(target);
     }
 
     // Most calendars
     const datePicked = formatDateTime(epoch_);
+
+    // Safety net: an epoch string that isn't a concrete date doesn't parse;
+    // do nothing rather than navigate to an NaN date
+    if (datePicked.includes('NaN')) {
+        return;
+    }
+
+    // Switch to the neutral frame before applying: Gregorian calendar so the
+    // date is not re-interpreted in a selected input calendar, at UTC+00:00
+    const calendarSelect = document.getElementById('calendar-type');
+    if (calendarSelect && calendarSelect.value !== 'GREGORIAN') {
+        calendarSelect.value = 'GREGORIAN';
+        syncLeapMonthVisibility();
+        syncInputDateFormatHint();
+        syncTimezoneLock();
+    }
     setDatePickerTimezone(timePicked);
     changeDateTime(datePicked, timePicked);
 
