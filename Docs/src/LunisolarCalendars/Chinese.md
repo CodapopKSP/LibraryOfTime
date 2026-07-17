@@ -2,7 +2,7 @@
 
 | Epoch                         | Confidence | Associated with |
 | ----------------------------- | ---------- | --------------- |
-| 30 January 2697 BCE +16:00:00 | Medium     | Beijing         |
+| 30 January 2697 BCE +16:00:00 | High       | Beijing         |
 
 ## Overview
 
