@@ -149,17 +149,15 @@ function getLunisolarCalendarDate(currentDateTime, timezone) {
     const currentDay = Math.floor(differenceInDays(currentDateTime, startOfThisMonth)) + 1;
 
     let isLeapMonth = false;
-    let leapMonth = 0;
     if (lunationsBetweenEleventhMonths === 13) {
-        currentMonth = ((currentMonth - 1) % 13 + 13) % 13 + 1;
-
-        leapMonth = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthEleven, timezone);
-        if (leapMonth === currentMonth) {
-            isLeapMonth = true;
-        }
-        if (leapMonth <= currentMonth) {
-            currentMonth -= 1;
-        }
+        // 13-lunation sui: the leap month is the first lunation after month 11
+        // lacking a major solar term, and it takes the number of the month it
+        // follows. Index math (0 = month 11) represents every leap position,
+        // including a leap 11 directly after month 11 (the "2033 problem").
+        const lunationIndex = ((currentMonth + 1) % 14 + 14) % 14;
+        const leapLunation = calculateFirstMonthWithoutMajorSolarTerm(startOfMonthEleven, timezone);
+        isLeapMonth = lunationIndex === leapLunation;
+        currentMonth = lunationIndex - (lunationIndex >= leapLunation ? 1 : 0) - 1;
     }
     currentMonth = ((currentMonth - 1) % 12 + 12) % 12 + 1;
 
@@ -171,12 +169,17 @@ const CHINESE_MAJOR_SOLAR_TERM_LONGITUDES = [
     210, 240, 270, 300, 330, 360
 ];
 
-// Returns 'major' or 'minor' depending on the latitude of the sun calculation
+// Returns 'MAJOR' when a major solar term falls on any local civil day of the
+// month starting at the ref's next new moon. Both window edges are the local
+// midnight starting each month's first day, so a term late on the month's
+// last day still belongs to it (e.g. a solstice on day 30 of month 11).
 function getSolarTermTypeThisMonth(startOfMonthRef, timezone) {
-    const startOfMonth = getNewMoon(startOfMonthRef, 1);
+    let startOfMonth = getNewMoon(startOfMonthRef, 1);
+    startOfMonth = createFauxUTCDate(startOfMonth, timezone);
+    startOfMonth = createAdjustedDateTime({ currentDateTime: startOfMonth, timezone });
     let startOfNextMonth = getNewMoon(startOfMonthRef, 2);
+    startOfNextMonth = createFauxUTCDate(startOfNextMonth, timezone);
     startOfNextMonth = createAdjustedDateTime({ currentDateTime: startOfNextMonth, timezone });
-    startOfNextMonth.setUTCDate(startOfNextMonth.getUTCDate() - 1);
 
     const longitudeAtNewMoon = getLongitudeOfSun(startOfMonth);
     const longitudeAtNextNewMoon = getLongitudeOfSun(startOfNextMonth);
@@ -193,46 +196,40 @@ function getSolarTermTypeThisMonth(startOfMonthRef, timezone) {
     return 'MINOR';
 }
 
-// Returns the local-start timestamp of month 11 (the new moon at or before winter solstice).
-// `searchPreviousLunation` exists for the boundary case where solstice/new-moon ordering is
-// ambiguous near local-day cutover; when true, seed one lunation earlier before final correction.
+// Returns the local-start timestamp of month 11: the month whose local civil
+// days contain the winter solstice's local day. Compared in local-day space,
+// not instants — a new moon a few hours after the solstice but on the same
+// local day still starts month 11 (e.g. the Dec 2014 solstice in UTC+8).
+// `searchPreviousLunation` seeds one lunation earlier before final correction.
 function getMonthEleven(winterSolstice, timezone, searchPreviousLunation = false) {
-    let lunationOffset = searchPreviousLunation ? -1 : 0;
+    const lunationOffset = searchPreviousLunation ? -1 : 0;
+    const localDayStart = (dateTime) => createAdjustedDateTime({ currentDateTime: createFauxUTCDate(dateTime, timezone), timezone });
 
-    let closestConjunction = getNewMoon(winterSolstice, lunationOffset);
-    closestConjunction = createAdjustedDateTime({ currentDateTime: closestConjunction, timezone });
-
-    if (closestConjunction > winterSolstice) {
-        closestConjunction = getNewMoon(winterSolstice, lunationOffset - 1);
-        closestConjunction = createAdjustedDateTime({ currentDateTime: closestConjunction, timezone });
+    const solsticeDayStart = localDayStart(winterSolstice);
+    let closestConjunction = localDayStart(getNewMoon(winterSolstice, lunationOffset + 1));
+    if (closestConjunction > solsticeDayStart) {
+        closestConjunction = localDayStart(getNewMoon(winterSolstice, lunationOffset));
     }
     return closestConjunction;
 }
 
-// Returns the first month in the Chinese calendar that doesn't contain a major solar term
+// Returns the lunation index (counted from month 11 = 0) of the first month
+// after month 11 without a major solar term — the leap month of a 13-lunation
+// sui. Month 11 always contains the winter solstice, so the scan starts one
+// lunation later. If lunations 1-11 all have major terms the leap month can
+// only be the 12th, so that is the fallback.
 function calculateFirstMonthWithoutMajorSolarTerm(midnightStartOfMonthElevenLastYear, timezone) {
     const constantStartingPoint = createAdjustedDateTime({ currentDateTime: midnightStartOfMonthElevenLastYear, nullHourMinute: false, nullSeconds: false });
-    let dateToCheck = createAdjustedDateTime({ currentDateTime: midnightStartOfMonthElevenLastYear, nullHourMinute: false, nullSeconds: false });
-    let lunations = 0;
 
-    while (true) {
-        const solarTermType = getSolarTermTypeThisMonth(dateToCheck, timezone);
-
-        if (solarTermType !== 'MAJOR') {
-            lunations--;
-            if (lunations < 1) {
-                lunations += 13;
-            }
+    for (let lunations = 1; lunations <= 11; lunations++) {
+        let dateToCheck = getNewMoon(constantStartingPoint, lunations + 1);
+        dateToCheck = createFauxUTCDate(dateToCheck, timezone);
+        dateToCheck = createAdjustedDateTime({ currentDateTime: dateToCheck, timezone });
+        if (getSolarTermTypeThisMonth(dateToCheck, timezone) !== 'MAJOR') {
             return lunations;
         }
-
-        lunations += 1;
-        dateToCheck = getNewMoon(constantStartingPoint, lunations + 1);
-        dateToCheck = createAdjustedDateTime({ currentDateTime: dateToCheck, timezone });
-        if (lunations > 11) {
-            return 0;
-        }
     }
+    return 12;
 }
 
 //|-------------------------------------------|

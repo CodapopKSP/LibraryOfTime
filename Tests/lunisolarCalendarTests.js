@@ -117,10 +117,12 @@ function testGetMonthEleven() {
 }
 
 function testCalculateFirstMonthWithoutMajorSolarTerm() {
+    // Returns the leap month's lunation index counted from month 11 = 0
+    // (e.g. 8 = leap month 6 of 2025, the 8th lunation after Dec 2024's month 11).
     return runSingleParameterTests("First Month Without A major Solar Term", calculateFirstMonthWithoutMajorSolarTerm, [
-        ["2024-12-1, 00:00:00", "UTC+08:00", 7],
-        ["2024-4-9, 00:00:00", "UTC+08:00", 0],
-        ["2025-3-1, 00:00:00", "UTC+08:00", 3],
+        ["2024-12-1, 00:00:00", "UTC+08:00", 8],
+        ["2024-4-9, 00:00:00", "UTC+08:00", 12],
+        ["2025-3-1, 00:00:00", "UTC+08:00", 4],
     ]);
 }
 
