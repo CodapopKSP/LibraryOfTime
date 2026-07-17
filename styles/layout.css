@@ -105,6 +105,11 @@
     justify-content: flex-start;
     align-items: stretch;
     box-sizing: border-box;
+    /* Query container so descendants (date-selector controls) can size off this panel's
+       actual width (cqw) instead of the raw viewport (vw) — its width is `max(33vw, 440px)`,
+       which sits pinned at the 440px floor across a range of window widths; vw-sized children
+       kept growing through that range and overflowed the row, wrapping it to an extra line. */
+    container-type: inline-size;
     width: var(--layout-description-panel-width);
     height: var(--layout-description-panel-height);
     top: var(--layout-description-panel-top);

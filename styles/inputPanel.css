@@ -27,16 +27,6 @@
     min-height: 4vh;
 }
 
-/* When the leap-month toggle (lunisolar input calendars) is visible, wrap
-   the datetime group to a second line instead of squeezing its fields */
-.input-main-row:has(.leap-month-button:not([hidden])) {
-    flex-wrap: wrap;
-}
-
-.input-main-row:has(.leap-month-button:not([hidden])) .input-row-datetime {
-    flex-shrink: 0;
-}
-
 .input-row-pickers {
     display: flex;
     flex-direction: row;
@@ -241,16 +231,19 @@
         min-height: 6vh;
     }
 
-    /* Prefer ch so these track the typed value; vw only caps narrow windows. */
+    /* Prefer ch so these track the typed value; cqw only caps narrow windows (relative to the
+       description panel's own width, not the viewport — see .site-right-column container-type).
+       font-size must be cqw too: "ch" is relative to the font's glyph width, so a vw font-size
+       would let the ch branch keep growing with the viewport even while the cqw branch is pinned. */
     .mac-chrome-only #date-input-date {
-        font-size: min(1.6vh, 1vw);
+        font-size: min(1.6vh, 3.03cqw);
         height: 3.3vh;
-        width: min(12ch, 8vw);
+        width: min(12ch, 24.2cqw);
     }
     .mac-chrome-only #date-input-time {
-        font-size: min(1.6vh, 1vw);
+        font-size: min(1.6vh, 3.03cqw);
         height: 3.3vh;
-        width: min(10ch, 6.5vw);
+        width: min(10ch, 19.7cqw);
     }
 }
 
@@ -277,7 +270,7 @@
 @media (min-width: 1025px) {
     .mac-chrome-only .date-picker-button {
         font-size: 1vh;
-        width: min(3.8vh, 2.35vw);
+        width: min(3.8vh, 7.1cqw);
         height: 3.75vh;
     }
 }
@@ -409,10 +402,13 @@
 
 /* Desktop only: must not out-rank the mobile select/stepper touch sizing (see note above) */
 @media (min-width: 1025px) {
+    /* font-size is also cqw here (not just width): a locked timezone (see .timezone-locked
+       below) drops the width cap and sizes purely off its text, so an uncapped vw font-size
+       would let it keep growing past the panel's pinned floor width just like the box width did. */
     .mac-chrome-only #timezone,
     .mac-chrome-only #calendar-type {
-        font-size: min(1.6vh, 1vw);
-        width: min(12vh, 7.4vw);
+        font-size: min(1.6vh, 3.03cqw);
+        width: min(12vh, 22.4cqw);
         height: 4vh;
     }
 
@@ -421,7 +417,7 @@
     }
 
     .mac-chrome-only .leap-month-button {
-        font-size: min(1.2vh, 0.75vw);
+        font-size: min(1.2vh, 2.27cqw);
         height: 2.8vh;
         padding: 0 0.45vh;
     }
