@@ -53,7 +53,6 @@ const INPUT_CALENDARS = {
         hasLeapMonths: true,
         monthsInYear: 12,
         estimateGregorianYear: (year) => year - 2698,
-        inputHint: 'Input Date: yyyy-mm-dd (toggle Leap for 閏 months)',
         forward: (dateTime) => {
             const r = getChineseLunisolarCalendarDate(dateTime, 'CHINA');
             return { year: r.year, month: r.month, day: r.day, leap: !!r.leapMonth, outputLine: _firstOutputLine(r) };
@@ -66,7 +65,6 @@ const INPUT_CALENDARS = {
         hasLeapMonths: true,
         monthsInYear: 12,
         estimateGregorianYear: (year) => year - 3760,
-        inputHint: 'Input Date: yyyy-mm-dd (1=Tishri … 6=Adar … 12=Elul; Leap month = Adar II)',
         forward: (dateTime) => {
             const r = calculateHebrewCalendar(dateTime);
             // r.month indexes the year-shape-sliced month array. Normalize to

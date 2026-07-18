@@ -83,14 +83,27 @@
 .input-format-tooltip {
     position: absolute;
     left: 50%;
-    bottom: 100%;
+    /* Fixed gap below the input, not a % of the tooltip's own height — that self-scaling
+       trick (bottom:100% + translateY(200%)) only gave a small gap while the tooltip was
+       a single nowrap line; once it wraps to multiple lines the gap grew with it and
+       pushed the tooltip down into the tabs/description below. */
+    top: 100%;
     z-index: 20;
-    margin-bottom: 0.35vh;
+    margin-top: 0.35vh;
     padding: 0.45vh 0.65vh;
-    transform: translate(-50%, 200%);
+    transform: translateX(-50%);
     font-size: 1.1vh;
     line-height: 1.2;
-    white-space: nowrap;
+    /* pre-line renders the leap-calendar hint's explicit \n as a second line while still
+       wrapping if it ever doesn't fit; max-width is a safety net against the panel's
+       actual width (cqw — see .site-right-column container-type), not the raw viewport.
+       width:max-content is required alongside it: this box's containing block for a plain
+       auto width is the tiny input-wrap it's anchored to (not the panel), so shrink-to-fit
+       was collapsing it down to its narrowest breakable word instead of sizing to content. */
+    width: max-content;
+    max-width: min(45cqw, 260px);
+    white-space: pre-line;
+    text-align: left;
     pointer-events: none;
     border-radius: 0.3vh;
     border: 0.1vh solid var(--ui-border);

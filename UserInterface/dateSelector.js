@@ -461,12 +461,9 @@ function syncInputDateFormatHint() {
         return;
     }
     const config = typeof getInputCalendarConfig === 'function' ? getInputCalendarConfig(select.value) : null;
-    let text = config && config.inputHint ? config.inputHint : 'Input Date: yyyy-mm-dd';
-    if (config && config.timezone) {
-        const place = config.timezoneLabel ? config.timezoneLabel + ' time' : 'local time';
-        text += ' — fixed to ' + place + ' (' + config.timezone + ')';
-    }
-    hint.textContent = text;
+    hint.textContent = config && config.hasLeapMonths
+        ? "Input Date: yyyy-mm-dd\nToggle 'Leap' for leap months."
+        : 'Input Date: yyyy-mm-dd';
 }
 
 // Remembers the timezone the user chose while a framing calendar was active,
