@@ -215,7 +215,7 @@
         min-height: 0;
     }
 
-    /* Row 1: calendar type | timezone — row 2: date | Go / Reset */
+    /* Row 1: calendar type | timezone — row 2: date | Leap | time | Go / Reset */
     .input-main-row {
         display: flex;
         flex-direction: column;
@@ -238,10 +238,6 @@
         gap: 0.35rem;
         align-items: center;
         width: 100%;
-    }
-
-    .input-row-pickers:has(.leap-month-button:not([hidden])) {
-        grid-template-columns: 1fr 1fr auto;
     }
 
     .leap-month-button {
