@@ -165,7 +165,8 @@
 #date-input-time {
     flex: 0 1 auto;
     min-width: 0;
-    height: 2.2vh;
+    /* Match #calendar-type/#timezone (2.5vh) so the whole row sits on one baseline. */
+    height: 2.5vh;
     background-color: #c0c0c0;
     color: #000000;
     border-color: var(--ui-border);
@@ -235,14 +236,15 @@
        description panel's own width, not the viewport — see .site-right-column container-type).
        font-size must be cqw too: "ch" is relative to the font's glyph width, so a vw font-size
        would let the ch branch keep growing with the viewport even while the cqw branch is pinned. */
+    /* height matches .mac-chrome-only #calendar-type/#timezone (4vh) so the row sits on one baseline. */
     .mac-chrome-only #date-input-date {
         font-size: min(1.6vh, 3.03cqw);
-        height: 3.3vh;
+        height: 4vh;
         width: min(12ch, 24.2cqw);
     }
     .mac-chrome-only #date-input-time {
         font-size: min(1.6vh, 3.03cqw);
-        height: 3.3vh;
+        height: 4vh;
         width: min(10ch, 19.7cqw);
     }
 }
@@ -268,10 +270,11 @@
 
 /* Desktop only: must not out-rank the mobile .date-picker-button touch sizing (see note above) */
 @media (min-width: 1025px) {
+    /* height matches .mac-chrome-only #calendar-type/#timezone (4vh) so the row sits on one baseline. */
     .mac-chrome-only .date-picker-button {
         font-size: 1vh;
         width: min(3.8vh, 7.1cqw);
-        height: 3.75vh;
+        height: 4vh;
     }
 }
 
@@ -371,7 +374,11 @@
     -webkit-appearance: none;
     appearance: none;
     flex: 0 0 auto;
-    height: 1.9vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Match #calendar-type/#timezone (2.5vh) so the whole row sits on one baseline. */
+    height: 2.0vh;
     margin: 0;
     padding: 0 0.35vh;
     box-sizing: border-box;
@@ -418,9 +425,10 @@
         width: auto;
     }
 
+    /* height matches .mac-chrome-only #calendar-type/#timezone (4vh) so the row sits on one baseline. */
     .mac-chrome-only .leap-month-button {
         font-size: min(1.2vh, 2.27cqw);
-        height: 2.8vh;
+        height: 3vh;
         padding: 0 0.45vh;
     }
 
